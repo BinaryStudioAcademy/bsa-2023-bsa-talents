@@ -10,9 +10,10 @@
         "lint:type": "npx tsc --noEmit",
         "lint:js": "npx eslint \"src/**/*.ts\"",
         "lint": "npm run lint:type && npm run lint:js",
-        "build": "tsc && tsc-alias"
+        "build": "tsc && npm run build:copy",
+        "build:copy": "cp -r package.json build"
     },
     "dependencies": {
-        "joi": "17.8.3"
+        "joi": "17.9.2"
     }
 }
