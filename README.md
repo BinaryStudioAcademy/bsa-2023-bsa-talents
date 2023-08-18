@@ -100,4 +100,6 @@ This is the repository responsible for BSA Talents apps.
 -   `bt-12: * dashboard title`
 -   `bt-16: - dashboard title`
 
-## 📦 CD
+## 📦 CI/CD
+
+CI/CD implemented using [GitHub Actions](https://docs.github.com/en/actions)
