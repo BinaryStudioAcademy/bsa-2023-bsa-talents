@@ -1,7 +1,7 @@
-import { type IConfig as ILibraryConfig } from 'shared/build/index.js';
+import { type Config as LibraryConfig } from 'shared/build/index.js';
 
 import { type EnvironmentSchema } from '../types/types.js';
 
-interface IConfig extends ILibraryConfig<EnvironmentSchema> {}
+type Config = LibraryConfig<EnvironmentSchema>;
 
-export { type IConfig };
+export { type Config };

@@ -1,21 +1,21 @@
-import { type ILogger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/logger/logger.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
-import { type IController } from './interfaces/interface.js';
+import { type Controller } from './interfaces/interface.js';
 import {
     type ApiHandler,
     type ApiHandlerOptions,
     type ControllerRouteParameters,
 } from './types/types.js';
 
-class Controller implements IController {
-    private logger: ILogger;
+class ControllerBase implements Controller {
+    private logger: Logger;
 
     private apiUrl: string;
 
     public routes: ServerAppRouteParameters[];
 
-    public constructor(logger: ILogger, apiPath: string) {
+    public constructor(logger: Logger, apiPath: string) {
         this.logger = logger;
         this.apiUrl = apiPath;
         this.routes = [];
@@ -59,4 +59,4 @@ class Controller implements IController {
     }
 }
 
-export { Controller };
+export { ControllerBase };

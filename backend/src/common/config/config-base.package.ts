@@ -1,18 +1,18 @@
-import convict, { type Config as TConfig } from 'convict';
+import convict, { type Config as LibraryConfig } from 'convict';
 import { config } from 'dotenv';
 
 import { AppEnvironment } from '~/common/enums/enums.js';
-import { type ILogger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/logger/logger.js';
 
-import { type IConfig } from './interfaces/interfaces.js';
+import { type Config } from './interfaces/interfaces.js';
 import { type EnvironmentSchema } from './types/types.js';
 
-class Config implements IConfig {
-    private logger: ILogger;
+class ConfigBase implements Config {
+    private logger: Logger;
 
     public ENV: EnvironmentSchema;
 
-    public constructor(logger: ILogger) {
+    public constructor(logger: Logger) {
         this.logger = logger;
 
         config();
@@ -20,14 +20,16 @@ class Config implements IConfig {
         this.envSchema.load({});
         this.envSchema.validate({
             allowed: 'strict',
-            output: (message) => this.logger.info(message),
+            output: (message) => {
+                this.logger.info(message);
+            },
         });
 
         this.ENV = this.envSchema.getProperties();
         this.logger.info('.env file found and successfully parsed!');
     }
 
-    private get envSchema(): TConfig<EnvironmentSchema> {
+    private get envSchema(): LibraryConfig<EnvironmentSchema> {
         return convict<EnvironmentSchema>({
             APP: {
                 ENVIRONMENT: {
@@ -73,4 +75,4 @@ class Config implements IConfig {
     }
 }
 
-export { Config };
+export { ConfigBase };

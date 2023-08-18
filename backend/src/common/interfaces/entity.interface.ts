@@ -1,6 +1,6 @@
-interface IEntity {
+type Entity = {
     toObject(): unknown;
     toNewObject(): unknown;
-}
+};
 
-export { type IEntity };
+export { type Entity };

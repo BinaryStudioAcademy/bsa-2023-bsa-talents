@@ -120,6 +120,8 @@ rules:
         - off
     '@typescript-eslint/restrict-template-expressions':
         - off
+    '@typescript-eslint/no-redundant-type-constituents':
+        - off
 
 overrides:
     - files:

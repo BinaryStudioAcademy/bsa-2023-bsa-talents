@@ -1,4 +1,4 @@
-export { Controller } from './controller.package.js';
+export { ControllerBase } from './controller-base.package.js';
 export {
     type ApiHandlerOptions,
     type ApiHandlerResponse,

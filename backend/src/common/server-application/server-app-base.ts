@@ -2,39 +2,36 @@ import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
 
-import { type IConfig } from '~/common/config/config.js';
-import { type IDatabase } from '~/common/database/database.js';
+import { type Config } from '~/common/config/config.js';
+import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { type ILogger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/logger/logger.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import {
-    type IServerApp,
-    type IServerAppApi,
-} from './interfaces/interfaces.js';
+import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
 type Constructor = {
-    config: IConfig;
-    logger: ILogger;
-    database: IDatabase;
-    apis: IServerAppApi[];
+    config: Config;
+    logger: Logger;
+    database: Database;
+    apis: ServerAppApi[];
 };
 
-class ServerApp implements IServerApp {
-    private config: IConfig;
+class ServerAppBase implements ServerApp {
+    private config: Config;
 
-    private logger: ILogger;
+    private logger: Logger;
 
-    private database: IDatabase;
+    private database: Database;
 
-    private apis: IServerAppApi[];
+    private apis: ServerAppApi[];
 
     private app: ReturnType<typeof Fastify>;
 
@@ -193,4 +190,4 @@ class ServerApp implements IServerApp {
     }
 }
 
-export { ServerApp };
+export { ServerAppBase };

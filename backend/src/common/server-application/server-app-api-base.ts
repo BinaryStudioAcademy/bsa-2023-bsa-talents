@@ -1,21 +1,21 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
-import { type IConfig } from '~/common/config/config.js';
+import { type Config } from '~/common/config/config.js';
 import { AppEnvironment } from '~/common/enums/enums.js';
 
-import { type IServerAppApi } from './interfaces/interfaces.js';
+import { type ServerAppApi } from './interfaces/interfaces.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
-class ServerAppApi implements IServerAppApi {
+class ServerAppApiBase implements ServerAppApi {
     public version: string;
 
     public routes: ServerAppRouteParameters[];
 
-    private config: IConfig;
+    private config: Config;
 
     public constructor(
         version: string,
-        config: IConfig,
+        config: Config,
         ...handlers: ServerAppRouteParameters[]
     ) {
         this.version = version;
@@ -50,4 +50,4 @@ class ServerAppApi implements IServerAppApi {
     }
 }
 
-export { ServerAppApi };
+export { ServerAppApiBase };
