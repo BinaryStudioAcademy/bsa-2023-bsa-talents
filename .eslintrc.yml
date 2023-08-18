@@ -20,6 +20,9 @@ extends:
     - plugin:@typescript-eslint/recommended
     - plugin:@typescript-eslint/recommended-requiring-type-checking
     - plugin:@typescript-eslint/strict
+    - plugin:@typescript-eslint/strict-type-checked
+    - plugin:@typescript-eslint/stylistic
+    - plugin:@typescript-eslint/stylistic-type-checked
     - plugin:unicorn/recommended
     - plugin:sonarjs/recommended
 
@@ -72,11 +75,13 @@ rules:
     import/no-default-export:
         - error
     '@typescript-eslint/consistent-type-definitions':
-        - off
+        - error
+        - type
     '@typescript-eslint/non-nullable-type-assertion-style':
         - off
     '@typescript-eslint/return-await':
-        - off
+        - error
+        - always
     '@typescript-eslint/quotes':
         - error
         - single
@@ -98,18 +103,12 @@ rules:
     '@typescript-eslint/semi':
         - error
         - always
-    '@typescript-eslint/no-unsafe-member-access':
-        - off
-    '@typescript-eslint/no-unsafe-assignment':
-        - off
-    '@typescript-eslint/no-unsafe-call':
-        - off
-    '@typescript-eslint/no-unsafe-return':
-        - off
-    '@typescript-eslint/no-unsafe-argument':
-        - off
-    '@typescript-eslint/restrict-template-expressions':
-        - off
+    '@typescript-eslint/no-magic-numbers':
+        - error
+        - ignoreEnums: true
+          ignoreNumericLiteralTypes: true
+          ignoreReadonlyClassProperties: true
+          ignoreTypeIndexes: true
 
 overrides:
     - files:
@@ -120,3 +119,9 @@ overrides:
     - files:
           - commitlint.config.ts
           - dangerfile.ts
+
+      rules:
+          import/extensions:
+              - off
+          '@typescript-eslint/no-magic-numbers':
+              - off
