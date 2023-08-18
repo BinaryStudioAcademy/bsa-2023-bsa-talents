@@ -1,7 +1,7 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
     type Control,
-    type DeepPartial,
+    type DefaultValues,
     type FieldErrors,
     type FieldValues,
     type UseFormHandleSubmit,
@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { type ValidationSchema } from '~/bundles/common/types/types.js';
 
 type Parameters<T extends FieldValues = FieldValues> = {
-    defaultValues: DeepPartial<T>;
+    defaultValues: DefaultValues<T>;
     validationSchema?: ValidationSchema;
     mode?: keyof ValidationMode;
 };

@@ -6,7 +6,7 @@
         "target": "ESNext",
         "module": "ESNext",
         "esModuleInterop": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "NodeNext",
         "baseUrl": ".",
         "paths": {
             "~/*": ["./src/*"]

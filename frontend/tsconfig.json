@@ -6,7 +6,7 @@
         "target": "ESNext",
         "module": "ESNext",
         "esModuleInterop": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "NodeNext",
         "skipLibCheck": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "jsx": "react-jsx",
