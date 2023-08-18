@@ -1,6 +1,6 @@
-import { Config } from './config.package.js';
+import { ConfigBase } from './config-base.package.js';
 
-const config = new Config();
+const config = new ConfigBase();
 
 export { config };
-export { type IConfig } from './interfaces/interfaces.js';
+export { type Config } from './interfaces/interfaces.js';

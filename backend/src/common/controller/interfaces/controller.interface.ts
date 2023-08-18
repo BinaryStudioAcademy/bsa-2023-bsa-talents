@@ -2,9 +2,9 @@ import { type ServerAppRouteParameters } from '~/common/server-application/serve
 
 import { type ControllerRouteParameters } from '../types/types.js';
 
-interface IController {
+type Controller = {
     routes: ServerAppRouteParameters[];
     addRoute(options: ControllerRouteParameters): void;
-}
+};
 
-export { type IController };
+export { type Controller };

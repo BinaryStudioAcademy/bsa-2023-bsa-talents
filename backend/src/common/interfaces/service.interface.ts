@@ -1,4 +1,4 @@
-interface IService<T = unknown> {
+type Service<T = unknown> = {
     find(): Promise<T>;
     findAll(): Promise<{
         items: T[];
@@ -6,6 +6,6 @@ interface IService<T = unknown> {
     create(payload: unknown): Promise<T>;
     update(): Promise<T>;
     delete(): Promise<boolean>;
-}
+};
 
-export { type IService };
+export { type Service };

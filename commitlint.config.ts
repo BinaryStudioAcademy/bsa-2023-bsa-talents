@@ -17,8 +17,8 @@ Where:
     - <modifier>: ${COMMIT_MODIFIERS.join(', ')}
     - <environment>: ${ProjectPrefix.ENVIRONMENTS.join(', ')}
 Examples:
-    - bt-5: + ui/ux lecture
-    - production: - comments in ui/ux homework`;
+    - ${ProjectPrefix.APP}-5: + ui/ux lecture
+    - ${ProjectPrefix.ENVIRONMENTS[0]}: - comments in ui/ux homework`;
 
 const configuration: UserConfig = {
     parserPreset: {

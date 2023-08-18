@@ -1,1 +1,1 @@
-export { type IStorage } from './storage.interface.js';
+export { type Storage } from './storage.interface.js';

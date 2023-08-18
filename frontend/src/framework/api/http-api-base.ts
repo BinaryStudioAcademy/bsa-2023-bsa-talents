@@ -21,7 +21,7 @@ type Constructor = {
     storage: IStorage;
 };
 
-class HttpApi implements IHttpApi {
+class HttpApiBase implements IHttpApi {
     private baseUrl: string;
 
     private path: string;
@@ -86,7 +86,7 @@ class HttpApi implements IHttpApi {
         return headers;
     }
 
-    private async checkResponse(response: Response): Promise<Response | never> {
+    private async checkResponse(response: Response): Promise<Response> {
         if (!response.ok) {
             await this.handleError(response);
         }
@@ -116,4 +116,4 @@ class HttpApi implements IHttpApi {
     }
 }
 
-export { HttpApi };
+export { HttpApiBase };

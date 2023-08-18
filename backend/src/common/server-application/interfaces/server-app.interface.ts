@@ -1,8 +1,8 @@
 import { type ServerAppRouteParameters } from '../types/types.js';
 
-interface IServerApp {
+type ServerApp = {
     addRoute(parameters: ServerAppRouteParameters): void;
     addRoutes(parameters: ServerAppRouteParameters[]): void;
-}
+};
 
-export { type IServerApp };
+export { type ServerApp };

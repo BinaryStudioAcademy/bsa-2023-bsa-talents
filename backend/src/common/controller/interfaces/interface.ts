@@ -1,1 +1,1 @@
-export { type IController } from './controller.interface.js';
+export { type Controller } from './controller.interface.js';

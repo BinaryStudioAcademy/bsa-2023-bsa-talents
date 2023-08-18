@@ -1,2 +1,2 @@
-export { type IServerApp } from './server-app.interface.js';
-export { type IServerAppApi } from './server-app-api.interface.js';
+export { type ServerApp } from './server-app.interface.js';
+export { type ServerAppApi } from './server-app-api.interface.js';

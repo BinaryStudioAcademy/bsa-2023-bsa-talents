@@ -1,3 +1,3 @@
-export { type IEntity } from './entity.interface.js';
-export { type IRepository } from './repository.interface.js';
-export { type IService } from './service.interface.js';
+export { type Entity } from './entity.interface.js';
+export { type Repository } from './repository.interface.js';
+export { type Service } from './service.interface.js';

@@ -3,19 +3,19 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
-import { HttpApi } from '~/framework/api/api.js';
-import { type IHttp } from '~/framework/http/http.js';
-import { type IStorage } from '~/framework/storage/storage.js';
+import { HttpApiBase } from '~/framework/api/api.js';
+import { type Http } from '~/framework/http/http.js';
+import { type Storage } from '~/framework/storage/storage.js';
 
 import { AuthApiPath } from './enums/enums.js';
 
 type Constructor = {
     baseUrl: string;
-    http: IHttp;
-    storage: IStorage;
+    http: Http;
+    storage: Storage;
 };
 
-class AuthApi extends HttpApi {
+class AuthApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.AUTH, baseUrl, http, storage });
     }

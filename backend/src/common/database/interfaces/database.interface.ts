@@ -3,9 +3,9 @@ import { type Knex } from 'knex';
 import { type AppEnvironment } from '~/common/enums/enums.js';
 import { type ValueOf } from '~/common/types/types.js';
 
-interface IDatabase {
+type Database = {
     connect: () => void;
     environmentsConfig: Record<ValueOf<typeof AppEnvironment>, Knex.Config>;
-}
+};
 
-export { type IDatabase };
+export { type Database };

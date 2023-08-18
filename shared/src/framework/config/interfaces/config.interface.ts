@@ -1,5 +1,5 @@
-interface IConfig<T> {
+type Config<T> = {
     ENV: T;
-}
+};
 
-export { type IConfig };
+export { type Config };

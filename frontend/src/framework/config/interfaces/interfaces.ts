@@ -1,1 +1,1 @@
-export { type IConfig } from './config.interface.js';
+export { type Config } from './config.interface.js';
