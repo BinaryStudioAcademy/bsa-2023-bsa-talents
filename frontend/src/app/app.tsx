@@ -1,17 +1,17 @@
 import reactLogo from '~/assets/img/react.svg';
 import {
-    CustomTypography,
     Link,
     RouterOutlet,
+    Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
     useEffect,
-    useLocation
+    useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { actions as userActions } from '~/bundles/users/store';
+import { actions as userActions } from '~/bundles/users/store/users.js';
 
 const App: React.FC = () => {
     const { pathname } = useLocation();
@@ -51,10 +51,8 @@ const App: React.FC = () => {
             </div>
             {isRoot && (
                 <>
-                    <CustomTypography variant="h2">Users:</CustomTypography>
-                    <CustomTypography variant="h3">
-                        Status: {dataStatus}
-                    </CustomTypography>
+                    <Typography variant="h2">Users:</Typography>
+                    <Typography variant="h3">Status: {dataStatus}</Typography>
                     <ul>
                         {users.map((it) => (
                             <li key={it.id}>{it.email}</li>
