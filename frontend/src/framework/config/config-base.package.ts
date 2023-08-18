@@ -1,10 +1,10 @@
 import { type AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { type IConfig } from './interfaces/interfaces.js';
+import { type Config } from './interfaces/interfaces.js';
 import { type EnvironmentSchema } from './types/types.js';
 
-class Config implements IConfig {
+class ConfigBase implements Config {
     public ENV: EnvironmentSchema;
 
     public constructor() {
@@ -25,4 +25,4 @@ class Config implements IConfig {
     }
 }
 
-export { Config };
+export { ConfigBase };

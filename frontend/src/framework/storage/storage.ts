@@ -1,7 +1,7 @@
-import { Storage } from './storage.package.js';
+import { StorageBase } from './storage-base.package.js';
 
-const storage = new Storage(window.localStorage);
+const storage = new StorageBase(window.localStorage);
 
 export { storage };
 export { StorageKey } from './enums/enums.js';
-export { type IStorage } from './interfaces/interfaces.js';
+export { type Storage } from './interfaces/interfaces.js';

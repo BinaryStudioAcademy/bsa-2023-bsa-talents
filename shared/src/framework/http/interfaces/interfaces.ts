@@ -1,1 +1,1 @@
-export { type IHttp } from './http.interface.js';
+export { type Http } from './http.interface.js';

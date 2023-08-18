@@ -1,9 +1,9 @@
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { type StorageKey } from './enums/enums.js';
-import { type IStorage } from './interfaces/interfaces.js';
+import { type Storage } from './interfaces/interfaces.js';
 
-class Storage implements IStorage {
+class StorageBase implements Storage {
     private store: globalThis.Storage;
 
     public constructor(store: globalThis.Storage) {
@@ -33,4 +33,4 @@ class Storage implements IStorage {
     }
 }
 
-export { Storage };
+export { StorageBase };

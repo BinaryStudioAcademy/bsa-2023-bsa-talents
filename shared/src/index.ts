@@ -2,9 +2,9 @@ export { AuthApiPath } from './bundles/auth/auth.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    UsersApiPath,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
-    UsersApiPath,
     userSignUpValidationSchema,
 } from './bundles/users/users.js';
 export {
@@ -13,20 +13,20 @@ export {
     ContentType,
     ServerErrorType,
 } from './enums/enums.js';
-export { type IConfig } from './framework/config/config.js';
+export { type Config } from './framework/config/config.js';
 export {
     ApplicationError,
     HttpError,
     ValidationError,
 } from './framework/exceptions/exceptions.js';
 export {
-    type HttpMethod,
-    type HttpOptions,
-    type IHttp,
+    type Http,
     HttpCode,
     HttpHeader,
+    type HttpMethod,
+    type HttpOptions,
 } from './framework/http/http.js';
-export { type IStorage } from './framework/storage/storage.js';
+export { type Storage } from './framework/storage/storage.js';
 export { configureString } from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
