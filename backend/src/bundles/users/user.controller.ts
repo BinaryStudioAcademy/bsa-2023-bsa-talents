@@ -41,8 +41,9 @@ class UserController extends Controller {
 
     /**
      * @swagger
-     * /users:
+     * /users/:
      *    get:
+     *      tags: [Users]
      *      description: Returns an array of users
      *      responses:
      *        200:
