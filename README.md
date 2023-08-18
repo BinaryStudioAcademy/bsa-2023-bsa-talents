@@ -14,6 +14,10 @@ This is the repository responsible for BSA Talents apps.
 
     _To work properly, fill in the **`.env`** file. Use the **`.env.example`** file as an example._
 
+-   [Mobile](./mobile) — BSA Talents application mobile.
+
+    _To work properly, fill in the **`.env`** file. Use the **`.env.example`** file as an example._
+
 -   [Shared](./shared) — BSA Talents application common modules for reuse.
 
 ## 🖍 Requirements
