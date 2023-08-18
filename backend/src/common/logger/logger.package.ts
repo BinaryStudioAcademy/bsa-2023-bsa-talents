@@ -1,13 +1,13 @@
-import pino, { type Logger as TLogger } from 'pino';
+import { type Logger as LibraryLogger, pino } from 'pino';
 import pretty from 'pino-pretty';
 
 import { type Logger } from './interfaces/interfaces.js';
 
 class LoggerBase implements Logger {
-    private logger: TLogger;
+    private logger: LibraryLogger;
 
     public constructor() {
-        this.logger = pino(pretty());
+        this.logger = pino(pretty.default());
 
         this.logger.info('Logger is created…');
     }

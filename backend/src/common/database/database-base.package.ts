@@ -21,7 +21,7 @@ class DatabaseBase implements Database {
     public connect(): ReturnType<Database['connect']> {
         this.logger.info('Establish DB connection...');
 
-        Model.knex(knex(this.environmentConfig));
+        Model.knex(knex.default(this.environmentConfig));
     }
 
     public get environmentsConfig(): Database['environmentsConfig'] {
