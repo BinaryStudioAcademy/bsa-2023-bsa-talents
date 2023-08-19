@@ -1,0 +1,7 @@
+{
+    "Exclude": [
+        "mobile/ios/**",
+        "mobile/android/**",
+        "mobile/Gemfile.lock"
+    ]
+}
