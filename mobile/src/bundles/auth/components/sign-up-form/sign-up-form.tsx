@@ -8,7 +8,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { RootScreenName } from '~/bundles/common/enums/enums';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -25,9 +25,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: userSignUpValidationSchema,
     });
 
-    const handleFormSubmit = (): void => {
-        handleSubmit(onSubmit);
-    };
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     return (
         <View>
