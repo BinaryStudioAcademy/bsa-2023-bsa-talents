@@ -1,11 +1,11 @@
-import { CustomButton, Input } from '~/bundles/common/components/components';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { CustomButton, Input } from '~/bundles/common/components/components.js';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
-} from '~/bundles/users/users';
+} from '~/bundles/users/users.js';
 
-import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants';
+import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
     onSubmit: (payload: UserSignUpRequestDto) => void;

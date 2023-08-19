@@ -6,29 +6,29 @@ import {
     type ServerErrorResponse,
     type ValueOf,
 } from '~/bundles/common/types/types.js';
-import { type HttpCode, type IHttp } from '~/framework/http/http.js';
+import { type Http, type HttpCode } from '~/framework/http/http.js';
 import { HttpError, HttpHeader } from '~/framework/http/http.js';
-import { type IStorage, StorageKey } from '~/framework/storage/storage.js';
+import { type Storage, StorageKey } from '~/framework/storage/storage.js';
 import { configureString } from '~/helpers/helpers.js';
 
-import { type IHttpApi } from './interfaces/interfaces.js';
+import { type HttpApi } from './interfaces/interfaces.js';
 import { type HttpApiOptions, type HttpApiResponse } from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
     path: string;
-    http: IHttp;
-    storage: IStorage;
+    http: Http;
+    storage: Storage;
 };
 
-class HttpApiBase implements IHttpApi {
+class HttpApiBase implements HttpApi {
     private baseUrl: string;
 
     private path: string;
 
-    private http: IHttp;
+    private http: Http;
 
-    private storage: IStorage;
+    private storage: Storage;
 
     public constructor({ baseUrl, path, http, storage }: Constructor) {
         this.baseUrl = baseUrl;

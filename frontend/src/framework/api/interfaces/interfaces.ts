@@ -1,1 +1,1 @@
-export { type IHttpApi } from './http-api.interface.js';
+export { type HttpApi } from './http-api.interface.js';

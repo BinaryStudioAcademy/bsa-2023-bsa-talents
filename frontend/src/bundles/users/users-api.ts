@@ -1,15 +1,15 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import { HttpApiBase } from '~/framework/api/api.js';
-import { type IHttp } from '~/framework/http/http.js';
-import { type IStorage } from '~/framework/storage/storage.js';
+import { type Http } from '~/framework/http/http.js';
+import { type Storage } from '~/framework/storage/storage.js';
 
 import { UsersApiPath } from './enums/enums.js';
 import { type UserGetAllResponseDto } from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
-    http: IHttp;
-    storage: IStorage;
+    http: Http;
+    storage: Storage;
 };
 
 class UserApi extends HttpApiBase {
