@@ -8,7 +8,7 @@ extends:
 
 settings:
     import/ignore:
-        - "node_modules/react-native/index\\.js$"
+        - 'react-native'
 
 rules:
     import/extensions: off
