@@ -1,9 +1,8 @@
-import {
-    Button,
-    type ButtonPropsColorOverrides,
-    type SxProps,
-    type Theme,
-} from '@mui/material';
+import { Button as MUIButton } from '@mui/material';
+import { type SxProps, type Theme } from '@mui/material';
+
+import { type ColorProperty } from '~/bundles/common/enums/enums.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
 
 type Properties = {
     label: string;
@@ -14,19 +13,11 @@ type Properties = {
     sx?: SxProps<Theme>;
     endIcon?: React.ReactNode;
     startIcon?: React.ReactNode;
-    color?:
-        | 'inherit'
-        | 'primary'
-        | 'secondary'
-        | 'success'
-        | 'error'
-        | 'info'
-        | ('warning' & ButtonPropsColorOverrides)
-        | undefined;
+    color?: ValueOf<typeof ColorProperty>;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const CustomButton: React.FC<Properties> = ({
+const Button: React.FC<Properties> = ({
     variant = 'contained',
     label,
     type = 'button',
@@ -38,7 +29,7 @@ const CustomButton: React.FC<Properties> = ({
     color,
     onClick,
 }) => (
-    <Button
+    <MUIButton
         type={type}
         variant={variant}
         disabled={disabled}
@@ -50,8 +41,7 @@ const CustomButton: React.FC<Properties> = ({
         onClick={onClick}
     >
         {label}
-    </Button>
+    </MUIButton>
 );
 
-export { CustomButton };
-export { type Properties as CustomButtonProps };
+export { Button };
