@@ -1,13 +1,14 @@
 parserOptions:
-  project:
-    - ./tsconfig.json
+    project:
+        - ./tsconfig.json
 
 extends:
-  - ../.eslintrc.yml
+    - ../.eslintrc.yml
+    - plugin:react-hooks/recommended
 
 settings:
-  import/ignore:
-    - "node_modules/react-native/index\\.js$"
+    import/ignore:
+        - 'react-native'
 
 rules:
-  import/extensions: off
+    import/extensions: off
