@@ -27,7 +27,7 @@ const typographyTheme = createTheme({
             fontSize: 16,
             lineHeight: 1.41,
         },
-        subtitle1: {
+        menu: {
             fontSize: 18,
             lineHeight: 1.21,
             fontWeight: 400,
@@ -37,13 +37,28 @@ const typographyTheme = createTheme({
             lineHeight: 1.21,
             fontWeight: 400,
         },
-        body2: {
+        tub: {
             fontSize: 16,
             lineHeight: 1.17,
         },
         button: {
             fontSize: 16,
             lineHeight: 1.17,
+        },
+        caption: {
+            fontSize: 12,
+            lineHeight: 1.21,
+            fontWeight: 400,
+        },
+        input: {
+            fontSize: 13,
+            lineHeight: 1.21,
+            fontWeight: 400,
+        },
+        label: {
+            fontSize: 13,
+            lineHeight: 1.21,
+            fontWeight: 500,
         },
     },
 });
