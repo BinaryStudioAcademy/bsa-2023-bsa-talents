@@ -1,10 +1,4 @@
-import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import {
-    type FontAwesomeIconStyle,
-    type Props,
-} from '@fortawesome/react-native-fontawesome';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Pressable } from 'react-native';
 import {
     type PressableProps,
@@ -14,109 +8,73 @@ import {
 
 import { Text } from '~/bundles/common/components/components';
 
+import { type ButtonType } from '../../enums/enums';
 import { styles } from './styles';
 
-type Properties = {
-    label?: string;
-    isPrimary?: boolean;
-    labelStyles?: StyleProp<ViewStyle>;
-    icon?: IconDefinition;
-    iconProps?: Omit<Props, 'icon'>;
-} & PressableProps;
-
+type ButtonTypeName = keyof typeof ButtonType;
 type StyleRecord = Record<string, unknown>;
 
+type Properties = {
+    label: string;
+    pressableStyle?: StyleProp<ViewStyle>;
+    buttonType?: ButtonTypeName;
+} & Omit<PressableProps, 'style'>;
+
 const Button: React.FC<Properties> = ({
-    label = '',
-    labelStyles,
-    style,
-    isPrimary = true,
+    label,
+    pressableStyle,
+    buttonType = 'FILLED',
     disabled = false,
-    icon,
-    iconProps,
     ...properties
 }) => {
-    const [isPressed, setIsPressed] = useState(false);
+    const buttonStyleChoose: Record<ButtonTypeName, StyleRecord> = {
+        FILLED: styles.button_primary,
+        OUTLINE: styles.button_secondary,
+        GHOST: styles.button_with_icon,
+    };
+    const buttonStylePressed: Record<ButtonTypeName, StyleRecord> = {
+        FILLED: styles.button_primary_pressed,
+        OUTLINE: styles.button_secondary_pressed,
+        GHOST: styles.button_with_icon_pressed,
+    };
 
-    const isPrimaryDisabled = isPrimary && disabled && !icon;
-    const isSecondaryDisabled = !isPrimary && disabled && !icon;
-    const isIconDisabled = icon && disabled;
+    const buttonStyleDisabled: Record<ButtonTypeName, StyleRecord> = {
+        FILLED: styles.button_primary_disabled,
+        OUTLINE: styles.button_secondary_disabled,
+        GHOST: styles.icon_pressed,
+    };
 
-    const calculateButtonStyle = useCallback((): StyleRecord[] => {
-        const isPrimaryPressed = isPrimary && isPressed && !icon;
-        const isSecondaryPressed = !isPrimary && isPressed && !icon;
-        const isIconPressed = isPressed && icon;
-        const stylesData = [
-            styles.button,
-            isPrimary ? styles.button_primary : styles.button_secondary,
-            icon && styles.button_with_icon,
-            isPrimaryDisabled && styles.button_primary_disabled,
-            isSecondaryDisabled && styles.button_secondary_disabled,
-            isIconDisabled && styles.button_with_icon_disabled,
-            isPrimaryPressed && styles.button_primary_pressed,
-            isSecondaryPressed && styles.button_secondary_pressed,
-            isIconPressed && styles.button_with_icon_pressed,
-            style,
-        ];
-        return stylesData.filter(Boolean) as StyleRecord[];
-    }, [
-        icon,
-        isIconDisabled,
-        isPressed,
-        isPrimary,
-        isPrimaryDisabled,
-        isSecondaryDisabled,
-        style,
-    ]);
+    const pressedStyleLabel: Record<ButtonTypeName, StyleRecord> = {
+        FILLED: styles.label,
+        OUTLINE: styles.label_secondary_pressed,
+        GHOST: styles.label_secondary_pressed,
+    };
 
-    const calculateIconStyle = useCallback((): FontAwesomeIconStyle => {
-        const isIconPressed = isPressed && icon;
-        const stylesData = [
-            styles.icon,
-            isIconDisabled && styles.icon_disabled,
-            isIconPressed && styles.icon_pressed,
-        ];
-        return stylesData.filter(Boolean).pop() as FontAwesomeIconStyle;
-    }, [icon, isIconDisabled, isPressed]);
-
-    const calculateLabelStyle = useCallback((): StyleRecord[] => {
-        const isPrimaryPressed = isPrimary && isPressed && !icon;
-        const isSecondaryPressed = !isPrimary && isPressed && !icon;
-        const isIconPressed = isPressed && icon;
-        const stylesData = [
-            styles.label,
-            isPrimary ? styles.label_primary : styles.label_secondary,
-            icon && styles.label_with_icon,
-            disabled && styles.label_disabled,
-            isPrimaryPressed && styles.label_primary_pressed,
-            isSecondaryPressed && styles.label_secondary_pressed,
-            isIconPressed && styles.label_with_icon_pressed,
-            labelStyles,
-        ];
-        return stylesData.filter(Boolean) as StyleRecord[];
-    }, [disabled, icon, isPressed, isPrimary, labelStyles]);
-
-    const togglePressed = useCallback(() => {
-        setIsPressed((previous) => !previous);
-    }, []);
+    const isFilledButton = buttonType === 'FILLED';
 
     return (
         <Pressable
-            onPressIn={togglePressed}
-            onPressOut={togglePressed}
-            {...properties}
             disabled={disabled}
-            style={calculateButtonStyle()}
+            style={({ pressed }): StyleRecord[] => [
+                styles.button,
+                buttonStyleChoose[buttonType],
+                pressed ? buttonStylePressed[buttonType] : {},
+                disabled ? buttonStyleDisabled[buttonType] : {},
+                (pressableStyle as StyleRecord | undefined) ?? {},
+            ]}
+            {...properties}
         >
-            {icon && (
-                <FontAwesomeIcon
-                    size={15}
-                    icon={icon}
-                    style={calculateIconStyle()}
-                    {...iconProps}
-                />
+            {({ pressed }): JSX.Element => (
+                <Text
+                    style={[
+                        isFilledButton ? styles.label : styles.label_secondary,
+                        pressed && pressedStyleLabel[buttonType],
+                        disabled && styles.content_disabled,
+                    ]}
+                >
+                    {label}
+                </Text>
             )}
-            <Text style={calculateLabelStyle()}>{label}</Text>
         </Pressable>
     );
 };

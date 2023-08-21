@@ -10,20 +10,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500',
         justifyContent: 'center',
+        borderColor: 'transparent',
     },
     label: {
         fontSize: 15,
         color: '#FFFFFF',
         fontWeight: '500',
-    },
-    label_primary: {
-        color: '#FFFFFF',
-    },
-    label_primary_pressed: {
-        color: '#FFFFFF',
-    },
-    label_disabled: {
-        color: '#AAB1BB',
     },
     label_secondary: {
         color: '#274F8D',
@@ -31,16 +23,8 @@ const styles = StyleSheet.create({
     label_secondary_pressed: {
         color: '#2E61AE',
     },
-    label_with_icon: {
-        color: '#274F8D',
-    },
-    label_with_icon_pressed: {
-        color: '#2E61AE',
-    },
-
     button_primary: {
         backgroundColor: '#274F8D',
-        borderColor: '274F8D',
     },
     button_secondary: {
         backgroundColor: '#FFFFFF',
@@ -48,14 +32,12 @@ const styles = StyleSheet.create({
     },
     button_primary_pressed: {
         backgroundColor: '#2E61AE',
-        borderColor: '#2E61AE',
     },
     button_secondary_pressed: {
         borderColor: '#2E61AE',
     },
     button_primary_disabled: {
         backgroundColor: '#F7F8FC',
-        borderColor: '#F7F8FC',
     },
     button_secondary_disabled: {
         backgroundColor: '#FFFFFF',
@@ -71,10 +53,6 @@ const styles = StyleSheet.create({
     },
     button_with_icon_pressed: {
         color: '#2E61AE',
-        borderRadius: 24,
-    },
-    button_with_icon_disabled: {
-        borderRadius: 24,
     },
     icon: {
         color: '#274F8D',
@@ -82,7 +60,7 @@ const styles = StyleSheet.create({
     icon_pressed: {
         color: '#2E61AE',
     },
-    icon_disabled: {
+    content_disabled: {
         color: '#AAB1BB',
     },
 });

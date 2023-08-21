@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Text } from '~/bundles/common/components/components';
+import { Button, Text } from '~/bundles/common/components/components';
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -57,6 +57,9 @@ const Auth: React.FC = () => {
     return (
         <>
             <Text>state: {dataStatus}</Text>
+            <Button label="da" buttonType={'FILLED'} disabled />
+            <Button label="da" buttonType={'OUTLINE'} disabled />
+
             {getScreen(name)}
         </>
     );
