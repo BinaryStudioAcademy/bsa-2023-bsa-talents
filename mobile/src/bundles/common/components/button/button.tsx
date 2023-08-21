@@ -1,7 +1,10 @@
 import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { type Props } from '@fortawesome/react-native-fontawesome';
+import {
+    type FontAwesomeIconStyle,
+    type Props,
+} from '@fortawesome/react-native-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Pressable } from 'react-native';
 import {
     type PressableProps,
@@ -33,20 +36,18 @@ const Button: React.FC<Properties> = ({
     iconProps,
     ...properties
 }) => {
+    const [isPressed, setIsPressed] = useState(false);
+
     const isPrimaryDisabled = isPrimary && disabled && !icon;
     const isSecondaryDisabled = !isPrimary && disabled && !icon;
     const isIconDisabled = icon && disabled;
 
-    const calculateButtonStyle = ({
-        pressed,
-    }: {
-        pressed: boolean;
-    }): StyleRecord[] => {
-        const isPrimaryPressed = isPrimary && pressed && !icon;
-        const isSecondaryPressed = !isPrimary && pressed && !icon;
-        const isIconPressed = pressed && icon;
+    const calculateButtonStyle = useCallback((): StyleRecord[] => {
+        const isPrimaryPressed = isPrimary && isPressed && !icon;
+        const isSecondaryPressed = !isPrimary && isPressed && !icon;
+        const isIconPressed = isPressed && icon;
         const stylesData = [
-            styles.btn,
+            styles.button,
             isPrimary ? styles.button_primary : styles.button_secondary,
             icon && styles.button_with_icon,
             isPrimaryDisabled && styles.button_primary_disabled,
@@ -58,16 +59,64 @@ const Button: React.FC<Properties> = ({
             style,
         ];
         return stylesData.filter(Boolean) as StyleRecord[];
-    };
+    }, [
+        icon,
+        isIconDisabled,
+        isPressed,
+        isPrimary,
+        isPrimaryDisabled,
+        isSecondaryDisabled,
+        style,
+    ]);
+
+    const calculateIconStyle = useCallback((): FontAwesomeIconStyle => {
+        const isIconPressed = isPressed && icon;
+        const stylesData = [
+            styles.icon,
+            isIconDisabled && styles.icon_disabled,
+            isIconPressed && styles.icon_pressed,
+        ];
+        return stylesData.filter(Boolean).pop() as FontAwesomeIconStyle;
+    }, [icon, isIconDisabled, isPressed]);
+
+    const calculateLabelStyle = useCallback((): StyleRecord[] => {
+        const isPrimaryPressed = isPrimary && isPressed && !icon;
+        const isSecondaryPressed = !isPrimary && isPressed && !icon;
+        const isIconPressed = isPressed && icon;
+        const stylesData = [
+            styles.label,
+            isPrimary ? styles.label_primary : styles.label_secondary,
+            icon && styles.label_with_icon,
+            disabled && styles.label_disabled,
+            isPrimaryPressed && styles.label_primary_pressed,
+            isSecondaryPressed && styles.label_secondary_pressed,
+            isIconPressed && styles.label_with_icon_pressed,
+            labelStyles,
+        ];
+        return stylesData.filter(Boolean) as StyleRecord[];
+    }, [disabled, icon, isPressed, isPrimary, labelStyles]);
+
+    const togglePressed = useCallback(() => {
+        setIsPressed((previous) => !previous);
+    }, []);
 
     return (
         <Pressable
+            onPressIn={togglePressed}
+            onPressOut={togglePressed}
             {...properties}
             disabled={disabled}
-            style={calculateButtonStyle}
+            style={calculateButtonStyle()}
         >
-            {icon && <FontAwesomeIcon size={15} icon={icon} {...iconProps} />}
-            <Text style={(styles.label, labelStyles)}>{label}</Text>
+            {icon && (
+                <FontAwesomeIcon
+                    size={15}
+                    icon={icon}
+                    style={calculateIconStyle()}
+                    {...iconProps}
+                />
+            )}
+            <Text style={calculateLabelStyle()}>{label}</Text>
         </Pressable>
     );
 };
