@@ -14,7 +14,13 @@ frontend:
           - 'frontend/**/*'
           - '!frontend/.env.example'
 
+mobile:
+    - any:
+          - 'mobile/**/*'
+          - '!mobile/.env.example'
+
 ENV:
     - 'backend/.env.example'
     - 'frontend/.env.example'
+    - 'mobile/.env.example'
     - 'lambdas/.env.example'
