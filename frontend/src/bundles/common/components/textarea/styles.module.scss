@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label {
+    margin: 5px;
+}
+
+.textarea {
+    width: 328px;
+    padding: 10px 0 0 14px;
+    color: var(--text-2, #90a3bf);
+    font-weight: 400;
+    font-size: 13px;
+    font-style: normal;
+    line-height: normal;
+    background: var(--colors-white, #ffffff);
+    border: 1px solid var(--input, #d5dce8);
+    border-radius: 4px;
+}
+
+.textarea:focus {
+    border-color: var(--hover, #0084dd);
+    outline: 0;
+}
+
+.textarea:hover {
+    border-color: var(--hover, #0084dd);
+}
