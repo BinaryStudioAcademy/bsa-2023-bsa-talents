@@ -1,4 +1,9 @@
-import { Button, type SxProps, type Theme } from '@mui/material';
+import {
+    Button,
+    type ButtonPropsColorOverrides,
+    type SxProps,
+    type Theme,
+} from '@mui/material';
 
 type Properties = {
     label: string;
@@ -9,6 +14,16 @@ type Properties = {
     sx?: SxProps<Theme>;
     endIcon?: React.ReactNode;
     startIcon?: React.ReactNode;
+    color?:
+        | 'inherit'
+        | 'primary'
+        | 'secondary'
+        | 'success'
+        | 'error'
+        | 'info'
+        | ('warning' & ButtonPropsColorOverrides)
+        | undefined;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const CustomButton: React.FC<Properties> = ({
@@ -20,6 +35,8 @@ const CustomButton: React.FC<Properties> = ({
     sx = [],
     endIcon = null,
     startIcon = null,
+    color,
+    onClick,
 }) => (
     <Button
         type={type}
@@ -29,9 +46,12 @@ const CustomButton: React.FC<Properties> = ({
         sx={[...(Array.isArray(sx) ? sx : [sx])]}
         endIcon={endIcon}
         startIcon={startIcon}
+        color={color}
+        onClick={onClick}
     >
         {label}
     </Button>
 );
 
 export { CustomButton };
+export { type Properties as CustomButtonProps };
