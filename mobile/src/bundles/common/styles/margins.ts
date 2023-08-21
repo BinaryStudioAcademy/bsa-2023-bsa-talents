@@ -1,6 +1,4 @@
-import { StyleSheet } from 'react-native';
-
-const margins = StyleSheet.create({
+const MARGINS = {
     m25: {
         margin: 25,
     },
@@ -106,6 +104,6 @@ const margins = StyleSheet.create({
     mv5: {
         marginVertical: 5,
     },
-});
+};
 
-export { margins };
+export { MARGINS };

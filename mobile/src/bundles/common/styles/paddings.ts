@@ -1,6 +1,4 @@
-import { StyleSheet } from 'react-native';
-
-const paddings = StyleSheet.create({
+const PADDINGS = {
     p25: {
         padding: 25,
     },
@@ -106,6 +104,6 @@ const paddings = StyleSheet.create({
     pv5: {
         paddingVertical: 5,
     },
-});
+};
 
-export { paddings };
+export { PADDINGS };

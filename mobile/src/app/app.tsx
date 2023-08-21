@@ -5,7 +5,7 @@ import React, { type FC } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider as StoreProvider } from 'react-redux';
 
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { store } from '~/framework/store/store';
 import { Root as RootNavigation } from '~/navigations/navigations';
 

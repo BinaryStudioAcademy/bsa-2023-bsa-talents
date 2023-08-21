@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
 
-import { flex } from './flex';
-import { margins } from './margins';
-import { paddings } from './paddings';
-import { sizes } from './sizes';
+import { FLEX } from './flex';
+import { MARGINS } from './margins';
+import { PADDINGS } from './paddings';
+import { SIZES } from './sizes';
 
 const globalStyles = StyleSheet.create({
-    ...flex,
-    ...margins,
-    ...paddings,
-    ...sizes,
+    ...FLEX,
+    ...MARGINS,
+    ...PADDINGS,
+    ...SIZES,
 });
 
 export { globalStyles };
