@@ -13,11 +13,11 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { btColorTheme } from './bundles/common/components/color-theme/color-theme.js';
+import { theme } from './bundles/common/themes/theme.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
-        <ThemeProvider theme={btColorTheme}>
+        <ThemeProvider theme={theme}>
             <StoreProvider store={store.instance}>
                 <RouterProvider
                     routes={[
