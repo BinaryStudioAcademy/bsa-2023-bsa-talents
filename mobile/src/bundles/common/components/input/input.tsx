@@ -12,12 +12,19 @@ import { useFormController } from '~/bundles/common/hooks/hooks';
 
 import { styles } from './styles';
 
+type InputType = 'text' | 'number' | 'email' | 'password';
+
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
     label: string;
     name: FieldPath<T>;
     placeholder: string;
+    type: InputType;
+    secureTextEntry?: boolean;
+    editable?: boolean;
+    multiline?: boolean;
+    numberOfLines?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -26,6 +33,11 @@ const Input = <T extends FieldValues>({
     label,
     name,
     placeholder,
+    type,
+    secureTextEntry,
+    editable,
+    multiline,
+    numberOfLines,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -36,15 +48,29 @@ const Input = <T extends FieldValues>({
 
     return (
         <View>
-            <Text>{label}</Text>
+            <Text
+                style={editable === false ? styles.disabledLabel : styles.label}
+            >
+                {label}
+            </Text>
             <TextInput
                 onChangeText={onChange}
                 value={value}
                 onBlur={onBlur}
                 placeholder={placeholder}
-                style={styles.input}
+                keyboardType={type === 'number' ? 'numeric' : 'default'}
+                secureTextEntry={secureTextEntry}
+                editable={editable}
+                multiline={multiline}
+                numberOfLines={numberOfLines}
+                style={[
+                    editable === false ? styles.disabled : styles.input,
+                    hasError ? styles.error : styles.input,
+                ]}
             />
-            <Text>{hasError && (error as string)}</Text>
+            <Text style={styles.errorText}>
+                {hasError && (error as string)}
+            </Text>
         </View>
     );
 };

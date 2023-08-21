@@ -38,6 +38,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Email"
                 name="email"
                 placeholder="Enter your email"
+                type="email"
             />
             <Input
                 control={control}
@@ -45,6 +46,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Password"
                 name="password"
                 placeholder="Enter your password"
+                type="text"
+                secureTextEntry={true}
             />
             <Button label="Sign up" onPress={handleFormSubmit} />
             <Link label="Go to Sign In" to={`/${RootScreenName.SIGN_IN}`} />
