@@ -56,6 +56,10 @@ rules:
         - all
     unicorn/no-null:
         - off
+    unicorn/prevent-abbreviations:
+        - error
+        - allowList:
+          props: true
     '@typescript-eslint/padding-line-between-statements':
         - error
         - blankLine: never
