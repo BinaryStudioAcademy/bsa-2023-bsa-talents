@@ -5,15 +5,14 @@ import React, { type FC } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider as StoreProvider } from 'react-redux';
 
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { store } from '~/framework/store/store';
 import { Root as RootNavigation } from '~/navigations/navigations';
-
-import { styles } from './styles';
 
 const App: FC = () => {
     return (
         <StoreProvider store={store.instance}>
-            <GestureHandlerRootView style={styles.root}>
+            <GestureHandlerRootView style={globalStyles.flex1}>
                 <NavigationContainer>
                     <RootNavigation />
                 </NavigationContainer>
