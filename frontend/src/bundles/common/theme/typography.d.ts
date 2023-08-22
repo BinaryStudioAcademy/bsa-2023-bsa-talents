@@ -8,16 +8,16 @@ import {
 declare module '@mui/material/styles' {
     interface TypographyVariants extends MuiTypographyVariants {
         menu: React.CSSProperties;
-        tub: React.CSSProperties;
-        input: React.CSSProperties;
-        label: React.CSSProperties;
+        step: React.CSSProperties;
+        buttonBig: React.CSSProperties;
+        buttonSmall: React.CSSProperties;
     }
 
     interface TypographyVariantsOptions extends MuiTypographyVariantsOptions {
         menu?: React.CSSProperties;
-        tub?: React.CSSProperties;
-        input?: React.CSSProperties;
-        label?: React.CSSProperties;
+        step?: React.CSSProperties;
+        buttonBig?: React.CSSProperties;
+        buttonSmall?: React.CSSProperties;
     }
 }
 
@@ -26,8 +26,8 @@ declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides
         extends MuiTypographyPropertiesVariantOverrides {
         menu: true;
-        tub: true;
-        input: true;
-        label: true;
+        step: true;
+        buttonBig: true;
+        buttonSmall: true;
     }
 }

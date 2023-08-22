@@ -11,15 +11,31 @@ type Properties = {
         | 'h6'
         | 'menu'
         | 'body1'
-        | 'tub'
-        | 'button'
+        | 'buttonBig'
+        | 'buttonSmall'
         | 'caption'
-        | 'input'
-        | 'label';
+        | 'step';
+    align?: 'center' | 'inherit' | 'justify' | 'left' | 'right';
+    color?:
+        | 'primary'
+        | 'secondary'
+        | 'error'
+        | 'info'
+        | 'success'
+        | 'warning'
+        | string;
 };
 
-const Typography: React.FC<Properties> = ({ children, variant }) => {
-    return <TypographyBase variant={variant}>{children}</TypographyBase>;
+const Typography: React.FC<Properties> = ({
+    children,
+    variant,
+    ...restProperties
+}) => {
+    return (
+        <TypographyBase variant={variant} {...restProperties}>
+            {children}
+        </TypographyBase>
+    );
 };
 
 export { Typography };

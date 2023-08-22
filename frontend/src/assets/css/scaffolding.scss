@@ -8,8 +8,9 @@ body {
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
+    font-weight: 400;
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: Inter, sans-serif;
     line-height: 16px;
 }
 
@@ -30,4 +31,14 @@ body {
     border: 0;
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
+}
+
+input,
+label {
+    font-size: 13px;
+    line-height: 1.21;
+}
+
+label {
+    font-weight: 500;
 }
