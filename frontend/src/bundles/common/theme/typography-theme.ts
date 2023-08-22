@@ -6,61 +6,61 @@ const typographyTheme = createTheme({
         fontFamily: 'var(--font-family)',
         h1: {
             fontSize: 'var(--font-size-h1)',
-            lineHeight: 1.19,
+            lineHeight: 'var(--line-height-main)',
             fontWeight: 'var(--font-weight-bold)',
         },
         h2: {
             fontSize: 'var(--font-size-h2)',
-            lineHeight: 1.35,
-            fontWeight: 'var(--font-weight-medium)',
+            lineHeight: 'var( --line-height-h2-h4)',
+            fontWeight: 'var(--font-weight-bold)',
         },
         h3: {
             fontSize: 'var(--font-size-h3)',
+            lineHeight: 'var( --line-height-h2-h4)',
             fontWeight: 'var(--font-weight-medium)',
         },
         h4: {
             fontSize: 'var(--font-size-h4)',
-            lineHeight: 1.35,
+            lineHeight: 'var( --line-height-h2-h4)',
             fontWeight: 'var(--font-weight-medium)',
         },
         h5: {
             fontSize: 'var(--font-size-h5)',
-            lineHeight: 'var(--line-height-main)',
-            fontWeight: 'var(--font-weight-semi-bold)',
+            lineHeight: 'var( --line-height-h5-h6)',
+            fontWeight: 'var(--font-weight-medium)',
         },
         h6: {
             fontSize: 'var(--font-size-h6)',
-            lineHeight: 1.6,
+            lineHeight: 'var( --line-height-h5-h6)',
             fontWeight: 'var(--font-weight-medium)',
-            letterSpacing: 'var(--letter-spacing-menu)',
+        },
+        menu: {
+            fontSize: 'var(--font-size-menu)',
+            lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-regular)',
         },
         body1: {
-            fontSize: 'var(--font-size-secondary)',
-            lineHeight: 1.33,
-        },
-        body2: {
-            fontSize: 'var(--font-size-third)',
-            lineHeight: 1.42,
-            fontWeight: 'var(--font-weight-medium)',
-        },
-        buttonBig: {
-            fontSize: 'var(--font-size-btn-lg)',
+            fontSize: 'var(--font-size-body)',
             lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-regular)',
         },
-        buttonSmall: {
-            fontSize: 'var(--font-size-btn-sm)',
-            lineHeight: 'var(--line-height-main)',
-            fontWeight: 'var(--font-weight-medium)',
+        button: {
+            fontSize: 'var(--font-size-btn)',
+            lineHeight: 'var(--line-height-btn)',
+            fontWeight: 'var(--font-weight-regular)',
         },
         caption: {
+            fontSize: 'var(--font-size-caption)',
             lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-regular)',
         },
-        step: {
-            fontWeight: 'var(--font-weight-bold)',
-            letterSpacing: 'var(--letter-spacing-step)',
+        input: {
+            fontSize: 'var(--font-size-input)',
+            lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-regular)',
         },
         label: {
-            fontSize: 'var( --font-size-label)',
+            fontSize: 'var(--font-size-label)',
             lineHeight: 'var(--line-height-main)',
             fontWeight: 'var(--font-weight-medium)',
         },

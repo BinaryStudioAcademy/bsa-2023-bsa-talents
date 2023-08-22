@@ -12,12 +12,11 @@ type Properties = {
         | 'h4'
         | 'h5'
         | 'h6'
+        | 'menu'
         | 'body1'
-        | 'body2'
-        | 'buttonBig'
-        | 'buttonSmall'
+        | 'button'
         | 'caption'
-        | 'step'
+        | 'input'
         | 'label';
     align?: 'center' | 'inherit' | 'justify' | 'left' | 'right';
     color?: ValueOf<typeof ColorProperty>;
