@@ -32,8 +32,8 @@ const CustomSlider: React.FC<Properties> = ({
 
     const getValueLabel = useCallback(
         (value: number): string | null => {
-            const label = marks.find((mark) => mark.value === value)?.label;
-            return label ?? null;
+            const mark = marks.find((mark) => mark.value === value);
+            return mark?.label ?? null;
         },
         [marks],
     );
