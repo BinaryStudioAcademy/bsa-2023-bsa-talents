@@ -1,44 +1,17 @@
-import { Grid as MUIGrid, type GridProps } from '@mui/material';
+import {
+    Grid as MUIGrid,
+    type GridProps as MUIGridProperties,
+} from '@mui/material';
 
-const Grid: React.FC<GridProps> = ({
+type Properties = MUIGridProperties;
+
+const Grid: React.FC<Properties> = ({
     children,
-    classes,
-    columnSpacing,
-    columns,
-    container,
-    direction,
-    item,
-    lg,
-    md,
-    rowSpacing,
-    sm,
-    spacing,
-    sx,
-    wrap,
-    xl,
-    xs,
-    zeroMinWidth,
+    className = '',
     component = 'div',
+    ...properties
 }) => (
-    <MUIGrid
-        classes={classes}
-        columns={columns}
-        columnSpacing={columnSpacing}
-        component={component}
-        container={container}
-        direction={direction}
-        item={item}
-        lg={lg}
-        md={md}
-        rowSpacing={rowSpacing}
-        sm={sm}
-        spacing={spacing}
-        sx={sx}
-        wrap={wrap}
-        xl={xl}
-        xs={xs}
-        zeroMinWidth={zeroMinWidth}
-    >
+    <MUIGrid className={className} component={component} {...properties}>
         {children}
     </MUIGrid>
 );
