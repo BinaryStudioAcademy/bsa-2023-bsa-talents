@@ -2,12 +2,12 @@ import React from 'react';
 
 import {
     Button,
+    FormField,
     Input,
     Link,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { FormField } from '~/bundles/common/components/form-field/form-field';
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
