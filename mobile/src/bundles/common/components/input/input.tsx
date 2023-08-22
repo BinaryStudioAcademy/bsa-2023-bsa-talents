@@ -5,6 +5,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
+import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
@@ -14,17 +15,13 @@ import { styles } from './styles';
 
 type InputType = 'text' | 'number' | 'email' | 'password';
 
-type Properties<T extends FieldValues> = {
+type Properties<T extends FieldValues> = TextInputProps & {
     control: Control<T, null>;
     errors: FieldErrors<T>;
     label: string;
     name: FieldPath<T>;
     placeholder: string;
     type: InputType;
-    secureTextEntry?: boolean;
-    editable?: boolean;
-    multiline?: boolean;
-    numberOfLines?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -34,10 +31,7 @@ const Input = <T extends FieldValues>({
     name,
     placeholder,
     type,
-    secureTextEntry,
-    editable,
-    multiline,
-    numberOfLines,
+    ...properties
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -49,7 +43,11 @@ const Input = <T extends FieldValues>({
     return (
         <View>
             <Text
-                style={editable === false ? styles.disabledLabel : styles.label}
+                style={
+                    properties.editable === false
+                        ? styles.disabledLabel
+                        : styles.label
+                }
             >
                 {label}
             </Text>
@@ -59,12 +57,11 @@ const Input = <T extends FieldValues>({
                 onBlur={onBlur}
                 placeholder={placeholder}
                 keyboardType={type === 'number' ? 'numeric' : 'default'}
-                secureTextEntry={secureTextEntry}
-                editable={editable}
-                multiline={multiline}
-                numberOfLines={numberOfLines}
+                {...properties}
                 style={[
-                    editable === false ? styles.disabled : styles.input,
+                    properties.editable === false
+                        ? styles.disabled
+                        : styles.input,
                     hasError ? styles.error : styles.input,
                 ]}
             />
