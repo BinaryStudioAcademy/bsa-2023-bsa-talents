@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f5f6f7;
+}
+
+.avatar {
+    position: relative;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 200px;
+}
+
+.status {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.status.online {
+    background-color: #12b76a;
+}
+
+.status.offline {
+    background-color: gray;
+}
