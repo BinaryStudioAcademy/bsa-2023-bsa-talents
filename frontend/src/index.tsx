@@ -14,7 +14,6 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-// import { colorTheme } from './bundles/common/themes/color-theme/color-theme.js';
 import { theme } from './bundles/common/themes/theme.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
