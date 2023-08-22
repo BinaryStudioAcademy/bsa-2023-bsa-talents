@@ -1,52 +1,49 @@
 import {
     Checkbox as CheckboxMUI,
+    type CheckboxProps,
     FormControlLabel,
-    type SxProps,
-    type Theme,
 } from '@mui/material';
 
-type Properties = {
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+
+import styles from './styles.module.scss';
+
+type Properties = CheckboxProps & {
     label?: string;
-    disabled?: boolean;
-    defaultChecked?: boolean;
-    checked?: boolean;
-    required?: boolean;
-    value?: string;
-    size?: 'small' | 'medium';
-    sx?: SxProps<Theme>;
+    isDisabled?: boolean;
+    isDefaultChecked?: boolean;
+    isChecked?: boolean;
+    isRequired?: boolean;
 };
 
 const Checkbox: React.FC<Properties> = ({
     label = '',
-    defaultChecked = false,
-    checked,
-    disabled = false,
-    required = false,
+    isChecked,
+    isDefaultChecked,
+    isDisabled = false,
+    isRequired = false,
     value = '',
-    size,
-    sx,
+    className = styles.primary,
 }) => {
+    const combinedClasses = getValidClassNames(className)
+        .split(' ')
+        .map((className) => {
+            return styles[className] || className;
+        })
+        .join(' ');
+
     return (
         <FormControlLabel
             control={
                 <CheckboxMUI
-                    defaultChecked={defaultChecked}
-                    checked={checked}
-                    required={required}
+                    defaultChecked={isDefaultChecked}
+                    checked={isChecked}
+                    required={isRequired}
                     value={value}
-                    disabled={disabled}
-                    size={size}
-                    sx={
-                        sx ?? {
-                            color: '#D5DCE8',
-                            '&.Mui-checked': {
-                                color: disabled ? '#D5DCE8' : '#274F8D',
-                            },
-                            '&.Mui-hover': { background: 'none' },
-                        }
-                    }
+                    disabled={isDisabled}
                 />
             }
+            className={combinedClasses}
             label={label}
         />
     );

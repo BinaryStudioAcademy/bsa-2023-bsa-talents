@@ -1,0 +1,9 @@
+.primary {
+    svg {
+        fill: #d5dce8;
+    }
+
+    input:checked + svg {
+        fill: #274f8d;
+    }
+}

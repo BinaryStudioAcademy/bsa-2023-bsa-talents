@@ -1,5 +1,6 @@
 import reactLogo from '~/assets/img/react.svg';
 import {
+    Checkbox,
     Link,
     RouterOutlet,
     Typography,
@@ -60,6 +61,22 @@ const App: React.FC = () => {
                     </ul>
                 </>
             )}
+            <div>
+                <Checkbox label="test" value={'some-value-1'} />
+                <Checkbox
+                    label="test-2"
+                    value={'some-value-2'}
+                    isChecked
+                    isRequired
+                />
+                <Checkbox
+                    label="test"
+                    value={'some-value-3'}
+                    isDefaultChecked
+                />
+                <Checkbox className="red small test" />
+                <Checkbox />
+            </div>
         </>
     );
 };
