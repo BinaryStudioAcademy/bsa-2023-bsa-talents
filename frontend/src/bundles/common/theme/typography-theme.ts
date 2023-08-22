@@ -59,6 +59,11 @@ const typographyTheme = createTheme({
             fontWeight: 'var(--font-weight-bold)',
             letterSpacing: 'var(--letter-spacing-step)',
         },
+        label: {
+            fontSize: 'var( --font-size-label)',
+            lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-medium)',
+        },
     },
     components: {
         MuiTypography: {

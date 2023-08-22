@@ -1,5 +1,8 @@
 import { Typography as TypographyBase } from '@mui/material';
 
+import { type ColorProperty } from '~/bundles/common/enums/enums.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+
 type Properties = {
     children: React.ReactNode;
     variant:
@@ -14,16 +17,10 @@ type Properties = {
         | 'buttonBig'
         | 'buttonSmall'
         | 'caption'
-        | 'step';
+        | 'step'
+        | 'label';
     align?: 'center' | 'inherit' | 'justify' | 'left' | 'right';
-    color?:
-        | 'primary'
-        | 'secondary'
-        | 'error'
-        | 'info'
-        | 'success'
-        | 'warning'
-        | string;
+    color?: ValueOf<typeof ColorProperty>;
 };
 
 const Typography: React.FC<Properties> = ({

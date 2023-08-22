@@ -10,12 +10,14 @@ import {
 declare module '@mui/material/styles' {
     interface TypographyVariants extends MuiTypographyVariants {
         step: React.CSSProperties;
+        label: React.CSSProperties;
         buttonBig: React.CSSProperties;
         buttonSmall: React.CSSProperties;
     }
 
     interface TypographyVariantsOptions extends MuiTypographyVariantsOptions {
         step: React.CSSProperties;
+        label: React.CSSProperties;
         buttonBig: React.CSSProperties;
         buttonSmall: React.CSSProperties;
     }
@@ -25,6 +27,7 @@ declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides
         extends MuiTypographyPropertiesVariantOverrides {
         step: true;
+        label: true;
         buttonBig: true;
         buttonSmall: true;
     }

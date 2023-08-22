@@ -35,7 +35,7 @@ body {
 
 input,
 label {
-    font-size: 13px;
+    font-size: var(--font-size-label);
     line-height: var(--line-height-main);
 }
 
