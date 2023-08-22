@@ -11,7 +11,6 @@ import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
-    label: string;
     name: FieldPath<T>;
     minRows: number;
     maxRows: number;
@@ -21,19 +20,17 @@ type Properties<T extends FieldValues> = {
 const Textarea = <T extends FieldValues>({
     control,
     name,
-    minRows,
-    maxRows,
     placeholder = '',
+    ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
     return (
         <TextareaAutosize
             {...field}
-            minRows={minRows}
-            maxRows={maxRows}
             className={styles.textarea}
             placeholder={placeholder}
+            {...props}
         />
     );
 };
