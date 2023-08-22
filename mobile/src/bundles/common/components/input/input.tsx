@@ -10,8 +10,8 @@ import { TextInput } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { useFormController } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/global-styles';
 
-import { globalStyles } from '../../styles/global-styles';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = TextInputProps & {
@@ -39,11 +39,11 @@ const Input = <T extends FieldValues>({
     return (
         <View>
             <Text
-                style={
-                    editable
-                        ? [styles.label, globalStyles.mv5]
-                        : [styles.disabledLabel, globalStyles.mv5]
-                }
+                style={[
+                    globalStyles.mv5,
+                    styles.label,
+                    !editable && styles.disabledLabel,
+                ]}
             >
                 {label}
             </Text>
@@ -53,21 +53,11 @@ const Input = <T extends FieldValues>({
                 onBlur={onBlur}
                 {...props}
                 style={[
-                    [
-                        styles.input,
-                        globalStyles.pl10,
-                        globalStyles.borderRadius5,
-                    ],
-                    !editable && [
-                        styles.disabled,
-                        globalStyles.pl10,
-                        globalStyles.borderRadius5,
-                    ],
-                    hasError && [
-                        styles.error,
-                        globalStyles.pl10,
-                        globalStyles.borderRadius5,
-                    ],
+                    globalStyles.pl10,
+                    globalStyles.borderRadius5,
+                    styles.input,
+                    !editable && styles.disabled,
+                    hasError && styles.error,
                 ]}
             />
             <Text style={styles.errorText}>
