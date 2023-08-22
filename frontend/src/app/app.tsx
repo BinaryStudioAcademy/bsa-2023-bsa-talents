@@ -2,7 +2,6 @@ import reactLogo from '~/assets/img/react.svg';
 import {
     Link,
     RouterOutlet,
-    Slider,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -33,12 +32,6 @@ const App: React.FC = () => {
     return (
         <>
             <img src={reactLogo} className="App-logo" width="30" alt="logo" />
-
-            <Slider
-                label="Experience*"
-                value={20}
-                containerStyle={{ width: '200px' }}
-            />
 
             <ul className="App-navigation-list">
                 <li>

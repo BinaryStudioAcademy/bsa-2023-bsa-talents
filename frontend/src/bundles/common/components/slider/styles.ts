@@ -42,9 +42,4 @@ const defaultSliderStyle = {
     },
 };
 
-const defaultSliderContainerStyle = {
-    width: 300,
-    margin: '10px',
-};
-
-export { defaultSliderContainerStyle, defaultSliderStyle };
+export { defaultSliderStyle };

@@ -1,10 +1,11 @@
 import { Box, Slider } from '@mui/material';
-import { type SxProps } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import { useCallback } from 'react';
 
+import { getValidClassNames } from '../../helpers/helpers.js';
 import { defaultExperienceMarks } from './default-values.js';
-import { defaultSliderContainerStyle, defaultSliderStyle } from './styles.js';
+import classes from './style.module.css';
+import { defaultSliderStyle } from './styles.js';
 
 type Mark = {
     label?: string;
@@ -15,14 +16,14 @@ type Properties = {
     label?: string;
     value?: number;
     marks?: Mark[] | boolean | undefined;
-    containerStyle?: SxProps;
+    className?: string;
 };
 
 const CustomSlider: React.FC<Properties> = ({
     label = 'slider label',
     value,
     marks = defaultExperienceMarks,
-    containerStyle = defaultSliderContainerStyle,
+    className = classes.sliderContainerStyle,
 }) => {
     const StyledSlider = styled(Slider)(defaultSliderStyle);
 
@@ -36,14 +37,19 @@ const CustomSlider: React.FC<Properties> = ({
     );
 
     return (
-        <Box sx={{ ...defaultSliderContainerStyle, ...containerStyle }}>
+        <Box
+            className={getValidClassNames(
+                className,
+                classes.sliderContainerStyle,
+            )}
+        >
             <span>{label}</span>
             <StyledSlider
                 aria-label={label}
                 defaultValue={value}
                 marks={marks}
                 step={null}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="on"
                 valueLabelFormat={getValueLabel}
             />
         </Box>
