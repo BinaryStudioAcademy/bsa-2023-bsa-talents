@@ -1,26 +1,28 @@
 import { createTheme } from '@mui/material/styles';
 
+import { Colors } from '../../enums/colors.enum.js';
+
 const colorTheme = createTheme({
     palette: {
         error: {
-            main: '#FF2121',
+            main: Colors.ERROR_MAIN,
         },
         action: {
-            hover: '#0084DD',
+            hover: Colors.ACTION_HOVER,
         },
         background: {
-            primary: '#F7F8FC',
-            secondary: '#18A0FB',
+            primary: Colors.BACKGROUND_PRIMARY,
+            secondary: Colors.BACKGROUND_SECONDARY,
         },
         text: {
-            primary: '#90A3BF',
-            secondary: '#7C8798',
+            primary: Colors.TEXT_PRIMARY,
+            secondary: Colors.TEXT_SECONDARY,
         },
         input: {
-            main: '#D5DCE8',
+            main: Colors.INPUT_MAIN,
         },
         tag: {
-            main: '#DCE5FF',
+            main: Colors.TAG_MAIN,
         },
     },
 });
