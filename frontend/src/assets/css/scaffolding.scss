@@ -8,9 +8,9 @@ body {
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
-    font-weight: 400;
-    font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-primary);
+    font-family: var(--font-family);
     line-height: 16px;
 }
 
@@ -36,9 +36,9 @@ body {
 input,
 label {
     font-size: 13px;
-    line-height: 1.21;
+    line-height: var(--line-height-main);
 }
 
 label {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
 }

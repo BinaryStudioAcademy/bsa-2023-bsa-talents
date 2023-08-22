@@ -1,71 +1,70 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { createTheme } from '@mui/material/styles';
 
 const typographyTheme = createTheme({
     typography: {
-        fontFamily: ['"Inter"', 'sans-serif'].join(','),
+        fontFamily: 'var(--font-family)',
         h1: {
-            fontSize: 32,
+            fontSize: 'var(--font-size-h1)',
             lineHeight: 1.19,
-            fontWeight: 700,
+            fontWeight: 'var(--font-weight-bold)',
         },
         h2: {
-            fontSize: 32,
+            fontSize: 'var(--font-size-h2)',
             lineHeight: 1.35,
-            fontWeight: 500,
+            fontWeight: 'var(--font-weight-medium)',
         },
         h3: {
-            fontSize: 24,
-            fontWeight: 500,
+            fontSize: 'var(--font-size-h3)',
+            fontWeight: 'var(--font-weight-medium)',
         },
         h4: {
-            fontSize: 24,
+            fontSize: 'var(--font-size-h4)',
             lineHeight: 1.35,
-            fontWeight: 500,
+            fontWeight: 'var(--font-weight-medium)',
         },
         h5: {
-            fontSize: 22,
-            lineHeight: 1.21,
-            fontWeight: 600,
+            fontSize: 'var(--font-size-h5)',
+            lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-semi-bold)',
         },
         h6: {
-            fontSize: 18,
-            lineHeight: 1.42,
-            fontWeight: 500,
-        },
-        menu: {
-            fontSize: 20,
+            fontSize: 'var(--font-size-h6)',
             lineHeight: 1.6,
-            fontWeight: 500,
-            letterSpacing: 0.15,
+            fontWeight: 'var(--font-weight-medium)',
+            letterSpacing: 'var(--letter-spacing-menu)',
         },
         body1: {
-            fontSize: 14,
+            fontSize: 'var(--font-size-secondary)',
             lineHeight: 1.33,
         },
+        body2: {
+            fontSize: 'var(--font-size-third)',
+            lineHeight: 1.42,
+            fontWeight: 'var(--font-weight-medium)',
+        },
         buttonBig: {
-            fontSize: 15,
-            lineHeight: 1.21,
+            fontSize: 'var(--font-size-btn-lg)',
+            lineHeight: 'var(--line-height-main)',
         },
         buttonSmall: {
-            fontSize: 13,
-            lineHeight: 1.21,
-            fontWeight: 500,
+            fontSize: 'var(--font-size-btn-sm)',
+            lineHeight: 'var(--line-height-main)',
+            fontWeight: 'var(--font-weight-medium)',
         },
         caption: {
-            lineHeight: 1.21,
+            lineHeight: 'var(--line-height-main)',
         },
         step: {
-            fontWeight: 700,
-            letterSpacing: 1.5,
+            fontWeight: 'var(--font-weight-bold)',
+            letterSpacing: 'var(--letter-spacing-step)',
         },
     },
     components: {
         MuiTypography: {
             defaultProps: {
                 variantMapping: {
-                    menu: 'h4',
                     caption: 'p',
-                    h6: 'p',
                 },
             },
         },

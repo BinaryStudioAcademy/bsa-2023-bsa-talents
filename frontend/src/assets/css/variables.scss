@@ -1,0 +1,31 @@
+:root {
+    /* Font family. */
+    --font-family: "Inter", sans-serif;
+
+    /* Font sizes */
+    --font-size-h1: 32px;
+    --font-size-h2: 32px;
+    --font-size-h3: 24px;
+    --font-size-h4: 24px;
+    --font-size-h5: 22px;
+    --font-size-h6: 20px;
+    --font-size-secondary: 14px;
+    --font-size-primary: 16px;
+    --font-size-third: 18px;
+    --font-size-btn-sm: 13px;
+    --font-size-btn-lg: 15px;
+
+    /* Line height */
+    --line-height-main: 1.21;
+
+    /* Letter spacings. */
+    --letter-spacing-menu: 0.15px;
+    --letter-spacing-step-desc: 0.25px;
+    --letter-spacing-step: 1.5px;
+
+    /* Font weight */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semi-bold: 600;
+    --font-weight-bold: 700;
+}
