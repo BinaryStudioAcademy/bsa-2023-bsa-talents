@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
+
 import {
     type TypographyPropsVariantOverrides as MuiTypographyPropertiesVariantOverrides,
     type TypographyVariants as MuiTypographyVariants,
@@ -14,15 +16,14 @@ declare module '@mui/material/styles' {
     }
 
     interface TypographyVariantsOptions extends MuiTypographyVariantsOptions {
-        menu?: React.CSSProperties;
-        step?: React.CSSProperties;
-        buttonBig?: React.CSSProperties;
-        buttonSmall?: React.CSSProperties;
+        menu: React.CSSProperties;
+        step: React.CSSProperties;
+        buttonBig: React.CSSProperties;
+        buttonSmall: React.CSSProperties;
     }
 }
 
 declare module '@mui/material/Typography' {
-    // eslint-disable-next-line unicorn/prevent-abbreviations
     interface TypographyPropsVariantOverrides
         extends MuiTypographyPropertiesVariantOverrides {
         menu: true;
