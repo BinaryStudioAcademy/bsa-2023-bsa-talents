@@ -13,13 +13,6 @@
         box-shadow 0.3s;
 }
 
-.container:focus {
-    border-color: #80bdff;
-    box-shadow:
-        0 0 0 0.2 "#007BFF",
-        0.25;
-}
-
 .container .icon {
     width: 20px;
     height: 20px;
@@ -29,4 +22,8 @@
 
 .container div[aria-expanded="true"] ~ .icon {
     transform: rotate(180deg);
+}
+
+.container fieldset {
+    border: 1px solid #d5dce8;
 }
