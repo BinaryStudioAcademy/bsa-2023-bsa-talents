@@ -20,7 +20,6 @@ type Properties<T extends FieldValues> = {
 
 const Textarea = <T extends FieldValues>({
     control,
-    label,
     name,
     minRows,
     maxRows,
@@ -29,18 +28,13 @@ const Textarea = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
 
     return (
-        <div className={styles.container}>
-            <label className={styles.label} htmlFor={field.name}>
-                {label}
-            </label>
-            <TextareaAutosize
-                {...field}
-                minRows={minRows}
-                maxRows={maxRows}
-                className={styles.textarea}
-                placeholder={placeholder}
-            />
-        </div>
+        <TextareaAutosize
+            {...field}
+            minRows={minRows}
+            maxRows={maxRows}
+            className={styles.textarea}
+            placeholder={placeholder}
+        />
     );
 };
 
