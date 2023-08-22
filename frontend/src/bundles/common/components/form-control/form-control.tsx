@@ -1,6 +1,8 @@
 import { type FormControlProps as MUIFormControlProperties } from '@mui/material';
 import { FormControl as MUIFormControl } from '@mui/material';
 
+import { ColorProperty, InputVariant } from '../../enums/enums.js';
+
 type Properties = MUIFormControlProperties & {
     isError?: boolean;
     isDisabled?: boolean;
@@ -8,8 +10,8 @@ type Properties = MUIFormControlProperties & {
 
 const FormControl: React.FC<Properties> = ({
     children,
-    color,
-    variant,
+    color = ColorProperty.PRIMARY,
+    variant = InputVariant.STANDARD,
     isError = false,
     isDisabled = false,
     className = '',
