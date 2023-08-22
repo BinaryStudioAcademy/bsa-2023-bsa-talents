@@ -11,17 +11,14 @@ import { TextInput } from 'react-native';
 import { Text, View } from '~/bundles/common/components/components';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 
+import { globalStyles } from '../../styles/global-styles';
 import { styles } from './styles';
-
-type InputType = 'text' | 'number' | 'email' | 'password';
 
 type Properties<T extends FieldValues> = TextInputProps & {
     control: Control<T, null>;
     errors: FieldErrors<T>;
     label: string;
     name: FieldPath<T>;
-    placeholder: string;
-    type: InputType;
 };
 
 const Input = <T extends FieldValues>({
@@ -29,9 +26,8 @@ const Input = <T extends FieldValues>({
     errors,
     label,
     name,
-    placeholder,
-    type,
-    ...properties
+    editable,
+    ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -44,9 +40,9 @@ const Input = <T extends FieldValues>({
         <View>
             <Text
                 style={
-                    properties.editable === false
-                        ? styles.disabledLabel
-                        : styles.label
+                    editable
+                        ? [styles.label, globalStyles.mv5]
+                        : [styles.disabledLabel, globalStyles.mv5]
                 }
             >
                 {label}
@@ -55,14 +51,23 @@ const Input = <T extends FieldValues>({
                 onChangeText={onChange}
                 value={value}
                 onBlur={onBlur}
-                placeholder={placeholder}
-                keyboardType={type === 'number' ? 'numeric' : 'default'}
-                {...properties}
+                {...props}
                 style={[
-                    properties.editable === false
-                        ? styles.disabled
-                        : styles.input,
-                    hasError ? styles.error : styles.input,
+                    [
+                        styles.input,
+                        globalStyles.pl10,
+                        globalStyles.borderRadius5,
+                    ],
+                    !editable && [
+                        styles.disabled,
+                        globalStyles.pl10,
+                        globalStyles.borderRadius5,
+                    ],
+                    hasError && [
+                        styles.error,
+                        globalStyles.pl10,
+                        globalStyles.borderRadius5,
+                    ],
                 ]}
             />
             <Text style={styles.errorText}>
