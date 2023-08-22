@@ -7,6 +7,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { FormField } from '~/bundles/common/components/form-field/form-field';
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
@@ -32,23 +33,28 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <View>
             <Text>Sign Up</Text>
-            <Input
-                control={control}
-                errors={errors}
-                label="Email"
-                name="email"
-                placeholder="Enter your email"
-                editable
-            />
-            <Input
-                control={control}
+            <FormField errors={errors} label="Email" name="email" required>
+                <Input
+                    control={control}
+                    name="email"
+                    placeholder="Enter your email"
+                    editable
+                />
+            </FormField>
+            <FormField
                 errors={errors}
                 label="Password"
                 name="password"
-                placeholder="Enter your password"
-                secureTextEntry
-                editable
-            />
+                required
+            >
+                <Input
+                    control={control}
+                    name="password"
+                    placeholder="Enter your password"
+                    editable
+                    secureTextEntry
+                />
+            </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />
             <Link label="Go to Sign In" to={`/${RootScreenName.SIGN_IN}`} />
         </View>
