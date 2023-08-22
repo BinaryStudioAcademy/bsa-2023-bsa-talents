@@ -17,6 +17,8 @@ ls:
 
 ignore:
     - .git
+    - .github
+    - .idea
     - node_modules
     - build
     - shared/build
