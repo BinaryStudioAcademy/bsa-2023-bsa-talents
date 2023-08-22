@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 37,
         alignItems: 'center',
+        justifyContent: 'center',
         borderWidth: 2,
         borderRadius: 5,
         fontSize: 15,
         fontWeight: '500',
-        justifyContent: 'center',
         borderColor: 'transparent',
     },
     label: {
