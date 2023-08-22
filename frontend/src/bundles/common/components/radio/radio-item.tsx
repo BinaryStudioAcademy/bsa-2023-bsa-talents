@@ -1,45 +1,45 @@
 import { Radio as RadioMUI } from '@mui/material';
-import { type SxProps, type Theme } from '@mui/material';
 
-import { type Color } from '~/bundles/common/enums/enums.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+
+import styles from './styles.module.scss';
 
 type Properties = {
     value: string;
     isChecked?: boolean;
     isDisabled?: boolean;
     isDisableRipple?: boolean;
-    color?: ValueOf<typeof Color>;
-    size?: 'small' | 'medium';
-    sx?: SxProps<Theme>;
-    checkedIcon?: React.ReactNode;
-    icon?: React.ReactNode;
+    className?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+const radioClasses = getValidClassNames(styles['radio-icon'], {
+    [styles.radioHover]: true,
+});
+const radioCheckedClasses = getValidClassNames(
+    styles['radio-icon'],
+    styles['radio-icon-checked'],
+);
+const RadioIcon = <span className={radioClasses} />;
+const RadioIconChecked = <span className={radioCheckedClasses} />;
 
 const Radio: React.FC<Properties> = ({
     value,
     isChecked = false,
     isDisabled = false,
     isDisableRipple = false,
-    color,
-    size,
-    sx,
-    checkedIcon,
-    icon,
+    className,
     onChange,
 }) => {
     return (
         <RadioMUI
             value={value}
-            checkedIcon={checkedIcon}
-            icon={icon}
+            checkedIcon={RadioIconChecked}
+            icon={RadioIcon}
             checked={isChecked}
             disabled={isDisabled}
             disableRipple={isDisableRipple}
-            color={color}
-            size={size}
-            sx={sx}
+            className={className}
             onChange={onChange}
         />
     );
