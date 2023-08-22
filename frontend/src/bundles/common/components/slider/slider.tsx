@@ -15,23 +15,27 @@ type Mark = {
 type Properties = {
     label?: string;
     value?: number;
-    marks?: Mark[] | boolean | undefined;
     className?: string;
+    step?: number | null;
+    valueLabelDisplay?: 'auto' | 'on' | 'off';
+    marks: Mark[];
 };
 
 const CustomSlider: React.FC<Properties> = ({
-    label = 'slider label',
+    label,
     value,
     marks = defaultExperienceMarks,
     className = classes.sliderContainerStyle,
+    step = null,
+    valueLabelDisplay = 'on',
 }) => {
     const StyledSlider = styled(Slider)(defaultSliderStyle);
 
     const getValueLabel = useCallback(
-        (value: number): string | undefined => {
+        (value: number): string | null => {
             return Array.isArray(marks)
                 ? (marks.find((mark) => mark.value === value)?.label as string)
-                : 'undefined';
+                : null;
         },
         [marks],
     );
@@ -43,13 +47,13 @@ const CustomSlider: React.FC<Properties> = ({
                 classes.sliderContainerStyle,
             )}
         >
-            <span>{label}</span>
+            {label && <span>{label}</span>}
             <StyledSlider
                 aria-label={label}
                 defaultValue={value}
                 marks={marks}
-                step={null}
-                valueLabelDisplay="on"
+                step={step}
+                valueLabelDisplay={valueLabelDisplay}
                 valueLabelFormat={getValueLabel}
             />
         </Box>
