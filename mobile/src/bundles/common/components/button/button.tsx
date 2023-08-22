@@ -1,10 +1,6 @@
 import React from 'react';
 import { Pressable } from 'react-native';
-import {
-    type PressableProps,
-    type StyleProp,
-    type ViewStyle,
-} from 'react-native';
+import { type PressableProps } from 'react-native';
 
 import { Text } from '~/bundles/common/components/components';
 
@@ -16,16 +12,15 @@ type StyleRecord = Record<string, unknown>;
 
 type Properties = {
     label: string;
-    pressableStyle?: StyleProp<ViewStyle>;
     buttonType?: ButtonTypeName;
-} & Omit<PressableProps, 'style'>;
+} & PressableProps;
 
 const Button: React.FC<Properties> = ({
     label,
-    pressableStyle,
+    style: pressableStyle,
     buttonType = 'FILLED',
     disabled = false,
-    ...properties
+    ...props
 }) => {
     const buttonStyleChoose: Record<ButtonTypeName, StyleRecord> = {
         FILLED: styles.button_primary,
@@ -51,7 +46,6 @@ const Button: React.FC<Properties> = ({
     };
 
     const isFilledButton = buttonType === 'FILLED';
-
     return (
         <Pressable
             disabled={disabled}
@@ -62,18 +56,22 @@ const Button: React.FC<Properties> = ({
                 disabled ? buttonStyleDisabled[buttonType] : {},
                 (pressableStyle as StyleRecord | undefined) ?? {},
             ]}
-            {...properties}
+            {...props}
         >
             {({ pressed }): JSX.Element => (
-                <Text
-                    style={[
-                        isFilledButton ? styles.label : styles.label_secondary,
-                        pressed && pressedStyleLabel[buttonType],
-                        disabled && styles.content_disabled,
-                    ]}
-                >
-                    {label}
-                </Text>
+                <>
+                    <Text
+                        style={[
+                            isFilledButton
+                                ? styles.label
+                                : styles.label_secondary,
+                            pressed && pressedStyleLabel[buttonType],
+                            disabled && styles.content_disabled,
+                        ]}
+                    >
+                        {label}
+                    </Text>
+                </>
             )}
         </Pressable>
     );
