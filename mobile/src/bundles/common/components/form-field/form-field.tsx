@@ -16,6 +16,7 @@ type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     required: boolean;
     children: React.ReactNode;
+    hasError?: boolean;
 };
 
 const FormField = <T extends FieldValues>({
@@ -37,7 +38,14 @@ const FormField = <T extends FieldValues>({
                 </Text>
             )}
 
-            {children}
+            {React.Children.map(children, (child) => {
+                return React.cloneElement(
+                    child as React.ReactElement<Properties<T>>,
+                    {
+                        hasError,
+                    },
+                );
+            })}
 
             <Text style={styles.errorText}>
                 {hasError && (error as string)}
