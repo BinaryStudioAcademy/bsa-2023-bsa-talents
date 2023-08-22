@@ -41,13 +41,13 @@ const Button: React.FC<Properties> = ({
     const buttonStyleDisabled: Record<ButtonTypeName, StyleRecord> = {
         FILLED: styles.button_primary_disabled,
         OUTLINE: styles.button_secondary_disabled,
-        GHOST: styles.icon_pressed,
+        GHOST: styles.content_disabled,
     };
 
     const pressedStyleLabel: Record<ButtonTypeName, StyleRecord> = {
         FILLED: styles.label,
-        OUTLINE: styles.label_secondary_pressed,
-        GHOST: styles.label_secondary_pressed,
+        OUTLINE: styles.content_pressed,
+        GHOST: styles.content_pressed,
     };
 
     const isFilledButton = buttonType === 'FILLED';

@@ -8,6 +8,8 @@ const Color = {
     TEXT2: '#90A3BF',
     TEXTDARK: '#7C8798',
     TAG: '#DCE5FF',
+    BUTTON_PRESSED: '#2E61AE',
+    BUTTON_DISABLED: '#AAB1BB',
 } as const;
 
 export { Color };

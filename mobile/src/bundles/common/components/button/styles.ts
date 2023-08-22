@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { Color } from '../../enums/enums';
+
 const styles = StyleSheet.create({
     button: {
         paddingVertical: 15,
@@ -18,50 +20,47 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     label_secondary: {
-        color: '#274F8D',
+        color: Color.PRIMARY,
     },
-    label_secondary_pressed: {
-        color: '#2E61AE',
+    content_pressed: {
+        color: Color.BUTTON_PRESSED,
     },
     button_primary: {
-        backgroundColor: '#274F8D',
+        backgroundColor: Color.PRIMARY,
     },
     button_secondary: {
         backgroundColor: '#FFFFFF',
-        borderColor: '#274F8D',
+        borderColor: Color.PRIMARY,
     },
     button_primary_pressed: {
-        backgroundColor: '#2E61AE',
+        backgroundColor: Color.BUTTON_PRESSED,
     },
     button_secondary_pressed: {
-        borderColor: '#2E61AE',
+        borderColor: Color.BUTTON_PRESSED,
+    },
+    button_with_icon_pressed: {
+        color: Color.BUTTON_PRESSED,
     },
     button_primary_disabled: {
-        backgroundColor: '#F7F8FC',
+        backgroundColor: Color.BACKGROUND,
     },
     button_secondary_disabled: {
         backgroundColor: '#FFFFFF',
-        borderColor: '#D5DCE8',
+        borderColor: Color.INPUT,
     },
     button_with_icon: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
-        color: '#274F8D',
+        color: Color.PRIMARY,
         borderRadius: 24,
         fontSize: 13,
         fontFamily: 600,
     },
-    button_with_icon_pressed: {
-        color: '#2E61AE',
-    },
     icon: {
-        color: '#274F8D',
-    },
-    icon_pressed: {
-        color: '#2E61AE',
+        color: Color.PRIMARY,
     },
     content_disabled: {
-        color: '#AAB1BB',
+        color: Color.BUTTON_DISABLED,
     },
 });
 
