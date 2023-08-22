@@ -9,7 +9,6 @@ import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
@@ -57,14 +56,12 @@ const Input = <T extends FieldValues>({
                     globalStyles.pl10,
                     globalStyles.borderRadius5,
                     styles.input,
-                    !editable && [
-                        styles.disabled,
-                        { backgroundColor: Color.INPUT },
-                    ],
-                    hasError && { borderColor: Color.ERROR },
+                    !editable && styles.disabled,
+
+                    hasError && styles.error,
                 ]}
             />
-            <Text style={{ color: Color.ERROR }}>
+            <Text style={styles.errorText}>
                 {hasError && (error as string)}
             </Text>
         </View>

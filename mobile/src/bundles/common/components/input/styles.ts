@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { Color } from '~/bundles/common/enums/enums';
+
 const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
@@ -10,7 +12,14 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 15,
     },
+    error: {
+        borderColor: Color.ERROR,
+    },
+    errorText: {
+        color: Color.ERROR,
+    },
     disabled: {
+        backgroundColor: Color.INPUT,
         opacity: 0.5,
     },
     disabledLabel: {
