@@ -1,6 +1,6 @@
 export { DataStatus } from './app/app';
 export { RootScreenName } from './navigation/navigation';
-export { AlignmentValue } from './styles/styles';
+export { AlignmentValue, TextCategory } from './styles/styles';
 export {
     ApiPath,
     AppEnvironment,
