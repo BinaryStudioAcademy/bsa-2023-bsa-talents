@@ -10,8 +10,12 @@ type Properties = TextProps & {
     children: React.ReactNode;
 };
 
-const Text: React.FC<Properties> = ({ category, style, children }) => {
-    const textStyles = [category && globalStyles[category], style];
+const Text: React.FC<Properties> = ({
+    category = 'BODY1',
+    style,
+    children,
+}) => {
+    const textStyles = [globalStyles[category], style];
 
     return <RNText style={textStyles}>{children}</RNText>;
 };
