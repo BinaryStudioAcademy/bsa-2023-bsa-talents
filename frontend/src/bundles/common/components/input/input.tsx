@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -6,7 +6,7 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-//import searchIcon from '~/assets/img/search.svg';
+import searchIcon from '~/assets/img/search.svg';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
@@ -22,6 +22,7 @@ type Properties<T extends FieldValues> = {
     placeholder?: string;
     type?: InputType;
     disabled?: boolean;
+    adornmentText?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -32,6 +33,7 @@ const Input = <T extends FieldValues>({
     placeholder = '',
     type = 'text',
     disabled = false,
+    adornmentText = '',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -42,7 +44,32 @@ const Input = <T extends FieldValues>({
         styles.root,
         disabled && styles.disabled,
         hasError && styles.error,
+        adornmentText && styles.hasAdornsment,
     );
+
+    let adornment = null;
+    if (type === 'search') {
+        const iconAdornmentStyles = getValidClassNames(
+            styles['MuiInputAdornment-root'],
+            styles.adornmentIcon,
+        );
+        adornment = (
+            <InputAdornment position="start" className={iconAdornmentStyles}>
+                <img src={searchIcon} alt="search" />
+            </InputAdornment>
+        );
+    }
+    if (adornmentText) {
+        const textAdornmentStyles = getValidClassNames(
+            styles['MuiInputAdornment-root'],
+            styles.adornmentText,
+        );
+        adornment = (
+            <InputAdornment position="start" className={textAdornmentStyles}>
+                {adornmentText}
+            </InputAdornment>
+        );
+    }
 
     return (
         <label className={styles.wrapper}>
@@ -57,7 +84,13 @@ const Input = <T extends FieldValues>({
                 helperText={(error as string) || ' '}
                 disabled={disabled}
                 className={generatedRootStyles}
-                InputProps={{ className: styles['MuiInputBase-root'] }}
+                InputProps={{
+                    className: getValidClassNames(
+                        styles['MuiInputBase-root'],
+                        styles['MuiOutlinedInput-root'],
+                    ),
+                    startAdornment: adornment,
+                }}
                 inputProps={{ className: styles['MuiInputBase-input'] }}
             />
         </label>
