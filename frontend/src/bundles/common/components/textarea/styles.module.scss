@@ -3,15 +3,15 @@
 .textarea {
     width: 100%;
     padding: 10px 0 0 14px;
-    border: 1px solid $text-light;
+    border: 1px solid var(--text-light);
     border-radius: 4px;
 }
 
 .textarea:focus {
-    border-color: $hover;
+    border-color: var(--hover);
     outline: 0;
 }
 
 .textarea:hover {
-    border-color: $hover;
+    border-color: var(--hover);
 }
