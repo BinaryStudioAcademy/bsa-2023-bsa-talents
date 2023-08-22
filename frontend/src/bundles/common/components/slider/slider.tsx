@@ -3,28 +3,27 @@ import { styled } from '@mui/material/styles';
 import { useCallback } from 'react';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
-import { defaultExperienceMarks } from './default-values.js';
 import classes from './style.module.css';
 import { defaultSliderStyle } from './styles.js';
 
-type Mark = {
+type Option = {
     label?: string;
     value: number;
 };
 
 type Properties = {
+    marks: Option[];
     label?: string;
     value?: number;
     className?: string;
     step?: number | null;
     valueLabelDisplay?: 'auto' | 'on' | 'off';
-    marks: Mark[];
 };
 
 const CustomSlider: React.FC<Properties> = ({
+    marks = [],
     label,
     value,
-    marks = defaultExperienceMarks,
     className = classes.sliderContainerStyle,
     step = null,
     valueLabelDisplay = 'on',
@@ -33,9 +32,8 @@ const CustomSlider: React.FC<Properties> = ({
 
     const getValueLabel = useCallback(
         (value: number): string | null => {
-            return Array.isArray(marks)
-                ? (marks.find((mark) => mark.value === value)?.label as string)
-                : null;
+            const label = marks.find((mark) => mark.value === value)?.label;
+            return label ?? null;
         },
         [marks],
     );
