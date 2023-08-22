@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    font-family: Inter, sans-serif;
+}
+
+.container .input {
+    height: 38px;
+    padding: 10px 7px 12px 14px;
+    color: #90a3bf;
+    font-weight: 400;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+}
+
+.container:focus {
+    border-color: #80bdff;
+    box-shadow:
+        0 0 0 0.2 "#007BFF",
+        0.25;
+}
+
+.container .icon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.container div[aria-expanded="true"] ~ .icon {
+    transform: rotate(180deg);
+}
