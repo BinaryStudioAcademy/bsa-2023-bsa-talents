@@ -8,6 +8,7 @@ const Color = {
     TEXT2: '#90A3BF',
     TEXTDARK: '#7C8798',
     TAG: '#DCE5FF',
+    TEXT: '#1F1E29',
 } as const;
 
 export { Color };
