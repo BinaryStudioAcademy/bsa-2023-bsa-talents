@@ -24,7 +24,7 @@ type ButtonName = (typeof ButtonType)[keyof typeof ButtonType];
 
 type Properties = {
     label: string;
-    buttonType: ButtonName;
+    buttonType?: ButtonName;
     iconName?: string;
     iconSize?: number;
 } & PressableProps;
@@ -36,7 +36,7 @@ const Button: React.FC<Properties> = ({
     style: pressableStyle,
     iconName,
     iconSize = iconDefaultSize,
-    buttonType,
+    buttonType = ButtonType.FILLED,
     disabled = false,
     ...props
 }) => {
@@ -63,7 +63,7 @@ const Button: React.FC<Properties> = ({
                 },
             };
         }, []);
-    const isFilledButton = buttonType === ButtonType.FILLED;
+    const isFilledButton = ButtonType.FILLED === (buttonType as string);
     return (
         <Pressable
             disabled={disabled}

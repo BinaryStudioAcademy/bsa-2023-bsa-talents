@@ -7,7 +7,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, RootScreenName } from '~/bundles/common/enums/enums';
+import { RootScreenName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
@@ -49,11 +49,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 secureTextEntry
                 editable
             />
-            <Button
-                buttonType={ButtonType.FILLED}
-                label="Sign up"
-                onPress={handleFormSubmit}
-            />
+            <Button label="Sign up" onPress={handleFormSubmit} />
             <Link label="Go to Sign In" to={`/${RootScreenName.SIGN_IN}`} />
         </View>
     );
