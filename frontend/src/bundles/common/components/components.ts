@@ -1,7 +1,7 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
-export { FormControl } from './form-control/form-control.js';
 export { Checkbox } from './checkbox/checkbox.js';
+export { FormControl } from './form-control/form-control.js';
 export { Grid } from './grid/grid.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
