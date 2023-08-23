@@ -16,12 +16,6 @@ const SIZES = {
     borderRadius5: {
         borderRadius: 5,
     },
-    borderRadius24: {
-        borderRadius: 24,
-    },
-    borderWidth2: {
-        borderWidth: 2,
-    },
 };
 
 export { SIZES };

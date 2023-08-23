@@ -30,7 +30,7 @@ const iconDefaultSize = 32;
 
 const Button: React.FC<Properties> = ({
     label,
-    style: pressAbleStyle,
+    style: pressableStyle,
     iconName,
     iconSize = iconDefaultSize,
     buttonType = ButtonType.FILLED,
@@ -62,25 +62,23 @@ const Button: React.FC<Properties> = ({
         }, []);
 
     const isFilledButton = buttonType === ButtonType.FILLED;
-    const isGhostButton = buttonType === ButtonType.GHOST;
     return (
         <Pressable
             disabled={disabled}
             style={({ pressed }): StyleRecord[] => [
-                isGhostButton
-                    ? (globalStyles.borderRadius24,
-                      globalStyles.flexDirectionRow)
+                iconName
+                    ? globalStyles.flexDirectionRow
                     : globalStyles.borderRadius5,
                 globalStyles.pv10,
                 globalStyles.ph25,
                 globalStyles.alignItemsCenter,
                 globalStyles.justifyContentCenter,
-                globalStyles.borderWidth2,
+
                 styles.button,
                 componentStyles[buttonType].style,
                 pressed && componentStyles[buttonType].pressed,
                 disabled && componentStyles[buttonType].disabled,
-                pressAbleStyle as Record<string, unknown>,
+                pressableStyle as Record<string, unknown>,
             ]}
             {...props}
         >
@@ -92,6 +90,7 @@ const Button: React.FC<Properties> = ({
                             size={iconSize}
                             style={[
                                 styles.icon,
+                                globalStyles.mr5,
                                 pressed && styles.button_ghost_pressed,
                                 disabled && styles.content_disabled,
                             ]}
