@@ -1,0 +1,29 @@
+.checkboxIcon {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--checkbox-border);
+    border-radius: 4px;
+
+    input:disabled + & {
+        background-color: var(--checkbox-disabled);
+    }
+
+    input:disabled:checked + & {
+        background-color: var(--checkbox-disabled-checked);
+        border-color: var(--checkbox-disabled-checked);
+    }
+}
+
+.checkboxIconChecked {
+    position: relative;
+    background-color: var(--checkbox-checked);
+    border-color: var(--checkbox-checked);
+
+    svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        color: white;
+        transition: 1s;
+    }
+}

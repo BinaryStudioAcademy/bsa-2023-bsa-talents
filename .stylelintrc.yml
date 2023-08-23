@@ -8,7 +8,7 @@ rules:
     selector-class-pattern: null
     color-hex-length: long
     declaration-no-important: true
-    max-nesting-depth: 0
+    max-nesting-depth: 1
     no-descending-specificity: true
     scss/at-import-partial-extension: always
     unit-disallowed-list:
