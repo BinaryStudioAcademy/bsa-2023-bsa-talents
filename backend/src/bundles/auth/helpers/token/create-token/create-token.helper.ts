@@ -2,12 +2,11 @@ import * as jose from 'jose';
 
 import { config } from '~/common/config/config.js';
 
-const createToken = async ({ id }: jose.JWTPayload): Promise<string> => {
-    const secret = new TextEncoder().encode(config.ENV.JWT.SECRET);
-    const alg = 'HS256';
+import { secret } from '../encoded-secret.js';
 
+const createToken = async ({ id }: jose.JWTPayload): Promise<string> => {
     return await new jose.SignJWT({ id })
-        .setProtectedHeader({ alg })
+        .setProtectedHeader({ alg: config.ENV.JWT.ALG })
         .setIssuedAt()
         .setExpirationTime(config.ENV.JWT.EXPIRES_IN)
         .sign(secret);
