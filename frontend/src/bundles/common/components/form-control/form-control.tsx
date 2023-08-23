@@ -1,7 +1,7 @@
 import { type FormControlProps as MUIFormControlProperties } from '@mui/material';
 import { FormControl as MUIFormControl } from '@mui/material';
 
-import { ColorProperty, InputVariant } from '../../enums/enums.js';
+import { ColorProperty, InputVariant } from '~/bundles/common/enums/enums.js';
 
 type Properties = MUIFormControlProperties & {
     isError?: boolean;
