@@ -10,6 +10,7 @@ const Color = {
     TAG: '#DCE5FF',
     BUTTON_PRESSED: '#2E61AE',
     BUTTON_DISABLED: '#AAB1BB',
+    TEXT: '#1F1E29',
 } as const;
 
 export { Color };

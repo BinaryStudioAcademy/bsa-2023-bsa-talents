@@ -1,6 +1,6 @@
 export { DataStatus } from './app/app';
 export { RootScreenName } from './navigation/navigation';
-export { AlignmentValue } from './styles/styles';
+export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export { ButtonType, Color } from './ui/ui';
 export {
     ApiPath,
