@@ -1,13 +1,13 @@
 const FontFamily = {
-    INTER_100: 'inter-thin',
-    INTER_200: 'inter-extralight',
-    INTER_300: 'inter-light',
-    INTER_400: 'inter-regular',
-    INTER_500: 'inter-medium',
-    INTER_600: 'inter-semibold',
-    INTER_700: 'inter-bold',
-    INTER_800: 'inter-extrabold',
-    INTER_900: 'inter-black',
+    INTER_THIN: 'inter-thin',
+    INTER_EXTRALIGHT: 'inter-extralight',
+    INTER_LIGHT: 'inter-light',
+    INTER_REGULAR: 'inter-regular',
+    INTER_MEDIUM: 'inter-medium',
+    INTER_SEMIBOLD: 'inter-semibold',
+    INTER_BOLD: 'inter-bold',
+    INTER_EXTRABOLD: 'inter-extrabold',
+    INTER_BLACK: 'inter-black',
 } as const;
 
 export { FontFamily };

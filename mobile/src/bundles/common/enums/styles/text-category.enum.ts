@@ -5,12 +5,12 @@ const TextCategory = {
     H4: 'H4',
     H5: 'H5',
     H6: 'H6',
-    MENU: 'MENU',
-    BODY1: 'BODY1',
-    BUTTON: 'BUTTON',
-    CAPTION: 'CAPTION',
-    INPUT: 'INPUT',
-    LABEL: 'LABEL',
+    MENU: 'Menu',
+    BODY1: 'Body1',
+    BUTTON: 'Button',
+    CAPTION: 'Caption',
+    INPUT: 'Input',
+    LABEL: 'Label',
 } as const;
 
 export { TextCategory };
