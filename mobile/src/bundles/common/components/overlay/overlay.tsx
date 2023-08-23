@@ -1,14 +1,22 @@
 import React from 'react';
 
-import { View } from '~/bundles/common/components/components';
+import {
+    ActivityIndicator,
+    View,
+} from '~/bundles/common/components/components';
 
+import { Color } from '../../enums/enums';
 import { globalStyles } from '../../styles/global-styles';
 import { styles } from './styles';
 
 type OverlayProperties = {
     isActive: boolean;
+    color?: string;
 };
-const Button: React.FC<OverlayProperties> = ({ isActive }) => {
+const Overlay: React.FC<OverlayProperties> = ({
+    isActive,
+    color = Color.PRIMARY,
+}) => {
     if (!isActive) {
         return false;
     }
@@ -17,10 +25,13 @@ const Button: React.FC<OverlayProperties> = ({ isActive }) => {
             style={[
                 globalStyles.width100,
                 globalStyles.height100,
+                globalStyles.justifyContentCenter,
                 styles.wrapper,
             ]}
-        ></View>
+        >
+            <ActivityIndicator color={color} size="large" />
+        </View>
     );
 };
 
-export { Button };
+export { Overlay };
