@@ -6,7 +6,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { ButtonType, RootScreenName } from '~/bundles/common/enums/enums';
 
 type Properties = {
     onSubmit: () => void;
@@ -17,6 +17,7 @@ const SignInForm: React.FC<Properties> = () => {
         <View>
             <Text>Sign In</Text>
             <Button
+                buttonType={ButtonType.FILLED}
                 label="Sign in"
                 onPress={(): void => {
                     // TODO: handle Sign in
