@@ -11,6 +11,7 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
+import { errorService } from '~/services/error/error.service.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -40,13 +41,14 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
             },
-            middleware: (getDefaultMiddleware) => {
-                return getDefaultMiddleware({
+            middleware: (getDefaultMiddleware) => [
+                ...getDefaultMiddleware({
                     thunk: {
                         extraArgument: this.extraArguments,
                     },
-                });
-            },
+                }),
+                errorService,
+            ],
         });
     }
 
