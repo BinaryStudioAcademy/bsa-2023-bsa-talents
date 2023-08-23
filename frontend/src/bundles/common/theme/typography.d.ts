@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-
 import {
     type TypographyPropsVariantOverrides as MuiTypographyPropertiesVariantOverrides,
     type TypographyVariants as MuiTypographyVariants,

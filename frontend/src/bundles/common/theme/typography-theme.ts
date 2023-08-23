@@ -11,27 +11,27 @@ const typographyTheme = createTheme({
         },
         h2: {
             fontSize: 'var(--font-size-h2)',
-            lineHeight: 'var( --line-height-h2-h4)',
+            lineHeight: 'var(--line-height-h2-h4)',
             fontWeight: 'var(--font-weight-bold)',
         },
         h3: {
             fontSize: 'var(--font-size-h3)',
-            lineHeight: 'var( --line-height-h2-h4)',
+            lineHeight: 'var(--line-height-h2-h4)',
             fontWeight: 'var(--font-weight-medium)',
         },
         h4: {
             fontSize: 'var(--font-size-h4)',
-            lineHeight: 'var( --line-height-h2-h4)',
+            lineHeight: 'var(--line-height-h2-h4)',
             fontWeight: 'var(--font-weight-medium)',
         },
         h5: {
             fontSize: 'var(--font-size-h5)',
-            lineHeight: 'var( --line-height-h5-h6)',
+            lineHeight: 'var(--line-height-h5-h6)',
             fontWeight: 'var(--font-weight-medium)',
         },
         h6: {
             fontSize: 'var(--font-size-h6)',
-            lineHeight: 'var( --line-height-h5-h6)',
+            lineHeight: 'var(--line-height-h5-h6)',
             fontWeight: 'var(--font-weight-medium)',
         },
         menu: {
@@ -55,12 +55,12 @@ const typographyTheme = createTheme({
             fontWeight: 'var(--font-weight-regular)',
         },
         input: {
-            fontSize: 'var(--font-size-input)',
+            fontSize: 'var(--font-size-base)',
             lineHeight: 'var(--line-height-main)',
             fontWeight: 'var(--font-weight-regular)',
         },
         label: {
-            fontSize: 'var(--font-size-label)',
+            fontSize: 'var(--font-size-base)',
             lineHeight: 'var(--line-height-main)',
             fontWeight: 'var(--font-weight-medium)',
         },
