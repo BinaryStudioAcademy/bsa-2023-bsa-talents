@@ -41,6 +41,8 @@ rules:
           message: Exports should be at the end of the file.
         - selector: ImportDeclaration[importKind=type],ExportNamedDeclaration[exportKind=type]
           message: Avoid import/export type { Type } from './module'. Prefer import/export { type Type } from './module'.
+        - selector: TSEnumDeclaration,ClassDeclaration[abstract=true]
+          message: TS enum are forbidden use js object instead
     no-console:
         - error
     max-params:
@@ -54,6 +56,10 @@ rules:
         - all
     unicorn/no-null:
         - off
+    unicorn/prevent-abbreviations:
+        - error
+        - allowList:
+              props: true
     '@typescript-eslint/padding-line-between-statements':
         - error
         - blankLine: never
