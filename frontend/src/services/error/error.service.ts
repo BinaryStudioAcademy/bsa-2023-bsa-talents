@@ -6,7 +6,8 @@ const errorService: Middleware = function () {
     return function (next) {
         return function (action: AnyAction) {
             if (isRejected(action)) {
-                toast.error(action.error.message);
+                const message = action.error.message;
+                toast.error(message, { toastId: message });
             }
 
             return next(action);
