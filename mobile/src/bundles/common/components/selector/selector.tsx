@@ -1,5 +1,4 @@
-import { type ReactElement } from 'react';
-import React from 'react';
+import { type ReactElement, useState } from 'react';
 
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -10,7 +9,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 
-import { Color } from '../../enums/enums';
+import { TextCategory } from '../../enums/enums';
 import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
@@ -26,30 +25,22 @@ type Properties = {
 };
 
 const Selector: React.FC<Properties> = ({ label, options }) => {
-    const [chooseData, setChooseData] = React.useState('Option');
-    const [isModalVisible, setIsMOdalVisible] = React.useState(false);
+    const [selectedOption, setSelectedOption] = useState('');
+    const [isListVisible, setIsListVisible] = useState(false);
 
-    const DropdownButton = React.useRef<View>(null);
-
-    const changeModalVisibility = (): void => {
-        setIsMOdalVisible((previous) => !previous);
+    const toggleIsListVisible = (): void => {
+        setIsListVisible((previous) => !previous);
     };
 
-    const onPressItem = (option: Select): void => {
-        changeModalVisibility();
-        setChooseData(option.label);
+    const handlePressItem = (option: Select): void => {
+        toggleIsListVisible();
+        setSelectedOption(option.label);
     };
 
     return (
         <View>
-            <Text
-                category="Label"
-                style={{ fontWeight: '500', color: Color.TEXT }}
-            >
-                {label}
-            </Text>
+            <Text category={TextCategory.LABEL}>{label}</Text>
             <Pressable
-                ref={DropdownButton}
                 style={[
                     globalStyles.pv10,
                     globalStyles.pl15,
@@ -59,27 +50,24 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
                 ]}
-                onPress={changeModalVisibility}
+                onPress={(): void => {
+                    setIsListVisible((previous) => !previous);
+                }}
             >
-                <Text
-                    category="Label"
-                    style={{ fontWeight: '400', color: Color.TEXT2 }}
-                >
-                    {chooseData}
-                </Text>
-                <View style={[globalStyles.mr10, globalStyles.p5]}>
-                    {/* <Icon
+                <Text category={TextCategory.LABEL}>{selectedOption}</Text>
+                {/* <View style={[globalStyles.mr10, globalStyles.p5]}>
+                    <Icon
                         name="arrow-drop-down"
                         size={12}
                         color={Color.PRIMARY}
-                    /> */}
-                </View>
+                    />
+                </View> */}
             </Pressable>
-            {isModalVisible && (
+            {isListVisible && (
                 <View>
                     <Pressable
-                        style={[globalStyles.flex1]}
-                        onPress={changeModalVisibility}
+                        style={globalStyles.flex1}
+                        onPress={toggleIsListVisible}
                     >
                         <View style={[globalStyles.pl20, styles.dropdown]}>
                             <FlatList
@@ -89,13 +77,10 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                                         <TouchableOpacity
                                             style={globalStyles.pt10}
                                             onPress={(): void => {
-                                                onPressItem(item);
+                                                handlePressItem(item);
                                             }}
                                         >
-                                            <Text
-                                                category="Label"
-                                                style={globalStyles.pb5}
-                                            >
+                                            <Text category={TextCategory.LABEL}>
                                                 {item.label}
                                             </Text>
                                         </TouchableOpacity>

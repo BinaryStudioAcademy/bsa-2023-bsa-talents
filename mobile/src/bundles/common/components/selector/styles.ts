@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Color.INPUT,
     },
-
     dropdown: {
         position: 'absolute',
         width: '100%',
