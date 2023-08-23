@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     button: {
         borderColor: 'transparent',
         borderWidth: 2,
+        fontWeight: 500,
     },
     label: {
         color: '#FFFFFF',
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     },
     button_ghost: {
         backgroundColor: '#FFFFFF',
+        fontWeight: 600,
         borderRadius: 24,
         color: Color.PRIMARY,
     },
