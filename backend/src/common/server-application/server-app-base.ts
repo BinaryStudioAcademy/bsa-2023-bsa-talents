@@ -15,6 +15,8 @@ import {
 } from '~/common/types/types.js';
 
 import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
+import { WHITE_ROUTES } from './libs/constants/api.constats.js';
+import { authorization } from './plugins/authorization/authorization.plugin.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
 type Constructor = {
@@ -88,6 +90,10 @@ class ServerAppBase implements ServerApp {
 
                 await this.app.register(swaggerUi, {
                     routePrefix: `${it.version}/documentation`,
+                });
+
+                await this.app.register(authorization, {
+                    routesWhiteList: WHITE_ROUTES,
                 });
             }),
         );
