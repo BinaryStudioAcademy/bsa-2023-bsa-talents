@@ -27,7 +27,12 @@ export {
     type HttpOptions,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
-export { configureString } from './helpers/helpers.js';
+export {
+    configureString,
+    cryptCompare,
+    encrypt,
+    generateSalt,
+} from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
