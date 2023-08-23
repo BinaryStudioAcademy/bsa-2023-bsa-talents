@@ -1,5 +1,6 @@
 export { type AsyncThunkConfig } from './app/app';
 export {
+    type AuthNavigationParameterList,
     type NavigationScreenProperties,
     type RootNavigationParameterList,
 } from './navigation/navigation';
