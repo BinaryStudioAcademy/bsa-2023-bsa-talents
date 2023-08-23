@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     Button,
+    Header,
     Link,
     Text,
     View,
@@ -23,6 +24,7 @@ const SignInForm: React.FC<Properties> = () => {
                 }}
             />
             <Link label="Go to Sign Up" to={`/${RootScreenName.SIGN_UP}`} />
+            <Header />
         </View>
     );
 };
