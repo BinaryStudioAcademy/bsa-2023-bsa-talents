@@ -18,7 +18,7 @@ const Overlay: React.FC<OverlayProperties> = ({
     color = Color.PRIMARY,
 }) => {
     if (!isActive) {
-        return false;
+        return null;
     }
     return (
         <View
