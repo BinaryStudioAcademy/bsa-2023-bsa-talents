@@ -1,4 +1,7 @@
 export { Button } from './button/button';
+export { FormField } from './form-field/form-field';
 export { Input } from './input/input';
 export { Link } from './link/link';
-export { Text, View } from 'react-native';
+export { Loader } from './loader/loader';
+export { Text } from './text/text';
+export { ActivityIndicator, View } from 'react-native';
