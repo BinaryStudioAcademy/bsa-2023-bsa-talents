@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
     FlatList,
     Modal,
@@ -10,7 +10,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 
-import { Color } from '../../enums/enums';
+// import { Color } from '../../enums/enums';
 import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
@@ -65,11 +65,11 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
             >
                 <Text style={styles.text}>{chooseData}</Text>
                 <View style={[globalStyles.mr10, globalStyles.p5]}>
-                    <Icon
+                    {/* <Icon
                         name="arrow-drop-down"
                         size={12}
                         color={Color.PRIMARY}
-                    />
+                    /> */}
                 </View>
             </Pressable>
             <Modal
