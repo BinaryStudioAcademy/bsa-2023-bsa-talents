@@ -1,3 +1,4 @@
+import { CheckRounded as CheckIcon } from '@mui/icons-material';
 import {
     Checkbox as CheckboxMUI,
     type CheckboxProps,
@@ -16,35 +17,52 @@ type Properties = CheckboxProps & {
     isRequired?: boolean;
 };
 
+const checkboxIcon = (
+    <span className={getValidClassNames(styles.checkboxIcon)} />
+);
+const checkboxIconChecked = (
+    <span
+        className={getValidClassNames(
+            styles.checkboxIcon,
+            styles.checkboxIconChecked,
+        )}
+    >
+        <CheckIcon />
+    </span>
+);
+
 const Checkbox: React.FC<Properties> = ({
-    label = '',
+    label,
     isChecked,
     isDefaultChecked,
-    isDisabled = false,
-    isRequired = false,
-    value = '',
-    className = styles.primary,
+    isDisabled,
+    isRequired,
+    className,
 }) => {
-    const combinedClasses = getValidClassNames(className)
-        .split(' ')
-        .map((className) => {
-            return styles[className] || className;
-        })
-        .join(' ');
-
-    return (
+    return label ? (
         <FormControlLabel
             control={
                 <CheckboxMUI
                     defaultChecked={isDefaultChecked}
                     checked={isChecked}
                     required={isRequired}
-                    value={value}
                     disabled={isDisabled}
+                    className={getValidClassNames(className)}
+                    icon={checkboxIcon}
+                    checkedIcon={checkboxIconChecked}
                 />
             }
-            className={combinedClasses}
             label={label}
+        />
+    ) : (
+        <CheckboxMUI
+            defaultChecked={isDefaultChecked}
+            checked={isChecked}
+            required={isRequired}
+            disabled={isDisabled}
+            className={getValidClassNames(className)}
+            icon={checkboxIcon}
+            checkedIcon={checkboxIconChecked}
         />
     );
 };
