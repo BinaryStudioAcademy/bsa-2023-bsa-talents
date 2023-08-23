@@ -4,6 +4,7 @@ export { Checkbox } from './checkbox/checkbox.js';
 export { Grid } from './grid/grid.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Radio, RadioGroup } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Textarea } from './textarea/textarea.js';
 export { Typography } from './typography/typography.js';
