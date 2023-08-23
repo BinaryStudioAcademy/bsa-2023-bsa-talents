@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { createTheme } from '@mui/material/styles';
 
 import { Typography } from '../../enums/enums.js';
