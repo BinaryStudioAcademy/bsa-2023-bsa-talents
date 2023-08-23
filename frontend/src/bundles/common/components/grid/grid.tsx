@@ -9,9 +9,9 @@ const Grid: React.FC<Properties> = ({
     children,
     className = '',
     component = 'div',
-    ...properties
+    ...props
 }) => (
-    <MUIGrid className={className} component={component} {...properties}>
+    <MUIGrid className={className} component={component} {...props}>
         {children}
     </MUIGrid>
 );
