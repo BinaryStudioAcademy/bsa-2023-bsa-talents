@@ -1,8 +1,8 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import { type PressableProps } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Text } from '~/bundles/common/components/components';
+import { Pressable, Text } from '~/bundles/common/components/components';
 
 import { type ButtonType } from '../../enums/enums';
 import { styles } from './styles';
@@ -12,12 +12,18 @@ type StyleRecord = Record<string, unknown>;
 
 type Properties = {
     label: string;
+    iconName?: string;
+    iconSize?: number;
     buttonType?: ButtonTypeName;
 } & PressableProps;
+
+const iconDefaultSize = 32;
 
 const Button: React.FC<Properties> = ({
     label,
     style: pressableStyle,
+    iconName = 'add',
+    iconSize = iconDefaultSize,
     buttonType = 'FILLED',
     disabled = false,
     ...props
@@ -46,6 +52,7 @@ const Button: React.FC<Properties> = ({
     };
 
     const isFilledButton = buttonType === 'FILLED';
+    const isGhostButton = buttonType === 'GHOST';
     return (
         <Pressable
             disabled={disabled}
@@ -60,6 +67,16 @@ const Button: React.FC<Properties> = ({
         >
             {({ pressed }): JSX.Element => (
                 <>
+                    {isGhostButton && (
+                        <Icon
+                            name={iconName}
+                            size={iconSize}
+                            style={[
+                                pressed && styles.button_ghost_pressed,
+                                disabled && styles.content_disabled,
+                            ]}
+                        />
+                    )}
                     <Text
                         style={[
                             isFilledButton
