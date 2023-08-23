@@ -75,7 +75,6 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                                 renderItem={({ item }): ReactElement => {
                                     return (
                                         <TouchableOpacity
-                                            style={globalStyles.pt10}
                                             onPress={(): void => {
                                                 handlePressItem(item);
                                             }}
