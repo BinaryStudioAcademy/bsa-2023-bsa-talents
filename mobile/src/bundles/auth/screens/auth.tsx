@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Button, Text } from '~/bundles/common/components/components';
-import { ButtonType, RootScreenName } from '~/bundles/common/enums/enums';
+import { Text } from '~/bundles/common/components/components';
+import { RootScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
@@ -56,9 +56,6 @@ const Auth: React.FC = () => {
 
     return (
         <>
-            <Button label="ful" buttonType={ButtonType.FILLED} />
-            <Button label="out" buttonType={ButtonType.OUTLINE} />
-            <Button label="gh" iconName="home" buttonType={ButtonType.GHOST} />
             <Text>state: {dataStatus}</Text>
             {getScreen(name)}
         </>
