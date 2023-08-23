@@ -21,7 +21,7 @@ type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     placeholder?: string;
     type?: InputType;
-    disabled?: boolean;
+    isDisabled?: boolean;
     adornmentText?: string;
 };
 
@@ -32,7 +32,7 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type = 'text',
-    disabled = false,
+    isDisabled = false,
     adornmentText = '',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -42,7 +42,7 @@ const Input = <T extends FieldValues>({
 
     const generatedRootStyles = getValidClassNames(
         styles.root,
-        disabled && styles.disabled,
+        isDisabled && styles.disabled,
         hasError && styles.error,
         adornmentText && styles.hasAdornsment,
     );
@@ -73,7 +73,7 @@ const Input = <T extends FieldValues>({
 
     return (
         <label className={styles.wrapper}>
-            <span className={disabled ? styles.labelDisabled : styles.label}>
+            <span className={isDisabled ? styles.labelDisabled : styles.label}>
                 {label}
             </span>
             <TextField
@@ -82,7 +82,7 @@ const Input = <T extends FieldValues>({
                 placeholder={placeholder}
                 error={hasError}
                 helperText={(error as string) || ' '}
-                disabled={disabled}
+                disabled={isDisabled}
                 className={generatedRootStyles}
                 InputProps={{
                     className: getValidClassNames(
