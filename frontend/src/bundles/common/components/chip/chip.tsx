@@ -1,7 +1,7 @@
 import { Close } from '@mui/icons-material';
 import { Chip as MUIChip } from '@mui/material';
-import clsx from 'clsx';
 
+import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -12,10 +12,12 @@ type Properties = {
 const Chip = ({ label, onDelete }: Properties): JSX.Element => {
     return (
         <MUIChip
-            className={clsx(styles.chip, { [styles['delete-chip']]: onDelete })}
+            className={getValidClassNames(styles.chip, {
+                [styles['delete-chip']]: onDelete,
+            })}
             label={label}
             onDelete={onDelete}
-            deleteIcon={onDelete ? <Close /> : undefined}
+            deleteIcon={onDelete && <Close />}
         />
     );
 };
