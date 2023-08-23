@@ -8,6 +8,7 @@ import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { authorization } from '~/common/plugins/authorization/authorization.plugin.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
@@ -16,7 +17,6 @@ import {
 
 import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
 import { WHITE_ROUTES } from './libs/constants/api.constats.js';
-import { authorization } from './plugins/authorization/authorization.plugin.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
 type Constructor = {
