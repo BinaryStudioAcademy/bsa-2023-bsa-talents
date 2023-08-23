@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Pressable, Text } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { ButtonType } from '../../enums/enums';
+import { ButtonType, TextCategory } from '../../enums/enums';
 import { styles } from './styles';
 
 type StyleRecord = Record<string, unknown> | undefined | null | false;
@@ -62,12 +62,20 @@ const Button: React.FC<Properties> = ({
         }, []);
 
     const isFilledButton = buttonType === ButtonType.FILLED;
-
+    const isGhostButton = buttonType === ButtonType.GHOST;
     return (
         <Pressable
             disabled={disabled}
             style={({ pressed }): StyleRecord[] => [
-                globalStyles.borderRadius5,
+                isGhostButton
+                    ? (globalStyles.borderRadius24,
+                      globalStyles.flexDirectionRow)
+                    : globalStyles.borderRadius5,
+                globalStyles.pv10,
+                globalStyles.ph25,
+                globalStyles.alignItemsCenter,
+                globalStyles.justifyContentCenter,
+                globalStyles.borderWidth2,
                 styles.button,
                 componentStyles[buttonType].style,
                 pressed && componentStyles[buttonType].pressed,
@@ -83,12 +91,14 @@ const Button: React.FC<Properties> = ({
                             name={iconName}
                             size={iconSize}
                             style={[
+                                styles.icon,
                                 pressed && styles.button_ghost_pressed,
                                 disabled && styles.content_disabled,
                             ]}
                         />
                     )}
                     <Text
+                        category={TextCategory.BUTTON}
                         style={[
                             isFilledButton
                                 ? styles.label

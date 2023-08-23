@@ -4,19 +4,10 @@ import { Color } from '../../enums/enums';
 
 const styles = StyleSheet.create({
     button: {
-        paddingVertical: 15,
-        paddingHorizontal: 37,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 2,
-        fontSize: 15,
-        fontWeight: '500',
         borderColor: 'transparent',
     },
     label: {
-        fontSize: 15,
         color: '#FFFFFF',
-        fontWeight: '500',
     },
     label_secondary: {
         color: Color.PRIMARY,
@@ -48,15 +39,14 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
     },
     button_ghost: {
-        flexDirection: 'row',
         backgroundColor: '#FFFFFF',
         color: Color.PRIMARY,
-        borderRadius: 24,
-        fontSize: 13,
-        fontFamily: 600,
     },
     content_disabled: {
         color: Color.BUTTON_DISABLED,
+    },
+    icon: {
+        color: Color.PRIMARY,
     },
 });
 

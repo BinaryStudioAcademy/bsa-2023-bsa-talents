@@ -57,7 +57,14 @@ const Auth: React.FC = () => {
     return (
         <>
             <Text>state: {dataStatus}</Text>
-            <Button buttonType={ButtonType.GHOST} label={'da'} />
+            <Button buttonType={ButtonType.FILLED} label={'Filled'} />
+            <Button buttonType={ButtonType.OUTLINE} label={'Outlined'} />
+            <Button
+                buttonType={ButtonType.GHOST}
+                label={'GHOST'}
+                iconName={'add'}
+            />
+
             {getScreen(name)}
         </>
     );
