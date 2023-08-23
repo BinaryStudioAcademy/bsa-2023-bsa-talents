@@ -6,6 +6,7 @@ import {
 } from 'react-hook-form';
 
 import { Text, View } from '~/bundles/common/components/components';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { styles } from './styles';
@@ -21,10 +22,10 @@ type Properties<T extends FieldValues> = {
 
 const FormField = <T extends FieldValues>({
     errors,
-    label,
     name,
-    required,
     children,
+    label,
+    required,
 }: Properties<T>): JSX.Element => {
     const error = errors[name]?.message;
     const hasError = Boolean(error);
@@ -32,10 +33,13 @@ const FormField = <T extends FieldValues>({
     return (
         <View>
             {label && (
-                <Text category="Label" style={globalStyles.mv5}>
+                <Text category={TextCategory.LABEL} style={globalStyles.mv5}>
                     {label}
                     {required && (
-                        <Text category="H6" style={styles.requiredFlag}>
+                        <Text
+                            category={TextCategory.H6}
+                            style={styles.requiredFlag}
+                        >
                             *
                         </Text>
                     )}
