@@ -63,7 +63,7 @@ const Button: React.FC<Properties> = ({
                 },
             };
         }, []);
-    const isFilledButton = ButtonType.FILLED === (buttonType as string);
+    const isFilledButton = ButtonType.FILLED === buttonType;
     return (
         <Pressable
             disabled={disabled}
