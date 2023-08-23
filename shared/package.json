@@ -22,6 +22,8 @@
         "build:copy": "cp -r package.json build/esm && cp -r package.json build/cjs"
     },
     "dependencies": {
+        "@types/bcrypt": "5.0.0",
+        "bcrypt": "5.1.1",
         "joi": "17.9.2"
     }
 }
