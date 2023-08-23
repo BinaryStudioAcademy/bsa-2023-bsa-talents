@@ -9,6 +9,7 @@ type EnvironmentSchema = {
     JWT: {
         SECRET: string;
         EXPIRES_IN: string;
+        ALG: string;
     };
     DB: {
         CONNECTION_STRING: string;

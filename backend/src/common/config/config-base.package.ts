@@ -58,6 +58,12 @@ class ConfigBase implements Config {
                     env: 'JWT_TOKEN_EXPIRE',
                     default: '24h',
                 },
+                ALG: {
+                    doc: 'Algorithm used for encoding token',
+                    format: String,
+                    env: 'JWT_ALG',
+                    default: 'HS256',
+                },
             },
             DB: {
                 CONNECTION_STRING: {
