@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { AlignmentValue } from '~/bundles/common/enums/styles/alignment-value.enum';
+
 const styles = StyleSheet.create({
     wrapper: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1,
+        justifyContent: AlignmentValue.CENTER,
+        alignItems: AlignmentValue.CENTER,
     },
 });
 
