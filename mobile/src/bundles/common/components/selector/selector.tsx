@@ -10,7 +10,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 
-// import { Color } from '../../enums/enums';
+import { Color } from '../../enums/enums';
 import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
@@ -42,7 +42,12 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
 
     return (
         <View>
-            <Text style={[styles.label, globalStyles.pb5]}>{label}</Text>
+            <Text
+                category="Label"
+                style={{ fontWeight: '500', color: Color.TEXT }}
+            >
+                {label}
+            </Text>
             <Pressable
                 ref={DropdownButton}
                 style={[
@@ -56,7 +61,12 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                 ]}
                 onPress={changeModalVisibility}
             >
-                <Text style={styles.text}>{chooseData}</Text>
+                <Text
+                    category="Label"
+                    style={{ fontWeight: '400', color: Color.TEXT2 }}
+                >
+                    {chooseData}
+                </Text>
                 <View style={[globalStyles.mr10, globalStyles.p5]}>
                     {/* <Icon
                         name="arrow-drop-down"
@@ -77,15 +87,14 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                                 renderItem={({ item }): ReactElement => {
                                     return (
                                         <TouchableOpacity
+                                            style={globalStyles.pt10}
                                             onPress={(): void => {
                                                 onPressItem(item);
                                             }}
                                         >
                                             <Text
-                                                style={[
-                                                    styles.text,
-                                                    globalStyles.p5,
-                                                ]}
+                                                category="Label"
+                                                style={globalStyles.pb5}
                                             >
                                                 {item.label}
                                             </Text>
