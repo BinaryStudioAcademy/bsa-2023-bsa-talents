@@ -1,9 +1,8 @@
 import { type FastifyPluginCallback } from 'fastify';
 import fp from 'fastify-plugin';
 
+import { ControllerHooks } from '~/common/controller/controller.js';
 import { HttpCode } from '~/common/http/http.js';
-
-import { FastifyHooks } from './enums/fastify-hooks.enums.js';
 
 type AuthOptions = {
     routesWhiteList: string[];
@@ -13,7 +12,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
     fastify,
     { routesWhiteList },
 ) => {
-    fastify.addHook(FastifyHooks.ON_REQUEST, (request, reply) => {
+    fastify.addHook(ControllerHooks.ON_REQUEST, (request, reply) => {
         try {
             const isWhiteRoute = routesWhiteList.includes(request.routerPath);
 
