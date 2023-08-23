@@ -15,6 +15,7 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = TextInputProps & {
     control: Control<T, null>;
     name: FieldPath<T>;
+    readonly?: boolean;
     hasError?: boolean;
 };
 
@@ -37,6 +38,7 @@ const Input = <T extends FieldValues>({
             style={[
                 globalStyles.pl10,
                 globalStyles.borderRadius5,
+                globalStyles.Input,
                 styles.input,
                 !editable && styles.disabled,
                 hasError && styles.error,

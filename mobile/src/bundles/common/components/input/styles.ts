@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderColor: '#7e7e7e',
-        fontSize: 15,
     },
     error: {
         borderColor: Color.ERROR,

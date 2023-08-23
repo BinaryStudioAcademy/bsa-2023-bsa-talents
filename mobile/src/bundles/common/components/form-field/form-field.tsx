@@ -32,9 +32,13 @@ const FormField = <T extends FieldValues>({
     return (
         <View>
             {label && (
-                <Text style={[globalStyles.mv5, styles.label]}>
+                <Text category="Label" style={globalStyles.mv5}>
                     {label}
-                    {required && <Text style={styles.requiredFlag}>*</Text>}
+                    {required && (
+                        <Text category="H6" style={styles.requiredFlag}>
+                            *
+                        </Text>
+                    )}
                 </Text>
             )}
 

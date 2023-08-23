@@ -51,8 +51,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     control={control}
                     name="password"
                     placeholder="Enter your password"
-                    editable
                     secureTextEntry
+                    editable
                 />
             </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />
