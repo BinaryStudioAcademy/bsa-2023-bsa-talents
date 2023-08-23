@@ -15,7 +15,6 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = TextInputProps & {
     control: Control<T, null>;
     name: FieldPath<T>;
-    editable: boolean;
     hasError?: boolean;
 };
 

@@ -12,10 +12,10 @@ import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
     errors: FieldErrors<T>;
-    label?: string;
     name: FieldPath<T>;
-    required: boolean;
     children: React.ReactNode;
+    label?: string;
+    required?: boolean;
     hasError?: boolean;
 };
 
@@ -38,14 +38,11 @@ const FormField = <T extends FieldValues>({
                 </Text>
             )}
 
-            {React.Children.map(children, (child) => {
-                return React.cloneElement(
-                    child as React.ReactElement<Properties<T>>,
-                    {
-                        hasError,
-                    },
-                );
-            })}
+            {React.Children.map(children, (child) =>
+                React.cloneElement(child as React.ReactElement<Properties<T>>, {
+                    hasError,
+                }),
+            )}
 
             <Text style={styles.errorText}>
                 {hasError && (error as string)}
