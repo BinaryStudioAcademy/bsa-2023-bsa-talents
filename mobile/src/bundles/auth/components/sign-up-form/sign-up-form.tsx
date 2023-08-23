@@ -38,7 +38,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     control={control}
                     name="email"
                     placeholder="Enter your email"
-                    editable
                 />
             </FormField>
             <FormField
@@ -52,7 +51,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="password"
                     placeholder="Enter your password"
                     secureTextEntry
-                    editable
                 />
             </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />

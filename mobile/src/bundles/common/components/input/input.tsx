@@ -20,7 +20,7 @@ type Properties<T extends FieldValues> = TextInputProps & {
 };
 
 const Input = <T extends FieldValues>({
-    editable,
+    editable = true,
     hasError,
     control,
     name,
