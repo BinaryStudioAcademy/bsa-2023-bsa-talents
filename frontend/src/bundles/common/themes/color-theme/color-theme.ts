@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-import { Colors } from '../../enums/colors.enum.js';
+import { Colors } from '../../enums/enums.js';
 
 const colorTheme = createTheme({
     palette: {
