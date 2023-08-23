@@ -1,6 +1,6 @@
 const Color = {
     PRIMARY: '#274F8D',
-    SECONDARY: '#18A0FB',
+    SECONDARY: '#2E61AE',
     ERROR: '#FF2121',
     HOVER: '#0084DD',
     BACKGROUND: '#F7F8FC',
