@@ -4,9 +4,9 @@ import React from 'react';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
     FlatList,
-    Modal,
     Pressable,
     Text,
+    TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
 
@@ -25,21 +25,14 @@ type Properties = {
     onSelect?: (item: Select) => void;
 };
 
-const INITIAL_DROPDOWN_TOP = 0;
-
 const Selector: React.FC<Properties> = ({ label, options }) => {
     const [chooseData, setChooseData] = React.useState('Option');
     const [isModalVisible, setIsMOdalVisible] = React.useState(false);
-    const [dropdownTop, setDropdownTop] = React.useState(INITIAL_DROPDOWN_TOP);
 
     const DropdownButton = React.useRef<View>(null);
 
     const changeModalVisibility = (): void => {
         setIsMOdalVisible((previous) => !previous);
-        // eslint-disable-next-line max-params
-        DropdownButton.current?.measure((_fx, _fy, _w, h, _px, py): void => {
-            setDropdownTop(py + h);
-        });
     };
 
     const onPressItem = (option: Select): void => {
@@ -72,48 +65,39 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                     /> */}
                 </View>
             </Pressable>
-            <Modal
-                transparent={true}
-                animationType="fade"
-                visible={isModalVisible}
-                onRequestClose={changeModalVisibility}
-            >
-                <Pressable
-                    style={styles.overlay}
-                    onPress={changeModalVisibility}
-                >
-                    <View
-                        style={[
-                            globalStyles.pl20,
-                            styles.dropdown,
-                            { top: dropdownTop },
-                        ]}
+            {isModalVisible && (
+                <View>
+                    <Pressable
+                        style={[globalStyles.flex1]}
+                        onPress={changeModalVisibility}
                     >
-                        <FlatList
-                            data={options}
-                            renderItem={({ item }): ReactElement => {
-                                return (
-                                    <Pressable
-                                        onPress={(): void => {
-                                            onPressItem(item);
-                                        }}
-                                    >
-                                        <Text
-                                            style={[
-                                                styles.text,
-                                                globalStyles.p5,
-                                            ]}
+                        <View style={[globalStyles.pl20, styles.dropdown]}>
+                            <FlatList
+                                data={options}
+                                renderItem={({ item }): ReactElement => {
+                                    return (
+                                        <TouchableOpacity
+                                            onPress={(): void => {
+                                                onPressItem(item);
+                                            }}
                                         >
-                                            {item.label}
-                                        </Text>
-                                    </Pressable>
-                                );
-                            }}
-                            keyExtractor={(item): string => item.value}
-                        />
-                    </View>
-                </Pressable>
-            </Modal>
+                                            <Text
+                                                style={[
+                                                    styles.text,
+                                                    globalStyles.p5,
+                                                ]}
+                                            >
+                                                {item.label}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    );
+                                }}
+                                keyExtractor={(item): string => item.value}
+                            />
+                        </View>
+                    </Pressable>
+                </View>
+            )}
         </View>
     );
 };
