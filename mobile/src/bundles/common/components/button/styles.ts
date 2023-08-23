@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 2,
-        borderRadius: 5,
         fontSize: 15,
         fontWeight: '500',
         borderColor: 'transparent',

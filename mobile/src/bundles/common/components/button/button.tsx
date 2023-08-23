@@ -1,73 +1,84 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { type PressableProps } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Pressable, Text } from '~/bundles/common/components/components';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { type ButtonType } from '../../enums/enums';
+import { ButtonType } from '../../enums/enums';
 import { styles } from './styles';
 
-type ButtonTypeName = keyof typeof ButtonType;
-type StyleRecord = Record<string, unknown>;
+type StyleRecord = Record<string, unknown> | undefined | null | false;
+
+type StylesProperties = {
+    style: Record<string, unknown>;
+    pressed: Record<string, unknown>;
+    disabled: Record<string, unknown>;
+    label: Record<string, unknown>;
+};
+
+type ButtonName = (typeof ButtonType)[keyof typeof ButtonType];
 
 type Properties = {
     label: string;
     iconName?: string;
     iconSize?: number;
-    buttonType?: ButtonTypeName;
+    buttonType?: ButtonName;
 } & PressableProps;
 
 const iconDefaultSize = 32;
 
 const Button: React.FC<Properties> = ({
     label,
-    style: pressableStyle,
-    iconName = 'add',
+    style: pressAbleStyle,
+    iconName,
     iconSize = iconDefaultSize,
-    buttonType = 'FILLED',
+    buttonType = ButtonType.FILLED,
     disabled = false,
     ...props
 }) => {
-    const buttonStyleChoose: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_filled,
-        OUTLINE: styles.button_outline,
-        GHOST: styles.button_ghost,
-    };
-    const buttonStylePressed: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_filled_pressed,
-        OUTLINE: styles.button_outline_pressed,
-        GHOST: styles.button_ghost_pressed,
-    };
+    const componentStyles: Record<ButtonName, StylesProperties> =
+        useMemo(() => {
+            return {
+                [ButtonType.FILLED]: {
+                    style: styles.button_filled,
+                    pressed: styles.button_filled_pressed,
+                    disabled: styles.button_filled_disabled,
+                    label: styles.label,
+                },
+                [ButtonType.OUTLINE]: {
+                    style: styles.button_outline,
+                    pressed: styles.button_outline_pressed,
+                    disabled: styles.button_outline_disabled,
+                    label: styles.content_pressed,
+                },
+                [ButtonType.GHOST]: {
+                    style: styles.button_ghost,
+                    pressed: styles.button_ghost_pressed,
+                    disabled: styles.content_disabled,
+                    label: styles.content_pressed,
+                },
+            };
+        }, []);
 
-    const buttonStyleDisabled: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_filled_disabled,
-        OUTLINE: styles.button_outline_disabled,
-        GHOST: styles.content_disabled,
-    };
+    const isFilledButton = buttonType === ButtonType.FILLED;
 
-    const pressedStyleLabel: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.label,
-        OUTLINE: styles.content_pressed,
-        GHOST: styles.content_pressed,
-    };
-
-    const isFilledButton = buttonType === 'FILLED';
-    const isGhostButton = buttonType === 'GHOST';
     return (
         <Pressable
             disabled={disabled}
             style={({ pressed }): StyleRecord[] => [
+                globalStyles.borderRadius5,
                 styles.button,
-                buttonStyleChoose[buttonType],
-                pressed ? buttonStylePressed[buttonType] : {},
-                disabled ? buttonStyleDisabled[buttonType] : {},
-                (pressableStyle as StyleRecord | undefined) ?? {},
+                componentStyles[buttonType].style,
+                pressed && componentStyles[buttonType].pressed,
+                disabled && componentStyles[buttonType].disabled,
+                pressAbleStyle as Record<string, unknown>,
             ]}
             {...props}
         >
             {({ pressed }): JSX.Element => (
                 <>
-                    {isGhostButton && (
+                    {iconName && (
                         <Icon
                             name={iconName}
                             size={iconSize}
@@ -82,7 +93,7 @@ const Button: React.FC<Properties> = ({
                             isFilledButton
                                 ? styles.label
                                 : styles.label_secondary,
-                            pressed && pressedStyleLabel[buttonType],
+                            pressed && componentStyles[buttonType].label,
                             disabled && styles.content_disabled,
                         ]}
                     >
