@@ -25,39 +25,36 @@ const styles = StyleSheet.create({
     content_pressed: {
         color: Color.BUTTON_PRESSED,
     },
-    button_primary: {
+    button_filled: {
         backgroundColor: Color.PRIMARY,
     },
-    button_secondary: {
+    button_outline: {
         backgroundColor: '#FFFFFF',
         borderColor: Color.PRIMARY,
     },
-    button_primary_pressed: {
+    button_filled_pressed: {
         backgroundColor: Color.BUTTON_PRESSED,
     },
-    button_secondary_pressed: {
+    button_outline_pressed: {
         borderColor: Color.BUTTON_PRESSED,
     },
-    button_with_icon_pressed: {
+    button_ghost_pressed: {
         color: Color.BUTTON_PRESSED,
     },
-    button_primary_disabled: {
+    button_filled_disabled: {
         backgroundColor: Color.BACKGROUND,
     },
-    button_secondary_disabled: {
+    button_outline_disabled: {
         backgroundColor: '#FFFFFF',
         borderColor: Color.INPUT,
     },
-    button_with_icon: {
+    button_ghost: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
         color: Color.PRIMARY,
         borderRadius: 24,
         fontSize: 13,
         fontFamily: 600,
-    },
-    icon: {
-        color: Color.PRIMARY,
     },
     content_disabled: {
         color: Color.BUTTON_DISABLED,

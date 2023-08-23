@@ -23,19 +23,19 @@ const Button: React.FC<Properties> = ({
     ...props
 }) => {
     const buttonStyleChoose: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_primary,
-        OUTLINE: styles.button_secondary,
-        GHOST: styles.button_with_icon,
+        FILLED: styles.button_filled,
+        OUTLINE: styles.button_outline,
+        GHOST: styles.button_ghost,
     };
     const buttonStylePressed: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_primary_pressed,
-        OUTLINE: styles.button_secondary_pressed,
-        GHOST: styles.button_with_icon_pressed,
+        FILLED: styles.button_filled_pressed,
+        OUTLINE: styles.button_outline_pressed,
+        GHOST: styles.button_ghost_pressed,
     };
 
     const buttonStyleDisabled: Record<ButtonTypeName, StyleRecord> = {
-        FILLED: styles.button_primary_disabled,
-        OUTLINE: styles.button_secondary_disabled,
+        FILLED: styles.button_filled_disabled,
+        OUTLINE: styles.button_outline_disabled,
         GHOST: styles.content_disabled,
     };
 
