@@ -2,13 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import { Color } from '../../enums/enums';
 
-const borderWidth = 2;
-const ghostIconRadius = 24;
-
 const styles = StyleSheet.create({
     button: {
         borderColor: 'transparent',
-        borderWidth: borderWidth,
+        borderWidth: 2,
     },
     label: {
         color: '#FFFFFF',
@@ -44,7 +41,7 @@ const styles = StyleSheet.create({
     },
     button_ghost: {
         backgroundColor: '#FFFFFF',
-        borderRadius: ghostIconRadius,
+        borderRadius: 24,
         color: Color.PRIMARY,
     },
     content_disabled: {

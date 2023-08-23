@@ -1,5 +1,10 @@
 import React, { useMemo } from 'react';
-import { type PressableProps } from 'react-native';
+import {
+    type PressableProps,
+    type StyleProp,
+    type TextStyle,
+    type ViewStyle,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Pressable, Text } from '~/bundles/common/components/components';
@@ -8,22 +13,20 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { ButtonType, TextCategory } from '../../enums/enums';
 import { styles } from './styles';
 
-type StyleRecord = Record<string, unknown> | undefined | null | false;
-
 type StylesProperties = {
-    style: Record<string, unknown>;
-    pressed: Record<string, unknown>;
-    disabled: Record<string, unknown>;
-    label: Record<string, unknown>;
+    basic: StyleProp<ViewStyle>;
+    pressed: StyleProp<ViewStyle | TextStyle>;
+    disabled: StyleProp<ViewStyle | TextStyle>;
+    label: StyleProp<ViewStyle | TextStyle>;
 };
 
 type ButtonName = (typeof ButtonType)[keyof typeof ButtonType];
 
 type Properties = {
     label: string;
+    buttonType: ButtonName;
     iconName?: string;
     iconSize?: number;
-    buttonType?: ButtonName;
 } & PressableProps;
 
 const iconDefaultSize = 32;
@@ -33,7 +36,7 @@ const Button: React.FC<Properties> = ({
     style: pressableStyle,
     iconName,
     iconSize = iconDefaultSize,
-    buttonType = ButtonType.FILLED,
+    buttonType,
     disabled = false,
     ...props
 }) => {
@@ -41,31 +44,30 @@ const Button: React.FC<Properties> = ({
         useMemo(() => {
             return {
                 [ButtonType.FILLED]: {
-                    style: styles.button_filled,
+                    basic: styles.button_filled,
                     pressed: styles.button_filled_pressed,
                     disabled: styles.button_filled_disabled,
                     label: styles.label,
                 },
                 [ButtonType.OUTLINE]: {
-                    style: styles.button_outline,
+                    basic: styles.button_outline,
                     pressed: styles.button_outline_pressed,
                     disabled: styles.button_outline_disabled,
                     label: styles.content_pressed,
                 },
                 [ButtonType.GHOST]: {
-                    style: styles.button_ghost,
+                    basic: styles.button_ghost,
                     pressed: styles.button_ghost_pressed,
                     disabled: styles.content_disabled,
                     label: styles.content_pressed,
                 },
             };
         }, []);
-
     const isFilledButton = buttonType === ButtonType.FILLED;
     return (
         <Pressable
             disabled={disabled}
-            style={({ pressed }): StyleRecord[] => [
+            style={({ pressed }): StyleProp<ViewStyle> => [
                 iconName
                     ? globalStyles.flexDirectionRow
                     : globalStyles.borderRadius5,
@@ -73,12 +75,11 @@ const Button: React.FC<Properties> = ({
                 globalStyles.ph25,
                 globalStyles.alignItemsCenter,
                 globalStyles.justifyContentCenter,
-
                 styles.button,
-                componentStyles[buttonType].style,
+                componentStyles[buttonType].basic,
                 pressed && componentStyles[buttonType].pressed,
                 disabled && componentStyles[buttonType].disabled,
-                pressableStyle as Record<string, unknown>,
+                pressableStyle as StyleProp<ViewStyle>,
             ]}
             {...props}
         >
