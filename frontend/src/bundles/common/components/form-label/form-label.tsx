@@ -6,9 +6,9 @@ type Properties = MUIFormLabelProperties;
 const FormLabel: React.FC<Properties> = ({
     children,
     className = '',
-    ...properties
+    ...props
 }) => (
-    <MUIFormLabel className={className} {...properties}>
+    <MUIFormLabel className={className} {...props}>
         {children}
     </MUIFormLabel>
 );
