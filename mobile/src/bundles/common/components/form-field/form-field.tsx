@@ -48,9 +48,9 @@ const FormField = <T extends FieldValues>({
                 }),
             )}
 
-            <Text style={styles.errorText}>
-                {hasError && (error as string)}
-            </Text>
+            {hasError && (
+                <Text style={styles.errorText}>{error as string}</Text>
+            )}
         </View>
     );
 };
