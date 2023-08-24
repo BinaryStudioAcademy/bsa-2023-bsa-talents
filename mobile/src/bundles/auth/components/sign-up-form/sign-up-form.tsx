@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     Button,
+    FormField,
     Input,
     Link,
     Text,
@@ -32,23 +33,26 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <View>
             <Text>Sign Up</Text>
-            <Input
-                control={control}
-                errors={errors}
-                label="Email"
-                name="email"
-                placeholder="Enter your email"
-                editable
-            />
-            <Input
-                control={control}
+            <FormField errors={errors} label="Email" name="email" required>
+                <Input
+                    control={control}
+                    name="email"
+                    placeholder="Enter your email"
+                />
+            </FormField>
+            <FormField
                 errors={errors}
                 label="Password"
                 name="password"
-                placeholder="Enter your password"
-                secureTextEntry
-                editable
-            />
+                required
+            >
+                <Input
+                    control={control}
+                    name="password"
+                    placeholder="Enter your password"
+                    secureTextEntry
+                />
+            </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />
             <Link label="Go to Sign In" to={`/${RootScreenName.SIGN_IN}`} />
         </View>
