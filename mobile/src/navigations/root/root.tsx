@@ -17,7 +17,7 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 type Properties = {
-    isSignedIn: boolean;
+    isSignedIn?: boolean;
 };
 
 const Root: React.FC<Properties> = ({ isSignedIn = false }) => {
