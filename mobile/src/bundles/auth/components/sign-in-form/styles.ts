@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
         color: Color.PRIMARY,
         fontFamily: FontFamily.INTER_SEMIBOLD,
     },
+    formWrapper: {
+        gap: 25,
+    },
 });
 
 export { styles };

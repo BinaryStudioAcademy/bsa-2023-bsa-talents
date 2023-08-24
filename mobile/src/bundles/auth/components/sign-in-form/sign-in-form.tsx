@@ -46,43 +46,43 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 Hi! Login to your Account
             </Text>
-            <FormField errors={errors} label="Email" name="email" required>
-                <Input
-                    control={control}
-                    name="email"
-                    placeholder="Enter your email"
-                />
-            </FormField>
-            <FormField
-                errors={errors}
-                label="Password"
-                name="password"
-                required
-            >
-                <Input
-                    control={control}
+            <View style={styles.formWrapper}>
+                <FormField errors={errors} label="Email" name="email" required>
+                    <Input
+                        control={control}
+                        name="email"
+                        placeholder="Enter your email"
+                    />
+                </FormField>
+                <FormField
+                    errors={errors}
+                    label="Password"
                     name="password"
-                    placeholder="Enter your password"
-                    secureTextEntry
+                    required
+                >
+                    <Input
+                        control={control}
+                        name="password"
+                        placeholder="Enter your password"
+                        secureTextEntry
+                    />
+                </FormField>
+                <Text
+                    category={TextCategory.CAPTION}
+                    style={[
+                        globalStyles.alignSelfFlexEnd,
+                        styles.linkForgotPassword,
+                    ]}
+                >
+                    <Link label="Forgot Password?" to={''} />
+                </Text>
+
+                <Button
+                    style={[globalStyles.mb25, globalStyles.pv15]}
+                    label="Login"
+                    onPress={handleFormSubmit}
                 />
-            </FormField>
-
-            <Text
-                category={TextCategory.CAPTION}
-                style={[
-                    globalStyles.alignSelfFlexEnd,
-                    globalStyles.pv25,
-                    styles.linkForgotPassword,
-                ]}
-            >
-                <Link label="Forgot Password?" to={''} />
-            </Text>
-
-            <Button
-                style={[globalStyles.mb25, globalStyles.pv15]}
-                label="Login"
-                onPress={handleFormSubmit}
-            />
+            </View>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
