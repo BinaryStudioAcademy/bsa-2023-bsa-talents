@@ -10,7 +10,7 @@ type Properties = {
     onDelete?: () => void;
 };
 
-const Chip = ({ label, onDelete }: Properties): JSX.Element => {
+const Chip: React.FC<Properties> = ({ label, onDelete }) => {
     const chipClassName = getValidClassNames(styles.chip, {
         [styles['delete-chip']]: onDelete,
     });
