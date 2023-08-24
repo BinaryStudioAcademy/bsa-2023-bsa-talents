@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         backgroundColor: '#FFF',
-        zIndex: 999,
+        zIndex: 1,
     },
 });
 

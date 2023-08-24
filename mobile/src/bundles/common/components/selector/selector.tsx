@@ -64,32 +64,30 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                 </View> */}
             </Pressable>
             {isListVisible && (
-                <View>
-                    <Pressable
-                        style={globalStyles.flex1}
-                        onPress={toggleIsListVisible}
-                    >
-                        <View style={[globalStyles.pl20, styles.dropdown]}>
-                            <FlatList
-                                data={options}
-                                renderItem={({ item }): ReactElement => {
-                                    return (
-                                        <TouchableOpacity
-                                            onPress={(): void => {
-                                                handlePressItem(item);
-                                            }}
-                                        >
-                                            <Text category={TextCategory.LABEL}>
-                                                {item.label}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    );
-                                }}
-                                keyExtractor={(item): string => item.value}
-                            />
-                        </View>
-                    </Pressable>
-                </View>
+                <Pressable
+                    style={globalStyles.flex1}
+                    onPress={toggleIsListVisible}
+                >
+                    <View style={[globalStyles.pl20, styles.dropdown]}>
+                        <FlatList
+                            data={options}
+                            renderItem={({ item }): ReactElement => {
+                                return (
+                                    <TouchableOpacity
+                                        onPress={(): void => {
+                                            handlePressItem(item);
+                                        }}
+                                    >
+                                        <Text category={TextCategory.LABEL}>
+                                            {item.label}
+                                        </Text>
+                                    </TouchableOpacity>
+                                );
+                            }}
+                            keyExtractor={(item): string => item.value}
+                        />
+                    </View>
+                </Pressable>
             )}
         </View>
     );
