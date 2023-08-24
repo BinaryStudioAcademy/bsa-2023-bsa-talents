@@ -1,12 +1,18 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Text, View } from '~/bundles/common/components/components';
+import { Pressable, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { styles } from './styles';
 
-const Header = (): JSX.Element => {
+type Header = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    navigation: any;
+};
+
+const Header = ({ navigation }: Header): JSX.Element => {
     return (
         <View
             style={[
@@ -16,7 +22,12 @@ const Header = (): JSX.Element => {
                 globalStyles.justifyContentCenter,
             ]}
         >
-            <Text style={styles.icon}>ICON</Text>
+            <Pressable
+                style={styles.icon}
+                onPress={(): void => navigation.openDrawer()}
+            >
+                <Icon name="mail" size={20} color="#fff" />
+            </Pressable>
             <Text
                 category={TextCategory.H5}
                 style={[{ color: '#fff' }, globalStyles.alignSelfCenter]}
