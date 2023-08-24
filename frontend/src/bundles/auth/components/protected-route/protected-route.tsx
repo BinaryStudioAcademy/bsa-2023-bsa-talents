@@ -3,11 +3,11 @@ import { Navigate } from 'react-router-dom';
 
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 
-type ProtectedRouteProperties = {
+type Properties = {
     children: ReactNode;
 };
 
-const ProtectedRoute: FC<ProtectedRouteProperties> = ({ children }) => {
+const ProtectedRoute: FC<Properties> = ({ children }) => {
     //TODO: update when user data will be stored in the store
     const hasUser = false;
 
