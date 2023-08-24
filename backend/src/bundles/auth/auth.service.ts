@@ -12,7 +12,7 @@ class AuthService {
         this.userService = userService;
     }
 
-    private async signIn(
+    public async signIn(
         id: number,
     ): Promise<{ id: number; email: string; token: string }> {
         const user = await this.userService.find(id);
