@@ -29,12 +29,9 @@ const Header = ({ navigation }: Header): JSX.Element => {
                     navigation.openDrawer();
                 }}
             >
-                <Icon name="mail" size={20} color="#fff" />
+                <Icon name="menu" size={30} color="#fff" />
             </Pressable>
-            <Text
-                category={TextCategory.H5}
-                style={[{ color: '#fff' }, globalStyles.alignSelfCenter]}
-            >
+            <Text category={TextCategory.H5} style={{ color: '#fff' }}>
                 Create an account
             </Text>
             <View
