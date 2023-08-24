@@ -16,8 +16,8 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public async find(id: number): Promise<UserFindResponseDto> {
-        const user = await this.userRepository.find(id);
+    public async findById(id: number): Promise<UserFindResponseDto> {
+        const user = await this.userRepository.findById(id);
         return user.toObject();
     }
 

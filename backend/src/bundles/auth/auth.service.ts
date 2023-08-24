@@ -15,7 +15,7 @@ class AuthService {
     public async signIn(
         id: number,
     ): Promise<{ id: number; email: string; token: string }> {
-        const user = await this.userService.find(id);
+        const user = await this.userService.findById(id);
         return {
             ...user,
             token: await token.create({ id }),
