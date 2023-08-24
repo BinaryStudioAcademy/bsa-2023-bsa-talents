@@ -1,6 +1,7 @@
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
+import multer from 'fastify-multer';
 
 import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
@@ -93,6 +94,10 @@ class ServerAppBase implements ServerApp {
         );
     }
 
+    public async initPlugins(): Promise<void> {
+        await this.app.register(multer.contentParser);
+    }
+
     private initValidationCompiler(): void {
         this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
             return <T>(data: T): ReturnType<ValidationSchema['validate']> => {
@@ -162,6 +167,8 @@ class ServerAppBase implements ServerApp {
         this.logger.info('Application initialization…');
 
         await this.initMiddlewares();
+
+        await this.initPlugins();
 
         this.initValidationCompiler();
 
