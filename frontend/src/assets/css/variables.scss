@@ -1,49 +1,97 @@
 :root {
-    // Error colors
-    --error-main: #ff2121;
+    // *Basic Colors*
 
-    // Action colors
-    --action-hover: #2e61ae;
+    // Red
+    --torch-red: #ff2121;
+
+    // Azure
+    --azure: #2e61ae;
+
+    // White
+    --white: #ffffff;
+    --white-lilac: #f7f8fc;
+
+    // St Tropaz
+    --st-tropaz: #274f8d;
+
+    // Gray
+    --steel-gray: #1f1e29;
+    --slate-gray: #7c8798;
+
+    // Nepal
+    --nepal: #90a3bf;
+
+    // Botticelli
+    --botticelli: #d5dce8;
+
+    // Solitude
+    --solitude: #dce5ff;
+
+    // Mountain Meadow
+    --mountain-meadow: #12b76a;
+
+    // Porcelain
+    --porcelain: #f5f6f7;
+
+    // *Reusable Elements*
 
     // Background colors
-    --background-primary: #f7f8fc;
-    --background-secondary: #274f8d;
+    --background-primary: var(--white-lilac);
+    --background-secondary: var(--st-tropaz);
 
     // Text colors
-    --text-primary-dark: #1f1e29;
-    --text-primary: #90a3bf;
-    --text-secondary: #7c8798;
+    --text-primary: var(--nepal);
+    --text-primary-dark: var(--steel-gray);
+    --text-secondary: var(--slate-gray);
+
+    // Action colors
+    --hover-primary: var(--azure);
+
+    // Shadow colors
+    --shadow-primary: #2e61ae65;
+    --shadow-secondary: #10161a33;
+
+    // Error colors
+    --error-primary: var(--torch-red);
+
+    // *Components*
 
     // Input colors
-    --input-main: #d5dce8;
+    --input-border: var(--botticelli);
 
     // Tag colors
-    --tag-main: #dce5ff;
+    --tag-background: var(--solitude);
 
-    // Colors
-    --bt-blue-gray: #90a3bf;
-    --bt-input: #d5dce8;
-    --hover: #274f8d;
-    --light-background-color: #f7f8fc;
-    --hover-background-color: #f7f8fc;
-    --disabled-background-color: #90a3bf;
-    --hover-ripple-color: #2e61ae65;
-    --shadow-color: rgb(16 22 26 / 20%);
-    --checked-background-color: #274f8d;
-    --checked-inner-background-color: #f7f8fc;
-    --checkbox-border: #d5dce8;
-    --checkbox-disabled: #f7f8fc;
-    --checkbox-checked: #274f8d;
-    --checkbox-disabled-checked: #d5dce8;
-    --header-border: #f5f6f7;
-    --status-online: #12b76a;
-    --status-offline: #90a3bf;
-    --white-color: #ffffff;
+    // Checkbox colors
+    --checked-background: var(--background-secondary);
+    --checked-inner-background: var(--background-primary);
+    --checkbox-border: var(--botticelli);
+    --checkbox-disabled: var(--background-primary);
+    --checkbox-checked: var(--st-tropaz);
+    --checkbox-disabled-checked: var(--botticelli);
 
-    /* Font family. */
+    // Status colors
+    --status-online: var(--mountain-meadow);
+    --status-offline: var(--nepal);
+
+    // Textarea colors
+    --textarea-hover: var(--background-secondary);
+
+    // Radio colors
+    --radio-background: var(--background-primary);
+    --radio-disabled-background: var(--nepal);
+    --radio-hover-ripple: var(--shadow-primary);
+    --radio-shadow: var(--shadow-secondary);
+
+    // Header colors
+    --header-border: var(--porcelain);
+
+    // *Font*
+
+    // Font family
     --font-family: "Inter", sans-serif;
 
-    /* Font sizes */
+    // Font sizes
     --font-size-h1: 42px;
     --font-size-h2: 28px;
     --font-size-h3: 26px;
@@ -56,18 +104,18 @@
     --font-size-base: 13px;
     --font-size-caption: 12px;
 
-    /* Line height */
-    --line-height-btn: 1.17;
-    --line-height-main: 1.21;
-    --line-height-h2-h4: 1.35;
-    --line-height-h5-h6: 1.41;
+    // Line height
+    --line-height-btn: 1.17px;
+    --line-height-main: 1.21px;
+    --line-height-h2-h4: 1.35px;
+    --line-height-h5-h6: 1.41px;
 
-    /* Letter spacings. */
+    // Letter spacings
     --letter-spacing-sm: 0.15px;
     --letter-spacing-md: 0.25px;
     --letter-spacing-lg: 1.5px;
 
-    /* Font weight */
+    // Font weight
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semi-bold: 600;
