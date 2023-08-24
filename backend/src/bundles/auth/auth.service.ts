@@ -4,6 +4,8 @@ import {
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
 
+import { createToken } from './helpers/helpers.js';
+
 class AuthService {
     private userService: UserService;
 
@@ -11,10 +13,21 @@ class AuthService {
         this.userService = userService;
     }
 
-    public signUp(
+    private async login(
+        id: number,
+    ): Promise<{ id: number; email: string; token: string }> {
+        const user = await this.userService.find(id);
+        return {
+            ...user,
+            token: await createToken({ id }),
+        };
+    }
+
+    public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        return this.userService.create(userRequestDto);
+        const user = await this.userService.create(userRequestDto);
+        return this.login(user.id);
     }
 }
 

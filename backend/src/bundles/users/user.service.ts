@@ -3,6 +3,7 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type Service } from '~/common/interfaces/interfaces.js';
 
 import {
+    type UserFindResponseDto,
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
@@ -15,8 +16,9 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
+    public async find(id: number): Promise<UserFindResponseDto> {
+        const user = await this.userRepository.find(id);
+        return user.toObject();
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {

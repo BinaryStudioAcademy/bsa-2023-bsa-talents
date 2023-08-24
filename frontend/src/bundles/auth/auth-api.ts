@@ -6,6 +6,7 @@ import {
 import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
+import { StorageKey } from '~/framework/storage/storage.js';
 
 import { AuthApiPath } from './enums/enums.js';
 
@@ -33,7 +34,11 @@ class AuthApi extends HttpApiBase {
             },
         );
 
-        return await response.json<UserSignUpResponseDto>();
+        const data = await response.json<UserSignUpResponseDto>();
+
+        this.Storage.set(StorageKey.TOKEN, data.token);
+
+        return data;
     }
 }
 

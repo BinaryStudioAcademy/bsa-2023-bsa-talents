@@ -114,6 +114,10 @@ class HttpApiBase implements HttpApi {
                 'details' in parsedException ? parsedException.details : [],
         });
     }
+
+    public get Storage(): Storage {
+        return this.storage;
+    }
 }
 
 export { HttpApiBase };
