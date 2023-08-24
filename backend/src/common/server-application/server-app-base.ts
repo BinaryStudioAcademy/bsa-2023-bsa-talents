@@ -2,6 +2,7 @@ import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
 
+import { userService } from '~/bundles/users/users.js';
 import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
@@ -93,6 +94,9 @@ class ServerAppBase implements ServerApp {
                 });
 
                 await this.app.register(authorization, {
+                    services: {
+                        userService,
+                    },
                     routesWhiteList: WHITE_ROUTES,
                 });
             }),

@@ -16,6 +16,11 @@ class AuthService {
         id: number,
     ): Promise<{ id: number; email: string; token: string }> {
         const user = await this.userService.find(id);
+
+        if (!user) {
+            throw new Error('User does not exist');
+        }
+
         return {
             ...user,
             token: await token.create({ id }),
