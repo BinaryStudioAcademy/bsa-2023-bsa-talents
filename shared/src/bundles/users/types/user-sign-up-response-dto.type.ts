@@ -1,7 +1,5 @@
-type UserSignUpResponseDto = {
-    id: number;
-    email: string;
-    token?: string;
-};
+import { type UserCreationResponseDto } from './user-creation-response-dto.type.js';
+
+type UserSignUpResponseDto = UserCreationResponseDto & { token: string };
 
 export { type UserSignUpResponseDto };
