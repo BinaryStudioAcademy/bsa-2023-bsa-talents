@@ -8,7 +8,11 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    RootScreenName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { userSignUpValidationSchema } from '~/bundles/users/users';
@@ -37,7 +41,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 globalStyles.justifyContentCenter,
             ]}
         >
-            <Text category={TextCategory.H4} style={globalStyles.pb25}>
+            <Text
+                category={TextCategory.H4}
+                style={[globalStyles.pb25, globalStyles.alignSelfCenter]}
+            >
                 Hi! Login to your Account
             </Text>
             <FormField errors={errors} label="Email" name="email" required>
@@ -60,13 +67,34 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     secureTextEntry
                 />
             </FormField>
+            <Text
+                category={TextCategory.CAPTION}
+                style={[
+                    globalStyles.alignSelfFlexEnd,
+                    globalStyles.pv25,
+                    { color: Color.PRIMARY },
+                ]}
+            >
+                Forgot Password?
+            </Text>
+
             <Button
-                style={[globalStyles.mt25, globalStyles.mb25]}
-                label="Sign in"
+                style={globalStyles.mb25}
+                label="Login"
                 onPress={handleFormSubmit}
             />
-            <View style={globalStyles.flexDirectionRow}>
-                <Text>Not Registered Yet? </Text>
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.alignSelfCenter,
+                ]}
+            >
+                <Text
+                    category={TextCategory.BODY1}
+                    style={{ color: Color.TEXT2 }}
+                >
+                    Not Registered Yet?{' '}
+                </Text>
                 <Link
                     label="Create an account"
                     to={`/${RootScreenName.SIGN_UP}`}
