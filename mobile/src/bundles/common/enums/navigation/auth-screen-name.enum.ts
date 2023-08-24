@@ -1,8 +1,6 @@
 const AuthScreenName = {
-    MAIL: 'Mail',
-    MAIN: 'Main',
-    PERSON: 'Person',
-    SHARED_FOLDER: 'Shared folder',
+    SIGN_UP: 'Sign Up',
+    SIGN_IN: 'Sign In',
 } as const;
 
 export { AuthScreenName };

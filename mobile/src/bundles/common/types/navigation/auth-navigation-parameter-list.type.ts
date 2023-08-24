@@ -1,10 +1,8 @@
 import { type AuthScreenName } from '~/bundles/common/enums/enums';
 
 type AuthNavigationParameterList = {
-    [AuthScreenName.MAIL]: undefined;
-    [AuthScreenName.MAIN]: undefined;
-    [AuthScreenName.PERSON]: undefined;
-    [AuthScreenName.SHARED_FOLDER]: undefined;
+    [AuthScreenName.SIGN_IN]: undefined;
+    [AuthScreenName.SIGN_UP]: undefined;
 };
 
 export { type AuthNavigationParameterList };

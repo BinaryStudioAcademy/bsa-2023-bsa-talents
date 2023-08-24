@@ -4,28 +4,37 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { Auth } from '~/bundles/auth/screens/auth';
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 
-const NativeStack = createNativeStackNavigator<RootNavigationParameterList>();
+import { AuthNavigator } from '../auth-navigator/auth-navigator';
+import { MainNavigator } from '../main-navigator/main-navigator';
+
+const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
 
 const screenOptions: NativeStackNavigationOptions = {
     headerShown: false,
 };
 
-const Root: React.FC = () => {
+type Properties = {
+    isSignedIn: boolean;
+};
+
+const Root: React.FC<Properties> = ({ isSignedIn = false }) => {
     return (
-        <NativeStack.Navigator screenOptions={screenOptions}>
-            <NativeStack.Screen
-                name={RootScreenName.SIGN_IN}
-                component={Auth}
-            />
-            <NativeStack.Screen
-                name={RootScreenName.SIGN_UP}
-                component={Auth}
-            />
-        </NativeStack.Navigator>
+        <RootStack.Navigator screenOptions={screenOptions}>
+            {isSignedIn ? (
+                <RootStack.Screen
+                    name={RootScreenName.MAIN_ROOT_ROUTE}
+                    component={MainNavigator}
+                />
+            ) : (
+                <RootStack.Screen
+                    name={RootScreenName.AUTH_ROOT_ROUTE}
+                    component={AuthNavigator}
+                />
+            )}
+        </RootStack.Navigator>
     );
 };
 
