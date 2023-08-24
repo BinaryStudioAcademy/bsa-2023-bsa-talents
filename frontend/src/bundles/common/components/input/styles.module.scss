@@ -1,3 +1,5 @@
+@import url("../../../../assets/css/styles.scss");
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -14,52 +16,90 @@
 
 .labelDisabled {
     color: var(--input, #d5dce8);
-    font-size: 13px;
-    line-height: normal;
 }
 
 .root {
     height: 36px;
     font-size: 13px;
     background: var(--colors-white, #ffffff);
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    transition:
-        border-color 0.2s,
-        background-color 0.2s;
+    border: none;
+
+    & fieldset {
+        border: none;
+    }
 }
 
-.root .MuiInputBase-root {
-    height: 36px;
-    padding: 0;
-    font-size: 13px;
+.helperText {
+    margin: 0 14px;
+    font-size: 10px;
 }
 
-.MuiInputBase-root .MuiOutlinedInput-root {
+.inputWrapper {
+    min-height: 36px;
     padding-left: 0;
     overflow: hidden;
+    border: 1px solid var(--bt-input);
+
+    &:hover {
+        border-color: var(--hover);
+    }
+
+    &:focus-within {
+        border-color: var(--hover);
+    }
 }
 
-.MuiInputBase-root .MuiInputBase-input {
+.input {
     width: 100%;
     height: 16px;
     padding: 10px 14px;
+    color: #1f1e29;
     font-size: 13px;
-    background-color: #ffffff;
+    border: none;
+
+    &::placeholder {
+        color: var(--bt-blue-gray);
+        -webkit-text-fill-color: var(--bt-blue-gray);
+    }
 }
 
-.disabled .MuiInputBase-root {
-    background-color: #f7f8fc;
+.inputPaddingSearch {
+    padding: 10px 14px 10px 5px;
 }
 
-.error .MuiInputBase-input {
-    color: var(--error, #ff2121);
+.inputPaddingTextAdornsment {
+    padding: 11px 14px 11px 10px;
 }
 
-.MuiInputBase-root .MuiInputAdornment-root {
+.inputDisabled {
+    pointer-events: none;
+    background-color: var(--light-background-color);
+}
+
+.hasError {
+    color: red !important; /* stylelint-disable-line declaration-no-important */
+    border-color: red;
+
+    & .input {
+        color: red;
+    }
+
+    & .input::placeholder {
+        color: red;
+        -webkit-text-fill-color: red;
+    }
+}
+
+.adornmentIcon {
+    height: 24px;
+    margin: 7px 0 7px 9px;
+    color: var(--hover);
+}
+
+.MuiInputAdornment-root {
     height: 36px;
     max-height: 36px;
-    margin: 0;
+    margin-right: 0;
     font-size: 13px;
 }
 
@@ -70,9 +110,4 @@
     font-size: 13px;
     background-color: #f7f8fc;
     border-right: 1px solid #d5dce8;
-}
-
-.adornmentIcon img {
-    height: 24px;
-    margin: 7px 0 7px 9px;
 }

@@ -1,3 +1,4 @@
+import { Search } from '@mui/icons-material';
 import { InputAdornment, TextField } from '@mui/material';
 import {
     type Control,
@@ -6,10 +7,9 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import searchIcon from '~/assets/img/search.svg';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
-import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type InputType = 'text' | 'email' | 'password' | 'search';
@@ -40,13 +40,6 @@ const Input = <T extends FieldValues>({
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
-    const generatedRootStyles = getValidClassNames(
-        styles.root,
-        isDisabled && styles.disabled,
-        hasError && styles.error,
-        adornmentText && styles.hasAdornsment,
-    );
-
     let adornment = null;
     if (type === 'search') {
         const iconAdornmentStyles = getValidClassNames(
@@ -55,7 +48,7 @@ const Input = <T extends FieldValues>({
         );
         adornment = (
             <InputAdornment position="start" className={iconAdornmentStyles}>
-                <img src={searchIcon} alt="search" />
+                <Search />
             </InputAdornment>
         );
     }
@@ -71,27 +64,43 @@ const Input = <T extends FieldValues>({
         );
     }
 
+    const inputLabelStyles = getValidClassNames(
+        styles.label,
+        isDisabled && styles.labelDisabled,
+    );
+    const textFieldRootStyles = getValidClassNames(styles.root);
+    const muiInputStyles = getValidClassNames(
+        styles.inputWrapper,
+        isDisabled && styles.inputDisabled,
+        hasError && styles.hasError,
+    );
+    const htmlInputStyles = getValidClassNames(
+        styles.input,
+        type === 'search' && styles.inputPaddingSearch,
+        adornmentText && styles.inputPaddingTextAdornsment,
+    );
+    const helperTextStyles = getValidClassNames(
+        styles.helperText,
+        hasError && styles.hasError,
+    );
+
     return (
         <label className={styles.wrapper}>
-            <span className={isDisabled ? styles.labelDisabled : styles.label}>
-                {label}
-            </span>
+            <span className={inputLabelStyles}>{label}</span>
             <TextField
                 {...field}
                 type={type}
                 placeholder={placeholder}
                 error={hasError}
                 helperText={(error as string) || ' '}
-                disabled={isDisabled}
-                className={generatedRootStyles}
+                className={textFieldRootStyles}
                 InputProps={{
-                    className: getValidClassNames(
-                        styles['MuiInputBase-root'],
-                        styles['MuiOutlinedInput-root'],
-                    ),
+                    className: muiInputStyles,
+                    disabled: isDisabled,
                     startAdornment: adornment,
                 }}
-                inputProps={{ className: styles['MuiInputBase-input'] }}
+                inputProps={{ className: htmlInputStyles }}
+                FormHelperTextProps={{ className: helperTextStyles }}
             />
         </label>
     );
