@@ -1,7 +1,9 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
+export { Chip } from './chip/chip.js';
 export { Grid } from './grid/grid.js';
+export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Radio, RadioGroup } from './radio/radio.js';
