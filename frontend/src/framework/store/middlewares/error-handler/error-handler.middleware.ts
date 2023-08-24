@@ -1,13 +1,14 @@
 import { type AnyAction, type Middleware } from '@reduxjs/toolkit';
 import { isRejected } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
-const errorService: Middleware = function () {
+import { notificationService } from '~/services/services.js';
+
+const errorHandler: Middleware = function () {
     return function (next) {
         return function (action: AnyAction) {
             if (isRejected(action)) {
                 const message = action.error.message;
-                toast.error(message, { toastId: message });
+                notificationService.error(message);
             }
 
             return next(action);
@@ -15,4 +16,4 @@ const errorService: Middleware = function () {
     };
 };
 
-export { errorService };
+export { errorHandler };
