@@ -22,6 +22,7 @@ const Overlay: React.FC<OverlayProperties> = ({
     }
     return (
         <View
+            pointerEvents="box-only"
             style={[
                 globalStyles.width100,
                 globalStyles.height100,
