@@ -1,13 +1,14 @@
 .container {
     width: 100%;
-    font-family: Inter, sans-serif;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
 }
 
 .container .input {
     height: 38px;
     padding: 10px 7px 12px 14px;
-    color: #90a3bf;
-    font-weight: 400;
+    color: var(--text-primary, #90a3bf);
+    font-weight: var(--font-weight-regular);
     transition:
         border-color 0.3s,
         box-shadow 0.3s;
@@ -25,5 +26,5 @@
 }
 
 .container fieldset {
-    border: 1px solid #d5dce8;
+    border: 1px solid var(-input-main, #d5dce8);
 }

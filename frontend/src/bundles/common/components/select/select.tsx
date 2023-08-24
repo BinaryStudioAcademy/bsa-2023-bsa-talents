@@ -1,12 +1,6 @@
-import {
-    FormControl,
-    FormHelperText,
-    MenuItem,
-    Select as MuiSelect,
-} from '@mui/material';
+import { FormControl, MenuItem, Select as MuiSelect } from '@mui/material';
 import {
     type Control,
-    type FieldErrors,
     type FieldPath,
     type FieldValues,
     type Path,
@@ -20,7 +14,6 @@ import styles from './select.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
-    errors: FieldErrors<T>;
     name: FieldPath<T>;
     options: { value: string | number; label: string }[];
     multiple?: boolean;
@@ -32,7 +25,6 @@ const ArrowIcon = (): JSX.Element => {
 
 const Select = <T extends FieldValues>({
     control,
-    errors,
     name,
     options,
     multiple,
@@ -46,11 +38,8 @@ const Select = <T extends FieldValues>({
             : options[firstElementIndex].value) as PathValue<T, Path<T>>,
     });
 
-    const error = errors[name]?.message;
-    const hasError = Boolean(error);
-
     return (
-        <FormControl error={hasError} className={styles.container}>
+        <FormControl className={styles.container}>
             <MuiSelect
                 {...field}
                 multiple={multiple}
@@ -63,7 +52,6 @@ const Select = <T extends FieldValues>({
                     </MenuItem>
                 ))}
             </MuiSelect>
-            {hasError && <FormHelperText>{error as string}</FormHelperText>}
         </FormControl>
     );
 };
