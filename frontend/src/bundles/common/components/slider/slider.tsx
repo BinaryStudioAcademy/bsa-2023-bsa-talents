@@ -1,7 +1,6 @@
 import { Box as MUIBox, Slider as MUISlider } from '@mui/material';
 import { useCallback } from 'react';
 
-// import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.css';
 
 type Option = {
@@ -19,16 +18,13 @@ type Properties = {
     valueLabelDisplay?: 'auto' | 'on' | 'off';
 };
 
-// const getClasses = (styles: CSSModuleClasses): Record<string, string> => {
-//     const newClasses: Record<string, string> = {};
-//     for (const key of Object.keys(styles)) {
-//         newClasses[key] = styles[key];
-//     }
-//     return newClasses;
-// };
-
-// eslint-disable-next-line no-console
-// console.dir(styles);
+const getClasses = (styles: CSSModuleClasses): Record<string, string> => {
+    const newClasses: Record<string, string> = {};
+    for (const key of Object.keys(styles)) {
+        newClasses[key] = styles[key];
+    }
+    return newClasses;
+};
 
 const CustomSlider: React.FC<Properties> = ({
     marks = [],
@@ -50,15 +46,7 @@ const CustomSlider: React.FC<Properties> = ({
             {label && <span>{label}</span>}
             <MUISlider
                 className={styles.slider}
-                classes={{
-                    track: styles.track,
-                    markLabel: styles.markLabel,
-                    thumb: styles.thumb,
-                    valueLabel: styles.valueLabel,
-                    mark: styles.mark,
-                    active: styles.active,
-                    focusVisible: styles.focusVisible,
-                }}
+                classes={getClasses(styles)}
                 style={{
                     height: '15px',
                     marginTop: '20px',
