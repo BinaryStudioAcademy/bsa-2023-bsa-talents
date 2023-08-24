@@ -6,8 +6,8 @@
     justify-content: flex-end;
     align-items: center;
     width: 100%;
-    padding: 5px;
-    background-color: var(--header-background);
+    padding: 10px;
+    background-color: var(--white-color);
     border-bottom: 1px solid var(--header-border);
 }
 
@@ -17,12 +17,12 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-}
 
-.avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 200px;
+    & img {
+        width: 40px;
+        height: 40px;
+        border-radius: 200px;
+    }
 }
 
 .status {
@@ -32,14 +32,14 @@
     z-index: 1;
     width: 10px;
     height: 10px;
-    border: 2px solid var(--status-border);
+    border: 2px solid var(--white-color);
     border-radius: 5px;
-}
 
-.status.online {
-    background-color: var(--status-online);
-}
+    &.online {
+        background-color: var(--status-online);
+    }
 
-.status.offline {
-    background-color: var(--status-offline);
+    &.offline {
+        background-color: var(--status-offline);
+    }
 }
