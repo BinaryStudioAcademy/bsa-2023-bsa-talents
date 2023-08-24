@@ -4,19 +4,20 @@
     height: 23px;
     margin-right: 9px;
     margin-bottom: 5px;
-    color: var(--text-color-primary);
+    color: var(--text-primary-dark);
     background-color: var(--tag-main);
     border-radius: 5px;
 
     & span {
         padding: 5px 6px;
-        font-size: var(--font-size-input);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-base);
     }
 
     & .icon {
         width: 13px;
         height: 13px;
-        color: var(--text-color-primary);
+        color: var(--text-primary-dark);
     }
 }
 

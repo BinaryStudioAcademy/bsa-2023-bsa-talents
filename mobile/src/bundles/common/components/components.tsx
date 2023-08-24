@@ -4,4 +4,4 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { Text } from './text/text';
-export { ActivityIndicator, View } from 'react-native';
+export { ActivityIndicator, Pressable, View } from 'react-native';
