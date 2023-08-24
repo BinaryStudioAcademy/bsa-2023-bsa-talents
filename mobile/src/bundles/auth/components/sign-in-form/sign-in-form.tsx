@@ -67,6 +67,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     secureTextEntry
                 />
             </FormField>
+
             <Text
                 category={TextCategory.CAPTION}
                 style={[
@@ -75,7 +76,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     { color: Color.PRIMARY },
                 ]}
             >
-                Forgot Password?
+                <Link label="Forgot Password?" to={''} />
             </Text>
 
             <Button
@@ -87,6 +88,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.alignSelfCenter,
+                    globalStyles.alignItemsCenter,
                 ]}
             >
                 <Text
@@ -95,10 +97,21 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 >
                     Not Registered Yet?{' '}
                 </Text>
-                <Link
-                    label="Create an account"
-                    to={`/${RootScreenName.SIGN_UP}`}
-                />
+
+                <Text
+                    category={TextCategory.BODY1}
+                    style={[
+                        globalStyles.alignSelfFlexStart,
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pv25,
+                        { color: Color.PRIMARY },
+                    ]}
+                >
+                    <Link
+                        label="Create an account"
+                        to={`/${RootScreenName.SIGN_UP}`}
+                    />
+                </Text>
             </View>
         </View>
     );
