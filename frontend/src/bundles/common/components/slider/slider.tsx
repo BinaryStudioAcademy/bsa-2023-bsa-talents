@@ -18,14 +18,6 @@ type Properties = {
     valueLabelDisplay?: 'auto' | 'on' | 'off';
 };
 
-const getClasses = (styles: CSSModuleClasses): Record<string, string> => {
-    const newClasses: Record<string, string> = {};
-    for (const key of Object.keys(styles)) {
-        newClasses[key] = styles[key];
-    }
-    return newClasses;
-};
-
 const CustomSlider: React.FC<Properties> = ({
     marks = [],
     label,
@@ -46,7 +38,7 @@ const CustomSlider: React.FC<Properties> = ({
             {label && <span>{label}</span>}
             <MUISlider
                 className={styles.slider}
-                classes={getClasses(styles)}
+                classes={styles}
                 style={{
                     height: '15px',
                     marginTop: '20px',
