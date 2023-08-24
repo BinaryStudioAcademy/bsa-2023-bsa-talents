@@ -5,7 +5,7 @@ import { type UserFindResponseDto } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/users.js';
 import { ControllerHooks } from '~/common/controller/controller.js';
 import { HttpCode } from '~/common/http/http.js';
-import { token } from '~/common/token/token.js';
+import { tokenService } from '~/common/services/services.js';
 
 type AuthOptions = {
     services: {
@@ -37,12 +37,12 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
             }
 
             if (request.headers.authorization) {
-                const { payload } = await token.decode(
+                const { payload } = await tokenService.decode(
                     request.headers.authorization,
                 );
                 const { userService } = services;
 
-                const authorizedUser = await userService.find(
+                const authorizedUser = await userService.findById(
                     payload.id as number,
                 );
                 if (!authorizedUser) {
