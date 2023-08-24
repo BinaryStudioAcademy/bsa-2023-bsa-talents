@@ -8,20 +8,20 @@
 }
 
 .label {
-    color: var(--text, #1f1e29);
-    font-weight: 500;
-    font-size: 13px;
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
     line-height: normal;
 }
 
 .labelDisabled {
-    color: var(--input, #d5dce8);
+    color: var(--input-main);
 }
 
 .root {
     height: 36px;
-    font-size: 13px;
-    background: var(--colors-white, #ffffff);
+    font-size: var(--font-size-base);
+    background: var(--white-color);
     border: none;
 
     & fieldset {
@@ -31,14 +31,14 @@
 
 .helperText {
     margin: 0 14px;
-    font-size: 10px;
+    font-size: var(--font-size-caption);
 }
 
 .inputWrapper {
     min-height: 36px;
     padding-left: 0;
     overflow: hidden;
-    border: 1px solid var(--bt-input);
+    border: 1px solid var(--input-main);
 
     &:hover {
         border-color: var(--hover);
@@ -53,8 +53,8 @@
     width: 100%;
     height: 16px;
     padding: 10px 14px;
-    color: #1f1e29;
-    font-size: 13px;
+    color: var(--text-primary-dark);
+    font-size: var(--font-size-base);
     border: none;
 
     &::placeholder {
@@ -77,16 +77,17 @@
 }
 
 .hasError {
-    color: red !important; /* stylelint-disable-line declaration-no-important */
-    border-color: red;
-
+    /* stylelint-disable */
+    color: var(--error-main) !important;
+    border-color: var(--error-main);
+    /* stylelint-enable */
     & .input {
-        color: red;
+        color: var(--error-main);
     }
 
     & .input::placeholder {
-        color: red;
-        -webkit-text-fill-color: red;
+        color: var(--error-main);
+        -webkit-text-fill-color: var(--error-main);
     }
 }
 
@@ -100,14 +101,15 @@
     height: 36px;
     max-height: 36px;
     margin-right: 0;
-    font-size: 13px;
+    font-size: var(--font-size-base);
 }
 
 .adornmentText p {
+    height: 100%;
     margin: 0;
     padding: 8px 10px;
-    color: #90a3bf;
-    font-size: 13px;
-    background-color: #f7f8fc;
-    border-right: 1px solid #d5dce8;
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    background-color: var(--light-background-color);
+    border-right: 1px solid var(--input-main);
 }
