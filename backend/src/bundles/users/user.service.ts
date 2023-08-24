@@ -3,10 +3,10 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type Service } from '~/common/interfaces/interfaces.js';
 
 import {
+    type UserCreationResponseDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
-    type UserSignUpResponseDto,
 } from './types/types.js';
 
 class UserService implements Service {
@@ -16,8 +16,10 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public async find(id: number): Promise<UserFindResponseDto | undefined> {
-        const user = await this.userRepository.find(id);
+    public async findById(
+        id: number,
+    ): Promise<UserFindResponseDto | undefined> {
+        const user = await this.userRepository.findById(id);
         return user ? user.toObject() : undefined;
     }
 
@@ -31,7 +33,7 @@ class UserService implements Service {
 
     public async create(
         payload: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
+    ): Promise<UserCreationResponseDto> {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,

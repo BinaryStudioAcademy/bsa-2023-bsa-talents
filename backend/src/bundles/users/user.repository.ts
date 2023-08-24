@@ -9,7 +9,7 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public async find(id: number): Promise<UserEntity | undefined> {
+    public async findById(id: number): Promise<UserEntity | undefined> {
         const user = await this.userModel.query().findById(id).execute();
 
         return user ? UserEntity.initialize(user) : undefined;

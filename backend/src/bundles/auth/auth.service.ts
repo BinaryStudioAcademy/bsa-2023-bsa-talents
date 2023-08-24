@@ -3,7 +3,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { token } from '~/common/token/token.js';
+import { tokenService } from '~/common/services/services.js';
 
 class AuthService {
     private userService: UserService;
@@ -12,10 +12,10 @@ class AuthService {
         this.userService = userService;
     }
 
-    private async signIn(
+    public async signIn(
         id: number,
     ): Promise<{ id: number; email: string; token: string }> {
-        const user = await this.userService.find(id);
+        const user = await this.userService.findById(id);
 
         if (!user) {
             throw new Error('User does not exist');
@@ -23,7 +23,7 @@ class AuthService {
 
         return {
             ...user,
-            token: await token.create({ id }),
+            token: await tokenService.create({ id }),
         };
     }
 
