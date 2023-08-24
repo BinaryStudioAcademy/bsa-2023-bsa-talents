@@ -11,14 +11,16 @@ type Properties = {
 };
 
 const Chip = ({ label, onDelete }: Properties): JSX.Element => {
+    const chipClassName = getValidClassNames(styles.chip, {
+        [styles['delete-chip']]: onDelete,
+    });
+
     return (
         <MUIChip
-            className={getValidClassNames(styles.chip, {
-                [styles['delete-chip']]: onDelete,
-            })}
+            className={chipClassName}
             label={label}
             onDelete={onDelete}
-            deleteIcon={onDelete && <Close />}
+            deleteIcon={onDelete && <Close className={styles.icon} />}
         />
     );
 };

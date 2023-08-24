@@ -12,16 +12,16 @@
     background-color: var(--tag-main);
     border-radius: 5px;
 
-    :global(.MuiChip-deleteIcon) {
+    & span {
+        padding: 5px 6px;
+        font-size: var(--font-size-input);
+    }
+
+    & .icon {
         width: 13px;
         height: 13px;
         color: var(--text-color-primary);
     }
-}
-
-.chip span {
-    padding: 5px 6px;
-    font-size: var(--font-size-input);
 }
 
 .delete-chip {
