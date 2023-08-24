@@ -3,7 +3,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { token } from '~/common/token/token.js';
+import { tokenService } from '~/common/services/services.js';
 
 class AuthService {
     private userService: UserService;
@@ -18,7 +18,7 @@ class AuthService {
         const user = await this.userService.findById(id);
         return {
             ...user,
-            token: await token.create({ id }),
+            token: await tokenService.create({ id }),
         };
     }
 

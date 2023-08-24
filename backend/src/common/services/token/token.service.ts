@@ -5,10 +5,11 @@ import {
     SignJWT,
 } from 'jose';
 
-import { config } from '../config/config.js';
-import { type Token } from './interfaces/interfaces.js';
+import { config } from '~/common/config/config.js';
 
-class TokenBase implements Token {
+import { type TokenService } from './interfaces/interface.js';
+
+class TokenServiceBase implements TokenService {
     private secret: Uint8Array;
 
     public constructor() {
@@ -28,4 +29,4 @@ class TokenBase implements Token {
     }
 }
 
-export { TokenBase };
+export { TokenServiceBase };
