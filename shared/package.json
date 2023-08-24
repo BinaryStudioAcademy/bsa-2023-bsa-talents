@@ -16,7 +16,7 @@
     },
     "scripts": {
         "lint:type": "npx tsc --noEmit",
-        "lint:js": "npx eslint \"src/**/*.ts\" --fix",
+        "lint:js": "npx eslint \"src/**/*.ts\"",
         "lint": "npm run lint:type && npm run lint:js",
         "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json && npm run build:copy",
         "build:copy": "cp -r package.json build/esm && cp -r package.json build/cjs"
