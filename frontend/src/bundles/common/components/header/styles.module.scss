@@ -1,0 +1,45 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--white-color);
+    border-bottom: 1px solid var(--header-border);
+}
+
+.avatar {
+    position: relative;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    & img {
+        width: 40px;
+        height: 40px;
+        border-radius: 200px;
+    }
+}
+
+.status {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--white-color);
+    border-radius: 5px;
+
+    &.online {
+        background-color: var(--status-online);
+    }
+
+    &.offline {
+        background-color: var(--status-offline);
+    }
+}
