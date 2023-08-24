@@ -14,10 +14,10 @@ const signUp = createAsyncThunk<
     UserSignUpRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-up`, async (registerPayload, { extra }) => {
-    const { authApi } = extra;
+    const { authApi, storage } = extra;
 
     const data = await authApi.signUp(registerPayload);
-    authApi.Storage.set(StorageKey.TOKEN, data.token);
+    void storage.set(StorageKey.TOKEN, data.token);
     return data;
 });
 
