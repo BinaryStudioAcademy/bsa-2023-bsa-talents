@@ -8,16 +8,13 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    RootScreenName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { userSignUpValidationSchema } from '~/bundles/users/users';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
+import { styles } from './styles';
 
 type Properties = {
     onSubmit: () => void;
@@ -43,7 +40,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         >
             <Text
                 category={TextCategory.H4}
-                style={[globalStyles.pb25, globalStyles.alignSelfCenter]}
+                style={[
+                    globalStyles.pb25,
+                    globalStyles.alignSelfCenter,
+                    styles.title,
+                ]}
             >
                 Hi! Login to your Account
             </Text>
@@ -73,14 +74,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 style={[
                     globalStyles.alignSelfFlexEnd,
                     globalStyles.pv25,
-                    { color: Color.PRIMARY },
+                    styles.linkForgotPassword,
                 ]}
             >
                 <Link label="Forgot Password?" to={''} />
             </Text>
 
             <Button
-                style={globalStyles.mb25}
+                style={[globalStyles.mb25, globalStyles.pv15]}
                 label="Login"
                 onPress={handleFormSubmit}
             />
@@ -91,10 +92,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.alignItemsCenter,
                 ]}
             >
-                <Text
-                    category={TextCategory.BODY1}
-                    style={{ color: Color.TEXT2 }}
-                >
+                <Text category={TextCategory.BODY1} style={styles.text}>
                     Not Registered Yet?{' '}
                 </Text>
 
@@ -104,7 +102,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         globalStyles.alignSelfFlexStart,
                         globalStyles.alignSelfFlexEnd,
                         globalStyles.pv25,
-                        { color: Color.PRIMARY },
+                        styles.linkSignUp,
                     ]}
                 >
                     <Link
