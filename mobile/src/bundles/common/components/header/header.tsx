@@ -1,3 +1,5 @@
+import { type DrawerNavigationProp } from '@react-navigation/drawer';
+import { type ParamListBase } from '@react-navigation/native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -8,8 +10,7 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { styles } from './styles';
 
 type Header = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    navigation: any;
+    navigation: DrawerNavigationProp<ParamListBase>;
 };
 
 const Header = ({ navigation }: Header): JSX.Element => {
@@ -24,7 +25,9 @@ const Header = ({ navigation }: Header): JSX.Element => {
         >
             <Pressable
                 style={styles.icon}
-                onPress={(): void => navigation.openDrawer()}
+                onPress={(): void => {
+                    navigation.openDrawer();
+                }}
             >
                 <Icon name="mail" size={20} color="#fff" />
             </Pressable>
