@@ -18,13 +18,13 @@ type Properties<T extends FieldValues> = TextInputProps & {
     hasError?: boolean;
 };
 
-const Input = <T extends FieldValues>({
+const Input: React.FC<Properties<FieldValues>> = ({
     editable = true,
     hasError,
     control,
     name,
     ...props
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
 

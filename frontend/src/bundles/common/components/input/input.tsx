@@ -17,14 +17,14 @@ type Properties<T extends FieldValues> = {
     type?: 'text' | 'email';
 };
 
-const Input = <T extends FieldValues>({
+const Input: React.FC<Properties<FieldValues>> = ({
     control,
     errors,
     label,
     name,
     placeholder = '',
     type = 'text',
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field } = useFormController({ name, control });
 
     const error = errors[name]?.message;

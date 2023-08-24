@@ -17,12 +17,12 @@ type Properties<T extends FieldValues> = {
     placeholder?: string;
 };
 
-const Textarea = <T extends FieldValues>({
+const Textarea: React.FC<Properties<FieldValues>> = ({
     control,
     name,
     placeholder = '',
     ...props
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field } = useFormController({ name, control });
 
     return (

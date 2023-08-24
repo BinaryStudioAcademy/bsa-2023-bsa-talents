@@ -20,13 +20,13 @@ type Properties<T extends FieldValues> = {
     hasError?: boolean;
 };
 
-const FormField = <T extends FieldValues>({
+const FormField: React.FC<Properties<FieldValues>> = ({
     errors,
     name,
     children,
     label,
     required,
-}: Properties<T>): JSX.Element => {
+}) => {
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
@@ -47,9 +47,12 @@ const FormField = <T extends FieldValues>({
             )}
 
             {React.Children.map(children, (child) =>
-                React.cloneElement(child as React.ReactElement<Properties<T>>, {
-                    hasError,
-                }),
+                React.cloneElement(
+                    child as React.ReactElement<Properties<FieldValues>>,
+                    {
+                        hasError,
+                    },
+                ),
             )}
 
             {hasError && (
