@@ -6,6 +6,7 @@ export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Modal } from './modal/modal.js';
 export { Radio, RadioGroup } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Textarea } from './textarea/textarea.js';
