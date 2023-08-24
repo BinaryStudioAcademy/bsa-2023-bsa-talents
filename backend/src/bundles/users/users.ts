@@ -9,8 +9,9 @@ const userRepository = new UserRepository(UserModel);
 const userService = new UserService(userRepository);
 const userController = new UserController(logger, userService);
 
-export { userController, userService };
+export { userController, userRepository, userService };
 export {
+    type UserSignInRequestDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
