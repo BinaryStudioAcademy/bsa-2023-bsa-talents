@@ -1,6 +1,6 @@
 import { type ReactElement, useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
     FlatList,
     Pressable,
@@ -9,7 +9,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 
-import { TextCategory } from '../../enums/enums';
+import { Color, IconName, TextCategory } from '../../enums/enums';
 import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
@@ -24,6 +24,8 @@ type Properties = {
     onSelect?: (item: Select) => void;
 };
 
+const iconDefaultSize = 24;
+
 const Selector: React.FC<Properties> = ({ label, options }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [isListVisible, setIsListVisible] = useState(false);
@@ -37,6 +39,10 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
         setSelectedOption(option.label);
     };
 
+    const selectIconName = isListVisible
+        ? IconName.ARROW_DROP_UP
+        : IconName.ARROW_DROP_DOWN;
+
     return (
         <View>
             <Text category={TextCategory.LABEL}>{label}</Text>
@@ -44,6 +50,7 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                 style={[
                     globalStyles.pv10,
                     globalStyles.pl15,
+                    globalStyles.pr5,
                     globalStyles.borderRadius5,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
@@ -55,38 +62,40 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                 }}
             >
                 <Text category={TextCategory.LABEL}>{selectedOption}</Text>
-                {/* <View style={[globalStyles.mr10, globalStyles.p5]}>
-                    <Icon
-                        name="arrow-drop-down"
-                        size={12}
-                        color={Color.PRIMARY}
-                    />
-                </View> */}
+
+                <Icon
+                    name={selectIconName}
+                    size={iconDefaultSize}
+                    color={Color.PRIMARY}
+                />
             </Pressable>
             {isListVisible && (
                 <Pressable
                     style={globalStyles.flex1}
                     onPress={toggleIsListVisible}
                 >
-                    <View style={[globalStyles.pl20, styles.dropdown]}>
-                        <FlatList
-                            data={options}
-                            renderItem={({ item }): ReactElement => {
-                                return (
-                                    <TouchableOpacity
-                                        onPress={(): void => {
-                                            handlePressItem(item);
-                                        }}
-                                    >
-                                        <Text category={TextCategory.LABEL}>
-                                            {item.label}
-                                        </Text>
-                                    </TouchableOpacity>
-                                );
-                            }}
-                            keyExtractor={(item): string => item.value}
-                        />
-                    </View>
+                    <FlatList
+                        style={[
+                            globalStyles.pl20,
+                            globalStyles.width100,
+                            styles.dropdown,
+                        ]}
+                        data={options}
+                        renderItem={({ item }): ReactElement => {
+                            return (
+                                <TouchableOpacity
+                                    onPress={(): void => {
+                                        handlePressItem(item);
+                                    }}
+                                >
+                                    <Text category={TextCategory.LABEL}>
+                                        {item.label}
+                                    </Text>
+                                </TouchableOpacity>
+                            );
+                        }}
+                        keyExtractor={(item): string => item.value}
+                    />
                 </Pressable>
             )}
         </View>
