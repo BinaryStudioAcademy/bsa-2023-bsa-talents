@@ -1,0 +1,62 @@
+/* stylelint-disable selector-pseudo-element-colon-notation */
+
+.slider .root {
+    height: 15px;
+    margin-top: 20px;
+}
+
+.slider .markLabel {
+    transform: translateX(0%);
+}
+
+.slider .markLabel:nth-of-type(n + 5) {
+    display: none;
+}
+
+.slider .track {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.slider .thumb {
+    width: 1px;
+    height: 15px;
+    background-color: #000000;
+}
+
+.slider .thumb.active,
+.slider .thumb.focusVisible,
+.slider .thumb:focus,
+.slider .thumb:hover {
+    box-shadow: none;
+}
+
+.slider .thumb:before {
+    top: -5px;
+    width: 0;
+    height: 0;
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: #000000 transparent transparent;
+    transform: rotate(0deg);
+}
+
+.slider .valueLabel {
+    top: -5px;
+    padding: 0;
+    color: initial;
+    background-color: #ffffff;
+}
+
+.slider .valueLabel:before {
+    display: none;
+}
+
+.slider .mark {
+    opacity: 0;
+}
+
+.sliderContainer {
+    width: 250px;
+    margin: 10px;
+}

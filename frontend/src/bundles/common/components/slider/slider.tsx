@@ -1,10 +1,8 @@
-import { Box, Slider } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box as MUIBox, Slider as MUISlider } from '@mui/material';
 import { useCallback } from 'react';
 
-import { getValidClassNames } from '../../helpers/helpers.js';
-import classes from './style.module.css';
-import { defaultSliderStyle } from './styles.js';
+// import { getValidClassNames } from '../../helpers/helpers.js';
+import styles from './styles.module.css';
 
 type Option = {
     label?: string;
@@ -15,21 +13,30 @@ type Properties = {
     marks: Option[];
     label?: string;
     value?: number;
-    className?: string;
+    containerClass?: string;
+    sliderClass?: string;
     step?: number | null;
     valueLabelDisplay?: 'auto' | 'on' | 'off';
 };
+
+// const getClasses = (styles: CSSModuleClasses): Record<string, string> => {
+//     const newClasses: Record<string, string> = {};
+//     for (const key of Object.keys(styles)) {
+//         newClasses[key] = styles[key];
+//     }
+//     return newClasses;
+// };
+
+// eslint-disable-next-line no-console
+// console.dir(styles);
 
 const CustomSlider: React.FC<Properties> = ({
     marks = [],
     label,
     value,
-    className = classes.sliderContainerStyle,
     step = null,
     valueLabelDisplay = 'on',
 }) => {
-    const StyledSlider = styled(Slider)(defaultSliderStyle);
-
     const getValueLabel = useCallback(
         (value: number): string | null => {
             const mark = marks.find((mark) => mark.value === value);
@@ -39,14 +46,23 @@ const CustomSlider: React.FC<Properties> = ({
     );
 
     return (
-        <Box
-            className={getValidClassNames(
-                className,
-                classes.sliderContainerStyle,
-            )}
-        >
+        <MUIBox className={styles.sliderContainer}>
             {label && <span>{label}</span>}
-            <StyledSlider
+            <MUISlider
+                className={styles.slider}
+                classes={{
+                    track: styles.track,
+                    markLabel: styles.markLabel,
+                    thumb: styles.thumb,
+                    valueLabel: styles.valueLabel,
+                    mark: styles.mark,
+                    active: styles.active,
+                    focusVisible: styles.focusVisible,
+                }}
+                style={{
+                    height: '15px',
+                    marginTop: '20px',
+                }}
                 aria-label={label}
                 defaultValue={value}
                 marks={marks}
@@ -54,7 +70,7 @@ const CustomSlider: React.FC<Properties> = ({
                 valueLabelDisplay={valueLabelDisplay}
                 valueLabelFormat={getValueLabel}
             />
-        </Box>
+        </MUIBox>
     );
 };
 
