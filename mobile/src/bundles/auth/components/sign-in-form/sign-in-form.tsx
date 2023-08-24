@@ -11,7 +11,6 @@ import {
 import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { userSignUpValidationSchema } from '~/bundles/users/users';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -23,7 +22,6 @@ type Properties = {
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
-        validationSchema: userSignUpValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {
