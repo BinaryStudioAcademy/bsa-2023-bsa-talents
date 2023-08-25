@@ -8,13 +8,13 @@ import { Text, TouchableOpacity } from '../components';
 type Properties = TextProps & {
     label: string;
     textComponentCategory?: (typeof TextCategory)[keyof typeof TextCategory];
-    to: string;
+    link: string;
     style?: TextStyle;
 };
 
 const Link: React.FC<Properties> = ({
     label,
-    to,
+    link,
     style,
     textComponentCategory = TextCategory.BODY1,
 }) => {
@@ -23,7 +23,7 @@ const Link: React.FC<Properties> = ({
     return (
         <TouchableOpacity
             onPress={(): void => {
-                linkTo(`/${to}`);
+                linkTo(`/${link}`);
             }}
         >
             <Text category={textComponentCategory} style={style}>

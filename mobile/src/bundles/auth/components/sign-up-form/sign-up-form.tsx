@@ -54,7 +54,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />
-            <Link label="Go to Sign In" to={`/${RootScreenName.SIGN_IN}`} />
+            <Link label="Go to Sign In" link={`/${RootScreenName.SIGN_IN}`} />
         </View>
     );
 };

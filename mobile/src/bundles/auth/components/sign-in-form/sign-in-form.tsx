@@ -70,7 +70,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.linkForgotPassword,
                     ]}
                     label="Forgot Password?"
-                    to={`/${RootScreenName.SIGN_UP}`}
+                    link={`/${RootScreenName.SIGN_UP}`}
                 />
 
                 <Button
@@ -98,7 +98,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.linkForgotPassword,
                     ]}
                     label="Create an account"
-                    to={`/${RootScreenName.SIGN_UP}`}
+                    link={`/${RootScreenName.SIGN_UP}`}
                 />
             </View>
         </View>
