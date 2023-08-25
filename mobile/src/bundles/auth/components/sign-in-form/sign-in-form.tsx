@@ -6,7 +6,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { AuthScreenName } from '~/bundles/common/enums/enums';
 
 type Properties = {
     onSubmit: () => void;
@@ -22,7 +22,7 @@ const SignInForm: React.FC<Properties> = () => {
                     // TODO: handle Sign in
                 }}
             />
-            <Link label="Go to Sign Up" to={`/${RootScreenName.SIGN_UP}`} />
+            <Link label="Go to Sign Up" to={`/${AuthScreenName.SIGN_UP}`} />
         </View>
     );
 };
