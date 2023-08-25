@@ -1,11 +1,13 @@
 import { type UserService } from '~/bundles/users/user.service.js';
 import {
+    type ApiHandlerOptions,
     type ApiHandlerResponse,
     ControllerBase,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { UsersApiPath } from './enums/enums.js';
 
@@ -37,6 +39,19 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        //test file upload
+        this.addRoute({
+            path: UsersApiPath.ROOT,
+            method: 'POST',
+            preHandler: uploadFile.single('file'),
+            handler: (options) =>
+                this.upload(
+                    options as ApiHandlerOptions<{
+                        body: unknown;
+                    }>,
+                ),
+        });
     }
 
     /**
@@ -59,6 +74,26 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    private upload(
+        options: ApiHandlerOptions<{
+            body: unknown;
+        }>,
+    ): ApiHandlerResponse {
+        const uploadedFile = options.body;
+        //options body returns undefined
+
+        if (!uploadedFile) {
+            return {
+                status: 201,
+                payload: {},
+            };
+        }
+        return {
+            status: 200,
+            payload: {},
         };
     }
 }
