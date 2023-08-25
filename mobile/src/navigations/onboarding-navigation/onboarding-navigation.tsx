@@ -1,24 +1,31 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 
-import { Auth } from '~/bundles/auth/screens/auth';
 import { Header } from '~/bundles/common/components/components';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { DrawerScreenName } from '~/bundles/common/enums/enums';
+import { type DrawerNavigationParameterList } from '~/bundles/common/types/types';
+import { StepOne, StepTwo } from '~/bundles/users/screens/screens';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<DrawerNavigationParameterList>();
 
 const OnboardingNavigation: React.FC = () => {
     return (
         <Drawer.Navigator
             screenOptions={{
                 headerShown: true,
-                header: ({ navigation }): React.ReactNode => {
-                    return <Header navigation={navigation} />;
-                },
+                header: ({ navigation }): React.ReactNode => (
+                    <Header navigation={navigation} />
+                ),
             }}
         >
-            <Drawer.Screen name={RootScreenName.SIGN_UP} component={Auth} />
-            <Drawer.Screen name={RootScreenName.SIGN_IN} component={Auth} />
+            <Drawer.Screen
+                name={DrawerScreenName.STEP_ONE}
+                component={StepOne}
+            />
+            <Drawer.Screen
+                name={DrawerScreenName.STEP_TWO}
+                component={StepTwo}
+            />
         </Drawer.Navigator>
     );
 };

@@ -9,11 +9,11 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { styles } from './styles';
 
-type Header = {
+type Properties = {
     navigation: DrawerNavigationProp<ParamListBase>;
 };
 
-const Header = ({ navigation }: Header): JSX.Element => {
+const Header: React.FC<Properties> = ({ navigation: { openDrawer } }) => {
     return (
         <View
             style={[
@@ -23,12 +23,7 @@ const Header = ({ navigation }: Header): JSX.Element => {
                 globalStyles.justifyContentCenter,
             ]}
         >
-            <Pressable
-                style={styles.icon}
-                onPress={(): void => {
-                    navigation.openDrawer();
-                }}
-            >
+            <Pressable style={styles.icon} onPress={openDrawer}>
                 <Icon name="menu" size={30} color="#fff" />
             </Pressable>
             <Text category={TextCategory.H5} style={{ color: '#fff' }}>
