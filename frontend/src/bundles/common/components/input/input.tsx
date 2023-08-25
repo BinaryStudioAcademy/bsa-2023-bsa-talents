@@ -17,7 +17,6 @@ type InputType = 'text' | 'email' | 'password' | 'search';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
-    label: string;
     name: FieldPath<T>;
     placeholder?: string;
     type?: InputType;
@@ -28,7 +27,6 @@ type Properties<T extends FieldValues> = {
 const Input = <T extends FieldValues>({
     control,
     errors,
-    label,
     name,
     placeholder = '',
     type = 'text',
@@ -64,10 +62,6 @@ const Input = <T extends FieldValues>({
         );
     }
 
-    const inputLabelStyles = getValidClassNames(
-        styles.label,
-        isDisabled && styles.labelDisabled,
-    );
     const textFieldRootStyles = getValidClassNames(styles.root);
     const muiInputStyles = getValidClassNames(
         styles.inputWrapper,
@@ -85,24 +79,21 @@ const Input = <T extends FieldValues>({
     );
 
     return (
-        <label className={styles.wrapper}>
-            <span className={inputLabelStyles}>{label}</span>
-            <TextField
-                {...field}
-                type={type}
-                placeholder={placeholder}
-                error={hasError}
-                helperText={(error as string) || ' '}
-                className={textFieldRootStyles}
-                InputProps={{
-                    className: muiInputStyles,
-                    disabled: isDisabled,
-                    startAdornment: adornment,
-                }}
-                inputProps={{ className: htmlInputStyles }}
-                FormHelperTextProps={{ className: helperTextStyles }}
-            />
-        </label>
+        <TextField
+            {...field}
+            type={type}
+            placeholder={placeholder}
+            error={hasError}
+            helperText={(error as string) || ' '}
+            className={textFieldRootStyles}
+            InputProps={{
+                className: muiInputStyles,
+                disabled: isDisabled,
+                startAdornment: adornment,
+            }}
+            inputProps={{ className: htmlInputStyles }}
+            FormHelperTextProps={{ className: helperTextStyles }}
+        />
     );
 };
 

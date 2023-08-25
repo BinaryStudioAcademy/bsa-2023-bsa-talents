@@ -1,24 +1,5 @@
-@import url("../../../../assets/css/styles.scss");
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin: 16px 0;
-}
-
-.label {
-    color: var(--text-primary-dark);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-base);
-    line-height: normal;
-}
-
-.labelDisabled {
-    color: var(--input-main);
-}
-
 .root {
+    width: 100%;
     height: 36px;
     font-size: var(--font-size-base);
     background: var(--white-color);
@@ -31,7 +12,9 @@
 
 .helperText {
     margin: 0 14px;
+    color: var(--error-main);
     font-size: var(--font-size-caption);
+    -webkit-text-fill-color: var(--error-main);
 }
 
 .inputWrapper {
@@ -77,10 +60,9 @@
 }
 
 .hasError {
-    /* stylelint-disable */
-    color: var(--error-main) !important;
+    color: var(--error-main);
     border-color: var(--error-main);
-    /* stylelint-enable */
+
     & .input {
         color: var(--error-main);
     }
@@ -105,6 +87,8 @@
 }
 
 .adornmentText p {
+    display: flex;
+    align-items: center;
     height: 100%;
     margin: 0;
     padding: 8px 10px;
