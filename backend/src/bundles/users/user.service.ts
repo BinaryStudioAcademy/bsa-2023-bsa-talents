@@ -6,6 +6,7 @@ import { type Service } from '~/common/interfaces/interfaces.js';
 
 import {
     type UserGetAllResponseDto,
+    type UserGetOneItemResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
@@ -19,6 +20,30 @@ class UserService implements Service {
 
     public find(): ReturnType<Service['find']> {
         return Promise.resolve(null);
+    }
+
+    public async findByEmail(
+        email: UserEntity['email'],
+    ): Promise<UserGetOneItemResponseDto> {
+        const user = await this.userRepository.findByEmail(email);
+
+        if (!user) {
+            throw new Error('Incorrect email');
+        }
+
+        return user.toObject();
+    }
+
+    public async findById(
+        id: UserEntity['id'],
+    ): Promise<UserGetOneItemResponseDto> {
+        const user = await this.userRepository.findById(id);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        return user.toObject();
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
