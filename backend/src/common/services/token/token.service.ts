@@ -17,7 +17,7 @@ class TokenServiceBase implements TokenService {
     }
 
     public async create({ id }: JWTPayload): Promise<string> {
-        return await new SignJWT({ id })
+        return new SignJWT({ id })
             .setProtectedHeader({ alg: config.ENV.JWT.ALG })
             .setIssuedAt()
             .setExpirationTime(config.ENV.JWT.EXPIRES_IN)
@@ -25,7 +25,7 @@ class TokenServiceBase implements TokenService {
     }
 
     public async decode(token: string): Promise<JWTVerifyResult> {
-        return await jwtVerify(token, this.secret);
+        return jwtVerify(token, this.secret);
     }
 }
 
