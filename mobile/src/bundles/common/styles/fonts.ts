@@ -57,7 +57,7 @@ const FONTS = {
         color: Color.TEXT,
     },
     [TextCategory.LABEL]: {
-        fontFamily: FontFamily.INTER_REGULAR,
+        fontFamily: FontFamily.INTER_MEDIUM,
         fontSize: 13,
         color: Color.TEXT,
     },
