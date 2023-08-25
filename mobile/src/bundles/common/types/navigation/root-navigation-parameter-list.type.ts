@@ -1,8 +1,8 @@
 import { type RootScreenName } from '~/bundles/common/enums/enums';
 
 type RootNavigationParameterList = {
-    [RootScreenName.SIGN_IN]: undefined;
-    [RootScreenName.SIGN_UP]: undefined;
+    [RootScreenName.AUTH_ROOT_ROUTE]: undefined;
+    [RootScreenName.MAIN_ROOT_ROUTE]: undefined;
 };
 
 export { type RootNavigationParameterList };
