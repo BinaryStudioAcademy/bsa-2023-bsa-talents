@@ -1,21 +1,25 @@
+import { EmailRounded, FolderShared } from '@mui/icons-material';
+
 import { Link } from '~/bundles/common/components/components.js';
-import { type AppRoute } from '~/bundles/common/enums/enums.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.scss';
 
-type TSidebarMenuItem = {
-    link: ValueOf<typeof AppRoute>;
-    name: string;
-    icon: JSX.Element;
-};
+const menuItems = [
+    {
+        link: AppRoute.ROOT,
+        name: 'Candidates',
+        icon: <FolderShared />,
+    },
+    {
+        link: AppRoute.SIGN_UP,
+        name: 'Chats',
+        icon: <EmailRounded />,
+    },
+];
 
-type Properties = {
-    menuItems?: TSidebarMenuItem[];
-};
-
-const Sidebar: React.FC<Properties> = ({ menuItems = [] }) => {
+const Sidebar: React.FC = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.logo}></div>
