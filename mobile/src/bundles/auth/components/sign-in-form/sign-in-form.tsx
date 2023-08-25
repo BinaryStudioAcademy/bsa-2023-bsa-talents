@@ -4,9 +4,8 @@ import {
     Button,
     FormField,
     Input,
+    Link,
     Text,
-    TouchableOpacity,
-    useLinkTo,
     View,
 } from '~/bundles/common/components/components';
 import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
@@ -24,8 +23,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
     });
-
-    const linkTo = useLinkTo();
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -65,18 +62,16 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         secureTextEntry
                     />
                 </FormField>
-                <TouchableOpacity>
-                    <Text
-                        category={TextCategory.CAPTION}
-                        style={[
-                            globalStyles.alignSelfFlexEnd,
-                            globalStyles.pr10,
-                            styles.linkForgotPassword,
-                        ]}
-                    >
-                        Forgot Password?
-                    </Text>
-                </TouchableOpacity>
+                <Link
+                    textComponentCategory={TextCategory.CAPTION}
+                    style={[
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pr10,
+                        styles.linkForgotPassword,
+                    ]}
+                    label="Forgot Password?"
+                    to={`/${RootScreenName.SIGN_UP}`}
+                />
 
                 <Button
                     style={[globalStyles.mb25, globalStyles.pv15]}
@@ -95,23 +90,16 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     Not Registered Yet?{' '}
                 </Text>
 
-                <TouchableOpacity
-                    onPress={(): void => {
-                        linkTo(`/${RootScreenName.SIGN_UP}`);
-                    }}
-                >
-                    <Text
-                        category={TextCategory.BODY1}
-                        style={[
-                            globalStyles.alignSelfFlexStart,
-                            globalStyles.alignSelfFlexEnd,
-                            globalStyles.pv25,
-                            styles.linkSignUp,
-                        ]}
-                    >
-                        Create an account
-                    </Text>
-                </TouchableOpacity>
+                <Link
+                    textComponentCategory={TextCategory.BODY1}
+                    style={[
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pr10,
+                        styles.linkForgotPassword,
+                    ]}
+                    label="Create an account"
+                    to={`/${RootScreenName.SIGN_UP}`}
+                />
             </View>
         </View>
     );
