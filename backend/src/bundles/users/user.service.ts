@@ -3,7 +3,6 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type Service } from '~/common/interfaces/interfaces.js';
 
 import {
-    type UserCreationResponseDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -29,18 +28,14 @@ class UserService implements Service {
         };
     }
 
-    public async create(
-        payload: UserSignUpRequestDto,
-    ): Promise<UserCreationResponseDto> {
-        const user = await this.userRepository.create(
+    public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
+        return this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
                 passwordSalt: 'SALT', // TODO
                 passwordHash: 'HASH', // TODO
             }),
         );
-
-        return user.toObject();
     }
 
     public update(): ReturnType<Service['update']> {

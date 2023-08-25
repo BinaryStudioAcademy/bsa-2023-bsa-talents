@@ -26,7 +26,7 @@ class AuthService {
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
         const user = await this.userService.create(userRequestDto);
-        return this.signIn(user.id);
+        return this.signIn(user.toObject().id);
     }
 }
 
