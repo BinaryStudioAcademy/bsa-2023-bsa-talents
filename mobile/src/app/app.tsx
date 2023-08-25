@@ -7,16 +7,14 @@ import { Provider as StoreProvider } from 'react-redux';
 
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { store } from '~/framework/store/store';
-// import { Root as RootNavigation } from '~/navigations/navigations';
-import { OnboardingNavigation } from '~/navigations/onboarding-navigation/onboarding-navigation';
+import { Root as RootNavigation } from '~/navigations/navigations';
 
 const App: FC = () => {
     return (
         <StoreProvider store={store.instance}>
             <GestureHandlerRootView style={globalStyles.flex1}>
                 <NavigationContainer>
-                    {/* <RootNavigation /> */}
-                    <OnboardingNavigation />
+                    <RootNavigation />
                 </NavigationContainer>
             </GestureHandlerRootView>
         </StoreProvider>

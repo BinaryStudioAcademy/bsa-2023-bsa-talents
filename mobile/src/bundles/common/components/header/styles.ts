@@ -5,6 +5,7 @@ import { Color } from '~/bundles/common/enums/enums';
 const styles = StyleSheet.create({
     header: {
         backgroundColor: Color.TEXT,
+        height: 100,
     },
     icon: {
         position: 'absolute',
