@@ -36,7 +36,7 @@ const Header: React.FC<Properties> = ({ navigation: { openDrawer } }) => {
                     globalStyles.justifyContentCenter,
                 ]}
             >
-                <Text category={TextCategory.H6} style={styles.stepsText}>
+                <Text category={TextCategory.LABEL} style={styles.stepsText}>
                     STEPS
                 </Text>
             </View>

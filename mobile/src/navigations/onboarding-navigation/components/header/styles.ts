@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     steps: {
-        width: 75,
-        height: 75,
+        width: 65,
+        height: 65,
         borderRadius: 100,
         backgroundColor: '#d6dce8',
         position: 'absolute',
