@@ -1,4 +1,4 @@
-import { FormControl, MenuItem, Select as MuiSelect } from '@mui/material';
+import { MenuItem, Select as MuiSelect } from '@mui/material';
 import {
     type Control,
     type FieldPath,
@@ -10,13 +10,17 @@ import {
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import arrowIcon from '../../../../assets/img/select-arrow.svg';
+import { FormControl, FormLabel } from '../components.js';
 import styles from './select.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     options: { value: string | number; label: string }[];
+    label?: string;
     multiple?: boolean;
+    hasError?: boolean;
+    isDisabled?: boolean;
 };
 
 const ArrowIcon = (): JSX.Element => {
@@ -27,7 +31,10 @@ const Select = <T extends FieldValues>({
     control,
     name,
     options,
+    label,
     multiple,
+    hasError,
+    isDisabled,
 }: Properties<T>): JSX.Element => {
     const firstElementIndex = 0;
     const { field } = useFormController({
@@ -39,7 +46,12 @@ const Select = <T extends FieldValues>({
     });
 
     return (
-        <FormControl className={styles.container}>
+        <FormControl
+            className={styles.container}
+            hasError={hasError}
+            isDisabled={isDisabled}
+        >
+            <FormLabel>{label}</FormLabel>
             <MuiSelect
                 {...field}
                 multiple={multiple}
