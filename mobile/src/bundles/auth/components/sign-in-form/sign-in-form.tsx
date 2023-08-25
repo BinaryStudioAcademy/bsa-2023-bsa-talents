@@ -31,7 +31,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <View
             style={[
-                globalStyles.ph25,
+                globalStyles.defaultScreenPadding,
                 globalStyles.flex1,
                 globalStyles.justifyContentCenter,
             ]}
