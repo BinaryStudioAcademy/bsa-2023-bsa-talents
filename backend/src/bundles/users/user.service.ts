@@ -8,7 +8,6 @@ import {
     type UserGetAllResponseDto,
     type UserGetOneItemResponseDto,
     type UserSignUpRequestDto,
-    type UserSignUpResponseDto,
 } from './types/types.js';
 
 class UserService implements Service {
@@ -34,14 +33,12 @@ class UserService implements Service {
         return user.toObject();
     }
 
-    public async findById(
-        id: UserEntity['id'],
-    ): Promise<UserGetOneItemResponseDto> {
+    public async findById(id: number): Promise<UserGetOneItemResponseDto> {
         const user = await this.userRepository.findById(id);
 
-        if (!user) {
-            throw new Error('User not found');
-        }
+        // if (!user) {
+        //     throw new Error('User not found');
+        // }
 
         return user.toObject();
     }
@@ -56,7 +53,8 @@ class UserService implements Service {
 
     public async create(
         payload: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
+        // TODO: change UserGetOneItemResponseDto to type for user.toObject()
+    ): Promise<UserGetOneItemResponseDto> {
         const { PASSWORD_SALT_ROUNDS } = config.ENV.CRYPT;
 
         const passwordSalt = await generateSalt(PASSWORD_SALT_ROUNDS);
@@ -64,7 +62,6 @@ class UserService implements Service {
             payload.password,
             PASSWORD_SALT_ROUNDS,
         );
-
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,

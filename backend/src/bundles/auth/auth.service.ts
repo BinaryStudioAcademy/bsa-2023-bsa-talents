@@ -6,8 +6,9 @@ import {
 } from '~/bundles/users/types/types.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-// TODO: after task #19 merged (getByEmail need)
-// import { HttpCode, HttpError } from '~/common/http/http.js';
+import { cryptCompare } from '~/common/helpers/helpers.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
+import { tokenService } from '~/common/services/services.js';
 
 class AuthService {
     private userService: UserService;
@@ -21,21 +22,35 @@ class AuthService {
         this.userRepository = userRepository;
     }
 
+    public async signIn(id: number): Promise<UserSignInResponseDto> {
+        const user = await this.userService.findById(id);
+        return {
+            ...user,
+            token: await tokenService.create({ id }),
+        };
+    }
+
     public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        // TODO: after task #19 merged (getByEmail need)
-        // const { email } = userRequestDto;
-        // const userByEmail = await this.userService.getByEmail(email);
-        // if (userByEmail) {
-        //     throw new HttpError({
-        //         message: 'User already exist.',
-        //         cause: 'Email already used',
-        //         status: HttpCode.CONFLICT,
-        //     });
-        // }
+        const { email } = userRequestDto;
 
-        return await this.userService.create(userRequestDto);
+        const userByEmail = await this.userRepository.findByEmail(email);
+        if (userByEmail) {
+            throw new HttpError({
+                message: 'User already exist.',
+                cause: 'Email already used',
+                status: HttpCode.CONFLICT,
+            });
+        }
+
+        const user = await this.userService.create(userRequestDto);
+        const { id } = user;
+
+        return {
+            ...user,
+            token: await tokenService.create({ id }),
+        };
     }
 
     public async verifyLoginCredentials({
@@ -48,11 +63,8 @@ class AuthService {
             throw new Error('Incorrect email');
         }
 
-        // const isEqualPassword = true await cryptCompare(password, password);
-        // if (!isEqualPassword) {
-        //     throw new Error('Password not match');
-        // }
-        if (password !== 'HASH') {
+        const isEqualPassword = await cryptCompare(password, password);
+        if (!isEqualPassword) {
             throw new Error('Password not match');
         }
 

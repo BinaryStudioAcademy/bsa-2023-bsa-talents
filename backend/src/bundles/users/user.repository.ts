@@ -27,15 +27,13 @@ class UserRepository implements Repository {
         return UserEntity.initialize(user);
     }
 
-    public async findById(id: UserEntity['id']): Promise<UserEntity | null> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ id })
-            .first();
+    public async findById(id: number): Promise<UserEntity> {
+        const user = await this.userModel.query().findById(id).execute();
+
         if (!user) {
-            return null;
+            throw new Error('User does not exist');
         }
+
         return UserEntity.initialize(user);
     }
 

@@ -45,6 +45,26 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            JWT: {
+                SECRET: {
+                    doc: 'Secret key for token generation',
+                    format: String,
+                    env: 'JWT_SECRET',
+                    default: null,
+                },
+                EXPIRES_IN: {
+                    doc: 'Expiration time fo generated token',
+                    format: String,
+                    env: 'JWT_TOKEN_EXPIRE',
+                    default: '24h',
+                },
+                ALG: {
+                    doc: 'Algorithm used for encoding token',
+                    format: String,
+                    env: 'JWT_ALG',
+                    default: 'HS256',
+                },
+            },
             DB: {
                 CONNECTION_STRING: {
                     doc: 'Database connection string',
