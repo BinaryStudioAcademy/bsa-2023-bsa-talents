@@ -1,1 +1,5 @@
-export { configureString } from 'shared/build/index';
+export {
+    configureString,
+    convertInputToDate,
+    getDateEnding,
+} from 'shared/build/index';
