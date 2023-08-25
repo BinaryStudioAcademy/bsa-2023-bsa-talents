@@ -2,7 +2,7 @@ import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
 import { Text } from '~/bundles/common/components/components';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { AuthScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
@@ -22,7 +22,7 @@ const Auth: React.FC = () => {
         dataStatus: auth.dataStatus,
     }));
 
-    const isSignUpScreen = name === RootScreenName.SIGN_UP;
+    const isSignUpScreen = name === AuthScreenName.SIGN_UP;
 
     useEffect(() => {
         if (isSignUpScreen) {
@@ -43,10 +43,10 @@ const Auth: React.FC = () => {
 
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
-            case RootScreenName.SIGN_IN: {
+            case AuthScreenName.SIGN_IN: {
                 return <SignInForm onSubmit={handleSignInSubmit} />;
             }
-            case RootScreenName.SIGN_UP: {
+            case AuthScreenName.SIGN_UP: {
                 return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
         }
