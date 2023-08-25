@@ -47,11 +47,11 @@ const Checkbox: React.FC<Properties> = ({
                     checked={isChecked}
                     required={isRequired}
                     disabled={isDisabled}
-                    className={getValidClassNames(className)}
                     icon={checkboxIcon}
                     checkedIcon={checkboxIconChecked}
                 />
             }
+            className={getValidClassNames(className)}
             label={label}
         />
     ) : (
