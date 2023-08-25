@@ -9,7 +9,7 @@ const bottomTabStyles: BottomTabNavigationOptions = {
     tabBarInactiveTintColor: Color.TEXT2,
     tabBarStyle: {
         backgroundColor: Color.PRIMARY,
-        height: 50,
+        height: 60,
     },
     tabBarLabel: () => null,
 };
