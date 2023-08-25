@@ -1,7 +1,7 @@
 import { Box as MUIBox, Slider as MUISlider } from '@mui/material';
 import { useCallback } from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 type Option = {
     label?: string;
