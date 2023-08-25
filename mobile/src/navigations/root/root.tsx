@@ -8,7 +8,7 @@ import { RootScreenName } from '~/bundles/common/enums/enums';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 
 import { AuthNavigator } from '../auth-navigator/auth-navigator';
-import { MainNavigator } from '../main-navigator/main-navigator';
+import { MainBottomTabNavigator } from '../main-bottom-tab/main-bottom-tab';
 
 const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
 
@@ -26,7 +26,7 @@ const Root: React.FC<Properties> = ({ isSignedIn = false }) => {
             {isSignedIn ? (
                 <RootStack.Screen
                     name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={MainNavigator}
+                    component={MainBottomTabNavigator}
                 />
             ) : (
                 <RootStack.Screen

@@ -2,7 +2,6 @@ export { DataStatus } from './app/app';
 export {
     AuthScreenName,
     BottomTabScreenName,
-    MainScreenName,
     RootScreenName,
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
