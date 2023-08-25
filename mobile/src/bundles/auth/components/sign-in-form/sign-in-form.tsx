@@ -50,19 +50,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 Hi! Login to your Account
             </Text>
             <View style={styles.formWrapper}>
-                <FormField errors={errors} label="Email" name="email" required>
+                <FormField errors={errors} label="Email" name="email">
                     <Input
                         control={control}
                         name="email"
                         placeholder="Enter your email"
                     />
                 </FormField>
-                <FormField
-                    errors={errors}
-                    label="Password"
-                    name="password"
-                    required
-                >
+                <FormField errors={errors} label="Password" name="password">
                     <Input
                         control={control}
                         name="password"
