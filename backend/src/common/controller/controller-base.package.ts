@@ -1,4 +1,7 @@
+import { type FastifyRequest } from 'fastify';
+
 import { type Logger } from '~/common/logger/logger.js';
+import { type uploadedFile } from '~/common/plugins/types/types.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
 import { type Controller } from './interfaces/interface.js';
@@ -39,7 +42,6 @@ class ControllerBase implements Controller {
         reply: Parameters<ServerAppRouteParameters['handler']>[1],
     ): Promise<void> {
         this.logger.info(`${request.method.toUpperCase()} on ${request.url}`);
-
         const handlerOptions = this.mapRequest(request);
         const { status, payload } = await handler(handlerOptions);
 
@@ -49,8 +51,17 @@ class ControllerBase implements Controller {
     private mapRequest(
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
-        const { body, query, params } = request;
-
+        const requestWithFile = request as FastifyRequest & {
+            file: uploadedFile | undefined;
+        };
+        const { body, query, params, file } = requestWithFile;
+        if (file) {
+            return {
+                body: { ...(body as object), file },
+                query,
+                params,
+            };
+        }
         return {
             body,
             query,
