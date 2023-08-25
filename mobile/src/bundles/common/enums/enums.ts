@@ -1,5 +1,9 @@
 export { DataStatus } from './app/app';
-export { RootScreenName } from './navigation/navigation';
+export {
+    AuthScreenName,
+    BottomTabScreenName,
+    RootScreenName,
+} from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export { ButtonType, Color } from './ui/ui';
 export {
