@@ -15,6 +15,10 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
+    public find(): ReturnType<Service['find']> {
+        return Promise.resolve(null);
+    }
+
     public async findById(id: number): Promise<UserFindResponseDto> {
         const user = await this.userRepository.findById(id);
         return user.toObject();
