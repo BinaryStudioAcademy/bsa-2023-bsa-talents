@@ -1,6 +1,6 @@
 const RootScreenName = {
-    SIGN_UP: 'Sign Up',
-    SIGN_IN: 'Sign In',
+    AUTH_ROOT_ROUTE: 'Auth Root Route',
+    MAIN_ROOT_ROUTE: 'Main Root Route',
 } as const;
 
 export { RootScreenName };
