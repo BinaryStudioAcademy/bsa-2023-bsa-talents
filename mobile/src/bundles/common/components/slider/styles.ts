@@ -13,9 +13,6 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: Color.PRIMARY,
     },
-    value: {
-        width: 70,
-    },
 });
 
 export { styles };
