@@ -4,11 +4,12 @@ import { Color } from '~/bundles/common/enums/enums';
 
 const bottomTabStyles: BottomTabNavigationOptions = {
     headerShown: false,
+
     tabBarActiveTintColor: '#FFFFFF',
     tabBarInactiveTintColor: Color.TEXT2,
     tabBarStyle: {
         backgroundColor: Color.PRIMARY,
-        height: 97,
+        height: 50,
     },
     tabBarLabel: () => null,
 };
