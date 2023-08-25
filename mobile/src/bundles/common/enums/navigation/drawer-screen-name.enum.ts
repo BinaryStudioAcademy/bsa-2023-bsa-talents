@@ -1,6 +1,6 @@
 const DrawerScreenName = {
-    STEP_ONE: 'Step One',
-    STEP_TWO: 'Step Two',
+    PROFILE: 'Profile',
+    BSA_BADGES: 'BSA Badges',
 } as const;
 
 export { DrawerScreenName };

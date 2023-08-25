@@ -24,7 +24,7 @@ type Properties = {
 
 const Root: React.FC<Properties> = ({
     isSignedIn = false,
-    isProfileComplete = false,
+    isProfileComplete = true,
 }) => {
     // prettier-ignore
     return (

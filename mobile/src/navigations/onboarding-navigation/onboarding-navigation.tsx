@@ -4,7 +4,7 @@ import React from 'react';
 import { Header } from '~/bundles/common/components/components';
 import { DrawerScreenName } from '~/bundles/common/enums/enums';
 import { type DrawerNavigationParameterList } from '~/bundles/common/types/types';
-import { StepOne, StepTwo } from '~/bundles/users/screens/screens';
+import { BsaBadges, Profile } from '~/bundles/users/screens/screens';
 
 const Drawer = createDrawerNavigator<DrawerNavigationParameterList>();
 
@@ -19,12 +19,12 @@ const OnboardingNavigation: React.FC = () => {
             }}
         >
             <Drawer.Screen
-                name={DrawerScreenName.STEP_ONE}
-                component={StepOne}
+                name={DrawerScreenName.PROFILE}
+                component={Profile}
             />
             <Drawer.Screen
-                name={DrawerScreenName.STEP_TWO}
-                component={StepTwo}
+                name={DrawerScreenName.BSA_BADGES}
+                component={BsaBadges}
             />
         </Drawer.Navigator>
     );
