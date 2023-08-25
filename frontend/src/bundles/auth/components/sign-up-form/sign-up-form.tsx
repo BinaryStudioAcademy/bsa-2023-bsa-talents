@@ -1,7 +1,4 @@
-import {
-    Button,
-    InputFactory,
-} from '~/bundles/common/components/components.js';
+import { Button, Input } from '~/bundles/common/components/components.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
@@ -26,8 +23,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         },
         [handleSubmit, onSubmit],
     );
-
-    const Input = InputFactory<UserSignUpRequestDto>();
 
     return (
         <>

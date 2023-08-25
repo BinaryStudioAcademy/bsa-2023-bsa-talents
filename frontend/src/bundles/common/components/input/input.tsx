@@ -17,35 +17,31 @@ type Properties<T extends FieldValues> = {
     type?: 'text' | 'email';
 };
 
-const InputFactory = <T extends FieldValues>(): React.FC<Properties<T>> => {
-    const Input: React.FC<Properties<T>> = ({
-        control,
-        errors,
-        label,
-        name,
-        placeholder = '',
-        type = 'text',
-    }) => {
-        const { field } = useFormController({ name, control });
+const Input = <T extends FieldValues>({
+    control,
+    errors,
+    label,
+    name,
+    placeholder = '',
+    type = 'text',
+}: Properties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
 
-        const error = errors[name]?.message;
-        const hasError = Boolean(error);
+    const error = errors[name]?.message;
+    const hasError = Boolean(error);
 
-        return (
-            <label>
-                <span>{label}</span>
-                <TextField
-                    {...field}
-                    type={type}
-                    placeholder={placeholder}
-                    error={hasError}
-                    helperText={error as string}
-                />
-            </label>
-        );
-    };
-
-    return Input;
+    return (
+        <label>
+            <span>{label}</span>
+            <TextField
+                {...field}
+                type={type}
+                placeholder={placeholder}
+                error={hasError}
+                helperText={error as string}
+            />
+        </label>
+    );
 };
 
-export { InputFactory };
+export { Input };

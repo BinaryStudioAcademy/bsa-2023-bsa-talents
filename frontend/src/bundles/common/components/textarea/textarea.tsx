@@ -17,26 +17,22 @@ type Properties<T extends FieldValues> = {
     placeholder?: string;
 };
 
-const TextareaFactory = <T extends FieldValues>(): React.FC<Properties<T>> => {
-    const Textarea: React.FC<Properties<T>> = ({
-        control,
-        name,
-        placeholder = '',
-        ...props
-    }) => {
-        const { field } = useFormController({ name, control });
+const Textarea = <T extends FieldValues>({
+    control,
+    name,
+    placeholder = '',
+    ...props
+}: Properties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
 
-        return (
-            <TextareaAutosize
-                {...field}
-                className={styles.textarea}
-                placeholder={placeholder}
-                {...props}
-            />
-        );
-    };
-
-    return Textarea;
+    return (
+        <TextareaAutosize
+            {...field}
+            className={styles.textarea}
+            placeholder={placeholder}
+            {...props}
+        />
+    );
 };
 
-export { TextareaFactory };
+export { Textarea };
