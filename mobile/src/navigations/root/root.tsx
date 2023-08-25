@@ -36,7 +36,7 @@ const Root: React.FC<Properties> = ({
                 />
             ) : (isProfileComplete ? (
                 <RootStack.Screen
-                    name={RootScreenName.DRAWER_ROOT_ROUTE}
+                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
                     component={OnboardingNavigation}
                 />
             ) : (

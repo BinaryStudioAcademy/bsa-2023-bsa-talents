@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         left: 20,
     },
+    title: {
+        color: '#fff',
+    },
     steps: {
         width: 75,
         height: 75,

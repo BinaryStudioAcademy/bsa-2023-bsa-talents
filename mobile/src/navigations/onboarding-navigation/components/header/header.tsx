@@ -26,7 +26,7 @@ const Header: React.FC<Properties> = ({ navigation: { openDrawer } }) => {
             <Pressable style={styles.icon} onPress={openDrawer}>
                 <Icon name="menu" size={30} color="#fff" />
             </Pressable>
-            <Text category={TextCategory.H5} style={{ color: '#fff' }}>
+            <Text category={TextCategory.H5} style={styles.title}>
                 Create an account
             </Text>
             <View

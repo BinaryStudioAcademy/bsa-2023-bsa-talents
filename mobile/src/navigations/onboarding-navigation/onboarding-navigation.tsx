@@ -1,12 +1,13 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 
-import { Header } from '~/bundles/common/components/components';
-import { DrawerScreenName } from '~/bundles/common/enums/enums';
-import { type DrawerNavigationParameterList } from '~/bundles/common/types/types';
+import { OnboardingScreenName } from '~/bundles/common/enums/enums';
+import { type OnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import { BsaBadges, Profile } from '~/bundles/users/screens/screens';
 
-const Drawer = createDrawerNavigator<DrawerNavigationParameterList>();
+import { Header } from './components/components';
+
+const Drawer = createDrawerNavigator<OnboardingNavigationParameterList>();
 
 const OnboardingNavigation: React.FC = () => {
     return (
@@ -19,11 +20,11 @@ const OnboardingNavigation: React.FC = () => {
             }}
         >
             <Drawer.Screen
-                name={DrawerScreenName.PROFILE}
+                name={OnboardingScreenName.PROFILE}
                 component={Profile}
             />
             <Drawer.Screen
-                name={DrawerScreenName.BSA_BADGES}
+                name={OnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
             />
         </Drawer.Navigator>
