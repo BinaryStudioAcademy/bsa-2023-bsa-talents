@@ -1,10 +1,10 @@
 import { type ImageStyle, type StyleProp } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getAvatarInitials } from 'shared/build/helpers/helpers';
 
 import { Image, Text } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { AvatarType } from '~/bundles/common/enums/ui/avatar-type.enum';
+import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 
 import { styles } from './styles';
