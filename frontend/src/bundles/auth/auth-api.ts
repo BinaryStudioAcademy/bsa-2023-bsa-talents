@@ -33,7 +33,7 @@ class AuthApi extends HttpApiBase {
             },
         );
 
-        return response.json<UserSignUpResponseDto>();
+        return await response.json<UserSignUpResponseDto>();
     }
 }
 

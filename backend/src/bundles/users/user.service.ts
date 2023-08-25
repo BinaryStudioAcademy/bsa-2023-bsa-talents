@@ -3,7 +3,6 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type Service } from '~/common/interfaces/interfaces.js';
 
 import {
-    type UserCreationResponseDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -16,10 +15,23 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
+    public find(
+        payload: Record<string, unknown>,
+    ): Promise<UserEntity | undefined> {
+        return this.userRepository.find({ ...payload });
+    }
+
     public async findById(
         id: number,
     ): Promise<UserFindResponseDto | undefined> {
-        const user = await this.userRepository.findById(id);
+        const user = await this.userRepository.find({ id });
+        return user ? user.toObject() : undefined;
+    }
+
+    public async findByEmail(
+        email: string,
+    ): Promise<UserFindResponseDto | undefined> {
+        const user = await this.userRepository.find({ email });
         return user ? user.toObject() : undefined;
     }
 
@@ -31,18 +43,14 @@ class UserService implements Service {
         };
     }
 
-    public async create(
-        payload: UserSignUpRequestDto,
-    ): Promise<UserCreationResponseDto> {
-        const user = await this.userRepository.create(
+    public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
+        return this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
                 passwordSalt: 'SALT', // TODO
                 passwordHash: 'HASH', // TODO
             }),
         );
-
-        return user.toObject();
     }
 
     public update(): ReturnType<Service['update']> {

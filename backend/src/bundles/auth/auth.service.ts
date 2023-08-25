@@ -12,17 +12,8 @@ class AuthService {
         this.userService = userService;
     }
 
-    public async signIn(
-        id: number,
-    ): Promise<{ id: number; email: string; token: string }> {
-        const user = await this.userService.findById(id);
-
-        if (!user) {
-            throw new Error('User does not exist');
-        }
-
+    public async signIn(id: number): Promise<{ token: string }> {
         return {
-            ...user,
             token: await tokenService.create({ id }),
         };
     }
@@ -31,7 +22,7 @@ class AuthService {
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
         const user = await this.userService.create(userRequestDto);
-        return this.signIn(user.id);
+        return this.signIn(user.toObject().id);
     }
 }
 
