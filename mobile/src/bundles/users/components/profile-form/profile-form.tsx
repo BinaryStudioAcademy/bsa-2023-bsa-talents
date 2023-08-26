@@ -24,13 +24,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     }, [handleSubmit, onSubmit]);
 
     return (
-        <View
-            style={{
-                backgroundColor: '#FFFFFF',
-                ...globalStyles.p10,
-                ...globalStyles.flex1,
-            }}
-        >
+        <View style={[globalStyles.p25, globalStyles.flex1]}>
             <FormField
                 errors={errors}
                 label="Profile name"
