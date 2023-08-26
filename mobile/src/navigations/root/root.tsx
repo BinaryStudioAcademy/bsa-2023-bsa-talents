@@ -9,6 +9,7 @@ import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 
 import { AuthNavigator } from '../auth-navigator/auth-navigator';
 import { MainBottomTabNavigator } from '../main-bottom-tab/main-bottom-tab';
+import { OnboardingNavigation } from '../onboarding-navigation/onboarding-navigation';
 
 const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
 
@@ -18,9 +19,14 @@ const screenOptions: NativeStackNavigationOptions = {
 
 type Properties = {
     isSignedIn?: boolean;
+    isProfileComplete?: boolean;
 };
 
-const Root: React.FC<Properties> = ({ isSignedIn = false }) => {
+const Root: React.FC<Properties> = ({
+    isSignedIn = false,
+    isProfileComplete = false,
+}) => {
+    // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
             {isSignedIn ? (
@@ -28,12 +34,17 @@ const Root: React.FC<Properties> = ({ isSignedIn = false }) => {
                     name={RootScreenName.MAIN_ROOT_ROUTE}
                     component={MainBottomTabNavigator}
                 />
+            ) : (isProfileComplete ? (
+                <RootStack.Screen
+                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                    component={OnboardingNavigation}
+                />
             ) : (
                 <RootStack.Screen
                     name={RootScreenName.AUTH_ROOT_ROUTE}
                     component={AuthNavigator}
                 />
-            )}
+            ))}
         </RootStack.Navigator>
     );
 };
