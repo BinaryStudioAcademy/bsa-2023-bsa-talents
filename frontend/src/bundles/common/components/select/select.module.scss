@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+}
+
+.container .input {
+    height: 38px;
+    padding: 10px 7px 12px 14px;
+    color: var(--nepal);
+    font-weight: var(--font-weight-regular);
+    border: 1px solid var(--botticelli);
+    border-radius: 4px;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+}
+
+.container .icon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.container div[aria-expanded="true"] ~ .icon {
+    transform: rotate(180deg);
+}
+
+.container .input::before,
+.container .input::after {
+    display: none;
+}
+
+.container div:focus {
+    background-color: transparent;
+}
+
+.container .input:hover {
+    border-color: var(--botticelli);
+}
