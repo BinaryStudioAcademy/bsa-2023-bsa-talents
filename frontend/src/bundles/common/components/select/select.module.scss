@@ -1,4 +1,5 @@
 .container {
+    width: 100%;
     font-size: var(--font-size-base);
     font-family: var(--font-family);
 }
@@ -6,9 +7,9 @@
 .container .input {
     height: 38px;
     padding: 10px 7px 12px 14px;
-    color: var(--text-primary, #90a3bf);
+    color: var(--nepal, #90a3bf);
     font-weight: var(--font-weight-regular);
-    border: 1px solid var(--input-main, #d5dce8);
+    border: 1px solid var(--botticelli, #d5dce8);
     border-radius: 4px;
     transition:
         border-color 0.3s,
@@ -36,5 +37,5 @@
 }
 
 .container .input:hover {
-    border-color: var(--hover);
+    border-color: var(--botticelli);
 }

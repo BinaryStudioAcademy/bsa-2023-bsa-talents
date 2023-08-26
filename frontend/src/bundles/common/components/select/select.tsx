@@ -7,9 +7,9 @@ import {
     type PathValue,
 } from 'react-hook-form';
 
+import arrowIcon from '~/assets/img/select-arrow.svg';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
-import arrowIcon from '../../../../assets/img/select-arrow.svg';
 import { FormControl, FormLabel } from '../components.js';
 import styles from './select.module.scss';
 
