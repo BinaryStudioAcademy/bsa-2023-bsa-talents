@@ -8,7 +8,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { AuthScreenName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
@@ -54,7 +54,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <Button label="Sign up" onPress={handleFormSubmit} />
-            <Link label="Go to Sign In" link={`/${RootScreenName.SIGN_IN}`} />
+            <Link label="Go to Sign In" link={`/${AuthScreenName.SIGN_IN}`} />
         </View>
     );
 };

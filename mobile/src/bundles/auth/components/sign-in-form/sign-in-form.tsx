@@ -8,7 +8,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
@@ -70,7 +70,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.linkForgotPassword,
                     ]}
                     label="Forgot Password?"
-                    link={`/${RootScreenName.SIGN_UP}`}
+                    link={`/${AuthScreenName.SIGN_UP}`}
                 />
 
                 <Button
@@ -98,7 +98,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.linkForgotPassword,
                     ]}
                     label="Create an account"
-                    link={`/${RootScreenName.SIGN_UP}`}
+                    link={`/${AuthScreenName.SIGN_UP}`}
                 />
             </View>
         </View>
