@@ -24,15 +24,11 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
     fastify.addHook(ControllerHooks.ON_REQUEST, async (request) => {
         const isWhiteRoute = routesWhiteList.includes(request.routerPath);
 
-        if (isWhiteRoute) {
-            return;
-        }
-
-        if (request.headers.authorization) {
+        if (!isWhiteRoute) {
             const { userService, tokenService } = services;
 
             const { payload } = await tokenService.decode(
-                request.headers.authorization,
+                request.headers.authorization as string,
             );
 
             const authorizedUser = await userService.findById(
@@ -44,8 +40,6 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
             }
 
             request.user = authorizedUser;
-        } else {
-            throw new Error(AuthorizationErrorMessages.NOT_AUTHORIZED);
         }
     });
 
