@@ -10,14 +10,15 @@ import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { authorization } from '~/common/plugins/plugins.js';
+import { tokenService } from '~/common/services/services.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { WHITE_ROUTES } from './constants/constants.js';
 import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
-import { WHITE_ROUTES } from './libs/constants/api.constats.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
 type Constructor = {
@@ -92,15 +93,20 @@ class ServerAppBase implements ServerApp {
                 await this.app.register(swaggerUi, {
                     routePrefix: `${it.version}/documentation`,
                 });
-
-                await this.app.register(authorization, {
-                    services: {
-                        userService,
-                    },
-                    routesWhiteList: WHITE_ROUTES,
-                });
             }),
         );
+    }
+
+    public async initPlugins(): Promise<void> {
+        await this.app.register(authorization, {
+            services: {
+                userService,
+                tokenService,
+            },
+            routesWhiteList: WHITE_ROUTES,
+        });
+
+        this.logger.info('Plugins registered on application');
     }
 
     private initValidationCompiler(): void {
