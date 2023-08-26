@@ -17,7 +17,7 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
     return (
         <DrawerContentScrollView
             {...props}
-            style={[styles.con, globalStyles.m20]}
+            style={[globalStyles.m25, globalStyles.flex1]}
         >
             <Pressable
                 onPress={(): void => {
@@ -27,7 +27,7 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
             >
                 <Icon name="alpha-x" size={40} color="#fff" />
             </Pressable>
-            <Text category="H2" style={globalStyles.m25}>
+            <Text category="H2" style={styles.title}>
                 Steps
             </Text>
             <View style={styles.verticalLine} />

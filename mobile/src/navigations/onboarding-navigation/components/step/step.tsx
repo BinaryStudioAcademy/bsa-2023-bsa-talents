@@ -42,7 +42,7 @@ const Step: React.FC<Properties> = ({
             ) : (
                 <Icon name="circle" color={Color.INPUT} size={30} />
             )}
-            <View style={globalStyles.mr15}>
+            <View style={[globalStyles.mr15, styles.textCon]}>
                 <Text category="Label" style={styles.step}>
                     Step 0{index + number}
                 </Text>

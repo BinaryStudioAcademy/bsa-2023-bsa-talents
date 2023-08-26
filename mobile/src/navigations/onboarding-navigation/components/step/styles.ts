@@ -3,7 +3,13 @@ import { StyleSheet } from 'react-native';
 import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    singleStep: { gap: 10 },
+    singleStep: {
+        gap: 10,
+    },
+    textCon: {
+        position: 'relative',
+        top: 13,
+    },
     step: {
         color: Color.PRIMARY,
         textTransform: 'uppercase',
