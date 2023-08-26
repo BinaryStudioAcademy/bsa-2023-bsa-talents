@@ -1,4 +1,7 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+    createDrawerNavigator,
+    type DrawerContentComponentProps,
+} from '@react-navigation/drawer';
 import React from 'react';
 
 import { OnboardingScreenName } from '~/bundles/common/enums/enums';
@@ -11,7 +14,7 @@ import {
     SkillsAndProjects,
 } from '~/bundles/users/screens/screens';
 
-import { Header } from './components/components';
+import { Header, Steps } from './components/components';
 
 const Drawer = createDrawerNavigator<OnboardingNavigationParameterList>();
 
@@ -24,6 +27,9 @@ const OnboardingNavigation: React.FC = () => {
                     <Header navigation={navigation} />
                 ),
             }}
+            drawerContent={(
+                props: DrawerContentComponentProps,
+            ): React.ReactNode => <Steps {...props} />}
         >
             <Drawer.Screen
                 name={OnboardingScreenName.PROFILE}
