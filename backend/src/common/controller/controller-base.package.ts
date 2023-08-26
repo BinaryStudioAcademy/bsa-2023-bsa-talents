@@ -1,7 +1,7 @@
 import { type FastifyRequest } from 'fastify';
+import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
 
 import { type Logger } from '~/common/logger/logger.js';
-import { type uploadedFile } from '~/common/plugins/types/types.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
 import { type Controller } from './interfaces/interface.js';
@@ -52,7 +52,7 @@ class ControllerBase implements Controller {
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
         const requestWithFile = request as FastifyRequest & {
-            file: uploadedFile | undefined;
+            file: MulterFile | undefined;
         };
         const { body, query, params, file } = requestWithFile;
         if (file) {
