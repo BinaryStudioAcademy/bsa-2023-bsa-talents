@@ -18,24 +18,38 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(
+    public async find(
         payload: Record<string, unknown>,
-    ): Promise<UserEntity | undefined> {
-        return this.userRepository.find({ ...payload });
+    ): Promise<UserFindResponseDto> {
+        const user = await this.userRepository.find({ ...payload });
+
+        if (!user) {
+            throw new Error('plug'); //TODO: This is plug
+        }
+
+        return user.toObject();
     }
 
-    public async findById(
-        id: number,
-    ): Promise<UserFindResponseDto | undefined> {
+    public async findById(id: number): Promise<UserFindResponseDto> {
         const user = await this.userRepository.find({ id });
-        return user ? user.toObject() : undefined;
+
+        if (!user) {
+            throw new Error('plug'); //TODO: This is plug
+        }
+
+        return user.toObject();
     }
 
     public async findByEmail(
         email: string,
     ): Promise<UserFindResponseDto | undefined> {
         const user = await this.userRepository.find({ email });
-        return user ? user.toObject() : undefined;
+
+        if (!user) {
+            throw new Error('plug'); //TODO: This is plug
+        }
+
+        return user.toObject();
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
