@@ -42,7 +42,7 @@ const Slider: React.FC<SliderProperties> = ({
     return (
         <View style={[globalStyles.p5, containerStyle]}>
             <Text
-                style={[{ left: leftValue, width: thumbTitleValueWidth }]}
+                style={{ left: leftValue, width: thumbTitleValueWidth }}
                 category={TextCategory.BODY1}
             >
                 {thumbTitleValue}
