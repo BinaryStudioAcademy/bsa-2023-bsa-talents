@@ -179,6 +179,8 @@ class ServerAppBase implements ServerApp {
 
         await this.initMiddlewares();
 
+        await this.initPlugins();
+
         this.initValidationCompiler();
 
         this.initErrorHandler();
