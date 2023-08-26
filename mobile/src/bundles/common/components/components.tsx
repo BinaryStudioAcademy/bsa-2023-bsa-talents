@@ -1,4 +1,5 @@
 export { Button } from './button/button';
+export { CurrencyInput } from './currency-input/currency-input';
 export { FormField } from './form-field/form-field';
 export { Input } from './input/input';
 export { Link } from './link/link';

@@ -15,20 +15,13 @@ const StepProgressBar: React.FC<Properties> = ({ currentStep, totalSteps }) => {
     return (
         <View style={[globalStyles.flexDirectionRow, { height: 3 }]}>
             <View
-                style={[
-                    {
-                        width: `${(max / totalSteps) * currentStep}%`,
-                        backgroundColor: Color.PRIMARY,
-                    },
-                ]}
+                style={{
+                    width: `${(max / totalSteps) * currentStep}%`,
+                    backgroundColor: Color.PRIMARY,
+                }}
             />
             <View
-                style={[
-                    globalStyles.width100,
-                    {
-                        backgroundColor: Color.TAG,
-                    },
-                ]}
+                style={[globalStyles.width100, { backgroundColor: Color.TAG }]}
             />
         </View>
     );

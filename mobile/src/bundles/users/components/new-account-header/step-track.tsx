@@ -18,9 +18,14 @@ const StepTrack: React.FC<Properties> = ({ currentStep, totalSteps }) => {
     const paddedTotalSteps = formatStep(totalSteps, stepWidth);
 
     return (
-        <View style={[globalStyles.flexDirectionRow, { letterSpacing: 1.5 }]}>
-            <Text category="Step">Step {paddedStep}</Text>
-            <Text category="Input"> / {paddedTotalSteps}</Text>
+        <View style={globalStyles.flexDirectionRow}>
+            <Text category="Step" style={{ letterSpacing: 1.5 }}>
+                Step {paddedStep}
+            </Text>
+            <Text category="Input" style={{ letterSpacing: 1.5 }}>
+                {' '}
+                / {paddedTotalSteps}
+            </Text>
         </View>
     );
 };

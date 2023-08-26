@@ -1,5 +1,3 @@
-import { type TextStyle } from 'react-native';
-
 import { Color, FontFamily, TextCategory } from '~/bundles/common/enums/enums';
 
 const FONTS = {
@@ -67,7 +65,7 @@ const FONTS = {
         fontFamily: FontFamily.INTER_BOLD,
         fontSize: 13,
         color: Color.PRIMARY,
-        textTransform: 'uppercase' as TextStyle,
+        textTransform: 'uppercase' as const,
     },
 };
 
