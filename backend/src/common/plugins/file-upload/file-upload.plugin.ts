@@ -8,6 +8,7 @@ import {
 import {
     AllowedExtensions,
     AllowedMimeTypes,
+    FileGroups,
     FileSize,
 } from './enums/enums.js';
 
@@ -18,24 +19,48 @@ const fileFilter = (
     file: MulterFile,
     callback: FileFilterCallback,
 ): void => {
-    if (
-        file.mimetype === AllowedMimeTypes.PDF ||
-        file.mimetype === AllowedMimeTypes.DOC ||
-        file.mimetype === AllowedMimeTypes.DOCX
-    ) {
-        const fileExtension =
-            file.originalname.split('.').pop()?.toLowerCase() ?? '';
-        if (
-            fileExtension === AllowedExtensions.PDF ||
-            fileExtension === AllowedExtensions.DOCX ||
-            fileExtension === AllowedExtensions.DOC
-        ) {
-            callback(null, true);
-        } else {
-            callback(new Error('Invalid file extension'), false);
+    const fileExtension =
+        file.originalname.split('.').pop()?.toLowerCase() ?? '';
+
+    let isValidMimeType = false;
+    let isValidExtension = false;
+
+    switch (file.fieldname) {
+        case FileGroups.DOCUMENT: {
+            isValidMimeType = [
+                AllowedMimeTypes.PDF,
+                AllowedMimeTypes.DOC,
+                AllowedMimeTypes.DOCX,
+            ].includes(file.mimetype);
+            isValidExtension = [
+                AllowedExtensions.PDF,
+                AllowedExtensions.DOCX,
+                AllowedExtensions.DOC,
+            ].includes(fileExtension);
+            break;
         }
+        case FileGroups.IMAGE: {
+            isValidMimeType = [
+                AllowedMimeTypes.JPEG,
+                AllowedMimeTypes.PNG,
+            ].includes(file.mimetype);
+            isValidExtension = [
+                AllowedExtensions.JPEG,
+                AllowedExtensions.JPG,
+                AllowedExtensions.PNG,
+            ].includes(fileExtension);
+            break;
+        }
+        default: {
+            callback(new Error('Invalid file group'), false);
+            return;
+        }
+    }
+
+    if (isValidMimeType && isValidExtension) {
+        callback(null, true);
     } else {
-        callback(new Error('Invalid file mimetype'), false);
+        callback(new Error(`Invalid ${file.fieldname} file`), false);
     }
 };
 

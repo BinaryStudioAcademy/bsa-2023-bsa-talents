@@ -52,7 +52,7 @@ class ControllerBase implements Controller {
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
         const requestWithFile = request as FastifyRequest & {
-            file: MulterFile | undefined;
+            file?: MulterFile;
         };
         const { body, query, params, file } = requestWithFile;
         if (file) {
