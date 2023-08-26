@@ -1,6 +1,5 @@
 type Service<T = unknown> = {
-    find(): Promise<T>;
-    findById(id: number): Promise<T>;
+    find(payload: Record<string, unknown>): Promise<T>;
     findAll(): Promise<{
         items: T[];
     }>;

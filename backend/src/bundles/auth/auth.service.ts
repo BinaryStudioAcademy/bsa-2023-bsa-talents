@@ -22,11 +22,12 @@ class AuthService {
         this.userRepository = userRepository;
     }
 
-    public async signIn(id: number): Promise<UserSignInResponseDto> {
-        const user = await this.userService.findById(id);
+    public async signIn(
+        userRequestDto: UserSignUpRequestDto,
+    ): Promise<UserSignInResponseDto> {
+        const user = await this.verifyLoginCredentials(userRequestDto);
         return {
-            ...user,
-            token: await tokenService.create({ id }),
+            token: await tokenService.create({ id: user.id }),
         };
     }
 
@@ -69,16 +70,6 @@ class AuthService {
         }
 
         return user.toObject();
-    }
-
-    public async login({ id }: { id: number }): Promise<UserSignInResponseDto> {
-        const user = await this.userService.findById(id);
-
-        return {
-            token: 'TOKEN', // Change with JWT
-            email: user.email,
-            id: user.id,
-        };
     }
 }
 
