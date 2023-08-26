@@ -1,9 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable, Text } from '~/bundles/common/components/components';
+import { Pressable, Text, View } from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-// import { styles } from './styles';
+import { styles } from './styles';
 
 type Properties = {
     index: number;
@@ -20,14 +22,40 @@ const Step: React.FC<Properties> = ({
 }) => {
     const number = 1;
     return (
-        <Pressable key={index} onPress={onPress}>
+        <Pressable
+            key={index}
+            onPress={onPress}
+            style={[
+                globalStyles.flexDirectionRow,
+                globalStyles.alignItemsCenter,
+                globalStyles.m25,
+                styles.singleStep,
+            ]}
+        >
             {isFocused ? (
-                <Icon name="circle" color="gray" size={20} />
+                <Icon
+                    name="circle-outline"
+                    color={Color.PRIMARY}
+                    size={30}
+                    style={styles.activeIcon}
+                />
             ) : (
-                <Icon name="circle-outline" color="gray" size={18} />
+                <Icon name="circle" color={Color.INPUT} size={30} />
             )}
-            <Text>Step {index + number}</Text>
-            <Text>{routeName}</Text>
+            <View style={globalStyles.mr15}>
+                <Text category="Label" style={styles.step}>
+                    Step 0{index + number}
+                </Text>
+                <Text
+                    category="Menu"
+                    style={[
+                        styles.screenName,
+                        isFocused && styles.activeScreenName,
+                    ]}
+                >
+                    {routeName}
+                </Text>
+            </View>
         </Pressable>
     );
 };

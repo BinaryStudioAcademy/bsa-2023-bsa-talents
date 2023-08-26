@@ -7,6 +7,20 @@ const styles = StyleSheet.create({
         flex: 1,
         color: Color.BACKGROUND,
     },
+    button: {
+        backgroundColor: '#000',
+        width: 30,
+        position: 'absolute',
+        right: 0,
+    },
+    verticalLine: {
+        height: 380,
+        width: 3,
+        backgroundColor: Color.INPUT,
+        position: 'absolute',
+        top: 140,
+        left: 39,
+    },
 });
 
 export { styles };

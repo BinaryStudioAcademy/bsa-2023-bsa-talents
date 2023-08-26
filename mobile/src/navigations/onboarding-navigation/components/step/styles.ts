@@ -3,9 +3,22 @@ import { StyleSheet } from 'react-native';
 import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    con: {
-        flex: 1,
-        color: Color.BACKGROUND,
+    singleStep: { gap: 10 },
+    step: {
+        color: Color.PRIMARY,
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        letterSpacing: 2,
+    },
+    activeIcon: {
+        backgroundColor: '#fff',
+    },
+    screenName: {
+        color: Color.TEXT2,
+    },
+    activeScreenName: {
+        fontWeight: 'bold',
+        color: Color.TEXT,
     },
 });
 

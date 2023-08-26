@@ -5,7 +5,8 @@ import {
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable } from '~/bundles/common/components/components';
+import { Pressable, Text, View } from '~/bundles/common/components/components';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { Step } from '../components';
 import { styles } from './styles';
@@ -14,20 +15,22 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
     const { navigation, state } = props;
 
     return (
-        <DrawerContentScrollView {...props} style={styles.con}>
+        <DrawerContentScrollView
+            {...props}
+            style={[styles.con, globalStyles.m20]}
+        >
             <Pressable
                 onPress={(): void => {
                     navigation.closeDrawer();
                 }}
-                style={{
-                    backgroundColor: '#000',
-                    width: 30,
-                    position: 'absolute',
-                    right: 0,
-                }}
+                style={styles.button}
             >
                 <Icon name="alpha-x" size={40} color="#fff" />
             </Pressable>
+            <Text category="H2" style={globalStyles.m25}>
+                Steps
+            </Text>
+            <View style={styles.verticalLine} />
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
                 const routeName = route.name;

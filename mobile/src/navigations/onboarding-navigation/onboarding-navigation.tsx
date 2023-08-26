@@ -26,6 +26,9 @@ const OnboardingNavigation: React.FC = () => {
                 header: ({ navigation }): React.ReactNode => (
                     <Header navigation={navigation} />
                 ),
+                drawerStyle: {
+                    width: 330,
+                },
             }}
             drawerContent={(
                 props: DrawerContentComponentProps,
