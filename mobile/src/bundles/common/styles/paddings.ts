@@ -1,6 +1,6 @@
 const PADDINGS = {
     defaultScreenPadding: {
-        paddingHorizontal: 25,
+        padding: 25,
     },
     p25: {
         padding: 25,
