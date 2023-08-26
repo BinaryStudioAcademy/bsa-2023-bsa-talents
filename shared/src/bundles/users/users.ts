@@ -3,7 +3,6 @@ export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
-    type UserGetOneItemResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

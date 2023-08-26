@@ -7,7 +7,6 @@ import { type Service } from '~/common/interfaces/interfaces.js';
 import {
     type UserFindResponseDto,
     type UserGetAllResponseDto,
-    type UserGetOneItemResponseDto,
     type UserSignUpRequestDto,
 } from './types/types.js';
 
@@ -48,8 +47,7 @@ class UserService implements Service {
 
     public async create(
         payload: UserSignUpRequestDto,
-        // TODO: change UserGetOneItemResponseDto to type for user.toObject()
-    ): Promise<UserGetOneItemResponseDto> {
+    ): Promise<UserFindResponseDto> {
         const { PASSWORD_SALT_ROUNDS } = config.ENV.CRYPT;
 
         const passwordSalt = await generateSalt(PASSWORD_SALT_ROUNDS);

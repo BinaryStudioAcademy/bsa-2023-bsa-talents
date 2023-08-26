@@ -2,7 +2,10 @@ import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
-import { userSignUpValidationSchema } from '~/bundles/users/users.js';
+import {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from '~/bundles/users/users.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -41,12 +44,12 @@ class AuthController extends ControllerBase {
             path: AuthApiPath.SIGN_IN,
             method: 'POST',
             validation: {
-                body: userSignUpValidationSchema,
+                body: userSignInValidationSchema,
             },
             handler: (options) =>
                 this.signIn(
                     options as ApiHandlerOptions<{
-                        body: UserSignUpRequestDto;
+                        body: UserSignInRequestDto;
                     }>,
                 ),
         });
@@ -79,9 +82,8 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
+     *                  token:
+     *                    type: string
      */
     private async signUp(
         options: ApiHandlerOptions<{
@@ -120,22 +122,17 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
+     *                  token:
+     *                    type: string
      */
     private async signIn(
         options: ApiHandlerOptions<{
             body: UserSignInRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const user = await this.authService.verifyLoginCredentials(
-            options.body,
-        );
-        const login = await this.authService.login(user);
         return {
             status: HttpCode.OK,
-            payload: login,
+            payload: await this.authService.signIn(options.body),
         };
     }
 }
