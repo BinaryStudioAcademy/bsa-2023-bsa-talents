@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { Text } from '~/bundles/common/components/components';
+import { View } from '~/bundles/common/components/components';
+import { globalStyles } from '~/bundles/common/styles/global-styles';
+
+// import { Badge } from '../components/badge/badge';
 
 const BsaBadges: React.FC = () => {
-    return <Text>Step Two BSA Badges</Text>;
+    return <View style={[globalStyles.p25]}>{/* <Badge /><Badge /> */}</View>;
 };
 
 export { BsaBadges };
