@@ -3,16 +3,16 @@
 .textarea {
     width: 100%;
     padding: 10px 0 0 14px;
-    color: var(--bt-blue-gray);
-    border: 1px solid var(--bt-input);
+    color: var(--text-primary);
+    border: 1px solid var(--botticelli);
     border-radius: 4px;
 }
 
 .textarea:focus {
-    border-color: var(--hover);
+    border-color: var(--st-tropaz);
     outline: 0;
 }
 
 .textarea:hover {
-    border-color: var(--hover);
+    border-color: var(--st-tropaz);
 }
