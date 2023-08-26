@@ -1,1 +1,1 @@
-export { uploadFile } from './file-upload.plugin.js';
+export { uploadFile } from './file-upload/file-upload.plugin.js';
