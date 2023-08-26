@@ -20,6 +20,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
             profileName: '',
             salaryExpectations: 0,
             jobTitle: '',
+            currentLocation: '',
         },
     });
 
@@ -27,6 +28,12 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
         { label: 'Job Title 1', value: 'job1' },
         { label: 'Job Title 2', value: 'job2' },
         { label: 'Job Title 3', value: 'job3' },
+    ];
+
+    const currentLocationOptions = [
+        { label: 'Location 1', value: 'location1' },
+        { label: 'Location 2', value: 'location2' },
+        { label: 'Location 3', value: 'location3' },
     ];
 
     const handleFormSubmit = useCallback((): void => {
@@ -76,6 +83,17 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                         containerStyle={globalStyles.pb25}
                     >
                         <Selector label="Job title" options={jobTitleOptions} />
+                    </FormField>
+                    <FormField
+                        errors={errors}
+                        name="currentLocation"
+                        required
+                        containerStyle={globalStyles.pb25}
+                    >
+                        <Selector
+                            label="Current location"
+                            options={currentLocationOptions}
+                        />
                     </FormField>
                 </>
             }
