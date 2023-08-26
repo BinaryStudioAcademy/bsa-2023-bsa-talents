@@ -5,8 +5,9 @@ import {
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable, Text } from '~/bundles/common/components/components';
+import { Pressable } from '~/bundles/common/components/components';
 
+import { Step } from '../components';
 import { styles } from './styles';
 
 const Steps = (props: DrawerContentComponentProps): JSX.Element => {
@@ -29,7 +30,7 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
             </Pressable>
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
-                const number = 1;
+                const routeName = route.name;
 
                 const onPress = (): void => {
                     const event = navigation.emit({
@@ -38,15 +39,17 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
                         canPreventDefault: true,
                     });
                     if (!isFocused && !event.defaultPrevented) {
-                        navigation.navigate(route.name);
+                        navigation.navigate(routeName);
                     }
                 };
 
                 return (
-                    <Pressable key={index} onPress={onPress}>
-                        <Text>Step {index + number}</Text>
-                        <Text>{route.name}</Text>
-                    </Pressable>
+                    <Step
+                        routeName={routeName}
+                        onPress={onPress}
+                        index={index}
+                        isFocused={isFocused}
+                    />
                 );
             })}
         </DrawerContentScrollView>
