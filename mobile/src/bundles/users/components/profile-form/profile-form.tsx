@@ -21,6 +21,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
             salaryExpectations: 0,
             jobTitle: '',
             currentLocation: '',
+            experience: '',
         },
     });
 
@@ -93,6 +94,21 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                         <Selector
                             label="Current location"
                             options={currentLocationOptions}
+                        />
+                    </FormField>
+                    <FormField
+                        errors={errors}
+                        label="Briefly tell employers about your experience"
+                        name="experience"
+                        required
+                        containerStyle={globalStyles.pb25}
+                    >
+                        <Input
+                            control={control}
+                            name="experience"
+                            placeholder="Text"
+                            numberOfLines={5}
+                            multilines={true}
                         />
                     </FormField>
                 </>

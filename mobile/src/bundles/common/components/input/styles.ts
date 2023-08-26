@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
     },
+    multilines: {
+        textAlignVertical: 'top',
+    },
     error: {
         borderColor: Color.ERROR,
     },
