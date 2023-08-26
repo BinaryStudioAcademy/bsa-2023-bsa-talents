@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 
 import {
     Button,
-    CurrencyInput,
     FormField,
     Input,
     View,
@@ -53,10 +52,12 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <CurrencyInput
+                <Input
                     control={control}
                     name="salaryExpectations"
                     placeholder="0000"
+                    inputType="number"
+                    marker="$"
                 />
             </FormField>
             <View style={globalStyles.flexDirectionRow}>
