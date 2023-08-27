@@ -1,4 +1,5 @@
 export { Button } from './button/button';
+export { Checkbox } from './checkbox/checkbox';
 export { FormField } from './form-field/form-field';
 export { Input } from './input/input';
 export { Link } from './link/link';

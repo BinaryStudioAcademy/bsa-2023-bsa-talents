@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Color } from '../../enums/enums';
+import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
     dropdownButton: {
@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         position: 'absolute',
-        top: '100%',
         backgroundColor: '#FFF',
         zIndex: 1,
     },

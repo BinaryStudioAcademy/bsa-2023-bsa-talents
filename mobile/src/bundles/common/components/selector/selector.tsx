@@ -8,9 +8,9 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { Color, IconName, TextCategory } from '../../enums/enums';
-import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
 type Select = {
@@ -72,7 +72,9 @@ const Selector: React.FC<Properties> = ({ options }) => {
                     style={[
                         globalStyles.pl20,
                         globalStyles.width100,
+                        globalStyles.borderRadius5,
                         styles.dropdown,
+                        styles.dropdownButton,
                     ]}
                     onPress={toggleIsListVisible}
                 >

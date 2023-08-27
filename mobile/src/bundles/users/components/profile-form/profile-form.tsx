@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     Button,
+    Checkbox,
     FlatList,
     FormField,
     Input,
@@ -11,31 +12,21 @@ import {
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
+import {
+    CURRENT_LOCATION_OPTIONS,
+    JOB_TITLE_OPTIONS,
+    USER_PROFILE_DEFAULT_VALUES,
+} from './constants/constants';
+import { styles } from './styles';
+
 type Properties = {
     onSubmit: () => void;
 };
+
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: {
-            profileName: '',
-            salaryExpectations: 0,
-            jobTitle: '',
-            currentLocation: '',
-            experience: '',
-        },
+        defaultValues: USER_PROFILE_DEFAULT_VALUES,
     });
-
-    const jobTitleOptions = [
-        { label: 'Job Title 1', value: 'job1' },
-        { label: 'Job Title 2', value: 'job2' },
-        { label: 'Job Title 3', value: 'job3' },
-    ];
-
-    const currentLocationOptions = [
-        { label: 'Location 1', value: 'location1' },
-        { label: 'Location 2', value: 'location2' },
-        { label: 'Location 3', value: 'location3' },
-    ];
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -43,10 +34,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FlatList
-            contentContainerStyle={[
-                globalStyles.p25,
-                { backgroundColor: '#FFFFFF', flexGrow: 1 },
-            ]}
+            contentContainerStyle={[globalStyles.p25, styles.container]}
             ListHeaderComponent={
                 <>
                     <FormField
@@ -84,7 +72,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                         required
                         containerStyle={globalStyles.pb25}
                     >
-                        <Selector options={jobTitleOptions} />
+                        <Selector options={JOB_TITLE_OPTIONS} />
                     </FormField>
                     <FormField
                         errors={errors}
@@ -93,7 +81,57 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                         required
                         containerStyle={globalStyles.pb25}
                     >
-                        <Selector options={currentLocationOptions} />
+                        <Selector options={CURRENT_LOCATION_OPTIONS} />
+                    </FormField>
+                    <FormField
+                        errors={errors}
+                        label="Employment type"
+                        name="employmentType"
+                        required
+                        containerStyle={globalStyles.pb25}
+                    >
+                        <View
+                            style={[
+                                globalStyles.flexDirectionRow,
+                                globalStyles.justifyContentSpaceBetween,
+                                styles.employmentTypeContainer,
+                            ]}
+                        >
+                            <View style={globalStyles.flex1}>
+                                <Checkbox
+                                    label="Full time"
+                                    name="employmentType.fullTime"
+                                    control={control}
+                                />
+                                <Checkbox
+                                    label="Part-time"
+                                    name="employmentType.partTime"
+                                    control={control}
+                                />
+                                <Checkbox
+                                    label="Freelance (projects)"
+                                    name="employmentType.freelance"
+                                    control={control}
+                                />
+                            </View>
+                            <View style={globalStyles.flex1}>
+                                <Checkbox
+                                    label="Part-time 2"
+                                    name="employmentType.partTime2"
+                                    control={control}
+                                />
+                                <Checkbox
+                                    label="Remotely"
+                                    name="employmentType.remotely"
+                                    control={control}
+                                />
+                                <Checkbox
+                                    label="Relocation to another country"
+                                    name="employmentType.relocation"
+                                    control={control}
+                                />
+                            </View>
+                        </View>
                     </FormField>
                     <FormField
                         errors={errors}

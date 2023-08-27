@@ -7,10 +7,10 @@ import {
 import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
 
+import { Text, View } from '~/bundles/common/components/components';
 import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { Text, View } from '../components';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = TextInputProps & {
