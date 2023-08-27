@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Text, View } from '~/bundles/common/components/components';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 type Properties = {
@@ -19,10 +20,10 @@ const StepTrack: React.FC<Properties> = ({ currentStep, totalSteps }) => {
 
     return (
         <View style={globalStyles.flexDirectionRow}>
-            <Text category="Step" style={{ letterSpacing: 1.5 }}>
+            <Text category={TextCategory.STEP} style={{ letterSpacing: 1.5 }}>
                 Step {paddedStep}
             </Text>
-            <Text category="Input" style={{ letterSpacing: 1.5 }}>
+            <Text category={TextCategory.INPUT} style={{ letterSpacing: 1.5 }}>
                 {' '}
                 / {paddedTotalSteps}
             </Text>

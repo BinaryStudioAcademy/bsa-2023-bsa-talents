@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { OnboardingScreenName } from '~/bundles/common/enums/enums';
+import {
+    OnboardingScreenName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { StepProgressBar } from './step-progress-bar';
@@ -27,7 +30,7 @@ const NewAccountHeader: React.FC<Properties> = ({ title, currentStep }) => {
                     { backgroundColor: '#FFFFFF' },
                 ]}
             >
-                <Text category="H5">{title}</Text>
+                <Text category={TextCategory.H5}>{title}</Text>
                 <StepTrack currentStep={currentStep} totalSteps={totalSteps} />
             </View>
             <StepProgressBar

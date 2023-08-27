@@ -72,7 +72,6 @@ const Selector: React.FC<Properties> = ({ options }) => {
                     style={[
                         globalStyles.pl20,
                         globalStyles.width100,
-                        globalStyles.borderRadius5,
                         styles.dropdown,
                         styles.dropdownButton,
                     ]}
@@ -87,7 +86,10 @@ const Selector: React.FC<Properties> = ({ options }) => {
                                         handlePressItem(item);
                                     }}
                                 >
-                                    <Text category={TextCategory.LABEL}>
+                                    <Text
+                                        category={TextCategory.LABEL}
+                                        style={globalStyles.pv5}
+                                    >
                                         {item.label}
                                     </Text>
                                 </TouchableOpacity>
