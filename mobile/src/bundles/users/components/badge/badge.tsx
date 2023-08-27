@@ -11,24 +11,53 @@ import { styles } from './styles';
 
 type BadgeName = (typeof BadgeType)[keyof typeof BadgeType];
 
+type BadgeProperties = {
+    style: ViewStyle;
+    ending: string;
+    defaultValue: number | string;
+};
+
 type Properties = {
-    value: string;
-    description: string;
+    value?: string | number;
     badgeType: BadgeName;
     iconSize?: number;
 };
 
 const defaultIconSize = 40;
 
-const Badge: React.FC<Properties> = ({ badgeType }) => {
-    const componentStyles: Record<BadgeName, ViewStyle> = useMemo(() => {
+const Badge: React.FC<Properties> = ({ badgeType, value }) => {
+    const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
-            [BadgeType.AVERAGE_LECTURE_SCORE]: styles.lectureScore,
-            [BadgeType.AVERAGE_PROJECT_SCORE]: styles.projectScore,
-            [BadgeType.COMMUNICATION_SCORE]: styles.communicationScore,
-            [BadgeType.WORKING_WITH_TEAM_SCORE]: styles.workingWithTeamScore,
-            [BadgeType.LEVEL_OF_ENGLISH]: styles.englishLevel,
-            [BadgeType.PUNCTUALITY]: styles.punctuality,
+            [BadgeType.AVERAGE_LECTURE_SCORE]: {
+                style: styles.lectureScore,
+                ending: ' / 5',
+                defaultValue: 4.2,
+            },
+            [BadgeType.AVERAGE_PROJECT_SCORE]: {
+                style: styles.projectScore,
+                ending: ' / 10',
+                defaultValue: 8.4,
+            },
+            [BadgeType.COMMUNICATION_SCORE]: {
+                style: styles.communicationScore,
+                ending: ' / 10',
+                defaultValue: 10,
+            },
+            [BadgeType.WORKING_WITH_TEAM_SCORE]: {
+                style: styles.workingWithTeamScore,
+                ending: ' / 10',
+                defaultValue: 7,
+            },
+            [BadgeType.LEVEL_OF_ENGLISH]: {
+                style: styles.englishLevel,
+                ending: '',
+                defaultValue: 'B+',
+            },
+            [BadgeType.PUNCTUALITY]: {
+                style: styles.punctuality,
+                ending: ' / 10',
+                defaultValue: 7,
+            },
         };
     }, []);
 
@@ -47,7 +76,7 @@ const Badge: React.FC<Properties> = ({ badgeType }) => {
                 style={[
                     globalStyles.p5,
                     globalStyles.borderRadius9,
-                    componentStyles[badgeType],
+                    badges[badgeType].style,
                 ]}
             >
                 <Icon
@@ -58,14 +87,14 @@ const Badge: React.FC<Properties> = ({ badgeType }) => {
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
-                    <Text category={TextCategory.H4}>4.2 </Text>
+                    <Text category={TextCategory.H4}>
+                        {value ?? badges[badgeType].defaultValue}
+                    </Text>
                     <Text category={TextCategory.H4} style={styles.maxScore}>
-                        / 5
+                        {badges[badgeType].ending}
                     </Text>
                 </View>
-                <Text category={TextCategory.LABEL}>
-                    Your average project score
-                </Text>
+                <Text category={TextCategory.LABEL}>{badgeType}</Text>
             </View>
         </View>
     );
