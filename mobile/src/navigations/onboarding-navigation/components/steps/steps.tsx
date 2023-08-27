@@ -11,7 +11,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { Step } from '../components';
 import { styles } from './styles';
 
-const Steps = (props: DrawerContentComponentProps): JSX.Element => {
+const Steps: React.FC<DrawerContentComponentProps> = (props) => {
     const { navigation, state } = props;
 
     return (
