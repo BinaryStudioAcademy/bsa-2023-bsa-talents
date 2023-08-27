@@ -6,7 +6,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/enums';
+import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { Badge } from '../components/badge/badge';
@@ -24,6 +24,9 @@ const BsaBadges: React.FC = () => {
             <View style={globalStyles.mb25}>
                 <Text>Some header</Text>
             </View>
+            <Text category={TextCategory.BODY1}>
+                Choose BSA badges you want to show in your profile
+            </Text>
             <ScrollView>{renderBadges}</ScrollView>
             <View style={[globalStyles.flexDirectionRow, globalStyles.mt25]}>
                 <Button
