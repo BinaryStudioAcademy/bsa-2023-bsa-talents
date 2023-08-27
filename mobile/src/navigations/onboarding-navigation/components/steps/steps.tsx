@@ -48,6 +48,7 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
 
                 return (
                     <Step
+                        key={route.key}
                         routeName={routeName}
                         onPress={onPress}
                         index={index}
