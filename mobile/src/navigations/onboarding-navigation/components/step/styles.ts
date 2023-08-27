@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         color: Color.TEXT2,
     },
     activeScreenName: {
-        fontWeight: 'bold',
         color: Color.TEXT,
     },
 });

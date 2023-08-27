@@ -25,7 +25,7 @@ const Steps = (props: DrawerContentComponentProps): JSX.Element => {
                 }}
                 style={styles.button}
             >
-                <Icon name="alpha-x" size={40} color="#fff" />
+                <Icon name="close" size={40} color="#D5DCE8" />
             </Pressable>
             <Text category="H2" style={styles.title}>
                 Steps

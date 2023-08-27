@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
         margin: 30,
     },
     button: {
-        backgroundColor: '#000',
-        width: 30,
         position: 'absolute',
         right: 0,
     },
