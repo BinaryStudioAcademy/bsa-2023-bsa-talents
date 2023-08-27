@@ -1,22 +1,37 @@
-import React from 'react';
+import { type ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
+import { useMemo } from '../../../common/hooks/hooks';
+import { BadgeType } from '../../enums/enums';
 import { styles } from './styles';
+
+type BadgeName = (typeof BadgeType)[keyof typeof BadgeType];
 
 type Properties = {
     value: string;
     description: string;
-    badgeType: string;
+    badgeType: BadgeName;
     iconSize?: number;
 };
 
 const defaultIconSize = 40;
 
-const Badge: React.FC<Properties> = () => {
+const Badge: React.FC<Properties> = ({ badgeType }) => {
+    const componentStyles: Record<BadgeName, ViewStyle> = useMemo(() => {
+        return {
+            [BadgeType.AVERAGE_LECTURE_SCORE]: styles.lectureScore,
+            [BadgeType.AVERAGE_PROJECT_SCORE]: styles.projectScore,
+            [BadgeType.COMMUNICATION_SCORE]: styles.communicationScore,
+            [BadgeType.WORKING_WITH_TEAM_SCORE]: styles.workingWithTeamScore,
+            [BadgeType.LEVEL_OF_ENGLISH]: styles.englishLevel,
+            [BadgeType.PUNCTUALITY]: styles.punctuality,
+        };
+    }, []);
+
     return (
         <View
             style={[
@@ -32,7 +47,7 @@ const Badge: React.FC<Properties> = () => {
                 style={[
                     globalStyles.p5,
                     globalStyles.borderRadius9,
-                    styles.backgroundIcon,
+                    componentStyles[badgeType],
                 ]}
             >
                 <Icon
