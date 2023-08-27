@@ -79,22 +79,21 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                     </FormField>
                     <FormField
                         errors={errors}
+                        label="Job title"
                         name="jobTitle"
                         required
                         containerStyle={globalStyles.pb25}
                     >
-                        <Selector label="Job title" options={jobTitleOptions} />
+                        <Selector options={jobTitleOptions} />
                     </FormField>
                     <FormField
                         errors={errors}
+                        label="Current location"
                         name="currentLocation"
                         required
                         containerStyle={globalStyles.pb25}
                     >
-                        <Selector
-                            label="Current location"
-                            options={currentLocationOptions}
-                        />
+                        <Selector options={currentLocationOptions} />
                     </FormField>
                     <FormField
                         errors={errors}
@@ -108,7 +107,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                             name="experience"
                             placeholder="Text"
                             numberOfLines={5}
-                            multilines={true}
+                            multiline={true}
                         />
                     </FormField>
                 </>

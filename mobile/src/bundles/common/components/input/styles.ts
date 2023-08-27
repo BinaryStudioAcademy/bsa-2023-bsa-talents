@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
     },
-    multilines: {
+    multiline: {
         textAlignVertical: 'top',
     },
     error: {

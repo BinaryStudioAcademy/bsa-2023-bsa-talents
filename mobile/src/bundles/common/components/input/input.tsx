@@ -19,7 +19,6 @@ type Properties<T extends FieldValues> = TextInputProps & {
     hasError?: boolean;
     marker?: string;
     inputType?: 'text' | 'number';
-    multilines?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -29,7 +28,7 @@ const Input = <T extends FieldValues>({
     name,
     marker,
     inputType = 'text',
-    multilines = false,
+    multiline = false,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -67,7 +66,7 @@ const Input = <T extends FieldValues>({
                     globalStyles.Input,
                     !marker && globalStyles.borderRadius5,
                     styles.input,
-                    multilines && styles.multilines,
+                    multiline && styles.multiline,
                     !editable && styles.disabled,
                     hasError && styles.error,
                 ]}

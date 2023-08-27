@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         position: 'absolute',
+        top: '100%',
         backgroundColor: '#FFF',
         zIndex: 1,
     },
