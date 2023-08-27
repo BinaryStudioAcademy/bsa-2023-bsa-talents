@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Checkbox } from '~/bundles/auth/components/checkbox/checkbox';
 import {
     Button,
     ScrollView,
@@ -7,29 +8,46 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
-// import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { Badge } from '../components/badge/badge';
+import {
+    DEFAULT_VALUE_IS_CHECKED,
+    DEFAULT_VALUE_IS_DISABLED,
+} from '../components/badge/constants/constants';
 import { BadgeType } from '../enums/enums';
 
 const values = Object.values(BadgeType);
 
-const renderBadges = values.map((badge) => (
-    <Badge key={badge} badgeType={badge} />
-));
-
 const BsaBadges: React.FC = () => {
-    // const { errors, handleSubmit } = useAppForm({
-    //     defaultValues: {
-    //         checked: true
-    //     },
-    // });
+    const { control, handleSubmit } = useAppForm({
+        defaultValues: DEFAULT_VALUE_IS_CHECKED,
+    });
 
-    // console.log(typeof  errors);
+    const handleFormSubmit = useCallback((): void => {
+        //void handleSubmit(onSubmit)();
+    }, [handleSubmit]);
+
+    const renderBadges = values.map((badge) => (
+        <View
+            key={badge}
+            style={[
+                globalStyles.flexDirectionRow,
+                globalStyles.alignItemsCenter,
+            ]}
+        >
+            <Checkbox
+                control={control}
+                name={badge}
+                disabled={DEFAULT_VALUE_IS_DISABLED[badge]}
+            />
+            <Badge badgeType={badge} />
+        </View>
+    ));
 
     return (
-        <View style={[globalStyles.p25]}>
+        <View style={globalStyles.p25}>
             <View style={globalStyles.mb25}>
                 <Text>Some header</Text>
             </View>
@@ -45,9 +63,8 @@ const BsaBadges: React.FC = () => {
                     style={[globalStyles.mr15, globalStyles.ph25]}
                     label="Back"
                     buttonType={ButtonType.OUTLINE}
-                    // errors={errors}
                 />
-                <Button label="Next" />
+                <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </View>
     );

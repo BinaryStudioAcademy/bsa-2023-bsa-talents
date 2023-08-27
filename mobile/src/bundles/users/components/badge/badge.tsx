@@ -1,12 +1,11 @@
-import CheckBox from '@react-native-community/checkbox';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { FormField, Text, View } from '~/bundles/common/components/components';
+import { Text, View } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
-import { useMemo, useState } from '../../../common/hooks/hooks';
+import { useMemo } from '../../../common/hooks/hooks';
 import { BadgeType } from '../../enums/enums';
 import { styles } from './styles';
 
@@ -27,8 +26,6 @@ type Properties = {
 const defaultIconSize = 40;
 
 const Badge: React.FC<Properties> = ({ badgeType, value }) => {
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
-
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
             [BadgeType.AVERAGE_LECTURE_SCORE]: {
@@ -67,6 +64,7 @@ const Badge: React.FC<Properties> = ({ badgeType, value }) => {
     return (
         <View
             style={[
+                globalStyles.flex1,
                 globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
                 globalStyles.borderRadius9,
@@ -75,16 +73,6 @@ const Badge: React.FC<Properties> = ({ badgeType, value }) => {
                 styles.wrapper,
             ]}
         >
-            <FormField errors={errors} name="check">
-                <CheckBox
-                    disabled={false}
-                    value={toggleCheckBox}
-                    onValueChange={(newValue): void => {
-                        setToggleCheckBox(newValue);
-                    }}
-                />
-            </FormField>
-
             <View
                 style={[
                     globalStyles.p5,
