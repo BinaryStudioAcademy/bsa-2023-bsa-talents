@@ -31,6 +31,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                 Steps
             </Text>
             <View style={styles.verticalLine} />
+
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
                 const routeName = route.name;
