@@ -30,7 +30,7 @@ class AuthService {
         if (userByEmail) {
             throw new HttpError({
                 message: 'User already exist.',
-                status: HttpCode.CONFLICT,
+                status: HttpCode.BAD_REQUEST,
             });
         }
 
