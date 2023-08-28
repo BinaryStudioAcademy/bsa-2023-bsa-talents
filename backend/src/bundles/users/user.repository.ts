@@ -1,7 +1,7 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
-import { type Repository } from '~/common/interfaces/interfaces.js';
 import { tokenService } from '~/common/services/services.js';
+import { type Repository } from '~/common/types/repository.type.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
