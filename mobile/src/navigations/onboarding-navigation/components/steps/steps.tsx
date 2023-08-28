@@ -6,6 +6,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { Step } from '../components';
@@ -25,9 +26,9 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                 }}
                 style={styles.button}
             >
-                <Icon name="close" size={40} color="#D5DCE8" />
+                <Icon name="close" size={40} color={Color.INPUT} />
             </Pressable>
-            <Text category="H2" style={styles.title}>
+            <Text category={TextCategory.H2} style={styles.title}>
                 Steps
             </Text>
             <View style={styles.verticalLine} />

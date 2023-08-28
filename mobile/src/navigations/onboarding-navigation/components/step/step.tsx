@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -43,11 +43,11 @@ const Step: React.FC<Properties> = ({
                 <Icon name="circle" color={Color.INPUT} size={30} />
             )}
             <View style={[globalStyles.mr15, styles.textCon]}>
-                <Text category="Label" style={styles.step}>
+                <Text category={TextCategory.LABEL} style={styles.step}>
                     Step 0{index + number}
                 </Text>
                 <Text
-                    category="Menu"
+                    category={TextCategory.MENU}
                     style={[
                         styles.screenName,
                         isFocused && styles.activeScreenName,
