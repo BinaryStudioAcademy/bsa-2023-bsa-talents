@@ -1,4 +1,6 @@
-import CommunitySlider from '@react-native-community/slider';
+import CommunitySlider, {
+    type SliderProps,
+} from '@react-native-community/slider';
 import React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 
@@ -11,30 +13,27 @@ import { styles } from './styles';
 
 type SliderProperties = {
     thumbTitleValue: string;
-    sliderValue: number;
-    onSliderValueChange: (value: number) => void;
     containerStyle?: StyleProp<ViewStyle>;
-    minSliderValue?: number;
-    maxSliderValue?: number;
+    value: number;
     thumbTitleValueWidth?: number;
-};
+} & Omit<SliderProps, 'style' | 'value'>;
 
 const defaultMinSliderValue = 0;
 const defaultMaxSliderValue = 120;
 const defaultValueWidth = 70;
 
 const Slider: React.FC<SliderProperties> = ({
-    sliderValue,
-    onSliderValueChange,
     thumbTitleValue,
     containerStyle,
-    maxSliderValue = defaultMaxSliderValue,
-    minSliderValue = defaultMinSliderValue,
     thumbTitleValueWidth = defaultValueWidth,
+    value,
+    minimumValue = defaultMinSliderValue,
+    maximumValue = defaultMaxSliderValue,
+    ...props
 }) => {
     const { width } = useWindowDimensions();
-    const offset = (thumbTitleValueWidth / maxSliderValue) * sliderValue;
-    const leftValue = (sliderValue * width) / maxSliderValue - offset;
+    const offset = (thumbTitleValueWidth / maximumValue) * value;
+    const leftValue = (value * width) / maximumValue - offset;
     return (
         <View style={[globalStyles.p5, containerStyle]}>
             <Text
@@ -45,14 +44,14 @@ const Slider: React.FC<SliderProperties> = ({
             </Text>
             <CommunitySlider
                 style={[styles.slider]}
-                minimumValue={minSliderValue}
-                maximumValue={maxSliderValue}
+                minimumValue={minimumValue}
+                maximumValue={maximumValue}
                 minimumTrackTintColor={Color.PRIMARY}
                 maximumTrackTintColor={'#b3c3f2'}
                 thumbTintColor={Color.PRIMARY}
                 step={1}
-                value={sliderValue}
-                onValueChange={onSliderValueChange}
+                value={value}
+                {...props}
             />
         </View>
     );
