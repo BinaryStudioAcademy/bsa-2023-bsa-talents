@@ -5,3 +5,4 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook';
 export { useLinkTo } from '@react-navigation/native';
 export { useCallback, useEffect, useMemo } from 'react';
 export { useController as useFormController } from 'react-hook-form';
+export { useWindowDimensions } from 'react-native';
