@@ -1,12 +1,16 @@
 import { type Knex } from 'knex';
 
-import { UserRole } from '~/common/enums/enums.js';
-
 const TABLE_NAME = 'users';
 
 const ColumnName = {
     ROLE: 'role',
 };
+
+const UserRole = {
+    TALENT: 'talent',
+    EMPLOYER: 'employer',
+    ADMIN: 'admin',
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
