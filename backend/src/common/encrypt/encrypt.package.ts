@@ -2,7 +2,7 @@ import { compare, hash } from 'bcrypt';
 
 import { type Config } from '~/common/config/config.js';
 
-class EncryptBase {
+class Encrypt {
     private appConfig: Config;
 
     public constructor(config: Config) {
@@ -19,4 +19,4 @@ class EncryptBase {
     }
 }
 
-export { EncryptBase };
+export { Encrypt };

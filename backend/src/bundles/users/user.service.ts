@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type EncryptBase } from '~/common/encrypt/encrypt-base.package.js';
+import { type Encrypt } from '~/common/encrypt/encrypt.package.js';
 import { type Service } from '~/common/types/types.js';
 
 import {
@@ -11,9 +11,9 @@ import {
 
 class UserService implements Service {
     private userRepository: UserRepository;
-    private encrypt: EncryptBase;
+    private encrypt: Encrypt;
 
-    public constructor(userRepository: UserRepository, encrypt: EncryptBase) {
+    public constructor(userRepository: UserRepository, encrypt: Encrypt) {
         this.userRepository = userRepository;
         this.encrypt = encrypt;
     }
