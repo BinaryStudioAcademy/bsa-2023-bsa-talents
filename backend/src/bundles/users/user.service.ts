@@ -18,17 +18,26 @@ class UserService implements Service {
         this.encrypt = encrypt;
     }
 
-    public find(
+    public async find(
         payload: Record<string, unknown>,
-    ): Promise<UserEntity | undefined> {
-        return this.userRepository.find({ ...payload });
+    ): Promise<UserFindResponseDto> {
+        const user = await this.userRepository.find({ ...payload });
+
+        if (!user) {
+            throw new Error('plug'); //TODO: This is plug
+        }
+
+        return user.toObject();
     }
 
-    public async findById(
-        id: number,
-    ): Promise<UserFindResponseDto | undefined> {
+    public async findById(id: number): Promise<UserFindResponseDto> {
         const user = await this.userRepository.find({ id });
-        return user ? user.toObject() : undefined;
+
+        if (!user) {
+            throw new Error('plug'); //TODO: This is plug
+        }
+
+        return user.toObject();
     }
 
     public async findByEmail(
@@ -57,6 +66,8 @@ class UserService implements Service {
                 passwordHash: passwordHash,
             }),
         );
+
+        return user.toObject();
 
         return user.toObject();
     }

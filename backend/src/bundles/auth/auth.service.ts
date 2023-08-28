@@ -1,7 +1,4 @@
-import {
-    type UserSignUpRequestDto,
-    type UserSignUpResponseDto,
-} from '~/bundles/users/types/types.js';
+import { type UserSignUpRequestDto } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { tokenService } from '~/common/services/services.js';
@@ -21,7 +18,7 @@ class AuthService {
 
     public async signUp(
         userRequestDto: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
+    ): Promise<{ token: string }> {
         const { email } = userRequestDto;
 
         // const userByEmail = await this.userService.getByEmail(email); // TODO:
