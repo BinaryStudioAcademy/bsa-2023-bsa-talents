@@ -1,6 +1,6 @@
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
-import { type ControllerRouteParameters } from '../types/types.js';
+import { type ControllerRouteParameters } from './types.js';
 
 type Controller = {
     routes: ServerAppRouteParameters[];

@@ -1,4 +1,4 @@
-import { type ServerAppRouteParameters } from '../types/types.js';
+import { type ServerAppRouteParameters } from './types.js';
 
 type ServerAppApi = {
     version: string;
