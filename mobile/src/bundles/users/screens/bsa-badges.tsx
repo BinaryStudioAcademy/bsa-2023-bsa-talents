@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Checkbox } from '~/bundles/auth/components/checkbox/checkbox';
+// this component in another task bt-104
+import { Checkbox } from '~/bundles/common/components/checkbox/checkbox';
 import {
     Button,
     ScrollView,
@@ -18,16 +19,20 @@ import {
 } from '../components/badge/constants/constants';
 import { BadgeType } from '../enums/enums';
 
+type Properties = {
+    onSubmit: () => void;
+};
+
 const values = Object.values(BadgeType);
 
-const BsaBadges: React.FC = () => {
+const BsaBadges: React.FC<Properties> = ({ onSubmit }) => {
     const { control, handleSubmit } = useAppForm({
         defaultValues: DEFAULT_VALUE_IS_CHECKED,
     });
 
     const handleFormSubmit = useCallback((): void => {
-        //void handleSubmit(onSubmit)();
-    }, [handleSubmit]);
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     const renderBadges = values.map((badge) => (
         <View
@@ -37,6 +42,7 @@ const BsaBadges: React.FC = () => {
                 globalStyles.alignItemsCenter,
             ]}
         >
+            {/* this component in another task */}
             <Checkbox
                 control={control}
                 name={badge}
@@ -49,6 +55,7 @@ const BsaBadges: React.FC = () => {
     return (
         <View style={globalStyles.p25}>
             <View style={globalStyles.mb25}>
+                {/* this component in another task */}
                 <Text>Some header</Text>
             </View>
             <Text
@@ -60,7 +67,7 @@ const BsaBadges: React.FC = () => {
             <ScrollView>{renderBadges}</ScrollView>
             <View style={[globalStyles.flexDirectionRow, globalStyles.mt25]}>
                 <Button
-                    style={[globalStyles.mr15, globalStyles.ph25]}
+                    style={globalStyles.mr10}
                     label="Back"
                     buttonType={ButtonType.OUTLINE}
                 />

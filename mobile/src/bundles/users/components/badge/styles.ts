@@ -3,9 +3,6 @@ import { StyleSheet } from 'react-native';
 import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    backgroundIcon: {
-        backgroundColor: 'red',
-    },
     wrapper: {
         flexShrink: 1,
         gap: 10,

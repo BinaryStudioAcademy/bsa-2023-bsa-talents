@@ -25,7 +25,11 @@ type Properties = {
 
 const defaultIconSize = 40;
 
-const Badge: React.FC<Properties> = ({ badgeType, value }) => {
+const Badge: React.FC<Properties> = ({
+    badgeType,
+    value,
+    iconSize = defaultIconSize,
+}) => {
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
             [BadgeType.AVERAGE_LECTURE_SCORE]: {
@@ -80,11 +84,7 @@ const Badge: React.FC<Properties> = ({ badgeType, value }) => {
                     badges[badgeType].style,
                 ]}
             >
-                <Icon
-                    name={IconName.HEADPHONES}
-                    size={defaultIconSize}
-                    color="#FFF"
-                />
+                <Icon name={IconName.HEADPHONES} size={iconSize} color="#FFF" />
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
