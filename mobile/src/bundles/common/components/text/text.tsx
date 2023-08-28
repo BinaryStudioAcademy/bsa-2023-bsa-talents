@@ -8,10 +8,11 @@ import {
 
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 type Properties = TextProps & {
     children: React.ReactNode;
-    category?: (typeof TextCategory)[keyof typeof TextCategory];
+    category?: ValueOf<typeof TextCategory>;
     style?: StyleProp<TextStyle>;
 };
 

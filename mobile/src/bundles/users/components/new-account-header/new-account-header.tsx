@@ -6,12 +6,13 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { StepProgressBar } from './step-progress-bar';
 import { StepTrack } from './step-track';
 
 type Properties = {
-    title: (typeof OnboardingScreenName)[keyof typeof OnboardingScreenName];
+    title: ValueOf<typeof OnboardingScreenName>;
     currentStep: number;
 };
 
