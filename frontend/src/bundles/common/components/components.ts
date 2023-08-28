@@ -11,6 +11,8 @@ export { Link } from './link/link.js';
 export { Modal } from './modal/modal.js';
 export { Radio, RadioGroup } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Select } from './select/select.js';
+export { Sidebar } from './sidebar/sidebar.js';
 export { Slider } from './slider/slider.js';
 export { Textarea } from './textarea/textarea.js';
 export { Typography } from './typography/typography.js';

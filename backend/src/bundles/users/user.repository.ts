@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
-import { type Repository } from '~/common/interfaces/interfaces.js';
+import { type Repository } from '~/common/types/types.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -9,34 +9,12 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
-        return Promise.resolve(null);
-    }
+    public async find(
+        payload: Record<string, unknown>,
+    ): Promise<UserEntity | undefined> {
+        const user = await this.userModel.query().findOne(payload);
 
-    public async findByEmail(
-        email: UserEntity['email'],
-    ): Promise<UserEntity | null> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ email })
-            .first();
-        if (!user) {
-            return null;
-        }
-        return UserEntity.initialize(user);
-    }
-
-    public async findById(id: UserEntity['id']): Promise<UserEntity | null> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ id })
-            .first();
-        if (!user) {
-            return null;
-        }
-        return UserEntity.initialize(user);
+        return user ? UserEntity.initialize(user) : undefined;
     }
 
     public async findAll(): Promise<UserEntity[]> {
@@ -46,13 +24,12 @@ class UserRepository implements Repository {
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
-        const { email, passwordSalt, passwordHash } = entity.toNewObject();
+        const { email, passwordHash } = entity.toNewObject();
 
         const item = await this.userModel
             .query()
             .insert({
                 email,
-                passwordSalt,
                 passwordHash,
             })
             .returning('*')

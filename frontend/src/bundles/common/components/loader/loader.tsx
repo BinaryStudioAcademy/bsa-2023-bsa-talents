@@ -8,11 +8,11 @@ type Properties = {
     value?: number;
 };
 
-const Loader = ({
+const Loader: React.FC<Properties> = ({
     size,
     variant = 'indeterminate',
     value,
-}: Properties): JSX.Element => {
+}) => {
     return (
         <div className={styles.loader}>
             <CircularProgress size={size} variant={variant} value={value} />

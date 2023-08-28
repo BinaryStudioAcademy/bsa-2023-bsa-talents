@@ -1,1 +1,2 @@
-export { cryptCompare, encrypt, generateSalt } from 'shared/build/index.js';
+export { cryptCompare } from './crypt-compare/crypt-compare.helper.js';
+export { encrypt } from './encrypt/encrypt.helper.js';

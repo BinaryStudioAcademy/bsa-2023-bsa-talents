@@ -1,8 +1,7 @@
 import { type AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { type Config } from './interfaces/interfaces.js';
-import { type EnvironmentSchema } from './types/types.js';
+import { type Config, type EnvironmentSchema } from './types/types.js';
 
 class ConfigBase implements Config {
     public ENV: EnvironmentSchema;

@@ -1,14 +1,13 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { config } from '~/common/config/config.js';
-import { encrypt, generateSalt } from '~/common/helpers/helpers.js';
-import { type Service } from '~/common/interfaces/interfaces.js';
+import { encrypt } from '~/common/helpers/helpers.js';
+import { type Service } from '~/common/types/types.js';
 
 import {
+    type UserFindResponseDto,
     type UserGetAllResponseDto,
-    type UserGetOneItemResponseDto,
     type UserSignUpRequestDto,
-    type UserSignUpResponseDto,
 } from './types/types.js';
 
 class UserService implements Service {
@@ -18,32 +17,24 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
-    }
-
-    public async findByEmail(
-        email: UserEntity['email'],
-    ): Promise<UserGetOneItemResponseDto> {
-        const user = await this.userRepository.findByEmail(email);
-
-        if (!user) {
-            throw new Error('Incorrect email');
-        }
-
-        return user.toObject();
+    public find(
+        payload: Record<string, unknown>,
+    ): Promise<UserEntity | undefined> {
+        return this.userRepository.find({ ...payload });
     }
 
     public async findById(
-        id: UserEntity['id'],
-    ): Promise<UserGetOneItemResponseDto> {
-        const user = await this.userRepository.findById(id);
+        id: number,
+    ): Promise<UserFindResponseDto | undefined> {
+        const user = await this.userRepository.find({ id });
+        return user ? user.toObject() : undefined;
+    }
 
-        if (!user) {
-            throw new Error('User not found');
-        }
-
-        return user.toObject();
+    public async findByEmail(
+        email: string,
+    ): Promise<UserFindResponseDto | undefined> {
+        const user = await this.userRepository.find({ email });
+        return user ? user.toObject() : undefined;
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -56,10 +47,9 @@ class UserService implements Service {
 
     public async create(
         payload: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
+    ): Promise<{ id: number; email: string }> {
         const { PASSWORD_SALT_ROUNDS } = config.ENV.CRYPT;
 
-        const passwordSalt = await generateSalt(PASSWORD_SALT_ROUNDS);
         const passwordHash = await encrypt(
             payload.password,
             PASSWORD_SALT_ROUNDS,
@@ -68,7 +58,6 @@ class UserService implements Service {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: passwordSalt,
                 passwordHash: passwordHash,
             }),
         );

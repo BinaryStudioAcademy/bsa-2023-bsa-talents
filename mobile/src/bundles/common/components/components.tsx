@@ -8,6 +8,7 @@ export { Text } from './text/text';
 export {
     ActivityIndicator,
     FlatList,
+    Image,
     Pressable,
     TouchableOpacity,
     View,

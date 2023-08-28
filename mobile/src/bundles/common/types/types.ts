@@ -3,6 +3,7 @@ export {
     type AuthNavigationParameterList,
     type BottomTabNavigationParameterList,
     type NavigationScreenProperties,
+    type OnboardingNavigationParameterList,
     type RootNavigationParameterList,
 } from './navigation/navigation';
 export {

@@ -6,6 +6,11 @@ type EnvironmentSchema = {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
     };
+    JWT: {
+        SECRET: string;
+        EXPIRES_IN: string;
+        ALG: string;
+    };
     DB: {
         CONNECTION_STRING: string;
         DIALECT: string;

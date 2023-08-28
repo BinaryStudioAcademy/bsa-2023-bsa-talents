@@ -1,6 +1,6 @@
 {
     "extends": "../tsconfig.json",
-    "include": ["src"],
+    "include": ["src", "../backend/src/common/helpers/generate-salt"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "target": "ESNext",
