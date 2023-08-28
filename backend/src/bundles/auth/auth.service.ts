@@ -1,3 +1,5 @@
+import { ErrorMessages } from 'shared/build/enums/enums.js';
+
 import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
@@ -28,7 +30,7 @@ class AuthService {
 
         if (userByEmail) {
             throw new HttpError({
-                message: 'User already exist.',
+                message: ErrorMessages.USER_ALREADY_EXIST,
                 status: HttpCode.BAD_REQUEST,
             });
         }
