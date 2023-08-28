@@ -30,14 +30,9 @@ overrides:
           import/no-default-export:
               - off
     - files:
-          - vite-env.d.ts
-          - typography.d.ts
+          - '*.d.ts'
       rules:
           unicorn/prevent-abbreviations:
               - off
-    - files:
-          - typography.d.ts
-          - theme.d.ts
-      rules:
           '@typescript-eslint/consistent-type-definitions':
               - off
