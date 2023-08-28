@@ -1,7 +1,7 @@
 import { type Logger as LibraryLogger, pino } from 'pino';
 import pretty from 'pino-pretty';
 
-import { type Logger } from './interfaces/interfaces.js';
+import { type Logger } from './types/types.js';
 
 class LoggerBase implements Logger {
     private logger: LibraryLogger;

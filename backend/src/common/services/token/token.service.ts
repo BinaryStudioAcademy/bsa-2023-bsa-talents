@@ -7,7 +7,7 @@ import {
 
 import { config } from '~/common/config/config.js';
 
-import { type TokenService } from './interfaces/interface.js';
+import { type TokenService } from './types/types.js';
 
 class TokenServiceBase implements TokenService {
     private secret: Uint8Array;
