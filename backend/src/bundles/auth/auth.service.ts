@@ -3,7 +3,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { tokenService } from '~/common/services/services.js';
+import { tokenService } from '~/common/packages/packages.js';
 
 class AuthService {
     private userService: UserService;

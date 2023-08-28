@@ -1,8 +1,8 @@
 import { type JWTPayload, type JWTVerifyResult } from 'jose';
 
-type TokenService = {
+type Token = {
     create({ id }: JWTPayload): Promise<string>;
     decode(token: string): Promise<JWTVerifyResult>;
 };
 
-export { type TokenService };
+export { type Token };
