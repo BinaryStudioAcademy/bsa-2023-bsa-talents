@@ -15,6 +15,8 @@ const ColumnName = {
 };
 
 async function up(knex: Knex): Promise<void> {
+    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
     return knex.schema.createTable(TABLE_NAME, (table) => {
         table
             .uuid(ColumnName.ID)
