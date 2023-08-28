@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-// import { Color } from '~/bundles/common/enums/enums';
-
 const styles = StyleSheet.create({
     backdrop: {
         backgroundColor: 'rgba(0,0,0,0.5)',

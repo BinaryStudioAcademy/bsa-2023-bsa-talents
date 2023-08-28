@@ -10,6 +10,7 @@ export {
     ActivityIndicator,
     FlatList,
     Pressable,
+    Modal as RNModal,
     TouchableOpacity,
     View,
 } from 'react-native';
