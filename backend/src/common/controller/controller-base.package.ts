@@ -1,4 +1,4 @@
-import { type Logger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
 import {

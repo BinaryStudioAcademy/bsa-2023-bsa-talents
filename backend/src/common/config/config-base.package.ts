@@ -2,7 +2,7 @@ import convict, { type Config as LibraryConfig } from 'convict';
 import { config } from 'dotenv';
 
 import { AppEnvironment } from '~/common/enums/enums.js';
-import { type Logger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
 
 import { type Config, type EnvironmentSchema } from './types/types.js';
 

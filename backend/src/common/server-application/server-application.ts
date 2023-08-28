@@ -2,7 +2,7 @@ import { authController } from '~/bundles/auth/auth.js';
 import { userController } from '~/bundles/users/users.js';
 import { config } from '~/common/config/config.js';
 import { database } from '~/common/database/database.js';
-import { logger } from '~/common/logger/logger.js';
+import { logger } from '~/common/packages/packages.js';
 
 import { ServerAppApiBase } from './server-app-api-base.js';
 import { ServerAppBase } from './server-app-base.js';

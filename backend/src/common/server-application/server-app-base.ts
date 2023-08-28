@@ -8,7 +8,7 @@ import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { type Logger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
 import { tokenService } from '~/common/packages/packages.js';
 import { authorization } from '~/common/plugins/plugins.js';
 import {
