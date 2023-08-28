@@ -15,6 +15,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
+    ErrorMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
