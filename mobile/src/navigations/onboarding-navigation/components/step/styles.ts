@@ -10,12 +10,6 @@ const styles = StyleSheet.create({
         position: 'relative',
         top: 13,
     },
-    step: {
-        color: Color.PRIMARY,
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-        letterSpacing: 2,
-    },
     activeIcon: {
         backgroundColor: '#fff',
     },
