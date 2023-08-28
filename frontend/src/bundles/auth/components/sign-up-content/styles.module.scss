@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    padding-block: 20px;
+    margin-bottom: 47px;
+    padding-left: 50px;
+    border-bottom: 1px solid var(--solitude);
+}
+
+.careerWrapper {
+    position: absolute;
+    top: 61px;
+    left: 79px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 79px);
+    background-color: var(--background-primary);
+}
+
+.career {
+    display: flex;
+    padding-left: 50px;
+
+    &Title {
+        margin: 0;
+        color: var(--st-tropaz);
+        font-weight: var(--font-weight-medium);
+        font-size: 32px;
+        line-height: 43px;
+    }
+
+    &Description {
+        max-width: 343px;
+        margin: 15px 60px 40px 0;
+        color: var(--text-secondary);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-h5);
+        line-height: var(--line-height-h5-h6);
+    }
+}
+
+.registration {
+    display: flex;
+    width: 865px;
+    min-height: 880px;
+    margin-right: 50px;
+    margin-bottom: 72px;
+    background-color: var(--white);
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+}
+
+.icon {
+    margin-bottom: 20px;
+}

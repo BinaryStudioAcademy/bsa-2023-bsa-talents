@@ -20,6 +20,7 @@ type Properties = {
         | 'label';
     align?: 'center' | 'inherit' | 'justify' | 'left' | 'right';
     color?: ValueOf<typeof ColorProperty>;
+    className?: string;
 };
 
 const Typography: React.FC<Properties> = ({
