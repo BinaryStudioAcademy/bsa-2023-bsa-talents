@@ -18,7 +18,7 @@ const RelationRule = {
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TableName.TALENT_BADGES, (table) => {
         table
-            .integer(ColumnName.USER_DETAILS_ID)
+            .uuid(ColumnName.USER_DETAILS_ID)
             .references(ColumnName.ID)
             .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)

@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'talent_hard_skills_pkey';
+
 const TableName = {
     USER_DETAILS: 'user_details',
     TALENT_HARD_SKILLS: 'talent_hard_skills',
@@ -20,9 +23,14 @@ const RelationRule = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TableName.TALENT_HARD_SKILLS, (table) => {
-        table.increments(ColumnName.ID).primary();
         table
-            .integer(ColumnName.HARD_SKILL_ID)
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
+        table
+            .uuid(ColumnName.HARD_SKILL_ID)
             .unique()
             .notNullable()
             .references(ColumnName.ID)
@@ -30,7 +38,7 @@ async function up(knex: Knex): Promise<void> {
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
         table
-            .integer(ColumnName.USER_DETAILS_ID)
+            .uuid(ColumnName.USER_DETAILS_ID)
             .references(ColumnName.ID)
             .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)

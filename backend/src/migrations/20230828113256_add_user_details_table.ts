@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'user_details_pkey';
+
 const TableName = {
     USERS: 'users',
     USER_DETAILS: 'user_details',
@@ -31,7 +34,7 @@ const ColumnName = {
     PHONE: 'phone',
     LINKEDIN_LINK: 'linkedin_link',
     COMPANY_NAME: 'company_name',
-    COMPANY_LOGO_ID: 'photo_id',
+    COMPANY_LOGO_ID: 'company_logo_id',
     COMPANY_WEBSITE: 'company_website',
     EMPOYER_POSITION: 'employer_position',
     CV_ID: 'cv_id',
@@ -46,19 +49,18 @@ const RelationRule = {
 
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
         table
-            .integer(ColumnName.USER_ID)
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
+        table
+            .uuid(ColumnName.USER_ID)
             .unique()
             .notNullable()
             .references(ColumnName.ID)
             .inTable(TableName.USERS)
-            .onUpdate(RelationRule.CASCADE)
-            .onDelete(RelationRule.CASCADE);
-        table
-            .integer(ColumnName.PHOTO_ID)
-            .references(ColumnName.ID)
-            .inTable(TableName.FILES)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
         table.boolean(ColumnName.IS_APPROVED).defaultTo(false);
@@ -77,7 +79,7 @@ function up(knex: Knex): Promise<void> {
         table.specificType(ColumnName.PREFERRED_LANGUAGES, 'text[]');
         table.specificType(ColumnName.PROJECT_LINKS, 'text[]');
         table
-            .integer(ColumnName.PHOTO_ID)
+            .uuid(ColumnName.PHOTO_ID)
             .references(ColumnName.ID)
             .inTable(TableName.FILES)
             .onUpdate(RelationRule.CASCADE)
@@ -87,7 +89,7 @@ function up(knex: Knex): Promise<void> {
         table.string(ColumnName.LINKEDIN_LINK);
         table.string(ColumnName.COMPANY_NAME);
         table
-            .integer(ColumnName.COMPANY_LOGO_ID)
+            .uuid(ColumnName.COMPANY_LOGO_ID)
             .references(ColumnName.ID)
             .inTable(TableName.FILES)
             .onUpdate(RelationRule.CASCADE)
@@ -95,7 +97,7 @@ function up(knex: Knex): Promise<void> {
         table.string(ColumnName.COMPANY_WEBSITE);
         table.string(ColumnName.EMPOYER_POSITION);
         table
-            .integer(ColumnName.CV_ID)
+            .uuid(ColumnName.CV_ID)
             .references(ColumnName.ID)
             .inTable(TableName.FILES)
             .onUpdate(RelationRule.CASCADE)

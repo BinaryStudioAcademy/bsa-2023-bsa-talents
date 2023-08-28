@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'hard_skills_pkey';
+
 const TABLE_NAME = 'hard_skills';
 
 const ColumnName = {
@@ -11,7 +14,12 @@ const ColumnName = {
 
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
         table.string(ColumnName.NAME).notNullable();
         table
             .dateTime(ColumnName.CREATED_AT)
