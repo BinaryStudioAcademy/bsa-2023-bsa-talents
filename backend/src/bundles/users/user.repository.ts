@@ -1,6 +1,7 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type Repository } from '~/common/interfaces/interfaces.js';
+import { tokenService } from '~/common/services/services.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -23,6 +24,16 @@ class UserRepository implements Repository {
 
     public async findByEmail(email: string): Promise<UserEntity | undefined> {
         return this.find({ email });
+    }
+
+    public async findByToken(token: string): Promise<UserEntity | undefined> {
+        const decodedToken = await tokenService.decode(token);
+
+        const user = await this.userModel
+            .query()
+            .findOne({ id: decodedToken.payload.id });
+
+        return user ? UserEntity.initialize(user) : undefined;
     }
 
     public async findAll(): Promise<UserEntity[]> {

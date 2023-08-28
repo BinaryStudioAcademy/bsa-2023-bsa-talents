@@ -1,8 +1,10 @@
 import { type UserService } from '~/bundles/users/user.service.js';
+import { type UserGetCurrentUserRequestDto } from '~/bundles/users/users.js';
 import {
+    type ApiHandlerOptions,
     type ApiHandlerResponse,
-    ControllerBase,
 } from '~/common/controller/controller.js';
+import { ControllerBase } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
@@ -37,6 +39,17 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        this.addRoute({
+            path: UsersApiPath.ROOT,
+            method: 'POST',
+            handler: (options) =>
+                this.getCurrentUser(
+                    options as ApiHandlerOptions<{
+                        body: UserGetCurrentUserRequestDto;
+                    }>,
+                ),
+        });
     }
 
     /**
@@ -59,6 +72,17 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    private async getCurrentUser(
+        options: ApiHandlerOptions<{
+            body: UserGetCurrentUserRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.userService.findByToken(options.body.token),
         };
     }
 }

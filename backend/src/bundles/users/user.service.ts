@@ -43,6 +43,13 @@ class UserService implements Service {
         };
     }
 
+    public async findByToken(
+        token: string,
+    ): Promise<UserFindResponseDto | undefined> {
+        const userData = await this.userRepository.findByToken(token);
+        return userData ? userData.toObject() : undefined;
+    }
+
     public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
         return this.userRepository.create(
             UserEntity.initializeNew({
