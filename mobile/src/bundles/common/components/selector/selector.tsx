@@ -8,9 +8,9 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { Color, IconName, TextCategory } from '../../enums/enums';
-import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
 type Select = {
@@ -19,14 +19,13 @@ type Select = {
 };
 
 type Properties = {
-    label: string;
     options: Select[];
     onSelect?: (item: Select) => void;
 };
 
 const iconDefaultSize = 24;
 
-const Selector: React.FC<Properties> = ({ label, options }) => {
+const Selector: React.FC<Properties> = ({ options }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [isListVisible, setIsListVisible] = useState(false);
 
@@ -44,8 +43,7 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
         : IconName.ARROW_DROP_DOWN;
 
     return (
-        <View>
-            <Text category={TextCategory.LABEL}>{label}</Text>
+        <View style={{ position: 'relative' }}>
             <Pressable
                 style={[
                     globalStyles.pv10,
@@ -71,15 +69,15 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
             </Pressable>
             {isListVisible && (
                 <Pressable
-                    style={globalStyles.flex1}
+                    style={[
+                        globalStyles.pl20,
+                        globalStyles.width100,
+                        styles.dropdown,
+                        styles.dropdownButton,
+                    ]}
                     onPress={toggleIsListVisible}
                 >
                     <FlatList
-                        style={[
-                            globalStyles.pl20,
-                            globalStyles.width100,
-                            styles.dropdown,
-                        ]}
                         data={options}
                         renderItem={({ item }): ReactElement => {
                             return (
@@ -88,7 +86,10 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                                         handlePressItem(item);
                                     }}
                                 >
-                                    <Text category={TextCategory.LABEL}>
+                                    <Text
+                                        category={TextCategory.LABEL}
+                                        style={globalStyles.pv5}
+                                    >
                                         {item.label}
                                     </Text>
                                 </TouchableOpacity>
