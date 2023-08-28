@@ -24,8 +24,7 @@ class AuthService {
     ): Promise<UserSignUpResponseDto> {
         const { email } = userRequestDto;
 
-        // const userByEmail = await this.userService.findByEmail(email); // TODO:
-        const userByEmail = !!email;
+        const userByEmail = await this.userService.findByEmail(email);
 
         if (userByEmail) {
             throw new HttpError({
