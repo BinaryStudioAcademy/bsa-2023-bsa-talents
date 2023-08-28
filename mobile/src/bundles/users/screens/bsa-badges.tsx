@@ -11,13 +11,12 @@ import {
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-
-import { Badge } from '../components/badge/badge';
 import {
     DEFAULT_VALUE_IS_CHECKED,
     DEFAULT_VALUE_IS_DISABLED,
-} from '../components/badge/constants/constants';
-import { BadgeType } from '../enums/enums';
+} from '~/bundles/users/components/badge/constants/constants';
+import { Badge } from '~/bundles/users/components/components';
+import { BadgeType } from '~/bundles/users/enums/enums';
 
 const values = Object.values(BadgeType);
 

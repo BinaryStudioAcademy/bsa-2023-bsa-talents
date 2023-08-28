@@ -3,11 +3,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
+import { BadgeType } from '~/bundles/users/enums/enums';
 
-import { useMemo } from '../../../common/hooks/hooks';
-import { BadgeType } from '../../enums/enums';
 import { styles } from './styles';
 
 type BadgeName = ValueOf<typeof BadgeType>;
