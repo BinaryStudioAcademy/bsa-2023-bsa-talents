@@ -7,8 +7,8 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    background-color: var(--white-color);
-    border-bottom: 1px solid var(--header-border);
+    background-color: var(--white);
+    border-bottom: 1px solid var(--porcelain);
 }
 
 .avatar {
@@ -32,14 +32,14 @@
     z-index: 1;
     width: 10px;
     height: 10px;
-    border: 2px solid var(--white-color);
+    border: 2px solid var(--white);
     border-radius: 5px;
 
     &.online {
-        background-color: var(--status-online);
+        background-color: var(--mountain-meadow);
     }
 
     &.offline {
-        background-color: var(--status-offline);
+        background-color: var(--nepal);
     }
 }
