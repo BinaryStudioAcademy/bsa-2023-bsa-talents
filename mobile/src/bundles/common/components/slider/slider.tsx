@@ -13,13 +13,13 @@ import { styles } from './styles';
 
 type SliderProperties = {
     thumbTitleValue: string;
-    containerStyle?: StyleProp<ViewStyle>;
     value: number;
+    containerStyle?: StyleProp<ViewStyle>;
     thumbTitleValueWidth?: number;
 } & Omit<SliderProps, 'style' | 'value'>;
 
 const defaultMinSliderValue = 0;
-const defaultMaxSliderValue = 120;
+const defaultMaxSliderValue = 10;
 const defaultValueWidth = 70;
 
 const Slider: React.FC<SliderProperties> = ({
