@@ -1,7 +1,7 @@
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { type StorageKey } from './enums/enums.js';
-import { type Storage } from './interfaces/interfaces.js';
+import { type Storage } from './types/types.js';
 
 class StorageBase implements Storage {
     private store: globalThis.Storage;

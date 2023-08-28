@@ -1,13 +1,13 @@
 .wrapper {
-    position: fixed;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 79px;
-    min-height: 100vh;
-    padding-top: 15px;
-    background-color: var(--text-primary-dark);
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 79px;
+  min-height: 100vh;
+  padding-top: 15px;
+  background-color: var(--text-primary-dark);
 }
 
 .logo {

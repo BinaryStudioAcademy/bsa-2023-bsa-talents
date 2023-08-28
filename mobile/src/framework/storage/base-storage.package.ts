@@ -3,7 +3,7 @@ import { MMKV } from 'react-native-mmkv';
 import { type ValueOf } from '~/bundles/common/types/types';
 
 import { type StorageKey } from './enums/enums';
-import { type Storage } from './interfaces/interfaces';
+import { type Storage } from './types/types';
 
 class BaseStorage implements Storage {
     private store: MMKV;
