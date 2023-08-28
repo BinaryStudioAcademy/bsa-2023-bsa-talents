@@ -2,7 +2,7 @@ import CommunitySlider from '@react-native-community/slider';
 import React from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 
-import { Pressable, Text, View } from '~/bundles/common/components/components';
+import { Text, View } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useWindowDimensions } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -13,12 +13,10 @@ type SliderProperties = {
     thumbTitleValue: string;
     sliderValue: number;
     onSliderValueChange: (value: number) => void;
-    onResetClickHandler: () => void;
     containerStyle?: StyleProp<ViewStyle>;
     minSliderValue?: number;
     maxSliderValue?: number;
     thumbTitleValueWidth?: number;
-    resetTitle?: string;
 };
 
 const defaultMinSliderValue = 0;
@@ -33,8 +31,6 @@ const Slider: React.FC<SliderProperties> = ({
     maxSliderValue = defaultMaxSliderValue,
     minSliderValue = defaultMinSliderValue,
     thumbTitleValueWidth = defaultValueWidth,
-    onResetClickHandler,
-    resetTitle = 'no',
 }) => {
     const { width } = useWindowDimensions();
     const offset = (thumbTitleValueWidth / maxSliderValue) * sliderValue;
@@ -58,9 +54,6 @@ const Slider: React.FC<SliderProperties> = ({
                 value={sliderValue}
                 onValueChange={onSliderValueChange}
             />
-            <Pressable onPress={onResetClickHandler} style={[globalStyles.p5]}>
-                <Text>{resetTitle}</Text>
-            </Pressable>
         </View>
     );
 };
