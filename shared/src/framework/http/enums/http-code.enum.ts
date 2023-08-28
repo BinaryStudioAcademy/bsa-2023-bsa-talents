@@ -1,10 +1,15 @@
 const HttpCode = {
+    // Successful responses (2xx)
     OK: 200,
     CREATED: 201,
-    CONFLICT: 409,
+    ACCEPTED: 202,
+
+    // Client error responses (4xx)
+    BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
-    UNPROCESSED_ENTITY: 422,
-    INTERNAL_SERVER_ERROR: 500,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    CONFLICT: 409,
 } as const;
 
 export { HttpCode };
