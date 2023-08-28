@@ -12,7 +12,9 @@ const ColumnName = {
     UPDATED_AT: 'updated_at',
 };
 
-function up(knex: Knex): Promise<void> {
+async function up(knex: Knex): Promise<void> {
+    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
     return knex.schema.createTable(TABLE_NAME, (table) => {
         table
             .uuid(ColumnName.ID)
@@ -32,7 +34,7 @@ function up(knex: Knex): Promise<void> {
     });
 }
 
-function down(knex: Knex): Promise<void> {
+async function down(knex: Knex): Promise<void> {
     return knex.schema.dropTableIfExists(TABLE_NAME);
 }
 
