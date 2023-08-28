@@ -7,6 +7,7 @@ import {
     Input,
     ScrollView,
     Selector,
+    Slider,
     View,
 } from '~/bundles/common/components/components';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
@@ -72,6 +73,15 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Selector options={JOB_TITLE_OPTIONS} />
+            </FormField>
+            <FormField
+                errors={errors}
+                label="Experience Level"
+                name="experienceLevel"
+                required
+                containerStyle={globalStyles.pb25}
+            >
+                <Slider thumbTitleValue="Beginner" value={0} />
             </FormField>
             <FormField
                 errors={errors}

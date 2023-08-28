@@ -35,7 +35,7 @@ const Slider: React.FC<SliderProperties> = ({
     const offset = (thumbTitleValueWidth / maximumValue) * value;
     const leftValue = (value * width) / maximumValue - offset;
     return (
-        <View style={[globalStyles.p5, containerStyle]}>
+        <View style={[globalStyles.pv5, containerStyle]}>
             <Text
                 style={{ left: leftValue, width: thumbTitleValueWidth }}
                 category={TextCategory.BODY1}
@@ -43,7 +43,7 @@ const Slider: React.FC<SliderProperties> = ({
                 {thumbTitleValue}
             </Text>
             <CommunitySlider
-                style={[styles.slider]}
+                style={styles.slider}
                 minimumValue={minimumValue}
                 maximumValue={maximumValue}
                 minimumTrackTintColor={Color.PRIMARY}
