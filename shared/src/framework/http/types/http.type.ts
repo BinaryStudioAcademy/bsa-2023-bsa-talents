@@ -1,4 +1,4 @@
-import { type HttpOptions } from '../types/http-options.type';
+import { type HttpOptions } from './http-options.type';
 
 type Http = {
     load(path: string, options: HttpOptions): Promise<Response>;
