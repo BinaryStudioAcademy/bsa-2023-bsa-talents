@@ -6,10 +6,11 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import { AvatarType } from '~/bundles/common/enums/ui/avatar-type.enum';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-type AvatarSize = (typeof AvatarType)[keyof typeof AvatarType];
+type AvatarSize = ValueOf<typeof AvatarType>;
 
 type Properties = {
     avatarSize?: AvatarSize;
