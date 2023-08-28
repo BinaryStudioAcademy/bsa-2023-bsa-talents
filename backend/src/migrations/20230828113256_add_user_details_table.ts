@@ -13,7 +13,6 @@ const TABLE_NAME = 'user_details';
 const ColumnName = {
     ID: 'id',
     USER_ID: 'user_id',
-    ROLE: 'role',
     IS_APPROVED: 'is_approved',
     DENIED_REASON: 'denied_reason',
     IS_HIRED: 'is_hired',
