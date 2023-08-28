@@ -26,6 +26,7 @@ const BsaBadges: React.FC = () => {
     });
 
     const handleFormSubmit = useCallback(() => {
+        // TODO: add submit logic
         return null;
     }, []);
 
@@ -50,7 +51,7 @@ const BsaBadges: React.FC = () => {
     return (
         <View style={globalStyles.defaultScreenPadding}>
             <View style={globalStyles.mb25}>
-                {/* this component in another task */}
+                {/* TODO: add header */}
                 <Text>Some header</Text>
             </View>
             <Text
