@@ -8,10 +8,13 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
     },
     dropdown: {
-        marginTop: -5,
+        position: 'absolute',
+        top: '95%',
+        maxHeight: 150,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         backgroundColor: '#FFF',
+        zIndex: 1,
     },
 });
 

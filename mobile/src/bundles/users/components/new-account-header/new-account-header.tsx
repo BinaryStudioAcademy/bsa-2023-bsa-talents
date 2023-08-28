@@ -10,6 +10,7 @@ import { type ValueOf } from '~/bundles/common/types/types';
 
 import { StepProgressBar } from './step-progress-bar';
 import { StepTrack } from './step-track';
+import { styles } from './styles';
 
 type Properties = {
     title: ValueOf<typeof OnboardingScreenName>;
@@ -28,7 +29,7 @@ const NewAccountHeader: React.FC<Properties> = ({ title, currentStep }) => {
                     globalStyles.alignItemsCenter,
                     globalStyles.borderRadiusTop8,
                     globalStyles.p20,
-                    { backgroundColor: '#FFFFFF' },
+                    styles.headerContainer,
                 ]}
             >
                 <Text category={TextCategory.H5}>{title}</Text>

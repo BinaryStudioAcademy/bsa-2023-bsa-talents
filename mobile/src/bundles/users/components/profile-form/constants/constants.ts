@@ -1,3 +1,4 @@
+// TODO: remove
 const USER_PROFILE_DEFAULT_VALUES = {
     profileName: '',
     salaryExpectations: 0,
@@ -14,6 +15,7 @@ const USER_PROFILE_DEFAULT_VALUES = {
     },
 };
 
+// TODO: remove
 const JOB_TITLE_OPTIONS = [
     { label: 'Job Title 1', value: 'job1' },
     { label: 'Job Title 2', value: 'job2' },
@@ -41,6 +43,7 @@ const JOB_TITLE_OPTIONS = [
     { label: 'Job Title 24', value: 'job24' },
 ];
 
+// TODO: remove
 const CURRENT_LOCATION_OPTIONS = [
     { label: 'Location 1', value: 'location1' },
     { label: 'Location 2', value: 'location2' },

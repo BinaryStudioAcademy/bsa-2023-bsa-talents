@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+
+import { styles } from './styles';
 
 type Properties = {
     currentStep: number;
@@ -13,15 +14,17 @@ const StepProgressBar: React.FC<Properties> = ({ currentStep, totalSteps }) => {
     const max = 100;
 
     return (
-        <View style={[globalStyles.flexDirectionRow, { height: 3 }]}>
+        <View
+            style={[globalStyles.flexDirectionRow, styles.progressBarContainer]}
+        >
             <View
-                style={{
-                    width: `${(max / totalSteps) * currentStep}%`,
-                    backgroundColor: Color.PRIMARY,
-                }}
+                style={[
+                    { width: `${(max / totalSteps) * currentStep}%` },
+                    styles.progressBarFill,
+                ]}
             />
             <View
-                style={[globalStyles.width100, { backgroundColor: Color.TAG }]}
+                style={[globalStyles.width100, styles.progressBarBackground]}
             />
         </View>
     );

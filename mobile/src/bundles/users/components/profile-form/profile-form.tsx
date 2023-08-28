@@ -60,7 +60,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                     control={control}
                     name="salaryExpectations"
                     placeholder="0000"
-                    inputType="number"
+                    keyboardType="numeric"
                     marker="$"
                 />
             </FormField>

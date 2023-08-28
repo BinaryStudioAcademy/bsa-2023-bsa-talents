@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     Pressable,
+    ScrollView,
     Text,
     TouchableOpacity,
     View,
@@ -42,7 +43,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
         : IconName.ARROW_DROP_DOWN;
 
     return (
-        <View>
+        <View style={{ position: 'relative' }}>
             <Pressable
                 style={[
                     globalStyles.pv10,
@@ -67,26 +68,29 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 <View
                     style={[
                         globalStyles.pl20,
+                        globalStyles.pb5,
                         globalStyles.width100,
                         styles.dropdown,
                         styles.dropdownButton,
                     ]}
                 >
-                    {options.map((item) => (
-                        <TouchableOpacity
-                            key={item.value}
-                            onPress={(): void => {
-                                handlePressItem(item);
-                            }}
-                        >
-                            <Text
-                                category={TextCategory.LABEL}
-                                style={globalStyles.pv5}
+                    <ScrollView nestedScrollEnabled>
+                        {options.map((item) => (
+                            <TouchableOpacity
+                                key={item.value}
+                                onPress={(): void => {
+                                    handlePressItem(item);
+                                }}
                             >
-                                {item.label}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={globalStyles.pv5}
+                                >
+                                    {item.label}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
                 </View>
             )}
         </View>

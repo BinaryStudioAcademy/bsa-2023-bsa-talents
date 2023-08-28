@@ -2,28 +2,31 @@ import React from 'react';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
+import { padNumberWithZero } from '~/bundles/common/helpers/helpers';
 import { globalStyles } from '~/bundles/common/styles/styles';
+
+import { styles } from './styles';
 
 type Properties = {
     currentStep: number;
     totalSteps: number;
 };
 
-const formatStep = (step: number, width: number): string => {
-    return String(step).padStart(width, '0');
-};
+const stepWidth = 2;
 
 const StepTrack: React.FC<Properties> = ({ currentStep, totalSteps }) => {
-    const stepWidth = 2;
-    const paddedStep = formatStep(currentStep, stepWidth);
-    const paddedTotalSteps = formatStep(totalSteps, stepWidth);
+    const paddedStep = padNumberWithZero(currentStep, stepWidth);
+    const paddedTotalSteps = padNumberWithZero(totalSteps, stepWidth);
 
     return (
         <View style={globalStyles.flexDirectionRow}>
-            <Text category={TextCategory.STEP} style={{ letterSpacing: 1.5 }}>
+            <Text category={TextCategory.STEP} style={styles.letterSpacingText}>
                 Step {paddedStep}
             </Text>
-            <Text category={TextCategory.INPUT} style={{ letterSpacing: 1.5 }}>
+            <Text
+                category={TextCategory.INPUT}
+                style={styles.letterSpacingText}
+            >
                 {' '}
                 / {paddedTotalSteps}
             </Text>
