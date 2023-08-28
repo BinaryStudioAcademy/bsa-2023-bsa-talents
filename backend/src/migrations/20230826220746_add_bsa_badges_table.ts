@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'bsa_badges_pkey';
+
 const TABLE_NAME = 'bsa_badges';
 
 const ColumnName = {
@@ -13,7 +16,12 @@ const ColumnName = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
         table.string(ColumnName.TYPE).unique().notNullable();
         table.string(ColumnName.NAME).notNullable();
         table.integer(ColumnName.MAX_SCORE).notNullable();

@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'talent_badges_pkey';
+
 const TableName = {
     TALENT_BADGES: 'talent_badges',
     BSA_BADGES: 'bsa_badges',
@@ -23,13 +26,18 @@ const RelationRule = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TableName.TALENT_BADGES, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
         table.integer(ColumnName.SCORE);
         table.string(ColumnName.LEVEL);
         table.boolean(ColumnName.IS_SHOWN).notNullable();
         table.string(ColumnName.USER_EMAIL).unique().notNullable();
         table
-            .integer(ColumnName.BADGE_ID)
+            .uuid(ColumnName.BADGE_ID)
             .references(ColumnName.ID)
             .inTable(TableName.BSA_BADGES)
             .onUpdate(RelationRule.CASCADE)
