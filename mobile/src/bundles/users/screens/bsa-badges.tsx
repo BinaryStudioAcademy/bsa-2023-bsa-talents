@@ -19,20 +19,16 @@ import {
 } from '../components/badge/constants/constants';
 import { BadgeType } from '../enums/enums';
 
-type Properties = {
-    onSubmit: () => void;
-};
-
 const values = Object.values(BadgeType);
 
-const BsaBadges: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, handleSubmit } = useAppForm({
+const BsaBadges: React.FC = () => {
+    const { control } = useAppForm({
         defaultValues: DEFAULT_VALUE_IS_CHECKED,
     });
 
-    const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
+    const handleFormSubmit = useCallback(() => {
+        return null;
+    }, []);
 
     const renderBadges = values.map((badge) => (
         <View
