@@ -1,7 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { config } from '~/common/config/config.js';
-import { encrypt } from '~/common/helpers/helpers.js';
+import { type EncryptBase } from '~/common/encrypt/encrypt-base.package.js';
 import { type Service } from '~/common/types/types.js';
 
 import {
@@ -12,9 +11,11 @@ import {
 
 class UserService implements Service {
     private userRepository: UserRepository;
+    private encrypt: EncryptBase;
 
-    public constructor(userRepository: UserRepository) {
+    public constructor(userRepository: UserRepository, encrypt: EncryptBase) {
         this.userRepository = userRepository;
+        this.encrypt = encrypt;
     }
 
     public find(
@@ -48,12 +49,7 @@ class UserService implements Service {
     public async create(
         payload: UserSignUpRequestDto,
     ): Promise<{ id: number; email: string }> {
-        const { PASSWORD_SALT_ROUNDS } = config.ENV.CRYPT;
-
-        const passwordHash = await encrypt(
-            payload.password,
-            PASSWORD_SALT_ROUNDS,
-        );
+        const passwordHash = await this.encrypt.make(payload.password);
 
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
