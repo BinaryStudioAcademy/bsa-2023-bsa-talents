@@ -1,9 +1,11 @@
-import { type ImageStyle, type StyleProp } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Image, Text } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
-import { AvatarType } from '~/bundles/common/enums/ui/avatar-type.enum';
+import {
+    AvatarType,
+    IconName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -23,43 +25,42 @@ const Avatar: React.FC<Properties> = ({
     fullName,
     uri,
 }) => {
-    const sizeStyles: Record<
-        AvatarSize,
-        StyleProp<ImageStyle>
-    > = useMemo(() => {
-        return {
-            [AvatarType.SMALL]: styles.small,
-            [AvatarType.MEDIUM]: styles.medium,
-            [AvatarType.LARGE]: styles.large,
-        };
-    }, []);
-    const fontStyles = useMemo(() => {
-        return {
-            [AvatarType.SMALL]: TextCategory.H6,
-            [AvatarType.MEDIUM]: TextCategory.H3,
-            [AvatarType.LARGE]: TextCategory.H1,
-        };
-    }, []);
-    const iconSizes = useMemo(() => {
-        return {
-            [AvatarType.SMALL]: 40,
-            [AvatarType.MEDIUM]: 60,
-            [AvatarType.LARGE]: 100,
-        };
-    }, []);
+    const avatarStyles = useMemo(() => {
+        switch (avatarSize) {
+            case AvatarType.SMALL: {
+                return {
+                    size: styles.small,
+                    font: TextCategory.H6,
+                    iconSize: 40,
+                };
+            }
+            case AvatarType.LARGE: {
+                return {
+                    size: styles.large,
+                    font: TextCategory.H1,
+                    iconSize: 100,
+                };
+            }
+            default: {
+                return {
+                    size: styles.medium,
+                    font: TextCategory.H3,
+                    iconSize: 60,
+                };
+            }
+        }
+    }, [avatarSize]);
+
     if (uri) {
         return (
-            <Image
-                style={[styles.img, sizeStyles[avatarSize]]}
-                source={{ uri }}
-            />
+            <Image style={[styles.img, avatarStyles.size]} source={{ uri }} />
         );
     }
     if (fullName) {
         return (
             <Text
-                category={fontStyles[avatarSize]}
-                style={[styles.icon, styles.initials, sizeStyles[avatarSize]]}
+                category={avatarStyles.font}
+                style={[styles.icon, styles.initials, avatarStyles.size]}
             >
                 {getAvatarInitials(fullName)}
             </Text>
@@ -67,9 +68,9 @@ const Avatar: React.FC<Properties> = ({
     }
     return (
         <Icon
-            size={iconSizes[avatarSize]}
-            style={[styles.icon, sizeStyles[avatarSize]]}
-            name="person"
+            size={avatarStyles.iconSize}
+            style={[styles.icon, avatarStyles.size]}
+            name={IconName.PERSON}
         />
     );
 };
