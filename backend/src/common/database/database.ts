@@ -8,4 +8,4 @@ const database = new DatabaseBase(config, logger);
 export { database };
 export { Abstract as AbstractModel } from './abstract.model.js';
 export { DatabaseTableName } from './enums/enums.js';
-export { type Database } from './interfaces/interfaces.js';
+export { type Database } from './types/types.js';
