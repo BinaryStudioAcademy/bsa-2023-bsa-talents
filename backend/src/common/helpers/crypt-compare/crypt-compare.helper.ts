@@ -1,10 +1,7 @@
 import { compare } from 'bcrypt';
 
-const cryptCompare = async (
-    data: string,
-    encrypted: string,
-): Promise<boolean> => {
-    return await compare(data, encrypted);
+const cryptCompare = (data: string, encrypted: string): Promise<boolean> => {
+    return compare(data, encrypted);
 };
 
 export { cryptCompare };

@@ -1,3 +1,4 @@
+import { config } from '~/common/config/config.js';
 import { logger } from '~/common/logger/logger.js';
 
 import { UserController } from './user.controller.js';
@@ -5,8 +6,10 @@ import { UserModel } from './user.model.js';
 import { UserRepository } from './user.repository.js';
 import { UserService } from './user.service.js';
 
+const { PASSWORD_SALT_ROUNDS } = config.ENV.CRYPT;
+
 const userRepository = new UserRepository(UserModel);
-const userService = new UserService(userRepository);
+const userService = new UserService(userRepository, PASSWORD_SALT_ROUNDS);
 const userController = new UserController(logger, userService);
 
 export { userController, userRepository, userService };
