@@ -1,5 +1,8 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+const constraintName = 'files_pkey';
+
 const TABLE_NAME = 'files';
 
 const ColumnName = {
@@ -12,8 +15,15 @@ const ColumnName = {
 };
 
 async function up(knex: Knex): Promise<void> {
+    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table
+            .uuid(ColumnName.ID)
+            .unique()
+            .notNullable()
+            .defaultTo(knex.raw(uuid))
+            .primary({ constraintName });
         table.string(ColumnName.URL).notNullable();
         table.string(ColumnName.FILE_NAME);
         table.string(ColumnName.CONTENT_TYPE).notNullable();
