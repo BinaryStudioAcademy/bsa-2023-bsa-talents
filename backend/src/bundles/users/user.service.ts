@@ -43,14 +43,18 @@ class UserService implements Service {
         };
     }
 
-    public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
-        return this.userRepository.create(
+    public async create(
+        payload: UserSignUpRequestDto,
+    ): Promise<UserFindResponseDto> {
+        const passwordHash = 'HASH'; // Remove in bt-86 with encrypt
+        const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: 'SALT', // TODO
-                passwordHash: 'HASH', // TODO
+                passwordSalt: 'SALT', // Remove with a new migration ticket
+                passwordHash,
             }),
         );
+        return user.toObject();
     }
 
     public update(): ReturnType<Service['update']> {
