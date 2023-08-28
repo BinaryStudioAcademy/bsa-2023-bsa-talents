@@ -9,6 +9,10 @@ const HttpCode = {
     FORBIDDEN: 403,
     NOT_FOUND: 404,
     CONFLICT: 409,
+    UNPROCESSED_ENTITY: 422,
+
+    // Server error responses (5xx)
+    INTERNAL_SERVER_ERROR: 500,
 } as const;
 
 export { HttpCode };
