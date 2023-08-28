@@ -4,4 +4,4 @@ const storage = new BaseStorage();
 
 export { storage };
 export { StorageKey } from './enums/enums';
-export { type Storage } from './interfaces/interfaces';
+export { type Storage } from './types/types';

@@ -6,7 +6,7 @@ import { AppEnvironment } from '~/common/enums/enums.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { DatabaseTableName } from './enums/enums.js';
-import { type Database } from './interfaces/interfaces.js';
+import { type Database } from './types/types.js';
 
 class DatabaseBase implements Database {
     private appConfig: Config;
@@ -57,4 +57,4 @@ class DatabaseBase implements Database {
 
 export { DatabaseBase };
 export { DatabaseTableName } from './enums/enums.js';
-export { type Database } from './interfaces/interfaces.js';
+export { type Database } from './types/types.js';
