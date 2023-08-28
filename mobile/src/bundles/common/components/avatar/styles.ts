@@ -6,9 +6,11 @@ const styles = StyleSheet.create({
     img: {
         resizeMode: 'cover',
     },
-    initials: {
-        backgroundColor: Color.PRIMARY,
+    icon: {
         color: '#FFFFFF',
+        backgroundColor: Color.PRIMARY,
+    },
+    initials: {
         textAlign: 'center',
         textAlignVertical: 'center',
     },
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     large: {
         width: 100,
         height: 100,
-        borderRadius: 60,
+        borderRadius: 50,
     },
 });
 

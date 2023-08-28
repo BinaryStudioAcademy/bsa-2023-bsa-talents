@@ -58,7 +58,7 @@ const Avatar: React.FC<Properties> = ({
         return (
             <Text
                 category={fontStyles[avatarSize]}
-                style={[styles.initials, sizeStyles[avatarSize]]}
+                style={[styles.icon, styles.initials, sizeStyles[avatarSize]]}
             >
                 {getAvatarInitials(fullName)}
             </Text>
@@ -67,7 +67,7 @@ const Avatar: React.FC<Properties> = ({
     return (
         <Icon
             size={iconSizes[avatarSize]}
-            style={[sizeStyles[avatarSize]]}
+            style={[styles.icon, sizeStyles[avatarSize]]}
             name="person"
         />
     );
