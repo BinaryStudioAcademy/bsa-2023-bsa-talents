@@ -2,7 +2,6 @@ const HttpCode = {
     // Successful responses (2xx)
     OK: 200,
     CREATED: 201,
-    ACCEPTED: 202,
 
     // Client error responses (4xx)
     BAD_REQUEST: 400,
