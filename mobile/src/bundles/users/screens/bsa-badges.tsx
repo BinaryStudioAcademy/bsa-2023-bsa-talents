@@ -53,7 +53,7 @@ const BsaBadges: React.FC<Properties> = ({ onSubmit }) => {
     ));
 
     return (
-        <View style={globalStyles.p25}>
+        <View style={globalStyles.defaultScreenPadding}>
             <View style={globalStyles.mb25}>
                 {/* this component in another task */}
                 <Text>Some header</Text>
