@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Text, View } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { useMemo } from '../../../common/hooks/hooks';
 import { BadgeType } from '../../enums/enums';
 import { styles } from './styles';
 
-type BadgeName = (typeof BadgeType)[keyof typeof BadgeType];
+type BadgeName = ValueOf<typeof BadgeType>;
 
 type BadgeProperties = {
     style: StyleProp<ViewStyle>;
