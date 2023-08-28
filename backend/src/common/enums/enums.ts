@@ -1,3 +1,4 @@
+export { CurrencyType } from './currency-type.enum.js';
 export { UserRole } from './user-role.enum.js';
 export {
     ApiPath,
