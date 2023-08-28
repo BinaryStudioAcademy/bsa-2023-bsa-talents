@@ -1,11 +1,10 @@
 import joi from 'joi';
 
-import { createNumberRangeArray } from '~/helpers/helpers';
-
+import { createNumberRangeArray } from '../../../helpers/helpers.js';
 import {
     SignUpStep1ValidationMessage,
     SignUpStep1ValidationRule,
-} from '../enums/enums';
+} from '../enums/enums.js';
 import { type UserSignUpStep1Dto } from '../types/types.js';
 
 const YearsOfExperience = createNumberRangeArray(
