@@ -1,0 +1,99 @@
+.root {
+    width: 100%;
+    height: 36px;
+    font-size: var(--font-size-base);
+    background: var(--white-color);
+    border: none;
+
+    & fieldset {
+        border: none;
+    }
+}
+
+.helperText {
+    margin: 0 14px;
+    color: var(--error-main);
+    font-size: var(--font-size-caption);
+    -webkit-text-fill-color: var(--error-main);
+}
+
+.inputWrapper {
+    min-height: 36px;
+    padding-left: 0;
+    overflow: hidden;
+    border: 1px solid var(--input-main);
+
+    &:hover {
+        border-color: var(--hover);
+    }
+
+    &:focus-within {
+        border-color: var(--hover);
+    }
+}
+
+.input {
+    width: 100%;
+    height: 16px;
+    padding: 10px 14px;
+    color: var(--text-primary-dark);
+    font-size: var(--font-size-base);
+    border: none;
+
+    &::placeholder {
+        color: var(--bt-blue-gray);
+        -webkit-text-fill-color: var(--bt-blue-gray);
+    }
+}
+
+.inputPaddingSearch {
+    padding: 10px 14px 10px 5px;
+}
+
+.inputPaddingTextAdornsment {
+    padding: 11px 14px 11px 10px;
+}
+
+.inputDisabled {
+    pointer-events: none;
+    background-color: var(--light-background-color);
+}
+
+.hasError {
+    color: var(--error-main);
+    border-color: var(--error-main);
+
+    & .input {
+        color: var(--error-main);
+    }
+
+    & .input::placeholder {
+        color: var(--error-main);
+        -webkit-text-fill-color: var(--error-main);
+    }
+}
+
+.adornmentIcon {
+    height: 24px;
+    margin: 7px 0 7px 9px;
+    color: var(--hover);
+}
+
+.MuiInputAdornment-root {
+    height: 36px;
+    max-height: 36px;
+    margin-right: 0;
+    font-size: var(--font-size-base);
+}
+
+.adornmentText p {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 8px 10px;
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    background-color: var(--light-background-color);
+    border-right: 1px solid var(--input-main);
+}
