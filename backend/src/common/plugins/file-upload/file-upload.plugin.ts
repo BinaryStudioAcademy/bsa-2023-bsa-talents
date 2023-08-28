@@ -4,6 +4,7 @@ import {
     type File as MulterFile,
     type FileFilterCallback,
 } from 'fastify-multer/lib/interfaces.js';
+import { FileUploadErrorMessage } from 'shared/build/index.js';
 
 import {
     AllowedExtensions,
@@ -52,7 +53,10 @@ const fileFilter = (
             break;
         }
         default: {
-            callback(new Error('Invalid file group'), false);
+            callback(
+                new Error(FileUploadErrorMessage.INVALID_FILE_GROUP),
+                false,
+            );
             return;
         }
     }
@@ -60,7 +64,7 @@ const fileFilter = (
     if (isValidMimeType && isValidExtension) {
         callback(null, true);
     } else {
-        callback(new Error(`Invalid ${file.fieldname} file`), false);
+        callback(new Error(FileUploadErrorMessage.INVALID_FILE), false);
     }
 };
 
