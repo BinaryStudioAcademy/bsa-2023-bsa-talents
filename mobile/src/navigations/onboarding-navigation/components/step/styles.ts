@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     activeIcon: {
         backgroundColor: '#fff',
     },
+    step: {
+        letterSpacing: 2,
+    },
     screenName: {
         color: Color.TEXT2,
     },
