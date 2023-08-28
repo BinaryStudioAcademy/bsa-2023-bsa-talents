@@ -1,6 +1,6 @@
 import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
 import fp from 'fastify-plugin';
-import { AuthorizationErrorMessages } from 'shared/build/enums/enums.js';
+import { ErrorMessages } from 'shared/build/enums/enums.js';
 
 import { type UserService } from '~/bundles/users/users.js';
 import { ControllerHooks } from '~/common/controller/controller.js';
@@ -35,16 +35,15 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const [, token] = authorization?.split(' ') ?? [];
 
         if (!token) {
-            throw new Error(AuthorizationErrorMessages.NOT_AUTHORIZED);
+            throw new Error(ErrorMessages.NOT_AUTHORIZED);
         }
 
         const { userService, tokenService } = services;
-
         const { payload } = await tokenService.decode(authorization as string);
-
         const authorizedUser = await userService.findById(payload.id as number);
+
         if (!authorizedUser) {
-            throw new Error(AuthorizationErrorMessages.NOT_AUTHORIZED);
+            throw new Error(ErrorMessages.NOT_AUTHORIZED);
         }
 
         request.user = authorizedUser;
