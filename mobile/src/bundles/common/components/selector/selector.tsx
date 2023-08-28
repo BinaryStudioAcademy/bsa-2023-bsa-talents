@@ -1,8 +1,7 @@
-import { type ReactElement, useState } from 'react';
+import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
-    FlatList,
     Pressable,
     Text,
     TouchableOpacity,
@@ -43,7 +42,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
         : IconName.ARROW_DROP_DOWN;
 
     return (
-        <View style={{ position: 'relative' }}>
+        <View>
             <Pressable
                 style={[
                     globalStyles.pv10,
@@ -55,12 +54,9 @@ const Selector: React.FC<Properties> = ({ options }) => {
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
                 ]}
-                onPress={(): void => {
-                    setIsListVisible((previous) => !previous);
-                }}
+                onPress={toggleIsListVisible}
             >
                 <Text category={TextCategory.LABEL}>{selectedOption}</Text>
-
                 <Icon
                     name={selectIconName}
                     size={iconDefaultSize}
@@ -68,36 +64,30 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 />
             </Pressable>
             {isListVisible && (
-                <Pressable
+                <View
                     style={[
                         globalStyles.pl20,
                         globalStyles.width100,
                         styles.dropdown,
                         styles.dropdownButton,
                     ]}
-                    onPress={toggleIsListVisible}
                 >
-                    <FlatList
-                        data={options}
-                        renderItem={({ item }): ReactElement => {
-                            return (
-                                <TouchableOpacity
-                                    onPress={(): void => {
-                                        handlePressItem(item);
-                                    }}
-                                >
-                                    <Text
-                                        category={TextCategory.LABEL}
-                                        style={globalStyles.pv5}
-                                    >
-                                        {item.label}
-                                    </Text>
-                                </TouchableOpacity>
-                            );
-                        }}
-                        keyExtractor={(item): string => item.value}
-                    />
-                </Pressable>
+                    {options.map((item) => (
+                        <TouchableOpacity
+                            key={item.value}
+                            onPress={(): void => {
+                                handlePressItem(item);
+                            }}
+                        >
+                            <Text
+                                category={TextCategory.LABEL}
+                                style={globalStyles.pv5}
+                            >
+                                {item.label}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
             )}
         </View>
     );

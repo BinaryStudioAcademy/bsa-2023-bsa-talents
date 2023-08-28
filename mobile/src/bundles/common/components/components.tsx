@@ -11,6 +11,7 @@ export {
     ActivityIndicator,
     FlatList,
     Pressable,
+    ScrollView,
     TouchableOpacity,
     View,
 } from 'react-native';
