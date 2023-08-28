@@ -1,5 +1,11 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    SignUpStep1ValidationMessage,
+    SignUpStep1ValidationRule,
+    signUpStep1ValidationSchema,
+    type UserSignUpStep1Dto,
+} from './bundles/sign-up/sign-up.js';
+export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
