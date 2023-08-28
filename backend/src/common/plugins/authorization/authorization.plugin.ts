@@ -4,6 +4,7 @@ import { AuthorizationErrorMessages } from 'shared/build/enums/enums.js';
 
 import { type UserService } from '~/bundles/users/users.js';
 import { ControllerHooks } from '~/common/controller/controller.js';
+import { checkWhiteRoute } from '~/common/server-application/helpers/check-white-route.helper.js';
 import { type TokenService } from '~/common/services/token/interfaces/interface.js';
 
 type AuthOptions = {
@@ -11,24 +12,27 @@ type AuthOptions = {
         userService: UserService;
         tokenService: TokenService;
     };
-    routesWhiteList: string[];
 };
 
 const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
     fastify: FastifyInstance,
-    { services, routesWhiteList }: AuthOptions,
+    { services }: AuthOptions,
     done,
 ) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(ControllerHooks.ON_REQUEST, async (request) => {
-        const isWhiteRoute = routesWhiteList.includes(request.routerPath);
+        const {
+            routerPath,
+            routerMethod,
+            headers: { authorization },
+        } = request;
 
-        if (isWhiteRoute) {
+        if (checkWhiteRoute(routerPath, routerMethod)) {
             return;
         }
 
-        const [, token] = request.headers.authorization?.split(' ') ?? [];
+        const [, token] = authorization?.split(' ') ?? [];
 
         if (!token) {
             throw new Error(AuthorizationErrorMessages.NOT_AUTHORIZED);
@@ -36,9 +40,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
 
         const { userService, tokenService } = services;
 
-        const { payload } = await tokenService.decode(
-            request.headers.authorization as string,
-        );
+        const { payload } = await tokenService.decode(authorization as string);
 
         const authorizedUser = await userService.findById(payload.id as number);
         if (!authorizedUser) {

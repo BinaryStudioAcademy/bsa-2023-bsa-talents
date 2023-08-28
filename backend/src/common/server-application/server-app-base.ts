@@ -17,7 +17,6 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import { WHITE_ROUTES } from './constants/constants.js';
 import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
 import { type ServerAppRouteParameters } from './types/types.js';
 
@@ -103,7 +102,6 @@ class ServerAppBase implements ServerApp {
                 userService,
                 tokenService,
             },
-            routesWhiteList: WHITE_ROUTES,
         });
 
         this.logger.info('Plugins registered on application');
