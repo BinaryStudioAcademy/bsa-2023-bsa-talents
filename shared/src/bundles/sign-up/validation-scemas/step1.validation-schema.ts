@@ -3,7 +3,7 @@ import joi from 'joi';
 import {
     SignUpStep1ValidationMessage,
     SignUpStep1ValidationRule,
-} from '../enums/enums.js';
+} from '../enums/enums';
 import { type UserSignUpStep1Dto } from '../types/types.js';
 
 // const YearsOfExperience = createNumberRangeArray(
