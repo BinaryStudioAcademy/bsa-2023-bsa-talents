@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type Service } from '~/common/interfaces/interfaces.js';
+import { type Service } from '~/common/types/types.js';
 
 import {
     type UserFindResponseDto,
