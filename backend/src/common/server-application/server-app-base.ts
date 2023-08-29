@@ -17,8 +17,11 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
-import { type ServerAppRouteParameters } from './types/types.js';
+import {
+    type ServerApp,
+    type ServerAppApi,
+    type ServerAppRouteParameters,
+} from './types/types.js';
 
 type Constructor = {
     config: Config;

@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type Service } from '~/common/interfaces/interfaces.js';
+import { type Service } from '~/common/types/types.js';
 
 import {
     type UserFindResponseDto,
@@ -50,8 +50,7 @@ class UserService implements Service {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: 'SALT', // Remove with a new migration ticket
-                passwordHash,
+                passwordHash, // TODO
             }),
         );
         return user.toObject();
