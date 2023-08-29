@@ -65,12 +65,10 @@ class UserEntity implements Entity {
     public toObject(): {
         id: number;
         email: string;
-        passwordHash: string;
     } {
         return {
             id: this.id as number,
             email: this.email,
-            passwordHash: this.passwordHash,
         };
     }
 

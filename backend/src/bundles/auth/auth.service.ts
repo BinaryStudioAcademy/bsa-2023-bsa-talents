@@ -6,6 +6,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { tokenService } from '~/common/services/services.js';
 
@@ -20,8 +21,11 @@ class AuthService {
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto> {
         const user = await this.verifyLoginCredentials(userRequestDto);
+        const token = await tokenService.create({ id: user.id });
+
         return {
-            token: await tokenService.create({ id: user.id }),
+            ...user,
+            token,
         };
     }
 
@@ -33,15 +37,17 @@ class AuthService {
         const userByEmail = await this.userService.findByEmail(email);
         if (userByEmail) {
             throw new HttpError({
-                message: 'User already exist.',
-                cause: 'Email already used',
+                message: ErrorMessages.EMAIL_ALREADY_EXISTS,
                 status: HttpCode.CONFLICT,
             });
         }
 
         const user = await this.userService.create(userRequestDto);
+        const token = await tokenService.create({ id: user.id });
+
         return {
-            token: await tokenService.create({ id: user.id }),
+            ...user,
+            token,
         };
     }
 
@@ -49,12 +55,11 @@ class AuthService {
         email,
         password,
     }: UserSignInRequestDto): Promise<UserFindResponseDto> {
-        const user = await this.userService.findByEmail(email);
+        const user = await this.userService.find({ email });
 
         if (!user) {
             throw new HttpError({
-                message: 'User not found',
-                cause: 'User with the given email does not exist',
+                message: ErrorMessages.INCORRECT_EMAIL,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -63,13 +68,12 @@ class AuthService {
 
         if (!isEqualPassword) {
             throw new HttpError({
-                message: 'Unauthorized',
-                cause: 'Invalid credentials',
+                message: ErrorMessages.PASSWORDS_NOT_MATCH,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
 
-        return user;
+        return user.toObject();
     }
 }
 
