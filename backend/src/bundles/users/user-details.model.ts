@@ -8,11 +8,18 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/types/types.js';
+} from '~/bundles/users/enums/enums.js';
 import {
     AbstractModel,
     DatabaseTableName,
+    FilesTableColumn,
+    HardSkillsTableColumn,
+    TalentBadgesTableColumn,
+    TalentHardSkillsTableColumn,
+    UserDetailsTableColumn,
+    UsersTableColumn,
 } from '~/common/database/database.js';
+import { type ValueOf } from '~/common/types/types.js';
 
 import { HardSkillsModel } from '../hard-skills/hard-skills.model.js';
 import { TalentBadgeModel } from '../talent-badges/talent-badge.model.js';
@@ -33,21 +40,21 @@ class UserDetailsModel extends AbstractModel {
 
     public 'hiredSalary': number | null;
 
-    public 'jobTitle': JobTitle | null;
+    public 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    public 'location': CountryList | null;
+    public 'location': ValueOf<typeof CountryList> | null;
 
     public 'experienceYears': number | null;
 
-    public 'employmentType': EmploymentType[] | null;
+    public 'employmentType': ValueOf<(typeof EmploymentType)[]> | null;
 
     public 'description': string | null;
 
-    public 'englishLevel': EnglishLevel | null;
+    public 'englishLevel': ValueOf<typeof EnglishLevel> | null;
 
-    public 'notConsidered': NotConsidered[] | null;
+    public 'notConsidered': ValueOf<(typeof NotConsidered)[]> | null;
 
-    public 'preferredLanguages': PreferredLanguages[] | null;
+    public 'preferredLanguages': ValueOf<(typeof PreferredLanguages)[]> | null;
 
     public 'projectLinks': string[] | null;
 
@@ -82,52 +89,52 @@ class UserDetailsModel extends AbstractModel {
             relation: Model.HasOneRelation,
             modelClass: UserModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.userId`,
-                to: 'users.id',
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
+                to: `${DatabaseTableName.USERS}.${UsersTableColumn.ID}`,
             },
         },
         photo: {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.photoId`,
-                to: `${DatabaseTableName.FILES}.id`,
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.PHOTO_ID}`,
+                to: `${DatabaseTableName.FILES}.${FilesTableColumn.ID}`,
             },
         },
         cv: {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.cvId`,
-                to: `${DatabaseTableName.FILES}.id`,
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.CV_ID}`,
+                to: `${DatabaseTableName.FILES}.${FilesTableColumn.ID}`,
             },
         },
         companyLogo: {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.companyLogoId`,
-                to: `${DatabaseTableName.FILES}.id`,
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.COMPANY_LOGO_ID}`,
+                to: `${DatabaseTableName.FILES}.${FilesTableColumn.ID}`,
             },
         },
         talentHardSkills: {
             relation: Model.ManyToManyRelation,
             modelClass: HardSkillsModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.id`,
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
                 through: {
-                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.userDetailsId`,
-                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.hardSkillsId`,
+                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.${TalentHardSkillsTableColumn.USER_DETAILS_ID}`,
+                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.${TalentHardSkillsTableColumn.HARD_SKILL_ID}`,
                 },
-                to: `${DatabaseTableName.HARD_SKILLS}.id`,
+                to: `${DatabaseTableName.HARD_SKILLS}.${HardSkillsTableColumn.ID}`,
             },
         },
         talentBadges: {
             relation: Model.HasManyRelation,
             modelClass: TalentBadgeModel,
             join: {
-                from: `${DatabaseTableName.USER_DETAILS}.id`,
-                to: `${DatabaseTableName.TALENT_BADGES}.userDetailsId`,
+                from: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
+                to: `${DatabaseTableName.TALENT_BADGES}.${TalentBadgesTableColumn.USER_DETAILS_ID}`,
             },
         },
     };

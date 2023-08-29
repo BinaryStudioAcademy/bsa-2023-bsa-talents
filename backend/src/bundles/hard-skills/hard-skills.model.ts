@@ -4,6 +4,9 @@ import { UserDetailsModel } from '~/bundles/users/user-details.model.js';
 import {
     AbstractModel,
     DatabaseTableName,
+    HardSkillsTableColumn,
+    TalentHardSkillsTableColumn,
+    UserDetailsTableColumn,
 } from '~/common/database/database.js';
 
 class HardSkillsModel extends AbstractModel {
@@ -18,12 +21,12 @@ class HardSkillsModel extends AbstractModel {
             relation: Model.ManyToManyRelation,
             modelClass: UserDetailsModel,
             join: {
-                from: `${DatabaseTableName.HARD_SKILLS}.id`,
+                from: `${DatabaseTableName.HARD_SKILLS}.${HardSkillsTableColumn.ID}`,
                 through: {
-                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.hardSkillsId`,
-                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.userDetailsId`,
+                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.${TalentHardSkillsTableColumn.HARD_SKILL_ID}`,
+                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.${TalentHardSkillsTableColumn.USER_DETAILS_ID}`,
                 },
-                to: 'user_details.id',
+                to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
             },
         },
     };

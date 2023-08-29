@@ -5,7 +5,8 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/types/types.js';
+} from '~/bundles/users/enums/enums.js';
+import { type ValueOf } from '~/common/types/types.js';
 
 type UserDetailsProperties = {
     id: string | null;
@@ -16,14 +17,14 @@ type UserDetailsProperties = {
     profileName: string | null;
     salaryExpectation: number | null;
     hiredSalary: number | null;
-    jobTitle: JobTitle | null;
-    location: CountryList | null;
+    jobTitle: ValueOf<typeof JobTitle> | null;
+    location: ValueOf<typeof CountryList> | null;
     experienceYears: number | null;
-    employmentType: EmploymentType[] | null;
+    employmentType: ValueOf<(typeof EmploymentType)[]> | null;
     description: string | null;
-    englishLevel: EnglishLevel | null;
-    notConsidered: NotConsidered[] | null;
-    preferredLanguages: PreferredLanguages[] | null;
+    englishLevel: ValueOf<typeof EnglishLevel> | null;
+    notConsidered: ValueOf<(typeof NotConsidered)[]> | null;
+    preferredLanguages: ValueOf<(typeof PreferredLanguages)[]> | null;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string;

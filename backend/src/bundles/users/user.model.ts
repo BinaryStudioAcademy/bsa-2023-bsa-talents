@@ -3,6 +3,8 @@ import { Model } from 'objection';
 import {
     AbstractModel,
     DatabaseTableName,
+    UserDetailsTableColumn,
+    UsersTableColumn,
 } from '~/common/database/database.js';
 
 class UserModel extends AbstractModel {
@@ -21,8 +23,8 @@ class UserModel extends AbstractModel {
             relation: Model.HasOneRelation,
             modelClass: UserModel,
             join: {
-                from: `${DatabaseTableName.USERS}.id`,
-                to: `${DatabaseTableName.USER_DETAILS}.userId`,
+                from: `${DatabaseTableName.USERS}.${UsersTableColumn.ID}`,
+                to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
             },
         },
     };
