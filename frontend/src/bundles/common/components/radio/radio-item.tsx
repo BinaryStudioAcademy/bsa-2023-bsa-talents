@@ -1,46 +1,41 @@
-import { Radio as RadioMUI } from '@mui/material';
+import { Radio as MuiRadio, type RadioProps } from '@mui/material';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
-type Properties = {
-    value: string;
-    isChecked?: boolean;
+type RadioProperties = {
+    isChecked: boolean;
     isDisabled?: boolean;
-    isDisableRipple?: boolean;
     className?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+} & RadioProps;
 
-const radioClasses = getValidClassNames(styles['radio-icon'], {
-    [styles.radioHover]: true,
-});
-const radioCheckedClasses = getValidClassNames(
+const radioIconClasses = getValidClassNames(styles['radio-icon']);
+const radioCheckedIconClasses = getValidClassNames(
     styles['radio-icon'],
     styles['radio-icon-checked'],
 );
-const RadioIcon = <span className={radioClasses} />;
-const RadioIconChecked = <span className={radioCheckedClasses} />;
+const RadioIcon = <span className={radioIconClasses} />;
+const RadioIconChecked = <span className={radioCheckedIconClasses} />;
 
-const Radio: React.FC<Properties> = ({
-    value,
-    isChecked = false,
-    isDisabled = false,
-    isDisableRipple = false,
-    className,
+const Radio: React.FC<RadioProperties> = ({
+    isChecked,
+    isDisabled,
     onChange,
+    className = '',
+    ...restProperties
 }) => {
+    const radioClasses = getValidClassNames(className);
     return (
-        <RadioMUI
-            value={value}
+        <MuiRadio
             checkedIcon={RadioIconChecked}
             icon={RadioIcon}
+            className={radioClasses}
             checked={isChecked}
             disabled={isDisabled}
-            disableRipple={isDisableRipple}
-            className={className}
             onChange={onChange}
+            {...restProperties}
         />
     );
 };
