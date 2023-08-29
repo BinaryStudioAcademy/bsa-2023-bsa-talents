@@ -6,12 +6,14 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { StepProgressBar } from './step-progress-bar';
 import { StepTrack } from './step-track';
+import { styles } from './styles';
 
 type Properties = {
-    title: (typeof OnboardingScreenName)[keyof typeof OnboardingScreenName];
+    title: ValueOf<typeof OnboardingScreenName>;
     currentStep: number;
 };
 
@@ -27,7 +29,7 @@ const NewAccountHeader: React.FC<Properties> = ({ title, currentStep }) => {
                     globalStyles.alignItemsCenter,
                     globalStyles.borderRadiusTop8,
                     globalStyles.p20,
-                    { backgroundColor: '#FFFFFF' },
+                    styles.headerContainer,
                 ]}
             >
                 <Text category={TextCategory.H5}>{title}</Text>

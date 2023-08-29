@@ -6,11 +6,14 @@ export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { Overlay } from './overlay/overlay';
 export { Selector } from './selector/selector';
+export { Slider } from './slider/slider';
 export { Text } from './text/text';
 export {
     ActivityIndicator,
     FlatList,
+    Image,
     Pressable,
+    ScrollView,
     TouchableOpacity,
     View,
 } from 'react-native';

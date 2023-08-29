@@ -19,7 +19,6 @@ type Properties<T extends FieldValues> = TextInputProps & {
     name: FieldPath<T>;
     hasError?: boolean;
     marker?: string;
-    inputType?: 'text' | 'number';
 };
 
 const Input = <T extends FieldValues>({
@@ -28,13 +27,11 @@ const Input = <T extends FieldValues>({
     control,
     name,
     marker,
-    inputType = 'text',
     multiline = false,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
-    const keyboardType = inputType === 'number' ? 'numeric' : 'default';
 
     return (
         <View
@@ -57,9 +54,8 @@ const Input = <T extends FieldValues>({
             )}
             <TextInput
                 onChangeText={onChange}
-                value={value.toString()}
+                value={value}
                 onBlur={onBlur}
-                keyboardType={keyboardType}
                 {...props}
                 style={[
                     globalStyles.flex1,

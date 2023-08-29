@@ -1,21 +1,28 @@
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
+import multer from 'fastify-multer';
 
+import { userService } from '~/bundles/users/users.js';
 import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { authorization } from '~/common/plugins/plugins.js';
+import { tokenService } from '~/common/services/services.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import { type ServerApp, type ServerAppApi } from './interfaces/interfaces.js';
-import { type ServerAppRouteParameters } from './types/types.js';
+import {
+    type ServerApp,
+    type ServerAppApi,
+    type ServerAppRouteParameters,
+} from './types/types.js';
 
 type Constructor = {
     config: Config;
@@ -45,11 +52,11 @@ class ServerAppBase implements ServerApp {
     }
 
     public addRoute(parameters: ServerAppRouteParameters): void {
-        const { path, method, handler, validation } = parameters;
-
+        const { path, method, preHandler, handler, validation } = parameters;
         this.app.route({
             url: path,
             method,
+            preHandler,
             handler,
             schema: {
                 body: validation?.body,
@@ -91,6 +98,18 @@ class ServerAppBase implements ServerApp {
                 });
             }),
         );
+    }
+
+    public async initPlugins(): Promise<void> {
+        await this.app.register(multer.contentParser);
+        await this.app.register(authorization, {
+            services: {
+                userService,
+                tokenService,
+            },
+        });
+
+        this.logger.info('Plugins registered on application');
     }
 
     private initValidationCompiler(): void {
@@ -162,6 +181,8 @@ class ServerAppBase implements ServerApp {
         this.logger.info('Application initialization…');
 
         await this.initMiddlewares();
+
+        await this.initPlugins();
 
         this.initValidationCompiler();
 
