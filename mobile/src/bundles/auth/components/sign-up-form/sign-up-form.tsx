@@ -8,8 +8,9 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { AuthScreenName } from '~/bundles/common/enums/enums';
+import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/global-styles';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -31,8 +32,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     }, [handleSubmit, onSubmit]);
 
     return (
-        <View>
-            <Text>Sign Up</Text>
+        <View style={globalStyles.defaultScreenPadding}>
+            <Text category={TextCategory.H4}>Sign Up</Text>
             <FormField errors={errors} label="Email" name="email" required>
                 <Input
                     control={control}
