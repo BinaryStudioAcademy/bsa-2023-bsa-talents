@@ -3,6 +3,9 @@ import { StyleSheet } from 'react-native';
 import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#FFFFFF',
+    },
     title: {
         fontFamily: FontFamily.INTER_BOLD,
     },

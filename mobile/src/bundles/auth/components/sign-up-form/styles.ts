@@ -5,6 +5,7 @@ import { Color } from '~/bundles/common/enums/enums';
 const styles = StyleSheet.create({
     wrapper: {
         gap: 25,
+        backgroundColor: '#FFFFFF',
     },
     text: {
         color: Color.TEXT2,
