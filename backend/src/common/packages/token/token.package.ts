@@ -5,8 +5,7 @@ import {
     SignJWT,
 } from 'jose';
 
-import { config } from '~/common/config/config.js';
-
+import { config } from '../packages.js';
 import { type Token } from './types/types.js';
 
 class TokenBase implements Token {
