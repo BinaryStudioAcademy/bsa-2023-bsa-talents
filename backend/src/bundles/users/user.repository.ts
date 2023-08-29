@@ -29,6 +29,7 @@ class UserRepository implements Repository {
         const item = await this.userModel
             .query()
             .insert({
+                role: 'talent', // Replace in bt-86
                 email,
                 passwordHash,
             })
