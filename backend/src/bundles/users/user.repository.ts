@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
-import { type Repository } from '~/common/interfaces/interfaces.js';
+import { type Repository } from '~/common/types/types.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -17,14 +17,6 @@ class UserRepository implements Repository {
         return user ? UserEntity.initialize(user) : undefined;
     }
 
-    public async findById(id: number): Promise<UserEntity | undefined> {
-        return this.find({ id });
-    }
-
-    public async findByEmail(email: string): Promise<UserEntity | undefined> {
-        return this.find({ email });
-    }
-
     public async findAll(): Promise<UserEntity[]> {
         const users = await this.userModel.query().execute();
 
@@ -32,13 +24,13 @@ class UserRepository implements Repository {
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
-        const { email, passwordSalt, passwordHash } = entity.toNewObject();
+        const { email, passwordHash } = entity.toNewObject();
 
         const item = await this.userModel
             .query()
             .insert({
+                role: 'talent', // Replace in bt-86
                 email,
-                passwordSalt,
                 passwordHash,
             })
             .returning('*')

@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type Service } from '~/common/interfaces/interfaces.js';
+import { type Service } from '~/common/types/types.js';
 
 import {
     type UserFindResponseDto,
@@ -43,14 +43,17 @@ class UserService implements Service {
         };
     }
 
-    public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
-        return this.userRepository.create(
+    public async create(
+        payload: UserSignUpRequestDto,
+    ): Promise<UserFindResponseDto> {
+        const passwordHash = 'HASH'; // Remove in bt-86 with encrypt
+        const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: 'SALT', // TODO
-                passwordHash: 'HASH', // TODO
+                passwordHash, // TODO
             }),
         );
+        return user.toObject();
     }
 
     public update(): ReturnType<Service['update']> {
