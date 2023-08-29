@@ -4,59 +4,73 @@ import { type StyleProp, type ViewStyle } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { type ImagePickerResponse } from 'react-native-image-picker';
 
-import { Button } from '~/bundles/common/components/components';
+import { Button, Modal } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 type ImagePickerProperties = {
     label: string;
+    onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
     containerStyle?: StyleProp<ViewStyle>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getImageFromLibrary = async (): Promise<ImagePickerResponse> => {
-    return await launchImageLibrary({ mediaType: 'photo' });
-};
+const ImagePicker: React.FC<ImagePickerProperties> = ({
+    label,
+    onImageLoad,
+    containerStyle,
+}) => {
+    const [isPopUpActive, setIsPopUpActive] = useState(false);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getImageFromCamera = async (): Promise<ImagePickerResponse> => {
-    const grantedCamera = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
+    const getImageFromLibrary = useCallback((): void => {
+        setIsPopUpActive(false);
+        const result = launchImageLibrary({ mediaType: 'photo' });
+        onImageLoad(result);
+    }, [onImageLoad]);
+
+    const getImageFromCamera = useCallback((): void => {
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
             title: 'App Camera Permission',
             message: 'App needs access to your camera ',
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
-        },
-    );
-    if (grantedCamera === PermissionsAndroid.RESULTS.GRANTED) {
-        return await launchCamera({
-            mediaType: 'photo',
-            saveToPhotos: true,
-            includeBase64: false,
-        });
-    }
-    throw new Error('Permissions error ');
-};
-const ImagePicker: React.FC<ImagePickerProperties> = ({
-    label,
-    containerStyle,
-}) => {
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,unicorn/consistent-function-scoping
-    const onPickerPress = () => {
-        try {
-            // TODO: Create popup with choose image picker and set image
-        } catch {
-            // TODO: Error notification
-        }
-    };
+        })
+            .then((grantedCamera) => {
+                if (grantedCamera === PermissionsAndroid.RESULTS.GRANTED) {
+                    const result = launchCamera({
+                        mediaType: 'photo',
+                        saveToPhotos: true,
+                    });
+                    onImageLoad(result);
+                }
+                setIsPopUpActive(false);
+            })
+            .catch(() => {
+                /*TODO: Notification error*/
+            });
+    }, [onImageLoad]);
+
+    const onPickerPress = useCallback(() => {
+        setIsPopUpActive(true);
+    }, []);
+
+    const onPopUpClose = useCallback(() => {
+        setIsPopUpActive(false);
+    }, []);
+
     return (
-        <Button
-            buttonType={ButtonType.OUTLINE}
-            label={label}
-            onPress={onPickerPress}
-            style={containerStyle}
-        />
+        <>
+            <Modal visible={isPopUpActive} onClose={onPopUpClose}>
+                <Button label="Camera" onPress={getImageFromCamera} />
+                <Button label="Library" onPress={getImageFromLibrary} />
+            </Modal>
+            <Button
+                buttonType={ButtonType.OUTLINE}
+                label={label}
+                onPress={onPickerPress}
+                style={containerStyle}
+            />
+        </>
     );
 };
 
