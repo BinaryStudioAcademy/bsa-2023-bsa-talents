@@ -4,8 +4,7 @@ import { config } from 'dotenv';
 import { AppEnvironment } from '~/common/enums/enums.js';
 import { type Logger } from '~/common/logger/logger.js';
 
-import { type Config } from './interfaces/interfaces.js';
-import { type EnvironmentSchema } from './types/types.js';
+import { type Config, type EnvironmentSchema } from './types/types.js';
 
 class ConfigBase implements Config {
     private logger: Logger;
@@ -43,6 +42,26 @@ class ConfigBase implements Config {
                     format: Number,
                     env: 'PORT',
                     default: null,
+                },
+            },
+            JWT: {
+                SECRET: {
+                    doc: 'Secret key for token generation',
+                    format: String,
+                    env: 'JWT_SECRET',
+                    default: null,
+                },
+                EXPIRES_IN: {
+                    doc: 'Expiration time fo generated token',
+                    format: String,
+                    env: 'JWT_TOKEN_EXPIRE',
+                    default: '24h',
+                },
+                ALG: {
+                    doc: 'Algorithm used for encoding token',
+                    format: String,
+                    env: 'JWT_ALG',
+                    default: 'HS256',
                 },
             },
             DB: {

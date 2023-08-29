@@ -3,8 +3,10 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import { type Config } from '~/common/config/config.js';
 import { AppEnvironment } from '~/common/enums/enums.js';
 
-import { type ServerAppApi } from './interfaces/interfaces.js';
-import { type ServerAppRouteParameters } from './types/types.js';
+import {
+    type ServerAppApi,
+    type ServerAppRouteParameters,
+} from './types/types.js';
 
 class ServerAppApiBase implements ServerAppApi {
     public version: string;
