@@ -11,12 +11,12 @@ import {
     type PathValue,
 } from 'react-hook-form';
 
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { FormControl, Radio } from '../components.js';
 import styles from './styles.module.scss';
 
@@ -29,7 +29,7 @@ type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     options: Option[];
-    row?: boolean;
+    isRow?: boolean;
     hasError?: boolean;
     isDisabled?: boolean;
     className?: string;
@@ -41,7 +41,7 @@ const RadioGroup = <T extends FieldValues>({
     options,
     hasError = false,
     isDisabled = false,
-    row = true,
+    isRow = true,
     className = '',
 }: Properties<T>): JSX.Element => {
     const radioGroupClasses = getValidClassNames(
@@ -67,7 +67,7 @@ const RadioGroup = <T extends FieldValues>({
             hasError={hasError}
             isDisabled={isDisabled}
         >
-            <MuiRadioGroup {...field} className={radioGroupClasses} row={row}>
+            <MuiRadioGroup {...field} className={radioGroupClasses} row={isRow}>
                 {options.map((option) => (
                     <FormControlLabel
                         key={option.value}
