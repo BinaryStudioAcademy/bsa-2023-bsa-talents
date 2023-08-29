@@ -42,9 +42,9 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const { payload } = await tokenService.decode(authorization as string);
         const authorizedUser = await userService.findById(payload.id as number);
 
-        // if (!authorizedUser) { // TODO:? Unnecessary conditional, value is always falsy  @typescript-eslint/no-unnecessary-condition
-        //     throw new Error(ErrorMessages.NOT_AUTHORIZED);
-        // }
+        if (!authorizedUser) {
+            throw new Error(ErrorMessages.NOT_AUTHORIZED);
+        }
 
         request.user = authorizedUser;
     });
