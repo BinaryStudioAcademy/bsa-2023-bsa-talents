@@ -1,4 +1,4 @@
-export { DataStatus } from './app/app';
+export { AppEnvironmentMobile, DataStatus } from './app/app';
 export {
     AuthScreenName,
     BottomTabScreenName,

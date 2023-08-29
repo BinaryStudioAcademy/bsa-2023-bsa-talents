@@ -2,18 +2,19 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    AppEnvironmentMobile,
+    Color,
+    IconName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-type StepState = {
-    FOCUSED: boolean;
-    COMPLETED: boolean;
-    DISABLED: boolean;
-};
-
+type StepState = ValueOf<typeof AppEnvironmentMobile>;
 type Properties = {
     stepNumber: number;
     stepState: StepState;
@@ -28,30 +29,36 @@ const Step: React.FC<Properties> = ({
     stepState,
 }) => {
     const stepIcon = useMemo(() => {
-        if (stepState.COMPLETED) {
-            return {
-                name: IconName.CHECK_CIRCLE,
-                color: Color.PRIMARY,
-            };
-        } else if (stepState.FOCUSED) {
-            return {
-                name: IconName.CIRCLE_OUTLINE,
-                color: Color.PRIMARY,
-                style: styles.activeIcon,
-            };
-        } else {
-            return {
-                name: IconName.CIRCLE,
-                color: Color.INPUT,
-            };
+        switch (stepState) {
+            case AppEnvironmentMobile.COMPLETED: {
+                return {
+                    name: IconName.CHECK_CIRCLE,
+                    color: Color.PRIMARY,
+                };
+            }
+            case AppEnvironmentMobile.FOCUSED: {
+                return {
+                    name: IconName.CIRCLE_OUTLINE,
+                    color: Color.PRIMARY,
+                    style: styles.activeIcon,
+                };
+            }
+            default: {
+                return {
+                    name: IconName.CIRCLE,
+                    color: Color.INPUT,
+                };
+            }
         }
     }, [stepState]);
+
+    const disabled = stepState === AppEnvironmentMobile.DISABLED;
 
     return (
         <Pressable
             key={stepNumber}
             onPress={onPress}
-            disabled={stepState.DISABLED}
+            disabled={disabled}
             style={[
                 globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
@@ -73,7 +80,8 @@ const Step: React.FC<Properties> = ({
                     category={TextCategory.MENU}
                     style={[
                         styles.screenName,
-                        (stepState.FOCUSED || stepState.COMPLETED) &&
+                        (stepState === AppEnvironmentMobile.FOCUSED ||
+                            stepState === AppEnvironmentMobile.COMPLETED) &&
                             styles.activeScreenName,
                     ]}
                 >

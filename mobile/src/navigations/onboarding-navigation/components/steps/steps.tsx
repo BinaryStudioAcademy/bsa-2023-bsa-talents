@@ -50,14 +50,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                     typeof OnboardingScreenName
                 >;
                 const stepNumber = OnboardingScreenNumber[routeName];
-                const { isCompleted, disabled } =
-                    route.params as OnboardingRouteProperties;
-
-                const stepState = {
-                    COMPLETED: isCompleted,
-                    FOCUSED: isFocused,
-                    DISABLED: disabled,
-                } as const;
+                const { stepState } = route.params as OnboardingRouteProperties;
 
                 const onPress = (): void => {
                     const event = navigation.emit({

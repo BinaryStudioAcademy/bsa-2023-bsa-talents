@@ -37,27 +37,37 @@ const OnboardingNavigation: React.FC = () => {
             <Drawer.Screen
                 name={OnboardingScreenName.PROFILE}
                 component={Profile}
-                initialParams={{ isCompleted: false, disabled: false }}
+                initialParams={{
+                    stepState: 'focused',
+                }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
-                initialParams={{ isCompleted: false, disabled: false }}
+                initialParams={{
+                    stepState: 'focused',
+                }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.SKILLS_AND_PROJECTS}
                 component={SkillsAndProjects}
-                initialParams={{ isCompleted: false, disabled: false }}
+                initialParams={{
+                    stepState: 'completed',
+                }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.CV_AND_CONTACTS}
                 component={CvAndContacts}
-                initialParams={{ isCompleted: false, disabled: false }}
+                initialParams={{
+                    stepState: 'completed',
+                }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.PREVIEW}
                 component={Preview}
-                initialParams={{ isCompleted: false, disabled: false }}
+                initialParams={{
+                    stepState: 'disabled',
+                }}
             />
         </Drawer.Navigator>
     );
