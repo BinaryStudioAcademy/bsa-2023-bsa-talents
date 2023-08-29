@@ -1,7 +1,3 @@
-// This component was taken from
-// bt-104: Create complete profile screen UI
-// with some minor changes
-
 import CheckBox, { type CheckBoxProps } from '@react-native-community/checkbox';
 import React from 'react';
 import {
@@ -9,6 +5,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
+import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
@@ -19,22 +16,23 @@ type Properties<T extends FieldValues> = CheckBoxProps & {
     label?: string;
     name: FieldPath<T>;
     control: Control<T, null>;
+    containerStyle?: StyleProp<ViewStyle>;
 };
 
 const Checkbox = <T extends FieldValues>({
     label,
     name,
     control,
+    containerStyle,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
 
-    const colorCheckbox = props.disabled ? Color.TEXT2 : Color.PRIMARY;
-
     return (
         <View
             style={[
+                containerStyle,
                 globalStyles.flexDirectionRow,
                 globalStyles.alignItemsFlexStart,
             ]}
@@ -42,7 +40,7 @@ const Checkbox = <T extends FieldValues>({
             <CheckBox
                 value={value}
                 onValueChange={onChange}
-                tintColors={{ true: colorCheckbox, false: Color.INPUT }}
+                tintColors={{ true: Color.PRIMARY, false: Color.INPUT }}
                 {...props}
             />
             {label && (
