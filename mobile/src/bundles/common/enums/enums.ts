@@ -1,9 +1,9 @@
 export { DataStatus } from './app/app';
 export {
     AuthScreenName,
-    BottomTabScreenName,
-    EmployerOnboardingScreenName,
+    EmployerBottomTabScreenName,
     RootScreenName,
+    TalentBottomTabScreenName,
     TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from './navigation/navigation';

@@ -1,4 +1,3 @@
-export { Mail } from './mail';
-export { Person } from './person';
-export { SharedFolder } from './shared-folder';
-export { Step1 } from './step1';
+export { Candidates } from './candidates';
+export { Chat } from './chat';
+export { EmployerProfile } from './employer-profile';

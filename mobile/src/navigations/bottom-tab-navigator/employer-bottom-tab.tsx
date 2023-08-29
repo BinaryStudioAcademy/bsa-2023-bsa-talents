@@ -2,13 +2,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { BottomTabScreenName } from '~/bundles/common/enums/enums';
-import { type BottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { Mail, Person, SharedFolder } from '~/bundles/employer/screens/screens';
+import { EmployerBottomTabScreenName } from '~/bundles/common/enums/enums';
+import { type EmployerBottomTabNavigationParameterList } from '~/bundles/common/types/types';
+import {
+    Candidates,
+    Chat,
+    EmployerProfile,
+} from '~/bundles/employer/screens/screens';
 
 import { bottomTabStyles } from './styles';
 
-const BottomTab = createBottomTabNavigator<BottomTabNavigationParameterList>();
+const BottomTab =
+    createBottomTabNavigator<EmployerBottomTabNavigationParameterList>();
 
 const iconSize = 24;
 
@@ -16,8 +21,8 @@ const EmployerBottomTabNavigator: React.FC = () => {
     return (
         <BottomTab.Navigator screenOptions={bottomTabStyles}>
             <BottomTab.Screen
-                name={BottomTabScreenName.SHARED_FOLDER}
-                component={SharedFolder}
+                name={EmployerBottomTabScreenName.CANDIDATES}
+                component={Candidates}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon
@@ -29,8 +34,8 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 }}
             />
             <BottomTab.Screen
-                name={BottomTabScreenName.MAIL}
-                component={Mail}
+                name={EmployerBottomTabScreenName.CHAT}
+                component={Chat}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon name="mail" size={iconSize} color={color} />
@@ -38,8 +43,8 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 }}
             />
             <BottomTab.Screen
-                name={BottomTabScreenName.PERSON}
-                component={Person}
+                name={EmployerBottomTabScreenName.EMPLOYER_PROFILE}
+                component={EmployerProfile}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon name="person" size={iconSize} color={color} />

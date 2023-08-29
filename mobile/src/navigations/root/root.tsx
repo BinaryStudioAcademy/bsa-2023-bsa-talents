@@ -11,10 +11,7 @@ import {
     EmployerBottomTabNavigator,
     TalentBottomTabNavigator,
 } from '~/navigations/bottom-tab-navigator/bottom-tab-navigator';
-import {
-    EmployerOnboardingNavigator,
-    TalentOnboardingNavigator,
-} from '~/navigations/onboarding-navigator/onboarding-navigator';
+import { TalentOnboardingNavigator } from '~/navigations/onboarding-navigator/onboarding-navigator';
 
 const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
 
@@ -25,6 +22,7 @@ const screenOptions: NativeStackNavigationOptions = {
 type Properties = {
     isSignedIn?: boolean;
     isProfileComplete?: boolean;
+    // TODO: update when enum is in shared folder
     role?: 'talent' | 'employer';
 };
 
@@ -44,7 +42,8 @@ const Root: React.FC<Properties> = ({
             ) : (isProfileComplete ? (
                 <RootStack.Screen
                     name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    component={role === 'talent' ? TalentOnboardingNavigator : EmployerOnboardingNavigator}
+                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                    component={TalentOnboardingNavigator}
                 />
             ) : (
                 <RootStack.Screen
