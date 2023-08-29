@@ -1,3 +1,4 @@
+export { ActiveModal } from './active-modal/active-modal';
 export { Button } from './button/button';
 export { FormField } from './form-field/form-field';
 export { Input } from './input/input';
