@@ -1,1 +1,1 @@
-export { configureString } from 'shared/build/index';
+export { configureString, getAvatarInitials } from 'shared/build/index';
