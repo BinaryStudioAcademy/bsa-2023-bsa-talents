@@ -4,6 +4,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
+import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
@@ -18,6 +19,7 @@ type Properties<T extends FieldValues> = {
     label?: string;
     required?: boolean;
     hasError?: boolean;
+    containerStyle?: StyleProp<ViewStyle>;
 };
 
 const FormField = <T extends FieldValues>({
@@ -26,12 +28,13 @@ const FormField = <T extends FieldValues>({
     children,
     label,
     required,
+    containerStyle,
 }: Properties<T>): JSX.Element => {
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
     return (
-        <View>
+        <View style={containerStyle}>
             {label && (
                 <Text category={TextCategory.LABEL} style={globalStyles.mv5}>
                     {label}
