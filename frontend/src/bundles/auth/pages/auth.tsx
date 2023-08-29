@@ -31,10 +31,14 @@ const Auth: React.FC = () => {
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AppRoute.SIGN_IN: {
-                return <SignInForm onSubmit={handleSignInSubmit} />;
+                return (
+                    <SignInForm isTalent={true} onSubmit={handleSignInSubmit} />
+                );
             }
             case AppRoute.SIGN_UP: {
-                return <SignUpForm onSubmit={handleSignUpSubmit} />;
+                return (
+                    <SignUpForm isTalent={true} onSubmit={handleSignUpSubmit} />
+                );
             }
         }
 
