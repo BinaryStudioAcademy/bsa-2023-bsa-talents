@@ -10,7 +10,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = CheckboxProps & {
-    label?: string;
+    label?: string | React.ReactNode;
     isDisabled?: boolean;
     isDefaultChecked?: boolean;
     isChecked?: boolean;
