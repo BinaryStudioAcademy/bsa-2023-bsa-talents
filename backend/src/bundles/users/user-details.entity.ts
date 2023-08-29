@@ -5,9 +5,10 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-    type UserDetailsProperties,
-} from '~/bundles/users/types/types.js';
-import { type Entity } from '~/common/types/types.js';
+} from '~/bundles/users/enums/enums.js';
+import { type Entity, type ValueOf } from '~/common/types/types.js';
+
+import { type UserDetailsProperties } from './types/types.js';
 
 class UserDetailsEntity implements Entity {
     private 'id': string | null;
@@ -26,21 +27,21 @@ class UserDetailsEntity implements Entity {
 
     private 'hiredSalary': number | null;
 
-    private 'jobTitle': JobTitle | null;
+    private 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    private 'location': CountryList | null;
+    private 'location': ValueOf<typeof CountryList> | null;
 
     private 'experienceYears': number | null;
 
-    private 'employmentType': EmploymentType[] | null;
+    private 'employmentType': ValueOf<(typeof EmploymentType)[]> | null;
 
     private 'description': string | null;
 
-    private 'englishLevel': EnglishLevel | null;
+    private 'englishLevel': ValueOf<typeof EnglishLevel> | null;
 
-    private 'notConsidered': NotConsidered[] | null;
+    private 'notConsidered': ValueOf<(typeof NotConsidered)[]> | null;
 
-    private 'preferredLanguages': PreferredLanguages[] | null;
+    private 'preferredLanguages': ValueOf<(typeof PreferredLanguages)[]> | null;
 
     private 'projectLinks': string[] | null;
 
