@@ -9,7 +9,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Config } from '~/common/packages/config/config.js';
 import { type Database } from '~/common/packages/database/database.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
-import { tokenService } from '~/common/packages/packages.js';
+import { token } from '~/common/packages/packages.js';
 import { authorization } from '~/common/plugins/plugins.js';
 import {
     type ServerCommonErrorResponse,
@@ -103,7 +103,7 @@ class ServerAppBase implements ServerApp {
         await this.app.register(authorization, {
             services: {
                 userService,
-                tokenService,
+                tokenService: token,
             },
         });
 

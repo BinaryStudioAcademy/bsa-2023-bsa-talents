@@ -1,5 +1,5 @@
 import { TokenBase } from './token.package.js';
 
-const tokenService = new TokenBase();
+const token = new TokenBase();
 
-export { tokenService };
+export { token };
