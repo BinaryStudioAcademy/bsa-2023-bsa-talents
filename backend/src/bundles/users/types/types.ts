@@ -1,4 +1,3 @@
-export { type UserDetailsProperties } from './user-details.type.js';
 export {
     type CountryList,
     type EmploymentType,
