@@ -1,3 +1,4 @@
+export { type UserCreateResponseDto } from './user-create-response-dto.type.js';
 export { type UserFindResponseDto } from './user-find-response-dto.type.js';
 export { type UserGetAllItemResponseDto } from './user-get-all-item-response-dto.type.js';
 export { type UserGetAllResponseDto } from './user-get-all-response-dto.type.js';

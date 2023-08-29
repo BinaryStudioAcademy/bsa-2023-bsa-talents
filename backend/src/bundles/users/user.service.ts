@@ -4,6 +4,7 @@ import { type Encrypt } from '~/common/encrypt/encrypt.package.js';
 import { type Service } from '~/common/types/types.js';
 
 import {
+    type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -48,12 +49,13 @@ class UserService implements Service {
 
     public async create(
         payload: UserSignUpRequestDto,
-    ): Promise<{ id: number; email: string }> {
+    ): Promise<UserCreateResponseDto> {
         const passwordHash = await this.encrypt.make(payload.password);
 
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
+                role: payload.role,
                 passwordHash: passwordHash,
             }),
         );
