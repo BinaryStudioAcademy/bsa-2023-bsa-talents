@@ -31,7 +31,6 @@
         position: absolute;
         top: 0;
         left: 7px;
-        z-index: 1;
         width: 18px;
         height: 18px;
         background-color: var(--botticelli);
@@ -71,6 +70,23 @@
         height: 21px;
         background-color: var(--white);
         border: 3px solid var(--st-tropaz);
+    }
+}
+
+.passedStep {
+    &::after {
+        width: 18px;
+        height: 18px;
+        background-color: var(--st-tropaz);
+        background-image: url("../../../../assets/img/check-mark.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 11px;
+        border: 2px solid var(--st-tropaz);
+    }
+
+    &::before {
+        background-color: var(--st-tropaz);
     }
 }
 

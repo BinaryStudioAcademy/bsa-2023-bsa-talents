@@ -4,19 +4,14 @@ import { SignUpContent } from '../components/components.js';
 type Properties = {
     avatarUrl: string;
     isOnline: boolean;
-    stepContent: React.ReactNode;
 };
 
-const SignUpTalent: React.FC<Properties> = ({
-    avatarUrl,
-    isOnline,
-    stepContent,
-}) => {
+const SignUpTalent: React.FC<Properties> = ({ avatarUrl, isOnline }) => {
     return (
         <>
             <Header avatarUrl={avatarUrl} isOnline={isOnline} />
             <Sidebar />
-            <SignUpContent stepContent={stepContent} />
+            <SignUpContent />
         </>
     );
 };

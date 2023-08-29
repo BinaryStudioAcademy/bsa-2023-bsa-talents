@@ -65,16 +65,22 @@
         font-size: 13px;
         text-transform: capitalize;
     }
+}
 
-    .buttonBack {
+.buttonBack {
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
         background-color: var(--background-primary);
     }
+}
 
-    .buttonNext {
-        background-color: var(--background-secondary);
-    }
+.buttonNext {
+    background-color: var(--background-secondary);
 
-    .buttonNext:hover {
+    &:hover {
         background-color: var(--hover-primary);
     }
 }

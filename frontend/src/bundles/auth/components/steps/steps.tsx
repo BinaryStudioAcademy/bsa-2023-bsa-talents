@@ -1,53 +1,55 @@
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
+import { stepOne } from '../../constants/constants.js';
+import { type Step } from '../../types/types.js';
 import styles from './styles.module.scss';
 
-const Steps: React.FC = () => {
-    const steps = [
-        {
-            title: 'Step 01',
-            description: 'Profile',
-        },
-        {
-            title: 'Step 02',
-            description: 'BSA badges',
-        },
-        {
-            title: 'Step 03',
-            description: 'Skills and projects',
-        },
-        {
-            title: 'Step 04',
-            description: 'CV and contacts',
-        },
-        {
-            title: 'Step 05',
-            description: 'Preview',
-        },
-    ];
+type Properties = {
+    currentStep: number;
+    stepTabs: Step[];
+};
 
+const Steps: React.FC<Properties> = ({ currentStep, stepTabs }) => {
+    const getClassNameForStep = (step: {
+        stepName: string;
+        stepIndex: number;
+        baseClass: string;
+        activeClass: string;
+        passedStepClass?: string;
+    }): string => {
+        return getValidClassNames(
+            step.baseClass,
+            step.stepName.endsWith(String(currentStep + stepOne)) &&
+                step.activeClass,
+            step.stepIndex < currentStep && step.passedStepClass,
+        );
+    };
     return (
         <Grid item className={styles.stepsWrapper}>
             <ul className={styles.steps}>
-                {steps.map((step) => (
+                {stepTabs.map((step, index) => (
                     <li
-                        key={step.title}
-                        className={getValidClassNames(
-                            styles.step,
-                            step.title === 'Step 01' && styles.currentStep,
-                        )}
+                        key={step.name}
+                        className={getClassNameForStep({
+                            stepName: step.name,
+                            stepIndex: index,
+                            baseClass: styles.step,
+                            activeClass: styles.currentStep,
+                            passedStepClass: styles.passedStep,
+                        })}
                     >
                         <Typography variant="h5" className={styles.title}>
-                            {step.title}
+                            {step.name}
                         </Typography>
                         <Typography
                             variant="body1"
-                            className={getValidClassNames(
-                                styles.description,
-                                step.title === 'Step 01' &&
-                                    styles.currentStepDescription,
-                            )}
+                            className={getClassNameForStep({
+                                stepName: step.name,
+                                stepIndex: index,
+                                baseClass: styles.description,
+                                activeClass: styles.currentStepDescription,
+                            })}
                         >
                             {step.description}
                         </Typography>
