@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     text: {
         color: Color.TEXT2,
     },
+    linkToSignIn: {
+        color: Color.PRIMARY,
+    },
 });
 
 export { styles };

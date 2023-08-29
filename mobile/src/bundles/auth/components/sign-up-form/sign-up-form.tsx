@@ -41,7 +41,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 styles.wrapper,
             ]}
         >
-            <Text category={TextCategory.H4}>Sign Up</Text>
+            <Text
+                category={TextCategory.H2}
+                style={globalStyles.alignSelfCenter}
+            >
+                Sign Up
+            </Text>
             <FormField errors={errors} label="Email" name="email" required>
                 <Input
                     control={control}
@@ -64,10 +69,32 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
             <Button
                 label="Sign up"
-                style={globalStyles.mt25}
+                style={[globalStyles.mt25, globalStyles.pv15]}
                 onPress={handleFormSubmit}
             />
-            <Link label="Go to Sign In" link={`/${AuthScreenName.SIGN_IN}`} />
+
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.alignSelfCenter,
+                    globalStyles.alignItemsCenter,
+                ]}
+            >
+                <Text category={TextCategory.BODY1} style={styles.text}>
+                    Already have an account?{' '}
+                </Text>
+
+                <Link
+                    textComponentCategory={TextCategory.BODY1}
+                    style={[
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pr10,
+                        styles.linkToSignIn,
+                    ]}
+                    label="Sign In"
+                    link={`/${AuthScreenName.SIGN_IN}`}
+                />
+            </View>
         </View>
     );
 };
