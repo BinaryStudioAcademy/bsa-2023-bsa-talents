@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     Button,
+    Checkbox,
     FormField,
     Input,
     Link,
@@ -74,8 +75,31 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.justifyContentCenter,
                 ]}
             >
-                {/* <FormField errors={errors} label="I am hiring" name="email"></FormField>
-                <FormField errors={errors} label="I'm looking for a job" name="email"></FormField> */}
+                <FormField
+                    errors={errors}
+                    name="isHiring"
+                    containerStyle={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.pr25,
+                    ]}
+                >
+                    <Checkbox
+                        label="I am hiring"
+                        name="isHiring"
+                        control={control}
+                    />
+                </FormField>
+                <FormField
+                    errors={errors}
+                    name="email"
+                    containerStyle={globalStyles.flexDirectionRow}
+                >
+                    <Checkbox
+                        label="I'm looking for a job"
+                        name="job"
+                        control={control}
+                    />
+                </FormField>
             </View>
 
             <Button
