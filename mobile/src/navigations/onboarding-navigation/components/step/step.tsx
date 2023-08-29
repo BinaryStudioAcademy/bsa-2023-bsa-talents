@@ -27,8 +27,6 @@ const Step: React.FC<Properties> = ({
     routeName,
     stepState,
 }) => {
-    const number = 1;
-
     const stepIcon = useMemo(() => {
         if (stepState.COMPLETED) {
             return {
@@ -69,7 +67,7 @@ const Step: React.FC<Properties> = ({
             />
             <View style={[globalStyles.mr15, styles.textCon]}>
                 <Text category={TextCategory.STEP} style={styles.step}>
-                    Step 0{stepNumber + number}
+                    Step 0{stepNumber}
                 </Text>
                 <Text
                     category={TextCategory.MENU}

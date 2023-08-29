@@ -8,8 +8,8 @@ const OnboardingScreenNumber: Record<
 > = {
     [OnboardingScreenName.PROFILE]: 1,
     [OnboardingScreenName.BSA_BADGES]: 2,
-    [OnboardingScreenName.SKILLS_PROJECTS]: 3,
-    [OnboardingScreenName.CV_CONTACTS]: 4,
+    [OnboardingScreenName.SKILLS_AND_PROJECTS]: 3,
+    [OnboardingScreenName.CV_AND_CONTACTS]: 4,
     [OnboardingScreenName.PREVIEW]: 5,
 } as const;
 

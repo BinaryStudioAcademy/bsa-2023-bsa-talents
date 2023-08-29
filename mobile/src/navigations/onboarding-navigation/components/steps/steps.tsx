@@ -6,8 +6,15 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    type OnboardingScreenName,
+    OnboardingScreenNumber,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { Step } from '../components';
 import { styles } from './styles';
@@ -36,8 +43,17 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
             {state.routes.map((route, index) => {
                 // TODO: add logic to step completion
                 const isFocused = state.index === index;
-                const routeName = route.name;
+                const routeName = route.name as ValueOf<
+                    typeof OnboardingScreenName
+                >;
+                const stepNumber = OnboardingScreenNumber[routeName];
                 const { isCompleted, disabled } = route.params;
+
+                const stepState = {
+                    COMPLETED: isCompleted,
+                    FOCUSED: isFocused,
+                    DISABLED: disabled,
+                } as const;
 
                 const onPress = (): void => {
                     const event = navigation.emit({
@@ -50,18 +66,12 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                     }
                 };
 
-                const stepState = {
-                    COMPLETED: isCompleted,
-                    FOCUSED: isFocused,
-                    DISABLED: disabled,
-                } as const;
-
                 return (
                     <Step
                         key={route.key}
                         routeName={routeName}
                         onPress={onPress}
-                        stepNumber={index}
+                        stepNumber={stepNumber}
                         stepState={stepState}
                     />
                 );
