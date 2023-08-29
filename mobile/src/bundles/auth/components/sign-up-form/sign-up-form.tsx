@@ -1,16 +1,21 @@
 import React from 'react';
+import { type RadioButtonProps } from 'react-native-radio-buttons-group';
 
 import {
     Button,
-    Checkbox,
     FormField,
     Input,
     Link,
+    RadioButtons,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    AuthScreenName,
+    Color,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
+import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import {
     type UserSignUpRequestDto,
@@ -32,6 +37,26 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
+
+    const radioButtons: RadioButtonProps[] = useMemo(
+        () => [
+            {
+                id: '1', // acts as primary key, should be unique and non-empty string
+                label: 'I`m hiring',
+                value: 'option1',
+                color: Color.PRIMARY,
+                borderColor: Color.INPUT,
+            },
+            {
+                id: '2',
+                label: 'I`m looking for a job',
+                value: 'option2',
+                color: Color.PRIMARY,
+                borderColor: Color.INPUT,
+            },
+        ],
+        [],
+    );
 
     return (
         <View
@@ -83,21 +108,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         globalStyles.pr25,
                     ]}
                 >
-                    <Checkbox
-                        label="I am hiring"
+                    <RadioButtons
+                        radioButtons={radioButtons}
+                        control={control}
+                        layout="row"
                         name="isHiring"
-                        control={control}
-                    />
-                </FormField>
-                <FormField
-                    errors={errors}
-                    name="email"
-                    containerStyle={globalStyles.flexDirectionRow}
-                >
-                    <Checkbox
-                        label="I'm looking for a job"
-                        name="job"
-                        control={control}
                     />
                 </FormField>
             </View>

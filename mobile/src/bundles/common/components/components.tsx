@@ -5,6 +5,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { Overlay } from './overlay/overlay';
+export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Text } from './text/text';
