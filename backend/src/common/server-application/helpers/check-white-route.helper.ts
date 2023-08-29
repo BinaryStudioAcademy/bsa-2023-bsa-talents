@@ -1,7 +1,17 @@
 import { WHITE_ROUTES } from '../constants/api.constants.js';
 
-const checkWhiteRoute = (route: string, method: string): boolean => {
-    return method === 'POST' && WHITE_ROUTES.includes(route);
+const checkWhiteRoute = ({
+    routerPath,
+    routerMethod,
+}: {
+    routerPath: string;
+    routerMethod: string;
+}): boolean => {
+    return WHITE_ROUTES.some((route) => {
+        const routePattern = route.path.replace('*', '.*');
+        const regex = new RegExp(`^${routePattern}$`);
+        return regex.test(routerPath) && route.methods.includes(routerMethod);
+    });
 };
 
 export { checkWhiteRoute };
