@@ -21,7 +21,7 @@ type Properties = {
     onAccept?: () => void;
 };
 
-const Modal: React.FC<Properties> = ({
+const ActiveModal: React.FC<Properties> = ({
     title,
     visible,
     acceptText = 'Accept',
@@ -79,4 +79,4 @@ const Modal: React.FC<Properties> = ({
     );
 };
 
-export { Modal };
+export { ActiveModal };

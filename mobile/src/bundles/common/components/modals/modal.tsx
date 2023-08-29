@@ -15,7 +15,7 @@ type Properties = {
     onClose: () => void;
 };
 
-const ActiveModal: React.FC<Properties> = ({ visible, children, onClose }) => {
+const Modal: React.FC<Properties> = ({ visible, children, onClose }) => {
     return (
         <RNModal
             animationType="fade"
@@ -46,4 +46,4 @@ const ActiveModal: React.FC<Properties> = ({ visible, children, onClose }) => {
     );
 };
 
-export { ActiveModal };
+export { Modal };
