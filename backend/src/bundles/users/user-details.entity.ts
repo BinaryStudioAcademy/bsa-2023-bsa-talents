@@ -1,0 +1,299 @@
+import {
+    type CountryList,
+    type EmploymentType,
+    type EnglishLevel,
+    type JobTitle,
+    type NotConsidered,
+    type PreferredLanguages,
+    type UserDetailsProperties,
+} from '~/bundles/users/types/types.js';
+import { type Entity } from '~/common/types/types.js';
+
+class UserDetailsEntity implements Entity {
+    private 'id': string | null;
+
+    private 'userId': string;
+
+    private 'isApproved': boolean;
+
+    private 'deniedReason': string | null;
+
+    private 'isHired': boolean;
+
+    private 'profileName': string | null;
+
+    private 'salaryExpectation': number | null;
+
+    private 'hiredSalary': number | null;
+
+    private 'jobTitle': JobTitle | null;
+
+    private 'location': CountryList | null;
+
+    private 'experienceYears': number | null;
+
+    private 'employmentType': EmploymentType[] | null;
+
+    private 'description': string | null;
+
+    private 'englishLevel': EnglishLevel | null;
+
+    private 'notConsidered': NotConsidered[] | null;
+
+    private 'preferredLanguages': PreferredLanguages[] | null;
+
+    private 'projectLinks': string[] | null;
+
+    private 'photoId': string | null;
+
+    private 'fullName': string;
+
+    private 'phone': string | null;
+
+    private 'linkedinLink': string | null;
+
+    private 'companyName': string | null;
+
+    private 'companyLogoId': string | null;
+
+    private 'companyWebsite': string | null;
+
+    private 'employerPosition': string | null;
+
+    private 'cvId': string | null;
+
+    private constructor({
+        id,
+        userId,
+        isApproved,
+        deniedReason,
+        isHired,
+        profileName,
+        salaryExpectation,
+        hiredSalary,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        photoId,
+        fullName,
+        phone,
+        linkedinLink,
+        companyName,
+        companyLogoId,
+        companyWebsite,
+        employerPosition,
+        cvId,
+    }: UserDetailsProperties) {
+        this.id = id;
+        this.userId = userId;
+        this.isApproved = isApproved;
+        this.deniedReason = deniedReason;
+        this.isHired = isHired;
+        this.profileName = profileName;
+        this.salaryExpectation = salaryExpectation;
+        this.hiredSalary = hiredSalary;
+        this.jobTitle = jobTitle;
+        this.location = location;
+        this.experienceYears = experienceYears;
+        this.employmentType = employmentType;
+        this.description = description;
+        this.englishLevel = englishLevel;
+        this.notConsidered = notConsidered;
+        this.preferredLanguages = preferredLanguages;
+        this.projectLinks = projectLinks;
+        this.photoId = photoId;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.linkedinLink = linkedinLink;
+        this.companyName = companyName;
+        this.companyLogoId = companyLogoId;
+        this.companyWebsite = companyWebsite;
+        this.employerPosition = employerPosition;
+        this.cvId = cvId;
+    }
+
+    public static initialize({
+        id,
+        userId,
+        isApproved,
+        deniedReason,
+        isHired,
+        profileName,
+        salaryExpectation,
+        hiredSalary,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        photoId,
+        fullName,
+        phone,
+        linkedinLink,
+        companyName,
+        companyLogoId,
+        companyWebsite,
+        employerPosition,
+        cvId,
+    }: UserDetailsProperties): UserDetailsEntity {
+        return new UserDetailsEntity({
+            id,
+            userId,
+            isApproved,
+            deniedReason,
+            isHired,
+            profileName,
+            salaryExpectation,
+            hiredSalary,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+            photoId,
+            fullName,
+            phone,
+            linkedinLink,
+            companyName,
+            companyLogoId,
+            companyWebsite,
+            employerPosition,
+            cvId,
+        });
+    }
+
+    public static initializeNew({
+        userId,
+        isApproved,
+        deniedReason,
+        isHired,
+        profileName,
+        salaryExpectation,
+        hiredSalary,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        photoId,
+        fullName,
+        phone,
+        linkedinLink,
+        companyName,
+        companyLogoId,
+        companyWebsite,
+        employerPosition,
+        cvId,
+    }: UserDetailsProperties): UserDetailsEntity {
+        return new UserDetailsEntity({
+            id: null,
+            userId,
+            isApproved,
+            deniedReason,
+            isHired,
+            profileName,
+            salaryExpectation,
+            hiredSalary,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+            photoId,
+            fullName,
+            phone,
+            linkedinLink,
+            companyName,
+            companyLogoId,
+            companyWebsite,
+            employerPosition,
+            cvId,
+        });
+    }
+
+    public toObject(): UserDetailsProperties {
+        return {
+            id: this.id as string,
+            userId: this.userId,
+            isApproved: this.isApproved,
+            deniedReason: this.deniedReason,
+            isHired: this.isHired,
+            profileName: this.profileName,
+            salaryExpectation: this.salaryExpectation,
+            hiredSalary: this.hiredSalary,
+            jobTitle: this.jobTitle,
+            location: this.location,
+            experienceYears: this.experienceYears,
+            employmentType: this.employmentType,
+            description: this.description,
+            englishLevel: this.englishLevel,
+            notConsidered: this.notConsidered,
+            preferredLanguages: this.preferredLanguages,
+            projectLinks: this.projectLinks,
+            photoId: this.photoId,
+            fullName: this.fullName,
+            phone: this.phone,
+            linkedinLink: this.linkedinLink,
+            companyName: this.companyName,
+            companyLogoId: this.companyLogoId,
+            companyWebsite: this.companyWebsite,
+            employerPosition: this.employerPosition,
+            cvId: this.cvId,
+        };
+    }
+
+    public toNewObject(): UserDetailsProperties {
+        return {
+            id: null,
+            userId: this.userId,
+            isApproved: this.isApproved,
+            deniedReason: this.deniedReason,
+            isHired: this.isHired,
+            profileName: this.profileName,
+            salaryExpectation: this.salaryExpectation,
+            hiredSalary: this.hiredSalary,
+            jobTitle: this.jobTitle,
+            location: this.location,
+            experienceYears: this.experienceYears,
+            employmentType: this.employmentType,
+            description: this.description,
+            englishLevel: this.englishLevel,
+            notConsidered: this.notConsidered,
+            preferredLanguages: this.preferredLanguages,
+            projectLinks: this.projectLinks,
+            photoId: this.photoId,
+            fullName: this.fullName,
+            phone: this.phone,
+            linkedinLink: this.linkedinLink,
+            companyName: this.companyName,
+            companyLogoId: this.companyLogoId,
+            companyWebsite: this.companyWebsite,
+            employerPosition: this.employerPosition,
+            cvId: this.cvId,
+        };
+    }
+}
+
+export { UserDetailsEntity };
