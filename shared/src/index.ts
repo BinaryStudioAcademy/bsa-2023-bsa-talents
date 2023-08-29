@@ -9,6 +9,9 @@ export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     UsersApiPath,
+    type UserSignInRequestDto,
+    type UserSignInResponseDto,
+    userSignInValidationSchema,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
     userSignUpValidationSchema,
@@ -18,6 +21,7 @@ export {
     AppEnvironment,
     ContentType,
     ErrorMessages,
+    FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
