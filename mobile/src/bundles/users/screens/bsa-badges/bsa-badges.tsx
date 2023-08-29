@@ -18,6 +18,8 @@ import {
 import { Badge } from '~/bundles/users/components/components';
 import { BadgeType } from '~/bundles/users/enums/enums';
 
+import { styles } from './styles';
+
 const values = Object.values(BadgeType);
 
 const BsaBadges: React.FC = () => {
@@ -56,7 +58,7 @@ const BsaBadges: React.FC = () => {
             </View>
             <Text
                 category={TextCategory.BODY1}
-                style={[globalStyles.mb25, { width: '80%' }]}
+                style={[globalStyles.mb25, styles.description]}
             >
                 Choose BSA badges you want to show in your profile
             </Text>
