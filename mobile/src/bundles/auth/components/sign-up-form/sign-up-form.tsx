@@ -17,6 +17,7 @@ import {
 } from '~/bundles/users/users';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
+import { styles } from './styles';
 
 type Properties = {
     onSubmit: (payload: UserSignUpRequestDto) => void;
@@ -32,7 +33,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     }, [handleSubmit, onSubmit]);
 
     return (
-        <View style={globalStyles.defaultScreenPadding}>
+        <View
+            style={[
+                globalStyles.defaultScreenPadding,
+                globalStyles.flex1,
+                globalStyles.justifyContentCenter,
+                styles.wrapper,
+            ]}
+        >
             <Text category={TextCategory.H4}>Sign Up</Text>
             <FormField errors={errors} label="Email" name="email" required>
                 <Input
@@ -54,7 +62,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     secureTextEntry
                 />
             </FormField>
-            <Button label="Sign up" onPress={handleFormSubmit} />
+            <Button
+                label="Sign up"
+                style={globalStyles.mt25}
+                onPress={handleFormSubmit}
+            />
             <Link label="Go to Sign In" link={`/${AuthScreenName.SIGN_IN}`} />
         </View>
     );
