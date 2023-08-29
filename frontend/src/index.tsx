@@ -12,6 +12,7 @@ import {
     StoreProvider,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { TestStep1 } from '~/bundles/sign-up/components/first-step/test.js';
 import { store } from '~/framework/store/store.js';
 
 import { theme } from './bundles/common/themes/theme.js';
@@ -36,8 +37,8 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: <Auth />,
                                     },
                                     {
-                                        path: AppRoute.SIGN_UP,
-                                        element: <Auth />,
+                                        path: '/step1',
+                                        element: <TestStep1 />,
                                     },
                                 ],
                             },
