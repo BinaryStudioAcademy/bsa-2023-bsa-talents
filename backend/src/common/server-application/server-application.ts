@@ -1,7 +1,6 @@
 import { authController } from '~/bundles/auth/auth.js';
 import { userController } from '~/bundles/users/users.js';
-import { database } from '~/common/database/database.js';
-import { config, logger } from '~/common/packages/packages.js';
+import { config, database, logger } from '~/common/packages/packages.js';
 
 import { ServerAppApiBase } from './server-app-api-base.js';
 import { ServerAppBase } from './server-app-base.js';
