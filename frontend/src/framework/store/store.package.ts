@@ -14,9 +14,8 @@ import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
-import { errorHandler } from './middlewares/middlewares.js';
-
 import { storage } from '../storage/storage.js';
+import { errorHandler } from './middlewares/middlewares.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
