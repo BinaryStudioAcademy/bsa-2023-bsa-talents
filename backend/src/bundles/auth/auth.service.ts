@@ -21,7 +21,7 @@ class AuthService {
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto> {
         const user = await this.verifyLoginCredentials(userRequestDto);
-        // const token = await token.create({ id: user.id });
+
         return {
             ...user,
             token: await token.create({ id: user.id }),
@@ -42,7 +42,6 @@ class AuthService {
         }
 
         const user = await this.userService.create(userRequestDto);
-        // const token = await token.create({ id: user.id });
 
         return {
             ...user,
