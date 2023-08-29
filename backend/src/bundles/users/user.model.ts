@@ -8,6 +8,8 @@ class UserModel extends AbstractModel {
 
     public 'passwordHash': string;
 
+    public 'role': string; // Change in bt-86 to role type
+
     public static override get tableName(): string {
         return DatabaseTableName.USERS;
     }
