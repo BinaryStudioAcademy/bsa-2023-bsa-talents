@@ -67,13 +67,11 @@ class UserEntity implements Entity {
         id: string;
         email: string;
         role: ValueOf<typeof UserRole>;
-        passwordHash: string;
     } {
         return {
             id: this.id as string,
             email: this.email,
             role: this.role,
-            passwordHash: this.passwordHash,
         };
     }
 

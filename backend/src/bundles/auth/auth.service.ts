@@ -70,7 +70,7 @@ class AuthService {
 
         const isEqualPassword = await this.encrypt.compare(
             password,
-            user.toObject().passwordHash,
+            user.toNewObject().passwordHash,
         );
 
         if (!isEqualPassword) {
