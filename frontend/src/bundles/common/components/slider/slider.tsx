@@ -15,6 +15,7 @@ type Properties = {
     containerClass?: string;
     sliderClass?: string;
     step?: number | null;
+    onChange: (event: Event, value: number | number[]) => void;
     valueLabelDisplay?: 'auto' | 'on' | 'off';
 };
 
@@ -24,6 +25,7 @@ const CustomSlider: React.FC<Properties> = ({
     value,
     step = null,
     valueLabelDisplay = 'on',
+    onChange,
 }) => {
     const getValueLabel = useCallback(
         (value: number): string | null => {
@@ -49,6 +51,7 @@ const CustomSlider: React.FC<Properties> = ({
                 step={step}
                 valueLabelDisplay={valueLabelDisplay}
                 valueLabelFormat={getValueLabel}
+                onChange={onChange}
             />
         </MUIBox>
     );
