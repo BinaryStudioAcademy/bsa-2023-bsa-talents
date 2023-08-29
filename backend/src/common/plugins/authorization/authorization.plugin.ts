@@ -3,7 +3,7 @@ import fp from 'fastify-plugin';
 import { ErrorMessages } from 'shared/build/enums/enums.js';
 
 import { type UserService } from '~/bundles/users/users.js';
-import { ControllerHooks } from '~/common/controller/controller.js';
+import { ControllerHooks } from '~/common/packages/controller/controller.js';
 import { type Token } from '~/common/packages/token/types/types.js';
 import { checkWhiteRoute } from '~/common/server-application/helpers/check-white-route.helper.js';
 
