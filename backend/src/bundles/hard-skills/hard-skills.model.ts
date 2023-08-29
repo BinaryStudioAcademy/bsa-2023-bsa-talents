@@ -18,10 +18,10 @@ class HardSkillsModel extends AbstractModel {
             relation: Model.ManyToManyRelation,
             modelClass: UserDetailsModel,
             join: {
-                from: 'hard_skills.id',
+                from: `${DatabaseTableName.HARD_SKILLS}.id`,
                 through: {
-                    from: 'talent_hard_skills.hardSkillsId',
-                    to: 'talent_hard_skills.userDetailsId',
+                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.hardSkillsId`,
+                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.userDetailsId`,
                 },
                 to: 'user_details.id',
             },

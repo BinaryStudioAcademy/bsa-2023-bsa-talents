@@ -82,7 +82,7 @@ class UserDetailsModel extends AbstractModel {
             relation: Model.HasOneRelation,
             modelClass: UserModel,
             join: {
-                from: 'user_details.userId',
+                from: `${DatabaseTableName.USER_DETAILS}.userId`,
                 to: 'users.id',
             },
         },
@@ -90,44 +90,44 @@ class UserDetailsModel extends AbstractModel {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: 'user_details.photoId',
-                to: 'files.id',
+                from: `${DatabaseTableName.USER_DETAILS}.photoId`,
+                to: `${DatabaseTableName.FILES}.id`,
             },
         },
         cv: {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: 'user_details.cvId',
-                to: 'files.id',
+                from: `${DatabaseTableName.USER_DETAILS}.cvId`,
+                to: `${DatabaseTableName.FILES}.id`,
             },
         },
         companyLogo: {
             relation: Model.HasOneRelation,
             modelClass: FileModel,
             join: {
-                from: 'user_details.companyLogoId',
-                to: 'files.id',
+                from: `${DatabaseTableName.USER_DETAILS}.companyLogoId`,
+                to: `${DatabaseTableName.FILES}.id`,
             },
         },
         talentHardSkills: {
             relation: Model.ManyToManyRelation,
             modelClass: HardSkillsModel,
             join: {
-                from: 'user_details.id',
+                from: `${DatabaseTableName.USER_DETAILS}.id`,
                 through: {
-                    from: 'talent_hard_skills.userDetailsId',
-                    to: 'talent_hard_skills.hardSkillsId',
+                    from: `${DatabaseTableName.TALENT_HARD_SKILLS}.userDetailsId`,
+                    to: `${DatabaseTableName.TALENT_HARD_SKILLS}.hardSkillsId`,
                 },
-                to: 'hard_skills.id',
+                to: `${DatabaseTableName.HARD_SKILLS}.id`,
             },
         },
         talentBadges: {
             relation: Model.HasManyRelation,
             modelClass: TalentBadgeModel,
             join: {
-                from: 'user_details.id',
-                to: 'talent_badges.userDetailsId',
+                from: `${DatabaseTableName.USER_DETAILS}.id`,
+                to: `${DatabaseTableName.TALENT_BADGES}.userDetailsId`,
             },
         },
     };
