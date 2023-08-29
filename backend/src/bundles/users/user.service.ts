@@ -44,7 +44,7 @@ class UserService implements Service {
     }
 
     public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
-        return this.userRepository.create(
+        return await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
                 passwordHash: 'HASH', // TODO
