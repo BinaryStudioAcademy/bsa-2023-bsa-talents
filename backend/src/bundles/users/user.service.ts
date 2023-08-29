@@ -47,7 +47,6 @@ class UserService implements Service {
         return this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: 'SALT', // TODO
                 passwordHash: 'HASH', // TODO
             }),
         );

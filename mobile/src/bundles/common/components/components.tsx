@@ -4,6 +4,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { Overlay } from './overlay/overlay';
+export { Slider } from './slider/slider';
 export { Text } from './text/text';
 export {
     ActivityIndicator,

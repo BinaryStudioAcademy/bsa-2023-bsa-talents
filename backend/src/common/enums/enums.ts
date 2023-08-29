@@ -1,4 +1,3 @@
-export { UserRole } from './user-role.enum.js';
 export {
     ApiPath,
     AppEnvironment,
