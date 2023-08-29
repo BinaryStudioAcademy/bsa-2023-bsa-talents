@@ -39,7 +39,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         }
 
         const { userService, tokenService } = services;
-        const { payload } = await tokenService.decode(authorization as string);
+        const { payload } = await tokenService.decode(token);
         const authorizedUser = await userService.findById(payload.id as number);
 
         if (!authorizedUser) {
