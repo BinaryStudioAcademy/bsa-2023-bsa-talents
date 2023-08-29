@@ -1,5 +1,4 @@
-import { type Http } from './interfaces/interfaces';
-import { type HttpOptions } from './types/types';
+import { type Http, type HttpOptions } from './types/types';
 
 class HttpBase implements Http {
     public load(path: string, options: HttpOptions): Promise<Response> {

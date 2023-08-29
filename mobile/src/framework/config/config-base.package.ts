@@ -3,8 +3,7 @@ import EnvConfig from 'react-native-config';
 import { type AppEnvironment } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-import { type Config } from './interfaces/interfaces';
-import { type EnvironmentSchema } from './types/types';
+import { type Config, type EnvironmentSchema } from './types/types';
 
 class ConfigBase implements Config {
     public ENV: EnvironmentSchema;
