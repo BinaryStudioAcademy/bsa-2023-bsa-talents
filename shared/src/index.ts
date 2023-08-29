@@ -4,6 +4,8 @@ export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     UsersApiPath,
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
     userSignUpValidationSchema,
