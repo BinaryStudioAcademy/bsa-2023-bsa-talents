@@ -1,7 +1,7 @@
-const AppEnvironmentMobile = {
+const OnboardingStepState = {
     FOCUSED: 'focused',
     COMPLETED: 'completed',
     DISABLED: 'disabled',
 } as const;
 
-export { AppEnvironmentMobile };
+export { OnboardingStepState };

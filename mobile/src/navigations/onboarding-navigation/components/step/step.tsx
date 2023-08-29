@@ -3,9 +3,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
 import {
-    AppEnvironmentMobile,
     Color,
     IconName,
+    OnboardingStepState,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
@@ -14,7 +14,7 @@ import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-type StepState = ValueOf<typeof AppEnvironmentMobile>;
+type StepState = ValueOf<typeof OnboardingStepState>;
 type Properties = {
     stepNumber: number;
     stepState: StepState;
@@ -30,13 +30,13 @@ const Step: React.FC<Properties> = ({
 }) => {
     const stepIcon = useMemo(() => {
         switch (stepState) {
-            case AppEnvironmentMobile.COMPLETED: {
+            case OnboardingStepState.COMPLETED: {
                 return {
                     name: IconName.CHECK_CIRCLE,
                     color: Color.PRIMARY,
                 };
             }
-            case AppEnvironmentMobile.FOCUSED: {
+            case OnboardingStepState.FOCUSED: {
                 return {
                     name: IconName.CIRCLE_OUTLINE,
                     color: Color.PRIMARY,
@@ -52,7 +52,7 @@ const Step: React.FC<Properties> = ({
         }
     }, [stepState]);
 
-    const disabled = stepState === AppEnvironmentMobile.DISABLED;
+    const disabled = stepState === OnboardingStepState.DISABLED;
 
     return (
         <Pressable
@@ -80,8 +80,8 @@ const Step: React.FC<Properties> = ({
                     category={TextCategory.MENU}
                     style={[
                         styles.screenName,
-                        (stepState === AppEnvironmentMobile.FOCUSED ||
-                            stepState === AppEnvironmentMobile.COMPLETED) &&
+                        (stepState === OnboardingStepState.FOCUSED ||
+                            stepState === OnboardingStepState.COMPLETED) &&
                             styles.activeScreenName,
                     ]}
                 >

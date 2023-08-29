@@ -4,7 +4,10 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 
-import { OnboardingScreenName } from '~/bundles/common/enums/enums';
+import {
+    OnboardingScreenName,
+    OnboardingStepState,
+} from '~/bundles/common/enums/enums';
 import { type OnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import {
     BsaBadges,
@@ -38,35 +41,35 @@ const OnboardingNavigation: React.FC = () => {
                 name={OnboardingScreenName.PROFILE}
                 component={Profile}
                 initialParams={{
-                    stepState: 'focused',
+                    stepState: OnboardingStepState.FOCUSED,
                 }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
                 initialParams={{
-                    stepState: 'focused',
+                    stepState: OnboardingStepState.FOCUSED,
                 }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.SKILLS_AND_PROJECTS}
                 component={SkillsAndProjects}
                 initialParams={{
-                    stepState: 'completed',
+                    stepState: OnboardingStepState.COMPLETED,
                 }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.CV_AND_CONTACTS}
                 component={CvAndContacts}
                 initialParams={{
-                    stepState: 'completed',
+                    stepState: OnboardingStepState.COMPLETED,
                 }}
             />
             <Drawer.Screen
                 name={OnboardingScreenName.PREVIEW}
                 component={Preview}
                 initialParams={{
-                    stepState: 'disabled',
+                    stepState: OnboardingStepState.DISABLED,
                 }}
             />
         </Drawer.Navigator>
