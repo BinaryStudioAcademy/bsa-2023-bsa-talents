@@ -84,3 +84,21 @@
         background-color: var(--hover-primary);
     }
 }
+
+@media screen and (width <= 660px) {
+    .stepName {
+        font-size: 10px;
+    }
+
+    .stepNumber {
+        font-size: 8px;
+    }
+
+    .stepButtons {
+        display: flex;
+
+        button {
+            width: 60px;
+        }
+    }
+}

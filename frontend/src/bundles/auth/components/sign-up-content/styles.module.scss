@@ -52,3 +52,17 @@
 .icon {
     margin-bottom: 20px;
 }
+
+@media screen and (width <= 660px) {
+    .registration {
+        flex-direction: column;
+    }
+
+    .career {
+        padding-inline: 40px;
+    }
+
+    .header {
+        padding-left: 40px;
+    }
+}

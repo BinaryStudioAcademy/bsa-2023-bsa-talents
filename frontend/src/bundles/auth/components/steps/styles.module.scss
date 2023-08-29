@@ -93,3 +93,11 @@
 .currentStepDescription {
     color: var(--text-primary-dark);
 }
+
+@media screen and (width <= 660px) {
+    .stepsWrapper {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--botticelli);
+    }
+}
