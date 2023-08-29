@@ -61,6 +61,12 @@ const FONTS = {
         fontSize: 13,
         color: Color.TEXT,
     },
+    [TextCategory.STEP]: {
+        fontFamily: FontFamily.INTER_BOLD,
+        fontSize: 13,
+        color: Color.PRIMARY,
+        textTransform: 'uppercase' as const,
+    },
 };
 
 export { FONTS };
