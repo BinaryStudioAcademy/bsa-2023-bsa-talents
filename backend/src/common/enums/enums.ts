@@ -1,6 +1,6 @@
-export { UserRole } from './user-role.enum.js';
 export {
     ApiPath,
     AppEnvironment,
+    ErrorMessages,
     ServerErrorType,
 } from 'shared/build/index.js';

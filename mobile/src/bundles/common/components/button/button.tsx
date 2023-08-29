@@ -8,9 +8,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Pressable, Text } from '~/bundles/common/components/components';
+import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
-import { ButtonType, TextCategory } from '../../enums/enums';
 import { styles } from './styles';
 
 type StylesProperties = {
@@ -20,7 +21,7 @@ type StylesProperties = {
     label: StyleProp<ViewStyle | TextStyle>;
 };
 
-type ButtonName = (typeof ButtonType)[keyof typeof ButtonType];
+type ButtonName = ValueOf<typeof ButtonType>;
 
 type Properties = {
     label: string;

@@ -1,6 +1,7 @@
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
+import multer from 'fastify-multer';
 
 import { userService } from '~/bundles/users/users.js';
 import { type Config } from '~/common/config/config.js';
@@ -51,11 +52,11 @@ class ServerAppBase implements ServerApp {
     }
 
     public addRoute(parameters: ServerAppRouteParameters): void {
-        const { path, method, handler, validation } = parameters;
-
+        const { path, method, preHandler, handler, validation } = parameters;
         this.app.route({
             url: path,
             method,
+            preHandler,
             handler,
             schema: {
                 body: validation?.body,
@@ -100,6 +101,7 @@ class ServerAppBase implements ServerApp {
     }
 
     public async initPlugins(): Promise<void> {
+        await this.app.register(multer.contentParser);
         await this.app.register(authorization, {
             services: {
                 userService,

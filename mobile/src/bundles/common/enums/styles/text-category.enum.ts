@@ -11,6 +11,7 @@ const TextCategory = {
     CAPTION: 'Caption',
     INPUT: 'Input',
     LABEL: 'Label',
+    STEP: 'Step',
 } as const;
 
 export { TextCategory };
