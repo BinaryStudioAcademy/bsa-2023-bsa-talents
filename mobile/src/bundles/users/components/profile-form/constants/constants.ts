@@ -1,4 +1,3 @@
-// TODO: remove
 const USER_PROFILE_DEFAULT_VALUES = {
     profileName: '',
     salaryExpectations: 0,

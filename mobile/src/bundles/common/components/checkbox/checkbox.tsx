@@ -5,24 +5,25 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
+import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from './styles';
-
 type Properties<T extends FieldValues> = CheckBoxProps & {
     label?: string;
     name: FieldPath<T>;
     control: Control<T, null>;
+    containerStyle?: StyleProp<ViewStyle>;
 };
 
 const Checkbox = <T extends FieldValues>({
     label,
     name,
     control,
+    containerStyle,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -31,9 +32,9 @@ const Checkbox = <T extends FieldValues>({
     return (
         <View
             style={[
+                containerStyle,
                 globalStyles.flexDirectionRow,
                 globalStyles.alignItemsFlexStart,
-                styles.container,
             ]}
         >
             <CheckBox
