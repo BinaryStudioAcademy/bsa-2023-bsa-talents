@@ -51,6 +51,7 @@ class Store {
                 users: usersReducer,
                 signUp: signUpReducer,
                 app: appReducer,
+                signUp: signUpReducer
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
