@@ -48,8 +48,7 @@ const RadioGroup = <T extends FieldValues>({
         styles['radio-group'],
         className,
     );
-    const firstElementIndex = 0;
-    const firstOption = options[firstElementIndex].value;
+    const [{ value: firstOption }] = options;
     const { field } = useFormController({
         name,
         control,
