@@ -31,6 +31,7 @@ type Properties = {
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: USER_SIGN_UP_DEFAULT_VALUES,
+        //todo: Validation schema (in PR bt-86: Sign-up)
         validationSchema: userSignUpValidationSchema,
     });
 
@@ -41,14 +42,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const radioButtons: RadioButtonProps[] = useMemo(
         () => [
             {
-                id: '1', // acts as primary key, should be unique and non-empty string
+                id: 'employer', // enum in (PR bt-86: Sign-up) shared/src/bundles/users/enums/user-role.enum.ts
                 label: 'I`m hiring',
                 value: 'option1',
                 color: Color.PRIMARY,
                 borderColor: Color.INPUT,
             },
             {
-                id: '2',
+                id: 'talent',
                 label: 'I`m looking for a job',
                 value: 'option2',
                 color: Color.PRIMARY,
@@ -102,7 +103,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <FormField
                     errors={errors}
-                    name="isHiring"
+                    name="role"
                     containerStyle={[
                         globalStyles.flexDirectionRow,
                         globalStyles.pr25,
@@ -112,7 +113,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         radioButtons={radioButtons}
                         control={control}
                         layout="row"
-                        name="isHiring"
+                        name="role"
                     />
                 </FormField>
             </View>

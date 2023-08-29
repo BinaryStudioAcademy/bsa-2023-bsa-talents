@@ -29,7 +29,6 @@ const RadioButtons = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
-    // console.log('dfdf', field);
     return (
         <View
             style={[
