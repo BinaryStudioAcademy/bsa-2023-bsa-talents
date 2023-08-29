@@ -16,6 +16,8 @@ import { notification } from '~/services/services.js';
 
 import { errorHandler } from './middlewares/middlewares.js';
 
+import { storage } from '../storage/storage.js';
+
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
@@ -26,6 +28,7 @@ type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     notification: typeof notification;
+    storage: typeof storage;
 };
 
 class Store {
@@ -63,6 +66,7 @@ class Store {
             authApi,
             userApi,
             notification,
+            storage,
         };
     }
 }

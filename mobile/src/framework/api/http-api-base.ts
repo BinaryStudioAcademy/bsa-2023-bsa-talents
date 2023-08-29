@@ -11,8 +11,11 @@ import { HttpError, HttpHeader } from '~/framework/http/http';
 import { type Storage, StorageKey } from '~/framework/storage/storage';
 import { configureString } from '~/helpers/helpers';
 
-import { type HttpApi } from './interfaces/interfaces';
-import { type HttpApiOptions, type HttpApiResponse } from './types/types';
+import {
+    type HttpApi,
+    type HttpApiOptions,
+    type HttpApiResponse,
+} from './types/types';
 
 type Constructor = {
     baseUrl: string;
