@@ -1,1 +1,4 @@
-export { userSignUpValidationSchema } from 'shared/build/index';
+export {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from 'shared/build/index';

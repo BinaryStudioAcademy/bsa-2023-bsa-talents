@@ -2,6 +2,7 @@ import joi from 'joi';
 
 import { UserValidationMessage } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
+import { constants } from './constants.js';
 
 const userSignIn = joi.object<UserSignInRequestDto, true>({
     email: joi
@@ -13,11 +14,18 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
             },
         })
         .required()
+        .min(constants.MIN_EMAIL_LENGTH)
+        .max(constants.MAX_LOGIN_INPUT_LENGTH)
         .messages({
             'string.email': UserValidationMessage.EMAIL_WRONG,
             'string.empty': UserValidationMessage.EMAIL_REQUIRE,
         }),
-    password: joi.string().trim().required(),
+    password: joi
+        .string()
+        .trim()
+        .required()
+        .min(constants.MIN_PASSWORD_LENGTH)
+        .max(constants.MAX_LOGIN_INPUT_LENGTH),
 });
 
 export { userSignIn };

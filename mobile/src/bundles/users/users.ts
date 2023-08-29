@@ -14,7 +14,12 @@ export { userApi };
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserSignInRequestDto,
+    type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types';
-export { userSignUpValidationSchema } from './validation-schemas/validation-schemas';
+export {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from './validation-schemas/validation-schemas';

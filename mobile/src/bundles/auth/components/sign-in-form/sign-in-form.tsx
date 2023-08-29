@@ -11,19 +11,23 @@ import {
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
+import {
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
+} from '~/bundles/users/users';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: () => void;
+    onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
+        validationSchema: userSignInValidationSchema,
     });
-
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
