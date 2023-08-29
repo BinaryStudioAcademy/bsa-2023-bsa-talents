@@ -16,7 +16,7 @@ import {
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { getValidClassNames } from '../../helpers/helpers.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { FormControl, Radio } from '../components.js';
 import styles from './styles.module.scss';
 
