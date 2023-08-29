@@ -2,7 +2,7 @@ import { type UserRole } from '~/common/enums/enums.js';
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 class UserEntity implements Entity {
-    private 'id': number | null;
+    private 'id': string | null;
 
     private 'email': string;
 
@@ -16,7 +16,7 @@ class UserEntity implements Entity {
         role,
         passwordHash,
     }: {
-        id: number | null;
+        id: string | null;
         email: string;
         role: ValueOf<typeof UserRole>;
         passwordHash: string;
@@ -33,7 +33,7 @@ class UserEntity implements Entity {
         role,
         passwordHash,
     }: {
-        id: number;
+        id: string;
         email: string;
         role: ValueOf<typeof UserRole>;
         passwordHash: string;
@@ -64,12 +64,12 @@ class UserEntity implements Entity {
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         email: string;
         role: ValueOf<typeof UserRole>;
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             email: this.email,
             role: this.role,
         };
