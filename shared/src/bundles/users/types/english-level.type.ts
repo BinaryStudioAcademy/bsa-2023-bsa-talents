@@ -1,4 +1,5 @@
 type EnglishLevel =
+    | 'No English'
     | 'Beginner'
     | 'Elementary'
     | 'Pre-Intermediate'
