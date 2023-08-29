@@ -9,6 +9,7 @@ export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Modal } from './modal/modal.js';
+export { Notifications } from './notifications/notifications.js';
 export { Radio, RadioGroup } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
