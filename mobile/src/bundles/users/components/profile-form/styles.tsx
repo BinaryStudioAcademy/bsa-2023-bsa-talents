@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
     employmentTypeContainer: {
         gap: 5,
     },
-    mlSpace: {
-        marginLeft: -5,
-    },
 });
 
 export { styles };

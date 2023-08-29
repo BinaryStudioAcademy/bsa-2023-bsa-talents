@@ -111,19 +111,16 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Full time"
                             name="employmentType.fullTime"
                             control={control}
-                            containerStyle={styles.mlSpace}
                         />
                         <Checkbox
                             label="Part-time"
                             name="employmentType.partTime"
                             control={control}
-                            containerStyle={styles.mlSpace}
                         />
                         <Checkbox
                             label="Freelance (projects)"
                             name="employmentType.freelance"
                             control={control}
-                            containerStyle={styles.mlSpace}
                         />
                     </View>
                     <View style={globalStyles.flex1}>
