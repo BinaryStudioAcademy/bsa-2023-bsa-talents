@@ -30,12 +30,7 @@ const RadioButtons = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     return (
-        <View
-            style={[
-                globalStyles.flexDirectionRow,
-                globalStyles.alignItemsFlexStart,
-            ]}
-        >
+        <View>
             <RadioGroup
                 radioButtons={radioButtons}
                 onPress={onChange}
