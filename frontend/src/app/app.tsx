@@ -2,6 +2,7 @@ import reactLogo from '~/assets/img/react.svg';
 import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Link,
+    Notifications,
     RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -84,6 +85,8 @@ const App: React.FC = () => {
                     </ul>
                 </>
             )}
+
+            <Notifications />
         </>
     );
 };

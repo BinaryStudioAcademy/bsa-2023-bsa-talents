@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import {
     type Palette as MuiPalette,
     type PaletteOptions as MuiPaletteOptions,
