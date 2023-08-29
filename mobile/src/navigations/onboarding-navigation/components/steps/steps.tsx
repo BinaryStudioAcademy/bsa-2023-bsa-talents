@@ -34,6 +34,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
             <View style={styles.verticalLine} />
 
             {state.routes.map((route, index) => {
+                // TODO: add logic to step completion
                 const isFocused = state.index === index;
                 const routeName = route.name;
                 const { isCompleted, disabled } = route.params;
@@ -49,15 +50,19 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                     }
                 };
 
+                const stepState = {
+                    COMPLETED: isCompleted,
+                    FOCUSED: isFocused,
+                    DISABLED: disabled,
+                } as const;
+
                 return (
                     <Step
                         key={route.key}
                         routeName={routeName}
                         onPress={onPress}
                         stepNumber={index}
-                        isFocused={isFocused}
-                        isCompleted={isCompleted}
-                        disabled={disabled}
+                        stepState={stepState}
                     />
                 );
             })}

@@ -3,15 +3,20 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
+type StepState = {
+    FOCUSED: boolean;
+    COMPLETED: boolean;
+    DISABLED: boolean;
+};
+
 type Properties = {
     stepNumber: number;
-    isFocused: boolean;
-    isCompleted: boolean;
-    disabled: boolean;
+    stepState: StepState;
     routeName: string;
     onPress: () => void;
 };
@@ -19,18 +24,36 @@ type Properties = {
 const Step: React.FC<Properties> = ({
     stepNumber,
     onPress,
-    isFocused,
-    isCompleted,
-    disabled,
     routeName,
+    stepState,
 }) => {
     const number = 1;
-    // prettier-ignore
+
+    const stepIcon = useMemo(() => {
+        if (stepState.COMPLETED) {
+            return {
+                name: IconName.CHECK_CIRCLE,
+                color: Color.PRIMARY,
+            };
+        } else if (stepState.FOCUSED) {
+            return {
+                name: IconName.CIRCLE_OUTLINE,
+                color: Color.PRIMARY,
+                style: styles.activeIcon,
+            };
+        } else {
+            return {
+                name: IconName.CIRCLE,
+                color: Color.INPUT,
+            };
+        }
+    }, [stepState]);
+
     return (
         <Pressable
             key={stepNumber}
             onPress={onPress}
-            disabled={disabled}
+            disabled={stepState.DISABLED}
             style={[
                 globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
@@ -38,22 +61,12 @@ const Step: React.FC<Properties> = ({
                 styles.singleStep,
             ]}
         >
-            {isCompleted ? (
-                <Icon
-                    name={IconName.CHECK_CIRCLE}
-                    color={Color.PRIMARY}
-                    size={30}
-                />
-            ) : (isFocused ? (
-                <Icon
-                    name={IconName.CIRCLE_OUTLINE}
-                    color={Color.PRIMARY}
-                    size={30}
-                    style={styles.activeIcon}
-                />
-            ) : (
-                <Icon name={IconName.CIRCLE} color={Color.INPUT} size={30} />
-            ))}
+            <Icon
+                name={stepIcon.name}
+                color={stepIcon.color}
+                size={30}
+                style={stepIcon.style}
+            />
             <View style={[globalStyles.mr15, styles.textCon]}>
                 <Text category={TextCategory.STEP} style={styles.step}>
                     Step 0{stepNumber + number}
@@ -62,7 +75,8 @@ const Step: React.FC<Properties> = ({
                     category={TextCategory.MENU}
                     style={[
                         styles.screenName,
-                        (isFocused || isCompleted) && styles.activeScreenName,
+                        (stepState.FOCUSED || stepState.COMPLETED) &&
+                            styles.activeScreenName,
                     ]}
                 >
                     {routeName}
