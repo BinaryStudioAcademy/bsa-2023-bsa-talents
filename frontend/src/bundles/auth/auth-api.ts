@@ -1,5 +1,6 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import {
+    type UserFindResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
@@ -34,6 +35,18 @@ class AuthApi extends HttpApiBase {
         );
 
         return await response.json<UserSignUpResponseDto>();
+    }
+
+    public async getByToken(): Promise<UserFindResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(AuthApiPath.CURRENT_USER, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserFindResponseDto>();
     }
 }
 

@@ -1,4 +1,5 @@
 import reactLogo from '~/assets/img/react.svg';
+import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Link,
     RouterOutlet,
@@ -17,11 +18,13 @@ import { StorageKey } from '~/framework/storage/storage.js';
 const App: React.FC = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
-    const { users, dataStatus, currentUser } = useAppSelector(({ users }) => ({
-        users: users.users,
-        dataStatus: users.dataStatus,
-        currentUser: users.currentUser,
-    }));
+    const { users, dataStatus, currentUser } = useAppSelector(
+        ({ users, auth }) => ({
+            users: users.users,
+            dataStatus: users.dataStatus,
+            currentUser: auth.currentUser,
+        }),
+    );
 
     const isRoot = pathname === AppRoute.ROOT;
 
@@ -35,7 +38,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (token) {
-            void dispatch(userActions.loadUser());
+            void dispatch(authActions.loadUser());
         }
     }, [dispatch, token]);
 

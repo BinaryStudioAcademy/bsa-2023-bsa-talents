@@ -6,7 +6,7 @@ import {
     ControllerBase,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AuthService } from './auth.service.js';
@@ -32,6 +32,12 @@ class AuthController extends ControllerBase {
                         body: UserSignUpRequestDto;
                     }>,
                 ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.CURRENT_USER,
+            method: 'GET',
+            handler: (options) => this.getCurrentUser(options),
         });
     }
 
@@ -75,6 +81,64 @@ class AuthController extends ControllerBase {
             status: HttpCode.CREATED,
             payload: await this.authService.signUp(options.body),
         };
+    }
+
+    /**
+     * @swagger
+     * /auth/current-user:
+     *   get:
+     *     tags:
+     *       - Auth
+     *     description: Get the current user based on the provided token
+     *     security:
+     *       - BearerAuth: []
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/User'
+     *       401:
+     *         description: Unauthorized
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
+     *       404:
+     *         description: User not found
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
+     */
+
+    private async getCurrentUser(
+        options: ApiHandlerOptions,
+    ): Promise<ApiHandlerResponse> {
+        const [, token] = options.headers.authorization?.split(' ') ?? [];
+
+        if (!token) {
+            throw new HttpError({
+                status: HttpCode.UNAUTHORIZED,
+                message: 'Authorization token is missing',
+            });
+        }
+
+        try {
+            const user = await this.authService.findByToken(token);
+
+            return {
+                status: HttpCode.OK,
+                payload: user,
+            };
+        } catch (error) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: 'No user found for provided token',
+                cause: error,
+            });
+        }
     }
 }
 

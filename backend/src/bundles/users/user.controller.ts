@@ -1,9 +1,5 @@
 import { type UserService } from '~/bundles/users/user.service.js';
-import { type UserGetCurrentUserRequestDto } from '~/bundles/users/users.js';
-import {
-    type ApiHandlerOptions,
-    type ApiHandlerResponse,
-} from '~/common/controller/controller.js';
+import { type ApiHandlerResponse } from '~/common/controller/controller.js';
 import { ControllerBase } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
@@ -39,17 +35,6 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: () => this.findAll(),
         });
-
-        this.addRoute({
-            path: UsersApiPath.CURRENT_USER,
-            method: 'POST',
-            handler: (options) =>
-                this.getCurrentUser(
-                    options as ApiHandlerOptions<{
-                        body: UserGetCurrentUserRequestDto;
-                    }>,
-                ),
-        });
     }
 
     /**
@@ -72,42 +57,6 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
-        };
-    }
-
-    /**
-     * @swagger
-     * /users/current:
-     *   post:
-     *     tags:
-     *       - Users
-     *     description: Get the current user based on the provided token
-     *     requestBody:
-     *       description: User token
-     *       required: true
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/UserGetCurrentUserRequestDto'
-     *     responses:
-     *       201:
-     *         description: Successful operation
-     *         content:
-     *           application/json:
-     *             schema:
-     *               $ref: '#/components/schemas/User'
-     */
-
-    private async getCurrentUser(
-        options: ApiHandlerOptions<{
-            body: UserGetCurrentUserRequestDto;
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        const [, token] = options.body.token.split(' ');
-
-        return {
-            status: HttpCode.CREATED,
-            payload: await this.userService.findByToken(token),
         };
     }
 }

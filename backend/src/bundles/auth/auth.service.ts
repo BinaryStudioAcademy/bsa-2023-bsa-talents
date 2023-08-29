@@ -1,4 +1,5 @@
 import {
+    type UserFindResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
@@ -23,6 +24,12 @@ class AuthService {
     ): Promise<UserSignUpResponseDto> {
         const user = await this.userService.create(userRequestDto);
         return this.signIn(user.toObject().id);
+    }
+
+    public async findByToken(
+        token: string,
+    ): Promise<UserFindResponseDto | undefined> {
+        return await this.userService.findByToken(token);
     }
 }
 
