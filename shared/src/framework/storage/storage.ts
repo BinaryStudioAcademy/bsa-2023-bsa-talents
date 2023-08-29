@@ -1,1 +1,1 @@
-export { type Storage } from './interfaces/interfaces';
+export { type Storage } from './types/types';

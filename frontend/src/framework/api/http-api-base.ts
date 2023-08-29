@@ -11,8 +11,11 @@ import { HttpError, HttpHeader } from '~/framework/http/http.js';
 import { type Storage, StorageKey } from '~/framework/storage/storage.js';
 import { configureString } from '~/helpers/helpers.js';
 
-import { type HttpApi } from './interfaces/interfaces.js';
-import { type HttpApiOptions, type HttpApiResponse } from './types/types.js';
+import {
+    type HttpApi,
+    type HttpApiOptions,
+    type HttpApiResponse,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
