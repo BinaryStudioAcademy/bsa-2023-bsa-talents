@@ -1,5 +1,7 @@
 import { BadgeType } from '~/bundles/users/enums/enums';
 
+// TODO: refactor when there'll be real data
+
 const DEFAULT_VALUE_IS_CHECKED = {
     [BadgeType.AVERAGE_PROJECT_SCORE]: true,
     [BadgeType.AVERAGE_LECTURE_SCORE]: true,

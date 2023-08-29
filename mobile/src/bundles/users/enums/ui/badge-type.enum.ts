@@ -1,3 +1,5 @@
+// TODO: remove when we'll get them from backend
+
 const BadgeType = {
     AVERAGE_PROJECT_SCORE: 'You average project score',
     AVERAGE_LECTURE_SCORE: 'You average lecture score',

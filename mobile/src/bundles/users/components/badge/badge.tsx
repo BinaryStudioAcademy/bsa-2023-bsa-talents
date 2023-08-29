@@ -31,6 +31,7 @@ const Badge: React.FC<Properties> = ({
     value,
     iconSize = defaultIconSize,
 }) => {
+    // TODO: replace with real data
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
             [BadgeType.AVERAGE_LECTURE_SCORE]: {
