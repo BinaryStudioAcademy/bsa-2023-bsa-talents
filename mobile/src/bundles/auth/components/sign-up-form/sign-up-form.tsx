@@ -67,6 +67,17 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     secureTextEntry
                 />
             </FormField>
+
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentCenter,
+                ]}
+            >
+                {/* <FormField errors={errors} label="I am hiring" name="email"></FormField>
+                <FormField errors={errors} label="I'm looking for a job" name="email"></FormField> */}
+            </View>
+
             <Button
                 label="Sign up"
                 style={[globalStyles.mt25, globalStyles.pv15]}
