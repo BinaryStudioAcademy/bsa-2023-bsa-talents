@@ -14,7 +14,10 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    type OnboardingRouteProperties,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 
 import { Step } from '../components';
 import { styles } from './styles';
@@ -47,7 +50,8 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                     typeof OnboardingScreenName
                 >;
                 const stepNumber = OnboardingScreenNumber[routeName];
-                const { isCompleted, disabled } = route.params;
+                const { isCompleted, disabled } =
+                    route.params as OnboardingRouteProperties;
 
                 const stepState = {
                     COMPLETED: isCompleted,

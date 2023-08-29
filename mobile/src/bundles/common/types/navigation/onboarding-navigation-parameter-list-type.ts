@@ -1,19 +1,12 @@
 import { type OnboardingScreenName } from '~/bundles/common/enums/enums';
 
+import { type OnboardingRouteProperties } from './navigation';
+
 type OnboardingNavigationParameterList = {
-    [OnboardingScreenName.PROFILE]: { disabled: boolean; isCompleted: boolean };
-    [OnboardingScreenName.BSA_BADGES]: {
-        disabled: boolean;
-        isCompleted: boolean;
-    };
-    [OnboardingScreenName.SKILLS_AND_PROJECTS]: {
-        disabled: boolean;
-        isCompleted: boolean;
-    };
-    [OnboardingScreenName.CV_AND_CONTACTS]: {
-        disabled: boolean;
-        isCompleted: boolean;
-    };
-    [OnboardingScreenName.PREVIEW]: { disabled: boolean; isCompleted: boolean };
+    [OnboardingScreenName.PROFILE]: OnboardingRouteProperties;
+    [OnboardingScreenName.BSA_BADGES]: OnboardingRouteProperties;
+    [OnboardingScreenName.SKILLS_AND_PROJECTS]: OnboardingRouteProperties;
+    [OnboardingScreenName.CV_AND_CONTACTS]: OnboardingRouteProperties;
+    [OnboardingScreenName.PREVIEW]: OnboardingRouteProperties;
 };
 export { type OnboardingNavigationParameterList };

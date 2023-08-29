@@ -4,6 +4,7 @@ export {
     type BottomTabNavigationParameterList,
     type NavigationScreenProperties,
     type OnboardingNavigationParameterList,
+    type OnboardingRouteProperties,
     type RootNavigationParameterList,
 } from './navigation/navigation';
 export {
