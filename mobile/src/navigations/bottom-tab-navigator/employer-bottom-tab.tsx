@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { BottomTabScreenName } from '~/bundles/common/enums/enums';
 import { type BottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { Mail, Person, SharedFolder } from '~/bundles/users/screens/screens';
+import { Mail, Person, SharedFolder } from '~/bundles/employer/screens/screens';
 
 import { bottomTabStyles } from './styles';
 
@@ -12,7 +12,7 @@ const BottomTab = createBottomTabNavigator<BottomTabNavigationParameterList>();
 
 const iconSize = 24;
 
-const MainBottomTabNavigator: React.FC = () => {
+const EmployerBottomTabNavigator: React.FC = () => {
     return (
         <BottomTab.Navigator screenOptions={bottomTabStyles}>
             <BottomTab.Screen
@@ -50,4 +50,4 @@ const MainBottomTabNavigator: React.FC = () => {
     );
 };
 
-export { MainBottomTabNavigator };
+export { EmployerBottomTabNavigator };

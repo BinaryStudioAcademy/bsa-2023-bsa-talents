@@ -2,9 +2,10 @@ export { type AsyncThunkConfig } from './app/app';
 export {
     type AuthNavigationParameterList,
     type BottomTabNavigationParameterList,
+    type EmployerOnboardingNavigationParameterList,
     type NavigationScreenProperties,
-    type OnboardingNavigationParameterList,
     type RootNavigationParameterList,
+    type TalentOnboardingNavigationParameterList,
 } from './navigation/navigation';
 export {
     type ServerErrorDetail,

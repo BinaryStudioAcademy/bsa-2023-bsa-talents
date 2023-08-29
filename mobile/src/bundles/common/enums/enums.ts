@@ -2,9 +2,10 @@ export { DataStatus } from './app/app';
 export {
     AuthScreenName,
     BottomTabScreenName,
-    OnboardingScreenName,
-    OnboardingScreenNumber,
+    EmployerOnboardingScreenName,
     RootScreenName,
+    TalentOnboardingScreenName,
+    TalentOnboardingScreenNumber,
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export { AvatarType, ButtonType, Color, IconName } from './ui/ui';

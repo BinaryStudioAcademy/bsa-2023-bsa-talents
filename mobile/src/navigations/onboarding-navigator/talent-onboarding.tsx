@@ -1,15 +1,15 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 
-import { OnboardingScreenName } from '~/bundles/common/enums/enums';
-import { type OnboardingNavigationParameterList } from '~/bundles/common/types/types';
-import { BsaBadges, Profile } from '~/bundles/users/screens/screens';
+import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import { BsaBadges, Profile } from '~/bundles/talent/screens/screens';
 
 import { Header } from './components/components';
 
-const Drawer = createDrawerNavigator<OnboardingNavigationParameterList>();
+const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
-const OnboardingNavigation: React.FC = () => {
+const TalentOnboardingNavigator: React.FC = () => {
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -20,15 +20,15 @@ const OnboardingNavigation: React.FC = () => {
             }}
         >
             <Drawer.Screen
-                name={OnboardingScreenName.PROFILE}
+                name={TalentOnboardingScreenName.PROFILE}
                 component={Profile}
             />
             <Drawer.Screen
-                name={OnboardingScreenName.BSA_BADGES}
+                name={TalentOnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
             />
         </Drawer.Navigator>
     );
 };
 
-export { OnboardingNavigation };
+export { TalentOnboardingNavigator };
