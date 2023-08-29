@@ -37,12 +37,12 @@ class UserApi extends HttpApiBase {
     public async getByToken(): Promise<UserFindResponseDto> {
         const token = localStorage.getItem(StorageKey.TOKEN);
         const response = await this.load(
-            this.getFullEndpoint(UsersApiPath.ROOT, {}),
+            this.getFullEndpoint(UsersApiPath.CURRENT_USER, {}),
             {
                 method: 'POST',
                 contentType: ContentType.JSON,
-                hasAuth: false,
-                payload: JSON.stringify({ token }),
+                hasAuth: true,
+                payload: JSON.stringify({ token: `Bearer ${token}` }),
             },
         );
         return await response.json<UserFindResponseDto>();
