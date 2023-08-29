@@ -1,5 +1,10 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type CountryList,
+    type EmploymentType,
+    type EnglishLevel,
+    type NotConsidered,
+    type PreferredLanguages,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
