@@ -35,7 +35,11 @@ export {
     type HttpOptions,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
-export { configureString, getAvatarInitials } from './helpers/helpers.js';
+export {
+    configureString,
+    createNumberRangeArray,
+    getAvatarInitials,
+} from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
     type ServerErrorDetail,

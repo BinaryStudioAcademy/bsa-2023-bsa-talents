@@ -9,6 +9,7 @@ const SignUpStep1ValidationRule = {
     MAX_YEARS_OF_EXPERIENCE: 5,
     MAX_YEARS_OF_EXPERIENCE_STRING: '5+',
     YEARS_OF_EXPERIENCE_STEP: 0.5,
+    EMPLOYMENT_TYPES_MIN_LENGTH: 1,
     EMPLOYMENT_TYPES: [
         'Full time',
         'Part-time',
