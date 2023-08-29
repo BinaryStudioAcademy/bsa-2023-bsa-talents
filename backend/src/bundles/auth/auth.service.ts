@@ -38,7 +38,7 @@ class AuthService {
         if (userByEmail) {
             throw new HttpError({
                 message: ErrorMessages.EMAIL_ALREADY_EXISTS,
-                status: HttpCode.CONFLICT,
+                status: HttpCode.BAD_REQUEST,
             });
         }
 
