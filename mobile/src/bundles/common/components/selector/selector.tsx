@@ -43,7 +43,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
         : IconName.ARROW_DROP_DOWN;
 
     return (
-        <View style={{ position: 'relative' }}>
+        <View style={styles.container}>
             <Pressable
                 style={[
                     globalStyles.pv10,
