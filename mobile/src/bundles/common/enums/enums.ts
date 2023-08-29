@@ -3,6 +3,7 @@ export {
     AuthScreenName,
     BottomTabScreenName,
     OnboardingScreenName,
+    OnboardingScreenNumber,
     RootScreenName,
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';

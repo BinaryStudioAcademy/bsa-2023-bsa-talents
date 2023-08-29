@@ -28,7 +28,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
             headers: { authorization },
         } = request;
 
-        if (checkWhiteRoute(routerPath, routerMethod)) {
+        if (checkWhiteRoute({ routerPath, routerMethod })) {
             return;
         }
 

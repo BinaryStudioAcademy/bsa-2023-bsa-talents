@@ -7,6 +7,10 @@ const SIZES = {
     height100: {
         height: '100%' as ViewStyle['height'],
     },
+    borderRadiusTop8: {
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+    },
     borderRadius10: {
         borderRadius: 10,
     },

@@ -1,5 +1,11 @@
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
-import { userSignUpValidationSchema } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
+import {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from '~/bundles/users/users.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -33,6 +39,20 @@ class AuthController extends ControllerBase {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: AuthApiPath.SIGN_IN,
+            method: 'POST',
+            validation: {
+                body: userSignInValidationSchema,
+            },
+            handler: (options) =>
+                this.signIn(
+                    options as ApiHandlerOptions<{
+                        body: UserSignInRequestDto;
+                    }>,
+                ),
+        });
     }
 
     /**
@@ -62,9 +82,8 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
+     *                  token:
+     *                    type: string
      */
     private async signUp(
         options: ApiHandlerOptions<{
@@ -74,6 +93,46 @@ class AuthController extends ControllerBase {
         return {
             status: HttpCode.CREATED,
             payload: await this.authService.signUp(options.body),
+        };
+    }
+    /**
+     * @swagger
+     * /auth/sign-in:
+     *    post:
+     *      tags: [Auth]
+     *      description: Sign in user into the system
+     *      requestBody:
+     *        description: User auth data
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                email:
+     *                  type: string
+     *                  format: email
+     *                password:
+     *                  type: string
+     *      responses:
+     *        201:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  token:
+     *                    type: string
+     */
+    private async signIn(
+        options: ApiHandlerOptions<{
+            body: UserSignInRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.authService.signIn(options.body),
         };
     }
 }

@@ -1,6 +1,7 @@
 import reactLogo from '~/assets/img/react.svg';
 import {
     Link,
+    Notifications,
     RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -60,6 +61,8 @@ const App: React.FC = () => {
                     </ul>
                 </>
             )}
+
+            <Notifications />
         </>
     );
 };
