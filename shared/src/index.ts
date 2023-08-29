@@ -16,6 +16,7 @@ export {
     AppEnvironment,
     ContentType,
     ErrorMessages,
+    FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
