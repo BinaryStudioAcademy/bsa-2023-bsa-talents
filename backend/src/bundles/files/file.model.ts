@@ -6,7 +6,7 @@ import {
 class FileModel extends AbstractModel {
     public 'url': string;
 
-    public 'file_name': string;
+    public 'fileName': string;
 
     public 'contentType': string;
 
