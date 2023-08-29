@@ -1,10 +1,9 @@
-import { ErrorMessages } from 'shared/build/enums/enums.js';
-
 import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { tokenService } from '~/common/services/services.js';
 
