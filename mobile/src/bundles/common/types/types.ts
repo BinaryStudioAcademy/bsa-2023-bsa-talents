@@ -1,4 +1,5 @@
 export { type AsyncThunkConfig } from './app/app';
+export { type AvatarProperty } from './components/avatar-property';
 export {
     type AuthNavigationParameterList,
     type BottomTabNavigationParameterList,

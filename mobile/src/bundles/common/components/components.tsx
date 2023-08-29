@@ -1,3 +1,4 @@
+export { Avatar } from './avatar/avatar';
 export { Button } from './button/button';
 export { FormField } from './form-field/form-field';
 export { Input } from './input/input';
