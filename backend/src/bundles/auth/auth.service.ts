@@ -8,7 +8,7 @@ import {
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { tokenService } from '~/common/services/services.js';
+import { token } from '~/common/packages/packages.js';
 
 class AuthService {
     private userService: UserService;
@@ -21,11 +21,10 @@ class AuthService {
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto> {
         const user = await this.verifyLoginCredentials(userRequestDto);
-        const token = await tokenService.create({ id: user.id });
 
         return {
             ...user,
-            token,
+            token: await token.create({ id: user.id }),
         };
     }
 
@@ -43,11 +42,10 @@ class AuthService {
         }
 
         const user = await this.userService.create(userRequestDto);
-        const token = await tokenService.create({ id: user.id });
 
         return {
             ...user,
-            token,
+            token: await token.create({ id: user.id }),
         };
     }
 

@@ -22,7 +22,7 @@ class UserService implements Service {
     }
 
     public async findById(
-        id: number,
+        id: string,
     ): Promise<UserFindResponseDto | undefined> {
         const user = await this.userRepository.find({ id });
         return user ? user.toObject() : undefined;

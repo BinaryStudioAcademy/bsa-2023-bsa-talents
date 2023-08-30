@@ -6,14 +6,14 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { ApiPath } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
-    ControllerBase,
-} from '~/common/controller/controller.js';
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
-import { type Logger } from '~/common/logger/logger.js';
+} from '~/common/packages/controller/controller.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
@@ -184,20 +184,19 @@ class AuthController extends ControllerBase {
             });
         }
 
-        try {
-            const user = await this.authService.findByToken(token);
+        const user = await this.authService.findByToken(token);
 
-            return {
-                status: HttpCode.OK,
-                payload: user,
-            };
-        } catch (error) {
+        if (!user) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
                 message: 'No user found for provided token',
-                cause: error,
             });
         }
+
+        return {
+            status: HttpCode.OK,
+            payload: user,
+        };
     }
 }
 
