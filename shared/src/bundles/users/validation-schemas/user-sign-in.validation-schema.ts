@@ -25,7 +25,11 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
         .trim()
         .required()
         .min(constants.MIN_PASSWORD_LENGTH)
-        .max(constants.MAX_LOGIN_INPUT_LENGTH),
+        .max(constants.MAX_LOGIN_INPUT_LENGTH)
+        .regex(constants.PASSWORD_REGEXP)
+        .messages({
+            'string.pattern.base': UserValidationMessage.PASSWORD_WRONG,
+        }),
 });
 
 export { userSignIn };
