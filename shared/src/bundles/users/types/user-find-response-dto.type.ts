@@ -1,5 +1,5 @@
 type UserFindResponseDto = {
-    id: number;
+    id: string;
     email: string;
 };
 
