@@ -1,4 +1,10 @@
 import { FormHelperText } from '@mui/material';
+import {
+    Controller,
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from 'react-hook-form';
 
 import {
     Button,
@@ -27,6 +33,7 @@ type Properties = {
     onSubmit: (payload: UserSignUpStep1Dto) => void;
 };
 const options = [
+    { value: 0, label: '0' },
     { value: 20, label: '20' },
     { value: 40, label: '40' },
     { value: 60, label: '60' },
@@ -34,18 +41,12 @@ const options = [
     { value: 100, label: '100' },
 ];
 const optionsSelect = [
-    { value: 0, label: 'Option' },
+    { value: 'Option', label: 'Option' },
     { value: '20', label: '20' },
     { value: '40', label: '40' },
 ];
 const EMPTY_OBJECT_LENGTH = 0;
 const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
-    const [experience, setExperience] = useState<number>(
-        DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears,
-    );
-    const [employmentTypes, setEmploymentTypes] = useState<string[]>(
-        DEFAULT_SIGN_UP_PAYLOAD_STEP1.employmentTypes,
-    );
     const [hasError, setHasError] = useState<boolean>(false);
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD_STEP1,
@@ -54,11 +55,9 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (formData: UserSignUpStep1Dto): void => {
-            formData.experienceYears = experience;
-            formData.employmentTypes = employmentTypes;
             onSubmit(formData);
         },
-        [onSubmit, experience, employmentTypes],
+        [onSubmit],
     );
     useEffect(() => {
         if (Object.keys(errors).length === EMPTY_OBJECT_LENGTH) {
@@ -68,38 +67,86 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
         }
     }, [errors]);
 
-    const handleSliderChange = useCallback(
-        (event: Event, newValue: number | number[]): void => {
-            if (typeof newValue === 'number') {
-                setExperience(newValue);
-            }
-        },
-        [setExperience],
-    );
-
-    const handleCheckedCheckboxes = useCallback(
-        (
-            event: React.ChangeEvent<HTMLInputElement>,
-            checked: boolean,
-        ): void => {
-            const checkboxValue = event.target.value;
-            if (checked) {
-                setEmploymentTypes((employmentTypes) => [
-                    ...employmentTypes,
-                    checkboxValue,
-                ]);
-            } else {
-                setEmploymentTypes((employmentTypes) =>
-                    employmentTypes.filter((type) => type !== checkboxValue),
-                );
-            }
-        },
-        [setEmploymentTypes],
-    );
-
     const handleValidateBeforeSubmit = useCallback((): void => {
         void handleSubmit(handleFormSubmit)();
     }, [handleSubmit, handleFormSubmit]);
+
+    const handleCheckboxChange = useCallback(
+        (
+            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>,
+            selectedValue: string,
+        ): void => {
+            const updatedValue = field.value.includes(selectedValue)
+                ? field.value.filter((item) => item !== selectedValue)
+                : [...field.value, selectedValue];
+            field.onChange(updatedValue);
+        },
+        [],
+    );
+
+    const handleCheckboxOnChange = useCallback(
+        (
+            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>,
+            selectedValue: string,
+        ) =>
+            (): void => {
+                handleCheckboxChange(field, selectedValue);
+            },
+        [handleCheckboxChange],
+    );
+
+    const renderCheckboxes = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<UserSignUpStep1Dto>;
+        }): React.ReactElement => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { ref, ...newField } = field;
+            return (
+                <>
+                    {optionsSelect.map((option) => (
+                        <Checkbox
+                            {...newField}
+                            key={option.value}
+                            label={option.label}
+                            value={option.value}
+                            onChange={handleCheckboxOnChange(
+                                field,
+                                option.value,
+                            )}
+                        />
+                    ))}
+                </>
+            );
+        },
+        [handleCheckboxOnChange],
+    );
+
+    const renderSlider = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<UserSignUpStep1Dto, 'experienceYears'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<UserSignUpStep1Dto>;
+        }): React.ReactElement => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { ref, ...newField } = field;
+            return (
+                <Slider
+                    {...newField}
+                    value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
+                    marks={options}
+                    step={null}
+                />
+            );
+        },
+        [],
+    );
+
     return (
         <>
             <FormControl hasError={hasError} variant={InputVariant.OUTLINED}>
@@ -118,6 +165,7 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
                     type="text"
                     errors={errors}
                     name={'salaryExpectation'}
+                    adornmentText="$"
                 />
                 <Typography variant={'label'}>Job title*</Typography>
                 <Select
@@ -126,13 +174,19 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
                     options={optionsSelect}
                 />
                 <Typography variant={'label'}>Experience*</Typography>
-                <Slider
+                {/* <Slider
                     marks={options}
                     value={40}
                     onChange={handleSliderChange}
                     step={null}
-                    sliderClass=""
-                />
+                /> */}
+                <FormControl>
+                    <Controller
+                        control={control}
+                        name="experienceYears"
+                        render={renderSlider}
+                    />
+                </FormControl>
                 <Typography variant={'label'}>Current location*</Typography>
                 <Select
                     control={control}
@@ -140,14 +194,13 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
                     options={optionsSelect}
                 />
                 <Typography variant={'label'}>Employment type*</Typography>
-                {options.map((option) => (
-                    <Checkbox
-                        key={option.value}
-                        label={option.label}
-                        value={option.value}
-                        onChange={handleCheckedCheckboxes}
+                <FormControl>
+                    <Controller
+                        control={control}
+                        name="employmentTypes"
+                        render={renderCheckboxes}
                     />
-                ))}
+                </FormControl>
                 <Typography variant={'label'}>
                     Briefly tell employers about your experience*
                 </Typography>
