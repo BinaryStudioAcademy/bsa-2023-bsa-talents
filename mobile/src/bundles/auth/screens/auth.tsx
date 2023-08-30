@@ -11,7 +11,10 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
-import { type UserSignUpRequestDto } from '~/bundles/users/users';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users';
 
 import { SignInForm, SignUpForm } from '../components/components';
 
@@ -30,9 +33,12 @@ const Auth: React.FC = () => {
         }
     }, [isSignUpScreen, dispatch]);
 
-    const handleSignInSubmit = useCallback(() => {
-        // TODO: handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
