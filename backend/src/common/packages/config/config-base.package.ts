@@ -90,6 +90,14 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            CRYPT: {
+                PASSWORD_SALT_ROUNDS: {
+                    doc: 'Salt rounds for password encryption',
+                    format: Number,
+                    env: 'PASSWORD_SALT_ROUNDS',
+                    default: null,
+                },
+            },
         });
     }
 }
