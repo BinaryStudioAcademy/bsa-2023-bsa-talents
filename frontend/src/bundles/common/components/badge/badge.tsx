@@ -1,9 +1,9 @@
-import { HeadphonesOutlined } from '@mui/icons-material';
-import { SvgIcon } from '@mui/material';
+import { Grid } from '@mui/material';
 import { type ReactElement } from 'react';
 
 import { BadgeColors } from '../../enums/badge-colors.enum.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
+import { BadgeIcon } from '../badge-icon/badge-icon.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -15,22 +15,9 @@ type Properties = {
     icon?: ReactElement;
 };
 
-type IconProperties = {
-    icon: ReactElement | undefined;
-    iconClass?: string;
-};
-
 const Size = {
     DEFAULT: 'DEFAULT',
     SMALL: 'SMALL',
-};
-
-const Icon: React.FC<IconProperties> = ({ icon, iconClass }) => {
-    return icon ? (
-        <SvgIcon className={iconClass}>{icon}</SvgIcon>
-    ) : (
-        <HeadphonesOutlined className={iconClass} />
-    );
 };
 
 const Badge: React.FC<Properties> = ({
@@ -46,28 +33,40 @@ const Badge: React.FC<Properties> = ({
         getValidClassNames(classStandart, isSmall ? classSmall : '');
 
     return (
-        <article
-            className={setClass(
-                styles.badgeContainer,
-                styles.badgeContainerSmall,
-            )}
+        <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            flexWrap="nowrap"
+            gap="10px"
+            className={setClass(styles.badge, styles.badgeSmall)}
+            component="article"
         >
-            <div
-                className={setClass(
-                    styles.iconContainer,
-                    styles.iconContainerSmall,
-                )}
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+                alignSelf={isSmall ? 'flex-start' : 'auto'}
+                className={setClass(styles.icon, styles.iconSmall)}
                 style={{ backgroundColor: BadgeColors[color] }}
             >
-                <Icon
+                <BadgeIcon
                     icon={icon}
                     iconClass={setClass(
                         styles.iconDefaultStyle,
                         styles.iconDefaultStyleSmall,
                     )}
                 />
-            </div>
-            <div className={styles.content}>
+            </Grid>
+            <Grid
+                container
+                flexGrow={1}
+                flexDirection="column"
+                justifyContent="space-between"
+                flexWrap="nowrap"
+                className={styles.content}
+            >
                 <div className={setClass(styles.title, styles.titleSmall)}>
                     <span>{primaryText}</span>
                     {secondText && (
@@ -82,8 +81,8 @@ const Badge: React.FC<Properties> = ({
                 >
                     {description}
                 </span>
-            </div>
-        </article>
+            </Grid>
+        </Grid>
     );
 };
 
