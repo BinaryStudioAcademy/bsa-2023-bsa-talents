@@ -9,12 +9,14 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     email: string | null;
     id: number | null;
+    error: string | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     email: null,
     id: null,
+    error: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -35,8 +37,9 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addMatcher(
             isAnyOf(signUp.rejected, signIn.rejected),
-            (state) => {
+            (state, { payload }) => {
                 state.dataStatus = DataStatus.REJECTED;
+                state.error = payload ?? null;
             },
         );
     },

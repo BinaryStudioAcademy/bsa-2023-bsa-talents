@@ -12,5 +12,6 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
+    ErrorMessages,
     ServerErrorType,
 } from 'shared/build/index';
