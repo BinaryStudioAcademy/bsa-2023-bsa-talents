@@ -8,10 +8,10 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { type OnboardingScreenName } from '~/bundles/common/enums/enums';
+import { type TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import {
     ButtonType,
-    OnboardingScreenNumber,
+    TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import {
@@ -21,11 +21,12 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
+import { NewAccountHeader } from '~/bundles/talent/components/components';
+import { Badge } from '~/bundles/users/components/badge/badge';
 import {
     DEFAULT_VALUE_IS_CHECKED,
     DEFAULT_VALUE_IS_DISABLED,
 } from '~/bundles/users/components/badge/constants/constants';
-import { Badge, NewAccountHeader } from '~/bundles/users/components/components';
 import { BadgeType } from '~/bundles/users/enums/enums';
 
 import { styles } from './styles';
@@ -37,8 +38,8 @@ const BsaBadges: React.FC = () => {
         defaultValues: DEFAULT_VALUE_IS_CHECKED,
     });
     const { name } = useAppRoute();
-    const stepTitle = name as ValueOf<typeof OnboardingScreenName>;
-    const stepNumber = OnboardingScreenNumber[stepTitle];
+    const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
+    const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
     const handleFormSubmit = useCallback(() => {
         // TODO: add submit logic
