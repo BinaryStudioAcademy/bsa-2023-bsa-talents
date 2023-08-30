@@ -6,7 +6,7 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
-import { ApiPath } from '~/common/enums/enums.js';
+import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
@@ -180,18 +180,11 @@ class AuthController extends ControllerBase {
         if (!token) {
             throw new HttpError({
                 status: HttpCode.UNAUTHORIZED,
-                message: 'Authorization token is missing',
+                message: ErrorMessages.NOT_AUTHORIZED,
             });
         }
 
-        const user = await this.authService.findByToken(token);
-
-        if (!user) {
-            throw new HttpError({
-                status: HttpCode.NOT_FOUND,
-                message: 'No user found for provided token',
-            });
-        }
+        const user = await this.authService.getCurrentUser(token);
 
         return {
             status: HttpCode.OK,
