@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { type ReactElement } from 'react';
 
-import { BadgeColors } from '../../enums/badge-colors.enum.js';
+import { BadgeColors } from '../../enums/enums.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { BadgeIcon } from '../badge-icon/badge-icon.js';
 import styles from './styles.module.scss';
