@@ -11,9 +11,9 @@ import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
-    ControllerBase,
 } from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';

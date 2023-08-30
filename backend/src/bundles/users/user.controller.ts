@@ -1,11 +1,9 @@
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import {
-    type ApiHandlerResponse,
-    ControllerBase,
-} from '~/common/packages/controller/controller.js';
+import { type ApiHandlerResponse } from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UsersApiPath } from './enums/enums.js';
 
