@@ -17,7 +17,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { UserRole } from '~/bundles/users/types/types';
+import { UserRole } from '~/bundles/users/enums/enums';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
