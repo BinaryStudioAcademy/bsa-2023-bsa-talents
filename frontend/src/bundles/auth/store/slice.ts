@@ -12,7 +12,7 @@ type State = {
 };
 
 const initialState: State = {
-    currentUser: { id: '', email: '' },
+    currentUser: { id: '', email: '', role: '' },
     dataStatus: DataStatus.IDLE,
 };
 
