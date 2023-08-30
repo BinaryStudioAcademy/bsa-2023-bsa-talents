@@ -83,8 +83,9 @@ class AuthService {
 
     public async findByToken(
         token: string,
-    ): Promise<UserFindResponseDto | undefined> {
-        return await this.userService.findByToken(token);
+    ): Promise<UserFindResponseDto | null> {
+        const user = await this.userService.findByToken(token);
+        return user ?? null;
     }
 }
 
