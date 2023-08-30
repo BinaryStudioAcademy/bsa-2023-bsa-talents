@@ -1,1 +1,1 @@
-export { UsersApiPath } from 'shared/build/index';
+export { UserRole, UsersApiPath } from 'shared/build/index';

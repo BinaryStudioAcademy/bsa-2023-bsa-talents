@@ -2,14 +2,16 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
+import { type UserRole } from '~/bundles/users/enums/enums';
 
 import { signIn, signUp } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     email: string | null;
-    id: number | null;
+    id: string | null;
     error: string | null;
+    role: ValueOf<typeof UserRole> | null;
 };
 
 const initialState: State = {
@@ -17,6 +19,7 @@ const initialState: State = {
     email: null,
     id: null,
     error: null,
+    role: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -30,6 +33,7 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.FULFILLED;
                 state.email = payload.email;
                 state.id = payload.id;
+                state.role = payload.role;
             },
         );
         builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {

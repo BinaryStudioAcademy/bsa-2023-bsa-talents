@@ -24,7 +24,6 @@ const Auth: React.FC = () => {
     const { dataStatus } = useAppSelector(({ auth }) => ({
         dataStatus: auth.dataStatus,
     }));
-
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
 
     useEffect(() => {
@@ -46,7 +45,6 @@ const Auth: React.FC = () => {
         },
         [dispatch],
     );
-
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
