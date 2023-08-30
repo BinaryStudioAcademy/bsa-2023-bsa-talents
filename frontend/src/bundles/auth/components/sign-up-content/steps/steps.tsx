@@ -1,8 +1,8 @@
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { stepOne } from '../../constants/constants.js';
-import { type Step } from '../../types/types.js';
+import { stepOne } from '../../../constants/constants.js';
+import { type Step } from '../../../types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {

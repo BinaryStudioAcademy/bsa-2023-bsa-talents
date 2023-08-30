@@ -59,26 +59,30 @@ const SignUpContent: React.FC = () => {
                 Create an account to receive proposals
             </Typography>
             <Grid container className={styles.career}>
-                <Grid item>
-                    <Typography variant="h2" className={styles.careerTitle}>
-                        Let`s get started!
-                    </Typography>
-                    <Typography
-                        variant="h5"
-                        className={styles.careerDescription}
-                    >
-                        Hi! If you are looking for your next career adventure -
-                        we`re here to help your succeed. We look forward to
-                        working with you.
-                    </Typography>
-                    <img
-                        src={arrowIcon}
-                        className={styles.icon}
-                        alt="arrow icon"
-                    />
-                </Grid>
+                {currentStep < stepTabs.length - stepOne && (
+                    <Grid item className={styles.careerContent}>
+                        <Typography variant="h2" className={styles.careerTitle}>
+                            Let`s get started!
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            className={styles.careerDescription}
+                        >
+                            Hi! If you are looking for your next career
+                            adventure - we`re here to help your succeed. We look
+                            forward to working with you.
+                        </Typography>
+                        <img
+                            src={arrowIcon}
+                            className={styles.icon}
+                            alt="arrow icon"
+                        />
+                    </Grid>
+                )}
                 <Grid item xs className={styles.registration}>
-                    <Steps currentStep={currentStep} stepTabs={stepTabs} />
+                    {currentStep < stepTabs.length - stepOne && (
+                        <Steps currentStep={currentStep} stepTabs={stepTabs} />
+                    )}
                     <StepContent
                         currentStep={currentStep}
                         onNextStep={handleNextStep}

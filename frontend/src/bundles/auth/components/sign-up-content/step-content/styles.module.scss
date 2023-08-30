@@ -42,7 +42,7 @@
 }
 
 .stepNumber::after {
-    content: " / 5";
+    content: " / 05";
     color: var(--aluminium);
     font-weight: var(--font-weight-regular);
 }
@@ -85,6 +85,18 @@
     }
 }
 
+.wideStepButtons {
+    display: flex;
+
+    button {
+        width: 181px;
+        height: 36px;
+        margin: 7px;
+        font-size: 13px;
+        text-transform: none;
+    }
+}
+
 @media screen and (width <= 660px) {
     .stepName {
         font-size: 10px;
@@ -99,6 +111,15 @@
 
         button {
             width: 60px;
+        }
+    }
+
+    .wideStepButtons {
+        flex-direction: column;
+
+        button {
+            width: 100px;
+            height: 50px;
         }
     }
 }
