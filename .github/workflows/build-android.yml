@@ -17,7 +17,7 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Install dependencies
-              run: npm install && npm i -g react-native-cli
+              run: npm install
 
             - name: Setup Java v1.8
               uses: actions/setup-java@v3
@@ -38,7 +38,7 @@ jobs:
               run: 'echo -e "ENVIRONMENT=$ENVIRONMENT\nAPI_URL=$API_URL\n" > ./mobile/.env'
 
             - name: Build
-              run: cd ./mobile && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd ./android && ./gradlew clean assembleRelease
+              run: cd ./mobile && cd ./android && ./gradlew clean assembleRelease
 
             - name: Notify success in Slack channel
               if: ${{ success() }}
