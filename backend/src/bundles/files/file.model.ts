@@ -1,7 +1,7 @@
 import {
     AbstractModel,
     DatabaseTableName,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
 
 class FileModel extends AbstractModel {
     public 'url': string;

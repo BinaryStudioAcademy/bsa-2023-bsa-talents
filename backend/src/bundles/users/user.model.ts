@@ -1,12 +1,12 @@
 import { Model } from 'objection';
 
+import { type UserRole } from '~/common/enums/enums.js';
 import {
     AbstractModel,
     DatabaseTableName,
     UserDetailsTableColumn,
     UsersTableColumn,
-} from '~/common/database/database.js';
-import { type UserRole } from '~/common/enums/enums.js';
+} from '~/common/packages/database/database.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 class UserModel extends AbstractModel {

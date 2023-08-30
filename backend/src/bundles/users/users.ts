@@ -1,5 +1,5 @@
 import { encrypt } from '~/common/encrypt/encrypt.js';
-import { logger } from '~/common/logger/logger.js';
+import { logger } from '~/common/packages/packages.js';
 
 import { UserController } from './user.controller.js';
 import { UserModel } from './user.model.js';

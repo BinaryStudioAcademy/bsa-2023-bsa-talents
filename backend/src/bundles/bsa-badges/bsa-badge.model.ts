@@ -5,7 +5,7 @@ import {
     BSABadgesTableColumn,
     DatabaseTableName,
     TalentBadgesTableColumn,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
 
 import { TalentBadgeModel } from '../talent-badges/talent-badges.js';
 

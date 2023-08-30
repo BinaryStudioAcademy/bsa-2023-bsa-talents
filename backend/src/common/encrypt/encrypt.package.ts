@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt';
 
-import { type Config } from '~/common/config/config.js';
+import { type Config } from '~/common/packages/config/config.js';
 
 class Encrypt {
     private appConfig: Config;
