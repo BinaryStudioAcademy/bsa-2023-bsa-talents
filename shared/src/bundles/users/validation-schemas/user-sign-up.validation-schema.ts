@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { UserValidationMessage } from '../enums/enums.js';
+import { UserRole, UserValidationMessage } from '../enums/enums.js';
 import { type UserSignUpRequestDto } from '../types/types.js';
 import { constants } from './constants.js';
 
@@ -26,6 +26,11 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
         .required()
         .min(constants.MIN_PASSWORD_LENGTH)
         .max(constants.MAX_LOGIN_INPUT_LENGTH),
+    role: joi
+        .string()
+        .trim()
+        .valid(...Object.values(UserRole))
+        .required(),
 });
 
 export { userSignUp };
