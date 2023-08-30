@@ -22,6 +22,7 @@ import {
     userSignUpValidationSchema,
 } from '~/bundles/users/users';
 
+import { UserRole } from '../../../../../../shared/src/bundles/users/users';
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -41,14 +42,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const radioButtons: RadioButtonProps[] = useMemo(
         () => [
             {
-                id: 'employer', // enum in (PR bt-86: Sign-up) shared/src/bundles/users/enums/user-role.enum.ts
+                id: UserRole.EMPLOYER, // enum in (PR bt-86: Sign-up) shared/src/bundles/users/enums/user-role.enum.ts
                 label: 'I`m hiring',
                 value: 'option1',
                 color: Color.PRIMARY,
                 borderColor: Color.INPUT,
             },
             {
-                id: 'talent',
+                id: UserRole.TALENT,
                 label: 'I`m looking for a job',
                 value: 'option2',
                 color: Color.PRIMARY,
