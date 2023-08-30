@@ -9,8 +9,8 @@ import { useAppRoute, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
+    CVContactsForm,
     NewAccountHeader,
-    ProfileForm,
 } from '~/bundles/talent/components/components';
 
 const CVContacts: React.FC = () => {
@@ -18,7 +18,7 @@ const CVContacts: React.FC = () => {
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
-    const handleProfileSubmit = useCallback(() => {
+    const handleCVContactsSubmit = useCallback(() => {
         // TODO: add submit logic
         return null;
     }, []);
@@ -26,7 +26,7 @@ const CVContacts: React.FC = () => {
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <ProfileForm onSubmit={handleProfileSubmit} />
+            <CVContactsForm onSubmit={handleCVContactsSubmit} />
         </View>
     );
 };
