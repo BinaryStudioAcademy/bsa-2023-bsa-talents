@@ -1,0 +1,19 @@
+.pageContainer {
+    display: flex;
+    overflow: hidden;
+}
+
+.mainContainer {
+    position: relative;
+    flex: 1;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.mainContent {
+    height: calc(100% - 61px);
+    max-height: calc(100% - 61px);
+    overflow: hidden;
+    overflow-y: visible;
+    background-color: var(--botticelli);
+}
