@@ -4,7 +4,6 @@ const USER_SIGN_UP_DEFAULT_VALUES: UserSignUpRequestDto = {
     email: '',
     role: '',
     password: '',
-    role: 'talent', //todo enum (PR bt-86: Sign-up)
 };
 
 export { USER_SIGN_UP_DEFAULT_VALUES };
