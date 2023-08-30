@@ -10,7 +10,7 @@ export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Modal } from './modal/modal.js';
 export { Notifications } from './notifications/notifications.js';
-export { Radio, RadioGroup } from './radio/radio.js';
+export { Radio, RadioGroup, TestR } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';

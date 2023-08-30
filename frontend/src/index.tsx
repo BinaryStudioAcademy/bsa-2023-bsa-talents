@@ -11,6 +11,7 @@ import {
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components.js';
+import { TestR } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
@@ -27,9 +28,13 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 path: AppRoute.ROOT,
                                 element: <App />,
                                 children: [
+                                    // {
+                                    //     path: AppRoute.ROOT,
+                                    //     element: 'Root',
+                                    // },
                                     {
                                         path: AppRoute.ROOT,
-                                        element: 'Root',
+                                        element: <TestR />,
                                     },
                                     {
                                         path: AppRoute.SIGN_IN,
