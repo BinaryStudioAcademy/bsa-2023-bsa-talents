@@ -4,7 +4,7 @@ import { type ReactElement } from 'react';
 import { BadgeColors, BadgeSize } from '../../enums/enums.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { type ValueOf } from '../../types/types.js';
-import { BadgeIcon } from '../badge-icon/badge-icon.js';
+import { BadgeIcon } from './components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
