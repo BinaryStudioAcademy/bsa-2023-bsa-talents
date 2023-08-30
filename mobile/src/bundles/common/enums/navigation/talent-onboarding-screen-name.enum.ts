@@ -1,4 +1,4 @@
-const OnboardingScreenName = {
+const TalentOnboardingScreenName = {
     PROFILE: 'Profile',
     BSA_BADGES: 'BSA Badges',
     SKILLS_PROJECTS: 'Skills and projects',
@@ -6,4 +6,4 @@ const OnboardingScreenName = {
     PREVIEW: 'Preview',
 } as const;
 
-export { OnboardingScreenName };
+export { TalentOnboardingScreenName };

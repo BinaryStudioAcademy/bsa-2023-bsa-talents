@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Text } from '~/bundles/common/components/components';
 
-const Mail: React.FC = () => {
-    return <Text>Mail screen</Text>;
+const Chat: React.FC = () => {
+    return <Text>Employer Chat screen</Text>;
 };
 
-export { Mail };
+export { Chat };

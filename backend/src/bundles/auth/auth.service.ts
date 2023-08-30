@@ -8,13 +8,16 @@ import {
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
+import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
 
 class AuthService {
     private userService: UserService;
+    private encrypt: Encrypt;
 
-    public constructor(userService: UserService) {
+    public constructor(userService: UserService, encrypt: Encrypt) {
         this.userService = userService;
+        this.encrypt = encrypt;
     }
 
     public async signIn(
@@ -34,6 +37,7 @@ class AuthService {
         const { email } = userRequestDto;
 
         const userByEmail = await this.userService.findByEmail(email);
+
         if (userByEmail) {
             throw new HttpError({
                 message: ErrorMessages.EMAIL_ALREADY_EXISTS,
@@ -62,7 +66,10 @@ class AuthService {
             });
         }
 
-        const isEqualPassword = password === 'HASH'; // Replace with cryptCompare from bt-86
+        const isEqualPassword = await this.encrypt.compare(
+            password,
+            user.toNewObject().passwordHash,
+        );
 
         if (!isEqualPassword) {
             throw new HttpError({
