@@ -6,14 +6,14 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { ApiPath } from '~/common/enums/enums.js';
+import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
-    ControllerBase,
-} from '~/common/controller/controller.js';
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
-import { type Logger } from '~/common/logger/logger.js';
+} from '~/common/packages/controller/controller.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
