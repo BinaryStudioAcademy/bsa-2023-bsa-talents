@@ -24,12 +24,12 @@ class UserRepository implements Repository {
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
-        const { email, passwordHash } = entity.toNewObject();
+        const { email, role, passwordHash } = entity.toNewObject();
 
         const item = await this.userModel
             .query()
             .insert({
-                role: 'talent', // Replace in bt-86
+                role,
                 email,
                 passwordHash,
             })

@@ -2,10 +2,11 @@ export { type AsyncThunkConfig } from './app/app';
 export { type AvatarProperty } from './components/avatar-property';
 export {
     type AuthNavigationParameterList,
-    type BottomTabNavigationParameterList,
+    type EmployerBottomTabNavigationParameterList,
     type NavigationScreenProperties,
-    type OnboardingNavigationParameterList,
     type RootNavigationParameterList,
+    type TalentBottomTabNavigationParameterList,
+    type TalentOnboardingNavigationParameterList,
 } from './navigation/navigation';
 export {
     type ServerErrorDetail,
