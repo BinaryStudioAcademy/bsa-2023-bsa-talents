@@ -1,4 +1,4 @@
-import { BadgeType } from '~/bundles/users/enums/enums';
+import { BadgeType } from '~/bundles/talent/enums/enums';
 
 // TODO: refactor when there'll be real data
 

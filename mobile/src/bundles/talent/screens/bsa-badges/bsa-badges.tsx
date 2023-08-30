@@ -27,7 +27,7 @@ import {
     DEFAULT_VALUE_IS_DISABLED,
 } from '~/bundles/talent/components/badge/constants/constants';
 import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { BadgeType } from '~/bundles/users/enums/enums';
+import { BadgeType } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 

@@ -6,7 +6,7 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { BadgeType } from '~/bundles/users/enums/enums';
+import { BadgeType } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 
