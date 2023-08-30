@@ -7,8 +7,10 @@ import {
 import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
 
+import { Text, View } from '~/bundles/common/components/components';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
@@ -16,6 +18,7 @@ type Properties<T extends FieldValues> = TextInputProps & {
     control: Control<T, null>;
     name: FieldPath<T>;
     hasError?: boolean;
+    marker?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -23,26 +26,49 @@ const Input = <T extends FieldValues>({
     hasError,
     control,
     name,
+    marker,
+    multiline = false,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
 
     return (
-        <TextInput
-            onChangeText={onChange}
-            value={value}
-            onBlur={onBlur}
-            {...props}
+        <View
             style={[
-                globalStyles.pl10,
-                globalStyles.borderRadius5,
-                globalStyles.Input,
-                styles.input,
-                !editable && styles.disabled,
-                hasError && styles.error,
+                globalStyles.flexDirectionRow,
+                globalStyles.justifyContentCenter,
+                globalStyles.alignItemsStretch,
             ]}
-        />
+        >
+            {marker && (
+                <View
+                    style={[
+                        globalStyles.justifyContentCenter,
+                        globalStyles.ph20,
+                        styles.marker,
+                    ]}
+                >
+                    <Text category={TextCategory.INPUT}>{marker}</Text>
+                </View>
+            )}
+            <TextInput
+                onChangeText={onChange}
+                value={value}
+                onBlur={onBlur}
+                {...props}
+                style={[
+                    globalStyles.flex1,
+                    globalStyles.pl10,
+                    globalStyles.Input,
+                    !marker && globalStyles.borderRadius5,
+                    styles.input,
+                    multiline && styles.multiline,
+                    !editable && styles.disabled,
+                    hasError && styles.error,
+                ]}
+            />
+        </View>
     );
 };
 

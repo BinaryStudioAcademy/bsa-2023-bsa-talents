@@ -1,86 +1,89 @@
-import { type Entity } from '~/common/types/types.js';
+import { type UserRole } from '~/common/enums/enums.js';
+import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 class UserEntity implements Entity {
-    private 'id': number | null;
+    private 'id': string | null;
 
     private 'email': string;
 
-    private 'passwordHash': string;
+    private 'role': ValueOf<typeof UserRole>;
 
-    private 'passwordSalt': string;
+    private 'passwordHash': string;
 
     private constructor({
         id,
         email,
+        role,
         passwordHash,
-        passwordSalt,
     }: {
-        id: number | null;
+        id: string | null;
         email: string;
+        role: ValueOf<typeof UserRole>;
         passwordHash: string;
-        passwordSalt: string;
     }) {
         this.id = id;
         this.email = email;
+        this.role = role;
         this.passwordHash = passwordHash;
-        this.passwordSalt = passwordSalt;
     }
 
     public static initialize({
         id,
         email,
+        role,
         passwordHash,
-        passwordSalt,
     }: {
-        id: number;
+        id: string;
         email: string;
+        role: ValueOf<typeof UserRole>;
         passwordHash: string;
-        passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id,
             email,
+            role,
             passwordHash,
-            passwordSalt,
         });
     }
 
     public static initializeNew({
         email,
+        role,
         passwordHash,
-        passwordSalt,
     }: {
         email: string;
+        role: ValueOf<typeof UserRole>;
         passwordHash: string;
-        passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id: null,
             email,
+            role,
             passwordHash,
-            passwordSalt,
         });
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         email: string;
+        role: ValueOf<typeof UserRole>;
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             email: this.email,
+            role: this.role,
         };
     }
 
     public toNewObject(): {
         email: string;
+        role: ValueOf<typeof UserRole>;
         passwordHash: string;
-        passwordSalt: string;
     } {
         return {
             email: this.email,
+            role: this.role,
             passwordHash: this.passwordHash,
-            passwordSalt: this.passwordSalt,
         };
     }
 }

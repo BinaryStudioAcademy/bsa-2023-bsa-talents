@@ -1,12 +1,14 @@
-export { DataStatus } from './app/app';
+export { DataStatus, TalentOnboardingStepState } from './app/app';
 export {
     AuthScreenName,
-    BottomTabScreenName,
-    OnboardingScreenName,
+    EmployerBottomTabScreenName,
     RootScreenName,
+    TalentBottomTabScreenName,
+    TalentOnboardingScreenName,
+    TalentOnboardingScreenNumber,
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
-export { ButtonType, Color, IconName } from './ui/ui';
+export { AvatarType, ButtonType, Color, IconName } from './ui/ui';
 export {
     ApiPath,
     AppEnvironment,

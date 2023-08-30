@@ -1,9 +1,20 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
+    type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserRole,
     UsersApiPath,
+    type UserSignInRequestDto,
+    type UserSignInResponseDto,
+    userSignInValidationSchema,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
     userSignUpValidationSchema,
@@ -13,6 +24,7 @@ export {
     AppEnvironment,
     ContentType,
     ErrorMessages,
+    FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
@@ -29,7 +41,7 @@ export {
     type HttpOptions,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
-export { configureString } from './helpers/helpers.js';
+export { configureString, getAvatarInitials } from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
