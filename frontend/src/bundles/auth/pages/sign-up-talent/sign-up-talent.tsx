@@ -3,11 +3,11 @@ import { type Step } from '~/bundles/auth/types/types.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
+import { StepContent, Steps } from '../../components/components.js';
 import { firstStep, stepOne } from '../../constants/constants.js';
-import { StepContent, Steps } from '../components.js';
 import styles from './styles.module.scss';
 
-const SignUpContent: React.FC = () => {
+const SignUpTalent: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<number>(firstStep);
 
     // these components only for example how to use it
@@ -95,4 +95,4 @@ const SignUpContent: React.FC = () => {
     );
 };
 
-export { SignUpContent };
+export { SignUpTalent };

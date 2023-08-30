@@ -1,8 +1,10 @@
 import reactLogo from '~/assets/img/react.svg';
 import {
+    Header,
     Link,
     Notifications,
     RouterOutlet,
+    Sidebar,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -32,6 +34,9 @@ const App: React.FC = () => {
 
     return (
         <>
+            {/* add condition if on current page we don`t need header and sidebar - hide them */}
+            <Header avatarUrl="" isOnline />
+            <Sidebar />
             <img src={reactLogo} className="App-logo" width="30" alt="logo" />
 
             <ul className="App-navigation-list">
@@ -43,6 +48,9 @@ const App: React.FC = () => {
                 </li>
                 <li>
                     <Link to={AppRoute.SIGN_UP}>Sign up</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.SIGN_UP_TALENT}>Sign up Talent</Link>
                 </li>
             </ul>
             <p>Current path: {pathname}</p>

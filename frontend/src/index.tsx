@@ -14,6 +14,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { SignUpTalent } from './bundles/auth/pages/sign-up-talent/sign-up-talent.js';
 import { theme } from './bundles/common/themes/theme.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -38,6 +39,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.SIGN_UP,
                                         element: <Auth />,
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_UP_TALENT,
+                                        element: <SignUpTalent />,
                                     },
                                 ],
                             },
