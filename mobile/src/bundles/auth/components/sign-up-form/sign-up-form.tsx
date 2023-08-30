@@ -31,7 +31,6 @@ type Properties = {
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: USER_SIGN_UP_DEFAULT_VALUES,
-        //todo: Validation schema (in PR bt-86: Sign-up)
         validationSchema: userSignUpValidationSchema,
     });
 
@@ -101,22 +100,13 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.justifyContentCenter,
                 ]}
             >
-                <FormField
-                    errors={errors}
+                <RadioButtons
+                    radioButtons={radioButtons}
+                    control={control}
+                    layout="row"
                     name="role"
-                    containerStyle={[
-                        globalStyles.flexDirectionRow,
-                        globalStyles.pr25,
-                    ]}
-                >
-                    <RadioButtons
-                        radioButtons={radioButtons}
-                        control={control}
-                        layout="row"
-                        name="role"
-                        id="role"
-                    />
-                </FormField>
+                    id="role"
+                />
             </View>
 
             <Button
