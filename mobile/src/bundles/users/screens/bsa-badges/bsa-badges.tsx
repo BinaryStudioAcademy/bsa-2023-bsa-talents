@@ -63,9 +63,9 @@ const BsaBadges: React.FC = () => {
     ));
 
     return (
-        <View>
+        <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <ScrollView contentContainerStyle={globalStyles.ph25}>
+            <ScrollView style={globalStyles.ph25}>
                 <Text
                     category={TextCategory.BODY1}
                     style={[globalStyles.pv15, styles.description]}
