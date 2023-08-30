@@ -3,16 +3,15 @@ import { SvgIcon } from '@mui/material';
 import { type ReactElement } from 'react';
 
 type Properties = {
-    icon: ReactElement | undefined;
+    icon?: ReactElement;
     iconClass?: string;
 };
 
 const BadgeIcon: React.FC<Properties> = ({ icon, iconClass }) => {
-    return icon ? (
-        <SvgIcon className={iconClass}>{icon}</SvgIcon>
-    ) : (
-        <HeadphonesOutlined className={iconClass} />
-    );
+    if (!icon) {
+        return <HeadphonesOutlined className={iconClass} />;
+    }
+    return <SvgIcon className={iconClass}>{icon}</SvgIcon>;
 };
 
 export { BadgeIcon };
