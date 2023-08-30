@@ -1,4 +1,5 @@
 import { FormControlLabel, RadioGroup as MuiRadioGroup } from '@mui/material';
+import { type RadioGroupProps } from '@mui/material';
 
 import { Radio } from './radio-item.js';
 
@@ -9,21 +10,24 @@ type Option = {
 
 type Properties = {
     options: Option[];
-    value: string;
+    defaultValue?: string;
+    value?: string;
     className?: string;
     row?: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+} & RadioGroupProps;
 
 const RadioGroup: React.FC<Properties> = ({
     options,
     value,
+    defaultValue,
     className,
     onChange,
     row,
 }) => {
     return (
         <MuiRadioGroup
+            defaultValue={defaultValue}
             value={value}
             onChange={onChange}
             row={row}
