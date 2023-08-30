@@ -77,7 +77,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                                     errors={errors}
                                     placeholder="user@email.com"
                                     name="email"
-                                    className={styles.input}
                                 />
                             </FormControl>
                             <FormControl
@@ -95,7 +94,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                                     type="password"
                                     placeholder="****"
                                     name="password"
-                                    className={styles.input}
                                 />
                             </FormControl>
                             <Grid item className={styles['auth-options']}>
@@ -117,6 +115,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                             <Button
                                 label="Login"
                                 className={styles['btn-login']}
+                                type="submit"
                             />
                         </form>
                         <Grid item className={styles.footer}>
