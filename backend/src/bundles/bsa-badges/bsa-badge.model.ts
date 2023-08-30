@@ -2,8 +2,10 @@ import { Model, type RelationMappings } from 'objection';
 
 import {
     AbstractModel,
+    BSABadgesTableColumn,
     DatabaseTableName,
-} from '~/common/database/database.js';
+    TalentBadgesTableColumn,
+} from '~/common/packages/database/database.js';
 
 import { TalentBadgeModel } from '../talent-badges/talent-badges.js';
 
@@ -24,8 +26,8 @@ class BSABadgesModel extends AbstractModel {
                 relation: Model.HasManyRelation,
                 modelClass: TalentBadgeModel,
                 join: {
-                    from: `${DatabaseTableName.BSA_BADGES}.id`,
-                    to: `${DatabaseTableName.TALENT_BADGES}.badgeId`,
+                    from: `${DatabaseTableName.BSA_BADGES}.${BSABadgesTableColumn.ID}`,
+                    to: `${DatabaseTableName.TALENT_BADGES}.${TalentBadgesTableColumn.BADGE_ID}}`,
                 },
             },
         };
