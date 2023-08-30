@@ -17,6 +17,7 @@ type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     options: { value: string | number; label: string }[];
+    placeholder: string;
     label?: string;
     multiple?: boolean;
     hasError?: boolean;
@@ -35,6 +36,7 @@ const Select = <T extends FieldValues>({
     multiple,
     hasError,
     isDisabled,
+    placeholder,
 }: Properties<T>): JSX.Element => {
     const firstElementIndex = 0;
     const { field } = useFormController({
@@ -42,7 +44,7 @@ const Select = <T extends FieldValues>({
         control,
         defaultValue: (multiple
             ? [options[firstElementIndex].value]
-            : options[firstElementIndex].value) as PathValue<T, Path<T>>,
+            : ' ') as PathValue<T, Path<T>>,
     });
 
     return (
@@ -58,6 +60,11 @@ const Select = <T extends FieldValues>({
                 IconComponent={ArrowIcon}
                 className={styles.input}
             >
+                {!multiple && (
+                    <MenuItem disabled value=" ">
+                        {placeholder}
+                    </MenuItem>
+                )}
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                         {option.label}
