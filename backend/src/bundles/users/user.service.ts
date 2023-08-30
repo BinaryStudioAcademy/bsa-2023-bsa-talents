@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type Encrypt } from '~/common/encrypt/encrypt.package.js';
+import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { type Service } from '~/common/types/types.js';
 
 import {

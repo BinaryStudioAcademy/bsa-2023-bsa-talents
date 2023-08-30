@@ -1,6 +1,5 @@
 import { userService } from '~/bundles/users/users.js';
-import { encrypt } from '~/common/encrypt/encrypt.js';
-import { logger } from '~/common/packages/packages.js';
+import { encrypt, logger } from '~/common/packages/packages.js';
 
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';

@@ -6,9 +6,9 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { type Encrypt } from '~/common/encrypt/encrypt.package.js';
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
+import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
 
 class AuthService {

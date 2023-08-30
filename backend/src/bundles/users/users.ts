@@ -1,5 +1,4 @@
-import { encrypt } from '~/common/encrypt/encrypt.js';
-import { logger } from '~/common/packages/packages.js';
+import { encrypt, logger } from '~/common/packages/packages.js';
 
 import { UserController } from './user.controller.js';
 import { UserModel } from './user.model.js';
