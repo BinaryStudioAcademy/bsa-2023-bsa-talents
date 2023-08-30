@@ -1,3 +1,4 @@
+export { type UserDetailsProperties } from './user-details-properties.type.js';
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,

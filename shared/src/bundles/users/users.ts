@@ -1,4 +1,10 @@
 export {
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
     UserRole,
     UsersApiPath,
     UserValidationMessage,
