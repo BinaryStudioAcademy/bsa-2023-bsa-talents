@@ -1,0 +1,50 @@
+name: Android build
+
+on:
+    pull_request:
+        branches:
+            - development
+            - production
+
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Setup Java v1.8
+              uses: actions/setup-java@v3
+              with:
+                  distribution: 'adopt'
+                  java-version: '11'
+
+            - name: Setup Android SDK
+              uses: android-actions/setup-android@v2
+
+            - name: Add SDK path to settings
+              run: 'echo "sdk.dir = /usr/local/lib/android/sdk" > ./mobile/android/local.properties'
+
+            - name: Add .env file
+              env:
+                  ENVIRONMENT: ${{ secrets.MOBILE_ENVIRONMENT }}
+                  API_URL: ${{ secrets.MOBILE_API_URL }}
+              run: 'echo -e "ENVIRONMENT=$ENVIRONMENT\nAPI_URL=$API_URL\n" > ./mobile/.env'
+
+            - name: Build
+              run: cd ./mobile && cd ./android && ./gradlew clean assembleRelease
+
+            - name: Notify success in Slack channel
+              if: ${{ success() }}
+              uses: adrey/slack-file-upload-action@master
+              with:
+                  token: ${{ secrets.SLACK_APP_TOKEN }}
+                  path: ./mobile/android/app/build/outputs/apk/release/app-release.apk
+                  channel: bsa-talents-mobile-builds
+                  initial_comment: "BSA Talents Mobile build success in branch ${{ github.ref }}!\nHere is the file:"
