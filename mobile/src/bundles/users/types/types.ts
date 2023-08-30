@@ -1,3 +1,4 @@
+export { UserRole } from 'shared/build/bundles/users/enums/enums';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

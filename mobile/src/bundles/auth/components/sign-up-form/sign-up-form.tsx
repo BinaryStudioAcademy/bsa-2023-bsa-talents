@@ -17,12 +17,12 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { UserRole } from '~/bundles/users/types/types';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users';
 
-import { UserRole } from '../../../../../../shared/src/bundles/users/users';
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -42,7 +42,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const radioButtons: RadioButtonProps[] = useMemo(
         () => [
             {
-                id: UserRole.EMPLOYER, // enum in (PR bt-86: Sign-up) shared/src/bundles/users/enums/user-role.enum.ts
+                id: UserRole.EMPLOYER,
                 label: 'I`m hiring',
                 value: 'option1',
                 color: Color.PRIMARY,
