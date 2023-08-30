@@ -1,4 +1,4 @@
-export { DataStatus } from './app/app';
+export { DataStatus, TalentOnboardingStepState } from './app/app';
 export {
     AuthScreenName,
     EmployerBottomTabScreenName,
