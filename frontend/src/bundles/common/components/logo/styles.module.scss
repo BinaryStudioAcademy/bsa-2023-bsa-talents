@@ -7,10 +7,12 @@
     align-items: center;
     width: 67px;
     height: 67px;
+    border-radius: 7px;
 
     &.collapsed {
         width: 44px;
         height: 44px;
+        border-radius: 5px;
     }
 
     img {
