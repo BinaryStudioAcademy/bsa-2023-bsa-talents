@@ -5,6 +5,7 @@ import {
 import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
@@ -27,17 +28,21 @@ type Properties = {
 };
 
 const Root: React.FC<Properties> = ({
-    isSignedIn = false,
+    // isSignedIn = false,
     isProfileComplete = false,
-    role = 'talent',
+    // role = 'talent',
 }) => {
+    const { token, role: userRole } = useAppSelector(({ auth }) => ({
+        token: auth.user?.token,
+        role: auth.user?.role,
+    }));
     // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
-            {isSignedIn ? (
+            {token ? (
                 <RootStack.Screen
                     name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={role === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
+                    component={userRole === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
                 />
             ) : (isProfileComplete ? (
                 <RootStack.Screen
