@@ -1,6 +1,10 @@
+import { Model } from 'objection';
+
 import {
     AbstractModel,
     DatabaseTableName,
+    UserDetailsTableColumn,
+    UsersTableColumn,
 } from '~/common/packages/database/database.js';
 
 class UserModel extends AbstractModel {
@@ -13,6 +17,17 @@ class UserModel extends AbstractModel {
     public static override get tableName(): string {
         return DatabaseTableName.USERS;
     }
+
+    public static override relationMappings = {
+        details: {
+            relation: Model.HasOneRelation,
+            modelClass: UserModel,
+            join: {
+                from: `${DatabaseTableName.USERS}.${UsersTableColumn.ID}`,
+                to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
+            },
+        },
+    };
 }
 
 export { UserModel };
