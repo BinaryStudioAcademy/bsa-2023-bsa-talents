@@ -87,15 +87,6 @@
     }
 }
 
-.input {
-    display: block;
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    border: 1px solid var(--outline);
-    border-radius: 4px;
-}
-
 .label {
     margin-bottom: 5px;
     color: var(--text-primary-dark);
@@ -107,6 +98,7 @@
 .btn-login {
     width: 100%;
     max-width: 420px;
+    margin-top: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
     font-weight: var(--font-weight-medium);
@@ -139,6 +131,17 @@
         color: var(--st-tropaz);
         font-weight: var(--font-weight-semi-bold);
     }
+}
+
+.radio-group {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.radio-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%;
 }
 
 @media screen and (width >= 900px) {

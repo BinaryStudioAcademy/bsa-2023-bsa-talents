@@ -1,10 +1,18 @@
 import {
+    Controller,
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from 'react-hook-form';
+
+import {
     Button,
     FormControl,
     FormLabel,
     Grid,
     Input,
     Link,
+    RadioGroup,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
@@ -20,6 +28,31 @@ type Properties = {
     isTalent: boolean;
     onSubmit: (payload: UserSignUpRequestDto) => void;
 };
+
+const options = [
+    {
+        value: 'employer',
+        label: 'I\'m hiring',
+    },
+    {
+        value: 'talent',
+        label: 'I\'m looking for a job',
+    },
+];
+
+const renderRadio = ({
+    field,
+}: {
+    field: ControllerRenderProps<UserSignUpRequestDto, 'role'>;
+    fieldState: ControllerFieldState;
+    formState: UseFormStateReturn<UserSignUpRequestDto>;
+}): React.ReactElement => (
+    <RadioGroup
+        {...field}
+        className={styles['radio-wrapper']}
+        options={options}
+    />
+);
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
@@ -71,7 +104,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                                     errors={errors}
                                     placeholder="user@email.com"
                                     name="email"
-                                    className={styles.input}
                                 />
                             </FormControl>
                             <FormControl
@@ -89,7 +121,13 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                                     type="password"
                                     placeholder="****"
                                     name="password"
-                                    className={styles.input}
+                                />
+                            </FormControl>
+                            <FormControl className={styles['radio-group']}>
+                                <Controller
+                                    control={control}
+                                    name="role"
+                                    render={renderRadio}
                                 />
                             </FormControl>
                             <Button
