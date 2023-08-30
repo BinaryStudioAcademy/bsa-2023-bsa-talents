@@ -1,7 +1,7 @@
 import { type FastifyRequest } from 'fastify';
 import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
 
-import { type Logger } from '~/common/logger/logger.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
 
 import {

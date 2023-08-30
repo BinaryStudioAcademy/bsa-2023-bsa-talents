@@ -5,7 +5,7 @@ import {
     DatabaseTableName,
     UserDetailsTableColumn,
     UsersTableColumn,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
 
 class UserModel extends AbstractModel {
     public 'email': string;

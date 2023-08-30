@@ -7,7 +7,7 @@ import {
     HardSkillsTableColumn,
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
 
 class HardSkillsModel extends AbstractModel {
     public 'name': string;

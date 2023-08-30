@@ -1,9 +1,9 @@
 import knex, { type Knex } from 'knex';
 import { knexSnakeCaseMappers, Model } from 'objection';
 
-import { type Config } from '~/common/config/config.js';
 import { AppEnvironment } from '~/common/enums/enums.js';
-import { type Logger } from '~/common/logger/logger.js';
+import { type Config } from '~/common/packages/config/config.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
 
 import { DatabaseTableName } from './enums/enums.js';
 import { type Database } from './types/types.js';

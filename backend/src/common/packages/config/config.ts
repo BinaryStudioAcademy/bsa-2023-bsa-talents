@@ -1,4 +1,4 @@
-import { logger } from '~/common/logger/logger.js';
+import { logger } from '~/common/packages/logger/logger.js';
 
 import { ConfigBase } from './config-base.package.js';
 

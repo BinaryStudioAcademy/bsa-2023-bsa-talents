@@ -1,5 +1,4 @@
-import { config } from '~/common/config/config.js';
-import { logger } from '~/common/logger/logger.js';
+import { config, logger } from '~/common/packages/packages.js';
 
 import { DatabaseBase } from './database-base.package.js';
 

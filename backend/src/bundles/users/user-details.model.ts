@@ -18,7 +18,7 @@ import {
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,
     UsersTableColumn,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 import { HardSkillsModel } from '../hard-skills/hard-skills.model.js';
