@@ -21,12 +21,12 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { Badge } from '~/bundles/users/components/badge/badge';
+import { Badge } from '~/bundles/talent/components/badge/badge';
 import {
     DEFAULT_VALUE_IS_CHECKED,
     DEFAULT_VALUE_IS_DISABLED,
-} from '~/bundles/users/components/badge/constants/constants';
+} from '~/bundles/talent/components/badge/constants/constants';
+import { NewAccountHeader } from '~/bundles/talent/components/components';
 import { BadgeType } from '~/bundles/users/enums/enums';
 
 import { styles } from './styles';
