@@ -6,6 +6,7 @@ export {
     type RootNavigationParameterList,
     type TalentBottomTabNavigationParameterList,
     type TalentOnboardingNavigationParameterList,
+    type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
 export {
     type ServerErrorDetail,

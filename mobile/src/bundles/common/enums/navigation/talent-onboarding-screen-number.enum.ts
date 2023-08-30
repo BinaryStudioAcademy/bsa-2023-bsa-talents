@@ -8,8 +8,8 @@ const TalentOnboardingScreenNumber: Record<
 > = {
     [TalentOnboardingScreenName.PROFILE]: 1,
     [TalentOnboardingScreenName.BSA_BADGES]: 2,
-    [TalentOnboardingScreenName.SKILLS_PROJECTS]: 3,
-    [TalentOnboardingScreenName.CV_CONTACTS]: 4,
+    [TalentOnboardingScreenName.SKILLS_AND_PROJECTS]: 3,
+    [TalentOnboardingScreenName.CV_AND_CONTACTS]: 4,
     [TalentOnboardingScreenName.PREVIEW]: 5,
 } as const;
 
