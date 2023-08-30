@@ -13,7 +13,7 @@ import {
     ProfileForm,
 } from '~/bundles/talent/components/components';
 
-const Profile: React.FC = () => {
+const CVContacts: React.FC = () => {
     const { name } = useAppRoute();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -31,4 +31,4 @@ const Profile: React.FC = () => {
     );
 };
 
-export { Profile };
+export { CVContacts };

@@ -28,7 +28,7 @@ type Properties = {
 
 const Root: React.FC<Properties> = ({
     isSignedIn = false,
-    isProfileComplete = false,
+    isProfileComplete = true,
     role = 'talent',
 }) => {
     // prettier-ignore
@@ -42,7 +42,7 @@ const Root: React.FC<Properties> = ({
             ) : (isProfileComplete ? (
                 <RootStack.Screen
                     name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                    // TODO: create link to employer onboarding screen for role == 'employer'
                     component={TalentOnboardingNavigator}
                 />
             ) : (

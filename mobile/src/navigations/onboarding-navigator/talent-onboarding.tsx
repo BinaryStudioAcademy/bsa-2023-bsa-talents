@@ -3,7 +3,11 @@ import React from 'react';
 
 import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
-import { BsaBadges, Profile } from '~/bundles/talent/screens/screens';
+import {
+    BsaBadges,
+    CVContacts,
+    Profile,
+} from '~/bundles/talent/screens/screens';
 
 import { Header } from './components/components';
 
@@ -26,6 +30,10 @@ const TalentOnboardingNavigator: React.FC = () => {
             <Drawer.Screen
                 name={TalentOnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
+            />
+            <Drawer.Screen
+                name={TalentOnboardingScreenName.CV_CONTACTS}
+                component={CVContacts}
             />
         </Drawer.Navigator>
     );
