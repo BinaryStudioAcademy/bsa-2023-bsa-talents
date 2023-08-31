@@ -8,14 +8,16 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { AuthScreenName } from '~/bundles/common/enums/enums';
+import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
+import { styles } from './styles';
 
 type Properties = {
     onSubmit: (payload: UserSignUpRequestDto) => void;
@@ -31,30 +33,74 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     }, [handleSubmit, onSubmit]);
 
     return (
-        <View>
-            <Text>Sign Up</Text>
-            <FormField errors={errors} label="Email" name="email" required>
-                <Input
-                    control={control}
-                    name="email"
-                    placeholder="Enter your email"
-                />
-            </FormField>
-            <FormField
-                errors={errors}
-                label="Password"
-                name="password"
-                required
+        <View
+            style={[
+                globalStyles.defaultScreenPadding,
+                globalStyles.justifyContentCenter,
+                globalStyles.borderRadius10,
+                styles.container,
+            ]}
+        >
+            <Text
+                category={TextCategory.H2}
+                style={[
+                    globalStyles.pb25,
+                    globalStyles.alignSelfCenter,
+                    styles.title,
+                ]}
             >
-                <Input
-                    control={control}
+                Sign Up
+            </Text>
+            <View style={styles.formWrapper}>
+                <FormField errors={errors} label="Email" name="email" required>
+                    <Input
+                        control={control}
+                        name="email"
+                        placeholder="Enter your email"
+                    />
+                </FormField>
+                <FormField
+                    errors={errors}
+                    label="Password"
                     name="password"
-                    placeholder="Enter your password"
-                    secureTextEntry
+                    required
+                >
+                    <Input
+                        control={control}
+                        name="password"
+                        placeholder="Enter your password"
+                        secureTextEntry
+                    />
+                </FormField>
+                <Button
+                    label="Sign up"
+                    onPress={handleFormSubmit}
+                    style={[globalStyles.mt25, globalStyles.pv15]}
                 />
-            </FormField>
-            <Button label="Sign up" onPress={handleFormSubmit} />
-            <Link label="Go to Sign In" link={`/${AuthScreenName.SIGN_IN}`} />
+            </View>
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.alignSelfCenter,
+                    globalStyles.alignItemsCenter,
+                    globalStyles.mt20,
+                ]}
+            >
+                <Text category={TextCategory.BODY1} style={styles.text}>
+                    Already have an account?{' '}
+                </Text>
+
+                <Link
+                    textComponentCategory={TextCategory.BODY1}
+                    style={[
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pr10,
+                        styles.linkToSignIn,
+                    ]}
+                    label="Sign In"
+                    link={`/${AuthScreenName.SIGN_IN}`}
+                />
+            </View>
         </View>
     );
 };

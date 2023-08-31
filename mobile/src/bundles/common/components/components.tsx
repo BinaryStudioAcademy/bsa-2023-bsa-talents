@@ -17,6 +17,7 @@ export {
     Pressable,
     Modal as RNModal,
     ScrollView,
+    StatusBar,
     TouchableOpacity,
     View,
 } from 'react-native';

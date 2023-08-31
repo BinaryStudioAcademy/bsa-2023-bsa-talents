@@ -1,26 +1,21 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Text } from '~/bundles/common/components/components';
 import { AuthScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
-    useAppSelector,
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
 import { type UserSignUpRequestDto } from '~/bundles/users/users';
 
-import { SignInForm, SignUpForm } from '../components/components';
+import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
 
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
 
@@ -44,22 +39,25 @@ const Auth: React.FC = () => {
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
-                return <SignInForm onSubmit={handleSignInSubmit} />;
+                return (
+                    <AuthWrapper>
+                        <SignInForm onSubmit={handleSignInSubmit} />
+                    </AuthWrapper>
+                );
             }
             case AuthScreenName.SIGN_UP: {
-                return <SignUpForm onSubmit={handleSignUpSubmit} />;
+                return (
+                    <AuthWrapper>
+                        <SignUpForm onSubmit={handleSignUpSubmit} />
+                    </AuthWrapper>
+                );
             }
         }
 
         return null;
     };
 
-    return (
-        <>
-            <Text>state: {dataStatus}</Text>
-            {getScreen(name)}
-        </>
-    );
+    return <>{getScreen(name)}</>;
 };
 
 export { Auth };
