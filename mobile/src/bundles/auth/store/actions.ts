@@ -6,6 +6,7 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users';
+import { StorageKey } from '~/framework/storage/enums/storage-key.enum';
 
 import { name as sliceName } from './slice';
 
@@ -14,9 +15,11 @@ const signUp = createAsyncThunk<
     UserSignUpRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-up`, async (signUpPayload, { extra }) => {
-    const { authApi } = extra;
+    const { authApi, storage } = extra;
     try {
-        return await authApi.signUp(signUpPayload);
+        const response = await authApi.signUp(signUpPayload);
+        await storage.set(StorageKey.TOKEN, response.token);
+        return response;
     } catch (error) {
         if (error instanceof Error) {
             Toast.show({
