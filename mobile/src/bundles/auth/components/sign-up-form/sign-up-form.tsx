@@ -36,12 +36,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: userSignUpValidationSchema,
     });
 
-    // const { errorMessage } = useAppSelector(({ auth }) => ({
-    //     errorMessage: auth.error,
-    // }));
-
-    // console.log(errorMessage);
-
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
