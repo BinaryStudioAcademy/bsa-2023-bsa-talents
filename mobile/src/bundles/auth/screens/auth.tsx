@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Text } from '~/bundles/common/components/components';
-import { AuthScreenName } from '~/bundles/common/enums/enums';
+import { Overlay, Text } from '~/bundles/common/components/components';
+import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
@@ -25,7 +25,7 @@ const Auth: React.FC = () => {
         dataStatus: auth.dataStatus,
     }));
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
-
+    const isLoading = dataStatus === DataStatus.PENDING;
     useEffect(() => {
         if (isSignUpScreen) {
             void dispatch(userActions.loadAll());
@@ -61,6 +61,7 @@ const Auth: React.FC = () => {
     return (
         <>
             <Text>state: {dataStatus}</Text>
+            <Overlay isActive={isLoading} />
             {getScreen(name)}
         </>
     );
