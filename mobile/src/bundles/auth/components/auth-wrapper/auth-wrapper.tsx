@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logoImg from '~/assets/images/logo.png';
 import { Image, StatusBar, View } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -9,9 +10,6 @@ import { styles } from './styles';
 type Properties = {
     children: React.ReactNode;
 };
-
-// eslint-disable-next-line unicorn/prefer-module, @typescript-eslint/no-var-requires
-const logoImg = require('~/assets/images/logo.png');
 
 const AuthWrapper: React.FC<Properties> = ({ children }) => {
     return (
