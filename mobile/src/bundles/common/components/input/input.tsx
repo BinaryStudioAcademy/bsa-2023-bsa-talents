@@ -32,6 +32,7 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
+
     return (
         <View
             style={[
