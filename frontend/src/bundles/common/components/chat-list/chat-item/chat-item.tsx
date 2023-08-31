@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import { Grid, PageAvatar } from '../../components.js';
@@ -16,7 +18,7 @@ type Properties = {
     lastMessageDate?: string;
     avatar?: string;
     itemSelected?: boolean;
-    // onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (id: string) => void;
 };
 
 const shrinkMessage = (text: string, length: number): string => {
@@ -25,13 +27,20 @@ const shrinkMessage = (text: string, length: number): string => {
 };
 
 const ChatItem: React.FC<Properties> = ({
+    userId,
     username,
     lastMessage = '',
     lastMessageDate = '',
     avatar = '',
     itemSelected = false,
-    // onClick
+    onClick,
 }) => {
+    const handleClick = useCallback((): void => {
+        if (onClick) {
+            onClick(userId);
+        }
+    }, [userId, onClick]);
+
     return (
         <Grid
             container
@@ -43,7 +52,7 @@ const ChatItem: React.FC<Properties> = ({
                 styles.chatItem,
                 itemSelected ? styles.chatItemSelected : '',
             )}
-            // onClick={onClick}
+            onClick={handleClick}
         >
             <PageAvatar src={avatar} />
             <Grid flexGrow={1}>
