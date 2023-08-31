@@ -8,9 +8,11 @@ import { signIn, signUp } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
+    isSignedIn: boolean;
     email: string | null;
     id: string | null;
     error: string | null;
+    isProfileComplete: boolean;
     role: ValueOf<typeof UserRole> | null;
 };
 
@@ -20,6 +22,8 @@ const initialState: State = {
     id: null,
     error: null,
     role: null,
+    isProfileComplete: false,
+    isSignedIn: false,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -34,16 +38,19 @@ const { reducer, actions, name } = createSlice({
                 state.email = payload.email;
                 state.id = payload.id;
                 state.role = payload.role;
+                state.isSignedIn = true;
             },
         );
         builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
             state.dataStatus = DataStatus.PENDING;
+            state.isSignedIn = false;
         });
         builder.addMatcher(
             isAnyOf(signUp.rejected, signIn.rejected),
             (state, { payload }) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.error = payload ?? null;
+                state.isSignedIn = false;
             },
         );
     },
