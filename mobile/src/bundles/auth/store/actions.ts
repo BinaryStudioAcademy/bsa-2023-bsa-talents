@@ -19,6 +19,7 @@ const signUp = createAsyncThunk<
     try {
         const response = await authApi.signUp(signUpPayload);
         await storage.set(StorageKey.TOKEN, response.token);
+
         return response;
     } catch (error) {
         if (error instanceof Error) {
