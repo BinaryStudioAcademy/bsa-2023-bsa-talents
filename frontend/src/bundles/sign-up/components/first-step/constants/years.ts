@@ -3,6 +3,8 @@ import { ExperienceYears } from '~/bundles/sign-up/enums/enums.js';
 const EMPTY_OBJECT_LENGTH = 0;
 const INDEX = 1;
 const MAX_MARKS_VALUE = 100;
+const MIN_MARKS_VALUE = 0;
+const SINGLE_UNIT_VALUE = 1;
 function mapToSliderMarks(
     enumObject: typeof ExperienceYears,
 ): { scaledValue: number; value: number; label: string }[] {
@@ -25,6 +27,16 @@ const sliderMarks = experienceYearsScaled.map((mark) => {
         return {
             value: mark.scaledValue,
             label: mark.label + '+ years',
+        };
+    } else if (mark.scaledValue == MIN_MARKS_VALUE) {
+        return {
+            value: mark.scaledValue,
+            label: 'no',
+        };
+    } else if (mark.value <= SINGLE_UNIT_VALUE) {
+        return {
+            value: mark.scaledValue,
+            label: mark.label + ' year',
         };
     }
     return {
