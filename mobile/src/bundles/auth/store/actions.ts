@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
 
-import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
-} from '~/bundles/users/users';
+} from '~/bundles/auth/auth';
+import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
