@@ -17,18 +17,13 @@ type UserData = {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    userData: UserData;
+    userData: UserData | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
-    userData: {
-        email: null,
-        id: null,
-        role: null,
-        isProfileComplete: false,
-    },
+    userData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -48,12 +43,14 @@ const { reducer, actions, name } = createSlice({
         builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
             state.dataStatus = DataStatus.PENDING;
             state.isSignedIn = false;
+            state.userData = null;
         });
         builder.addMatcher(
             isAnyOf(signUp.rejected, signIn.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.isSignedIn = false;
+                state.userData = null;
             },
         );
     },
