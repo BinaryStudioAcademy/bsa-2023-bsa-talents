@@ -64,7 +64,7 @@ const renderStackScreen = ({
 
 const Root: React.FC<Properties> = ({
     isSignedIn = false,
-    isProfileComplete = true,
+    isProfileComplete = false,
     role = 'talent',
 }) => {
     return (
