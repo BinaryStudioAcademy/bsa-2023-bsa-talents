@@ -1,8 +1,14 @@
-import { UserDetailsApiPath } from 'shared/build/index.js';
+import {
+    UserDetailsApiPath,
+    type UserDetailsRequestDto,
+} from 'shared/build/index.js';
 
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import { type ApiHandlerResponse } from '~/common/packages/controller/controller.js';
+import {
+    type ApiHandlerOptions,
+    type ApiHandlerResponse,
+} from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
@@ -17,16 +23,25 @@ class UserDetailsController extends ControllerBase {
         this.userDetailsService = userDetailsService;
 
         this.addRoute({
-            path: UserDetailsApiPath.ROOT,
+            path: UserDetailsApiPath.UPDATE,
             method: 'PUT',
-            handler: () => this.update(),
+            handler: (options) =>
+                this.update(
+                    options as ApiHandlerOptions<{
+                        body: UserDetailsRequestDto;
+                    }>,
+                ),
         });
     }
 
-    private async update(): Promise<ApiHandlerResponse> {
+    private async update(
+        options: ApiHandlerOptions<{
+            body: UserDetailsRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.userDetailsService.update(),
+            payload: await this.userDetailsService.update(options.body),
         };
     }
 }
