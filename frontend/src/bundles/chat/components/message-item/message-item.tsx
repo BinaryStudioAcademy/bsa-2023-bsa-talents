@@ -1,7 +1,10 @@
-import { Grid, Typography } from '~/bundles/common/components/components.js';
+import {
+    Avatar,
+    Grid,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { Avatar } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
