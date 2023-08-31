@@ -44,7 +44,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                             },
                             {
                                 path: AppRoute.OTHER,
-                                element: <NotFoundPage avatarUrl="" isOnline />,
+                                element: <NotFoundPage />,
                             },
                         ]}
                     />

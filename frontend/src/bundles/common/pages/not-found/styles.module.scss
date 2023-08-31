@@ -1,0 +1,113 @@
+.pageContainer {
+    position: relative;
+    height: 100vh;
+    padding: 0 53px;
+    overflow: hidden;
+    background-color: var(--steel-gray);
+
+    & .header {
+        padding: 61px 0 0;
+    }
+}
+
+.text {
+    padding: 100px 0 0;
+    color: var(--white);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+
+    & .description {
+        font-size: var(--font-size-h4);
+        line-height: normal;
+    }
+
+    & .code {
+        padding: 60px 0 0;
+        font-size: 300px;
+        line-height: normal;
+    }
+}
+
+.link {
+    padding: 150px 0 0;
+
+    & a {
+        color: #ffd231;
+        font-weight: var(--font-weight-bold);
+        font-size: 32px;
+        line-height: normal;
+        text-align: center;
+        text-decoration-line: underline;
+    }
+}
+
+// Animation
+.cube {
+    position: absolute;
+    top: 80vh;
+    left: 45vw;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #ffd231;
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    transform-origin: top left;
+    animation: cube 12s ease-in forwards infinite;
+}
+
+.cube:nth-child(2n) {
+    border-color: #ffd231;
+}
+
+.cube:nth-child(2) {
+    top: 40vh;
+    left: 25vw;
+    animation-delay: 2s;
+}
+
+.cube:nth-child(3) {
+    top: 50vh;
+    left: 75vw;
+    animation-delay: 4s;
+}
+
+.cube:nth-child(4) {
+    top: 10vh;
+    left: 90vw;
+    animation-delay: 6s;
+}
+
+.cube:nth-child(5) {
+    top: 85vh;
+    left: 10vw;
+    animation-delay: 8s;
+}
+
+.cube:nth-child(6) {
+    top: 10vh;
+    left: 50vw;
+    animation-delay: 10s;
+}
+
+@keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(20) rotate(960deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+
+@keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(20) rotate(960deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
