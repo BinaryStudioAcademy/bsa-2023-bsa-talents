@@ -1,6 +1,8 @@
 .pageContainer {
     position: relative;
     height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     padding: 0 53px;
     overflow: hidden;
     background-color: var(--steel-gray);
@@ -11,7 +13,7 @@
 }
 
 .text {
-    padding: 100px 0 0;
+    padding: 40px 0 0;
     color: var(--white);
     font-weight: var(--font-weight-bold);
     text-align: center;
@@ -29,9 +31,10 @@
 }
 
 .link {
-    padding: 150px 0 0;
+    padding: 100px 0 0;
 
     & a {
+        display: block;
         color: #ffd231;
         font-weight: var(--font-weight-bold);
         font-size: 32px;
