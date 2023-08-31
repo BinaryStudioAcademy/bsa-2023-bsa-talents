@@ -12,6 +12,8 @@ export {
 } from './enums/enums.js';
 export {
     type UserCreateResponseDto,
+    type UserDetailsRequestDto,
+    type UserDetailsResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

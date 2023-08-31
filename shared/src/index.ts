@@ -8,6 +8,8 @@ export {
     PreferredLanguages,
     type UserCreateResponseDto,
     UserDetailsApiPath,
+    type UserDetailsRequestDto,
+    type UserDetailsResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
