@@ -16,7 +16,11 @@ const PageLayout: React.FC<Properties> = ({
     <Grid container className={getValidClassNames(styles.pageContainer)}>
         <Sidebar />
         <Grid item className={getValidClassNames(styles.mainContainer)}>
-            <Header avatarUrl={avatarUrl} isOnline={isOnline} />
+            <Header
+                avatarUrl={avatarUrl}
+                isOnline={isOnline}
+                className={getValidClassNames(styles.mainHeader)}
+            />
             <Grid item className={getValidClassNames(styles.mainContent)}>
                 {children}
             </Grid>

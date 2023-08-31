@@ -6,13 +6,20 @@
 .mainContainer {
     position: relative;
     flex: 1;
+    float: right;
+    min-height: 100vh;
     max-height: 100vh;
     overflow: hidden;
 }
 
+.mainHeader {
+    max-width: calc(100% - 79px); // TODO: --sidebar-width
+}
+
 .mainContent {
-    height: calc(100% - 61px);
-    max-height: calc(100% - 61px);
+    min-height: 100vh;
+    max-height: 100vh;
+    padding: 61px 0 0;
     overflow: hidden;
     overflow-y: visible;
     background-color: var(--botticelli);
