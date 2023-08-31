@@ -1,75 +1,63 @@
 import { FormHelperText } from '@mui/material';
 import {
+    type Control,
     Controller,
     type ControllerFieldState,
     type ControllerRenderProps,
+    type FieldErrors,
+    type FieldValues,
+    type UseFormHandleSubmit,
     type UseFormStateReturn,
 } from 'react-hook-form';
 
 import {
-    Button,
     Checkbox,
     FormControl,
-    Grid,
+    FormLabel,
     Input,
     Select,
     Slider,
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { InputVariant } from '~/bundles/common/enums/enums.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
-    useAppForm,
-    useCallback,
-    useEffect,
-    useState,
-} from '~/bundles/common/hooks/hooks.js';
+    CountryList,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/sign-up/enums/enums.js';
 import { type UserSignUpStep1Dto } from '~/bundles/sign-up/types/types.js';
-import { signUpStep1ValidationSchema } from '~/bundles/sign-up/validation-schemas/validation-schemas.js';
 
-import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
+import {
+    DEFAULT_SIGN_UP_PAYLOAD_STEP1,
+    sliderMarks,
+} from './constants/constants.js';
+import styles from './styles.module.scss';
+
+type ReturnValue<T extends FieldValues = FieldValues> = {
+    control: Control<T, null>;
+    errors: FieldErrors<T>;
+    handleSubmit: UseFormHandleSubmit<T>;
+};
 
 type Properties = {
-    onSubmit: (payload: UserSignUpStep1Dto) => void;
+    methods: ReturnValue<UserSignUpStep1Dto>;
 };
-const options = [
-    { value: 0, label: '0' },
-    { value: 20, label: '20' },
-    { value: 40, label: '40' },
-    { value: 60, label: '60' },
-    { value: 80, label: '80' },
-    { value: 100, label: '100' },
-];
-const optionsSelect = [
-    { value: 'Option', label: 'Option' },
-    { value: '20', label: '20' },
-    { value: '40', label: '40' },
-];
-const EMPTY_OBJECT_LENGTH = 0;
-const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
-    const [hasError, setHasError] = useState<boolean>(false);
-    const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD_STEP1,
-        validationSchema: signUpStep1ValidationSchema,
-    });
+const jobTitleOptions = Object.values(JobTitle).map((title) => ({
+    value: title,
+    label: title,
+}));
+const locationOptions = Object.values(CountryList).map((country) => ({
+    value: country,
+    label: country,
+}));
+const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
+    value: type,
+    label: type,
+}));
 
-    const handleFormSubmit = useCallback(
-        (formData: UserSignUpStep1Dto): void => {
-            onSubmit(formData);
-        },
-        [onSubmit],
-    );
-    useEffect(() => {
-        if (Object.keys(errors).length === EMPTY_OBJECT_LENGTH) {
-            setHasError(false);
-        } else {
-            setHasError(true);
-        }
-    }, [errors]);
-
-    const handleValidateBeforeSubmit = useCallback((): void => {
-        void handleSubmit(handleFormSubmit)();
-    }, [handleSubmit, handleFormSubmit]);
+const FirstStep: React.FC<Properties> = ({ methods }) => {
+    const { control, errors } = methods;
 
     const handleCheckboxChange = useCallback(
         (
@@ -107,7 +95,7 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
             const { ref, ...newField } = field;
             return (
                 <>
-                    {optionsSelect.map((option) => (
+                    {employmentTypeOptions.map((option) => (
                         <Checkbox
                             {...newField}
                             key={option.value}
@@ -139,7 +127,7 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
                 <Slider
                     {...newField}
                     value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
-                    marks={options}
+                    marks={sliderMarks}
                     step={null}
                 />
             );
@@ -149,86 +137,119 @@ const FirstStep: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <FormControl hasError={hasError} variant={InputVariant.OUTLINED}>
-                <Typography variant={'label'}>Profile name*</Typography>
-                <Input
-                    control={control}
-                    placeholder='ex. "Java scripter" or ".Net hard-worker"'
-                    type="text"
-                    errors={errors}
-                    name={'profileName'}
-                />
-                <Typography variant={'label'}>Salary expectations*</Typography>
-                <Input
-                    control={control}
-                    placeholder="0000"
-                    type="text"
-                    errors={errors}
-                    name={'salaryExpectation'}
-                    adornmentText="$"
-                />
-                <Typography variant={'label'}>Job title*</Typography>
-                <Select
-                    control={control}
-                    name={'jobTitle'}
-                    options={optionsSelect}
-                />
-                <Typography variant={'label'}>Experience*</Typography>
-                {/* <Slider
-                    marks={options}
-                    value={40}
-                    onChange={handleSliderChange}
-                    step={null}
-                /> */}
-                <FormControl>
+            <FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>Profile name*</Typography>
+                    </FormLabel>
+                    <Input
+                        control={control}
+                        placeholder='ex. "Java scripter" or ".Net hard-worker"'
+                        type="text"
+                        errors={errors}
+                        name={'profileName'}
+                    />
+                </FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>
+                            Salary expectations*
+                        </Typography>
+                    </FormLabel>
+                    <Input
+                        control={control}
+                        placeholder="0000"
+                        type="text"
+                        errors={errors}
+                        name={'salaryExpectation'}
+                        adornmentText="$"
+                    />
+                </FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>Job title*</Typography>
+                    </FormLabel>
+                    <Select
+                        control={control}
+                        name={'jobTitle'}
+                        options={jobTitleOptions}
+                        placeholder="Option"
+                    />
+                    {errors.jobTitle && (
+                        <FormHelperText className={styles.hasError}>
+                            {errors.jobTitle.message}
+                        </FormHelperText>
+                    )}
+                </FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>Experience*</Typography>
+                    </FormLabel>
                     <Controller
                         control={control}
                         name="experienceYears"
                         render={renderSlider}
                     />
+                    {errors.experienceYears && (
+                        <FormHelperText className={styles.hasError}>
+                            {errors.experienceYears.message}
+                        </FormHelperText>
+                    )}
                 </FormControl>
-                <Typography variant={'label'}>Current location*</Typography>
-                <Select
-                    control={control}
-                    name={'location'}
-                    options={optionsSelect}
-                />
-                <Typography variant={'label'}>Employment type*</Typography>
-                <FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>
+                            Current location*
+                        </Typography>
+                    </FormLabel>
+                    <Select
+                        control={control}
+                        name={'location'}
+                        options={locationOptions}
+                        placeholder="Option"
+                    />
+                    {errors.location && (
+                        <FormHelperText className={styles.hasError}>
+                            {errors.location.message}
+                        </FormHelperText>
+                    )}
+                </FormControl>
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>
+                            Employment type*
+                        </Typography>
+                    </FormLabel>
                     <Controller
                         control={control}
                         name="employmentTypes"
                         render={renderCheckboxes}
                     />
+                    {errors.employmentTypes && (
+                        <FormHelperText className={styles.hasError}>
+                            {errors.employmentTypes.message}
+                        </FormHelperText>
+                    )}
                 </FormControl>
-                <Typography variant={'label'}>
-                    Briefly tell employers about your experience*
-                </Typography>
-                <Textarea
-                    placeholder="Tell us a little bit about yourself"
-                    control={control}
-                    name={'description'}
-                    minRows={3}
-                    maxRows={5}
-                />
-                <Grid>
-                    <Button label="Back" variant="contained" disabled />
-                    <Button
-                        label="Next"
-                        variant="contained"
-                        type="submit"
-                        onClick={handleValidateBeforeSubmit}
+                <FormControl className={styles.formControl}>
+                    <FormLabel>
+                        <Typography variant={'label'}>
+                            Briefly tell employers about your experience*
+                        </Typography>
+                    </FormLabel>
+                    <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        control={control}
+                        name={'description'}
+                        minRows={3}
+                        maxRows={5}
                     />
-                </Grid>
-                {hasError && (
-                    <FormHelperText>
-                        {
-                            Object.values(errors).map((error) => error.message)[
-                                EMPTY_OBJECT_LENGTH
-                            ]
-                        }
-                    </FormHelperText>
-                )}
+                    {errors.description && (
+                        <FormHelperText className={styles.hasError}>
+                            {errors.description.message}
+                        </FormHelperText>
+                    )}
+                </FormControl>
             </FormControl>
         </>
     );
