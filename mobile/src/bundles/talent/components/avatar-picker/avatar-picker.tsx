@@ -13,8 +13,6 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
 
-import { styles } from './style';
-
 type AvatarPickerProperties = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
@@ -28,35 +26,29 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
     const [avatar, setAvatar] = useState<undefined | string>();
     const handleImageLoad = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
-            const { assets, didCancel } = await payload;
-            if (didCancel ?? !assets) {
-                return;
+            try {
+                const { assets, didCancel } = await payload;
+                if (didCancel ?? !assets) {
+                    return;
+                }
+                const [image] = assets;
+                setAvatar(image.uri ?? uri);
+            } catch {
+                // TODO: Notify error
             }
-            const [image] = assets;
-            setAvatar(image.uri ?? uri);
         },
         [uri],
     );
 
-    const onImageLoad = (payload: Promise<ImagePickerResponse>): void => {
-        handleImageLoad(payload).catch(() => {
-            // TODO: Notify error
-        });
-    };
-
     return (
-        <View
-            style={[
-                styles.container,
-                globalStyles.alignItemsCenter,
-
-                containerStyle,
-            ]}
-        >
+        <View style={[globalStyles.alignItemsCenter, containerStyle]}>
             <Avatar {...props} uri={avatar ?? uri} />
-            <Text category={TextCategory.H6}>Upload a new photo</Text>
+            <Text style={globalStyles.mv10} category={TextCategory.H6}>
+                Upload a new photo
+            </Text>
             <ImagePicker
-                onImageLoad={onImageLoad}
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onImageLoad={handleImageLoad}
                 label="Choose photo"
                 containerStyle={buttonStyle}
             />
