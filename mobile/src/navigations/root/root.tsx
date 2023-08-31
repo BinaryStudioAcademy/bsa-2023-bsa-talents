@@ -5,7 +5,7 @@ import {
 import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
