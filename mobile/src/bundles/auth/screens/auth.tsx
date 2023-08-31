@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Loader, Text } from '~/bundles/common/components/components';
+import { Overlay, Text } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -42,7 +42,7 @@ const Auth: React.FC = () => {
     );
 
     if (dataStatus === DataStatus.PENDING) {
-        return <Loader size="large" />;
+        return <Overlay isActive></Overlay>;
     }
 
     const getScreen = (screen: string): React.ReactNode => {
