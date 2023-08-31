@@ -1,4 +1,5 @@
 export { App } from '../../../app/app.js';
+export { Avatar } from './avatar/avatar.js';
 export { Button } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
