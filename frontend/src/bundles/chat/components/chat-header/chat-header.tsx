@@ -1,10 +1,10 @@
-import { Grid } from '~/bundles/common/components/components.js';
+import { Avatar, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-    avatarUrl: string;
+    avatarUrl?: string;
     isOnline: boolean;
     title: string;
 };
@@ -18,7 +18,7 @@ const ChatHeader: React.FC<Properties> = ({ avatarUrl, isOnline, title }) => {
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.logo}>
-                <img src={avatarUrl} alt="logo" />
+                <Avatar userFullName={title} url={avatarUrl} />
             </Grid>
             <Grid className={styles.info}>
                 <p className={styles.title}>{title}</p>

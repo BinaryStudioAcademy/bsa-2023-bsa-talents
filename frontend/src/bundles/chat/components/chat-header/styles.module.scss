@@ -6,7 +6,7 @@
     height: 80px;
     padding: 24px;
     overflow: hidden;
-    background-color: var(--white);
+    border-bottom: 1px solid var(--botticelli);
 }
 
 .logo {
@@ -15,11 +15,6 @@
     margin-right: 16px;
     overflow: hidden;
     border: none;
-    border-radius: 10px;
-
-    img {
-        height: 100%;
-    }
 }
 
 .info {
