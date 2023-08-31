@@ -8,7 +8,7 @@ import {
 } from '~/bundles/users/enums/enums.js';
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
-import { type UserDetailsProperties } from '../users/types/types.js';
+import { type UserDetailsProperties } from './types/types.js';
 
 class UserDetailsEntity implements Entity {
     private 'id': string | null;
