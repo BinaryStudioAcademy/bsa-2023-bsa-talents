@@ -6,24 +6,28 @@ import { type UserRole } from '~/bundles/users/enums/enums';
 
 import { signIn, signUp } from './actions';
 
+type UserData = {
+    email: string | null;
+    id: string | null;
+    role: ValueOf<typeof UserRole> | null;
+    isProfileComplete: boolean;
+};
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    email: string | null;
-    id: string | null;
-    error: string | null;
-    isProfileComplete: boolean;
-    role: ValueOf<typeof UserRole> | null;
+    userData: UserData;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    email: null,
-    id: null,
-    error: null,
-    role: null,
-    isProfileComplete: false,
     isSignedIn: false,
+    userData: {
+        email: null,
+        id: null,
+        role: null,
+        isProfileComplete: false,
+    },
 };
 
 const { reducer, actions, name } = createSlice({
@@ -35,9 +39,9 @@ const { reducer, actions, name } = createSlice({
             isAnyOf(signUp.fulfilled, signIn.fulfilled),
             (state, { payload }) => {
                 state.dataStatus = DataStatus.FULFILLED;
-                state.email = payload.email;
-                state.id = payload.id;
-                state.role = payload.role;
+                state.userData.email = payload.email;
+                state.userData.id = payload.id;
+                state.userData.role = payload.role;
                 state.isSignedIn = true;
             },
         );
@@ -47,9 +51,8 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addMatcher(
             isAnyOf(signUp.rejected, signIn.rejected),
-            (state, { payload }) => {
+            (state) => {
                 state.dataStatus = DataStatus.REJECTED;
-                state.error = payload ?? null;
                 state.isSignedIn = false;
             },
         );

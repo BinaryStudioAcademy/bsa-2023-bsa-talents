@@ -22,9 +22,10 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: React.FC = () => {
-    const { role, isSignedIn, isProfileComplete } = useAppSelector(
-        ({ auth }) => auth,
-    );
+    const {
+        isSignedIn,
+        userData: { isProfileComplete, role },
+    } = useAppSelector(({ auth }) => auth);
     // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
