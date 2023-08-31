@@ -1,18 +1,20 @@
 import { Model } from 'objection';
 
+import { type UserRole } from '~/common/enums/enums.js';
 import {
     AbstractModel,
     DatabaseTableName,
     UserDetailsTableColumn,
     UsersTableColumn,
-} from '~/common/database/database.js';
+} from '~/common/packages/database/database.js';
+import { type ValueOf } from '~/common/types/types.js';
 
 class UserModel extends AbstractModel {
     public 'email': string;
 
-    public 'passwordHash': string;
+    public 'role': ValueOf<typeof UserRole>;
 
-    public 'role': string; // Change in bt-86 to role type
+    public 'passwordHash': string;
 
     public static override get tableName(): string {
         return DatabaseTableName.USERS;
