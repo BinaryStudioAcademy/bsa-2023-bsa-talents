@@ -9,16 +9,16 @@ import { useAppRoute, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
-    CVContactsForm,
+    CVAndContactsForm,
     NewAccountHeader,
 } from '~/bundles/talent/components/components';
 
-const CVContacts: React.FC = () => {
+const CVAndContacts: React.FC = () => {
     const { name } = useAppRoute();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
-    const handleCVContactsSubmit = useCallback(() => {
+    const handleCVAndContactsSubmit = useCallback(() => {
         // TODO: add submit logic
         return null;
     }, []);
@@ -26,9 +26,9 @@ const CVContacts: React.FC = () => {
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <CVContactsForm onSubmit={handleCVContactsSubmit} />
+            <CVAndContactsForm onSubmit={handleCVAndContactsSubmit} />
         </View>
     );
 };
 
-export { CVContacts };
+export { CVAndContacts };

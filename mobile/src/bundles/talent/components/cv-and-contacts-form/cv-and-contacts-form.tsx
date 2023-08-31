@@ -12,16 +12,16 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { CV_CONTACTS_DEFAULT_VALUES } from './constants/constants';
+import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
     onSubmit: () => void;
 };
 
-const CVContactsForm: React.FC<Properties> = ({ onSubmit }) => {
+const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: CV_CONTACTS_DEFAULT_VALUES,
+        defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
     });
 
     const handleCVUpload = useCallback(() => {
@@ -119,4 +119,4 @@ const CVContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 };
 
-export { CVContactsForm };
+export { CVAndContactsForm };
