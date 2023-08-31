@@ -6,7 +6,7 @@ import { type Storage } from '~/framework/storage/storage';
 import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
-} from '../users/users';
+} from '../auth/auth';
 import { AuthApiPath } from './enums/enums';
 
 type Constructor = {
