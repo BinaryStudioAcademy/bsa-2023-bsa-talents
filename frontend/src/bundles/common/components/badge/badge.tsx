@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { type ReactElement } from 'react';
 
-import { BadgeColors, BadgeSize } from '../../enums/enums.js';
+import { BadgeColors } from '../../enums/enums.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { type ValueOf } from '../../types/types.js';
 import { BadgeIcon } from './components.js';
@@ -12,7 +12,7 @@ type Properties = {
     description: string;
     secondText?: string;
     color?: ValueOf<typeof BadgeColors>;
-    size?: ValueOf<typeof BadgeSize>;
+    small?: boolean | undefined;
     icon?: ReactElement;
 };
 
@@ -21,12 +21,11 @@ const Badge: React.FC<Properties> = ({
     description,
     secondText,
     color = BadgeColors.BLUE,
-    size = BadgeSize.DEFAULT,
+    small = false,
     icon,
 }) => {
-    const isSmall = size === BadgeSize.SMALL;
     const setClass = (classStandart: string, classSmall: string): string =>
-        getValidClassNames(classStandart, isSmall ? classSmall : '');
+        getValidClassNames(classStandart, small ? classSmall : '');
 
     return (
         <Grid
@@ -43,7 +42,7 @@ const Badge: React.FC<Properties> = ({
                 justifyContent="center"
                 alignItems="center"
                 alignContent="center"
-                alignSelf={isSmall ? 'flex-start' : 'auto'}
+                alignSelf={small ? 'flex-start' : 'auto'}
                 className={setClass(styles.icon, styles.iconSmall)}
                 style={{ backgroundColor: color }}
             >
