@@ -41,90 +41,65 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <Grid container className={styles.container}>
-                <Grid item xs={12} md={6}>
-                    <Grid item className={styles['selling-point']}>
-                        <div className={styles.logo}></div>
-                        <h1 className={styles.text}>
-                            Start your career easily
-                        </h1>
-                    </Grid>
-                </Grid>
-                <Grid className={styles['form-wrapper']} item xs={12} md={6}>
-                    <Grid item className={styles.wrapper}>
-                        <form
-                            onSubmit={handleFormSubmit}
-                            className={styles.form}
-                        >
-                            <p className={getValidClassNames(styles.header)}>
-                                Hi! Login to your Account
-                            </p>
+            <form onSubmit={handleFormSubmit} className={styles.form}>
+                <p className={getValidClassNames(styles.header)}>
+                    Hi! Login to your Account
+                </p>
 
-                            <FormControl
-                                className={getValidClassNames(
-                                    styles['input-container'],
-                                    styles.email,
-                                )}
-                            >
-                                <FormLabel className={styles.label}>
-                                    Email
-                                </FormLabel>
-                                <Input
-                                    control={control}
-                                    errors={errors}
-                                    placeholder="user@email.com"
-                                    name="email"
-                                />
-                            </FormControl>
-                            <FormControl
-                                className={getValidClassNames(
-                                    styles['input-container'],
-                                    styles.password,
-                                )}
-                            >
-                                <FormLabel className={styles.label}>
-                                    Password
-                                </FormLabel>
-                                <Input
-                                    control={control}
-                                    errors={errors}
-                                    type="password"
-                                    placeholder="****"
-                                    name="password"
-                                />
-                            </FormControl>
-                            <Grid item className={styles['auth-options']}>
-                                <Checkbox
-                                    label={
-                                        <Typography variant="label">
-                                            Remember Me?
-                                        </Typography>
-                                    }
-                                    className={getValidClassNames(
-                                        styles.checkbox,
-                                    )}
-                                />
-                                {/* TODO: Link to reset password route */}
-                                <Link to="/" className={styles.forgot}>
-                                    <span>Forgot Password?</span>
-                                </Link>
-                            </Grid>
-                            <Button
-                                label="Login"
-                                className={styles['btn-login']}
-                                type="submit"
-                            />
-                        </form>
-                        <Grid item className={styles.footer}>
-                            <span className={styles.span}>
-                                Not registered Yet?
-                            </span>
-                            <Link className={styles.cta} to={'/sign-up'}>
-                                Create an account
-                            </Link>
-                        </Grid>
-                    </Grid>
+                <FormControl
+                    className={getValidClassNames(
+                        styles['input-container'],
+                        styles.email,
+                    )}
+                >
+                    <FormLabel className={styles.label}>Email</FormLabel>
+                    <Input
+                        control={control}
+                        errors={errors}
+                        placeholder="user@email.com"
+                        name="email"
+                    />
+                </FormControl>
+                <FormControl
+                    className={getValidClassNames(
+                        styles['input-container'],
+                        styles.password,
+                    )}
+                >
+                    <FormLabel className={styles.label}>Password</FormLabel>
+                    <Input
+                        control={control}
+                        errors={errors}
+                        type="password"
+                        placeholder="****"
+                        name="password"
+                    />
+                </FormControl>
+                <Grid item className={styles['auth-options']}>
+                    <Checkbox
+                        label={
+                            <Typography variant="label">
+                                Remember Me?
+                            </Typography>
+                        }
+                        className={getValidClassNames(styles.checkbox)}
+                    />
+                    {/* TODO: Link to reset password route */}
+                    <Link to="/" className={styles.forgot}>
+                        <span>Forgot Password?</span>
+                    </Link>
                 </Grid>
+                <Button
+                    label="Login"
+                    className={styles['btn-login']}
+                    type="submit"
+                />
+            </form>
+            <Grid item className={styles.footer}>
+                <span className={styles.span}>Not registered Yet?</span>
+                <Link className={styles.cta} to={'/sign-up'}>
+                    Create an account
+                </Link>
             </Grid>
         </>
     );

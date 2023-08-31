@@ -1,52 +1,3 @@
-.container {
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-    background-color: var(--steel-gray);
-}
-
-.selling-point {
-    margin-bottom: 34px;
-    border: 1px solidd white;
-
-    & .text {
-        display: none;
-        max-width: 300px;
-        color: var(--white);
-        font-weight: var(--font-weight-bold);
-        font-size: 32px;
-        font-family: var(--font-family);
-        line-height: var(--line-height-main);
-    }
-
-    & .logo {
-        display: inline-block;
-        width: 75px;
-        background-color: var(--sunglow);
-        border-radius: 7px;
-        aspect-ratio: 1/1;
-    }
-}
-
-.wrapper {
-    width: 100%;
-    max-width: 420px;
-    margin: auto;
-    padding-right: 27px;
-    padding-left: 27px;
-}
-
-.form-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    background-color: var(--white);
-    border-radius: 12px;
-}
-
 .form {
     display: flex;
     flex-direction: column;
@@ -78,7 +29,6 @@
     width: 100%;
 
     &.email {
-        margin-top: 48px;
         margin-bottom: 25px;
     }
 
@@ -142,20 +92,4 @@
     flex-direction: row;
     justify-content: center;
     gap: 5%;
-}
-
-@media screen and (width >= 900px) {
-    .selling-point {
-        display: flex;
-        align-items: center;
-        gap: 27px;
-
-        .text {
-            display: block;
-        }
-    }
-
-    .container {
-        flex-direction: row;
-    }
 }
