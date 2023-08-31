@@ -1,23 +1,14 @@
-import {
-    FormControlLabel,
-    RadioGroup as MuiRadioGroup,
-    type RadioGroupProps,
-} from '@mui/material';
+import { RadioGroup as MuiRadioGroup } from '@mui/material';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
-    type Path,
-    type PathValue,
 } from 'react-hook-form';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import {
-    useCallback,
-    useFormController,
-} from '~/bundles/common/hooks/hooks.js';
+import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
-import { FormControl, Radio } from '../components.js';
+import { FormControlLabel, Radio } from '../components.js';
 import styles from './styles.module.scss';
 
 type Option = {
@@ -26,64 +17,45 @@ type Option = {
 };
 
 type Properties<T extends FieldValues> = {
-    control: Control<T, null>;
+    control?: Control<T, null>;
     name: FieldPath<T>;
-    options: Option[];
-    isRow?: boolean;
-    hasError?: boolean;
-    isDisabled?: boolean;
+    options?: Option[];
     className?: string;
-} & RadioGroupProps;
+};
 
 const RadioGroup = <T extends FieldValues>({
     control,
     name,
     options,
-    hasError = false,
-    isDisabled = false,
-    isRow = true,
     className = '',
+    ...props
 }: Properties<T>): JSX.Element => {
     const radioGroupClasses = getValidClassNames(
         styles['radio-group'],
         className,
     );
-    const [{ value: firstOption }] = options;
     const { field } = useFormController({
-        name,
         control,
-        defaultValue: firstOption as PathValue<T, Path<T>>,
+        name,
     });
-    const handleChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>): void => {
-            field.onChange(event.target.value);
-        },
-        [field],
-    );
 
     return (
-        <FormControl
-            className={styles.container}
-            hasError={hasError}
-            isDisabled={isDisabled}
-        >
-            <MuiRadioGroup {...field} className={radioGroupClasses} row={isRow}>
-                {options.map((option) => (
-                    <FormControlLabel
-                        key={option.value}
-                        value={option.value}
-                        control={
-                            <Radio
-                                isChecked={field.value === option.value}
-                                isDisabled={isDisabled}
-                                onChange={handleChange}
-                            />
-                        }
-                        label={option.label}
-                    />
-                ))}
-            </MuiRadioGroup>
-        </FormControl>
+        <MuiRadioGroup {...field} className={radioGroupClasses} {...props}>
+            {options?.map((option) => (
+                <FormControlLabel
+                    key={option.value}
+                    value={option.value}
+                    label={option.label}
+                    control={
+                        <Radio
+                            value={option.value}
+                            checked={field.value === option.value}
+                            //onChange={(e) => field.onChange(e.target.value)}
+                        />
+                    }
+                />
+            ))}
+        </MuiRadioGroup>
     );
 };
 

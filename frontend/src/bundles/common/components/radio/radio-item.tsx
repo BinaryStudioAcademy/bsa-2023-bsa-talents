@@ -5,10 +5,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type RadioProperties = {
-    isChecked: boolean;
-    isDisabled?: boolean;
     className?: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 } & RadioProps;
 
 const radioIconClasses = getValidClassNames(styles['radio-icon']);
@@ -20,9 +17,6 @@ const RadioIcon = <span className={radioIconClasses} />;
 const RadioIconChecked = <span className={radioCheckedIconClasses} />;
 
 const Radio: React.FC<RadioProperties> = ({
-    isChecked,
-    isDisabled,
-    onChange,
     className = '',
     ...restProperties
 }) => {
@@ -32,9 +26,6 @@ const Radio: React.FC<RadioProperties> = ({
             checkedIcon={RadioIconChecked}
             icon={RadioIcon}
             className={radioClasses}
-            checked={isChecked}
-            disabled={isDisabled}
-            onChange={onChange}
             {...restProperties}
         />
     );
