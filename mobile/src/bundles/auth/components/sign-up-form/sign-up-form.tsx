@@ -1,5 +1,6 @@
 import React from 'react';
 import { type RadioButtonProps } from 'react-native-radio-buttons-group';
+import Toast from 'react-native-toast-message';
 
 import {
     Button,
@@ -34,6 +35,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         defaultValues: USER_SIGN_UP_DEFAULT_VALUES,
         validationSchema: userSignUpValidationSchema,
     });
+
+    // const { errorMessage } = useAppSelector(({ auth }) => ({
+    //     errorMessage: auth.error,
+    // }));
+
+    // console.log(errorMessage);
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -138,6 +145,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     link={`/${AuthScreenName.SIGN_IN}`}
                 />
             </View>
+            <Toast />
         </View>
     );
 };

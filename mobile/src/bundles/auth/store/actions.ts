@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
@@ -12,10 +13,19 @@ const signUp = createAsyncThunk<
     UserSignUpResponseDto,
     UserSignUpRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sign-up`, (signUpPayload, { extra }) => {
+>(`${sliceName}/sign-up`, async (signUpPayload, { extra }) => {
     const { authApi } = extra;
-
-    return authApi.signUp(signUpPayload);
+    try {
+        return await authApi.signUp(signUpPayload);
+    } catch (error) {
+        if (error instanceof Error) {
+            Toast.show({
+                type: 'info',
+                text1: error.message,
+            });
+            throw error;
+        }
+    }
 });
 
 export { signUp };

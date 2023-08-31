@@ -9,13 +9,21 @@ import { signUp } from './actions';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    role: null | ValueOf<typeof UserRole>;
+    userData: {
+        email: string | null;
+        id: string | null;
+        role: ValueOf<typeof UserRole> | null;
+    };
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
-    role: null,
+    userData: {
+        email: null,
+        id: null,
+        role: null,
+    },
 };
 
 const { reducer, actions, name } = createSlice({
@@ -29,7 +37,7 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(signUp.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             state.isSignedIn = true;
-            state.role = action.payload.role;
+            state.userData = action.payload;
         });
         builder.addCase(signUp.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;

@@ -31,14 +31,10 @@ type Properties = {
     role?: ValueOf<typeof UserRole>;
 };
 
-const Root: React.FC<Properties> = ({
-    // isSignedIn = false,
-    isProfileComplete = false,
-    // role = 'talent',
-}) => {
+const Root: React.FC<Properties> = ({ isProfileComplete = false }) => {
     const { isSignedIn, role } = useAppSelector(({ auth }) => ({
         isSignedIn: auth.isSignedIn,
-        role: auth.role,
+        role: auth.userData.role,
     }));
     // prettier-ignore
     return (

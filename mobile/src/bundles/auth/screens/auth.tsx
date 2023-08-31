@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Overlay, Text } from '~/bundles/common/components/components';
-import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
+import { Text } from '~/bundles/common/components/components';
+import { AuthScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
@@ -41,9 +41,9 @@ const Auth: React.FC = () => {
         [dispatch],
     );
 
-    if (dataStatus === DataStatus.PENDING) {
-        return <Overlay isActive></Overlay>;
-    }
+    // if (dataStatus === DataStatus.PENDING) {
+    //     return <Overlay isActive></Overlay>;
+    // }
 
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
