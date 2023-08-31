@@ -10,6 +10,7 @@ import { signUpStep1ValidationSchema } from '~/bundles/sign-up/validation-schema
 
 import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
 import { FirstStep } from './first-step.js';
+import styles from './styles.module.scss';
 
 type Properties = {
     test?: boolean;
@@ -37,13 +38,13 @@ const TestStepLayout: React.FC<Properties> = () => {
     return (
         <div>
             <FirstStep methods={method} />
-            <Grid>
-                <Button label="Back" variant="contained" disabled />
+            <Grid className={styles.stepButtons}>
+                <Button label="Back" className={styles.buttonBack} disabled />
                 <Button
+                    onClick={handleValidateBeforeSubmit}
                     label="Next"
                     variant="contained"
-                    type="submit"
-                    onClick={handleValidateBeforeSubmit}
+                    className={styles.buttonNext}
                 />
             </Grid>
         </div>

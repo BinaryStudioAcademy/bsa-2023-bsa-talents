@@ -7,7 +7,7 @@
     }
 
     & .input::placeholder {
-        color: var(--error-primary);
+        color: var();
         -webkit-text-fill-color: var(--error-primary);
     }
 }
@@ -15,4 +15,70 @@
 .formControl {
     margin: 5px;
     padding: 10px;
+}
+
+.checkboxContainer {
+    padding: 10px 16px;
+}
+
+.formControlCheckbox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.formControlSlider {
+    margin: 0 5px;
+    padding: 0 10px;
+}
+
+.formControlMain {
+    max-width: 100%;
+    margin: 10px;
+    padding: 50px 150px;
+    border: 2px solid var(--nepal);
+    box-shadow: 0 0 5px rgba(0 0 0 / 10%);
+}
+
+.noWrap {
+    margin-right: 50px;
+    white-space: nowrap;
+}
+
+.formLabel {
+    color: var(--steel-gray);
+}
+
+.requiredField {
+    color: var(--azure);
+}
+
+// delete later
+
+.buttonBack {
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.buttonNext {
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+.stepButtons {
+    button {
+        width: 104px;
+        height: 36px;
+        margin: 5px;
+        font-weight: 500;
+        font-size: 13px;
+        text-transform: capitalize;
+    }
 }

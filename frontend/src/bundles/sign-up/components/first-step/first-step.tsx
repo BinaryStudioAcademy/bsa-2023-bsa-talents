@@ -14,12 +14,14 @@ import {
     Checkbox,
     FormControl,
     FormLabel,
+    Grid,
     Input,
     Select,
     Slider,
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
@@ -125,6 +127,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
             const { ref, ...newField } = field;
             return (
                 <Slider
+                    className={styles.track}
+                    classes={styles}
                     {...newField}
                     value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
                     marks={sliderMarks}
@@ -136,122 +140,139 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
     );
 
     return (
-        <>
-            <FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>Profile name*</Typography>
-                    </FormLabel>
-                    <Input
-                        control={control}
-                        placeholder='ex. "Java scripter" or ".Net hard-worker"'
-                        type="text"
-                        errors={errors}
-                        name={'profileName'}
-                    />
-                </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>
-                            Salary expectations*
-                        </Typography>
-                    </FormLabel>
-                    <Input
-                        control={control}
-                        placeholder="0000"
-                        type="text"
-                        errors={errors}
-                        name={'salaryExpectation'}
-                        adornmentText="$"
-                    />
-                </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>Job title*</Typography>
-                    </FormLabel>
-                    <Select
-                        control={control}
-                        name={'jobTitle'}
-                        options={jobTitleOptions}
-                        placeholder="Option"
-                    />
-                    {errors.jobTitle && (
-                        <FormHelperText className={styles.hasError}>
-                            {errors.jobTitle.message}
-                        </FormHelperText>
-                    )}
-                </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>Experience*</Typography>
-                    </FormLabel>
-                    <Controller
-                        control={control}
-                        name="experienceYears"
-                        render={renderSlider}
-                    />
-                    {errors.experienceYears && (
-                        <FormHelperText className={styles.hasError}>
-                            {errors.experienceYears.message}
-                        </FormHelperText>
-                    )}
-                </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>
-                            Current location*
-                        </Typography>
-                    </FormLabel>
-                    <Select
-                        control={control}
-                        name={'location'}
-                        options={locationOptions}
-                        placeholder="Option"
-                    />
-                    {errors.location && (
-                        <FormHelperText className={styles.hasError}>
-                            {errors.location.message}
-                        </FormHelperText>
-                    )}
-                </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>
-                            Employment type*
-                        </Typography>
-                    </FormLabel>
+        <FormControl className={styles.formControlMain}>
+            <FormControl className={styles.formControl}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Profile name
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Input
+                    control={control}
+                    placeholder='ex. "Java scripter" or ".Net hard-worker"'
+                    type="text"
+                    errors={errors}
+                    name={'profileName'}
+                />
+            </FormControl>
+            <FormControl className={styles.formControl}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Salary expectations
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Input
+                    control={control}
+                    placeholder="0000"
+                    type="text"
+                    errors={errors}
+                    name={'salaryExpectation'}
+                    adornmentText="$"
+                />
+            </FormControl>
+            <FormControl className={styles.formControl}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Job title<span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Select
+                    control={control}
+                    name={'jobTitle'}
+                    options={jobTitleOptions}
+                    placeholder="Option"
+                />
+                {errors.jobTitle && (
+                    <FormHelperText className={styles.hasError}>
+                        {errors.jobTitle.message}
+                    </FormHelperText>
+                )}
+            </FormControl>
+            <FormControl className={styles.formControlSlider}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Experience
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Controller
+                    control={control}
+                    name="experienceYears"
+                    render={renderSlider}
+                />
+                {errors.experienceYears && (
+                    <FormHelperText className={styles.hasError}>
+                        {errors.experienceYears.message}
+                    </FormHelperText>
+                )}
+            </FormControl>
+            <FormControl className={styles.formControl}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Current location
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Select
+                    control={control}
+                    name={'location'}
+                    options={locationOptions}
+                    placeholder="Option"
+                />
+                {errors.location && (
+                    <FormHelperText className={styles.hasError}>
+                        {errors.location.message}
+                    </FormHelperText>
+                )}
+            </FormControl>
+            <Grid className={styles.checkboxContainer}>
+                <FormLabel className={styles.formLabel}>
+                    <Typography variant={'label'}>
+                        Employment type
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <FormControl className={styles.formControlCheckbox}>
                     <Controller
                         control={control}
                         name="employmentTypes"
                         render={renderCheckboxes}
                     />
-                    {errors.employmentTypes && (
-                        <FormHelperText className={styles.hasError}>
-                            {errors.employmentTypes.message}
-                        </FormHelperText>
-                    )}
                 </FormControl>
-                <FormControl className={styles.formControl}>
-                    <FormLabel>
-                        <Typography variant={'label'}>
-                            Briefly tell employers about your experience*
-                        </Typography>
-                    </FormLabel>
-                    <Textarea
-                        placeholder="Tell us a little bit about yourself"
-                        control={control}
-                        name={'description'}
-                        minRows={3}
-                        maxRows={5}
-                    />
-                    {errors.description && (
-                        <FormHelperText className={styles.hasError}>
-                            {errors.description.message}
-                        </FormHelperText>
+                {errors.employmentTypes && (
+                    <FormHelperText className={styles.hasError}>
+                        {errors.employmentTypes.message}
+                    </FormHelperText>
+                )}
+            </Grid>
+            <FormControl className={styles.formControl}>
+                <FormLabel
+                    className={getValidClassNames(
+                        styles.noWrap,
+                        styles.formLabel,
                     )}
-                </FormControl>
+                >
+                    <Typography variant={'label'}>
+                        Briefly tell employers about your experience
+                        <span className={styles.requiredField}>*</span>
+                    </Typography>
+                </FormLabel>
+                <Textarea
+                    placeholder="Tell us a little bit about yourself"
+                    control={control}
+                    name={'description'}
+                    minRows={7}
+                    maxRows={9}
+                />
+                {errors.description && (
+                    <FormHelperText className={styles.hasError}>
+                        {errors.description.message}
+                    </FormHelperText>
+                )}
             </FormControl>
-        </>
+        </FormControl>
     );
 };
 

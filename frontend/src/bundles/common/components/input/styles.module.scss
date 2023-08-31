@@ -66,14 +66,14 @@
     color: var(--error-primary);
     border-color: var(--error-primary);
 
-    & .input {
-        color: var(--error-primary);
-    }
+    // & .input {
+    //     color: var(--error-primary);
+    // }
 
-    & .input::placeholder {
-        color: var(--error-primary);
-        -webkit-text-fill-color: var(--error-primary);
-    }
+    // & .input::placeholder {
+    //     color: var(--error-primary);
+    //     -webkit-text-fill-color: var(--error-primary);
+    // }
 }
 
 .adornmentIcon {
