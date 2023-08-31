@@ -5,6 +5,7 @@ export {
     JobTitle,
     NotConsidered,
     PreferredLanguages,
+    UserDetailsApiPath,
     UserRole,
     UsersApiPath,
     UserValidationMessage,

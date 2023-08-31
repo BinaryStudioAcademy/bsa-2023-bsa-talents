@@ -7,6 +7,7 @@ export {
     NotConsidered,
     PreferredLanguages,
     type UserCreateResponseDto,
+    UserDetailsApiPath,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
