@@ -54,18 +54,20 @@ class ControllerBase implements Controller {
         const requestWithFile = request as FastifyRequest & {
             file?: MulterFile;
         };
-        const { body, query, params, file } = requestWithFile;
+        const { body, query, params, headers, file } = requestWithFile;
         if (file) {
             return {
                 body: { ...(body as object), file },
                 query,
                 params,
+                headers,
             };
         }
         return {
-            body,
+            body: { ...(body as object), file },
             query,
             params,
+            headers,
         };
     }
 }
