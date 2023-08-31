@@ -6,9 +6,17 @@ export {
     type UserSignUpStep1Dto,
 } from './bundles/sign-up/sign-up.js';
 export {
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
+    type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
