@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { ErrorMessages } from '~/bundles/common/enums/enums';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserSignInRequestDto,
@@ -25,17 +26,17 @@ const signIn = createAsyncThunk<
     UserSignInRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-in`, async (signInPayload, { extra }) => {
+    const { authApi, storage, notifications } = extra;
     try {
-        const { authApi, storage } = extra;
         const response = await authApi.signIn(signInPayload);
         await storage.set(StorageKey.TOKEN, response.token);
         return response;
     } catch (error) {
         if (error instanceof Error) {
-            // TODO: NOTIFY Error (ErrorMessages.UNKNOWN_ERROR);
+            notifications.showError(error.message);
             throw error;
         }
-        // TODO: NOTIFY Error (ErrorMessages.UNKNOWN_ERROR);
+        notifications.showError(ErrorMessages.UNKNOWN_ERROR);
         throw error;
     }
 });
