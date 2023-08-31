@@ -1,15 +1,12 @@
-import { Link, Typography } from '../../components/components.js';
+import { Link, Logo, Typography } from '../../components/components.js';
 import { AppRoute } from '../../enums/app-route.enum.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
-import logosvg from './logo.svg';
 import styles from './styles.module.scss';
-
-// TODO: change logo after bt-182: Add logo component
 
 const NotFoundPage: React.FC = () => (
     <div className={getValidClassNames(styles.pageContainer)}>
         <div className={getValidClassNames(styles.header)}>
-            <img src={logosvg} alt="logo"></img>
+            <Logo />
         </div>
         <div className={getValidClassNames(styles.text)}>
             <Typography
