@@ -6,7 +6,11 @@ import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
-import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import {
+    type RootNavigationParameterList,
+    type ValueOf,
+} from '~/bundles/common/types/types';
+import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -24,7 +28,7 @@ type Properties = {
     isSignedIn?: boolean;
     isProfileComplete?: boolean;
     // TODO: update when enum is in shared folder
-    role?: 'talent' | 'employer';
+    role?: ValueOf<typeof UserRole>;
 };
 
 const Root: React.FC<Properties> = ({
@@ -32,17 +36,17 @@ const Root: React.FC<Properties> = ({
     isProfileComplete = false,
     // role = 'talent',
 }) => {
-    const { token, role: userRole } = useAppSelector(({ auth }) => ({
-        token: auth.user?.token,
-        role: auth.user?.role,
+    const { isSignedIn, role } = useAppSelector(({ auth }) => ({
+        isSignedIn: auth.isSignedIn,
+        role: auth.role,
     }));
     // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
-            {token ? (
+            {isSignedIn ? (
                 <RootStack.Screen
                     name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={userRole === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
+                    component={role === UserRole.TALENT ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
                 />
             ) : (isProfileComplete ? (
                 <RootStack.Screen
