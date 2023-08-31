@@ -31,11 +31,9 @@ type Properties = {
     role?: ValueOf<typeof UserRole>;
 };
 
-const Root: React.FC<Properties> = ({ isProfileComplete = false }) => {
-    const { isSignedIn, role } = useAppSelector(({ auth }) => ({
-        isSignedIn: auth.isSignedIn,
-        role: auth.userData.role,
-    }));
+const Root: React.FC<Properties> = () => {
+    const { isSignedIn } = useAppSelector(({ auth }) => auth);
+
     // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>

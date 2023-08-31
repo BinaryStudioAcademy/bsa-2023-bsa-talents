@@ -13,17 +13,13 @@ type State = {
         email: string | null;
         id: string | null;
         role: ValueOf<typeof UserRole> | null;
-    };
+    } | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
-    userData: {
-        email: null,
-        id: null,
-        role: null,
-    },
+    userData: null,
 };
 
 const { reducer, actions, name } = createSlice({
