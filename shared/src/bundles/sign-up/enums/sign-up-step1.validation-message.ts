@@ -17,11 +17,13 @@ const SignUpStep1ValidationMessage = {
     JOB_TITLE_REQUIRED: 'Job title is required',
     JOB_TITLE_LENGTH:
         'Job title must be between {{#limit.min}} and {{#limit.max}} characters',
+    JOB_TITLE_BASE: 'Please select a valid job title from the provided options',
     JOB_TITLE_WRONG_PATTERN: 'Job title must contain only letters and spaces',
     EXPERIENCE_YEARS_NOT_NUMBER: 'Experience years must be a number',
     EXPERIENCE_YEARS_REQUIRED: 'Experience years is required',
     LOCATION_NOT_STRING: 'Location must be a string',
     LOCATION_REQUIRED: 'Location is required',
+    LOCATION_BASE: 'Please select a valid location from the provided options',
     EMPLOYMENT_TYPES_REQUIRED: 'At least one employment type must be selected',
     EMPLOYMENT_TYPES_NOT_ARRAY: 'Employment types must be an array',
     DESCRIPTION_NOT_STRING: 'Description must be a string',

@@ -4,7 +4,7 @@ function createNumberRangeArray(
     step: number,
 ): number[] {
     const rangeArray = [];
-    for (let index = min; index <= max; index += step) {
+    for (let index = min; index <= max + Number.EPSILON; index += step) {
         rangeArray.push(index);
     }
     return rangeArray;

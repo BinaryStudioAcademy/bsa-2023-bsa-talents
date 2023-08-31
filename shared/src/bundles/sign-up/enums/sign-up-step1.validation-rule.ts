@@ -7,17 +7,8 @@ const SignUpStep1ValidationRule = {
     MAX_EXPERIENCE_DESCRIPTION_LENGTH: 250,
     MIN_YEARS_OF_EXPERIENCE: 0,
     MAX_YEARS_OF_EXPERIENCE: 5,
-    MAX_YEARS_OF_EXPERIENCE_STRING: '5+',
     YEARS_OF_EXPERIENCE_STEP: 0.5,
     EMPLOYMENT_TYPES_MIN_LENGTH: 1,
-    EMPLOYMENT_TYPES: [
-        'Full time',
-        'Part-time',
-        'Freelance',
-        'Remotely',
-        'Relocation',
-    ],
-    JOB_TITLES: ['JS', '.Net', 'QA'],
 };
 
 export { SignUpStep1ValidationRule };

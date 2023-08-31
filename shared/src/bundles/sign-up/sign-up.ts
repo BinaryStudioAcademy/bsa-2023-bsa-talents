@@ -3,4 +3,4 @@ export {
     SignUpStep1ValidationRule,
 } from './enums/enums.js';
 export { type UserSignUpStep1Dto } from './types/types.js';
-export { signUpStep1ValidationSchema } from './validation-scemas/validation-schemas.js';
+export { signUpStep1ValidationSchema } from './validation-schemas/validation-schemas.js';
