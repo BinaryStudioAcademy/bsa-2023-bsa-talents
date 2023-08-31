@@ -1,5 +1,6 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
+export { ChatList } from './chat-list/chat-list.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
 export { FormControl } from './form-control/form-control.js';

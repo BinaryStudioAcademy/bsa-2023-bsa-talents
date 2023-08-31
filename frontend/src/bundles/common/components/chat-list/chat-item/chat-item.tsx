@@ -10,10 +10,13 @@ const MAX_LENGTH = {
 };
 
 type Properties = {
+    userId: string;
     username: string;
     lastMessage?: string;
     lastMessageDate?: string;
-    avatarImageSource?: string;
+    avatar?: string;
+    itemSelected?: boolean;
+    // onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const shrinkMessage = (text: string, length: number): string => {
@@ -25,7 +28,9 @@ const ChatItem: React.FC<Properties> = ({
     username,
     lastMessage = '',
     lastMessageDate = '',
-    avatarImageSource = '',
+    avatar = '',
+    itemSelected = false,
+    // onClick
 }) => {
     return (
         <Grid
@@ -34,9 +39,13 @@ const ChatItem: React.FC<Properties> = ({
             gap="16px"
             wrap="nowrap"
             component="article"
-            className={styles.chatItem}
+            className={getValidClassNames(
+                styles.chatItem,
+                itemSelected ? styles.chatItemSelected : '',
+            )}
+            // onClick={onClick}
         >
-            <PageAvatar src={avatarImageSource} />
+            <PageAvatar src={avatar} />
             <Grid flexGrow={1}>
                 <div className={getValidClassNames(styles.headerText)}>
                     {shrinkMessage(username, MAX_LENGTH.author)}

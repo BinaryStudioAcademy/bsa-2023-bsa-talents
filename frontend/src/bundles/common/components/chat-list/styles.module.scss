@@ -1,3 +1,23 @@
-.basic {
-    width: 10px;
+.chatListContainer {
+    max-width: 349px;
+    height: 300px; /* remove */
+    padding: 10px 16px;
+    overflow: hidden auto;
+    outline: 1px solid grey;
+}
+
+.chatListContainer::-webkit-scrollbar {
+    width: 2px;
+    background-color: var(--solitude);
+}
+
+.chatListContainer::-webkit-scrollbar-thumb {
+    background-color: var(--st-tropaz);
+    border-radius: 10px;
+}
+
+.chatList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }

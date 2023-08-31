@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.chatItem.chatItemSelected {
+    background-color: var(--solitude);
+}
+
 .headerText {
     font-weight: 600;
     font-size: 14px;
