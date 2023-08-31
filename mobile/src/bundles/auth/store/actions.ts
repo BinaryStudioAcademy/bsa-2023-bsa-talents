@@ -6,7 +6,7 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users';
-import { StorageKey } from '~/framework/storage/enums/storage-key.enum';
+import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
 

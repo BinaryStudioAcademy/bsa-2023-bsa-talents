@@ -52,10 +52,12 @@ const Auth: React.FC = () => {
         return null;
     };
 
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
+
     return (
         <>
             {getScreen(name)}
-            {dataStatus === DataStatus.PENDING && <Overlay isActive></Overlay>}
+            <Overlay isActive={isPendingAuth} />
         </>
     );
 };
