@@ -20,7 +20,7 @@ const signUp = createAsyncThunk<
     } catch (error) {
         if (error instanceof Error) {
             Toast.show({
-                type: 'info',
+                type: 'error',
                 text1: error.message,
             });
             throw error;

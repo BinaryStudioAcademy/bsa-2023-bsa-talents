@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { Overlay, Text } from '~/bundles/common/components/components';
+import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -40,11 +40,6 @@ const Auth: React.FC = () => {
         },
         [dispatch],
     );
-
-    // if (dataStatus === DataStatus.PENDING) {
-    //     return <Overlay isActive></Overlay>;
-    // }
-
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
@@ -54,13 +49,11 @@ const Auth: React.FC = () => {
                 return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
         }
-
         return null;
     };
 
     return (
         <>
-            <Text>state: {dataStatus}</Text>
             {getScreen(name)}
             {dataStatus === DataStatus.PENDING && <Overlay isActive></Overlay>}
         </>
