@@ -6,15 +6,10 @@ type Properties = {
     small?: boolean;
 };
 
-const COLOR_DEG = 360;
-const getRandomColor = (): string => {
-    return `hsl(${Math.floor(Math.random() * COLOR_DEG)}deg 97.1% 72.94%)`;
-};
-
 const setImageStyle = (imageLink: string | undefined): React.CSSProperties => {
     return imageLink
         ? { backgroundImage: `url("${imageLink}")` }
-        : { backgroundColor: getRandomColor() };
+        : { backgroundColor: '#7A77FD' };
 };
 
 const PageAvatar: React.FC<Properties> = ({ src, small }) => {

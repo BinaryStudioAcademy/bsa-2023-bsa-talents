@@ -1,3 +1,28 @@
-.basic {
-    width: 10px;
+.chatItem {
+    min-width: 317px;
+    min-height: 72px;
+    max-height: 72px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.chatItem:hover {
+    background-color: var(--solitude);
+    cursor: pointer;
+}
+
+.headerText {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.date {
+    opacity: 0.3;
+}
+
+.message {
+    color: var(--slate-gray);
+    font-size: 12px;
+    line-height: 18px;
 }
