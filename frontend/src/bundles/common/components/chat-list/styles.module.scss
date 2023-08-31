@@ -1,23 +1,23 @@
 .chatListContainer {
     max-width: 349px;
-    height: 300px; /* remove */
-    padding: 10px 16px;
-    overflow: hidden auto;
-    outline: 1px solid grey;
+    padding: 10px 0;
+    overflow: hidden;
 }
 
-.chatListContainer::-webkit-scrollbar {
+.chatList {
+    height: calc(100% - 48px); /* minus search bar height */
+    margin: 0;
+    padding: 0 16px;
+    overflow: hidden auto;
+    list-style: none;
+}
+
+.chatList::-webkit-scrollbar {
     width: 2px;
     background-color: var(--solitude);
 }
 
-.chatListContainer::-webkit-scrollbar-thumb {
+.chatList::-webkit-scrollbar-thumb {
     background-color: var(--st-tropaz);
     border-radius: 10px;
-}
-
-.chatList {
-    margin: 0;
-    padding: 0;
-    list-style: none;
 }

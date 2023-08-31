@@ -1,1 +1,2 @@
-export { ChatItem, type ChatItemProperties } from './chat-item/chat-item.js';
+export { ChatListItem } from './chat-item/chat-list-item.js';
+export { ChatListSearch } from './chat-list-search/chat-list-search.js';

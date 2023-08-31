@@ -26,7 +26,7 @@ const shrinkMessage = (text: string, length: number): string => {
     return text.length > length ? newText + '...' : newText;
 };
 
-const ChatItem: React.FC<Properties> = ({
+const ChatListItem: React.FC<Properties> = ({
     userId,
     username,
     lastMessage = '',
@@ -49,8 +49,8 @@ const ChatItem: React.FC<Properties> = ({
             wrap="nowrap"
             component="article"
             className={getValidClassNames(
-                styles.chatItem,
-                itemSelected ? styles.chatItemSelected : '',
+                styles.chatListItem,
+                itemSelected ? styles.chatListItemSelected : '',
             )}
             onClick={handleClick}
         >
@@ -70,5 +70,5 @@ const ChatItem: React.FC<Properties> = ({
     );
 };
 
-export { type Properties as ChatItemProperties };
-export { ChatItem };
+export { type Properties as ChatListItemProperties };
+export { ChatListItem };

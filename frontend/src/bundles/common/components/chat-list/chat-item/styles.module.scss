@@ -1,4 +1,4 @@
-.chatItem {
+.chatListItem {
     min-width: 317px;
     min-height: 72px;
     max-height: 72px;
@@ -6,12 +6,12 @@
     border-radius: 12px;
 }
 
-.chatItem:hover {
+.chatListItem:hover {
     background-color: var(--solitude);
     cursor: pointer;
 }
 
-.chatItem.chatItemSelected {
+.chatListItem.chatListItemSelected {
     background-color: var(--solitude);
 }
 
