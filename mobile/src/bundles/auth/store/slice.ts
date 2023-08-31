@@ -12,6 +12,7 @@ type UserData = {
     role: ValueOf<typeof UserRole> | null;
     isProfileComplete: boolean;
 };
+// TODO: Replace user data with shared UserData Type
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
@@ -38,10 +39,9 @@ const { reducer, actions, name } = createSlice({
         builder.addMatcher(
             isAnyOf(signUp.fulfilled, signIn.fulfilled),
             (state, { payload }) => {
+                const { email, id, role } = payload;
                 state.dataStatus = DataStatus.FULFILLED;
-                state.userData.email = payload.email;
-                state.userData.id = payload.id;
-                state.userData.role = payload.role;
+                state.userData = { email, role, id, isProfileComplete: false };
                 state.isSignedIn = true;
             },
         );

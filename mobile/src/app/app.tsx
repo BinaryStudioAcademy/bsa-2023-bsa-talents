@@ -3,6 +3,7 @@ import 'fast-text-encoding';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { type FC } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 import { Provider as StoreProvider } from 'react-redux';
 
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -17,6 +18,7 @@ const App: FC = () => {
                     <RootNavigation />
                 </NavigationContainer>
             </GestureHandlerRootView>
+            <Toast />
         </StoreProvider>
     );
 };

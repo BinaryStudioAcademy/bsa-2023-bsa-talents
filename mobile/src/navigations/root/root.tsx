@@ -3,7 +3,6 @@ import {
     type NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import Toast from 'react-native-toast-message';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
@@ -29,7 +28,6 @@ const Root: React.FC = () => {
     } = useAppSelector(({ auth }) => auth);
     // prettier-ignore
     return (
-      <>
         <RootStack.Navigator screenOptions={screenOptions}>
             {isSignedIn ? (
                 <RootStack.Screen
@@ -50,8 +48,6 @@ const Root: React.FC = () => {
             ))}
 
         </RootStack.Navigator>
-    <Toast />
-      </>
     );
 };
 

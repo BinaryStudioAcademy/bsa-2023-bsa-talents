@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ErrorMessages } from '~/bundles/common/enums/enums';
-import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
-} from '~/bundles/users/users';
-import { StorageKey } from '~/framework/storage/enums/storage-key.enum';
+} from '~/bundles/auth/types/types';
+import { ErrorMessages } from '~/bundles/common/enums/enums';
+import { type AsyncThunkConfig } from '~/bundles/common/types/types';
+import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
 

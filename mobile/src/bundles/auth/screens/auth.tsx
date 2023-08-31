@@ -1,6 +1,10 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/auth/types/types';
 import { Overlay, Text } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
@@ -11,10 +15,6 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
-import {
-    type UserSignInRequestDto,
-    type UserSignUpRequestDto,
-} from '~/bundles/users/users';
 
 import { SignInForm, SignUpForm } from '../components/components';
 
@@ -25,7 +25,7 @@ const Auth: React.FC = () => {
         dataStatus: auth.dataStatus,
     }));
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
-    const isLoading = dataStatus === DataStatus.PENDING;
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
     useEffect(() => {
         if (isSignUpScreen) {
             void dispatch(userActions.loadAll());
@@ -61,7 +61,7 @@ const Auth: React.FC = () => {
     return (
         <>
             <Text>state: {dataStatus}</Text>
-            <Overlay isActive={isLoading} />
+            <Overlay isActive={isPendingAuth} />
             {getScreen(name)}
         </>
     );
