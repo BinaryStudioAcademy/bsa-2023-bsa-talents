@@ -10,7 +10,6 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
-import { AvatarPicker } from '~/bundles/talent/components/components';
 import { actions as userActions } from '~/bundles/users/store';
 import { type UserSignUpRequestDto } from '~/bundles/users/users';
 
@@ -59,7 +58,6 @@ const Auth: React.FC = () => {
         <>
             <Text>state: {dataStatus}</Text>
             {getScreen(name)}
-            <AvatarPicker />
         </>
     );
 };
