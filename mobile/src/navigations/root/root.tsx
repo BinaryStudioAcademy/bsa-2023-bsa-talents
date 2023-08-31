@@ -26,31 +26,50 @@ type Properties = {
     role?: 'talent' | 'employer';
 };
 
+const renderStackScreen = ({
+    isSignedIn,
+    isProfileComplete,
+    role,
+}: Properties): React.JSX.Element => {
+    if (isSignedIn) {
+        return (
+            <RootStack.Screen
+                name={RootScreenName.MAIN_ROOT_ROUTE}
+                component={
+                    role === 'talent'
+                        ? TalentBottomTabNavigator
+                        : EmployerBottomTabNavigator
+                }
+            />
+        );
+    }
+
+    if (isProfileComplete) {
+        return (
+            <RootStack.Screen
+                name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                component={TalentOnboardingNavigator}
+            />
+        );
+    }
+
+    return (
+        <RootStack.Screen
+            name={RootScreenName.AUTH_ROOT_ROUTE}
+            component={AuthNavigator}
+        />
+    );
+};
+
 const Root: React.FC<Properties> = ({
     isSignedIn = false,
-    isProfileComplete = false,
+    isProfileComplete = true,
     role = 'talent',
 }) => {
-    // prettier-ignore
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
-            {isSignedIn ? (
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={role === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
-                />
-            ) : (isProfileComplete ? (
-                <RootStack.Screen
-                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                    component={TalentOnboardingNavigator}
-                />
-            ) : (
-                <RootStack.Screen
-                    name={RootScreenName.AUTH_ROOT_ROUTE}
-                    component={AuthNavigator}
-                />
-            ))}
+            {renderStackScreen({ isSignedIn, isProfileComplete, role })}
         </RootStack.Navigator>
     );
 };
