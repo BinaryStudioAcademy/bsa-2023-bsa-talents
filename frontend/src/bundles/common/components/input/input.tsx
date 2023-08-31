@@ -34,6 +34,7 @@ const Input = <T extends FieldValues>({
     type = 'text',
     isDisabled = false,
     adornmentText = '',
+    className = '',
     inputClassNames,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -65,7 +66,7 @@ const Input = <T extends FieldValues>({
         );
     }
 
-    const textFieldRootStyles = getValidClassNames(styles.root);
+    const textFieldRootStyles = getValidClassNames(styles.root, className);
     const muiInputStyles = getValidClassNames(
         styles.inputWrapper,
         isDisabled && styles.inputDisabled,
