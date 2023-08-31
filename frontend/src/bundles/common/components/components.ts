@@ -8,6 +8,7 @@ export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Logo } from './logo/logo.js';
 export { Modal } from './modal/modal.js';
 export { Notifications } from './notifications/notifications.js';
 export { Radio, RadioGroup } from './radio/radio.js';

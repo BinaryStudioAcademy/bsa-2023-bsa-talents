@@ -4,3 +4,4 @@ export { type NavigationScreenProperties } from './navigation-screen-properties.
 export { type RootNavigationParameterList } from './root-navigation-parameter-list.type';
 export { type TalentBottomTabNavigationParameterList } from './talent-bottom-tab-navigation-parameter-list.type';
 export { type TalentOnboardingNavigationParameterList } from './talent-onboarding-navigation-parameter-list-type';
+export { type TalentOnboardingRouteProperties } from './talent-onboarding-navigation-properties.type';

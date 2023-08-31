@@ -6,8 +6,8 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -52,6 +52,12 @@ class AuthController extends ControllerBase {
                         body: UserSignInRequestDto;
                     }>,
                 ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.CURRENT_USER,
+            method: 'GET',
+            handler: (options) => this.getCurrentUser(options),
         });
     }
 
@@ -133,6 +139,56 @@ class AuthController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.authService.signIn(options.body),
+        };
+    }
+
+    /**
+     * @swagger
+     * /auth/current-user:
+     *   get:
+     *     tags:
+     *       - Auth
+     *     description: Get the current user based on the provided token
+     *     security:
+     *       - BearerAuth: []
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/User'
+     *       401:
+     *         description: Unauthorized
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
+     *       404:
+     *         description: User not found
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
+     */
+
+    private async getCurrentUser(
+        options: ApiHandlerOptions,
+    ): Promise<ApiHandlerResponse> {
+        const [, token] = options.headers.authorization?.split(' ') ?? [];
+
+        if (!token) {
+            throw new HttpError({
+                status: HttpCode.UNAUTHORIZED,
+                message: ErrorMessages.NOT_AUTHORIZED,
+            });
+        }
+
+        const user = await this.authService.getCurrentUser(token);
+
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }
