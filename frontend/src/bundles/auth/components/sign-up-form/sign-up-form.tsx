@@ -4,6 +4,7 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from 'react-hook-form';
+import { UserRole } from 'shared/build/index.js';
 
 import {
     Button,
@@ -15,7 +16,11 @@ import {
     RadioGroup,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -25,36 +30,23 @@ import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    isTalent: boolean;
     onSubmit: (payload: UserSignUpRequestDto) => void;
 };
 
 const options = [
     {
-        value: 'employer',
-        label: 'I\'m hiring',
+        value: UserRole.EMPLOYER,
+        // eslint-disable-next-line @typescript-eslint/quotes
+        label: "I'm hiring",
     },
     {
-        value: 'talent',
-        label: 'I\'m looking for a job',
+        value: UserRole.TALENT,
+        // eslint-disable-next-line @typescript-eslint/quotes
+        label: "I'm looking for a job",
     },
 ];
 
-const renderRadio = ({
-    field,
-}: {
-    field: ControllerRenderProps<UserSignUpRequestDto, 'role'>;
-    fieldState: ControllerFieldState;
-    formState: UseFormStateReturn<UserSignUpRequestDto>;
-}): React.ReactElement => (
-    <RadioGroup
-        {...field}
-        className={styles['radio-wrapper']}
-        options={options}
-    />
-);
-
-const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
+const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
@@ -67,9 +59,42 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
         [handleSubmit, onSubmit],
     );
 
-    const sellingPointText = isTalent
-        ? 'Start your career easily'
-        : 'Find the top talent for your business';
+    const [isTalent, setIsTalent] = useState<string>(UserRole.TALENT);
+
+    const renderRadioGroup = useCallback(
+        function renderRadio({
+            field,
+        }: {
+            field: ControllerRenderProps<UserSignUpRequestDto, 'role'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<UserSignUpRequestDto>;
+        }): React.ReactElement {
+            function handleChange(event_: React.BaseSyntheticEvent): void {
+                field.onChange(event_.target.value);
+                setIsTalent(() => event_.target.value);
+            }
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { ref, ...newField } = field;
+
+            return (
+                <RadioGroup
+                    {...newField}
+                    className={styles['radio-wrapper']}
+                    defaultValue={isTalent}
+                    options={options}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={handleChange}
+                />
+            );
+        },
+        [isTalent],
+    );
+
+    const sellingPointText =
+        isTalent === UserRole.TALENT
+            ? 'Start your career easily'
+            : 'Find the top talent for your business';
 
     return (
         <>
@@ -127,7 +152,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
                                 <Controller
                                     control={control}
                                     name="role"
-                                    render={renderRadio}
+                                    render={renderRadioGroup}
                                 />
                             </FormControl>
                             <Button

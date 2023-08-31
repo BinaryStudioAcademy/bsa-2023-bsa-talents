@@ -20,11 +20,10 @@ import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    isTalent: boolean;
     onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
-const SignInForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
+const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
         defaultValues: {
             email: DEFAULT_SIGN_IN_PAYLOAD.email,
@@ -40,17 +39,15 @@ const SignInForm: React.FC<Properties> = ({ onSubmit, isTalent = true }) => {
         [handleSubmit, onSubmit],
     );
 
-    const sellingPointText = isTalent
-        ? 'Start your career easily'
-        : 'Find the top talent for your business';
-
     return (
         <>
             <Grid container className={styles.container}>
                 <Grid item xs={12} md={6}>
                     <Grid item className={styles['selling-point']}>
                         <div className={styles.logo}></div>
-                        <h1 className={styles.text}>{sellingPointText}</h1>
+                        <h1 className={styles.text}>
+                            Start your career easily
+                        </h1>
                     </Grid>
                 </Grid>
                 <Grid className={styles['form-wrapper']} item xs={12} md={6}>
