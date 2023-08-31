@@ -29,7 +29,12 @@ const NotFoundPage: React.FC = () => {
                 </Typography>
             </Grid>
 
-            <Grid item xs={12} className={getValidClassNames(styles.link)}>
+            <Grid
+                item
+                xs={12}
+                container
+                className={getValidClassNames(styles.link)}
+            >
                 <Link to={AppRoute.ROOT}>Return to Main</Link>
             </Grid>
 
