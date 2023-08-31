@@ -22,7 +22,7 @@ const menuItems = [
 const Sidebar: React.FC = () => {
     return (
         <div className={styles.wrapper}>
-            <div className={styles.logo}></div>{' '}
+            <div className={styles.logo}></div>
             {/* Should be replaced with logo */}
             <ul className={styles.list}>
                 {menuItems.map((item) => (

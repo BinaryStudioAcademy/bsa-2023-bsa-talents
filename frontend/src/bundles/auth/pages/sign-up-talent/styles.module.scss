@@ -7,13 +7,10 @@
 }
 
 .careerWrapper {
-    position: absolute;
-    top: 61px;
-    left: 79px;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 79px);
-    background-color: var(--background-primary);
+    height: 100%;
+    margin-left: var(--sidebar-width);
 }
 
 .career {
