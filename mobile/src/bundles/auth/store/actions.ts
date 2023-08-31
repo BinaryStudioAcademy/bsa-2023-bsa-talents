@@ -29,6 +29,7 @@ const signUp = createAsyncThunk<
             });
             throw error;
         }
+        throw error;
     }
 });
 
