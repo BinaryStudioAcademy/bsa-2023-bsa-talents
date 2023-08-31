@@ -10,4 +10,9 @@ const authApi = new AuthApi({
     http,
 });
 
+export { userSignUpValidationSchema } from '../auth/validation-schemas/validation-schemas';
+export {
+    type UserSignUpRequestDto,
+    type UserSignUpResponseDto,
+} from './types/types';
 export { authApi };

@@ -3,6 +3,10 @@ import { type RadioButtonProps } from 'react-native-radio-buttons-group';
 import Toast from 'react-native-toast-message';
 
 import {
+    type UserSignUpRequestDto,
+    userSignUpValidationSchema,
+} from '~/bundles/auth/auth';
+import {
     Button,
     FormField,
     Input,
@@ -19,10 +23,6 @@ import {
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { UserRole } from '~/bundles/users/enums/enums';
-import {
-    type UserSignUpRequestDto,
-    userSignUpValidationSchema,
-} from '~/bundles/users/users';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
