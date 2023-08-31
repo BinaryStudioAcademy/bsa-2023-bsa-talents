@@ -1,3 +1,18 @@
-.form {
+.hasError {
+    color: var(--error-primary);
+    border-color: var(--error-primary);
+
+    & .input {
+        color: var(--error-primary);
+    }
+
+    & .input::placeholder {
+        color: var(--error-primary);
+        -webkit-text-fill-color: var(--error-primary);
+    }
+}
+
+.formControl {
+    margin: 5px;
     padding: 10px;
 }
