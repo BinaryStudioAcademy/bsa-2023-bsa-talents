@@ -6,6 +6,7 @@ const IconName = {
     CIRCLE: 'circle',
     CHECK_CIRCLE: 'check-circle',
     PERSON: 'person',
+    HEADPHONES: 'headphones',
 } as const;
 
 export { IconName };
