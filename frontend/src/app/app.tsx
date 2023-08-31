@@ -1,4 +1,5 @@
 import reactLogo from '~/assets/img/react.svg';
+import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Link,
     Notifications,
@@ -13,14 +14,18 @@ import {
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as userActions } from '~/bundles/users/store/users.js';
+import { StorageKey } from '~/framework/storage/storage.js';
 
 const App: React.FC = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
-    const { users, dataStatus } = useAppSelector(({ users }) => ({
-        users: users.users,
-        dataStatus: users.dataStatus,
-    }));
+    const { users, dataStatus, currentUser } = useAppSelector(
+        ({ users, auth }) => ({
+            users: users.users,
+            dataStatus: users.dataStatus,
+            currentUser: auth.currentUser,
+        }),
+    );
 
     const isRoot = pathname === AppRoute.ROOT;
 
@@ -29,6 +34,14 @@ const App: React.FC = () => {
             void dispatch(userActions.loadAll());
         }
     }, [isRoot, dispatch]);
+
+    const token = localStorage.getItem(StorageKey.TOKEN);
+
+    useEffect(() => {
+        if (token) {
+            void dispatch(authActions.loadUser());
+        }
+    }, [dispatch, token]);
 
     return (
         <>
@@ -54,6 +67,17 @@ const App: React.FC = () => {
                 <>
                     <Typography variant="h2">Users:</Typography>
                     <Typography variant="h3">Status: {dataStatus}</Typography>
+                    <br />
+                    {currentUser.email && (
+                        <>
+                            <Typography variant="h2">
+                                User id: {currentUser.id}
+                            </Typography>
+                            <Typography variant="h3">
+                                User email: {currentUser.email}
+                            </Typography>
+                        </>
+                    )}
                     <ul>
                         {users.map((it) => (
                             <li key={it.id}>{it.email}</li>
