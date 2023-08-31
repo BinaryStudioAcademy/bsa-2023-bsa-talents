@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { type UserSignUpRequestDto } from '~/bundles/auth/auth';
 import { actions as authActions } from '~/bundles/auth/store';
 import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
@@ -11,7 +12,6 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
-import { type UserSignUpRequestDto } from '~/bundles/users/users';
 
 import { SignInForm, SignUpForm } from '../components/components';
 
