@@ -1,5 +1,6 @@
 import { type Repository } from '~/common/types/types.js';
 
+import { UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsModel } from './user-details.model.js';
 
 class UserDetailsRepository implements Repository {
@@ -9,18 +10,20 @@ class UserDetailsRepository implements Repository {
         this.userDetailsModel = userDetailsModel;
     }
 
-    public async find(payload: Record<string, unknown>): Promise<unknown> {
-        return await Promise.resolve(payload);
+    public async find(
+        payload: Record<string, unknown>,
+    ): Promise<UserDetailsEntity | undefined> {
+        const details = await this.userDetailsModel.query().findOne(payload);
+
+        return details ? UserDetailsEntity.initialize(details) : undefined;
     }
 
     public async findAll(): ReturnType<Repository['findAll']> {
         return await Promise.resolve([]);
     }
 
-    public async create(payload: {
-        id: string;
-    }): ReturnType<Repository['create']> {
-        await this.userDetailsModel
+    public async create(payload: { id: string }): Promise<UserDetailsEntity> {
+        const newDetails = await this.userDetailsModel
             .query()
             .insert({
                 userId: payload.id,
@@ -29,11 +32,21 @@ class UserDetailsRepository implements Repository {
             .returning('*')
             .execute();
 
-        return await Promise.resolve(payload);
+        return UserDetailsEntity.initialize(newDetails);
     }
 
-    public async update(): Promise<unknown> {
-        return await Promise.resolve([]);
+    public async update(
+        payload: Record<string, unknown>,
+    ): Promise<UserDetailsEntity | undefined> {
+        const { userId, ...rest } = payload;
+
+        const instance = await this.userDetailsModel
+            .query()
+            .findOne({ userId });
+
+        const details = await instance?.$query().patchAndFetch(rest).execute();
+
+        return details ? UserDetailsEntity.initialize(details) : undefined;
     }
 
     public async delete(): Promise<boolean> {
