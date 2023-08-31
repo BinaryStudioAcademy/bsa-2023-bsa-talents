@@ -15,16 +15,23 @@ import {
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
+import { type UserDetailsService } from '../user-details/user-details.service.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
 class AuthController extends ControllerBase {
     private authService: AuthService;
+    private userDetailsService: UserDetailsService;
 
-    public constructor(logger: Logger, authService: AuthService) {
+    public constructor(
+        logger: Logger,
+        authService: AuthService,
+        userDetailService: UserDetailsService,
+    ) {
         super(logger, ApiPath.AUTH);
 
         this.authService = authService;
+        this.userDetailsService = userDetailService;
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
@@ -90,9 +97,11 @@ class AuthController extends ControllerBase {
             body: UserSignUpRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const user = await this.authService.signUp(options.body);
+        await this.userDetailsService.create({ id: user.id });
         return {
             status: HttpCode.CREATED,
-            payload: await this.authService.signUp(options.body),
+            payload: user,
         };
     }
     /**

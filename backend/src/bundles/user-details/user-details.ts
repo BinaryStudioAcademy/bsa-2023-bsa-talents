@@ -12,4 +12,4 @@ const userDetailsController = new UserDetailsController(
     userDetailsService,
 );
 
-export { userDetailsController };
+export { userDetailsController, userDetailsService };

@@ -1,4 +1,3 @@
-// import { UserDetailsEntity } from './user-details.entity.js';
 import { type Repository } from '~/common/types/types.js';
 
 import { type UserDetailsModel } from './user-details.model.js';
@@ -18,7 +17,18 @@ class UserDetailsRepository implements Repository {
         return await Promise.resolve([]);
     }
 
-    public async create(payload: unknown): ReturnType<Repository['create']> {
+    public async create(payload: {
+        id: string;
+    }): ReturnType<Repository['create']> {
+        await this.userDetailsModel
+            .query()
+            .insert({
+                userId: payload.id,
+                fullName: '',
+            })
+            .returning('*')
+            .execute();
+
         return await Promise.resolve(payload);
     }
 

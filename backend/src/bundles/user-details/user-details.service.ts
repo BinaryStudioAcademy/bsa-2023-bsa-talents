@@ -17,8 +17,9 @@ class UserDetailsService implements Service {
         return Promise.resolve({ items: [] });
     }
 
-    public create(payload: unknown): Promise<unknown> {
-        return Promise.resolve(payload);
+    public async create(payload: { id: string }): Promise<unknown> {
+        await this.userDetailsRepository.create(payload);
+        return payload;
     }
 
     public update(): Promise<unknown> {
