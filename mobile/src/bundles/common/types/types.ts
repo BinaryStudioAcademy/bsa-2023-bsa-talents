@@ -1,5 +1,4 @@
 export { type AsyncThunkConfig } from './app/app';
-export { type AvatarProperty } from './components/avatar-property';
 export {
     type AuthNavigationParameterList,
     type EmployerBottomTabNavigationParameterList,
@@ -9,6 +8,7 @@ export {
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
+export { type AvatarProperties } from '~/bundles/users/types/components/avatar-properties';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,
