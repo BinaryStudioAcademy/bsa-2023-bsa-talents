@@ -2,15 +2,14 @@ import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import { stepOne } from '../../../constants/constants.js';
-import { type Step } from '../../../types/types.js';
+import { Steps as StepsEnum } from '../../../enums/enums.js';
 import styles from './styles.module.scss';
 
 type Properties = {
     currentStep: number;
-    stepTabs: Step[];
 };
 
-const Steps: React.FC<Properties> = ({ currentStep, stepTabs }) => {
+const Steps: React.FC<Properties> = ({ currentStep }) => {
     const getClassNameForStep = (step: {
         stepName: string;
         stepIndex: number;
@@ -20,38 +19,37 @@ const Steps: React.FC<Properties> = ({ currentStep, stepTabs }) => {
     }): string => {
         return getValidClassNames(
             step.baseClass,
-            step.stepName.endsWith(String(currentStep + stepOne)) &&
-                step.activeClass,
+            step.stepName.endsWith(String(currentStep)) && step.activeClass,
             step.stepIndex < currentStep && step.passedStepClass,
         );
     };
     return (
         <Grid item className={styles.stepsWrapper}>
             <ul className={styles.steps}>
-                {stepTabs.map((step, index) => (
+                {Object.entries(StepsEnum).map(([step, stepName], index) => (
                     <li
-                        key={step.name}
+                        key={step}
                         className={getClassNameForStep({
-                            stepName: step.name,
-                            stepIndex: index,
+                            stepName: step,
+                            stepIndex: index + stepOne,
                             baseClass: styles.step,
                             activeClass: styles.currentStep,
                             passedStepClass: styles.passedStep,
                         })}
                     >
                         <Typography variant="h5" className={styles.title}>
-                            {step.name}
+                            {step.replace('_', ' ')}
                         </Typography>
                         <Typography
                             variant="body1"
                             className={getClassNameForStep({
-                                stepName: step.name,
+                                stepName: step,
                                 stepIndex: index,
                                 baseClass: styles.description,
                                 activeClass: styles.currentStepDescription,
                             })}
                         >
-                            {step.description}
+                            {stepName}
                         </Typography>
                     </li>
                 ))}

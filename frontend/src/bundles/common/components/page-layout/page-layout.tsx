@@ -1,24 +1,31 @@
-import { Grid, Header, Sidebar } from '../components.js';
+import { Grid, Header, Sidebar } from '../../components/components.js';
+import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    children: React.ReactNode;
     avatarUrl: string;
     isOnline: boolean;
+    children: React.ReactNode;
 };
 
 const PageLayout: React.FC<Properties> = ({
-    children,
     avatarUrl,
     isOnline,
-}) => {
-    return (
-        <Grid className={styles.pageWrapper}>
-            <Sidebar />
-            <Header avatarUrl={avatarUrl} isOnline={isOnline} />
-            {children}
+    children,
+}) => (
+    <Grid container className={getValidClassNames(styles.pageContainer)}>
+        <Sidebar />
+        <Grid item className={getValidClassNames(styles.mainContainer)}>
+            <Header
+                avatarUrl={avatarUrl}
+                isOnline={isOnline}
+                className={getValidClassNames(styles.mainHeader)}
+            />
+            <Grid item className={getValidClassNames(styles.mainContent)}>
+                {children}
+            </Grid>
         </Grid>
-    );
-};
+    </Grid>
+);
 
 export { PageLayout };

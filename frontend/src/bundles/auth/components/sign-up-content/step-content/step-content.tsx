@@ -1,43 +1,41 @@
-import { type Step } from '~/bundles/auth/types/types.js';
 import {
     Button,
     Grid,
+    RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { firstStep, stepOne } from '../../../constants/constants.js';
+import { stepOne, stepsNumber } from '../../../constants/constants.js';
+import { Steps } from '../../../enums/enums.js';
 import styles from './styles.module.scss';
 
 type Properties = {
     currentStep: number;
     onNextStep: () => void;
     onPreviousStep: () => void;
-    stepTabs: Step[];
 };
 
 const StepContent: React.FC<Properties> = ({
     currentStep,
     onNextStep,
     onPreviousStep,
-    stepTabs,
 }) => {
-    const StepTab = stepTabs[currentStep].tab;
     return (
         <Grid item className={styles.stepContent}>
             <Grid className={styles.stepTitle}>
                 <Typography variant="body1" className={styles.stepName}>
-                    {stepTabs[currentStep].description}
+                    {Steps[`STEP_0${currentStep}` as keyof typeof Steps]}
                 </Typography>
                 <Typography variant="caption" className={styles.stepNumber}>
-                    {stepTabs[currentStep].name}
+                    Step 0{currentStep}
                 </Typography>
             </Grid>
             <Grid className={styles.stepBody}>
-                <Grid>{<StepTab />}</Grid>
+                <Grid>{<RouterOutlet />}</Grid>
                 <Grid
                     className={getValidClassNames(
-                        currentStep === stepTabs.length - stepOne
+                        currentStep === stepsNumber
                             ? styles.wideStepButtons
                             : styles.stepButtons,
                     )}
@@ -46,33 +44,29 @@ const StepContent: React.FC<Properties> = ({
                  when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
-                            currentStep === stepTabs.length - stepOne
+                            currentStep === stepsNumber
                                 ? undefined
                                 : onPreviousStep
                         }
                         label={
-                            currentStep === stepTabs.length - stepOne
+                            currentStep === stepsNumber
                                 ? 'Save without publishing'
                                 : 'Back'
                         }
                         variant={
-                            currentStep === firstStep ? 'contained' : 'outlined'
+                            currentStep === stepOne ? 'contained' : 'outlined'
                         }
                         className={styles.buttonBack}
-                        disabled={currentStep === firstStep}
+                        disabled={currentStep === stepOne}
                     />
                     {/* for now I`ve just prevented working these funcs when user reach step 5
                  when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
-                            currentStep === stepTabs.length - stepOne
-                                ? undefined
-                                : onNextStep
+                            currentStep === stepsNumber ? undefined : onNextStep
                         }
                         label={
-                            currentStep === stepTabs.length - stepOne
-                                ? 'Publish now'
-                                : 'Next'
+                            currentStep === stepsNumber ? 'Publish now' : 'Next'
                         }
                         variant="contained"
                         className={styles.buttonNext}
