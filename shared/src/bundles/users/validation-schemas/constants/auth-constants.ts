@@ -1,4 +1,4 @@
-const AUTH_CONSTANTS = {
+const CONSTANTS = {
     MIN_PASSWORD_LENGTH: 8,
     MIN_EMAIL_LENGTH: 5,
     MAX_LOGIN_INPUT_LENGTH: 50,
@@ -6,4 +6,4 @@ const AUTH_CONSTANTS = {
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!#$%&()*+,./:;<=>?@^_{}-]).+$/,
 };
 
-export { AUTH_CONSTANTS };
+export { CONSTANTS };

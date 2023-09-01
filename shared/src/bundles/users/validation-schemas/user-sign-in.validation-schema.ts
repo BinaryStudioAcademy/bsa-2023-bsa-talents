@@ -2,7 +2,7 @@ import joi from 'joi';
 
 import { UserValidationMessage } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
-import { AUTH_CONSTANTS } from './auth-constants.js';
+import { CONSTANTS } from './constants/auth-constants.js';
 
 const userSignIn = joi.object<UserSignInRequestDto, true>({
     email: joi
@@ -14,8 +14,8 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
             },
         })
         .required()
-        .min(AUTH_CONSTANTS.MIN_EMAIL_LENGTH)
-        .max(AUTH_CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
+        .min(CONSTANTS.MIN_EMAIL_LENGTH)
+        .max(CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
         .messages({
             'string.email': UserValidationMessage.EMAIL_WRONG,
             'string.empty': UserValidationMessage.EMAIL_REQUIRE,
@@ -24,9 +24,9 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
         .string()
         .trim()
         .required()
-        .min(AUTH_CONSTANTS.MIN_PASSWORD_LENGTH)
-        .max(AUTH_CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
-        .regex(AUTH_CONSTANTS.PASSWORD_REGEXP)
+        .min(CONSTANTS.MIN_PASSWORD_LENGTH)
+        .max(CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
+        .regex(CONSTANTS.PASSWORD_REGEXP)
         .messages({
             'string.pattern.base': UserValidationMessage.PASSWORD_WRONG,
         }),
