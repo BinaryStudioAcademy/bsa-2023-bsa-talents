@@ -1,6 +1,6 @@
 import {
-    type UserDetailsRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsUpdateRequestDto,
 } from 'shared/build/index.js';
 
 import { type Service } from '~/common/types/service.type.js';
@@ -39,7 +39,7 @@ class UserDetailsService implements Service {
     }
 
     public update(
-        payload: UserDetailsRequestDto,
+        payload: UserDetailsUpdateRequestDto,
     ): Promise<UserDetailsEntity | undefined> {
         return this.userDetailsRepository.update({ ...payload });
     }

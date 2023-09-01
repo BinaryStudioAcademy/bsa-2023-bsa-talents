@@ -1,6 +1,7 @@
 import {
     UserDetailsApiPath,
-    type UserDetailsRequestDto,
+    type UserDetailsUpdateRequestDto,
+    userDetailsUpdateValidationSchema,
 } from 'shared/build/index.js';
 
 import { ApiPath } from '~/common/enums/enums.js';
@@ -24,11 +25,14 @@ class UserDetailsController extends ControllerBase {
 
         this.addRoute({
             path: UserDetailsApiPath.UPDATE,
-            method: 'PUT',
+            method: 'PATCH',
+            validation: {
+                body: userDetailsUpdateValidationSchema,
+            },
             handler: (options) =>
                 this.update(
                     options as ApiHandlerOptions<{
-                        body: UserDetailsRequestDto;
+                        body: UserDetailsUpdateRequestDto;
                     }>,
                 ),
         });
@@ -36,7 +40,7 @@ class UserDetailsController extends ControllerBase {
 
     private async update(
         options: ApiHandlerOptions<{
-            body: UserDetailsRequestDto;
+            body: UserDetailsUpdateRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
