@@ -6,8 +6,7 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/auth/types/types';
-import { ErrorMessages } from '~/bundles/common/enums/enums';
-import { showErrorMessage } from '~/bundles/common/helpers/show-error-message/show-error-message';
+import { showErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
@@ -25,8 +24,7 @@ const signUp = createAsyncThunk<
 
         return response;
     } catch (error) {
-        showErrorMessage(error as Error);
-        throw error; //without this ts shows error in authApi.signUp(signUpPayload)
+        showErrorMessage(error);        
     }
 });
 
@@ -41,12 +39,7 @@ const signIn = createAsyncThunk<
         await storage.set(StorageKey.TOKEN, response.token);
         return response;
     } catch (error) {
-        if (error instanceof Error) {
-            notifications.showError(error.message);
-            throw error;
-        }
-        notifications.showError(ErrorMessages.UNKNOWN_ERROR);
-        throw error;
+        showErrorMessage(error);       
     }
 });
 
