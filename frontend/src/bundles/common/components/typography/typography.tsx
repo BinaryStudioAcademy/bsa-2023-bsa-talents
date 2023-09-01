@@ -26,7 +26,7 @@ type Properties = {
 const Typography: React.FC<Properties> = ({
     children,
     variant,
-    className = '',
+    className,
     ...restProperties
 }) => {
     return (
