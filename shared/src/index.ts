@@ -41,8 +41,14 @@ export {
     type HttpOptions,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
-export { configureString, getAvatarInitials } from './helpers/helpers.js';
 export {
+    configureString,
+    getAvatarInitials,
+    getItemsWithSelected,
+    getSearchedItems,
+} from './helpers/helpers.js';
+export {
+    type ChatListItemType,
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
     type ServerErrorResponse,

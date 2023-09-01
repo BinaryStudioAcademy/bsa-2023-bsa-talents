@@ -30,3 +30,10 @@
     font-size: 12px;
     line-height: 18px;
 }
+
+.truncate {
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

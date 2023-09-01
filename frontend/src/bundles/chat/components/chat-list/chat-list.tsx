@@ -2,13 +2,16 @@ import { Grid } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
 import { ChatListItem, ChatListSearch } from './components.js';
+import {
+    EMPTY_ARRAY_LENGTH,
+    NOT_FOUND_ELEM_KEY,
+} from './constants/constants.js';
 import styles from './styles.module.scss';
-
-const EMPTY_ARRAY = 0;
 
 type ChatListItemType = {
     userId: string;
@@ -16,27 +19,25 @@ type ChatListItemType = {
     lastMessage?: string;
     lastMessageDate?: string;
     avatar?: string;
-    itemSelected?: boolean;
+    isSelected?: boolean;
 };
 
 type Properties = {
     chatItems: ChatListItemType[];
 };
 
+// must be replaced by helper
 const getItemsWithSelected = (
     items: ChatListItemType[],
     id: string,
 ): ChatListItemType[] => {
-    return items.map((item) => {
-        if (item.userId !== id) {
-            item.itemSelected = false;
-            return item;
-        }
-        item.itemSelected = true;
-        return item;
-    });
+    return items.map((item) => ({
+        ...item,
+        isSelected: item.userId === id,
+    }));
 };
 
+// must be replaced by helper
 const getSearchedItems = (
     items: ChatListItemType[],
     query: string,
@@ -61,21 +62,22 @@ const ChatList: React.FC<Properties> = ({ chatItems }) => {
         setItems(getSearchedItems(chatItems, searchValue));
     }, [chatItems, searchValue]);
 
-    const renderChatItems = (
-        items: ChatListItemType[],
-    ): React.ReactElement[] => {
-        return items.length > EMPTY_ARRAY
+    const renderChatItems = useMemo((): React.ReactElement[] => {
+        return items.length > EMPTY_ARRAY_LENGTH
             ? items.map((item) => (
                   <li key={item.userId}>
                       <ChatListItem onClick={selectionHandler} {...item} />
                   </li>
               ))
             : [
-                  <li key={0} className={styles.nothingWasFound}>
+                  <li
+                      key={NOT_FOUND_ELEM_KEY}
+                      className={styles.nothingWasFound}
+                  >
                       {'Nothing was found'}
                   </li>,
               ];
-    };
+    }, [items, selectionHandler]);
 
     return (
         <Grid
@@ -97,7 +99,7 @@ const ChatList: React.FC<Properties> = ({ chatItems }) => {
                 wrap="nowrap"
                 className={styles.chatList}
             >
-                {renderChatItems(items)}
+                {renderChatItems}
             </Grid>
         </Grid>
     );
