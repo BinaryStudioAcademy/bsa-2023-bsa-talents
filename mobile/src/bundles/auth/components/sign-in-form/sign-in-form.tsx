@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { type UserSignInRequestDto } from '~/bundles/auth/types/types';
+import { userSignInValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
     Button,
     FormField,
@@ -16,14 +18,14 @@ import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: () => void;
+    onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
+        validationSchema: userSignInValidationSchema,
     });
-
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);

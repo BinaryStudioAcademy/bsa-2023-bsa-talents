@@ -14,4 +14,4 @@ export { userApi };
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
-} from './types/types';
+} from 'shared/build/index';

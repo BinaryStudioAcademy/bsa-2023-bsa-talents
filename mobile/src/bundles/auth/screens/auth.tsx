@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/auth/types/types';
 import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
@@ -21,18 +24,20 @@ const Auth: React.FC = () => {
     const { dataStatus } = useAppSelector(({ auth }) => ({
         dataStatus: auth.dataStatus,
     }));
-
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
-
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
     useEffect(() => {
         if (isSignUpScreen) {
             void dispatch(userActions.loadAll());
         }
     }, [isSignUpScreen, dispatch]);
 
-    const handleSignInSubmit = useCallback(() => {
-        // TODO: handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
@@ -52,12 +57,10 @@ const Auth: React.FC = () => {
         return null;
     };
 
-    const isPendingAuth = dataStatus === DataStatus.PENDING;
-
     return (
         <>
-            {getScreen(name)}
             <Overlay isActive={isPendingAuth} />
+            {getScreen(name)}
         </>
     );
 };

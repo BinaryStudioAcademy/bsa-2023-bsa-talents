@@ -24,30 +24,29 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
-
     // prettier-ignore
     return (
-        <RootStack.Navigator screenOptions={screenOptions}>
-        {isSignedIn ? (
-            <RootStack.Screen
-                name={RootScreenName.MAIN_ROOT_ROUTE}
-                component={role === UserRole.TALENT ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
-            />
-        ) : (isProfileComplete ? (
-            <RootStack.Screen
-                name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                component={TalentOnboardingNavigator}
-            />
-        ) : (
-            <RootStack.Screen
-                name={RootScreenName.AUTH_ROOT_ROUTE}
-                component={AuthNavigator}
-            />
-        ))}
+      <RootStack.Navigator screenOptions={screenOptions}>
+          {isSignedIn ? (
+              <RootStack.Screen
+                  name={RootScreenName.MAIN_ROOT_ROUTE}
+                  component={role === UserRole.TALENT ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
+              />
+          ) : (isProfileComplete ? (
+              <RootStack.Screen
+                  name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                  // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                  component={TalentOnboardingNavigator}
+              />
+          ) : (
+              <RootStack.Screen
+                  name={RootScreenName.AUTH_ROOT_ROUTE}
+                  component={AuthNavigator}
+              />
+          ))}
 
-    </RootStack.Navigator>
-    );
+      </RootStack.Navigator>
+  );
 };
 
 export { Root };
