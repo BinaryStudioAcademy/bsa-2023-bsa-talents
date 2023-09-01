@@ -48,8 +48,6 @@ const RadioButtons = <T extends FieldValues>({
                 radioButtons={radioButtonsWithStyles}
                 onPress={onChange}
                 selectedId={value}
-                color={Color.PRIMARY}
-                borderColor={Color.INPUT}
                 {...props}
             />
             {label && (
