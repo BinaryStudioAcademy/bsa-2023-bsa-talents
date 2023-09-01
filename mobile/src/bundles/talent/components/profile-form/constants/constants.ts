@@ -1,10 +1,10 @@
 const USER_PROFILE_DEFAULT_VALUES = {
     profileName: '',
-    salaryExpectations: 0,
+    salaryExpectations: '0',
     jobTitle: '',
     currentLocation: '',
     experience: '',
-    experienceLevel: 0,
+    experienceLevel: '0',
     employmentType: {
         fullTime: true,
         partTime: false,

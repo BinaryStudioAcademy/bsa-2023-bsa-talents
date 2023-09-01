@@ -11,6 +11,8 @@ import { AppEnvironment } from '~/bundles/common/enums/enums';
 import { reducer as usersReducer } from '~/bundles/users/store';
 import { userApi } from '~/bundles/users/users';
 import { type Config } from '~/framework/config/config';
+import { notifications } from '~/framework/notifications/notifications';
+import { storage } from '~/framework/storage/storage';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -19,7 +21,9 @@ type RootReducer = {
 
 type ExtraArguments = {
     authApi: typeof authApi;
+    notifications: typeof notifications;
     userApi: typeof userApi;
+    storage: typeof storage;
 };
 
 class Store {
@@ -54,6 +58,8 @@ class Store {
         return {
             authApi,
             userApi,
+            notifications,
+            storage,
         };
     }
 }
