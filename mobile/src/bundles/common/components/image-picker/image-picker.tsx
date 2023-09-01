@@ -56,7 +56,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                 notifications.showMessage({
                     type: 'error',
                     title: 'Camera permission denied.',
-                    text: 'You can give permission in settings',
+                    text: 'Please provide permission to access your camera in settings',
                 });
             }
             setIsPopUpActive(false);
