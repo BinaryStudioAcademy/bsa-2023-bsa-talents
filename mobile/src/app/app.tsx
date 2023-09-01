@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { type FC } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SplashScreen from 'react-native-splash-screen';
+import Toast from 'react-native-toast-message';
 import { Provider as StoreProvider } from 'react-redux';
 
 import { useEffect } from '~/bundles/common/hooks/hooks';
@@ -23,6 +24,7 @@ const App: FC = () => {
                     <RootNavigation />
                 </NavigationContainer>
             </GestureHandlerRootView>
+            <Toast />
         </StoreProvider>
     );
 };
