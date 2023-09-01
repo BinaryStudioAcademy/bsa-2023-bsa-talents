@@ -7,8 +7,8 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/auth/types/types';
 import { ErrorMessages } from '~/bundles/common/enums/enums';
+import { showErrorMessage } from '~/bundles/common/helpers/show-error-message/show-error-message';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
-import { notifications } from '~/framework/notifications/notifications';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
@@ -25,12 +25,8 @@ const signUp = createAsyncThunk<
 
         return response;
     } catch (error) {
-        if (error instanceof Error) {
-            notifications.showError(error.message);
-            throw error;
-        }
-        notifications.showError(ErrorMessages.UNKNOWN_ERROR);
-        throw error;
+        showErrorMessage(error as Error);
+        throw error; //without this ts shows error in authApi.signUp(signUpPayload)
     }
 });
 
