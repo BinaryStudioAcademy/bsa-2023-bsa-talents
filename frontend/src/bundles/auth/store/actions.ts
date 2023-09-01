@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
+    type UserFindResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
@@ -21,4 +22,13 @@ const signUp = createAsyncThunk<
     return data;
 });
 
-export { signUp };
+const loadUser = createAsyncThunk<
+    UserFindResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/get-current-user`, (_, { extra }) => {
+    const { authApi } = extra;
+    return authApi.getByToken();
+});
+
+export { loadUser, signUp };
