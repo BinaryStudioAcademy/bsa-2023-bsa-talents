@@ -3,6 +3,8 @@ import { Grid } from '../components.js';
 import { ChatListItem, ChatListSearch } from './components.js';
 import styles from './styles.module.scss';
 
+const EMPTY_ARRAY = 0;
+
 type ChatListItemType = {
     userId: string;
     username: string;
@@ -52,16 +54,22 @@ const ChatList: React.FC<Properties> = ({ chatItems }) => {
 
     useEffect((): void => {
         setItems(getSearchedItems(chatItems, searchValue));
-    }, [searchValue]);
+    }, [chatItems, searchValue]);
 
     const renderChatItems = (
         items: ChatListItemType[],
     ): React.ReactElement[] => {
-        return items.map((item) => (
-            <li key={item.userId}>
-                <ChatListItem onClick={selectionHandler} {...item} />
-            </li>
-        ));
+        return items.length > EMPTY_ARRAY
+            ? items.map((item) => (
+                  <li key={item.userId}>
+                      <ChatListItem onClick={selectionHandler} {...item} />
+                  </li>
+              ))
+            : [
+                  <li key={0} className={styles.nothingWasFound}>
+                      {'Nothing was found'}
+                  </li>,
+              ];
     };
 
     return (
