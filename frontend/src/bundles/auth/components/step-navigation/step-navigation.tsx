@@ -1,4 +1,5 @@
-import { useParameters } from '../../../common/components/components.js';
+import { useParameters } from '~/bundles/common/hooks/hooks.js';
+
 import { StepRoutes } from '../sign-up-content/constants/constants.js';
 
 const StepNavigation: React.FC = () => {

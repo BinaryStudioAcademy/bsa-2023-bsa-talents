@@ -21,6 +21,4 @@ export { Slider } from './slider/slider.js';
 export { Textarea } from './textarea/textarea.js';
 export { Typography } from './typography/typography.js';
 export { Provider as StoreProvider } from 'react-redux';
-export { Outlet as RouterOutlet } from 'react-router-dom';
-export { useParams as useParameters } from 'react-router-dom';
-export { Navigate } from 'react-router-dom';
+export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';

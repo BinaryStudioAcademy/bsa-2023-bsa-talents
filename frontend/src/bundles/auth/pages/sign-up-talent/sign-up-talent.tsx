@@ -1,4 +1,10 @@
 import arrowIcon from '~/assets/img/arrow-right.svg';
+import { StepContent, Steps } from '~/bundles/auth/components/components.js';
+import {
+    stepOne,
+    StepRoutes,
+    stepsNumber,
+} from '~/bundles/auth/components/sign-up-content/constants/constants.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getSignUpTalentStepRoute } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -7,12 +13,6 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { StepContent, Steps } from '../../components/components.js';
-import {
-    stepOne,
-    StepRoutes,
-    stepsNumber,
-} from '../../components/sign-up-content/constants/constants.js';
 import styles from './styles.module.scss';
 
 const SignUpTalent: React.FC = () => {

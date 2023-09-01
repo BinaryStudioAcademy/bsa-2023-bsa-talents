@@ -1,4 +1,4 @@
-import { Steps } from '../../../enums/enums.js';
+import { Steps } from '~/bundles/auth/enums/enums.js';
 
 const stepOne = 1;
 const stepsNumber = 5;

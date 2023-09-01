@@ -1,3 +1,4 @@
+import { Steps } from '~/bundles/auth/enums/enums.js';
 import {
     Button,
     Grid,
@@ -6,7 +7,6 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { Steps } from '../../../enums/enums.js';
 import { stepOne, stepsNumber } from '../constants/constants.js';
 import styles from './styles.module.scss';
 
