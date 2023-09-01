@@ -79,7 +79,7 @@ const TestStepLayout: React.FC<Properties> = () => {
         [handleNextStep],
     );
 
-    const steps = [FirstStepForm] as const;
+    const steps = useMemo(() => [FirstStepForm] as const, []);
 
     const getStep = useCallback((): ReturnValue<UserSignUpStep1Dto> => {
         //add steps
@@ -93,7 +93,7 @@ const TestStepLayout: React.FC<Properties> = () => {
         // }
         //return currentStep == ONE_STEP_LENGTH ? firstStep : null;
         return firstStep;
-    }, [currentStep, firstStep]);
+    }, [firstStep]);
 
     const handleValidateBeforeSubmit = useCallback((): void => {
         const step = getStep();
