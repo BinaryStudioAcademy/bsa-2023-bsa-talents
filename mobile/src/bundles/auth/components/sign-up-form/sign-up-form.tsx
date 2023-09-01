@@ -42,14 +42,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             {
                 id: UserRole.EMPLOYER,
                 label: 'I`m hiring',
-                value: 'option1',
                 color: Color.PRIMARY,
                 borderColor: Color.INPUT,
             },
             {
                 id: UserRole.TALENT,
                 label: 'I`m looking for a job',
-                value: 'option2',
                 color: Color.PRIMARY,
                 borderColor: Color.INPUT,
             },
