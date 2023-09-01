@@ -8,10 +8,9 @@ import RadioGroup, {
     type RadioButtonProps,
 } from 'react-native-radio-buttons-group';
 
-import { Text, View } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { View } from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 
 type Properties<T extends FieldValues> = RadioButtonProps & {
     radioButtons: RadioButtonProps[];
@@ -27,7 +26,6 @@ const radioButtonsStyles = {
 
 const RadioButtons = <T extends FieldValues>({
     radioButtons,
-    label,
     name,
     control,
     ...props
@@ -50,11 +48,6 @@ const RadioButtons = <T extends FieldValues>({
                 selectedId={value}
                 {...props}
             />
-            {label && (
-                <Text category={TextCategory.LABEL} style={globalStyles.mt5}>
-                    {label}
-                </Text>
-            )}
         </View>
     );
 };
