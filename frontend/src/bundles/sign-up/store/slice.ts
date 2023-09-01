@@ -19,7 +19,6 @@ const { reducer, actions, name } = createSlice({
                 location,
                 description,
             } = action.payload;
-
             state.description = description;
             state.employmentTypes = employmentTypes;
             state.experienceYears = experienceYears;

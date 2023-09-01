@@ -14,14 +14,14 @@ const signUpStep1 = createAsyncThunk<
     UserSignUpStep1Dto,
     AsyncThunkConfig
 >(`${sliceName}/step1`, (registerPayload) => {
-    const exactExperienceValue = experienceYearsScaled.find(
+    const exactExperienceObject = experienceYearsScaled.find(
         (experience) =>
             experience.scaledValue === registerPayload.experienceYears,
     );
-    registerPayload.experienceYears = exactExperienceValue
-        ? exactExperienceValue.value
+    const exactExperienceValue = exactExperienceObject
+        ? exactExperienceObject.value
         : DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears;
-    return registerPayload;
+    return { ...registerPayload, experienceYears: exactExperienceValue };
 });
 
 export { signUpStep1 };

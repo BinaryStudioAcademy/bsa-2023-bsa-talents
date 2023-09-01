@@ -44,6 +44,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 
 type Properties = {
     methods: ReturnValue<UserSignUpStep1Dto>;
+    userInfo: UserSignUpStep1Dto;
 };
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
