@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import Toast from 'react-native-toast-message';
 
 import {
     type UserSignInRequestDto,
@@ -9,6 +8,7 @@ import {
 } from '~/bundles/auth/types/types';
 import { ErrorMessages } from '~/bundles/common/enums/enums';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
+import { notifications } from '~/framework/notifications/notifications';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
@@ -26,12 +26,10 @@ const signUp = createAsyncThunk<
         return response;
     } catch (error) {
         if (error instanceof Error) {
-            Toast.show({
-                type: 'error',
-                text1: error.message,
-            });
+            notifications.showError(error.message);
             throw error;
         }
+        notifications.showError(ErrorMessages.UNKNOWN_ERROR);
         throw error;
     }
 });
