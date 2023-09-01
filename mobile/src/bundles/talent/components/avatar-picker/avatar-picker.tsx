@@ -8,10 +8,11 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { ErrorMessages, TextCategory } from '~/bundles/common/enums/enums';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
+import { notifications } from '~/framework/notifications/notifications';
 
 type AvatarPickerProperties = {
     buttonStyle?: StyleProp<ViewStyle>;
@@ -33,8 +34,12 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                 }
                 const [image] = assets;
                 setAvatar(image.uri ?? uri);
-            } catch {
-                // TODO: Notify error
+            } catch (error) {
+                if (error instanceof Error) {
+                    notifications.showError(error.message);
+                    return;
+                }
+                notifications.showError(ErrorMessages.UNKNOWN_ERROR);
             }
         },
         [uri],

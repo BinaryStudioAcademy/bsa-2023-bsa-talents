@@ -10,7 +10,11 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    ErrorMessages,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -19,6 +23,8 @@ type ImagePickerProperties = {
     onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
     containerStyle?: StyleProp<ViewStyle>;
 };
+import { notifications } from '~/framework/notifications/notifications';
+
 import { styles } from './styles';
 
 const ImagePicker: React.FC<ImagePickerProperties> = ({
@@ -47,11 +53,17 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                 onImageLoad(result);
             }
             if (grantedCamera === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-                // TODO: Notify about possibility to add permissions in settings
+                notifications.showMessage({
+                    title: 'Camera permission denied.',
+                    text: 'You can give permission in settings',
+                });
             }
             setIsPopUpActive(false);
-        } catch {
-            // TODO: Notification error
+        } catch (error) {
+            if (error instanceof Error) {
+                notifications.showError(error.message);
+            }
+            notifications.showError(ErrorMessages.UNKNOWN_ERROR);
         }
     }, [onImageLoad]);
 
