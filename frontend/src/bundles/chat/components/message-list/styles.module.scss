@@ -7,6 +7,8 @@
     max-height: 100%;
     padding: 24px;
     overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--botticelli) transparent;
 
     &::-webkit-scrollbar-track {
         background-color: transparent;
