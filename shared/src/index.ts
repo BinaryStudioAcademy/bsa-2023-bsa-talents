@@ -10,7 +10,7 @@ export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
-    type UserRole,
+    UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
