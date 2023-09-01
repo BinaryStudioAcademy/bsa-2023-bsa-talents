@@ -1,4 +1,4 @@
-export { DataStatus } from './app/app';
+export { DataStatus, TalentOnboardingStepState } from './app/app';
 export {
     AuthScreenName,
     EmployerBottomTabScreenName,
@@ -13,5 +13,6 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
+    ErrorMessages,
     ServerErrorType,
 } from 'shared/build/index';

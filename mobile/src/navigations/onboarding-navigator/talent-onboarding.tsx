@@ -1,11 +1,23 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+    createDrawerNavigator,
+    type DrawerContentComponentProps,
+} from '@react-navigation/drawer';
 import React from 'react';
 
-import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
+import {
+    TalentOnboardingScreenName,
+    TalentOnboardingStepState,
+} from '~/bundles/common/enums/enums';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
-import { BsaBadges, Profile } from '~/bundles/talent/screens/screens';
+import {
+    BsaBadges,
+    CvAndContacts,
+    Preview,
+    Profile,
+    SkillsAndProjects,
+} from '~/bundles/talent/screens/screens';
 
-import { Header } from './components/components';
+import { Header, Steps } from './components/components';
 
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
@@ -17,15 +29,48 @@ const TalentOnboardingNavigator: React.FC = () => {
                 header: ({ navigation }): React.ReactNode => (
                     <Header navigation={navigation} />
                 ),
+                drawerStyle: {
+                    width: 330,
+                },
             }}
+            drawerContent={(
+                props: DrawerContentComponentProps,
+            ): React.ReactNode => <Steps {...props} />}
         >
             <Drawer.Screen
                 name={TalentOnboardingScreenName.PROFILE}
                 component={Profile}
+                initialParams={{
+                    stepState: TalentOnboardingStepState.FOCUSED,
+                }}
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
+                initialParams={{
+                    stepState: TalentOnboardingStepState.FOCUSED,
+                }}
+            />
+            <Drawer.Screen
+                name={TalentOnboardingScreenName.SKILLS_AND_PROJECTS}
+                component={SkillsAndProjects}
+                initialParams={{
+                    stepState: TalentOnboardingStepState.COMPLETED,
+                }}
+            />
+            <Drawer.Screen
+                name={TalentOnboardingScreenName.CV_AND_CONTACTS}
+                component={CvAndContacts}
+                initialParams={{
+                    stepState: TalentOnboardingStepState.COMPLETED,
+                }}
+            />
+            <Drawer.Screen
+                name={TalentOnboardingScreenName.PREVIEW}
+                component={Preview}
+                initialParams={{
+                    stepState: TalentOnboardingStepState.DISABLED,
+                }}
             />
         </Drawer.Navigator>
     );
