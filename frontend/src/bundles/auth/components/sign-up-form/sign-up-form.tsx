@@ -32,13 +32,11 @@ type Properties = {
 const options = [
     {
         value: UserRole.EMPLOYER,
-        // eslint-disable-next-line @typescript-eslint/quotes
-        label: "I'm hiring",
+        label: 'I\'m hiring',
     },
     {
         value: UserRole.TALENT,
-        // eslint-disable-next-line @typescript-eslint/quotes
-        label: "I'm looking for a job",
+        label: 'I\'m looking for a job',
     },
 ];
 
@@ -62,12 +60,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         fieldState: ControllerFieldState;
         formState: UseFormStateReturn<UserSignUpRequestDto>;
     }): React.ReactElement {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { ref, ...newField } = field;
-
         return (
             <RadioGroup
-                {...newField}
+                {...{
+                    onChange: field.onChange,
+                    onBlur: field.onBlur,
+                    name: field.name,
+                    value: field.value,
+                }}
                 className={styles['radio-wrapper']}
                 options={options}
             />
