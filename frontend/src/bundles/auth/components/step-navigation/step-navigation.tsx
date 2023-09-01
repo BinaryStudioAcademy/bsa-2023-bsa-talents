@@ -1,5 +1,5 @@
 import { useParameters } from '../../../common/components/components.js';
-import { StepRoutes } from '../../constants/constants.js';
+import { StepRoutes } from '../sign-up-content/constants/constants.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();

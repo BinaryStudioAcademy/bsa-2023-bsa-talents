@@ -16,7 +16,7 @@ import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
 import { StepNavigation } from './bundles/auth/components/components.js';
-import { StepRoutes } from './bundles/auth/constants/constants.js';
+import { StepRoutes } from './bundles/auth/components/sign-up-content/constants/constants.js';
 import { SignUpTalent } from './bundles/auth/pages/sign-up-talent/sign-up-talent.js';
 import { getSignUpTalentStepRoute } from './bundles/common/helpers/helpers.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';

@@ -8,7 +8,11 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { StepContent, Steps } from '../../components/components.js';
-import { stepOne, StepRoutes, stepsNumber } from '../../constants/constants.js';
+import {
+    stepOne,
+    StepRoutes,
+    stepsNumber,
+} from '../../components/sign-up-content/constants/constants.js';
 import styles from './styles.module.scss';
 
 const SignUpTalent: React.FC = () => {

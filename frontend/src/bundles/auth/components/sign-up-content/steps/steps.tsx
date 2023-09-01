@@ -1,8 +1,8 @@
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { stepOne } from '../../../constants/constants.js';
 import { Steps as StepsEnum } from '../../../enums/enums.js';
+import { stepOne } from '../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
