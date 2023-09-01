@@ -26,10 +26,10 @@ class BaseNotifications implements Notification {
         });
     }
 
-    public showMessage(value: ShowMessageArguments): void {
-        const { title, text } = value;
+    public showMessage(settings: ShowMessageArguments): void {
+        const { type, text, title } = settings;
         this.notify.show({
-            type: 'success',
+            type,
             text1: title,
             text2: text,
         });

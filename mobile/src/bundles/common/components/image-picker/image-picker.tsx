@@ -54,6 +54,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
             }
             if (grantedCamera === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
                 notifications.showMessage({
+                    type: 'error',
                     title: 'Camera permission denied.',
                     text: 'You can give permission in settings',
                 });
