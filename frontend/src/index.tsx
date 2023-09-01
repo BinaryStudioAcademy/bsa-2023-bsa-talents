@@ -18,6 +18,7 @@ import { store } from '~/framework/store/store.js';
 import { StepNavigation } from './bundles/auth/components/components.js';
 import { StepRoutes } from './bundles/auth/constants/constants.js';
 import { SignUpTalent } from './bundles/auth/pages/sign-up-talent/sign-up-talent.js';
+import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -70,6 +71,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                 ],
+                            },
+                            {
+                                path: AppRoute.OTHER,
+                                element: <NotFoundPage />,
                             },
                         ]}
                     />

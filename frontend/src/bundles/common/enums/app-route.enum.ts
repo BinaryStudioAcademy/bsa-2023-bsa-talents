@@ -6,6 +6,7 @@ const AppRoute = {
     SIGN_UP_TALENT_STEP: '/sign-up-talent/onboarding/step/:step',
     getSignUpTalentStepRoute: (step: string) =>
         `/sign-up-talent/onboarding/step/${step}`,
+    OTHER: '*',
 } as const;
 
 export { AppRoute };

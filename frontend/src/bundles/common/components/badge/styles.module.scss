@@ -1,0 +1,68 @@
+.badge {
+    width: 295px;
+    height: 95px;
+    padding: 23px;
+    overflow: hidden;
+    border: 2px solid var(--botticelli);
+    border-radius: 10px;
+}
+
+.badge.badgeSmall {
+    width: 146px;
+    height: 77px;
+    padding: 8px;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    padding: 24px;
+    border-radius: 6px;
+}
+
+.icon.iconSmall {
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+}
+
+.iconDefaultStyle {
+    fill: #ffffff;
+    width: 20px;
+    height: 20px;
+}
+
+.iconDefaultStyleSmall {
+    width: 14px;
+    height: 14px;
+}
+
+.content {
+    height: 48px;
+}
+
+.content .title {
+    padding: 8px 0;
+    font-size: 24px;
+}
+
+.content .title span:first-of-type {
+    font-weight: 500;
+}
+
+.content .title.titleSmall {
+    padding: 5px 0;
+}
+
+.content .titleTail {
+    color: var(--nepal);
+}
+
+.content .description {
+    font-size: 14px;
+}
+
+.content .description.descriptionSmall {
+    font-size: 10px;
+    line-height: 12px;
+}
