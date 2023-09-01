@@ -1,5 +1,9 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    signUpStep4ValidationSchema,
+    type UserSignUpStep4Dto,
+} from './bundles/sign-up/sign-up.js';
+export {
     CountryList,
     EmploymentType,
     EnglishLevel,
