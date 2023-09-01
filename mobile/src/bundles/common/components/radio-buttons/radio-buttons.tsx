@@ -9,7 +9,7 @@ import RadioGroup, {
 } from 'react-native-radio-buttons-group';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -18,6 +18,11 @@ type Properties<T extends FieldValues> = RadioButtonProps & {
     label?: string;
     name: FieldPath<T>;
     control: Control<T, null>;
+};
+
+const radioButtonsStyles = {
+    color: Color.PRIMARY,
+    borderColor: Color.INPUT,
 };
 
 const RadioButtons = <T extends FieldValues>({
@@ -30,12 +35,21 @@ const RadioButtons = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
 
+    const radioButtonsWithStyles = radioButtons.map((button) => {
+        return {
+            ...button,
+            ...radioButtonsStyles,
+        };
+    });
+
     return (
         <View>
             <RadioGroup
-                radioButtons={radioButtons}
+                radioButtons={radioButtonsWithStyles}
                 onPress={onChange}
                 selectedId={value}
+                color={Color.PRIMARY}
+                borderColor={Color.INPUT}
                 {...props}
             />
             {label && (

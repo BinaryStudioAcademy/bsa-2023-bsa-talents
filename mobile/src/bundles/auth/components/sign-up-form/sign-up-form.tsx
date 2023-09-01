@@ -12,11 +12,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    AuthScreenName,
-    Color,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { UserRole } from '~/bundles/users/enums/enums';
@@ -42,14 +38,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             {
                 id: UserRole.EMPLOYER,
                 label: 'I`m hiring',
-                color: Color.PRIMARY,
-                borderColor: Color.INPUT,
             },
             {
                 id: UserRole.TALENT,
                 label: 'I`m looking for a job',
-                color: Color.PRIMARY,
-                borderColor: Color.INPUT,
             },
         ],
         [],
