@@ -6,7 +6,7 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/auth/types/types';
-import { showErrorMessage } from '~/bundles/common/helpers/show-error-message/show-error-message';
+import { showErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
