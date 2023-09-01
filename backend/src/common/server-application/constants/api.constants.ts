@@ -11,7 +11,7 @@ const WHITE_ROUTES = [
         methods: ['POST'],
     },
     {
-        path: `/v1${ApiPath.DOCUMENTATION}/*`,
+        path: `/api/v1${ApiPath.DOCUMENTATION}/*`,
         methods: ['GET'],
     },
 ];
