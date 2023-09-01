@@ -6,14 +6,18 @@ import { type UserRole } from '~/bundles/users/enums/enums';
 
 import { signUp } from './actions';
 
+type UserData = {
+    email: string | null;
+    id: string | null;
+    role: ValueOf<typeof UserRole> | null;
+    isProfileComplete: boolean;
+};
+// TODO: Replace user data with shared UserData Type
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    userData: {
-        email: string | null;
-        id: string | null;
-        role: ValueOf<typeof UserRole> | null;
-    } | null;
+    userData: UserData | null;
 };
 
 const initialState: State = {
