@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
+import { Avatar, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { Grid, PageAvatar } from '../../components.js';
 import styles from './styles.module.scss';
 
 const MAX_LENGTH = {
@@ -54,7 +54,7 @@ const ChatListItem: React.FC<Properties> = ({
             )}
             onClick={handleClick}
         >
-            <PageAvatar src={avatar} />
+            <Avatar url={avatar} userFullName={username} size="medium" />
             <Grid flexGrow={1}>
                 <div className={getValidClassNames(styles.headerText)}>
                     {shrinkMessage(username, MAX_LENGTH.author)}

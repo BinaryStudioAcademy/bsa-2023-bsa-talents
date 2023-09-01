@@ -1,5 +1,10 @@
-import { useCallback, useEffect, useState } from '../../hooks/hooks.js';
-import { Grid } from '../components.js';
+import { Grid } from '~/bundles/common/components/components.js';
+import {
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
+
 import { ChatListItem, ChatListSearch } from './components.js';
 import styles from './styles.module.scss';
 
