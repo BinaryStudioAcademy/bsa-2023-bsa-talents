@@ -2,7 +2,7 @@ import joi from 'joi';
 
 import { UserValidationMessage } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
-import { CONSTANTS } from './constants/auth-constants.js';
+import { CONSTANTS } from './constants/constants.js';
 
 const userSignIn = joi.object<UserSignInRequestDto, true>({
     email: joi
