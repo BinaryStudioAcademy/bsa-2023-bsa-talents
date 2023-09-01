@@ -53,7 +53,6 @@ class HttpApiBase implements HttpApi {
             headers,
             payload,
         });
-
         return (await this.checkResponse(response)) as HttpApiResponse;
     }
 
