@@ -1,2 +1,2 @@
-export { showErrorMessage } from './show-error-message/show-error-message';
+export { getErrorMessage } from './get-error-message/get-error-message';
 export { configureString, getAvatarInitials } from 'shared/build/index';

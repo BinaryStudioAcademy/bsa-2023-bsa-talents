@@ -6,8 +6,9 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/auth/types/types';
-import { showErrorMessage } from '~/bundles/common/helpers/helpers';
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
+import { notifications } from '~/framework/notifications/notifications';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
@@ -24,9 +25,8 @@ const signUp = createAsyncThunk<
 
         return response;
     } catch (error) {
-        if (error instanceof Error) {
-            showErrorMessage(error);
-        }
+        const errorMessage = getErrorMessage(error);
+        notifications.showError(errorMessage);
         throw error;
     }
 });
@@ -42,9 +42,8 @@ const signIn = createAsyncThunk<
         await storage.set(StorageKey.TOKEN, response.token);
         return response;
     } catch (error) {
-        if (error instanceof Error) {
-            showErrorMessage(error);
-        }
+        const errorMessage = getErrorMessage(error);
+        notifications.showError(errorMessage);
         throw error;
     }
 });
