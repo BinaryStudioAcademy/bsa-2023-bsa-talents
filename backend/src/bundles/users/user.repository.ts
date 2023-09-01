@@ -1,6 +1,7 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
-import { type Repository } from '~/common/types/types.js';
+import { token } from '~/common/packages/packages.js';
+import { type Repository } from '~/common/types/repository.type.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -15,6 +16,16 @@ class UserRepository implements Repository {
         const user = await this.userModel.query().findOne(payload);
 
         return user ? UserEntity.initialize(user) : undefined;
+    }
+
+    public async findByToken(tokenString: string): Promise<UserEntity | null> {
+        const decodedToken = await token.decode(tokenString);
+
+        const user = await this.userModel
+            .query()
+            .findOne({ id: decodedToken.payload.id });
+
+        return user ? UserEntity.initialize(user) : null;
     }
 
     public async findAll(): Promise<UserEntity[]> {

@@ -1,33 +1,43 @@
 import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { AuthScreenName } from '~/bundles/common/enums/enums';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/auth/types/types';
+import { Overlay, Text } from '~/bundles/common/components/components';
+import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
+    useAppSelector,
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
-import { type UserSignUpRequestDto } from '~/bundles/users/users';
 
 import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-
+    const { dataStatus } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+    }));
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
-
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
     useEffect(() => {
         if (isSignUpScreen) {
             void dispatch(userActions.loadAll());
         }
     }, [isSignUpScreen, dispatch]);
 
-    const handleSignInSubmit = useCallback(() => {
-        // TODO: handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
@@ -35,7 +45,6 @@ const Auth: React.FC = () => {
         },
         [dispatch],
     );
-
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
@@ -57,7 +66,13 @@ const Auth: React.FC = () => {
         return null;
     };
 
-    return <>{getScreen(name)}</>;
+    return (
+        <>
+            <Text>state: {dataStatus}</Text>
+            <Overlay isActive={isPendingAuth} />
+            {getScreen(name)}
+        </>
+    );
 };
 
 export { Auth };

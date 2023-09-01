@@ -5,7 +5,12 @@ import {
 import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
-import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    type RootNavigationParameterList,
+    type ValueOf,
+} from '~/bundles/common/types/types';
+import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -23,7 +28,7 @@ type Properties = {
     isSignedIn?: boolean;
     isProfileComplete?: boolean;
     // TODO: update when enum is in shared folder
-    role?: 'talent' | 'employer';
+    role?: ValueOf<typeof UserRole> | null;
 };
 
 const renderStackScreen = ({
@@ -36,7 +41,7 @@ const renderStackScreen = ({
             <RootStack.Screen
                 name={RootScreenName.MAIN_ROOT_ROUTE}
                 component={
-                    role === 'talent'
+                    role === UserRole.TALENT
                         ? TalentBottomTabNavigator
                         : EmployerBottomTabNavigator
                 }
@@ -62,11 +67,10 @@ const renderStackScreen = ({
     );
 };
 
-const Root: React.FC<Properties> = ({
-    isSignedIn = false,
-    isProfileComplete = false,
-    role = 'talent',
-}) => {
+const Root: React.FC = () => {
+    const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
+    const { isProfileComplete, role } = userData ?? {};
+
     return (
         <RootStack.Navigator screenOptions={screenOptions}>
             {renderStackScreen({ isSignedIn, isProfileComplete, role })}
