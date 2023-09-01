@@ -12,7 +12,7 @@ import {
     StoreProvider,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
-import { TestStepLayout } from '~/bundles/sign-up/components/first-step/test.js';
+import { TestStepLayout } from '~/bundles/sign-up/pages/test.js';
 import { store } from '~/framework/store/store.js';
 
 import { theme } from './bundles/common/themes/theme.js';

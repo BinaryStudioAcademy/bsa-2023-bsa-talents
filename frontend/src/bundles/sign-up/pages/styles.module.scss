@@ -1,0 +1,28 @@
+.buttonBack {
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.buttonNext {
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+.stepButtons {
+    button {
+        width: 104px;
+        height: 36px;
+        margin: 5px;
+        font-weight: 500;
+        font-size: 13px;
+        text-transform: capitalize;
+    }
+}
