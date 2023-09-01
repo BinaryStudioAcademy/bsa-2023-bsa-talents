@@ -45,12 +45,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 </p>
 
                 <FormControl
+                    required={true}
                     className={getValidClassNames(
                         styles['input-container'],
                         styles.email,
                     )}
                 >
-                    <FormLabel className={styles.label}>Email</FormLabel>
+                    <FormLabel className={styles.label}>Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -59,12 +60,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 <FormControl
+                    required={true}
                     className={getValidClassNames(
                         styles['input-container'],
                         styles.password,
                     )}
                 >
-                    <FormLabel className={styles.label}>Password</FormLabel>
+                    <FormLabel className={styles.label}>Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}

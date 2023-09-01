@@ -87,7 +87,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.email,
                     )}
                 >
-                    <FormLabel className={styles.label}>Email</FormLabel>
+                    <FormLabel className={styles.label}>Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -101,7 +101,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.password,
                     )}
                 >
-                    <FormLabel className={styles.label}>Password</FormLabel>
+                    <FormLabel className={styles.label}>Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -118,15 +118,17 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 <Button
-                    label="Sign Up"
+                    label="Continue"
                     className={styles['btn-login']}
                     type="submit"
                 />
             </form>
             <Grid item className={styles.footer}>
-                <span className={styles.span}>Already registered?</span>
                 <Link className={styles.cta} to={'/sign-in'}>
-                    Sign In
+                    I already have an account
+                </Link>
+                <Link to={'/'} className={styles.span}>
+                    Privacy Policy
                 </Link>
             </Grid>
         </>

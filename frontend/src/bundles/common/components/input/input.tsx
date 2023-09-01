@@ -20,6 +20,7 @@ type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     placeholder?: string;
     type?: InputType;
+    isRequired?: boolean;
     isDisabled?: boolean;
     adornmentText?: string;
     className?: string;
@@ -32,6 +33,7 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type = 'text',
+    isRequired = false,
     isDisabled = false,
     adornmentText = '',
     className = '',
@@ -92,6 +94,7 @@ const Input = <T extends FieldValues>({
             error={hasError}
             helperText={(error as string) || ' '}
             className={textFieldRootStyles}
+            required={isRequired}
             InputProps={{
                 className: muiInputStyles,
                 disabled: isDisabled,
