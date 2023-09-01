@@ -25,15 +25,13 @@ type Properties = {
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
-        defaultValues: {
-            email: DEFAULT_SIGN_IN_PAYLOAD.email,
-            password: DEFAULT_SIGN_IN_PAYLOAD.password,
-        },
+        defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
     });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
+            alert('You have been logged in.');
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
