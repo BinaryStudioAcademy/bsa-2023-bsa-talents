@@ -18,7 +18,7 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { UserRole } from '~/bundles/users/enums/enums';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
