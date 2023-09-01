@@ -18,6 +18,7 @@ import { store } from '~/framework/store/store.js';
 import { StepNavigation } from './bundles/auth/components/components.js';
 import { StepRoutes } from './bundles/auth/constants/constants.js';
 import { SignUpTalent } from './bundles/auth/pages/sign-up-talent/sign-up-talent.js';
+import { getSignUpTalentStepRoute } from './bundles/common/helpers/helpers.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 
@@ -36,7 +37,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.ROOT,
                                         element: (
                                             <Navigate
-                                                to={AppRoute.getSignUpTalentStepRoute(
+                                                to={getSignUpTalentStepRoute(
                                                     StepRoutes.STEP_01,
                                                 )}
                                             />
@@ -58,7 +59,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 path: AppRoute.SIGN_UP_TALENT,
                                                 element: (
                                                     <Navigate
-                                                        to={AppRoute.getSignUpTalentStepRoute(
+                                                        to={getSignUpTalentStepRoute(
                                                             StepRoutes.STEP_01,
                                                         )}
                                                     />

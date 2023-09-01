@@ -1,6 +1,6 @@
 import arrowIcon from '~/assets/img/arrow-right.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { getSignUpTalentStepRoute } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
     useNavigate,
@@ -23,7 +23,7 @@ const SignUpTalent: React.FC = () => {
                 `STEP_0${currentStep + stepOne}` as keyof typeof StepRoutes
             ];
 
-        navigate(AppRoute.getSignUpTalentStepRoute(nextStepPath));
+        navigate(getSignUpTalentStepRoute(nextStepPath));
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
@@ -34,7 +34,7 @@ const SignUpTalent: React.FC = () => {
                 `STEP_0${currentStep - stepOne}` as keyof typeof StepRoutes
             ];
 
-        navigate(AppRoute.getSignUpTalentStepRoute(previousStepPath));
+        navigate(getSignUpTalentStepRoute(previousStepPath));
     }, [currentStep, navigate]);
 
     return (
