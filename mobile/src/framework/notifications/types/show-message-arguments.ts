@@ -1,7 +1,6 @@
 type ShowMessageArguments = {
-    text: string;
     title: string;
-    type: 'error' | 'success';
+    text?: string;
 };
 
 export { type ShowMessageArguments };

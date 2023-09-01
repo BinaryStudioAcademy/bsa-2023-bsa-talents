@@ -53,8 +53,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                 onImageLoad(result);
             }
             if (grantedCamera === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-                notifications.showMessage({
-                    type: 'error',
+                notifications.showError({
                     title: 'Camera permission denied.',
                     text: 'Please provide permission to access your camera in settings',
                 });
@@ -62,9 +61,9 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
             setIsPopUpActive(false);
         } catch (error) {
             if (error instanceof Error) {
-                notifications.showError(error.message);
+                notifications.showError({ title: error.message });
             }
-            notifications.showError(ErrorMessages.UNKNOWN_ERROR);
+            notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
         }
     }, [onImageLoad]);
 
