@@ -4,6 +4,7 @@ import { type ColorProperty } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 type Properties = {
+    component?: string;
     label: string;
     variant?: 'text' | 'outlined' | 'contained';
     type?: 'submit' | 'button';

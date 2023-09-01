@@ -20,15 +20,21 @@ type Properties = {
         | 'label';
     align?: 'center' | 'inherit' | 'justify' | 'left' | 'right';
     color?: ValueOf<typeof ColorProperty>;
+    className?: string;
 };
 
 const Typography: React.FC<Properties> = ({
     children,
     variant,
+    className = '',
     ...restProperties
 }) => {
     return (
-        <TypographyBase variant={variant} {...restProperties}>
+        <TypographyBase
+            variant={variant}
+            className={className}
+            {...restProperties}
+        >
             {children}
         </TypographyBase>
     );
