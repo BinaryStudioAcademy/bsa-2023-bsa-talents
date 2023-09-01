@@ -1,5 +1,6 @@
 import { Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { getAvatarInitials } from '~/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
@@ -16,13 +17,7 @@ const Avatar: React.FC<Properties> = ({
 }) => {
     const avatarClasses = getValidClassNames(styles.avatar, styles[size]);
 
-    const [userName, userSurname] = userFullName.split(' ');
-    const firstLetterIndex = 0;
-    const userNameAbbreviation = userSurname
-        ? `${userName[firstLetterIndex].toUpperCase()}${userSurname[
-              firstLetterIndex
-          ].toUpperCase()}`
-        : `${userName[firstLetterIndex].toUpperCase()}`;
+    const userNameAbbreviation = getAvatarInitials(userFullName);
 
     return url ? (
         <img className={avatarClasses} src={url} alt="User avatar" />
