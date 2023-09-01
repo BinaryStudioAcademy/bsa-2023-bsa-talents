@@ -1,12 +1,12 @@
+import {
+    type UserSignUpRequestDto,
+    type UserSignUpResponseDto,
+} from '~/bundles/auth/types/types';
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
-import {
-    type UserSignUpRequestDto,
-    type UserSignUpResponseDto,
-} from '../auth/auth';
 import { AuthApiPath } from './enums/enums';
 
 type Constructor = {

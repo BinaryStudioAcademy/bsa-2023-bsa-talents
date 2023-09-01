@@ -1,11 +1,8 @@
 import React from 'react';
 import { type RadioButtonProps } from 'react-native-radio-buttons-group';
-import Toast from 'react-native-toast-message';
 
-import {
-    type UserSignUpRequestDto,
-    userSignUpValidationSchema,
-} from '~/bundles/auth/auth';
+import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
+import { userSignUpValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
     Button,
     FormField,
@@ -139,7 +136,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     link={`/${AuthScreenName.SIGN_IN}`}
                 />
             </View>
-            <Toast />
         </View>
     );
 };

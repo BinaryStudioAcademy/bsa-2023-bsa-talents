@@ -4,7 +4,7 @@ import Toast from 'react-native-toast-message';
 import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
-} from '~/bundles/auth/auth';
+} from '~/bundles/auth/types/types';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { StorageKey } from '~/framework/storage/enums/enums';
 

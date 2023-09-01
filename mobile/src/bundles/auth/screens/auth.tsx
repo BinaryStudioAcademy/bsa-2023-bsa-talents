@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { type UserSignUpRequestDto } from '~/bundles/auth/auth';
 import { actions as authActions } from '~/bundles/auth/store';
+import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
 import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
