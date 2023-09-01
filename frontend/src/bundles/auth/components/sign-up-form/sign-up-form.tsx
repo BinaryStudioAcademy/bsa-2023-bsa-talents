@@ -32,11 +32,11 @@ type Properties = {
 const options = [
     {
         value: UserRole.EMPLOYER,
-        label: 'I\'m hiring',
+        label: 'I am hiring',
     },
     {
         value: UserRole.TALENT,
-        label: 'I\'m looking for a job',
+        label: 'I am looking for a job',
     },
 ];
 
