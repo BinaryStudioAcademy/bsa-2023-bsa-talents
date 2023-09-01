@@ -1,8 +1,6 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import {
     type UserFindResponseDto,
-    type UserSignInRequestDto,
-    type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
@@ -49,22 +47,6 @@ class AuthApi extends HttpApiBase {
             },
         );
         return response.json<UserFindResponseDto>();
-    }
-
-    public async signIn(
-        payload: UserSignInRequestDto,
-    ): Promise<UserSignUpResponseDto> {
-        const response = await this.load(
-            this.getFullEndpoint(AuthApiPath.SIGN_IN, {}),
-            {
-                method: 'POST',
-                contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
-                hasAuth: false,
-            },
-        );
-
-        return await response.json<UserSignInResponseDto>();
     }
 }
 
