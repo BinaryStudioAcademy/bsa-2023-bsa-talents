@@ -10,7 +10,7 @@ import {
     type RootNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { UserRole } from '~/bundles/users/enums/enums';
+import { type UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -27,7 +27,6 @@ const screenOptions: NativeStackNavigationOptions = {
 type Properties = {
     isSignedIn?: boolean;
     isProfileComplete?: boolean;
-    // TODO: update when enum is in shared folder
     role?: ValueOf<typeof UserRole> | null;
 };
 
@@ -41,7 +40,7 @@ const renderStackScreen = ({
             <RootStack.Screen
                 name={RootScreenName.MAIN_ROOT_ROUTE}
                 component={
-                    role === UserRole.TALENT
+                    role === 'talent'
                         ? TalentBottomTabNavigator
                         : EmployerBottomTabNavigator
                 }
