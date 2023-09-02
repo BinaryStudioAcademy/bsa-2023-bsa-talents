@@ -12,15 +12,17 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { stepService } from '~/services/services.js';
 
 import styles from './styles.module.scss';
 
 const SignUpTalent: React.FC = () => {
-    const [currentStep, setCurrentStep] = useState<number>(stepOne);
+    const [currentStep, setCurrentStep] = useState<number>(stepService.get());
     const navigate = useNavigate();
 
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + stepOne);
+        stepService.set(currentStep + stepOne);
 
         const nextStepPath =
             StepRoutes[
@@ -32,6 +34,7 @@ const SignUpTalent: React.FC = () => {
 
     const handlePreviousStep = useCallback((): void => {
         setCurrentStep(currentStep - stepOne);
+        stepService.set(currentStep - stepOne);
 
         const previousStepPath =
             StepRoutes[
