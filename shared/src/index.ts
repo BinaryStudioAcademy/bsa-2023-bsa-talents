@@ -10,6 +10,7 @@ export {
     type UserDetailsApproveRequestDto,
     userDetailsApproveValidationSchema,
     type UserDetailsResponseDto,
+    type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
 } from './bundles/user-details/user-details.js';
