@@ -1,5 +1,6 @@
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
+import { adminRoute } from '~/common/middlewares/admin-route.middleware.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -116,6 +117,7 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsApproveValidationSchema,
             },
+            preHandler: adminRoute,
             handler: (options) =>
                 this.approve(
                     options as ApiHandlerOptions<{
