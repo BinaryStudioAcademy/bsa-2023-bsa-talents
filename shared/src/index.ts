@@ -6,13 +6,15 @@ export {
     JobTitle,
     NotConsidered,
     PreferredLanguages,
-    type UserCreateResponseDto,
     UserDetailsApiPath,
     type UserDetailsApproveRequestDto,
     userDetailsApproveValidationSchema,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
+} from './bundles/user-details/user-details.js';
+export {
+    type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

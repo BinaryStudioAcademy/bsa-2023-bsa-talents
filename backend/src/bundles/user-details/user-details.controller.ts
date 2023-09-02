@@ -1,13 +1,3 @@
-import {
-    type UserDetailsApproveRequestDto,
-    type UserDetailsUpdateRequestDto,
-} from 'shared/build/index.js';
-import {
-    UserDetailsApiPath,
-    userDetailsApproveValidationSchema,
-    userDetailsUpdateValidationSchema,
-} from 'shared/build/index.js';
-
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import {
@@ -17,7 +7,16 @@ import {
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
+import { UserDetailsApiPath } from './enums/enums.js';
+import {
+    type UserDetailsApproveRequestDto,
+    type UserDetailsUpdateRequestDto,
+} from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
+import {
+    userDetailsApproveValidationSchema,
+    userDetailsUpdateValidationSchema,
+} from './validation-schemas/validation-schemas.js';
 
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;

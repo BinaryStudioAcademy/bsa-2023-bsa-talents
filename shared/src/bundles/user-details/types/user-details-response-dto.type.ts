@@ -7,7 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '../users.js';
+} from '../user-details.js';
 
 type UserDetailsResponseDto = {
     id: string | null;

@@ -1,3 +1,5 @@
+import { type ValueOf } from '~/common/types/types.js';
+
 import {
     type CountryList,
     type EmploymentType,
@@ -5,8 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/enums/enums.js';
-import { type ValueOf } from '~/common/types/types.js';
+} from '../enums/enums.js';
 
 type UserDetailsProperties = {
     id: string | null;

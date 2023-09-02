@@ -1,10 +1,10 @@
-import {
-    type UserDetailsResponseDto,
-    type UserDetailsUpdateRequestDto,
-} from 'shared/build/index.js';
-
 import { type Service } from '~/common/types/service.type.js';
 
+import {
+    type UserDetailsApproveRequestDto,
+    type UserDetailsResponseDto,
+    type UserDetailsUpdateRequestDto,
+} from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
 
@@ -40,6 +40,12 @@ class UserDetailsService implements Service {
 
     public update(
         payload: UserDetailsUpdateRequestDto,
+    ): Promise<UserDetailsEntity | undefined> {
+        return this.userDetailsRepository.update({ ...payload });
+    }
+
+    public approve(
+        payload: UserDetailsApproveRequestDto,
     ): Promise<UserDetailsEntity | undefined> {
         return this.userDetailsRepository.update({ ...payload });
     }
