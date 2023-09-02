@@ -15,7 +15,7 @@ class UserDetailsEntity implements Entity {
 
     private 'userId': string;
 
-    private 'isApproved': boolean;
+    private 'isApproved': boolean | null;
 
     private 'deniedReason': string | null;
 
