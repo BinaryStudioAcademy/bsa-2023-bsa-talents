@@ -27,7 +27,6 @@ class UserDetailsRepository implements Repository {
             .query()
             .insert({
                 userId: payload.id,
-                isApproved: false,
                 fullName: '',
             })
             .returning('*')

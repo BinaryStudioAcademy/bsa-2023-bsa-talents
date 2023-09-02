@@ -28,7 +28,7 @@ import {
 class UserDetailsModel extends AbstractModel {
     public 'userId': string;
 
-    public 'isApproved': boolean;
+    public 'isApproved': boolean | null;
 
     public 'deniedReason': string | null;
 
