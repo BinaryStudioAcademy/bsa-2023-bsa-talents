@@ -27,7 +27,10 @@ import {
     EmploymentType,
     JobTitle,
 } from '~/bundles/sign-up/enums/enums.js';
-import { experienceYearsSliderMarks } from '~/bundles/sign-up/helpers/helpers.js';
+import {
+    experienceYearsScaled,
+    experienceYearsSliderMarks,
+} from '~/bundles/sign-up/helpers/helpers.js';
 import { type UserSignUpStep1Dto } from '~/bundles/sign-up/types/types.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
@@ -41,7 +44,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 
 type Properties = {
     methods: ReturnValue<UserSignUpStep1Dto>;
-    userInfo: UserSignUpStep1Dto;
+    userInfo?: UserSignUpStep1Dto;
 };
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
@@ -59,28 +62,18 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
 const FirstStep: React.FC<Properties> = ({ methods }) => {
     const { control, errors } = methods;
 
-    const handleCheckboxChange = useCallback(
-        (
-            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>,
-            selectedValue: string,
-        ): void => {
-            const updatedValue = field.value.includes(selectedValue)
-                ? field.value.filter((item) => item !== selectedValue)
-                : [...field.value, selectedValue];
-            field.onChange(updatedValue);
-        },
-        [],
-    );
-
     const handleCheckboxOnChange = useCallback(
         (
             field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>,
             selectedValue: string,
         ) =>
             (): void => {
-                handleCheckboxChange(field, selectedValue);
+                const updatedValue = field.value.includes(selectedValue)
+                    ? field.value.filter((item) => item !== selectedValue)
+                    : [...field.value, selectedValue];
+                field.onChange(updatedValue);
             },
-        [handleCheckboxChange],
+        [],
     );
 
     const renderCheckboxes = useCallback(
@@ -116,6 +109,24 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
         [handleCheckboxOnChange],
     );
 
+    const handleSliderOnChange = useCallback(
+        (field: ControllerRenderProps<UserSignUpStep1Dto, 'experienceYears'>) =>
+            (event: Event): void => {
+                const mouseEvent = event as MouseEvent;
+                const inputElement = mouseEvent.target as HTMLInputElement;
+                const newValue = inputElement.value;
+                const exactExperienceObject = experienceYearsScaled.find(
+                    (experience) =>
+                        experience.scaledValue === Number.parseInt(newValue),
+                );
+                const exactExperienceValue = exactExperienceObject
+                    ? exactExperienceObject.value
+                    : DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears;
+                field.onChange(exactExperienceValue);
+            },
+        [],
+    );
+
     const renderSlider = useCallback(
         ({
             field,
@@ -137,10 +148,11 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                     value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
                     marks={experienceYearsSliderMarks}
                     step={null}
+                    onChange={handleSliderOnChange(field)}
                 />
             );
         },
-        [],
+        [handleSliderOnChange],
     );
 
     return (
