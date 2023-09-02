@@ -26,10 +26,15 @@ type Properties = {
 const Typography: React.FC<Properties> = ({
     children,
     variant,
+    className,
     ...restProperties
 }) => {
     return (
-        <TypographyBase variant={variant} {...restProperties}>
+        <TypographyBase
+            variant={variant}
+            className={className}
+            {...restProperties}
+        >
             {children}
         </TypographyBase>
     );
