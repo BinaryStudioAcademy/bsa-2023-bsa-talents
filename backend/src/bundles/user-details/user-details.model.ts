@@ -46,15 +46,15 @@ class UserDetailsModel extends AbstractModel {
 
     public 'experienceYears': number | null;
 
-    public 'employmentType': ValueOf<(typeof EmploymentType)[]> | null;
+    public 'employmentType': ValueOf<typeof EmploymentType>[] | null;
 
     public 'description': string | null;
 
     public 'englishLevel': ValueOf<typeof EnglishLevel> | null;
 
-    public 'notConsidered': ValueOf<(typeof NotConsidered)[]> | null;
+    public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    public 'preferredLanguages': ValueOf<(typeof PreferredLanguages)[]> | null;
+    public 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
 
     public 'projectLinks': string[] | null;
 
