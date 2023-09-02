@@ -13,7 +13,7 @@ const ProtectedRoute: FC<Properties> = ({ children }) => {
         currentUser: auth.currentUser,
     }));
 
-    const hasUser = Boolean(currentUser.id);
+    const hasUser = Boolean(currentUser);
 
     return hasUser ? (
         <>{children}</>
