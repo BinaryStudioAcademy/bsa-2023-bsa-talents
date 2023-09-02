@@ -5,6 +5,11 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import {
+    type ChatListItemType,
+    getItemsWithSelected,
+    getSearchedItems,
+} from '~/helpers/helpers.js';
 
 import { ChatListItem, ChatListSearch } from './components.js';
 import {
@@ -13,38 +18,8 @@ import {
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-type ChatListItemType = {
-    userId: string;
-    username: string;
-    lastMessage?: string;
-    lastMessageDate?: string;
-    avatar?: string;
-    isSelected?: boolean;
-};
-
 type Properties = {
     chatItems: ChatListItemType[];
-};
-
-// must be replaced by helper
-const getItemsWithSelected = (
-    items: ChatListItemType[],
-    id: string,
-): ChatListItemType[] => {
-    return items.map((item) => ({
-        ...item,
-        isSelected: item.userId === id,
-    }));
-};
-
-// must be replaced by helper
-const getSearchedItems = (
-    items: ChatListItemType[],
-    query: string,
-): ChatListItemType[] => {
-    return query
-        ? items.filter((item) => item.username.includes(query))
-        : items;
 };
 
 const ChatList: React.FC<Properties> = ({ chatItems }) => {
