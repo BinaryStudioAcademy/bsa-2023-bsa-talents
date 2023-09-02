@@ -7,6 +7,8 @@ const ErrorMessages = {
     ROUTE_ADMIN_ONLY: 'This route is for administrators only.',
     NOT_FOUND: 'Not found.',
     UPDATE_FAILED: 'Update failed.',
+    UNKNOWN_ERROR: 'Application error',
+    USER_NOT_FOUND: 'No user found for provided credentials',
 } as const;
 
 export { ErrorMessages };
