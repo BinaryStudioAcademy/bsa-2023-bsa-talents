@@ -81,7 +81,12 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Slider thumbTitleValue="Beginner" value={0} />
+                <Slider
+                    thumbTitleValue="Beginner"
+                    name="experienceLevel"
+                    control={control}
+                    thumbTitleValueWidth={100}
+                />
             </FormField>
             <FormField
                 errors={errors}

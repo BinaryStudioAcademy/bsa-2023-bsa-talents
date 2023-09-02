@@ -5,7 +5,9 @@ import {
 import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -19,40 +21,32 @@ const screenOptions: NativeStackNavigationOptions = {
     headerShown: false,
 };
 
-type Properties = {
-    isSignedIn?: boolean;
-    isProfileComplete?: boolean;
-    // TODO: update when enum is in shared folder
-    role?: 'talent' | 'employer';
-};
-
-const Root: React.FC<Properties> = ({
-    isSignedIn = false,
-    isProfileComplete = true,
-    role = 'talent',
-}) => {
+const Root: React.FC = () => {
+    const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
+    const { isProfileComplete, role } = userData ?? {};
     // prettier-ignore
     return (
-        <RootStack.Navigator screenOptions={screenOptions}>
-            {isSignedIn ? (
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={role === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
-                />
-            ) : (isProfileComplete ? (
-                <RootStack.Screen
-                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create link to employer onboarding screen for role == 'employer'
-                    component={TalentOnboardingNavigator}
-                />
-            ) : (
-                <RootStack.Screen
-                    name={RootScreenName.AUTH_ROOT_ROUTE}
-                    component={AuthNavigator}
-                />
-            ))}
-        </RootStack.Navigator>
-    );
+      <RootStack.Navigator screenOptions={screenOptions}>
+          {isSignedIn ? (
+              <RootStack.Screen
+                  name={RootScreenName.MAIN_ROOT_ROUTE}
+                  component={role === UserRole.TALENT ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
+              />
+          ) : (isProfileComplete ? (
+              <RootStack.Screen
+                  name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                  // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                  component={TalentOnboardingNavigator}
+              />
+          ) : (
+              <RootStack.Screen
+                  name={RootScreenName.AUTH_ROOT_ROUTE}
+                  component={AuthNavigator}
+              />
+          ))}
+
+      </RootStack.Navigator>
+  );
 };
 
 export { Root };
