@@ -1,28 +1,13 @@
+import { mapToSliderMarks } from '~/bundles/common/helpers/helpers.js';
 import { ExperienceYears } from '~/bundles/sign-up/enums/enums.js';
 
-const EMPTY_OBJECT_LENGTH = 0;
-const INDEX = 1;
 const MAX_MARKS_VALUE = 100;
 const MIN_MARKS_VALUE = 0;
 const SINGLE_UNIT_VALUE = 1;
-function mapToSliderMarks(
-    enumObject: typeof ExperienceYears,
-): { scaledValue: number; value: number; label: string }[] {
-    const elements = Object.values(enumObject).sort();
-    const elementsLength = elements.length;
-    if (elementsLength === EMPTY_OBJECT_LENGTH) {
-        return [];
-    }
-    const stepSize = MAX_MARKS_VALUE / (elementsLength - INDEX);
-    return elements.map((item, index) => ({
-        label: String(item),
-        scaledValue: Math.round(index * stepSize),
-        value: item,
-    }));
-}
+
 const experienceYearsScaled = mapToSliderMarks(ExperienceYears);
 
-const sliderMarks = experienceYearsScaled.map((mark) => {
+const experienceYearsSliderMarks = experienceYearsScaled.map((mark) => {
     if (mark.scaledValue == MAX_MARKS_VALUE) {
         return {
             value: mark.scaledValue,
@@ -45,4 +30,4 @@ const sliderMarks = experienceYearsScaled.map((mark) => {
     };
 });
 
-export { experienceYearsScaled, sliderMarks };
+export { experienceYearsScaled, experienceYearsSliderMarks };

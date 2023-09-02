@@ -21,19 +21,16 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
     EmploymentType,
     JobTitle,
 } from '~/bundles/sign-up/enums/enums.js';
+import { experienceYearsSliderMarks } from '~/bundles/sign-up/helpers/helpers.js';
 import { type UserSignUpStep1Dto } from '~/bundles/sign-up/types/types.js';
 
-import {
-    DEFAULT_SIGN_UP_PAYLOAD_STEP1,
-    sliderMarks,
-} from './constants/constants.js';
+import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -94,13 +91,16 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<UserSignUpStep1Dto>;
         }): React.ReactElement => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { ref, ...newField } = field;
             return (
                 <>
                     {employmentTypeOptions.map((option) => (
                         <Checkbox
-                            {...newField}
+                            {...{
+                                onChange: field.onChange,
+                                onBlur: field.onBlur,
+                                name: field.name,
+                                value: field.value,
+                            }}
                             key={option.value}
                             label={option.label}
                             value={option.value}
@@ -124,15 +124,18 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<UserSignUpStep1Dto>;
         }): React.ReactElement => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { ref, ...newField } = field;
             return (
                 <Slider
+                    {...{
+                        onChange: field.onChange,
+                        onBlur: field.onBlur,
+                        name: field.name,
+                        value: field.value,
+                    }}
                     className={styles.track}
                     classes={styles}
-                    {...newField}
                     value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
-                    marks={sliderMarks}
+                    marks={experienceYearsSliderMarks}
                     step={null}
                 />
             );
@@ -141,7 +144,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
     );
 
     return (
-        <FormControl className={styles.formControlMain}>
+        <FormControl className={styles.form}>
             <FormControl className={styles.formControl}>
                 <FormLabel className={styles.formLabel}>
                     <Typography variant={'label'}>
@@ -249,12 +252,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 )}
             </Grid>
             <FormControl className={styles.formControl}>
-                <FormLabel
-                    className={getValidClassNames(
-                        styles.noWrap,
-                        styles.formLabel,
-                    )}
-                >
+                <FormLabel className={styles.formLabel}>
                     <Typography variant={'label'}>
                         Briefly tell employers about your experience
                         <span className={styles.requiredField}>*</span>

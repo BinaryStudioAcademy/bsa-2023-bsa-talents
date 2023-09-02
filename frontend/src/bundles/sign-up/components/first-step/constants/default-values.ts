@@ -7,7 +7,7 @@ const DEFAULT_SIGN_UP_PAYLOAD_STEP1: UserSignUpStep1Dto = {
     location: ' ',
     experienceYears: 0,
     employmentTypes: [],
-    description: 'Text',
+    description: '',
 };
 
 export { DEFAULT_SIGN_UP_PAYLOAD_STEP1 };
