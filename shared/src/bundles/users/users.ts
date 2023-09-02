@@ -12,6 +12,7 @@ export {
 } from './enums/enums.js';
 export {
     type UserCreateResponseDto,
+    type UserDetailsApproveRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
     type UserFindResponseDto,
@@ -25,3 +26,4 @@ export {
 export { userSignUp as userSignUpValidationSchema } from './validation-schemas/validation-schemas.js';
 export { userSignIn as userSignInValidationSchema } from './validation-schemas/validation-schemas.js';
 export { userDetailsUpdate as userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsApprove as userDetailsApproveValidationSchema } from './validation-schemas/validation-schemas.js';
