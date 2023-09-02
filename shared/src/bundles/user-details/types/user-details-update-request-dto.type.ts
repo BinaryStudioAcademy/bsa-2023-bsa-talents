@@ -10,7 +10,6 @@ import {
 } from '../user-details.js';
 
 type UserDetailsUpdateRequestDto = {
-    id: string;
     userId: string;
 
     isHired?: boolean;

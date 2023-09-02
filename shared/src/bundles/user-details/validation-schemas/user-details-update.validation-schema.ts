@@ -11,7 +11,6 @@ import {
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
 
 const userDetailsUpdate = joi.object<UserDetailsUpdateRequestDto, true>({
-    id: joi.string().trim().required(),
     userId: joi.string().trim().required(),
 
     isHired: joi.boolean(),

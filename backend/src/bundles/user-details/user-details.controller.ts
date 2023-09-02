@@ -145,7 +145,6 @@ class UserDetailsController extends ControllerBase {
      *            examples:
      *              example-step-1:
      *                value:
-     *                  id: '550e8400-e29b-41d4-a716-446655440000'
      *                  userId: '550e8400-e29b-41d4-a716-446655440000'
      *                  profileName: 'Lee Swagger'
      *                  salaryExpectation: 6500
@@ -156,7 +155,6 @@ class UserDetailsController extends ControllerBase {
      *                  description: 'description'
      *              example-step-3:
      *                value:
-     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
      *                  userId: '550e8400-e29b-41d4-a716-446655440000'
      *                  englishLevel: ''
      *                  notConsidered: ''
@@ -164,7 +162,6 @@ class UserDetailsController extends ControllerBase {
      *                  projectLinks: ''
      *              example-step-4:
      *                value:
-     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
      *                  userId: '550e8400-e29b-41d4-a716-446655440000'
      *                  photoId: ''
      *                  fullName: ''
@@ -184,10 +181,6 @@ class UserDetailsController extends ControllerBase {
      *      UserDetailsRequestDto:
      *        type: object
      *        properties:
-     *          id:
-     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
-     *            type: string
-     *            required: true
      *          userId:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
@@ -281,11 +274,11 @@ class UserDetailsController extends ControllerBase {
      *            examples:
      *              example-approve:
      *                value:
-     *                  id: '550e8400-e29b-41d4-a716-446655440000'
+     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
      *                  isApproved: true
      *              example-denied:
      *                value:
-     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
+     *                  userId: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
      *                  isApproved: false
      *                  deniedReason: 'Incomplete information'
      *      responses:
@@ -301,7 +294,7 @@ class UserDetailsController extends ControllerBase {
      *      UserDetailsApproveRequestDto:
      *        type: object
      *        properties:
-     *          id:
+     *          userId:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
      *            required: true
