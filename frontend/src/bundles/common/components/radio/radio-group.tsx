@@ -1,4 +1,7 @@
-import { RadioGroup as MuiRadioGroup } from '@mui/material';
+import {
+    RadioGroup as MuiRadioGroup,
+    type RadioGroupProps,
+} from '@mui/material';
 import {
     type Control,
     type FieldPath,
@@ -16,7 +19,7 @@ type Option = {
     label: string;
 };
 
-type Properties<T extends FieldValues> = {
+type Properties<T extends FieldValues> = RadioGroupProps & {
     control?: Control<T, null>;
     name: FieldPath<T>;
     options?: Option[];
@@ -50,7 +53,6 @@ const RadioGroup = <T extends FieldValues>({
                         <Radio
                             value={option.value}
                             checked={field.value === option.value}
-                            //onChange={(e) => field.onChange(e.target.value)}
                         />
                     }
                 />
