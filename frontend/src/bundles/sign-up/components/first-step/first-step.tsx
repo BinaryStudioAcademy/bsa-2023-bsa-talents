@@ -158,11 +158,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
     return (
         <FormControl className={styles.form}>
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.formLabel}>
-                    <Typography variant={'label'}>
-                        Profile name
-                        <span className={styles.requiredField}>*</span>
-                    </Typography>
+                <FormLabel className={styles.formLabel} required>
+                    <Typography variant={'label'}>Profile name</Typography>
                 </FormLabel>
                 <Input
                     control={control}
@@ -173,10 +170,9 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 />
             </FormControl>
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.formLabel}>
+                <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Salary expectations
-                        <span className={styles.requiredField}>*</span>
                     </Typography>
                 </FormLabel>
                 <Input
@@ -189,10 +185,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 />
             </FormControl>
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.formLabel}>
-                    <Typography variant={'label'}>
-                        Job title<span className={styles.requiredField}>*</span>
-                    </Typography>
+                <FormLabel className={styles.formLabel} required>
+                    <Typography variant={'label'}>Job title</Typography>
                 </FormLabel>
                 <Select
                     control={control}
@@ -207,11 +201,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 )}
             </FormControl>
             <FormControl className={styles.formControlSlider}>
-                <FormLabel className={styles.formLabel}>
-                    <Typography variant={'label'}>
-                        Experience
-                        <span className={styles.requiredField}>*</span>
-                    </Typography>
+                <FormLabel className={styles.formLabel} required>
+                    <Typography variant={'label'}>Experience</Typography>
                 </FormLabel>
                 <Controller
                     control={control}
@@ -225,11 +216,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 )}
             </FormControl>
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.formLabel}>
-                    <Typography variant={'label'}>
-                        Current location
-                        <span className={styles.requiredField}>*</span>
-                    </Typography>
+                <FormLabel className={styles.formLabel} required>
+                    <Typography variant={'label'}>Current location</Typography>
                 </FormLabel>
                 <Select
                     control={control}
@@ -244,11 +232,8 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 )}
             </FormControl>
             <Grid className={styles.checkboxContainer}>
-                <FormLabel className={styles.formLabel}>
-                    <Typography variant={'label'}>
-                        Employment type
-                        <span className={styles.requiredField}>*</span>
-                    </Typography>
+                <FormLabel className={styles.formLabel} required>
+                    <Typography variant={'label'}>Employment type</Typography>
                 </FormLabel>
                 <FormControl className={styles.formControlCheckbox}>
                     <Controller
@@ -264,10 +249,9 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 )}
             </Grid>
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.formLabel}>
+                <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Briefly tell employers about your experience
-                        <span className={styles.requiredField}>*</span>
                     </Typography>
                 </FormLabel>
                 <Textarea
