@@ -1,6 +1,6 @@
 type UserSignUpStep1Dto = {
     profileName: string;
-    salaryExpectation: string;
+    salaryExpectation: number;
     jobTitle: string;
     location: string;
     experienceYears: number;

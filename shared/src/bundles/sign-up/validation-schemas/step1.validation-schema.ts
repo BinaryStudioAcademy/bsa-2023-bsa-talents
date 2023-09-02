@@ -28,20 +28,20 @@ const signUpStep1 = joi.object<UserSignUpStep1Dto, true>({
         }),
 
     salaryExpectation: joi
-        .string()
-        .min(SignUpStep1ValidationRule.MIN_SALARY_EXPECTATIONS_LENGTH)
-        .max(SignUpStep1ValidationRule.MAX_SALARY_EXPECTATIONS_LENGTH)
-        .pattern(/^\d+$/)
+        .number()
+        .integer()
+        .min(SignUpStep1ValidationRule.MIN_SALARY_EXPECTATION)
+        .max(SignUpStep1ValidationRule.MAX_SALARY_EXPECTATION)
         .required()
         .messages({
-            'string.base':
-                SignUpStep1ValidationMessage.SALARY_EXPECTATIONS_NOT_STRING,
-            'string.empty':
-                SignUpStep1ValidationMessage.SALARY_EXPECTATIONS_REQUIRED,
-            'string.length':
-                SignUpStep1ValidationMessage.SALARY_EXPECTATIONS_LENGTH,
-            'string.pattern.base':
-                SignUpStep1ValidationMessage.SALARY_EXPECTATIONS_WRONG_PATTERN,
+            'number.base':
+                SignUpStep1ValidationMessage.SALARY_EXPECTATION_NOT_NUMBER,
+            'number.min':
+                SignUpStep1ValidationMessage.SALARY_EXPECTATION_MIN_VALUE,
+            'number.max':
+                SignUpStep1ValidationMessage.SALARY_EXPECTATION_MAX_VALUE,
+            'any.required':
+                SignUpStep1ValidationMessage.SALARY_EXPECTATION_REQUIRED,
         }),
 
     jobTitle: joi
@@ -76,20 +76,22 @@ const signUpStep1 = joi.object<UserSignUpStep1Dto, true>({
         .min(SignUpStep1ValidationRule.EMPLOYMENT_TYPES_MIN_LENGTH)
         .required()
         .messages({
-            'array.base': 'smth wrong with emplTypes',
             'array.min': SignUpStep1ValidationMessage.EMPLOYMENT_TYPES_REQUIRED,
+            'any.invalid': SignUpStep1ValidationMessage.EMPLOYMENT_TYPES_BASE,
         }),
 
     description: joi
         .string()
         .min(SignUpStep1ValidationRule.MIN_EXPERIENCE_DESCRIPTION_LENGTH)
         .max(SignUpStep1ValidationRule.MAX_EXPERIENCE_DESCRIPTION_LENGTH)
+        .regex(/^[\s\w!"#$%&'()*+,./:;<=>?@[\\\]^{|}-]*$/)
         .required()
         .messages({
             'string.base': SignUpStep1ValidationMessage.DESCRIPTION_NOT_STRING,
-            'string.empty': SignUpStep1ValidationMessage.DESCRIPTION_REQUIRED,
             'string.min': SignUpStep1ValidationMessage.DESCRIPTION_MIN_LENGTH,
+            'string.empty': SignUpStep1ValidationMessage.DESCRIPTION_EMPTY,
             'string.max': SignUpStep1ValidationMessage.DESCRIPTION_MAX_LENGTH,
+            'any.required': SignUpStep1ValidationMessage.DESCRIPTION_REQUIRED,
         }),
 });
 

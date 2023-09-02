@@ -7,10 +7,12 @@ const SignUpStep1ValidationMessage = {
         'Profile name must be at most {{#limit}} characters',
     PROFILE_NAME_WRONG_PATTERN:
         'Profile name must contain only letters, spaces, (.) and (-)',
-    SALARY_EXPECTATIONS_NOT_STRING: 'Salary expectations must be a string',
-    SALARY_EXPECTATIONS_REQUIRED: 'Salary expectations is required',
-    SALARY_EXPECTATIONS_LENGTH:
-        'Salary expectations must be between 1 and 4 characters',
+    SALARY_EXPECTATION_NOT_NUMBER: 'Salary expectations must be a number',
+    SALARY_EXPECTATION_REQUIRED: 'Salary expectations is required',
+    SALARY_EXPECTATION_MIN_VALUE:
+        'Salary expectations must be  at least {{#limit}} ',
+    SALARY_EXPECTATION_MAX_VALUE:
+        'Salary expectations must be  at most {{#limit}} ',
     SALARY_EXPECTATIONS_WRONG_PATTERN:
         'Salary expectations must contain only numeric values',
     JOB_TITLE_NOT_STRING: 'Job title must be a string',
@@ -25,12 +27,14 @@ const SignUpStep1ValidationMessage = {
     LOCATION_REQUIRED: 'Location is required',
     LOCATION_BASE: 'Please select a valid location from the provided options',
     EMPLOYMENT_TYPES_REQUIRED: 'At least one employment type must be selected',
-    EMPLOYMENT_TYPES_NOT_ARRAY: 'Employment types must be an array',
+    EMPLOYMENT_TYPES_BASE:
+        'Please select valid employment types from the provided options',
     DESCRIPTION_NOT_STRING: 'Description must be a string',
     DESCRIPTION_REQUIRED: 'Description is required',
     DESCRIPTION_MIN_LENGTH:
         'Description must be at least {{#limit}} characters',
     DESCRIPTION_MAX_LENGTH: 'Description must be at most {{#limit}} characters',
+    DESCRIPTION_EMPTY: 'Description can not be empty',
 };
 
 export { SignUpStep1ValidationMessage };
