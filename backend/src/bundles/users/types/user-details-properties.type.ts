@@ -5,7 +5,8 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/enums/enums.js';
+} from 'shared/build/index.js';
+
 import { type ValueOf } from '~/common/types/types.js';
 
 type UserDetailsProperties = {
