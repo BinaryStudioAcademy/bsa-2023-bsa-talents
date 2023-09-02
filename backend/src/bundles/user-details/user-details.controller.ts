@@ -25,67 +25,67 @@ import {
  *      UserDetails:
  *        type: object
  *        properties:
- *          id?:
+ *          id:
  *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *            type: string
  *          userId:
  *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *            type: string
- *          isApproved?:
+ *          isApproved:
  *            type: boolean
- *          deniedReason?:
+ *          deniedReason:
  *            type: string
- *          isHired?:
+ *          isHired:
  *            type: boolean
- *          profileName?:
+ *          profileName:
  *            type: string
- *          salaryExpectation?:
+ *          salaryExpectation:
  *            type: number
- *          hiredSalary?:
+ *          hiredSalary:
  *            type: number
- *          jobTitle?:
+ *          jobTitle:
  *            type: string
- *          location?:
+ *          location:
  *            type: string
- *          experienceYears?:
+ *          experienceYears:
  *            type: number
- *          employmentType?:
+ *          employmentType:
  *            type: array
  *            items:
  *              type: string
- *          description?:
+ *          description:
  *            type: string
- *          englishLevel?:
+ *          englishLevel:
  *            type: string
- *          notConsidered?:
+ *          notConsidered:
  *            type: array
  *            items:
  *              type: string
- *          preferredLanguages?:
+ *          preferredLanguages:
  *            type: array
  *            items:
  *              type: string
- *          projectLinks?:
+ *          projectLinks:
  *            type: array
  *            items:
  *              type: string
- *          photoId?:
+ *          photoId:
  *            type: string
- *          fullName?:
+ *          fullName:
  *            type: string
- *          phone?:
+ *          phone:
  *            type: string
- *          linkedinLink?:
+ *          linkedinLink:
  *            type: string
- *          companyName?:
+ *          companyName:
  *            type: string
- *          companyLogoId?:
+ *          companyLogoId:
  *            type: string
- *          companyWebsite?:
+ *          companyWebsite:
  *            type: string
- *          employerPosition?:
+ *          employerPosition:
  *            type: string
- *          cvId?:
+ *          cvId:
  *            type: string
  */
 class UserDetailsController extends ControllerBase {
@@ -184,63 +184,65 @@ class UserDetailsController extends ControllerBase {
      *      UserDetailsRequestDto:
      *        type: object
      *        properties:
-     *          id?:
+     *          id:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
+     *            required: true
      *          userId:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
-     *          isHired?:
+     *            required: true
+     *          isHired:
      *            type: boolean
-     *          profileName?:
+     *          profileName:
      *            type: string
-     *          salaryExpectation?:
+     *          salaryExpectation:
      *            type: number
-     *          hiredSalary?:
+     *          hiredSalary:
      *            type: number
-     *          jobTitle?:
+     *          jobTitle:
      *            type: string
-     *          location?:
+     *          location:
      *            type: string
-     *          experienceYears?:
+     *          experienceYears:
      *            type: number
-     *          employmentType?:
+     *          employmentType:
      *            type: array
      *            items:
      *              type: string
-     *          description?:
+     *          description:
      *            type: string
-     *          englishLevel?:
+     *          englishLevel:
      *            type: string
-     *          notConsidered?:
+     *          notConsidered:
      *            type: array
      *            items:
      *              type: string
-     *          preferredLanguages?:
+     *          preferredLanguages:
      *            type: array
      *            items:
      *              type: string
-     *          projectLinks?:
+     *          projectLinks:
      *            type: array
      *            items:
      *              type: string
-     *          photoId?:
+     *          photoId:
      *            type: string
-     *          fullName?:
+     *          fullName:
      *            type: string
-     *          phone?:
+     *          phone:
      *            type: string
-     *          linkedinLink?:
+     *          linkedinLink:
      *            type: string
-     *          companyName?:
+     *          companyName:
      *            type: string
-     *          companyLogoId?:
+     *          companyLogoId:
      *            type: string
-     *          companyWebsite?:
+     *          companyWebsite:
      *            type: string
-     *          employerPosition?:
+     *          employerPosition:
      *            type: string
-     *          cvId?:
+     *          cvId:
      *            type: string
      *   securitySchemes:
      *     bearerAuth: # Define the JWT security scheme
@@ -302,9 +304,11 @@ class UserDetailsController extends ControllerBase {
      *          id:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
+     *            required: true
      *          isApproved:
      *            type: boolean
-     *          deniedReason?:
+     *            required: true
+     *          deniedReason:
      *            type: string
      *   securitySchemes:
      *     bearerAuth: # Define the JWT security scheme
