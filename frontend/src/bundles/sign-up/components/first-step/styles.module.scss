@@ -1,19 +1,8 @@
-.hasError {
-    color: var(--error-primary);
-    border-color: var(--error-primary);
-
-    & .input {
-        color: var(--error-primary);
-    }
-
-    & .input::placeholder {
-        color: var();
-        -webkit-text-fill-color: var(--error-primary);
-    }
+.form {
+    gap: 10px;
 }
 
 .formControl {
-    margin: 5px;
     padding: 10px;
 }
 
@@ -31,23 +20,15 @@
     padding: 0 10px;
 }
 
-.formControlMain {
-    max-width: 100%;
-    margin: 10px;
-    padding: 50px 150px;
-    border: 2px solid var(--nepal);
-    box-shadow: 0 0 5px rgba(0 0 0 / 10%);
-}
-
-.noWrap {
-    margin-right: 50px;
-    white-space: nowrap;
-}
-
 .formLabel {
-    color: var(--steel-gray);
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
 }
 
 .requiredField {
-    color: var(--azure);
+    color: var(--st-tropaz);
+}
+
+.hasError {
+    color: var(--error-primary);
 }

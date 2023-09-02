@@ -106,7 +106,7 @@ const TestStepLayout: React.FC<Properties> = () => {
     );
 
     return (
-        <>
+        <div>
             <CurrentForm userInfo={userPayload} methods={getStep()} />
             <Grid className={styles.stepButtons}>
                 <Button label="Back" className={styles.buttonBack} disabled />
@@ -117,7 +117,7 @@ const TestStepLayout: React.FC<Properties> = () => {
                     className={styles.buttonNext}
                 />
             </Grid>
-        </>
+        </div>
     );
 };
 
