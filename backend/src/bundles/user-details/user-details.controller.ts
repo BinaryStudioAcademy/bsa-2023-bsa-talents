@@ -131,6 +131,8 @@ class UserDetailsController extends ControllerBase {
      *    patch:
      *      tags: [User Details]
      *      description: Updates a user's details
+     *      security:
+     *          - bearerAuth: []
      *      requestBody:
      *        description: User detail update object
      *        required: true
@@ -147,6 +149,12 @@ class UserDetailsController extends ControllerBase {
      *               schema:
      *                 type: object
      *                 $ref: '#/components/schemas/UserDetails'
+     * components:
+     *   securitySchemes:
+     *     bearerAuth: # Define the JWT security scheme
+     *       type: http
+     *       scheme: bearer
+     *       bearerFormat: JWT
      */
     private async update(
         options: ApiHandlerOptions<{
@@ -159,6 +167,58 @@ class UserDetailsController extends ControllerBase {
         };
     }
 
+    /**
+     * @swagger
+     * /user-details/approve:
+     *    patch:
+     *      tags: [User Details]
+     *      description: Approves a user's details
+     *      security:
+     *          - bearerAuth: []
+     *      requestBody:
+     *        description: User detail update object
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              $ref: '#/components/schemas/UserDetailsApproveRequestDto'
+     *            examples:
+     *              example-approve:
+     *                value:
+     *                  id: '550e8400-e29b-41d4-a716-446655440000'
+     *                  isApproved: true
+     *              example-denied:
+     *                value:
+     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
+     *                  isApproved: false
+     *                  deniedReason: 'Incomplete information'
+     *      responses:
+     *         200:
+     *           description: Successful operation
+     *           content:
+     *             application/json:
+     *               schema:
+     *                 type: object
+     *                 $ref: '#/components/schemas/UserDetails'
+     * components:
+     *   schemas:
+     *      UserDetailsApproveRequestDto:
+     *        type: object
+     *        properties:
+     *          id:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *          isApproved:
+     *            type: boolean
+     *          deniedReason?:
+     *            type: string
+     *   securitySchemes:
+     *     bearerAuth: # Define the JWT security scheme
+     *       type: http
+     *       scheme: bearer
+     *       bearerFormat: JWT
+     */
     private async approve(
         options: ApiHandlerOptions<{
             body: UserDetailsApproveRequestDto;
