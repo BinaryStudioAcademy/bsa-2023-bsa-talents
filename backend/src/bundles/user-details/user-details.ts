@@ -13,3 +13,4 @@ const userDetailsController = new UserDetailsController(
 );
 
 export { userDetailsController, userDetailsService };
+export { UserDetailsModel } from './user-details.model.js';
