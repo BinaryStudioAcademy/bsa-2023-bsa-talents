@@ -162,7 +162,15 @@ class UserDetailsController extends ControllerBase {
      *                  notConsidered: ''
      *                  preferredLanguages: ''
      *                  projectLinks: ''
-     *
+     *              example-step-4:
+     *                value:
+     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
+     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  photoId: ''
+     *                  fullName: ''
+     *                  phone: ''
+     *                  linkedinLink: ''
+     *                  cvId: ''
      *      responses:
      *         200:
      *           description: Successful operation
