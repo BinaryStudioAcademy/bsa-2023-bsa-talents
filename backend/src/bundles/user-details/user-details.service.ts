@@ -1,3 +1,5 @@
+import { ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import {
@@ -44,9 +46,19 @@ class UserDetailsService implements Service {
         return this.userDetailsRepository.update({ ...payload });
     }
 
-    public approve(
+    public async approve(
         payload: UserDetailsApproveRequestDto,
     ): Promise<UserDetailsEntity | undefined> {
+        // TODO: implement only for admin route logic
+        const isAdmin = await Promise.resolve(true);
+
+        if (!isAdmin) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_AUTHORIZED,
+                status: HttpCode.UNAUTHORIZED,
+            });
+        }
+
         return this.userDetailsRepository.update({ ...payload });
     }
 
