@@ -151,7 +151,7 @@ class UserDetailsController extends ControllerBase {
      *                  jobTitle: 'JS Developer'
      *                  location: 'Guam'
      *                  experienceYears: 5
-     *                  employmentType: 'Freelance/Projects'
+     *                  employmentType: ['Freelance/Projects']
      *                  description: 'description'
      *              example-step-3:
      *                value:
