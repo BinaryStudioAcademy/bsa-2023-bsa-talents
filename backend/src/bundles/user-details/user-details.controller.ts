@@ -141,7 +141,7 @@ class UserDetailsController extends ControllerBase {
      *              $ref: '#/components/schemas/UserDetails'
      *      responses:
      *         200:
-     *           description: Succesful operation
+     *           description: Successful operation
      *           content:
      *             application/json:
      *               schema:
@@ -166,8 +166,7 @@ class UserDetailsController extends ControllerBase {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            // payload: await this.userDetailsService.approve(options.body),
-            payload: await Promise.resolve(options.body),
+            payload: await this.userDetailsService.approve(options.body),
         };
     }
 }
