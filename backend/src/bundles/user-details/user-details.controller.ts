@@ -276,11 +276,11 @@ class UserDetailsController extends ControllerBase {
      *            examples:
      *              example-approve:
      *                value:
-     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  id: '550e8400-e29b-41d4-a716-446655440000'
      *                  isApproved: true
      *              example-denied:
      *                value:
-     *                  userId: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
+     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
      *                  isApproved: false
      *                  deniedReason: 'Incomplete information'
      *      responses:
@@ -296,7 +296,7 @@ class UserDetailsController extends ControllerBase {
      *      UserDetailsApproveRequestDto:
      *        type: object
      *        properties:
-     *          userId:
+     *          id:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
      *            required: true
