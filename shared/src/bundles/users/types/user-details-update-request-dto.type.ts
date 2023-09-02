@@ -13,7 +13,6 @@ type UserDetailsUpdateRequestDto = {
     id: string;
     userId: string;
 
-    deniedReason?: string;
     isHired?: boolean;
 
     profileName?: string;

@@ -8,6 +8,8 @@ export {
     PreferredLanguages,
     type UserCreateResponseDto,
     UserDetailsApiPath,
+    type UserDetailsApproveRequestDto,
+    userDetailsApproveValidationSchema,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,

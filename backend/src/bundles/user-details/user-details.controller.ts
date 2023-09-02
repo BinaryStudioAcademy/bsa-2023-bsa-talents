@@ -1,6 +1,10 @@
 import {
-    UserDetailsApiPath,
+    type UserDetailsApproveRequestDto,
     type UserDetailsUpdateRequestDto,
+} from 'shared/build/index.js';
+import {
+    UserDetailsApiPath,
+    userDetailsApproveValidationSchema,
     userDetailsUpdateValidationSchema,
 } from 'shared/build/index.js';
 
@@ -36,6 +40,20 @@ class UserDetailsController extends ControllerBase {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: UserDetailsApiPath.APPROVE,
+            method: 'PATCH',
+            validation: {
+                body: userDetailsApproveValidationSchema,
+            },
+            handler: (options) =>
+                this.approve(
+                    options as ApiHandlerOptions<{
+                        body: UserDetailsApproveRequestDto;
+                    }>,
+                ),
+        });
     }
 
     private async update(
@@ -46,6 +64,18 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.update(options.body),
+        };
+    }
+
+    private async approve(
+        options: ApiHandlerOptions<{
+            body: UserDetailsApproveRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            // payload: await this.userDetailsService.approve(options.body),
+            payload: await Promise.resolve(options.body),
         };
     }
 }
