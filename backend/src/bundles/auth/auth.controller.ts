@@ -6,18 +6,27 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
-    ControllerBase,
-} from '~/common/controller/controller.js';
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
-import { type Logger } from '~/common/logger/logger.js';
+} from '~/common/packages/controller/controller.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
 class AuthController extends ControllerBase {
     private authService: AuthService;
 
@@ -53,6 +62,12 @@ class AuthController extends ControllerBase {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: AuthApiPath.CURRENT_USER,
+            method: 'GET',
+            handler: (options) => this.getCurrentUser(options),
+        });
     }
 
     /**
@@ -74,6 +89,8 @@ class AuthController extends ControllerBase {
      *                  format: email
      *                password:
      *                  type: string
+     *                role:
+     *                  $ref: '#/components/schemas/RoleEnum'
      *      responses:
      *        201:
      *          description: Successful operation
@@ -82,6 +99,14 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
+     *                  id:
+     *                    type: string
+     *                    format: uuid
+     *                  email:
+     *                    type: string
+     *                    format: email
+     *                  role:
+     *                    $ref: '#/components/schemas/RoleEnum'
      *                  token:
      *                    type: string
      */
@@ -122,6 +147,14 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
+     *                  id:
+     *                    type: string
+     *                    format: uuid
+     *                  email:
+     *                    type: string
+     *                    format: email
+     *                  role:
+     *                    $ref: '#/components/schemas/RoleEnum'
      *                  token:
      *                    type: string
      */
@@ -133,6 +166,44 @@ class AuthController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.authService.signIn(options.body),
+        };
+    }
+
+    /**
+     * @swagger
+     * /auth/current-user:
+     *   get:
+     *     tags:
+     *       - Auth
+     *     description: Get the current user based on the provided token
+     *     security:
+     *       - BearerAuth: []
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/User'
+     */
+
+    private async getCurrentUser(
+        options: ApiHandlerOptions,
+    ): Promise<ApiHandlerResponse> {
+        const [, token] = options.headers.authorization?.split(' ') ?? [];
+
+        if (!token) {
+            throw new HttpError({
+                status: HttpCode.UNAUTHORIZED,
+                message: ErrorMessages.NOT_AUTHORIZED,
+            });
+        }
+
+        const user = await this.authService.getCurrentUser(token);
+
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }

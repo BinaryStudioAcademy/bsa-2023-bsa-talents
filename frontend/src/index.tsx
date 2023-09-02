@@ -14,6 +14,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -40,6 +41,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: <Auth />,
                                     },
                                 ],
+                            },
+                            {
+                                path: AppRoute.OTHER,
+                                element: <NotFoundPage />,
                             },
                         ]}
                     />

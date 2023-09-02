@@ -8,24 +8,26 @@ import {
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { tokenService } from '~/common/services/services.js';
+import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
+import { token } from '~/common/packages/packages.js';
 
 class AuthService {
     private userService: UserService;
+    private encrypt: Encrypt;
 
-    public constructor(userService: UserService) {
+    public constructor(userService: UserService, encrypt: Encrypt) {
         this.userService = userService;
+        this.encrypt = encrypt;
     }
 
     public async signIn(
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto> {
         const user = await this.verifyLoginCredentials(userRequestDto);
-        const token = await tokenService.create({ id: user.id });
 
         return {
             ...user,
-            token,
+            token: await token.create({ id: user.id }),
         };
     }
 
@@ -35,6 +37,7 @@ class AuthService {
         const { email } = userRequestDto;
 
         const userByEmail = await this.userService.findByEmail(email);
+
         if (userByEmail) {
             throw new HttpError({
                 message: ErrorMessages.EMAIL_ALREADY_EXISTS,
@@ -43,11 +46,10 @@ class AuthService {
         }
 
         const user = await this.userService.create(userRequestDto);
-        const token = await tokenService.create({ id: user.id });
 
         return {
             ...user,
-            token,
+            token: await token.create({ id: user.id }),
         };
     }
 
@@ -64,7 +66,10 @@ class AuthService {
             });
         }
 
-        const isEqualPassword = password === 'HASH'; // Replace with cryptCompare from bt-86
+        const isEqualPassword = await this.encrypt.compare(
+            password,
+            user.toNewObject().passwordHash,
+        );
 
         if (!isEqualPassword) {
             throw new HttpError({
@@ -74,6 +79,18 @@ class AuthService {
         }
 
         return user.toObject();
+    }
+
+    public async getCurrentUser(token: string): Promise<UserFindResponseDto> {
+        const user = await this.userService.findByToken(token);
+
+        if (!user) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessages.USER_NOT_FOUND,
+            });
+        }
+        return user;
     }
 }
 

@@ -1,16 +1,16 @@
-import { type ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
-    FlatList,
     Pressable,
+    ScrollView,
     Text,
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { Color, IconName, TextCategory } from '../../enums/enums';
-import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
 type Select = {
@@ -19,14 +19,13 @@ type Select = {
 };
 
 type Properties = {
-    label: string;
     options: Select[];
     onSelect?: (item: Select) => void;
 };
 
 const iconDefaultSize = 24;
 
-const Selector: React.FC<Properties> = ({ label, options }) => {
+const Selector: React.FC<Properties> = ({ options }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [isListVisible, setIsListVisible] = useState(false);
 
@@ -44,8 +43,7 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
         : IconName.ARROW_DROP_DOWN;
 
     return (
-        <View>
-            <Text category={TextCategory.LABEL}>{label}</Text>
+        <View style={styles.container}>
             <Pressable
                 style={[
                     globalStyles.pv10,
@@ -57,12 +55,9 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
                 ]}
-                onPress={(): void => {
-                    setIsListVisible((previous) => !previous);
-                }}
+                onPress={toggleIsListVisible}
             >
                 <Text category={TextCategory.LABEL}>{selectedOption}</Text>
-
                 <Icon
                     name={selectIconName}
                     size={iconDefaultSize}
@@ -70,33 +65,33 @@ const Selector: React.FC<Properties> = ({ label, options }) => {
                 />
             </Pressable>
             {isListVisible && (
-                <Pressable
-                    style={globalStyles.flex1}
-                    onPress={toggleIsListVisible}
+                <View
+                    style={[
+                        globalStyles.pl20,
+                        globalStyles.pb5,
+                        globalStyles.width100,
+                        styles.dropdown,
+                        styles.dropdownButton,
+                    ]}
                 >
-                    <FlatList
-                        style={[
-                            globalStyles.pl20,
-                            globalStyles.width100,
-                            styles.dropdown,
-                        ]}
-                        data={options}
-                        renderItem={({ item }): ReactElement => {
-                            return (
-                                <TouchableOpacity
-                                    onPress={(): void => {
-                                        handlePressItem(item);
-                                    }}
+                    <ScrollView nestedScrollEnabled>
+                        {options.map((item) => (
+                            <TouchableOpacity
+                                key={item.value}
+                                onPress={(): void => {
+                                    handlePressItem(item);
+                                }}
+                            >
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={globalStyles.pv5}
                                 >
-                                    <Text category={TextCategory.LABEL}>
-                                        {item.label}
-                                    </Text>
-                                </TouchableOpacity>
-                            );
-                        }}
-                        keyExtractor={(item): string => item.value}
-                    />
-                </Pressable>
+                                    {item.label}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
             )}
         </View>
     );

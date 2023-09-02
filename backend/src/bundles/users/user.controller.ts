@@ -1,11 +1,9 @@
 import { type UserService } from '~/bundles/users/user.service.js';
-import {
-    type ApiHandlerResponse,
-    ControllerBase,
-} from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import { type Logger } from '~/common/logger/logger.js';
+import { type ApiHandlerResponse } from '~/common/packages/controller/controller.js';
+import { type Logger } from '~/common/packages/logger/logger.js';
+import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UsersApiPath } from './enums/enums.js';
 
@@ -13,16 +11,23 @@ import { UsersApiPath } from './enums/enums.js';
  * @swagger
  * components:
  *    schemas:
+ *      RoleEnum:
+ *        type: string
+ *        enum:
+ *          - talent
+ *          - employer
+ *          - admin
  *      User:
  *        type: object
  *        properties:
  *          id:
- *            type: number
- *            format: number
- *            minimum: 1
+ *            type: string
+ *            format: uuid
  *          email:
  *            type: string
  *            format: email
+ *          role:
+ *            $ref: '#/components/schemas/RoleEnum'
  */
 class UserController extends ControllerBase {
     private userService: UserService;
@@ -42,6 +47,8 @@ class UserController extends ControllerBase {
     /**
      * @swagger
      * /users/:
+     *    security:
+     *        -bearerAuth: []
      *    get:
      *      tags: [Users]
      *      description: Returns an array of users
