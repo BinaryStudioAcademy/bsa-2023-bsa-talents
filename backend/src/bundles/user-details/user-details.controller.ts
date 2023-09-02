@@ -129,10 +129,11 @@ class UserDetailsController extends ControllerBase {
      * @swagger
      * /user-details/update:
      *    patch:
-     *      tags: [User Details]
+     *      tags:
+     *        - User Details
      *      description: Updates a user's details
      *      security:
-     *          - bearerAuth: []
+     *        - bearerAuth: []
      *      requestBody:
      *        description: User detail update object
      *        required: true
@@ -140,7 +141,28 @@ class UserDetailsController extends ControllerBase {
      *          application/json:
      *            schema:
      *              type: object
-     *              $ref: '#/components/schemas/UserDetails'
+     *              $ref: '#/components/schemas/UserDetailsRequestDto'
+     *            examples:
+     *              example-step-1:
+     *                value:
+     *                  id: '550e8400-e29b-41d4-a716-446655440000'
+     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  profileName: 'Lee Swagger'
+     *                  salaryExpectation: 6500
+     *                  jobTitle: 'JS Developer'
+     *                  location: 'Guam'
+     *                  experienceYears: 5
+     *                  employmentType: 'Freelance/Projects'
+     *                  description: 'description'
+     *              example-step-3:
+     *                value:
+     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
+     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  englishLevel: ''
+     *                  notConsidered: ''
+     *                  preferredLanguages: ''
+     *                  projectLinks: ''
+     *
      *      responses:
      *         200:
      *           description: Successful operation
@@ -150,6 +172,68 @@ class UserDetailsController extends ControllerBase {
      *                 type: object
      *                 $ref: '#/components/schemas/UserDetails'
      * components:
+     *   schemas:
+     *      UserDetailsRequestDto:
+     *        type: object
+     *        properties:
+     *          id?:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *          userId:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *          isHired?:
+     *            type: boolean
+     *          profileName?:
+     *            type: string
+     *          salaryExpectation?:
+     *            type: number
+     *          hiredSalary?:
+     *            type: number
+     *          jobTitle?:
+     *            type: string
+     *          location?:
+     *            type: string
+     *          experienceYears?:
+     *            type: number
+     *          employmentType?:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description?:
+     *            type: string
+     *          englishLevel?:
+     *            type: string
+     *          notConsidered?:
+     *            type: array
+     *            items:
+     *              type: string
+     *          preferredLanguages?:
+     *            type: array
+     *            items:
+     *              type: string
+     *          projectLinks?:
+     *            type: array
+     *            items:
+     *              type: string
+     *          photoId?:
+     *            type: string
+     *          fullName?:
+     *            type: string
+     *          phone?:
+     *            type: string
+     *          linkedinLink?:
+     *            type: string
+     *          companyName?:
+     *            type: string
+     *          companyLogoId?:
+     *            type: string
+     *          companyWebsite?:
+     *            type: string
+     *          employerPosition?:
+     *            type: string
+     *          cvId?:
+     *            type: string
      *   securitySchemes:
      *     bearerAuth: # Define the JWT security scheme
      *       type: http
@@ -171,10 +255,11 @@ class UserDetailsController extends ControllerBase {
      * @swagger
      * /user-details/approve:
      *    patch:
-     *      tags: [User Details]
+     *      tags:
+     *        - User Details
      *      description: Approves a user's details
      *      security:
-     *          - bearerAuth: []
+     *        - bearerAuth: []
      *      requestBody:
      *        description: User detail update object
      *        required: true
