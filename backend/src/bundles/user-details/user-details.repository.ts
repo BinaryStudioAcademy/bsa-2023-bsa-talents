@@ -1,5 +1,6 @@
 import { type Repository } from '~/common/types/types.js';
 
+import { type UserDetailsUpdateDto } from './types/types.js';
 import { UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsModel } from './user-details.model.js';
 
@@ -36,17 +37,15 @@ class UserDetailsRepository implements Repository {
     }
 
     public async update(
-        payload: Record<string, unknown>,
-    ): Promise<UserDetailsEntity | undefined> {
-        const { userId, ...rest } = payload;
+        payload: UserDetailsUpdateDto,
+    ): Promise<UserDetailsEntity> {
+        const { id, ...rest } = payload;
 
-        const instance = await this.userDetailsModel
+        const details = await this.userDetailsModel
             .query()
-            .findOne({ userId });
+            .patchAndFetchById(id, rest);
 
-        const details = await instance?.$query().patchAndFetch(rest).execute();
-
-        return details ? UserDetailsEntity.initialize(details) : undefined;
+        return UserDetailsEntity.initialize(details);
     }
 
     public async delete(): Promise<boolean> {

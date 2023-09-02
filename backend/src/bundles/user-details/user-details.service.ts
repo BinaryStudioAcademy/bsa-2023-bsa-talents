@@ -40,26 +40,31 @@ class UserDetailsService implements Service {
         return newUserDetails.toObject();
     }
 
-    public update(
+    public async update(
         payload: UserDetailsUpdateRequestDto,
-    ): Promise<UserDetailsEntity | undefined> {
-        return this.userDetailsRepository.update({ ...payload });
+    ): Promise<UserDetailsEntity> {
+        const { userId, ...rest } = payload;
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.update({
+            id: userDetailsId,
+            ...rest,
+        });
     }
 
     public async approve(
         payload: UserDetailsApproveRequestDto,
     ): Promise<UserDetailsEntity | undefined> {
-        // TODO: implement only for admin route logic
-        const isAdmin = await Promise.resolve(true);
-
-        if (!isAdmin) {
-            throw new HttpError({
-                message: ErrorMessages.NOT_AUTHORIZED,
-                status: HttpCode.UNAUTHORIZED,
-            });
-        }
-
-        return this.userDetailsRepository.update({ ...payload });
+        return this.userDetailsRepository.update(payload);
     }
 
     public delete(): Promise<boolean> {
