@@ -9,7 +9,7 @@ import {
     ScrollView,
     SearchableDropdown,
     Selector,
-    Text,
+    Tag,
     View,
 } from '~/bundles/common/components/components';
 import { ButtonType, IconName } from '~/bundles/common/enums/enums';
@@ -24,7 +24,7 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-type Item = {
+type Skill = {
     label: string;
     value: string;
 };
@@ -37,10 +37,16 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
     });
-    const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+    const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
 
-    const handleItemSelect = (item: Item): void => {
-        setSelectedItems([...selectedItems, item]);
+    const handleSkillSelect = (skill: Skill): void => {
+        setSelectedSkills([...selectedSkills, skill]);
+    };
+
+    const handleSkillDelete = (skillLabel: string): void => {
+        setSelectedSkills((previousSkills) =>
+            previousSkills.filter((skill) => skill.label != skillLabel),
+        );
     };
 
     const handleFormSubmit = useCallback((): void => {
@@ -59,13 +65,23 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <SearchableDropdown
                     items={JOB_TITLES}
-                    onItemSelect={handleItemSelect}
+                    onItemSelect={handleSkillSelect}
                     control={control}
                     name="hardSkills"
                 />
-                <View>
-                    {selectedItems.map((item) => (
-                        <Text key={item.value}>{item.label}</Text>
+                <View
+                    style={[
+                        globalStyles.mt15,
+                        globalStyles.flexDirectionRow,
+                        styles.tagContainer,
+                    ]}
+                >
+                    {selectedSkills.map((skill) => (
+                        <Tag
+                            key={skill.value}
+                            skill={skill.label}
+                            onPress={handleSkillDelete}
+                        />
                     ))}
                 </View>
             </FormField>
@@ -75,7 +91,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Level of English"
                 name="levelOfEnglish"
                 required
-                containerStyle={globalStyles.pv25}
+                containerStyle={globalStyles.pb25}
             >
                 <Selector options={ENGLISH_LEVEL} />
             </FormField>

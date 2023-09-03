@@ -10,6 +10,7 @@ export { Overlay } from './overlay/overlay';
 export { SearchableDropdown } from './searchable-dropdown/searchable-dropdown';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
+export { Tag } from './tag/tag';
 export { Text } from './text/text';
 export {
     ActivityIndicator,
