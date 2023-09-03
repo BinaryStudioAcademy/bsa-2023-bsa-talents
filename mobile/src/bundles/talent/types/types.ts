@@ -1,1 +1,1 @@
-export { type TalentOnboardingProfileDto } from './onboarding-profile-dto';
+export { type TalentOnboardingProfileDto } from './onboarding-profile-dto.type';

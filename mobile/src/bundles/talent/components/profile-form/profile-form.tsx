@@ -15,6 +15,7 @@ import { splitArrayInHalf } from '~/bundles/common/helpers/helpers';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingProfileDto } from '~/bundles/talent/types/types';
+import { talentOnboardingProfileValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -51,6 +52,7 @@ type Properties = {
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
+        validationSchema: talentOnboardingProfileValidationSchema,
     });
 
     const handleFormSubmit = useCallback(() => {
