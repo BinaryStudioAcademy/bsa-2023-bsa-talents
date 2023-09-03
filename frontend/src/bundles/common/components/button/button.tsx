@@ -41,4 +41,5 @@ const Button: React.FC<Properties> = ({
     </MUIButton>
 );
 
+export { type Properties as ButtonProperties };
 export { Button };
