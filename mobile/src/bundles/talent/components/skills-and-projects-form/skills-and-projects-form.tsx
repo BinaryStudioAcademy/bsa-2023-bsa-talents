@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NotConsidered } from 'shared/build/index';
 
 import {
@@ -7,7 +7,9 @@ import {
     FormField,
     Input,
     ScrollView,
+    SearchableDropdown,
     Selector,
+    Text,
     View,
 } from '~/bundles/common/components/components';
 import { ButtonType, IconName } from '~/bundles/common/enums/enums';
@@ -16,10 +18,16 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import {
     ENGLISH_LEVEL,
+    JOB_TITLES,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
+
+type Item = {
+    label: string;
+    value: string;
+};
 
 type Properties = {
     onSubmit: () => void;
@@ -29,6 +37,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
     });
+    const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+
+    const handleItemSelect = (item: Item): void => {
+        setSelectedItems([...selectedItems, item]);
+    };
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -43,13 +56,18 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Hard Skills"
                 name="hardSkills"
                 required
-                containerStyle={globalStyles.pb25}
             >
-                <Input
+                <SearchableDropdown
+                    items={JOB_TITLES}
+                    onItemSelect={handleItemSelect}
                     control={control}
                     name="hardSkills"
-                    placeholder="Start typing and select skills"
                 />
+                <View>
+                    {selectedItems.map((item) => (
+                        <Text key={item.value}>{item.label}</Text>
+                    ))}
+                </View>
             </FormField>
 
             <FormField
@@ -57,7 +75,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Level of English"
                 name="levelOfEnglish"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pv25}
             >
                 <Selector options={ENGLISH_LEVEL} />
             </FormField>
@@ -135,7 +153,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
 
             <View style={globalStyles.flexDirectionRow}>
-                <Button label="Back" disabled style={globalStyles.mr10} />
+                <Button
+                    label="Back"
+                    style={globalStyles.mr10}
+                    buttonType={ButtonType.OUTLINE}
+                />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>

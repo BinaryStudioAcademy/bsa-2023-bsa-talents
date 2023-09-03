@@ -1,4 +1,4 @@
-import { PreferredLanguages } from 'shared/build/index';
+import { JobTitle, PreferredLanguages } from 'shared/build/index';
 
 const SKILLS_AND_PROJECTS_DEFAULT_VALUES = {
     hardSkills: '',
@@ -31,8 +31,16 @@ const PREFERRED_LANGUAGES_ARRAY = (
     value: key.toLowerCase(),
 }));
 
+const JOB_TITLES = (Object.keys(JobTitle) as (keyof typeof JobTitle)[]).map(
+    (key) => ({
+        label: JobTitle[key],
+        value: key.toLowerCase(),
+    }),
+);
+
 export {
     ENGLISH_LEVEL,
+    JOB_TITLES,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 };

@@ -7,6 +7,7 @@ export { Loader } from './loader/loader';
 export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
+export { SearchableDropdown } from './searchable-dropdown/searchable-dropdown';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Text } from './text/text';
