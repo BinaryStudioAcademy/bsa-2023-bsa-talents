@@ -1,4 +1,5 @@
 import React from 'react';
+import { CountryList, EmploymentType, JobTitle } from 'shared/build/index.js';
 
 import {
     Button,
@@ -10,27 +11,57 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
+import { splitArrayInHalf } from '~/bundles/common/helpers/helpers';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type TalentOnboardingProfileDto } from '~/bundles/talent/types/types';
 
-import {
-    CURRENT_LOCATION_OPTIONS,
-    JOB_TITLE_OPTIONS,
-    USER_PROFILE_DEFAULT_VALUES,
-} from './constants/constants';
+import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
+const jobTitleOptions = Object.values(JobTitle).map((title) => ({
+    value: title,
+    label: title,
+}));
+
+const locationOptions = Object.values(CountryList).map((country) => ({
+    value: country,
+    label: country,
+}));
+
+const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
+    value: type,
+    label: type,
+}));
+
+const [column1Options, column2Options] = splitArrayInHalf(
+    employmentTypeOptions,
+);
+
+const extractSelectedEmploymentTypes = (data: string[]): string[] => {
+    return employmentTypeOptions
+        .filter((_, index) => data[index])
+        .map((option) => option.value);
+};
+
 type Properties = {
-    onSubmit: () => void;
+    onSubmit: (payload: TalentOnboardingProfileDto) => void;
 };
 
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: USER_PROFILE_DEFAULT_VALUES,
+        defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
     });
 
-    const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
+    const handleFormSubmit = useCallback(() => {
+        void handleSubmit((data) => {
+            data.salaryExpectation = Number(data.salaryExpectation);
+            data.employmentTypes = extractSelectedEmploymentTypes(
+                data.employmentTypes,
+            );
+
+            onSubmit(data);
+        })();
     }, [handleSubmit, onSubmit]);
 
     return (
@@ -53,13 +84,13 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
             <FormField
                 errors={errors}
                 label="Salary expectations"
-                name="salaryExpectations"
+                name="salaryExpectation"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="salaryExpectations"
+                    name="salaryExpectation"
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
@@ -72,18 +103,23 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={JOB_TITLE_OPTIONS} />
+                <Selector
+                    options={jobTitleOptions}
+                    control={control}
+                    name="jobTitle"
+                    placeholder="Option"
+                />
             </FormField>
             <FormField
                 errors={errors}
                 label="Experience Level"
-                name="experienceLevel"
+                name="experienceYears"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
                     thumbTitleValue="Beginner"
-                    name="experienceLevel"
+                    name="experienceYears"
                     control={control}
                     thumbTitleValueWidth={100}
                 />
@@ -91,16 +127,21 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
             <FormField
                 errors={errors}
                 label="Current location"
-                name="currentLocation"
+                name="location"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={CURRENT_LOCATION_OPTIONS} />
+                <Selector
+                    control={control}
+                    name="location"
+                    options={locationOptions}
+                    placeholder="Option"
+                />
             </FormField>
             <FormField
                 errors={errors}
                 label="Employment type"
-                name="employmentType"
+                name="employmentTypes"
                 required
                 containerStyle={globalStyles.pb25}
             >
@@ -112,51 +153,39 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                     ]}
                 >
                     <View style={globalStyles.flex1}>
-                        <Checkbox
-                            label="Full time"
-                            name="employmentType.fullTime"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Part-time"
-                            name="employmentType.partTime"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Freelance (projects)"
-                            name="employmentType.freelance"
-                            control={control}
-                        />
+                        {column1Options.map((option, index) => (
+                            <Checkbox
+                                key={option.label}
+                                label={option.label}
+                                name={`employmentTypes.${index}`}
+                                control={control}
+                            />
+                        ))}
                     </View>
                     <View style={globalStyles.flex1}>
-                        <Checkbox
-                            label="Part-time 2"
-                            name="employmentType.partTime2"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Remotely"
-                            name="employmentType.remotely"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Relocation to another country"
-                            name="employmentType.relocation"
-                            control={control}
-                        />
+                        {column2Options.map((option, index) => (
+                            <Checkbox
+                                key={option.label}
+                                label={option.label}
+                                name={`employmentTypes.${
+                                    column1Options.length + index
+                                }`}
+                                control={control}
+                            />
+                        ))}
                     </View>
                 </View>
             </FormField>
             <FormField
                 errors={errors}
                 label="Briefly tell employers about your experience"
-                name="experience"
+                name="description"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="experience"
+                    name="description"
                     placeholder="Text"
                     numberOfLines={5}
                     multiline={true}

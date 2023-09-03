@@ -44,9 +44,9 @@ const Checkbox = <T extends FieldValues>({
                 {...props}
             />
             {label && (
-                <Text category={TextCategory.LABEL} style={globalStyles.mt5}>
-                    {label}
-                </Text>
+                <View style={[globalStyles.flex1, globalStyles.mt5]}>
+                    <Text category={TextCategory.LABEL}>{label}</Text>
+                </View>
             )}
         </View>
     );
