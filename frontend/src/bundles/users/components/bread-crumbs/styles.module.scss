@@ -1,0 +1,32 @@
+.breadCrumbs {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding-left: 50px;
+    border-bottom: 1px solid var(--solitude);
+}
+
+.breadCrumbsList {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.breadCrumbLink {
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-body);
+}
+
+.breadCrumbLinkActive {
+    color: var(--st-tropaz);
+    font-weight: var(--font-weight-medium);
+}
+
+a[aria-current="page"] {
+    color: var(--text-primary);
+}
+
+.icon {
+    padding-inline: 16px;
+}

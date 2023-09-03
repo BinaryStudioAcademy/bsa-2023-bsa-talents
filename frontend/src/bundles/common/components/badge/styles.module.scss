@@ -66,3 +66,30 @@
     font-size: 10px;
     line-height: 12px;
 }
+
+.HRbadge {
+    align-self: auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.HRbadgeWrapper {
+    width: 146px;
+    height: 77px;
+    padding-top: 15px;
+    padding-left: 10px;
+    background-color: var(--white-lilac);
+}
+
+.HRbadgeContent {
+    align-self: flex-start;
+    width: 20px;
+    padding-bottom: 40px;
+}
+
+.bigHeadphones {
+    width: 23px;
+    height: 23px;
+    color: var(--white);
+}

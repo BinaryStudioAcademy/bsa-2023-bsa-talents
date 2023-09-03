@@ -1,0 +1,68 @@
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.profileSecondSection {
+    width: 35%;
+}
+
+.candidateInfo {
+    margin-top: 40px;
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+    margin-inline: 50px;
+}
+
+.salary {
+    &::after {
+        content: " / mo";
+        color: var(--text-primary);
+        font-weight: var(--font-weight-regular);
+    }
+}
+
+.salaryTitle {
+    padding-left: 45px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.candidateParamsList {
+    padding-left: 45px;
+}
+
+.icon {
+    width: 20px;
+    margin-right: 18px;
+}
+
+.candidateParam {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    padding-left: 37px;
+    font-weight: var(--font-weight-semi-bold);
+    font-size: 20px;
+    border-bottom: 1px solid var(--botticelli);
+    padding-block: 25px;
+}
+
+.emptyPhoto {
+    width: 40px;
+    height: 40px;
+    margin-right: 17px;
+    background-color: var(--cornflower-blue);
+    border-radius: 10px;
+}
+
+.publishDate {
+    margin-top: 6px;
+    margin-left: 50px;
+    color: var(--nepal);
+}

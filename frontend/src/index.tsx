@@ -16,6 +16,7 @@ import { store } from '~/framework/store/store.js';
 
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
+import { CandidatePage } from './bundles/users/pages/candidate-page.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -39,6 +40,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.SIGN_UP,
                                         element: <Auth />,
+                                    },
+                                    {
+                                        path: AppRoute.CANDIDATE,
+                                        element: <CandidatePage />,
                                     },
                                 ],
                             },
