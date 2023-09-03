@@ -18,6 +18,15 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
 class AuthController extends ControllerBase {
     private authService: AuthService;
 
@@ -80,6 +89,8 @@ class AuthController extends ControllerBase {
      *                  format: email
      *                password:
      *                  type: string
+     *                role:
+     *                  $ref: '#/components/schemas/RoleEnum'
      *      responses:
      *        201:
      *          description: Successful operation
@@ -88,6 +99,14 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
+     *                  id:
+     *                    type: string
+     *                    format: uuid
+     *                  email:
+     *                    type: string
+     *                    format: email
+     *                  role:
+     *                    $ref: '#/components/schemas/RoleEnum'
      *                  token:
      *                    type: string
      */
@@ -128,6 +147,14 @@ class AuthController extends ControllerBase {
      *              schema:
      *                type: object
      *                properties:
+     *                  id:
+     *                    type: string
+     *                    format: uuid
+     *                  email:
+     *                    type: string
+     *                    format: email
+     *                  role:
+     *                    $ref: '#/components/schemas/RoleEnum'
      *                  token:
      *                    type: string
      */
@@ -158,18 +185,6 @@ class AuthController extends ControllerBase {
      *           application/json:
      *             schema:
      *               $ref: '#/components/schemas/User'
-     *       401:
-     *         description: Unauthorized
-     *         content:
-     *           application/json:
-     *             schema:
-     *               $ref: '#/components/schemas/Error'
-     *       404:
-     *         description: User not found
-     *         content:
-     *           application/json:
-     *             schema:
-     *               $ref: '#/components/schemas/Error'
      */
 
     private async getCurrentUser(
