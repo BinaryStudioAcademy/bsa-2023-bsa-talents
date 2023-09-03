@@ -11,7 +11,8 @@ const SKILLS_AND_PROJECTS_DEFAULT_VALUES = {
         startups: false,
     },
     preferredLanguage: '',
-    projectLinks: [],
+    projectLinks: '',
+    projectLinks2: '',
 };
 
 const ENGLISH_LEVEL = [

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NotConsidered } from 'shared/build/index';
 
 import {
@@ -6,13 +7,14 @@ import {
     Checkbox,
     FormField,
     Input,
+    Pressable,
     ScrollView,
     SearchableDropdown,
     Selector,
     Tag,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, IconName } from '~/bundles/common/enums/enums';
+import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -38,6 +40,24 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
     });
     const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+    const [links, setLinks] = useState<string[]>([]);
+    const maxLinks = 3;
+
+    const handleLinkAdd = (): void => {
+        if (links.length > maxLinks) {
+            return;
+        }
+        setLinks([...links, '']);
+    };
+
+    const handleLinkDelete = (indexToRemove: number): void => {
+        setLinks((previousLinks) => {
+            const updatedLinks = [...previousLinks];
+            const numberToDelete = 1;
+            updatedLinks.splice(indexToRemove, numberToDelete);
+            return updatedLinks;
+        });
+    };
 
     const handleSkillSelect = (skill: Skill): void => {
         setSelectedSkills([...selectedSkills, skill]);
@@ -139,7 +159,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
 
             <FormField
                 errors={errors}
-                label="Level of English"
+                label="Preferred language of communication"
                 name="levelOfEnglish"
                 required
                 containerStyle={globalStyles.pb25}
@@ -156,15 +176,41 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     control={control}
                     name="projectLinks"
-                    placeholder="Start typing and select skills"
+                    placeholder="link to your project"
                     marker="www."
                 />
+
+                <View style={[globalStyles.mt5, styles.links]}>
+                    {links.map((_, index) => (
+                        <View key={index}>
+                            <Input
+                                control={control}
+                                name="projectLinks2"
+                                placeholder="link to your project"
+                                marker="www."
+                            />
+                            <Pressable
+                                style={styles.linksBtn}
+                                onPress={(): void => {
+                                    handleLinkDelete(index);
+                                }}
+                            >
+                                <Icon
+                                    name={IconName.CLOSE}
+                                    size={20}
+                                    color={Color.ERROR}
+                                />
+                            </Pressable>
+                        </View>
+                    ))}
+                </View>
                 <Button
                     label="Add more links"
                     buttonType={ButtonType.GHOST}
                     iconName={IconName.PLUS}
                     iconSize={20}
                     style={globalStyles.alignSelfFlexStart}
+                    onPress={handleLinkAdd}
                 />
             </FormField>
 

@@ -12,6 +12,15 @@ const styles = StyleSheet.create({
         gap: 5,
         flexWrap: 'wrap',
     },
+    links: {
+        gap: 5,
+        position: 'relative',
+    },
+    linksBtn: {
+        position: 'absolute',
+        top: 5,
+        right: 5,
+    },
 });
 
 export { styles };
