@@ -67,6 +67,10 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
         }
     }, [onImageLoad]);
 
+    const imageCameraHandler = useCallback((): void => {
+        void getImageFromCamera();
+    }, [getImageFromCamera]);
+
     const onPickerPress = (): void => {
         setIsPopUpActive(true);
     };
@@ -86,8 +90,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                     <Button
                         buttonType={ButtonType.OUTLINE}
                         label="Camera"
-                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                        onPress={getImageFromCamera}
+                        onPress={imageCameraHandler}
                     />
                     <Button
                         buttonType={ButtonType.OUTLINE}

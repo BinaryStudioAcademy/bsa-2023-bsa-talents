@@ -25,7 +25,7 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
     ...props
 }) => {
     const [avatar, setAvatar] = useState<undefined | string>();
-    const handleImageLoad = useCallback(
+    const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
             try {
                 const { assets, didCancel } = await payload;
@@ -45,6 +45,13 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
         [uri],
     );
 
+    const imageLoadHandler = useCallback(
+        (payload: Promise<ImagePickerResponse>): void => {
+            void getLoadedImage(payload);
+        },
+        [getLoadedImage],
+    );
+
     return (
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
             <Avatar {...props} uri={avatar ?? uri} />
@@ -52,8 +59,7 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                 Upload a new photo
             </Text>
             <ImagePicker
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onImageLoad={handleImageLoad}
+                onImageLoad={imageLoadHandler}
                 label="Choose photo"
                 containerStyle={buttonStyle}
             />
