@@ -7,6 +7,7 @@ type Properties = {
     isOnline: boolean;
 };
 
+// TODO: replace with MUI avatar
 const HeaderAvatar: React.FC<Properties> = ({ avatarUrl, isOnline }) => {
     const statusCLasses = getValidClassNames(
         styles.status,

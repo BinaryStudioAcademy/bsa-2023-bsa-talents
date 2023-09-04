@@ -1,10 +1,16 @@
 import { Dropdown, type DropdownProps } from '@mui/base/Dropdown';
 
-type Properties = DropdownProps;
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-const CustomDropdown: React.FC<Properties> = ({ children, ...props }) => {
+type Properties = DropdownProps & { className?: string };
+
+const CustomDropdown: React.FC<Properties> = ({
+    children,
+    className,
+    ...props
+}) => {
     return (
-        <div>
+        <div className={getValidClassNames(className)}>
             <Dropdown {...props}>{children}</Dropdown>
         </div>
     );
