@@ -1,4 +1,4 @@
-type UserSignUpStep4Dto = {
+type TalentOnBoardingStep4Dto = {
     photo: File | null;
     fullName: string;
     phoneNumber: string;
@@ -6,4 +6,4 @@ type UserSignUpStep4Dto = {
     cv: File | null;
 };
 
-export { type UserSignUpStep4Dto };
+export { type TalentOnBoardingStep4Dto };
