@@ -11,6 +11,7 @@ import {
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -37,7 +38,14 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
-            {/* TODO add shared photo picker component */}
+            <FormField
+                errors={errors}
+                name="photoId"
+                required
+                containerStyle={globalStyles.pb25}
+            >
+                <AvatarPicker />
+            </FormField>
             <FormField
                 errors={errors}
                 label="Full name"

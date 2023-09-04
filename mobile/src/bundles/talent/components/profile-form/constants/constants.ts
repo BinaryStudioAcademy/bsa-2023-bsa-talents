@@ -4,7 +4,7 @@ const TALENT_PROFILE_DEFAULT_VALUES = {
     jobTitle: '',
     currentLocation: '',
     experience: '',
-    experienceLevel: '0',
+    experienceLevel: 0,
     employmentType: {
         fullTime: true,
         partTime: false,
