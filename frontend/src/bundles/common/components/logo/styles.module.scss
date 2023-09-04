@@ -1,4 +1,5 @@
 .logo {
+    flex-direction: row;
     align-items: center;
     gap: 20px;
 }
@@ -23,7 +24,6 @@
 }
 
 .logoLabel {
-    width: 261px;
     height: 37px;
 
     img {
