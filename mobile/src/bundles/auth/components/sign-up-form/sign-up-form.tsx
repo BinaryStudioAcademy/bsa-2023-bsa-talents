@@ -36,11 +36,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 globalStyles.defaultScreenPadding,
                 globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
+                globalStyles.width100,
                 styles.container,
             ]}
         >
             <Text
-                category={TextCategory.H2}
+                category={TextCategory.H4}
                 style={[
                     globalStyles.pb25,
                     globalStyles.alignSelfCenter,

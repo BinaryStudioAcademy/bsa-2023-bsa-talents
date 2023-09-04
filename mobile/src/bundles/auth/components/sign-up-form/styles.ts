@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     container: {
         gap: 10,
         backgroundColor: '#FFFFFF',
-        width: 345,
     },
     title: {
         fontFamily: FontFamily.INTER_BOLD,

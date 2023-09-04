@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logoImg from '~/assets/images/logo.png';
+import logoImg from '~/assets/images/logo-with-name.png';
 import { Image, StatusBar, View } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';

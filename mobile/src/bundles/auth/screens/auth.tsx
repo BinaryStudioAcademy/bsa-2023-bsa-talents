@@ -48,18 +48,10 @@ const Auth: React.FC = () => {
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
-                return (
-                    <AuthWrapper>
-                        <SignInForm onSubmit={handleSignInSubmit} />
-                    </AuthWrapper>
-                );
+                return <SignInForm onSubmit={handleSignInSubmit} />;
             }
             case AuthScreenName.SIGN_UP: {
-                return (
-                    <AuthWrapper>
-                        <SignUpForm onSubmit={handleSignUpSubmit} />
-                    </AuthWrapper>
-                );
+                return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
         }
 
@@ -70,7 +62,7 @@ const Auth: React.FC = () => {
         <>
             <Text>state: {dataStatus}</Text>
             <Overlay isActive={isPendingAuth} />
-            {getScreen(name)}
+            <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
     );
 };

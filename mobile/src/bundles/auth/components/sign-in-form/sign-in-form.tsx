@@ -36,6 +36,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 globalStyles.defaultScreenPadding,
                 globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
+                globalStyles.width100,
                 styles.container,
             ]}
         >
