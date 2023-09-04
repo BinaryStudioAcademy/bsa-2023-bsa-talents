@@ -97,6 +97,12 @@
     }
 }
 
+.stepOutlet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media screen and (width <= 660px) {
     .stepName {
         font-size: 10px;

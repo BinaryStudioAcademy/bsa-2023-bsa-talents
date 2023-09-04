@@ -1,5 +1,12 @@
-import { Grid, Typography } from '~/bundles/common/components/components.js';
+import {
+    Button,
+    FormControl,
+    Grid,
+    RadioGroup,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import styles from './styles.module.scss';
@@ -8,12 +15,29 @@ type Properties = {
     // replace with real data type
     candidateParameters: Record<string, string | number | string[]>;
     isProfileOpen: boolean;
+    isFifthStep?: boolean;
 };
 
 const ProfileSecondSection: React.FC<Properties> = ({
     candidateParameters,
     isProfileOpen,
+    isFifthStep,
 }) => {
+    const options = [
+        {
+            value: 'Yes',
+            label: 'Yes',
+        },
+        {
+            value: 'No',
+            label: 'No',
+        },
+    ];
+    // fill with real data
+    const { control } = useAppForm<{ hire: '' }>({
+        defaultValues: { hire: '' },
+    });
+
     return (
         //  replace with real data
         <Grid className={styles.profileSecondSection}>
@@ -164,9 +188,40 @@ const ProfileSecondSection: React.FC<Properties> = ({
                     )}
                 </ul>
             </Grid>
-            <Typography variant="caption" className={styles.publishDate}>
-                Published today
-            </Typography>
+            {!isProfileOpen && (
+                <>
+                    <Typography
+                        variant="caption"
+                        className={styles.publishDate}
+                    >
+                        Published today
+                    </Typography>
+                    {!isFifthStep && (
+                        <Button
+                            label="Contact candidate"
+                            className={styles.contactButton}
+                        />
+                    )}
+                </>
+            )}
+            {isProfileOpen && (
+                <FormControl className={styles.hireCandidates}>
+                    <Typography variant="label">
+                        Have you hired a candidates?
+                    </Typography>
+                    <RadioGroup
+                        control={control}
+                        options={options}
+                        name={'hire'}
+                        className={styles.radio}
+                    />
+                    <Button
+                        label="Submit"
+                        variant="outlined"
+                        className={styles.submit}
+                    />
+                </FormControl>
+            )}
         </Grid>
     );
 };
