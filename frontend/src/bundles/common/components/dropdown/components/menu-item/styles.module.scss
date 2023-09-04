@@ -1,0 +1,10 @@
+.menuItem {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    color: var(--st-tropaz);
+    background-color: var(--solitude);
+}

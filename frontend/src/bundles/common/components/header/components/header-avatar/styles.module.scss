@@ -1,16 +1,3 @@
-.header {
-    position: fixed;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    height: var(--header-height);
-    padding: 10px;
-    background-color: var(--white);
-    border-bottom: 1px solid var(--porcelain);
-    outline: 1px solid grey; /* need to remove */
-}
-
 .avatar {
     position: relative;
     right: 15px;

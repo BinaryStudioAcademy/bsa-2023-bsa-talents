@@ -3,6 +3,7 @@ export { Badge } from './badge/badge.js';
 export { Button } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
+export { Dropdown, Menu, MenuButton, MenuItem } from './dropdown/components.js';
 export { FormControl } from './form-control/form-control.js';
 export { FormLabel } from './form-label/form-label.js';
 export { Grid } from './grid/grid.js';
