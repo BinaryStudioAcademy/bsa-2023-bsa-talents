@@ -8,7 +8,6 @@ import {
 } from '~/bundles/auth/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
-import { notifications } from '~/framework/notifications/notifications';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
@@ -18,7 +17,7 @@ const signUp = createAsyncThunk<
     UserSignUpRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-up`, async (signUpPayload, { extra }) => {
-    const { authApi, storage } = extra;
+    const { authApi, storage, notifications } = extra;
     try {
         const response = await authApi.signUp(signUpPayload);
         await storage.set(StorageKey.TOKEN, response.token);
@@ -36,7 +35,7 @@ const signIn = createAsyncThunk<
     UserSignInRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-in`, async (signInPayload, { extra }) => {
-    const { authApi, storage } = extra;
+    const { authApi, storage, notifications } = extra;
     try {
         const response = await authApi.signIn(signInPayload);
         await storage.set(StorageKey.TOKEN, response.token);
