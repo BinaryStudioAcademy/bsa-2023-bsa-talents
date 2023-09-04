@@ -2,16 +2,19 @@ import { type FC, type ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
 type Properties = {
     children: ReactNode;
 };
 
 const ProtectedRoute: FC<Properties> = ({ children }) => {
-    //TODO: update when user data will be stored in the store
-    const hasUser = false;
+    const { currentUser } = useAppSelector(({ auth }) => ({
+        currentUser: auth.currentUser,
+    }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const hasUser = Boolean(currentUser);
+
     return hasUser ? (
         <>{children}</>
     ) : (
