@@ -36,10 +36,10 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                 setAvatar(image.uri ?? uri);
             } catch (error) {
                 if (error instanceof Error) {
-                    notifications.showError({ title: error.message });
+                    notifications.showError({ text1: error.message });
                     return;
                 }
-                notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
+                notifications.showError({ text1: ErrorMessages.UNKNOWN_ERROR });
             }
         },
         [uri],
