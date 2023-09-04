@@ -1,6 +1,6 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
-// this component in another task bt-104
 import { Checkbox } from '~/bundles/common/components/checkbox/checkbox';
 import {
     Button,
@@ -8,9 +8,9 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { type TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import {
     ButtonType,
+    TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
@@ -18,9 +18,13 @@ import {
     useAppForm,
     useAppRoute,
     useCallback,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    type RootNavigationParameterList,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 import { Badge } from '~/bundles/talent/components/badge/badge';
 import {
     DEFAULT_VALUE_IS_CHECKED,
@@ -33,18 +37,29 @@ import { styles } from './styles';
 
 const values = Object.values(BadgeType);
 
+type formSubmitDto = Record<ValueOf<typeof BadgeType>, boolean>; // TODO: Change with shared dto
+
 const BsaBadges: React.FC = () => {
-    const { control } = useAppForm({
+    const { control, handleSubmit } = useAppForm<formSubmitDto>({
         defaultValues: DEFAULT_VALUE_IS_CHECKED,
     });
+    const { navigate, goBack } =
+        useNavigation<NavigationProp<RootNavigationParameterList>>();
     const { name } = useAppRoute();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
-    const handleFormSubmit = useCallback(() => {
-        // TODO: add submit logic
-        return null;
-    }, []);
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit((payload): void => {
+            // eslint-disable-next-line no-console
+            console.log(payload);
+        })();
+        navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS);
+    }, [handleSubmit, navigate]);
+
+    const handlePreviousPress = useCallback((): void => {
+        goBack();
+    }, [goBack]);
 
     const renderBadges = values.map((badge) => (
         <View
@@ -81,6 +96,7 @@ const BsaBadges: React.FC = () => {
                         style={globalStyles.mr10}
                         label="Back"
                         buttonType={ButtonType.OUTLINE}
+                        onPress={handlePreviousPress}
                     />
                     <Button label="Next" onPress={handleFormSubmit} />
                 </View>
