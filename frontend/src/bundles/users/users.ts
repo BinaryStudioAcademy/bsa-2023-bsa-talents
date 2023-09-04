@@ -15,6 +15,8 @@ export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserSignInRequestDto,
+    type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
