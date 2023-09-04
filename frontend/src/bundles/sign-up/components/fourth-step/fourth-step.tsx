@@ -165,7 +165,7 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                     <FormLabel
                         className={getValidClassNames(
                             styles.label,
-                            errors.cv?.type === REQUIRED
+                            errors.cv?.type === 'object.base'
                                 ? styles.labelError
                                 : '',
                         )}
