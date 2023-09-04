@@ -6,8 +6,8 @@ import {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
-import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { ApiPath } from '~/common/enums/enums.js';
+import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -192,13 +192,6 @@ class AuthController extends ControllerBase {
         options: ApiHandlerOptions,
     ): Promise<ApiHandlerResponse> {
         const [, token] = options.headers.authorization?.split(' ') ?? [];
-
-        if (!token) {
-            throw new HttpError({
-                status: HttpCode.UNAUTHORIZED,
-                message: ErrorMessages.NOT_AUTHORIZED,
-            });
-        }
 
         const user = await this.authService.getCurrentUser(token);
 

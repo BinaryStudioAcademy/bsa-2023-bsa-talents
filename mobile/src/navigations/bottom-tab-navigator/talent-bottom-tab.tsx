@@ -2,7 +2,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { TalentBottomTabScreenName } from '~/bundles/common/enums/enums';
+import {
+    IconName,
+    TalentBottomTabScreenName,
+} from '~/bundles/common/enums/enums';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
 
@@ -21,7 +24,11 @@ const TalentBottomTabNavigator: React.FC = () => {
                 component={Mail}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon name="mail" size={iconSize} color={color} />
+                        <Icon
+                            name={IconName.MAIL}
+                            size={iconSize}
+                            color={color}
+                        />
                     ),
                 }}
             />
@@ -30,7 +37,11 @@ const TalentBottomTabNavigator: React.FC = () => {
                 component={TalentProfile}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon name="person" size={iconSize} color={color} />
+                        <Icon
+                            name={IconName.PERSON}
+                            size={iconSize}
+                            color={color}
+                        />
                     ),
                 }}
             />
