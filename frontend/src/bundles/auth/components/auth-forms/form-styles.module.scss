@@ -59,17 +59,22 @@
 
 .footer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 5px;
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
     margin-bottom: 48px;
     font-family: var(--font-family);
     line-height: var(--line-height-btn);
+    text-align: center;
     column-gap: 18px;
 
     & .span {
+        display: inline-block;
         width: max-content;
+        margin: 0 auto;
         color: var(--gray-2);
         font-weight: var(--font-weight-regulars);
     }
@@ -79,5 +84,16 @@
         width: unset;
         color: var(--st-tropaz);
         font-weight: var(--font-weight-semi-bold);
+    }
+}
+
+@media screen and (width >= 900px) {
+    .footer {
+        flex-direction: row;
+        text-align: unset;
+    }
+
+    .footer .span {
+        margin: unset;
     }
 }
