@@ -11,7 +11,7 @@ import {
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import {
     BsaBadges,
-    CvAndContacts,
+    CVAndContacts,
     Preview,
     Profile,
     SkillsAndProjects,
@@ -60,7 +60,7 @@ const TalentOnboardingNavigator: React.FC = () => {
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.CV_AND_CONTACTS}
-                component={CvAndContacts}
+                component={CVAndContacts}
                 initialParams={{
                     stepState: TalentOnboardingStepState.COMPLETED,
                 }}

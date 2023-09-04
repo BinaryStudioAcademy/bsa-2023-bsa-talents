@@ -1,11 +1,11 @@
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
+    z-index: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
+    height: var(--header-height);
     padding: 10px;
     background-color: var(--white);
     border-bottom: 1px solid var(--porcelain);
