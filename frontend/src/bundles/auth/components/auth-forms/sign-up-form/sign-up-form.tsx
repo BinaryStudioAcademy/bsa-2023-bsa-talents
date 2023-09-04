@@ -16,7 +16,6 @@ import {
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
 
-import formStyles from './../form-styles.module.scss';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -50,18 +49,15 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <form onSubmit={handleFormSubmit} className={formStyles.form}>
-                <p className={getValidClassNames(formStyles.header)}>
+            <form onSubmit={handleFormSubmit} className={'form'}>
+                <p className={getValidClassNames('header')}>
                     Sign Up to get started!
                 </p>
 
                 <FormControl
-                    className={getValidClassNames(
-                        formStyles['input-container'],
-                        formStyles.email,
-                    )}
+                    className={getValidClassNames('input-container', 'email')}
                 >
-                    <FormLabel className={formStyles.label}>Email *</FormLabel>
+                    <FormLabel className={'label'}>Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -71,13 +67,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <FormControl
                     className={getValidClassNames(
-                        formStyles['input-container'],
-                        formStyles.password,
+                        'input-container',
+                        'password',
                     )}
                 >
-                    <FormLabel className={formStyles.label}>
-                        Password *
-                    </FormLabel>
+                    <FormLabel className={'label'}>Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -97,17 +91,17 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button
                     label="Continue"
                     className={getValidClassNames(
-                        formStyles['btn-login'],
+                        'btn-login',
                         styles['btn-login'],
                     )}
                     type="submit"
                 />
             </form>
-            <Grid item className={formStyles.footer}>
-                <Link className={formStyles.cta} to={'/sign-in'}>
+            <Grid item className={'footer'}>
+                <Link className={'cta'} to={'/sign-in'}>
                     I already have an account
                 </Link>
-                <Link to={'/'} className={formStyles.span}>
+                <Link to={'/'} className={'span'}>
                     Privacy Policy
                 </Link>
             </Grid>

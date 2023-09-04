@@ -16,7 +16,6 @@ import {
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 
-import formStyles from './../form-styles.module.scss';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -40,19 +39,16 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <form onSubmit={handleFormSubmit} className={formStyles.form}>
-                <p className={getValidClassNames(formStyles.header)}>
+            <form onSubmit={handleFormSubmit} className={'form'}>
+                <p className={getValidClassNames('header')}>
                     Hi! Login to your Account
                 </p>
 
                 <FormControl
                     required={true}
-                    className={getValidClassNames(
-                        formStyles['input-container'],
-                        formStyles.email,
-                    )}
+                    className={getValidClassNames('input-container', 'email')}
                 >
-                    <FormLabel className={formStyles.label}>Email *</FormLabel>
+                    <FormLabel className={'label'}>Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -63,13 +59,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <FormControl
                     required={true}
                     className={getValidClassNames(
-                        formStyles['input-container'],
-                        formStyles.password,
+                        'input-container',
+                        'password',
                     )}
                 >
-                    <FormLabel className={formStyles.label}>
-                        Password *
-                    </FormLabel>
+                    <FormLabel className={'label'}>Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -92,15 +86,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         <span>Forgot Password?</span>
                     </Link>
                 </Grid>
-                <Button
-                    label="Login"
-                    className={formStyles['btn-login']}
-                    type="submit"
-                />
+                <Button label="Login" className={'btn-login'} type="submit" />
             </form>
-            <Grid item className={formStyles.footer}>
-                <span className={formStyles.span}>Not registered Yet?</span>
-                <Link className={formStyles.cta} to={'/sign-up'}>
+            <Grid item className={'footer'}>
+                <span className={'span'}>Not registered Yet?</span>
+                <Link className={'cta'} to={'/sign-up'}>
                     Create an account
                 </Link>
             </Grid>

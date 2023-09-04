@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
