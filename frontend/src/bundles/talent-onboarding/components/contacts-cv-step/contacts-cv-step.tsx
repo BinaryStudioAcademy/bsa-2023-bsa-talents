@@ -12,28 +12,28 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
-import { type TalentOnBoardingStep4Dto } from '~/bundles/talent-onboarding/types/types.js';
-import { step4ValidationSchema } from '~/bundles/talent-onboarding/validation-schemas/validation-schemas.js';
+import { type ContactsCVStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import { contactsCVStepValidationSchema } from '~/bundles/talent-onboarding/validation-schemas/validation-schemas.js';
 
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
-    DEFAULT_SIGN_UP_PAYLOAD_STEP4,
+    DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onSubmit: (payload: TalentOnBoardingStep4Dto) => void;
+    onSubmit: (payload: ContactsCVStepDto) => void;
 };
 
-const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
+const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
     const [photoURL, setPhotoURL] = useState<string>('');
 
     const { control, errors, handleSubmit, watch, setError } = useAppForm({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD_STEP4,
-        validationSchema: step4ValidationSchema,
+        defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
+        validationSchema: contactsCVStepValidationSchema,
     });
 
     const handlePhotoFileChange = useCallback(
@@ -264,4 +264,4 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
     );
 };
 
-export { FourthStep };
+export { ContactsCVStep };

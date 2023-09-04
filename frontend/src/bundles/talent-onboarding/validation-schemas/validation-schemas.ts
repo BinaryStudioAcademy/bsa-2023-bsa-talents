@@ -1,1 +1,1 @@
-export { step4ValidationSchema } from 'shared/build/index.js';
+export { contactsCVStepValidationSchema } from 'shared/build/index.js';

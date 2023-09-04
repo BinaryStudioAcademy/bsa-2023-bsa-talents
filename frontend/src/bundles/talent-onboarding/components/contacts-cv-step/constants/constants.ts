@@ -1,4 +1,4 @@
-import { type TalentOnBoardingStep4Dto } from '~/bundles/talent-onboarding/types/types.js';
+import { type ContactsCVStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 const REQUIRED = 'string.empty';
 const ACCEPTED_PHOTO_TYPES = ['.jpeg', '.png', '.jpg'];
@@ -8,7 +8,7 @@ const MAX_FILE_SIZE = {
     'bytes': 5_242_880,
 };
 
-const DEFAULT_SIGN_UP_PAYLOAD_STEP4: TalentOnBoardingStep4Dto = {
+const DEFAULT_CONTACTS_CV_STEP_PAYLOAD: ContactsCVStepDto = {
     photo: null,
     fullName: '',
     phoneNumber: '',
@@ -19,7 +19,7 @@ const DEFAULT_SIGN_UP_PAYLOAD_STEP4: TalentOnBoardingStep4Dto = {
 export {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
-    DEFAULT_SIGN_UP_PAYLOAD_STEP4,
+    DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     MAX_FILE_SIZE,
     REQUIRED,
 };
