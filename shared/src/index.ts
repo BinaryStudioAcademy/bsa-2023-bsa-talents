@@ -4,7 +4,7 @@ export {
     SignUpStep1ValidationRule,
     signUpStep1ValidationSchema,
     type UserSignUpStep1Dto,
-} from './bundles/sign-up/sign-up.js';
+} from './bundles/talent-onbording/talent-onbording.js';
 export {
     CountryList,
     EmploymentType,
