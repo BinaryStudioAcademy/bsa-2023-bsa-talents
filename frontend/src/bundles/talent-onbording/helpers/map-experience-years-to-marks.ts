@@ -1,5 +1,5 @@
 import { mapToSliderMarks } from '~/bundles/common/helpers/helpers.js';
-import { ExperienceYears } from '~/bundles/sign-up/enums/enums.js';
+import { ExperienceYears } from '~/bundles/talent-onbording/enums/enums.js';
 
 const MAX_MARKS_VALUE = 100;
 const MIN_MARKS_VALUE = 0;
