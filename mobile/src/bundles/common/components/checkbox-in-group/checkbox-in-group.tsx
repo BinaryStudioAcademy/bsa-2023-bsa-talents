@@ -15,14 +15,12 @@ type Properties = CheckBoxProps & {
 
 const CheckboxInGroup = ({
     label,
-    // value,
     isChecked,
     onChange,
     containerStyle,
     ...props
 }: Properties): JSX.Element => {
     const toggleCheckbox = (): void => {
-        // onChange(!value);
         onChange(!isChecked);
     };
 
@@ -35,7 +33,6 @@ const CheckboxInGroup = ({
             ]}
         >
             <CheckBox
-                // value={value}
                 value={isChecked}
                 onValueChange={toggleCheckbox}
                 tintColors={{ true: Color.PRIMARY, false: Color.INPUT }}
