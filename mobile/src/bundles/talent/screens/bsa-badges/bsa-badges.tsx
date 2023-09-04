@@ -12,6 +12,7 @@ import {
     ButtonType,
     TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
+    TalentOnboardingStepState,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import {
@@ -22,7 +23,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import {
-    type RootNavigationParameterList,
+    type TalentOnboardingNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';
 import { Badge } from '~/bundles/talent/components/badge/badge';
@@ -44,7 +45,9 @@ const BsaBadges: React.FC = () => {
         defaultValues: DEFAULT_VALUE_IS_CHECKED,
     });
     const { navigate, goBack } =
-        useNavigation<NavigationProp<RootNavigationParameterList>>();
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
     const { name } = useAppRoute();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -53,7 +56,9 @@ const BsaBadges: React.FC = () => {
         void handleSubmit((): void => {
             // TODO: dispatch submit event
         })();
-        navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS);
+        navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS, {
+            stepState: TalentOnboardingStepState.FOCUSED,
+        });
     }, [handleSubmit, navigate]);
 
     const handlePreviousPress = useCallback((): void => {
@@ -89,7 +94,7 @@ const BsaBadges: React.FC = () => {
                 </Text>
                 <View>{renderBadges}</View>
                 <View
-                    style={[globalStyles.flexDirectionRow, globalStyles.mt20]}
+                    style={[globalStyles.flexDirectionRow, globalStyles.mv20]}
                 >
                     <Button
                         style={globalStyles.mr10}
