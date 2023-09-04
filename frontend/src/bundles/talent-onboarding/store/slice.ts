@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 as initialState } from '~/bundles/talent-onbording/components/first-step/constants/constants.js';
+import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 as initialState } from '~/bundles/talent-onboarding/components/first-step/constants/constants.js';
 
 import { signUpStep1 } from './actions.js';
 

@@ -26,12 +26,12 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
-} from '~/bundles/talent-onbording/enums/enums.js';
+} from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsScaled,
     experienceYearsSliderMarks,
-} from '~/bundles/talent-onbording/helpers/helpers.js';
-import { type UserSignUpStep1Dto } from '~/bundles/talent-onbording/types/types.js';
+} from '~/bundles/talent-onboarding/helpers/helpers.js';
+import { type UserSignUpStep1Dto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
 import styles from './styles.module.scss';
