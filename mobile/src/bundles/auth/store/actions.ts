@@ -26,7 +26,7 @@ const signUp = createAsyncThunk<
         return response;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
-        notifications.showError(errorMessage);
+        notifications.showError({ text1: errorMessage });
         throw error;
     }
 });
@@ -43,7 +43,7 @@ const signIn = createAsyncThunk<
         return response;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
-        notifications.showError(errorMessage);
+        notifications.showError({ text1: errorMessage });
         throw error;
     }
 });
