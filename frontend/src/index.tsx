@@ -52,11 +52,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: <Auth />,
                                     },
                                     {
-                                        path: AppRoute.SIGN_UP_TALENT,
+                                        path: AppRoute.TALENT,
                                         element: <Onboarding />,
                                         children: [
                                             {
-                                                path: AppRoute.SIGN_UP_TALENT,
+                                                path: AppRoute.TALENT,
                                                 element: (
                                                     <Navigate
                                                         to={getStepRoute(
@@ -66,7 +66,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 ),
                                             },
                                             {
-                                                path: AppRoute.SIGN_UP_TALENT_STEP,
+                                                path: AppRoute.TALENT_STEP,
                                                 element: <StepNavigation />,
                                             },
                                         ],
