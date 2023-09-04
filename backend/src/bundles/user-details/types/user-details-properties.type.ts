@@ -12,7 +12,7 @@ import {
 type UserDetailsProperties = {
     id: string | null;
     userId: string;
-    isApproved: boolean | null;
+    isApproved: boolean;
     deniedReason: string | null;
     isHired: boolean;
     profileName: string | null;

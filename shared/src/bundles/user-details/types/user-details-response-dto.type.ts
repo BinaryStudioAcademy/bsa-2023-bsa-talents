@@ -12,7 +12,7 @@ import {
 type UserDetailsResponseDto = {
     id: string | null;
     userId: string;
-    isApproved: boolean | null;
+    isApproved: boolean;
     deniedReason: string | null;
     isHired: boolean;
     profileName: string | null;
@@ -21,11 +21,11 @@ type UserDetailsResponseDto = {
     jobTitle: ValueOf<typeof JobTitle> | null;
     location: ValueOf<typeof CountryList> | null;
     experienceYears: number | null;
-    employmentType: ValueOf<(typeof EmploymentType)[]> | null;
+    employmentType: ValueOf<typeof EmploymentType>[] | null;
     description: string | null;
     englishLevel: ValueOf<typeof EnglishLevel> | null;
-    notConsidered: ValueOf<(typeof NotConsidered)[] | null>;
-    preferredLanguages: ValueOf<(typeof PreferredLanguages)[] | null>;
+    notConsidered: ValueOf<typeof NotConsidered>[] | null;
+    preferredLanguages: ValueOf<typeof PreferredLanguages>[] | null;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string | null;
