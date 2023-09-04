@@ -1,4 +1,4 @@
-import { type UserSignUpStep4Dto } from '~/bundles/sign-up/types/types.js';
+import { type TalentOnBoardingStep4Dto } from '~/bundles/talent-onboarding/types/types.js';
 
 const REQUIRED = 'string.empty';
 const ACCEPTED_PHOTO_TYPES = ['.jpeg', '.png', '.jpg'];
@@ -8,7 +8,7 @@ const MAX_FILE_SIZE = {
     'bytes': 5_242_880,
 };
 
-const DEFAULT_SIGN_UP_PAYLOAD_STEP4: UserSignUpStep4Dto = {
+const DEFAULT_SIGN_UP_PAYLOAD_STEP4: TalentOnBoardingStep4Dto = {
     photo: null,
     fullName: '',
     phoneNumber: '',

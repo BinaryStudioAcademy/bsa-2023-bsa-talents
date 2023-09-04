@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
-import { MAX_FILE_SIZE } from '~/bundles/sign-up/components/fourth-step/constants/constants.js';
+import { MAX_FILE_SIZE } from '~/bundles/talent-onboarding/components/fourth-step/constants/constants.js';
 
 import { useFormController } from '../../hooks/hooks.js';
 import { type ButtonProperties } from '../button/button.js';
@@ -25,7 +25,7 @@ type Properties<T extends FieldValues> = {
     styleError?: string;
 };
 
-const InputFile = <T extends FieldValues>({
+const FileUpload = <T extends FieldValues>({
     control,
     errors,
     name,
@@ -105,4 +105,4 @@ const InputFile = <T extends FieldValues>({
     );
 };
 
-export { InputFile };
+export { FileUpload };

@@ -3,17 +3,17 @@ import { useCallback, useState } from 'react';
 
 import {
     Button,
+    FileUpload,
     FormControl,
     FormLabel,
     Grid,
     Input,
-    InputFile,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
-import { type UserSignUpStep4Dto } from '~/bundles/sign-up/types/types.js';
-import { signUpStep4ValidationSchema } from '~/bundles/sign-up/validation-schemas/validation-schemas.js';
+import { type TalentOnBoardingStep4Dto } from '~/bundles/talent-onboarding/types/types.js';
+import { step4ValidationSchema } from '~/bundles/talent-onboarding/validation-schemas/validation-schemas.js';
 
 import {
     ACCEPTED_CV_TYPES,
@@ -24,7 +24,7 @@ import {
 import styles from './styles.module.scss';
 
 type Properties = {
-    onSubmit: (payload: UserSignUpStep4Dto) => void;
+    onSubmit: (payload: TalentOnBoardingStep4Dto) => void;
 };
 
 const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
@@ -32,7 +32,7 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
 
     const { control, errors, handleSubmit, watch, setError } = useAppForm({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD_STEP4,
-        validationSchema: signUpStep4ValidationSchema,
+        validationSchema: step4ValidationSchema,
     });
 
     const handleFormSubmit = useCallback(
@@ -68,7 +68,7 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                         </Typography>
                     </FormLabel>
 
-                    <InputFile
+                    <FileUpload
                         control={control}
                         errors={errors}
                         setError={setError}
@@ -178,7 +178,7 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                             CV
                         </Typography>
                     </FormLabel>
-                    <InputFile
+                    <FileUpload
                         control={control}
                         errors={errors}
                         setError={setError}
