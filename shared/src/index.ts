@@ -1,8 +1,8 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
-    step4ValidationSchema,
-    type TalentOnBoardingStep4Dto,
-} from './bundles/talent-onboarding/sign-up.js';
+    type ContactsCVStepDto,
+    contactsCVStepValidationSchema,
+} from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,
     EmploymentType,

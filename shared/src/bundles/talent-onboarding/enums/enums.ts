@@ -1,2 +1,2 @@
-export { Step4ValidationMessage } from './step-four.validation-message.js';
-export { Step4ValidationRule } from './step-four.validation-rule.js';
+export { ContactsCVStepValidationMessage } from './contacts-cv-step.validation-message.js';
+export { ContactsCVStepValidationRule } from './contacts-cv-step.validation-rule.js';

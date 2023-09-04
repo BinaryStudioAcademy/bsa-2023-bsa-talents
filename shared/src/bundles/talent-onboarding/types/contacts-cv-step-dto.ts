@@ -1,4 +1,4 @@
-type TalentOnBoardingStep4Dto = {
+type ContactsCVStepDto = {
     photo: File | null;
     fullName: string;
     phoneNumber: string;
@@ -6,4 +6,4 @@ type TalentOnBoardingStep4Dto = {
     cv: File | null;
 };
 
-export { type TalentOnBoardingStep4Dto };
+export { type ContactsCVStepDto };

@@ -1,4 +1,4 @@
-const Step4ValidationMessage = {
+const ContactsCVStepValidationMessage = {
     FULL_NAME_REQUIRED: 'Full name is required',
     FULL_NAME_MIN_LENGTH: 'Full name must be at least {{#limit}} characters',
     FULL_NAME_MAX_LENGTH: 'Full name must be at most {{#limit}} characters',
@@ -15,4 +15,4 @@ const Step4ValidationMessage = {
         'LinkedIn link must be at most {{#limit}} characters',
 };
 
-export { Step4ValidationMessage };
+export { ContactsCVStepValidationMessage };

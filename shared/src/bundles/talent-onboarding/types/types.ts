@@ -1,1 +1,1 @@
-export { type TalentOnBoardingStep4Dto } from './step-four-dto.js';
+export { type ContactsCVStepDto } from './contacts-cv-step-dto.js';

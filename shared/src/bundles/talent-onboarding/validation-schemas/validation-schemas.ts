@@ -1,1 +1,1 @@
-export { step4ValidationSchema } from './step-four.validation-schema.js';
+export { contactsCVStepValidationSchema } from './contacts-cv-step.validation-schema.js';
