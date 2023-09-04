@@ -1,6 +1,5 @@
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import { adminRoute } from '~/common/middlewares/admin-route.middleware.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -9,15 +8,9 @@ import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UserDetailsApiPath } from './enums/enums.js';
-import {
-    type UserDetailsApproveRequestDto,
-    type UserDetailsUpdateRequestDto,
-} from './types/types.js';
+import { type UserDetailsUpdateRequestDto } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
-import {
-    userDetailsApproveValidationSchema,
-    userDetailsUpdateValidationSchema,
-} from './validation-schemas/validation-schemas.js';
+import { userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -98,7 +91,7 @@ class UserDetailsController extends ControllerBase {
         this.userDetailsService = userDetailsService;
 
         this.addRoute({
-            path: UserDetailsApiPath.UPDATE,
+            path: UserDetailsApiPath.ROOT,
             method: 'PATCH',
             validation: {
                 body: userDetailsUpdateValidationSchema,
@@ -110,26 +103,11 @@ class UserDetailsController extends ControllerBase {
                     }>,
                 ),
         });
-
-        this.addRoute({
-            path: UserDetailsApiPath.APPROVE,
-            method: 'PATCH',
-            validation: {
-                body: userDetailsApproveValidationSchema,
-            },
-            preHandler: adminRoute,
-            handler: (options) =>
-                this.approve(
-                    options as ApiHandlerOptions<{
-                        body: UserDetailsApproveRequestDto;
-                    }>,
-                ),
-        });
     }
 
     /**
      * @swagger
-     * /user-details/update:
+     * /user-details:
      *    patch:
      *      tags:
      *        - User Details
@@ -253,72 +231,6 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.update(options.body),
-        };
-    }
-
-    /**
-     * @swagger
-     * /user-details/approve:
-     *    patch:
-     *      tags:
-     *        - User Details
-     *      description: Approves a user's details
-     *      security:
-     *        - bearerAuth: []
-     *      requestBody:
-     *        description: User detail update object
-     *        required: true
-     *        content:
-     *          application/json:
-     *            schema:
-     *              type: object
-     *              $ref: '#/components/schemas/UserDetailsApproveRequestDto'
-     *            examples:
-     *              example-approve:
-     *                value:
-     *                  id: '550e8400-e29b-41d4-a716-446655440000'
-     *                  isApproved: true
-     *              example-denied:
-     *                value:
-     *                  id: '5a4b4ee2-7089-4c27-88d0-9e5e60ccf0dd'
-     *                  isApproved: false
-     *                  deniedReason: 'Incomplete information'
-     *      responses:
-     *         200:
-     *           description: Successful operation
-     *           content:
-     *             application/json:
-     *               schema:
-     *                 type: object
-     *                 $ref: '#/components/schemas/UserDetails'
-     * components:
-     *   schemas:
-     *      UserDetailsApproveRequestDto:
-     *        type: object
-     *        properties:
-     *          id:
-     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
-     *            type: string
-     *            required: true
-     *          isApproved:
-     *            type: boolean
-     *            required: true
-     *          deniedReason:
-     *            type: string
-     *   securitySchemes:
-     *     bearerAuth: # Define the JWT security scheme
-     *       type: http
-     *       scheme: bearer
-     *       bearerFormat: JWT
-     */
-    private async approve(
-        options: ApiHandlerOptions<{
-            body: UserDetailsApproveRequestDto;
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        return {
-            status: HttpCode.OK,
-            payload: await this.userDetailsService.approve(options.body),
         };
     }
 }

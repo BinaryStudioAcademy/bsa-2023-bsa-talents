@@ -4,7 +4,6 @@ const ErrorMessages = {
     INCORRECT_EMAIL: 'Incorrect email.',
     EMAIL_ALREADY_EXISTS: 'Email is already taken.',
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',
-    ROUTE_ADMIN_ONLY: 'This route is for administrators only.',
     NOT_FOUND: 'Not found.',
     UPDATE_FAILED: 'Update failed.',
     UNKNOWN_ERROR: 'Application error',
