@@ -50,9 +50,8 @@ const BsaBadges: React.FC = () => {
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit((payload): void => {
-            // eslint-disable-next-line no-console
-            console.log(payload);
+        void handleSubmit((): void => {
+            // TODO: dispatch submit event
         })();
         navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS);
     }, [handleSubmit, navigate]);
