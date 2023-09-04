@@ -33,10 +33,10 @@ const signIn = createAsyncThunk<
         return response;
     } catch (error) {
         if (error instanceof Error) {
-            notifications.showError(error.message);
+            notifications.showError({ title: error.message });
             throw error;
         }
-        notifications.showError(ErrorMessages.UNKNOWN_ERROR);
+        notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
         throw error;
     }
 });

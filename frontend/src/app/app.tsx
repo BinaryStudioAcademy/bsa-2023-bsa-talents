@@ -68,7 +68,7 @@ const App: React.FC = () => {
                     <Typography variant="h2">Users:</Typography>
                     <Typography variant="h3">Status: {dataStatus}</Typography>
                     <br />
-                    {currentUser.email && (
+                    {currentUser && (
                         <>
                             <Typography variant="h2">
                                 User id: {currentUser.id}
