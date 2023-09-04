@@ -1,5 +1,5 @@
 import { Add as PlusIcon } from '@mui/icons-material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
     Button,
@@ -15,6 +15,7 @@ import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { type TalentOnBoardingStep4Dto } from '~/bundles/talent-onboarding/types/types.js';
 import { step4ValidationSchema } from '~/bundles/talent-onboarding/validation-schemas/validation-schemas.js';
 
+import { validateFileSize } from '../../helpers/validate-file-size.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
@@ -35,12 +36,43 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: step4ValidationSchema,
     });
 
+    const handlePhotoFileChange = useCallback(
+        (file: File): boolean => {
+            try {
+                validateFileSize('photo', file, setError);
+                setPhotoURL(URL.createObjectURL(file));
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [setError],
+    );
+
+    const handleCVFileChange = useCallback(
+        (file: File): boolean => {
+            try {
+                validateFileSize('cv', file, setError);
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [setError],
+    );
+
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
     );
+
+    useEffect(() => {
+        return () => {
+            URL.revokeObjectURL(photoURL);
+        };
+    }, [photoURL]);
 
     return (
         <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -70,10 +102,7 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
 
                     <FileUpload
                         control={control}
-                        errors={errors}
-                        setError={setError}
                         name="photo"
-                        setUrl={setPhotoURL}
                         accept={ACCEPTED_PHOTO_TYPES.join(',')}
                         buttonProps={{
                             label: 'Choose photo',
@@ -82,8 +111,16 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                                 errors.photo?.message ? styles.btnError : '',
                             ),
                         }}
-                        styleError={styles.photoError}
+                        handleFileChange={handlePhotoFileChange}
                     />
+                    <Typography
+                        variant="caption"
+                        color="error"
+                        className={styles.photoError}
+                    >
+                        {errors.photo?.type === 'fileSize' &&
+                            errors.photo.message}
+                    </Typography>
                 </FormControl>
             </Grid>
 
@@ -180,8 +217,6 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                     </FormLabel>
                     <FileUpload
                         control={control}
-                        errors={errors}
-                        setError={setError}
                         name="cv"
                         accept={ACCEPTED_CV_TYPES.join(',')}
                         buttonProps={{
@@ -192,7 +227,11 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                             ),
                             startIcon: <PlusIcon />,
                         }}
+                        handleFileChange={handleCVFileChange}
                     />
+                    <Typography variant="caption" color="error">
+                        {errors.cv?.type === 'fileSize' && errors.cv.message}
+                    </Typography>
                 </FormControl>
 
                 {watch('cv') && (
