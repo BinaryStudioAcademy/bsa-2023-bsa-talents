@@ -14,8 +14,7 @@
         "lint": "npm run lint:type && npm run lint:js",
         "start:dev": "vite",
         "build": "tsc --build --clean && vite build",
-        "preview": "vite preview",
-        "order:css": "stylelint \"src/**/*.scss\" --fix"
+        "preview": "vite preview"
     },
     "dependencies": {
         "@emotion/react": "11.11.1",

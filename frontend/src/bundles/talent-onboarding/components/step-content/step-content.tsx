@@ -1,4 +1,3 @@
-import { Steps } from '~/bundles/auth/enums/enums.js';
 import {
     Button,
     Grid,
@@ -6,8 +5,9 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { Steps } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import { stepOne, stepsNumber } from '../constants/constants.js';
+import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -35,7 +35,7 @@ const StepContent: React.FC<Properties> = ({
                 <Grid>{<RouterOutlet />}</Grid>
                 <Grid
                     className={getValidClassNames(
-                        currentStep === stepsNumber
+                        currentStep === STEPS_NUMBER
                             ? styles.wideStepButtons
                             : styles.stepButtons,
                     )}
@@ -44,29 +44,33 @@ const StepContent: React.FC<Properties> = ({
                  when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
-                            currentStep === stepsNumber
+                            currentStep === STEPS_NUMBER
                                 ? undefined
                                 : onPreviousStep
                         }
                         label={
-                            currentStep === stepsNumber
+                            currentStep === STEPS_NUMBER
                                 ? 'Save without publishing'
                                 : 'Back'
                         }
                         variant={
-                            currentStep === stepOne ? 'contained' : 'outlined'
+                            currentStep === STEP_ONE ? 'contained' : 'outlined'
                         }
                         className={styles.buttonBack}
-                        disabled={currentStep === stepOne}
+                        disabled={currentStep === STEP_ONE}
                     />
                     {/* for now I`ve just prevented working these funcs when user reach step 5
                  when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
-                            currentStep === stepsNumber ? undefined : onNextStep
+                            currentStep === STEPS_NUMBER
+                                ? undefined
+                                : onNextStep
                         }
                         label={
-                            currentStep === stepsNumber ? 'Publish now' : 'Next'
+                            currentStep === STEPS_NUMBER
+                                ? 'Publish now'
+                                : 'Next'
                         }
                         variant="contained"
                         className={styles.buttonNext}

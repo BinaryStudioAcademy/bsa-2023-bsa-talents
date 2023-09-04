@@ -1,6 +1,6 @@
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
-import { StepRoutes } from '../sign-up-content/constants/constants.js';
+import { STEP_ROUTES } from '../../constants/constants.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
@@ -14,19 +14,19 @@ const StepNavigation: React.FC = () => {
     const Preview: React.FC = () => <button>Preview</button>;
 
     switch (step) {
-        case StepRoutes.STEP_01: {
+        case STEP_ROUTES.STEP_01: {
             return <Profile />;
         }
-        case StepRoutes.STEP_02: {
+        case STEP_ROUTES.STEP_02: {
             return <BSABadges />;
         }
-        case StepRoutes.STEP_03: {
+        case STEP_ROUTES.STEP_03: {
             return <Skills />;
         }
-        case StepRoutes.STEP_04: {
+        case STEP_ROUTES.STEP_04: {
             return <CV />;
         }
-        case StepRoutes.STEP_05: {
+        case STEP_ROUTES.STEP_05: {
             return <Preview />;
         }
     }

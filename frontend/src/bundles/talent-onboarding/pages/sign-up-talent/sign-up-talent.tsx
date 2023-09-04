@@ -1,10 +1,4 @@
 import arrowIcon from '~/assets/img/arrow-right.svg';
-import { StepContent, Steps } from '~/bundles/auth/components/components.js';
-import {
-    stepOne,
-    StepRoutes,
-    stepsNumber,
-} from '~/bundles/auth/components/sign-up-content/constants/constants.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getSignUpTalentStepRoute } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -12,33 +6,39 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { stepService } from '~/services/services.js';
+import {
+    StepContent,
+    Steps,
+} from '~/bundles/talent-onboarding/components/components.js';
+import {
+    STEP_ONE,
+    STEP_ROUTES,
+    STEPS_NUMBER,
+} from '~/bundles/talent-onboarding/constants/constants.js';
 
 import styles from './styles.module.scss';
 
 const SignUpTalent: React.FC = () => {
-    const [currentStep, setCurrentStep] = useState<number>(stepService.get());
+    const [currentStep, setCurrentStep] = useState<number>(STEP_ONE);
     const navigate = useNavigate();
 
     const handleNextStep = useCallback((): void => {
-        setCurrentStep(currentStep + stepOne);
-        stepService.set(currentStep + stepOne);
+        setCurrentStep(currentStep + STEP_ONE);
 
         const nextStepPath =
-            StepRoutes[
-                `STEP_0${currentStep + stepOne}` as keyof typeof StepRoutes
+            STEP_ROUTES[
+                `STEP_0${currentStep + STEP_ONE}` as keyof typeof STEP_ROUTES
             ];
 
         navigate(getSignUpTalentStepRoute(nextStepPath));
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
-        setCurrentStep(currentStep - stepOne);
-        stepService.set(currentStep - stepOne);
+        setCurrentStep(currentStep - STEP_ONE);
 
         const previousStepPath =
-            StepRoutes[
-                `STEP_0${currentStep - stepOne}` as keyof typeof StepRoutes
+            STEP_ROUTES[
+                `STEP_0${currentStep - STEP_ONE}` as keyof typeof STEP_ROUTES
             ];
 
         navigate(getSignUpTalentStepRoute(previousStepPath));
@@ -50,7 +50,7 @@ const SignUpTalent: React.FC = () => {
                 Create an account to receive proposals
             </Typography>
             <Grid container className={styles.career}>
-                {currentStep < stepsNumber && (
+                {currentStep < STEPS_NUMBER && (
                     <Grid item className={styles.careerContent}>
                         <Typography variant="h2" className={styles.careerTitle}>
                             Let`s get started!
@@ -71,7 +71,7 @@ const SignUpTalent: React.FC = () => {
                     </Grid>
                 )}
                 <Grid item xs className={styles.registration}>
-                    {currentStep < stepsNumber && (
+                    {currentStep < STEPS_NUMBER && (
                         <Steps currentStep={currentStep} />
                     )}
                     <StepContent

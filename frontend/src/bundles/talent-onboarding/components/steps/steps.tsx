@@ -1,8 +1,8 @@
-import { Steps as StepsEnum } from '~/bundles/auth/enums/enums.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { Steps as StepsEnum } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import { stepOne } from '../constants/constants.js';
+import { STEP_ONE } from '../../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -31,7 +31,7 @@ const Steps: React.FC<Properties> = ({ currentStep }) => {
                         key={step}
                         className={getClassNameForStep({
                             stepName: step,
-                            stepIndex: index + stepOne,
+                            stepIndex: index + STEP_ONE,
                             baseClass: styles.step,
                             activeClass: styles.currentStep,
                             passedStepClass: styles.passedStep,
