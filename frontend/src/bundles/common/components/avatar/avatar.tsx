@@ -15,7 +15,11 @@ const Avatar: React.FC<Properties> = ({
     size = 'small',
     userFullName,
 }) => {
-    const avatarClasses = getValidClassNames(styles.avatar, styles[size]);
+    const avatarClasses = getValidClassNames(
+        styles.avatar,
+        styles[size],
+        url && styles.noBgColor,
+    );
 
     const userNameAbbreviation = getAvatarInitials(userFullName);
 
