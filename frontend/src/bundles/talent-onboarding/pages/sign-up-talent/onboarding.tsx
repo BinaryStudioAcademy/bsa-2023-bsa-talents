@@ -1,6 +1,5 @@
 import arrowIcon from '~/assets/img/arrow-right.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
-import { getSignUpTalentStepRoute } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
     useNavigate,
@@ -15,10 +14,11 @@ import {
     STEP_ROUTES,
     STEPS_NUMBER,
 } from '~/bundles/talent-onboarding/constants/constants.js';
+import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
-const SignUpTalent: React.FC = () => {
+const Onboarding: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<number>(STEP_ONE);
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const SignUpTalent: React.FC = () => {
                 `STEP_0${currentStep + STEP_ONE}` as keyof typeof STEP_ROUTES
             ];
 
-        navigate(getSignUpTalentStepRoute(nextStepPath));
+        navigate(getStepRoute(nextStepPath));
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
@@ -41,7 +41,7 @@ const SignUpTalent: React.FC = () => {
                 `STEP_0${currentStep - STEP_ONE}` as keyof typeof STEP_ROUTES
             ];
 
-        navigate(getSignUpTalentStepRoute(previousStepPath));
+        navigate(getStepRoute(previousStepPath));
     }, [currentStep, navigate]);
 
     return (
@@ -85,4 +85,4 @@ const SignUpTalent: React.FC = () => {
     );
 };
 
-export { SignUpTalent };
+export { Onboarding };

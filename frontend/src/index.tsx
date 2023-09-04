@@ -15,12 +15,12 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { getSignUpTalentStepRoute } from './bundles/common/helpers/helpers.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
-import { SignUpTalent } from './bundles/talent-onboarding/pages/sign-up-talent/sign-up-talent.js';
+import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
+import { Onboarding } from './bundles/talent-onboarding/pages/sign-up-talent/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -37,7 +37,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.ROOT,
                                         element: (
                                             <Navigate
-                                                to={getSignUpTalentStepRoute(
+                                                to={getStepRoute(
                                                     STEP_ROUTES.STEP_01,
                                                 )}
                                             />
@@ -53,13 +53,13 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     },
                                     {
                                         path: AppRoute.SIGN_UP_TALENT,
-                                        element: <SignUpTalent />,
+                                        element: <Onboarding />,
                                         children: [
                                             {
                                                 path: AppRoute.SIGN_UP_TALENT,
                                                 element: (
                                                     <Navigate
-                                                        to={getSignUpTalentStepRoute(
+                                                        to={getStepRoute(
                                                             STEP_ROUTES.STEP_01,
                                                         )}
                                                     />
