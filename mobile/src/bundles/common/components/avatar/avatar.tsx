@@ -8,19 +8,11 @@ import {
 } from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { type ValueOf } from '~/bundles/common/types/types';
+import { type AvatarProperties } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-type AvatarSize = ValueOf<typeof AvatarType>;
-
-type Properties = {
-    avatarSize?: AvatarSize;
-    fullName?: string;
-    uri?: string;
-};
-
-const Avatar: React.FC<Properties> = ({
+const Avatar: React.FC<AvatarProperties> = ({
     avatarSize = AvatarType.MEDIUM,
     fullName,
     uri,
