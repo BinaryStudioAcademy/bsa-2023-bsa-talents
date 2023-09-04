@@ -8,7 +8,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 
-import { ProfileSecondSection } from '../components.js';
+import { ProfileSecondSection } from '../../../talent-onboarding/components/components.js';
 import styles from './styles.module.scss';
 
 const mockedAcademyBadges = [

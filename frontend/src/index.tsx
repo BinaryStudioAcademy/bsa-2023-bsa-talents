@@ -16,7 +16,7 @@ import { store } from '~/framework/store/store.js';
 
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
-import { CandidatePage } from './bundles/users/pages/candidate-page.js';
+import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>

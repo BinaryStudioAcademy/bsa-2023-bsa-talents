@@ -1,7 +1,6 @@
-// import salaryIcon from '~/assets/img/profile-parameters/salary.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { CandidateIcons } from '~/bundles/users/enums/enums.js';
+import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import styles from './styles.module.scss';
 
