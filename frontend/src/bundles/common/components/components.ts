@@ -6,6 +6,7 @@ export { Chip } from './chip/chip.js';
 export { FileUpload } from './file-upload/file-upload.js';
 export { FormControl } from './form-control/form-control.js';
 export { FormControlLabel } from './form-control-label/form-control-label.js';
+export { FormHelperText } from './form-helper-text/form-helper-text.js';
 export { FormLabel } from './form-label/form-label.js';
 export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';

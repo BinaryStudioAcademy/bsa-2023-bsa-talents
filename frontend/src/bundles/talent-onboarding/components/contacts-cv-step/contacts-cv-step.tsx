@@ -1,41 +1,50 @@
 import { Add as PlusIcon } from '@mui/icons-material';
-import { FormHelperText } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
+import {
+    type Control,
+    type FieldErrors,
+    type FieldValues,
+    type UseFormHandleSubmit,
+    type UseFormSetError,
+    type UseFormWatch,
+} from 'react-hook-form';
 
 import {
-    Button,
     FileUpload,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
-import { type ContactsCVStepDto } from '~/bundles/talent-onboarding/types/types.js';
-import { contactsCVStepValidationSchema } from '~/bundles/talent-onboarding/validation-schemas/validation-schemas.js';
 
 import { validateFileSize } from '../../helpers/validate-file-size.js';
+import { type ContactsCVStepDto } from '../../types/types.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
-    DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-type Properties = {
-    onSubmit: (payload: ContactsCVStepDto) => void;
+type ReturnValue<T extends FieldValues = FieldValues> = {
+    control: Control<T, null>;
+    errors: FieldErrors<T>;
+    handleSubmit: UseFormHandleSubmit<T>;
+    watch: UseFormWatch<T>;
+    setError: UseFormSetError<T>;
 };
 
-const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
-    const [photoURL, setPhotoURL] = useState<string>('');
+type Properties = {
+    methods: ReturnValue<ContactsCVStepDto>;
+};
 
-    const { control, errors, handleSubmit, watch, setError } = useAppForm({
-        defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
-        validationSchema: contactsCVStepValidationSchema,
-    });
+const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
+    const { control, errors, watch, setError } = methods;
+
+    const [photoURL, setPhotoURL] = useState<string>('');
 
     const handlePhotoFileChange = useCallback(
         (file: File): boolean => {
@@ -62,13 +71,6 @@ const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
         [setError],
     );
 
-    const handleFormSubmit = useCallback(
-        (event_: React.BaseSyntheticEvent): void => {
-            void handleSubmit(onSubmit)(event_);
-        },
-        [handleSubmit, onSubmit],
-    );
-
     useEffect(() => {
         return () => {
             URL.revokeObjectURL(photoURL);
@@ -76,7 +78,7 @@ const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
     }, [photoURL]);
 
     return (
-        <form className={styles.form} onSubmit={handleFormSubmit}>
+        <FormControl className={styles.form}>
             <Grid container className={styles.photo}>
                 <Grid
                     item
@@ -247,22 +249,7 @@ const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
                 Job search is anonymous. This information will be seen only in
                 case you share it.
             </Typography>
-
-            <Grid className={styles.formButtons}>
-                <Button
-                    label="Back"
-                    variant="outlined"
-                    type="button"
-                    className={styles.btnBack}
-                />
-                <Button
-                    label="Next"
-                    variant="contained"
-                    type="submit"
-                    className={styles.btnBext}
-                />
-            </Grid>
-        </form>
+        </FormControl>
     );
 };
 
