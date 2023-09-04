@@ -1,4 +1,4 @@
-import { Grid } from '~/bundles/common/components/components.js';
+import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
@@ -15,17 +15,31 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
                     <Grid item className={styles['selling-point']}>
                         <div className={styles.logo}></div>{' '}
                         {/* TODO: Change to Logo component*/}
-                        <div className={styles.message}>
-                            <div
-                                className={getValidClassNames(
-                                    styles['message-1'],
-                                    styles.text,
-                                )}
-                            >
-                                Find the top talent for your business{' '}
-                                {/* TODO: Animate message */}
+                        <Typography
+                            className={styles['animated-text-wrapper']}
+                            variant="h1"
+                        >
+                            <div className={styles.message}>
+                                <span
+                                    className={getValidClassNames(
+                                        styles['message-1'],
+                                        styles.text,
+                                    )}
+                                >
+                                    <span className={styles.text}>
+                                        Find the top talent{' '}
+                                    </span>
+                                    <span className={styles.text}>
+                                        for your business{' '}
+                                    </span>
+                                </span>
+                                <span
+                                    className={getValidClassNames(styles.text)}
+                                >
+                                    Start your career easily.{' '}
+                                </span>
                             </div>
-                        </div>
+                        </Typography>
                     </Grid>
                 </Grid>
                 <Grid className={styles['form-wrapper']} item xs={12} md={6}>
