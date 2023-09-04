@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_PAYLOAD_PROFILE_STEP as initialState } from '~/bundles/talent-onboarding/components/first-step/constants/constants.js';
+import { DEFAULT_PAYLOAD_PROFILE_STEP as initialState } from '~/bundles/talent-onboarding/components/profile-step/constants/constants.js';
 
 import { profileStep } from './actions.js';
 

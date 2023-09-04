@@ -59,7 +59,7 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     label: type,
 }));
 
-const FirstStep: React.FC<Properties> = ({ methods }) => {
+const ProfileStep: React.FC<Properties> = ({ methods }) => {
     const { control, errors } = methods;
 
     const handleCheckboxOnChange = useCallback(
@@ -271,4 +271,4 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
     );
 };
 
-export { FirstStep };
+export { ProfileStep };
