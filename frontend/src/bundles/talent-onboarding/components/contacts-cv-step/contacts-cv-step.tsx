@@ -1,4 +1,5 @@
 import { Add as PlusIcon } from '@mui/icons-material';
+import { FormHelperText } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 
 import {
@@ -113,14 +114,15 @@ const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
                         }}
                         handleFileChange={handlePhotoFileChange}
                     />
-                    <Typography
-                        variant="caption"
-                        color="error"
-                        className={styles.photoError}
+                    <FormHelperText
+                        className={getValidClassNames(
+                            styles.fileError,
+                            styles.photoError,
+                        )}
                     >
                         {errors.photo?.type === 'fileSize' &&
                             errors.photo.message}
-                    </Typography>
+                    </FormHelperText>
                 </FormControl>
             </Grid>
 
@@ -229,9 +231,9 @@ const ContactsCVStep: React.FC<Properties> = ({ onSubmit }) => {
                         }}
                         handleFileChange={handleCVFileChange}
                     />
-                    <Typography variant="caption" color="error">
+                    <FormHelperText className={styles.fileError}>
                         {errors.cv?.type === 'fileSize' && errors.cv.message}
-                    </Typography>
+                    </FormHelperText>
                 </FormControl>
 
                 {watch('cv') && (
