@@ -48,7 +48,6 @@
 .btn-login {
     width: 100%;
     max-width: 420px;
-    margin-top: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
     font-weight: var(--font-weight-medium);
@@ -80,23 +79,5 @@
         width: unset;
         color: var(--st-tropaz);
         font-weight: var(--font-weight-semi-bold);
-    }
-}
-
-.radio-wrapper {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.radio-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    gap: 5%;
-}
-
-@media screen and (width >= 900px) {
-    .radio-group {
-        justify-content: center;
     }
 }
