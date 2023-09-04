@@ -1,31 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_PAYLOAD_PROFILE_STEP as initialState } from '~/bundles/talent-onboarding/components/profile-step/constants/constants.js';
+import { type ContactsCVStepDto, type ProfileStepDto } from '../types/types.js';
+import { contactsCVStep, profileStep } from './actions.js';
 
-import { profileStep } from './actions.js';
+type State = {
+    profileStep: ProfileStepDto | null;
+    contactsCVStep: ContactsCVStepDto | null;
+};
+
+const initialState: State = {
+    profileStep: null,
+    contactsCVStep: null,
+};
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'signUp',
+    name: 'talentOnBoarding',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(profileStep.fulfilled, (state, action) => {
-            const {
-                profileName,
-                salaryExpectation,
-                employmentTypes,
-                experienceYears,
-                jobTitle,
-                location,
-                description,
-            } = action.payload;
-            state.description = description;
-            state.employmentTypes = employmentTypes;
-            state.experienceYears = experienceYears;
-            state.jobTitle = jobTitle;
-            state.location = location;
-            state.profileName = profileName;
-            state.salaryExpectation = salaryExpectation;
+            state.profileStep = action.payload;
+        });
+        builder.addCase(contactsCVStep.fulfilled, (state, action) => {
+            state.contactsCVStep = action.payload;
         });
     },
 });
