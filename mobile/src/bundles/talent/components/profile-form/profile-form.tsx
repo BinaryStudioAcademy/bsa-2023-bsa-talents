@@ -1,9 +1,7 @@
 import React from 'react';
-import { CountryList, EmploymentType, JobTitle } from 'shared/build/index.js';
 
 import {
     Button,
-    Checkbox,
     FormField,
     Input,
     ScrollView,
@@ -11,13 +9,18 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import { splitArrayInHalf } from '~/bundles/common/helpers/helpers';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingProfileDto } from '~/bundles/talent/types/types';
-import { talentOnboardingProfileValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import {
+    CountryList,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/talent/enums/enums';
+import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
+import { EmploymentTypes } from './employment-types';
 import { styles } from './styles';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
@@ -35,33 +38,19 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     label: type,
 }));
 
-const [column1Options, column2Options] = splitArrayInHalf(
-    employmentTypeOptions,
-);
-
-const extractSelectedEmploymentTypes = (data: string[]): string[] => {
-    return employmentTypeOptions
-        .filter((_, index) => data[index])
-        .map((option) => option.value);
-};
-
 type Properties = {
-    onSubmit: (payload: TalentOnboardingProfileDto) => void;
+    onSubmit: (payload: ProfileStepDto) => void;
 };
 
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
-        validationSchema: talentOnboardingProfileValidationSchema,
+        validationSchema: ProfileStepValidationSchema,
     });
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
             data.salaryExpectation = Number(data.salaryExpectation);
-            data.employmentTypes = extractSelectedEmploymentTypes(
-                data.employmentTypes,
-            );
-
             onSubmit(data);
         })();
     }, [handleSubmit, onSubmit]);
@@ -147,36 +136,11 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <View
-                    style={[
-                        globalStyles.flexDirectionRow,
-                        globalStyles.justifyContentSpaceBetween,
-                        styles.employmentTypeContainer,
-                    ]}
-                >
-                    <View style={globalStyles.flex1}>
-                        {column1Options.map((option, index) => (
-                            <Checkbox
-                                key={option.label}
-                                label={option.label}
-                                name={`employmentTypes.${index}`}
-                                control={control}
-                            />
-                        ))}
-                    </View>
-                    <View style={globalStyles.flex1}>
-                        {column2Options.map((option, index) => (
-                            <Checkbox
-                                key={option.label}
-                                label={option.label}
-                                name={`employmentTypes.${
-                                    column1Options.length + index
-                                }`}
-                                control={control}
-                            />
-                        ))}
-                    </View>
-                </View>
+                <EmploymentTypes
+                    control={control}
+                    name="employmentTypes"
+                    options={employmentTypeOptions}
+                />
             </FormField>
             <FormField
                 errors={errors}

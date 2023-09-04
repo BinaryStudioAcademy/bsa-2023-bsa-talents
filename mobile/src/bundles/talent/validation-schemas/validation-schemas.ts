@@ -1,1 +1,1 @@
-export { talentOnboardingProfileValidationSchema } from './talent-onboarding-profile.validation-schema';
+export { ProfileStepValidationSchema } from 'shared/build/index.js';

@@ -1,6 +1,6 @@
-import { type TalentOnboardingProfileDto } from '~/bundles/talent/types/types';
+import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
-const TALENT_PROFILE_DEFAULT_VALUES: TalentOnboardingProfileDto = {
+const TALENT_PROFILE_DEFAULT_VALUES: ProfileStepDto = {
     profileName: '',
     salaryExpectation: 0,
     jobTitle: '',

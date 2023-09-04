@@ -1,1 +1,1 @@
-export { type TalentOnboardingProfileDto } from './onboarding-profile-dto.type';
+export { type ProfileStepDto } from 'shared/build/index.js';

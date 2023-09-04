@@ -1,2 +1,2 @@
 export { BadgeType } from './ui/ui';
-export { TalentOnboardingProfileValidationMessage } from './validation/validation';
+export { CountryList, EmploymentType, JobTitle } from 'shared/build/index.js';
