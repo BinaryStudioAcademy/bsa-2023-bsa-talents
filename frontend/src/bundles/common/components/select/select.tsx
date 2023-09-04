@@ -53,7 +53,7 @@ const Select = <T extends FieldValues>({
             hasError={hasError}
             isDisabled={isDisabled}
         >
-            <FormLabel>{label}</FormLabel>
+            {label && <FormLabel>{label}</FormLabel>}
             <MuiSelect
                 {...field}
                 multiple={multiple}
