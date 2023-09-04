@@ -4,6 +4,7 @@ export { Button } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
 export { FormControl } from './form-control/form-control.js';
+export { FormControlLabel } from './form-control-label/form-control-label.js';
 export { FormLabel } from './form-label/form-label.js';
 export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';
