@@ -3,8 +3,6 @@
     flex-direction: column;
     align-items: center;
     width: 79px;
-    min-width: 79px;
-    max-width: 79px;
     min-height: 100vh;
     padding-top: 15px;
     background-color: var(--text-primary-dark);
@@ -14,9 +12,8 @@
     display: block;
     width: 44px;
     height: 44px;
+    margin: 0 auto;
     margin-bottom: 20px;
-    background: #ffd231;
-    border-radius: 7px;
 }
 
 .list {
