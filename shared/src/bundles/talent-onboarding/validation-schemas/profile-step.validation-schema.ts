@@ -4,8 +4,7 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
-} from '~/bundles/user-details/user-details.js';
-
+} from '../../user-details/user-details.js';
 import {
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
