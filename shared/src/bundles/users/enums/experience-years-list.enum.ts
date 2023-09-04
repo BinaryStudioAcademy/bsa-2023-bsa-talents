@@ -1,10 +1,10 @@
 import { createNumberRangeArray } from '../../../helpers/helpers.js';
-import { SignUpStep1ValidationRule } from '../../talent-onboarding/enums/enums.js';
+import { ProfileStepValidationRule } from '../../talent-onboarding/enums/enums.js';
 
 const ExperienceYearsList = createNumberRangeArray(
-    SignUpStep1ValidationRule.MIN_YEARS_OF_EXPERIENCE,
-    SignUpStep1ValidationRule.MAX_YEARS_OF_EXPERIENCE,
-    SignUpStep1ValidationRule.YEARS_OF_EXPERIENCE_STEP,
+    ProfileStepValidationRule.MIN_YEARS_OF_EXPERIENCE,
+    ProfileStepValidationRule.MAX_YEARS_OF_EXPERIENCE,
+    ProfileStepValidationRule.YEARS_OF_EXPERIENCE_STEP,
 );
 
 type ExperienceEnum = Record<string, (typeof ExperienceYearsList)[number]>;

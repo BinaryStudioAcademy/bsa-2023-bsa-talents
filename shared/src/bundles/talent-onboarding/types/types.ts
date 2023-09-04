@@ -1,1 +1,1 @@
-export { type UserSignUpStep1Dto } from './sign-up-step1-dto.js';
+export { type ProfileStepDto } from './profile-step-dto.js';

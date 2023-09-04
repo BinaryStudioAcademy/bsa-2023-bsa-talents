@@ -31,9 +31,9 @@ import {
     experienceYearsScaled,
     experienceYearsSliderMarks,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
-import { type UserSignUpStep1Dto } from '~/bundles/talent-onboarding/types/types.js';
+import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 } from './constants/constants.js';
+import { DEFAULT_PAYLOAD_PROFILE_STEP } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -43,8 +43,8 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 };
 
 type Properties = {
-    methods: ReturnValue<UserSignUpStep1Dto>;
-    userInfo?: UserSignUpStep1Dto;
+    methods: ReturnValue<ProfileStepDto>;
+    userInfo?: ProfileStepDto;
 };
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
@@ -64,7 +64,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>,
+            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -80,9 +80,9 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<UserSignUpStep1Dto, 'employmentTypes'>;
+            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>;
             fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<UserSignUpStep1Dto>;
+            formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
             return (
                 <>
@@ -110,7 +110,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
     );
 
     const handleSliderOnChange = useCallback(
-        (field: ControllerRenderProps<UserSignUpStep1Dto, 'experienceYears'>) =>
+        (field: ControllerRenderProps<ProfileStepDto, 'experienceYears'>) =>
             (event: Event): void => {
                 const mouseEvent = event as MouseEvent;
                 const inputElement = mouseEvent.target as HTMLInputElement;
@@ -121,7 +121,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                 );
                 const exactExperienceValue = exactExperienceObject
                     ? exactExperienceObject.value
-                    : DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears;
+                    : DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears;
                 field.onChange(exactExperienceValue);
             },
         [],
@@ -131,9 +131,9 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<UserSignUpStep1Dto, 'experienceYears'>;
+            field: ControllerRenderProps<ProfileStepDto, 'experienceYears'>;
             fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<UserSignUpStep1Dto>;
+            formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
             return (
                 <Slider
@@ -145,7 +145,7 @@ const FirstStep: React.FC<Properties> = ({ methods }) => {
                     }}
                     className={styles.track}
                     classes={styles}
-                    value={DEFAULT_SIGN_UP_PAYLOAD_STEP1.experienceYears}
+                    value={DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears}
                     marks={experienceYearsSliderMarks}
                     step={null}
                     onChange={handleSliderOnChange(field)}

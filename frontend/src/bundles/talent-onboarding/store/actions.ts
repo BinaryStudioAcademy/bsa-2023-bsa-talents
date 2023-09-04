@@ -1,16 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type UserSignUpStep1Dto } from 'shared/build/index.js';
+import { type ProfileStepDto } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { name as sliceName } from './slice.js';
 
-const signUpStep1 = createAsyncThunk<
-    UserSignUpStep1Dto,
-    UserSignUpStep1Dto,
+const profileStep = createAsyncThunk<
+    ProfileStepDto,
+    ProfileStepDto,
     AsyncThunkConfig
->(`${sliceName}/step1`, (registerPayload) => {
+>(`${sliceName}/profile-step`, (registerPayload) => {
     return registerPayload;
 });
 
-export { signUpStep1 };
+export { profileStep };

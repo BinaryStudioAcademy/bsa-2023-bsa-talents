@@ -1,4 +1,4 @@
-const SignUpStep1ValidationRule = {
+const ProfileStepValidationRule = {
     MIN_PROFILE_NAME_LENGTH: 2,
     MAX_PROFILE_NAME_LENGTH: 50,
     MIN_SALARY_EXPECTATION: 0,
@@ -11,4 +11,4 @@ const SignUpStep1ValidationRule = {
     EMPLOYMENT_TYPES_MIN_LENGTH: 1,
 };
 
-export { SignUpStep1ValidationRule };
+export { ProfileStepValidationRule };

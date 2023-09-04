@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_SIGN_UP_PAYLOAD_STEP1 as initialState } from '~/bundles/talent-onboarding/components/first-step/constants/constants.js';
+import { DEFAULT_PAYLOAD_PROFILE_STEP as initialState } from '~/bundles/talent-onboarding/components/first-step/constants/constants.js';
 
-import { signUpStep1 } from './actions.js';
+import { profileStep } from './actions.js';
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'signUp',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(signUpStep1.fulfilled, (state, action) => {
+        builder.addCase(profileStep.fulfilled, (state, action) => {
             const {
                 profileName,
                 salaryExpectation,

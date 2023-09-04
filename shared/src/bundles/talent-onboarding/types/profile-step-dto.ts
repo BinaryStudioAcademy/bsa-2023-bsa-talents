@@ -1,4 +1,4 @@
-type UserSignUpStep1Dto = {
+type ProfileStepDto = {
     profileName: string;
     salaryExpectation: number;
     jobTitle: string;
@@ -8,4 +8,4 @@ type UserSignUpStep1Dto = {
     description: string;
 };
 
-export { type UserSignUpStep1Dto };
+export { type ProfileStepDto };

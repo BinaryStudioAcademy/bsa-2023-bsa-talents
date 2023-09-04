@@ -1,1 +1,1 @@
-export { type UserSignUpStep1Dto } from 'shared/build/index.js';
+export { type ProfileStepDto } from 'shared/build/index.js';

@@ -1,4 +1,4 @@
-const SignUpStep1ValidationMessage = {
+const ProfileStepValidationMessage = {
     PROFILE_NAME_NOT_STRING: 'Profile name must be a string',
     PROFILE_NAME_REQUIRED: 'Profile name is required',
     PROFILE_NAME_MIN_LENGTH:
@@ -37,4 +37,4 @@ const SignUpStep1ValidationMessage = {
     DESCRIPTION_EMPTY: 'Description can not be empty',
 };
 
-export { SignUpStep1ValidationMessage };
+export { ProfileStepValidationMessage };

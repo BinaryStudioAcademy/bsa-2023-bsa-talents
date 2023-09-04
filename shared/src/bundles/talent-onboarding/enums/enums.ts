@@ -1,2 +1,2 @@
-export { SignUpStep1ValidationMessage } from './sign-up-step1.validation-message.js';
-export { SignUpStep1ValidationRule } from './sign-up-step1.validation-rule.js';
+export { ProfileStepValidationMessage } from './profile-step.validation-message.js';
+export { ProfileStepValidationRule } from './profile-step.validation-rule.js';

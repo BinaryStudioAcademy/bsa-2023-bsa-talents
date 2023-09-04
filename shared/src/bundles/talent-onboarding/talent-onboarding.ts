@@ -1,6 +1,6 @@
 export {
-    SignUpStep1ValidationMessage,
-    SignUpStep1ValidationRule,
+    ProfileStepValidationMessage,
+    ProfileStepValidationRule,
 } from './enums/enums.js';
-export { type UserSignUpStep1Dto } from './types/types.js';
-export { signUpStep1ValidationSchema } from './validation-schemas/validation-schemas.js';
+export { type ProfileStepDto } from './types/types.js';
+export { ProfileStepValidationSchema } from './validation-schemas/validation-schemas.js';

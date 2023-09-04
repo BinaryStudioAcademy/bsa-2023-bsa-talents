@@ -1,6 +1,6 @@
-import { type UserSignUpStep1Dto } from '~/bundles/talent-onboarding/types/types.js';
+import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-const DEFAULT_SIGN_UP_PAYLOAD_STEP1: UserSignUpStep1Dto = {
+const DEFAULT_PAYLOAD_PROFILE_STEP: ProfileStepDto = {
     profileName: '',
     salaryExpectation: 0,
     jobTitle: ' ',
@@ -10,4 +10,4 @@ const DEFAULT_SIGN_UP_PAYLOAD_STEP1: UserSignUpStep1Dto = {
     description: '',
 };
 
-export { DEFAULT_SIGN_UP_PAYLOAD_STEP1 };
+export { DEFAULT_PAYLOAD_PROFILE_STEP };

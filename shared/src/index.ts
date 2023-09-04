@@ -1,9 +1,9 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
-    SignUpStep1ValidationMessage,
-    SignUpStep1ValidationRule,
-    signUpStep1ValidationSchema,
-    type UserSignUpStep1Dto,
+    type ProfileStepDto,
+    ProfileStepValidationMessage,
+    ProfileStepValidationRule,
+    ProfileStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,
