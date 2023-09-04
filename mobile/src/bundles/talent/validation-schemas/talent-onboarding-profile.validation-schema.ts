@@ -27,6 +27,7 @@ const talentOnboardingProfileValidationSchema = joi.object<
         }),
     salaryExpectation: joi
         .number()
+        .integer()
         .min(TALENT_ONBOARDING_PROFILE_CONSTANTS.MIN_SALARY)
         .max(TALENT_ONBOARDING_PROFILE_CONSTANTS.MAX_SALARY)
         .required()
@@ -35,16 +36,21 @@ const talentOnboardingProfileValidationSchema = joi.object<
                 TalentOnboardingProfileValidationMessage.SALARY_REQUIRE,
             'number.min': TalentOnboardingProfileValidationMessage.SALARY_MIN,
             'number.max': TalentOnboardingProfileValidationMessage.SALARY_MAX,
+            'number.integer':
+                TalentOnboardingProfileValidationMessage.SALARY_INTEGER,
             'number.base':
                 TalentOnboardingProfileValidationMessage.SALARY_WRONG,
         }),
     jobTitle: joi.string().required().messages({
         'any.required':
             TalentOnboardingProfileValidationMessage.JOB_TITLE_REQUIRE,
+        'string.empty':
+            TalentOnboardingProfileValidationMessage.JOB_TITLE_WRONG,
     }),
     location: joi.string().required().messages({
         'any.required':
             TalentOnboardingProfileValidationMessage.LOCATION_REQUIRE,
+        'string.empty': TalentOnboardingProfileValidationMessage.LOCATION_WRONG,
     }),
     experienceYears: joi
         .number()
@@ -72,7 +78,7 @@ const talentOnboardingProfileValidationSchema = joi.object<
         .messages({
             'any.required':
                 TalentOnboardingProfileValidationMessage.EMPLOYMENT_TYPE_REQUIRE,
-            'array.min':
+            'array.includesRequiredUnknowns':
                 TalentOnboardingProfileValidationMessage.EMPLOYMENT_TYPE_WRONG,
         }),
     description: joi

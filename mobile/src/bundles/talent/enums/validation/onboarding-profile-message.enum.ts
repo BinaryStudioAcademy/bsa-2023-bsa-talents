@@ -5,13 +5,16 @@ const TalentOnboardingProfileValidationMessage = {
     PROFILE_NAME_WRONG: 'Profile name contains invalid characters.',
 
     SALARY_REQUIRE: 'Salary expectation is required.',
-    SALARY_MIN: 'Salary expectation must be at least 1 digit.',
+    SALARY_MIN: 'Salary expectation must be greater than 0.',
     SALARY_MAX: 'Salary expectation must not exceed 4 digits.',
+    SALARY_INTEGER: 'Salary expectation must be an integer number.',
     SALARY_WRONG: 'Salary expectation must be a number.',
 
     JOB_TITLE_REQUIRE: 'Job title is required.',
+    JOB_TITLE_WRONG: 'Job title is not allowed to be empty.',
 
     LOCATION_REQUIRE: 'Current location is required.',
+    LOCATION_WRONG: 'Job title is not allowed to be empty.',
 
     EXPERIENCE_YEARS_REQUIRE: 'Experience level is required.',
     EXPERIENCE_YEARS_MIN: 'Experience level cannot be negative.',
