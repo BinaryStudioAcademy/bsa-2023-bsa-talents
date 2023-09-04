@@ -61,12 +61,16 @@ const Select = <T extends FieldValues>({
                 className={styles.input}
             >
                 {!multiple && (
-                    <MenuItem disabled value=" ">
+                    <MenuItem className={styles.placeholder} disabled value=" ">
                         {placeholder}
                     </MenuItem>
                 )}
                 {options.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        className={styles.dropdown}
+                    >
                         {option.label}
                     </MenuItem>
                 ))}

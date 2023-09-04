@@ -38,11 +38,13 @@ const Checkbox: React.FC<Properties> = ({
     isDisabled,
     isRequired,
     className,
+    ...props
 }) => {
     return label ? (
         <FormControlLabel
             control={
                 <CheckboxMUI
+                    {...props}
                     defaultChecked={isDefaultChecked}
                     checked={isChecked}
                     required={isRequired}
@@ -56,6 +58,7 @@ const Checkbox: React.FC<Properties> = ({
         />
     ) : (
         <CheckboxMUI
+            {...props}
             defaultChecked={isDefaultChecked}
             checked={isChecked}
             required={isRequired}
