@@ -6,7 +6,7 @@ import { profileStep } from './actions.js';
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'signUp',
+    name: 'talentOnBoarding',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(profileStep.fulfilled, (state, action) => {
