@@ -94,7 +94,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     control={control}
                     layout="row"
                     name="role"
-                    id="role"
                 />
             </View>
 
