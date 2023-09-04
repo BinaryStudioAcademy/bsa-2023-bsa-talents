@@ -1,9 +1,3 @@
-import {
-    Controller,
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
 import { UserRole } from 'shared/build/index.js';
 
 import {
@@ -53,27 +47,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         [handleSubmit, onSubmit],
     );
 
-    const renderRadioGroup = useCallback(function renderRadio({
-        field,
-    }: {
-        field: ControllerRenderProps<UserSignUpRequestDto, 'role'>;
-        fieldState: ControllerFieldState;
-        formState: UseFormStateReturn<UserSignUpRequestDto>;
-    }): React.ReactElement {
-        return (
-            <RadioGroup
-                {...{
-                    onChange: field.onChange,
-                    onBlur: field.onBlur,
-                    name: field.name,
-                    value: field.value,
-                }}
-                className={styles['radio-wrapper']}
-                options={options}
-            />
-        );
-    }, []);
-
     return (
         <>
             <form onSubmit={handleFormSubmit} className={styles.form}>
@@ -110,11 +83,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="password"
                     />
                 </FormControl>
-                <FormControl className={styles['radio-group']}>
-                    <Controller
+                <FormControl className={styles['radio-wrapper']}>
+                    <RadioGroup
+                        className={styles['radio-group']}
                         control={control}
-                        name="role"
-                        render={renderRadioGroup}
+                        options={options}
+                        name={'role'}
                     />
                 </FormControl>
                 <Button
