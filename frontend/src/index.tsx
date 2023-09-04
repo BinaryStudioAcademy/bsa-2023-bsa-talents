@@ -20,7 +20,7 @@ import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
-import { Onboarding } from './bundles/talent-onboarding/pages/sign-up-talent/onboarding.js';
+import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
