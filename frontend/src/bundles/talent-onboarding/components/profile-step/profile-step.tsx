@@ -1,14 +1,11 @@
 import { FormHelperText } from '@mui/material';
 import {
-    type Control,
     Controller,
     type ControllerFieldState,
     type ControllerRenderProps,
-    type FieldErrors,
-    type FieldValues,
-    type UseFormHandleSubmit,
     type UseFormStateReturn,
 } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import {
     Checkbox,
@@ -21,7 +18,12 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
     EmploymentType,
@@ -32,20 +34,14 @@ import {
     experienceYearsSliderMarks,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
+import { useFormSubmit } from '../../context/context.js';
+import { actions } from '../../store/talent-onboarding.js';
+import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { DEFAULT_PAYLOAD_PROFILE_STEP } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-type ReturnValue<T extends FieldValues = FieldValues> = {
-    control: Control<T, null>;
-    errors: FieldErrors<T>;
-    handleSubmit: UseFormHandleSubmit<T>;
-};
-
-type Properties = {
-    methods: ReturnValue<ProfileStepDto>;
-    userInfo?: ProfileStepDto;
-};
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
@@ -59,8 +55,40 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     label: type,
 }));
 
-const ProfileStep: React.FC<Properties> = ({ methods }) => {
-    const { control, errors } = methods;
+const ProfileStep: React.FC = () => {
+    const savedPayload = useSelector(
+        (state: RootReducer) => state.talentOnBoarding,
+    );
+
+    const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
+        defaultValues: { ...savedPayload },
+        validationSchema: ProfileStepValidationSchema,
+    });
+
+    const { setSubmitForm } = useFormSubmit();
+    const dispatch = useAppDispatch();
+    const onSubmit = useCallback(
+        async (data: ProfileStepDto): Promise<boolean> => {
+            await dispatch(actions.profileStep(data));
+            return true;
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null); // Cleanup
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -97,6 +125,7 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
                             key={option.value}
                             label={option.label}
                             value={option.value}
+                            isChecked={field.value.includes(option.value)}
                             onChange={handleCheckboxOnChange(
                                 field,
                                 option.value,
@@ -135,24 +164,27 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
+            const experience = experienceYearsScaled.find(
+                (experience) =>
+                    experience.value === savedPayload.experienceYears,
+            );
+            let experienceYears = 0;
+            if (experience) {
+                experienceYears = experience.scaledValue;
+            }
             return (
                 <Slider
-                    {...{
-                        onChange: field.onChange,
-                        onBlur: field.onBlur,
-                        name: field.name,
-                        value: field.value,
-                    }}
+                    name={field.name}
                     className={styles.track}
                     classes={styles}
-                    value={DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears}
+                    value={experienceYears}
                     marks={experienceYearsSliderMarks}
                     step={null}
-                    onChange={handleSliderOnChange(field)}
+                    onChange={handleSliderOnChange({ ...field })}
                 />
             );
         },
-        [handleSliderOnChange],
+        [handleSliderOnChange, savedPayload.experienceYears],
     );
 
     return (
