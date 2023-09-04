@@ -20,7 +20,6 @@ import { styles } from './styles';
 
 type Item = {
     label: string;
-    value: string;
 };
 
 type Properties<T extends FieldValues> = {
@@ -91,7 +90,7 @@ const SearchableDropdown = <T extends FieldValues>({
                             )
                             .map((item: Item) => (
                                 <TouchableOpacity
-                                    key={item.value}
+                                    key={item.label}
                                     onPress={(): void => {
                                         handleItemSelect(item);
                                     }}

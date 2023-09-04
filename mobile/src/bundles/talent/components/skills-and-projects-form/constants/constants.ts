@@ -35,7 +35,6 @@ const PREFERRED_LANGUAGES_ARRAY = (
 const JOB_TITLES = (Object.keys(JobTitle) as (keyof typeof JobTitle)[]).map(
     (key) => ({
         label: JobTitle[key],
-        value: key.toLowerCase(),
     }),
 );
 

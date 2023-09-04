@@ -1,3 +1,4 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NotConsidered } from 'shared/build/index';
@@ -14,9 +15,20 @@ import {
     Tag,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    ButtonType,
+    Color,
+    IconName,
+    TalentOnboardingScreenName,
+    TalentOnboardingStepState,
+} from '~/bundles/common/enums/enums';
+import {
+    useAppForm,
+    useCallback,
+    useNavigation,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 
 import {
     ENGLISH_LEVEL,
@@ -28,7 +40,6 @@ import { styles } from './styles';
 
 type Skill = {
     label: string;
-    value: string;
 };
 
 type Properties = {
@@ -36,10 +47,15 @@ type Properties = {
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { navigate, goBack } =
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
+
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
     });
-    const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
     const [links, setLinks] = useState<string[]>([]);
     const maxLinks = 3;
 
@@ -60,18 +76,25 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
     };
 
     const handleSkillSelect = (skill: Skill): void => {
-        setSelectedSkills([...selectedSkills, skill]);
+        if (selectedSkills.includes(skill.label)) {
+            return;
+        }
+        setSelectedSkills([...selectedSkills, skill.label]);
     };
 
     const handleSkillDelete = (skillLabel: string): void => {
         setSelectedSkills((previousSkills) =>
-            previousSkills.filter((skill) => skill.label != skillLabel),
+            previousSkills.filter((skill) => skill != skillLabel),
         );
     };
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
+        // setParams({ stepState: TalentOnboardingStepState.COMPLETED });
+        navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+            stepState: TalentOnboardingStepState.FOCUSED,
+        });
+    }, [handleSubmit, navigate, onSubmit]);
 
     return (
         <ScrollView
@@ -98,8 +121,8 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 >
                     {selectedSkills.map((skill) => (
                         <Tag
-                            key={skill.value}
-                            skill={skill.label}
+                            key={skill}
+                            skill={skill}
                             onPress={handleSkillDelete}
                         />
                     ))}
@@ -219,6 +242,9 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Back"
                     style={globalStyles.mr10}
                     buttonType={ButtonType.OUTLINE}
+                    onPress={(): void => {
+                        goBack();
+                    }}
                 />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
