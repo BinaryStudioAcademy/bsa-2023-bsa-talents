@@ -1,4 +1,8 @@
-import React from 'react';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type ImagePickerResponse } from 'react-native-image-picker';
 
@@ -9,22 +13,35 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { ErrorMessages, TextCategory } from '~/bundles/common/enums/enums';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useFormController,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
 import { notifications } from '~/framework/notifications/notifications';
 
-type AvatarPickerProperties = {
+type AvatarPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
+    control: Control<T, null>;
+    name: FieldPath<T>;
 } & AvatarProperties;
-const AvatarPicker: React.FC<AvatarPickerProperties> = ({
+
+const AvatarPicker = <T extends FieldValues>({
+    control,
+    name,
     buttonStyle,
     containerStyle,
     uri,
     ...props
-}) => {
+}: AvatarPickerProperties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
+    const { onChange } = field;
+
     const [avatar, setAvatar] = useState<undefined | string>();
+
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
             try {
@@ -34,6 +51,7 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                 }
                 const [image] = assets;
                 setAvatar(image.uri ?? uri);
+                onChange({ size: image.fileSize, uri: image.uri ?? uri });
             } catch (error) {
                 if (error instanceof Error) {
                     notifications.showError({ title: error.message });
@@ -42,7 +60,7 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                 notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
             }
         },
-        [uri],
+        [onChange, uri],
     );
 
     const imageLoadHandler = useCallback(

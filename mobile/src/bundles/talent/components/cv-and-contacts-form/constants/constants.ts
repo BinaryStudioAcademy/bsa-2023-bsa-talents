@@ -1,5 +1,5 @@
 const CV_AND_CONTACTS_DEFAULT_VALUES = {
-    photoId: '',
+    photoId: { size: 0, uri: '' },
     fullName: '',
     phoneNumber: '',
     linkedinProfile: '',

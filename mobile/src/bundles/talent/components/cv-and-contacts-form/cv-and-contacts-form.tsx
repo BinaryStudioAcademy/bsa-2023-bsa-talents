@@ -13,6 +13,7 @@ import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
 
+import { onboardingStepFourValidationSchema } from '../../validation-schemas/onboarding-step-4.validation-schemas';
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -23,12 +24,17 @@ type Properties = {
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
+        validationSchema: onboardingStepFourValidationSchema,
     });
 
     const handleCVUpload = useCallback(() => {
         // TODO: add upload file logic
         return null;
     }, []);
+
+    // const onSubmit2 = handleSubmit((data) => {
+    //     console.log(data);
+    // });
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -41,10 +47,9 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             <FormField
                 errors={errors}
                 name="photoId"
-                required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker />
+                <AvatarPicker control={control} name="photoId" />
             </FormField>
             <FormField
                 errors={errors}
