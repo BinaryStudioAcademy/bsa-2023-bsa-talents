@@ -2,6 +2,8 @@ const AppRoute = {
     ROOT: '/',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
+    TALENT: '/talent',
+    TALENT_STEP: '/talent/onboarding/step/:step',
     OTHER: '*',
 } as const;
 
