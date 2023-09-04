@@ -1,2 +1,2 @@
-export { ProfileStepValidationSchema } from './profile-step.validation-schema.js';
-export { signUpStep3 as signUpStep3ValidationSchema } from './step3.validation-schema';
+export { ProfileStepValidationSchema } from './profile-step/profile-step.validation-schema.js';
+export { SkillsStepValidationSchema } from './skills-step/skills-step.validation-schema.js';

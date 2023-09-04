@@ -2,9 +2,9 @@ import {
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
-} from '../../users/users.js';
+} from '../../../users/users.js';
 
-const SignUpStep3ValidationRule = {
+const SkillsStepValidationRule = {
     ENGLISH_LEVEL: EnglishLevel,
     NOT_CONSIDERED: NotConsidered,
     PREFERRED_LANGUAGES: PreferredLanguages,
@@ -16,4 +16,4 @@ const SignUpStep3ValidationRule = {
     PROJECT_LINKS_MAX_LENGTH: 50,
 };
 
-export { SignUpStep3ValidationRule };
+export { SkillsStepValidationRule };

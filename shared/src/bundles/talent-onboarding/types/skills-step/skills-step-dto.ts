@@ -5,7 +5,7 @@ import {
 } from '~/bundles/users/users';
 import { type ValueOf } from '~/types/value-of.type';
 
-type UserSignUpStep3Dto = {
+type SkillsStepDto = {
     hardSkills: string[] | string;
     englishLevel: ValueOf<typeof EnglishLevel>;
     notConsidered: ValueOf<typeof NotConsidered>[];
@@ -13,4 +13,4 @@ type UserSignUpStep3Dto = {
     projectLinks: string[] | string;
 };
 
-export { type UserSignUpStep3Dto };
+export { type SkillsStepDto };
