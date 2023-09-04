@@ -25,8 +25,6 @@ type Properties<T extends FieldValues> = {
     adornmentText?: string;
     className?: string;
     inputClassNames?: string;
-    className?: string;
-    inputClassNames?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -38,8 +36,6 @@ const Input = <T extends FieldValues>({
     isRequired = false,
     isDisabled = false,
     adornmentText = '',
-    className = '',
-    inputClassNames,
     className = '',
     inputClassNames,
 }: Properties<T>): JSX.Element => {
@@ -78,13 +74,11 @@ const Input = <T extends FieldValues>({
         isDisabled && styles.inputDisabled,
         hasError && styles.hasError,
         inputClassNames,
-        inputClassNames,
     );
     const htmlInputStyles = getValidClassNames(
         styles.input,
         type === 'search' && styles.inputPaddingSearch,
         adornmentText && styles.inputPaddingTextAdornsment,
-        inputClassNames,
         inputClassNames,
     );
     const helperTextStyles = getValidClassNames(
