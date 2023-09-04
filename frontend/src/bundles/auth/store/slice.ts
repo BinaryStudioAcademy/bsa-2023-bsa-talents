@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserFindResponseDto } from '~/bundles/users/users.js';
 
-import { loadUser, signUp } from './actions.js';
+import { loadUser, signOut, signUp } from './actions.js';
 
 type State = {
     currentUser: UserFindResponseDto;
@@ -39,6 +39,9 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(loadUser.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(signOut.fulfilled, (state) => {
+            state.currentUser = initialState.currentUser;
         });
     },
 });

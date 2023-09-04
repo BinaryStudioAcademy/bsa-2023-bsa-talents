@@ -6,9 +6,12 @@ import styles from './styles.module.scss';
 
 type Properties = MenuProps;
 
-const Menu: React.FC<Properties> = ({ children }) => {
+const Menu: React.FC<Properties> = ({ children, className, ...props }) => {
     return (
-        <MUIMenu className={getValidClassNames(styles.menu)}>
+        <MUIMenu
+            className={getValidClassNames(styles.menu, className)}
+            {...props}
+        >
             {children}
         </MUIMenu>
     );

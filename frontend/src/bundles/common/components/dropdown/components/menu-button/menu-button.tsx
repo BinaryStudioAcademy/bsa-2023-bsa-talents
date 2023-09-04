@@ -9,13 +9,19 @@ import styles from './styles.module.scss';
 
 type Properties = MenuButtonProps;
 
-const MenuButton: React.FC<Properties> = ({ children }) => {
+const MenuButton: React.FC<Properties> = ({
+    children,
+    className,
+    ...props
+}) => {
     return (
         <MUIMenuButton
             className={getValidClassNames(
                 styles.resetButton,
                 styles.menuButton,
+                className,
             )}
+            {...props}
         >
             {children}
         </MUIMenuButton>
