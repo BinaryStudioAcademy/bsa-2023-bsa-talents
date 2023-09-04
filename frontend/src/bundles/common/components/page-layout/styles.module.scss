@@ -13,7 +13,7 @@
 }
 
 .mainHeader {
-    max-width: calc(100% - 79px); // TODO: --sidebar-width
+    max-width: calc(100% - var(--sidebar-width));
 }
 
 .mainContent {

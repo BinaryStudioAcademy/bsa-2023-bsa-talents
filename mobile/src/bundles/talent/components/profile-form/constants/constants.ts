@@ -1,10 +1,10 @@
-const USER_PROFILE_DEFAULT_VALUES = {
+const TALENT_PROFILE_DEFAULT_VALUES = {
     profileName: '',
     salaryExpectations: '0',
     jobTitle: '',
     currentLocation: '',
     experience: '',
-    experienceLevel: '0',
+    experienceLevel: 0,
     employmentType: {
         fullTime: true,
         partTime: false,
@@ -53,5 +53,5 @@ const CURRENT_LOCATION_OPTIONS = [
 export {
     CURRENT_LOCATION_OPTIONS,
     JOB_TITLE_OPTIONS,
-    USER_PROFILE_DEFAULT_VALUES,
+    TALENT_PROFILE_DEFAULT_VALUES,
 };
