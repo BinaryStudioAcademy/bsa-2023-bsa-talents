@@ -19,6 +19,7 @@ import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
     DEFAULT_SIGN_UP_PAYLOAD_STEP4,
+    REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -51,27 +52,54 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                         backgroundImage: `url(${photoURL})`,
                     }}
                 ></Grid>
-                <InputFile
-                    control={control}
-                    errors={errors}
-                    setError={setError}
-                    name="photo"
-                    setUrl={setPhotoURL}
-                    accept={ACCEPTED_PHOTO_TYPES.join(',')}
-                    labelTitle="Upload a new photo"
-                    buttonProps={{
-                        label: 'Choose photo',
-                        className: getValidClassNames(
-                            styles.uploadPhotoBtn,
-                            errors.photo?.message ? styles.btnError : '',
-                        ),
-                    }}
-                />
+
+                <FormControl
+                    className={getValidClassNames(
+                        styles.formControl,
+                        styles.photoFormControl,
+                    )}
+                >
+                    <FormLabel className={styles.label}>
+                        <Typography
+                            variant="label"
+                            className={styles.labelText}
+                        >
+                            Upload a new photo
+                        </Typography>
+                    </FormLabel>
+
+                    <InputFile
+                        control={control}
+                        errors={errors}
+                        setError={setError}
+                        name="photo"
+                        setUrl={setPhotoURL}
+                        accept={ACCEPTED_PHOTO_TYPES.join(',')}
+                        buttonProps={{
+                            label: 'Choose photo',
+                            className: getValidClassNames(
+                                styles.uploadPhotoBtn,
+                                errors.photo?.message ? styles.btnError : '',
+                            ),
+                        }}
+                        styleError={styles.photoError}
+                    />
+                </FormControl>
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'}>Full name</Typography>
+                <FormLabel
+                    className={getValidClassNames(
+                        styles.label,
+                        errors.fullName?.type === REQUIRED
+                            ? styles.labelError
+                            : '',
+                    )}
+                    required
+                >
+                    <Typography variant={'label'} className={styles.labelText}>
+                        Full name
+                    </Typography>
                 </FormLabel>
 
                 <Input
@@ -84,8 +112,18 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'}>Phone number</Typography>
+                <FormLabel
+                    className={getValidClassNames(
+                        styles.label,
+                        errors.phoneNumber?.type === REQUIRED
+                            ? styles.labelError
+                            : '',
+                    )}
+                    required
+                >
+                    <Typography variant={'label'} className={styles.labelText}>
+                        Phone number
+                    </Typography>
                 </FormLabel>
 
                 <Input
@@ -98,8 +136,18 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'}>LinkedIn profile</Typography>
+                <FormLabel
+                    className={getValidClassNames(
+                        styles.label,
+                        errors.linkedInLink?.type === REQUIRED
+                            ? styles.labelError
+                            : '',
+                    )}
+                    required
+                >
+                    <Typography variant={'label'} className={styles.labelText}>
+                        LinkedIn profile
+                    </Typography>
                 </FormLabel>
 
                 <Input
@@ -111,27 +159,48 @@ const FourthStep: React.FC<Properties> = ({ onSubmit }) => {
                     adornmentText="www"
                 />
             </FormControl>
-            <InputFile
-                control={control}
-                errors={errors}
-                setError={setError}
-                name="cv"
-                accept={ACCEPTED_CV_TYPES.join(',')}
-                required
-                labelTitle="CV"
-                buttonProps={{
-                    label: 'Choose file',
-                    className: getValidClassNames(
-                        styles.uploadCVBtn,
-                        errors.cv?.message ? styles.btnError : '',
-                    ),
-                    startIcon: <PlusIcon />,
-                }}
-            />
 
-            <Typography variant="caption">
-                {watch('cv') ? `Attached file: ${watch('cv')?.name}` : ''}
-            </Typography>
+            <div>
+                <FormControl className={styles.formControl}>
+                    <FormLabel
+                        className={getValidClassNames(
+                            styles.label,
+                            errors.cv?.type === REQUIRED
+                                ? styles.labelError
+                                : '',
+                        )}
+                        required
+                    >
+                        <Typography
+                            variant="label"
+                            className={styles.labelText}
+                        >
+                            CV
+                        </Typography>
+                    </FormLabel>
+                    <InputFile
+                        control={control}
+                        errors={errors}
+                        setError={setError}
+                        name="cv"
+                        accept={ACCEPTED_CV_TYPES.join(',')}
+                        buttonProps={{
+                            label: 'Choose file',
+                            className: getValidClassNames(
+                                styles.uploadCVBtn,
+                                errors.cv?.message ? styles.btnError : '',
+                            ),
+                            startIcon: <PlusIcon />,
+                        }}
+                    />
+                </FormControl>
+
+                {watch('cv') && (
+                    <Typography variant="caption">
+                        Attached file: {watch('cv')?.name}
+                    </Typography>
+                )}
+            </div>
 
             <Typography variant="caption" className={styles.info}>
                 Job search is anonymous. This information will be seen only in

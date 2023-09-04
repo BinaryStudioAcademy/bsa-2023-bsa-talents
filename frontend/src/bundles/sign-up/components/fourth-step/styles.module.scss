@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
     gap: 26px;
-    width: 348px;
+    max-width: 348px;
     padding: 10px;
 }
 
 .photo {
     align-items: center;
     gap: 20px;
+    margin-bottom: 28px;
 }
 
 .photoWrapper {
@@ -27,13 +28,26 @@
 
 .formControl {
     gap: 8px;
+    width: 100%;
+}
+
+.photoFormControl {
+    flex-basis: content;
 }
 
 .label {
-    color: var(--text-primary-dark);
+    color: var(--background-secondary);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     line-height: var(--line-height-main);
+}
+
+.labelError {
+    color: var(--error-primary);
+}
+
+.labelText {
+    color: var(--text-primary-dark);
 }
 
 .uploadPhotoBtn {
@@ -69,8 +83,6 @@
 }
 
 .info {
-    width: 327px;
-    margin-top: 20px;
     padding: 12px;
     color: var(--text-primary-dark);
     background-color: var(--solitude);
@@ -80,7 +92,7 @@
 .formButtons {
     display: flex;
     gap: 8px;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 .btnBack {

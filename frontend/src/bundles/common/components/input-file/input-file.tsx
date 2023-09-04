@@ -12,8 +12,7 @@ import { MAX_FILE_SIZE } from '~/bundles/sign-up/components/fourth-step/constant
 
 import { useFormController } from '../../hooks/hooks.js';
 import { type ButtonProperties } from '../button/button.js';
-import { Button, FormControl, FormLabel, Typography } from '../components.js';
-import styles from './styles.module.scss';
+import { Button, Typography } from '../components.js';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
@@ -22,9 +21,8 @@ type Properties<T extends FieldValues> = {
     accept: string;
     setError: UseFormSetError<T>;
     setUrl?: React.Dispatch<React.SetStateAction<string>>;
-    required?: boolean;
-    labelTitle: string;
     buttonProps: Partial<ButtonProperties>;
+    styleError?: string;
 };
 
 const InputFile = <T extends FieldValues>({
@@ -34,9 +32,8 @@ const InputFile = <T extends FieldValues>({
     accept,
     setError,
     setUrl,
-    required,
-    labelTitle,
     buttonProps,
+    styleError,
 }: Properties<T>): JSX.Element => {
     const [link, setLink] = useState<string>('');
     const uploadReference = useRef<HTMLInputElement>(null);
@@ -92,10 +89,7 @@ const InputFile = <T extends FieldValues>({
     }, [link]);
 
     return (
-        <FormControl className={styles.formControl}>
-            <FormLabel className={styles.label} required={required}>
-                <Typography variant="label">{labelTitle}</Typography>
-            </FormLabel>
+        <>
             <Controller name={name} control={control} render={renderInput} />
             <Button
                 {...buttonProps}
@@ -104,14 +98,10 @@ const InputFile = <T extends FieldValues>({
                 label={buttonProps.label ?? 'Choose file'}
                 onClick={handleButtonClick}
             />
-            <Typography
-                variant="caption"
-                color="error"
-                className={styles.photoError}
-            >
+            <Typography variant="caption" color="error" className={styleError}>
                 {errorType === 'fileSize' && errorMessage}
             </Typography>
-        </FormControl>
+        </>
     );
 };
 

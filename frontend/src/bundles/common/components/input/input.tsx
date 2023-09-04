@@ -22,6 +22,8 @@ type Properties<T extends FieldValues> = {
     type?: InputType;
     isDisabled?: boolean;
     adornmentText?: string;
+    className?: string;
+    inputClassNames?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -32,6 +34,8 @@ const Input = <T extends FieldValues>({
     type = 'text',
     isDisabled = false,
     adornmentText = '',
+    className = '',
+    inputClassNames,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -62,16 +66,19 @@ const Input = <T extends FieldValues>({
         );
     }
 
-    const textFieldRootStyles = getValidClassNames(styles.root);
+    // const textFieldRootStyles = getValidClassNames(styles.root);
+    const textFieldRootStyles = getValidClassNames(styles.root, className);
     const muiInputStyles = getValidClassNames(
         styles.inputWrapper,
         isDisabled && styles.inputDisabled,
         hasError && styles.hasError,
+        inputClassNames,
     );
     const htmlInputStyles = getValidClassNames(
         styles.input,
         type === 'search' && styles.inputPaddingSearch,
         adornmentText && styles.inputPaddingTextAdornsment,
+        inputClassNames,
     );
     const helperTextStyles = getValidClassNames(
         styles.helperText,
