@@ -8,10 +8,9 @@ export {
     UserDetailsApiPath,
 } from './enums/enums.js';
 export {
-    type UserDetailsApproveRequestDto,
+    type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 export { userDetailsUpdate as userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
-export { userDetailsApprove as userDetailsApproveValidationSchema } from './validation-schemas/validation-schemas.js';

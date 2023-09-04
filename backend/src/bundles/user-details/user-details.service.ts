@@ -3,7 +3,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import {
-    type UserDetailsApproveRequestDto,
+    type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
@@ -18,15 +18,9 @@ class UserDetailsService implements Service {
     }
 
     public async find(
-        payload: Record<string, unknown>,
-    ): Promise<UserDetailsEntity | undefined> {
+        payload: UserDetailsFindRequestDto,
+    ): Promise<UserDetailsEntity | null> {
         return this.userDetailsRepository.find({ ...payload });
-    }
-
-    public async findUserDetails(payload: {
-        userId: string;
-    }): Promise<UserDetailsEntity | undefined> {
-        return await this.find(payload);
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
@@ -34,7 +28,7 @@ class UserDetailsService implements Service {
     }
 
     public async create(payload: {
-        id: string;
+        userId: string;
     }): Promise<UserDetailsResponseDto> {
         const newUserDetails = await this.userDetailsRepository.create(payload);
         return newUserDetails.toObject();
@@ -59,12 +53,6 @@ class UserDetailsService implements Service {
             id: userDetailsId,
             ...rest,
         });
-    }
-
-    public async approve(
-        payload: UserDetailsApproveRequestDto,
-    ): Promise<UserDetailsEntity | undefined> {
-        return this.userDetailsRepository.update(payload);
     }
 
     public delete(): Promise<boolean> {

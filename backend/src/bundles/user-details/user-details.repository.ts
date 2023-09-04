@@ -1,6 +1,9 @@
 import { type Repository } from '~/common/types/types.js';
 
-import { type UserDetailsUpdateDto } from './types/types.js';
+import {
+    type UserDetailsFindRequestDto,
+    type UserDetailsUpdateDto,
+} from './types/types.js';
 import { UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsModel } from './user-details.model.js';
 
@@ -12,22 +15,26 @@ class UserDetailsRepository implements Repository {
     }
 
     public async find(
-        payload: Record<string, unknown>,
-    ): Promise<UserDetailsEntity | undefined> {
-        const details = await this.userDetailsModel.query().findOne(payload);
+        payload: UserDetailsFindRequestDto,
+    ): Promise<UserDetailsEntity | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ ...payload });
 
-        return details ? UserDetailsEntity.initialize(details) : undefined;
+        return details ? UserDetailsEntity.initialize(details) : null;
     }
 
     public async findAll(): ReturnType<Repository['findAll']> {
         return await Promise.resolve([]);
     }
 
-    public async create(payload: { id: string }): Promise<UserDetailsEntity> {
+    public async create(payload: {
+        userId: string;
+    }): Promise<UserDetailsEntity> {
         const newDetails = await this.userDetailsModel
             .query()
             .insert({
-                userId: payload.id,
+                userId: payload.userId,
                 fullName: '',
             })
             .returning('*')
