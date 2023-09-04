@@ -7,6 +7,7 @@ const IconName = {
     CHECK_CIRCLE: 'check-circle',
     PERSON: 'person',
     HEADPHONES: 'headphones',
+    WIFI_OFF: 'wifi-off',
 } as const;
 
 export { IconName };
