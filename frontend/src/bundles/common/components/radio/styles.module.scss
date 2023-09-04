@@ -1,6 +1,7 @@
 .radio-icon {
     width: 16px;
     height: 16px;
+    margin: 5px;
     background-color: var(--background-primary);
     background-image: linear-gradient(
         180deg,
@@ -50,4 +51,11 @@
 
 .radio-icon-checked input:hover {
     background-color: var(--background-secondary);
+}
+
+.radio-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    row-gap: 10px;
 }

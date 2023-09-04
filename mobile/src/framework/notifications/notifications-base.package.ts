@@ -1,6 +1,9 @@
 import Toast from 'react-native-toast-message';
 
-import { type Notification } from '~/framework/notifications/types/types';
+import {
+    type Notification,
+    type ShowMessageArguments,
+} from '~/framework/notifications/types/types';
 
 class BaseNotifications implements Notification {
     private notify: typeof Toast;
@@ -9,17 +12,17 @@ class BaseNotifications implements Notification {
         this.notify = Toast;
     }
 
-    public showError(value: string): void {
+    public showError(settings: ShowMessageArguments): void {
         this.notify.show({
             type: 'error',
-            text1: value,
+            ...settings,
         });
     }
 
-    public showSuccess(value: string): void {
+    public showSuccess(settings: ShowMessageArguments): void {
         this.notify.show({
             type: 'success',
-            text1: value,
+            ...settings,
         });
     }
 }
