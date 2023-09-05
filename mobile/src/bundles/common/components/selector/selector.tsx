@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import Animated, {
+    useAnimatedStyle,
+    withTiming,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -11,6 +15,7 @@ import {
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
+import { SELECTOR_STYLE } from './constants/constants';
 import { styles } from './styles';
 
 type Select = {
@@ -23,11 +28,28 @@ type Properties = {
     onSelect?: (item: Select) => void;
 };
 
-const iconDefaultSize = 24;
+const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
+    SELECTOR_STYLE;
 
 const Selector: React.FC<Properties> = ({ options }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [isListVisible, setIsListVisible] = useState(false);
+    const iconAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { rotate: withTiming(isListVisible ? '180deg' : '0deg') },
+            ],
+        };
+    });
+
+    const heightAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            maxHeight: withTiming(
+                isListVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
+                { duration: 400 },
+            ),
+        };
+    });
 
     const toggleIsListVisible = (): void => {
         setIsListVisible((previous) => !previous);
@@ -37,10 +59,6 @@ const Selector: React.FC<Properties> = ({ options }) => {
         toggleIsListVisible();
         setSelectedOption(option.label);
     };
-
-    const selectIconName = isListVisible
-        ? IconName.ARROW_DROP_UP
-        : IconName.ARROW_DROP_DOWN;
 
     return (
         <View style={styles.container}>
@@ -58,20 +76,23 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 onPress={toggleIsListVisible}
             >
                 <Text category={TextCategory.LABEL}>{selectedOption}</Text>
-                <Icon
-                    name={selectIconName}
-                    size={iconDefaultSize}
-                    color={Color.PRIMARY}
-                />
+                <Animated.View style={iconAnimatedStyle}>
+                    <Icon
+                        name={IconName.ARROW_DROP_DOWN}
+                        size={ICON_SIZE}
+                        color={Color.PRIMARY}
+                    />
+                </Animated.View>
             </Pressable>
             {isListVisible && (
-                <View
+                <Animated.View
                     style={[
                         globalStyles.pl20,
                         globalStyles.pb5,
                         globalStyles.width100,
                         styles.dropdown,
                         styles.dropdownButton,
+                        heightAnimatedStyle,
                     ]}
                 >
                     <ScrollView nestedScrollEnabled>
@@ -91,7 +112,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-                </View>
+                </Animated.View>
             )}
         </View>
     );

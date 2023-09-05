@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import { Color } from '~/bundles/common/enums/enums';
 
+import { SELECTOR_STYLE } from './constants/constants';
+
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
     dropdown: {
         position: 'absolute',
         top: '95%',
-        maxHeight: 150,
+        maxHeight: SELECTOR_STYLE.MAX_DROPDOWN_HEIGHT,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         backgroundColor: '#FFF',
