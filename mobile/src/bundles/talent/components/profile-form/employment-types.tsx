@@ -5,22 +5,17 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import { CheckboxInGroup, View } from '~/bundles/common/components/components';
+import { Checkbox, View } from '~/bundles/common/components/components';
 import { splitArrayInHalf } from '~/bundles/common/helpers/helpers';
 import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type CheckboxGroup = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     control: Control<T, null>;
-    options: CheckboxGroup[];
+    options: string[];
 };
 
 const EmploymentTypes = <T extends FieldValues>({
@@ -33,10 +28,10 @@ const EmploymentTypes = <T extends FieldValues>({
 
     const [column1Options, column2Options] = splitArrayInHalf(options);
 
-    const handleCheckboxOnChange = useCallback(
+    const handleToggleCheckbox = useCallback(
         (selectedType: string) => {
-            const isChecked = value.includes(selectedType);
-            const updatedEmploymentTypes = isChecked
+            const isCheckedBefore = value.includes(selectedType);
+            const updatedEmploymentTypes = isCheckedBefore
                 ? value.filter((type: string) => type !== selectedType)
                 : [...value, selectedType];
 
@@ -44,6 +39,19 @@ const EmploymentTypes = <T extends FieldValues>({
         },
         [value, onChange],
     );
+
+    const renderCheckboxOption = (options: string[]): JSX.Element[] => {
+        return options.map((option) => (
+            <Checkbox
+                key={option}
+                label={option}
+                isChecked={value.includes(option)}
+                onChange={(): void => {
+                    handleToggleCheckbox(option);
+                }}
+            />
+        ));
+    };
 
     return (
         <View
@@ -54,28 +62,10 @@ const EmploymentTypes = <T extends FieldValues>({
             ]}
         >
             <View style={globalStyles.flex1}>
-                {column1Options.map((option) => (
-                    <CheckboxInGroup
-                        key={option.label}
-                        label={option.label}
-                        isChecked={value.includes(option.value)}
-                        onChange={(): void => {
-                            handleCheckboxOnChange(option.value);
-                        }}
-                    />
-                ))}
+                {renderCheckboxOption(column1Options)}
             </View>
             <View style={globalStyles.flex1}>
-                {column2Options.map((option) => (
-                    <CheckboxInGroup
-                        key={option.label}
-                        label={option.label}
-                        isChecked={value.includes(option.value)}
-                        onChange={(): void => {
-                            handleCheckboxOnChange(option.value);
-                        }}
-                    />
-                ))}
+                {renderCheckboxOption(column2Options)}
             </View>
         </View>
     );

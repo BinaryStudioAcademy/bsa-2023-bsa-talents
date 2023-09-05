@@ -29,32 +29,22 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
+import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 import { EmploymentTypes } from './employment-types';
 import { styles } from './styles';
 
-const jobTitleOptions = Object.values(JobTitle).map((title) => ({
-    value: title,
-    label: title,
-}));
-
-const locationOptions = Object.values(CountryList).map((country) => ({
-    value: country,
-    label: country,
-}));
-
-const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
-    value: type,
-    label: type,
-}));
+const jobTitleOptions = Object.values(JobTitle);
+const locationOptions = Object.values(CountryList);
+const employmentTypeOptions = Object.values(EmploymentType);
 
 type Properties = {
-    data: ProfileStepDto;
+    profileStepData: ProfileStepDto | null;
     onSubmit: (payload: ProfileStepDto) => void;
 };
 
-const ProfileForm: React.FC<Properties> = ({ data, onSubmit }) => {
+const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: data,
+        defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
         validationSchema: ProfileStepValidationSchema,
     });
 
@@ -65,8 +55,7 @@ const ProfileForm: React.FC<Properties> = ({ data, onSubmit }) => {
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
-            data.salaryExpectation = Number(data.salaryExpectation);
-            onSubmit(data);
+            onSubmit({ ...data, salaryExpectation: +data.salaryExpectation });
 
             navigate(TalentOnboardingScreenName.BSA_BADGES, {
                 stepState: TalentOnboardingStepState.FOCUSED,

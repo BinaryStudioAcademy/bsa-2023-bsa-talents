@@ -1,7 +1,6 @@
 export { Avatar } from './avatar/avatar';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
-export { CheckboxInGroup } from './checkbox-in-group/checkbox-in-group';
 export { FormField } from './form-field/form-field';
 export { ImagePicker } from './image-picker/image-picker';
 export { Input } from './input/input';

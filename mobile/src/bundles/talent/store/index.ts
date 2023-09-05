@@ -1,9 +1,9 @@
-import { setProfileStep } from './actions';
+import { completeProfileStep } from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
-    setProfileStep,
+    completeProfileStep,
 };
 
 export { allActions as actions };

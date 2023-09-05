@@ -19,17 +19,12 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type Select = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    options: Select[];
+    options: string[];
     placeholder?: string;
-    onSelect?: (item: Select) => void;
+    onSelect?: (item: string) => void;
 };
 
 const iconDefaultSize = 24;
@@ -48,13 +43,12 @@ const Selector = <T extends FieldValues>({
         setIsListVisible((previous) => !previous);
     };
 
-    const handlePressItem = (option: Select): void => {
+    const handlePressItem = (option: string): void => {
         toggleIsListVisible();
-        onChange(option.label);
+        onChange(option);
     };
 
-    const selectedOption = options.find((option) => option.value === value)
-        ?.label;
+    const selectedOption = options.find((option) => option === value);
 
     const selectIconName = isListVisible
         ? IconName.ARROW_DROP_UP
@@ -97,7 +91,7 @@ const Selector = <T extends FieldValues>({
                     <ScrollView nestedScrollEnabled>
                         {options.map((item) => (
                             <TouchableOpacity
-                                key={item.value}
+                                key={item}
                                 onPress={(): void => {
                                     handlePressItem(item);
                                 }}
@@ -106,7 +100,7 @@ const Selector = <T extends FieldValues>({
                                     category={TextCategory.LABEL}
                                     style={globalStyles.pv5}
                                 >
-                                    {item.label}
+                                    {item}
                                 </Text>
                             </TouchableOpacity>
                         ))}

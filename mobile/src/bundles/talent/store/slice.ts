@@ -4,24 +4,16 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
-import { setProfileStep } from './actions';
+import { completeProfileStep } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    profileFormData: ProfileStepDto;
+    profileStepData: ProfileStepDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    profileFormData: {
-        profileName: '',
-        salaryExpectation: 0,
-        employmentTypes: [],
-        experienceYears: 0,
-        jobTitle: '',
-        location: '',
-        description: '',
-    },
+    profileStepData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -29,7 +21,7 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(setProfileStep.fulfilled, (state, action) => {
+        builder.addCase(completeProfileStep.fulfilled, (state, action) => {
             const {
                 profileName,
                 salaryExpectation,
@@ -40,7 +32,7 @@ const { reducer, actions, name } = createSlice({
                 description,
             } = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
-            state.profileFormData = {
+            state.profileStepData = {
                 profileName,
                 salaryExpectation,
                 employmentTypes,
@@ -50,10 +42,10 @@ const { reducer, actions, name } = createSlice({
                 description,
             };
         });
-        builder.addCase(setProfileStep.pending, (state) => {
+        builder.addCase(completeProfileStep.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
-        builder.addCase(setProfileStep.rejected, (state) => {
+        builder.addCase(completeProfileStep.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
     },

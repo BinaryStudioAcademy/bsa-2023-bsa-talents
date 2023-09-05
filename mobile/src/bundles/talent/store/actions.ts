@@ -5,7 +5,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 import { name as sliceName } from './slice';
 
-const setProfileStep = createAsyncThunk<
+const completeProfileStep = createAsyncThunk<
     ProfileStepDto,
     ProfileStepDto,
     AsyncThunkConfig
@@ -14,4 +14,4 @@ const setProfileStep = createAsyncThunk<
     return talentApi.setProfileStep(profileStepPayload);
 });
 
-export { setProfileStep };
+export { completeProfileStep };

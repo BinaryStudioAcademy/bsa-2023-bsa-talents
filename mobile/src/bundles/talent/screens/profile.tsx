@@ -24,7 +24,7 @@ const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
     const { profileStepData } = useAppSelector(({ talents }) => ({
-        profileStepData: talents.profileFormData,
+        profileStepData: talents.profileStepData,
     }));
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
@@ -32,7 +32,7 @@ const Profile: React.FC = () => {
 
     const handleProfileSubmit = useCallback(
         (payload: ProfileStepDto): void => {
-            void dispatch(talentActions.setProfileStep(payload));
+            void dispatch(talentActions.completeProfileStep(payload));
         },
         [dispatch],
     );
@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm
-                data={profileStepData}
+                profileStepData={profileStepData}
                 onSubmit={handleProfileSubmit}
             />
         </View>
