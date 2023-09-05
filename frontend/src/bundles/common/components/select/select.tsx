@@ -8,10 +8,13 @@ import {
 } from 'react-hook-form';
 
 import arrowIcon from '~/assets/img/select-arrow.svg';
-import { useFormController } from '~/bundles/common/hooks/hooks.js';
+import {
+    useCallback,
+    useFormController,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { FormControl, FormLabel } from '../components.js';
-import styles from './select.module.scss';
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
@@ -39,6 +42,8 @@ const Select = <T extends FieldValues>({
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
     const firstElementIndex = 0;
+    const secondElementIndex = 1;
+
     const { field } = useFormController({
         name,
         control,
@@ -46,6 +51,48 @@ const Select = <T extends FieldValues>({
             ? [options[firstElementIndex].value]
             : options[firstElementIndex].value) as PathValue<T, Path<T>>,
     });
+
+    const handleSelectChange = useCallback(
+        (selected: PathValue<T, Path<T>>): React.ReactNode => {
+            if (Array.isArray(selected)) {
+                if (
+                    selected[firstElementIndex] === ' ' &&
+                    selected.length === secondElementIndex
+                ) {
+                    return (
+                        <span className={styles.placeholder}>
+                            {placeholder}
+                        </span>
+                    );
+                }
+                return selected
+                    .slice(secondElementIndex)
+                    .map((value: string | number) => (
+                        <span key={value} className={styles.option}>
+                            {
+                                options.find((item) => item.value === value)
+                                    ?.label
+                            }
+                            ,&nbsp;
+                        </span>
+                    ));
+            } else if (
+                selected === ' ' ||
+                selected[firstElementIndex] === ' '
+            ) {
+                return (
+                    <span className={styles.placeholder}>{placeholder}</span>
+                );
+            } else {
+                return (
+                    <span className={styles.option}>
+                        {options.find((item) => item.value === selected)?.label}
+                    </span>
+                );
+            }
+        },
+        [options, placeholder],
+    );
 
     return (
         <FormControl
@@ -59,12 +106,8 @@ const Select = <T extends FieldValues>({
                 multiple={multiple}
                 IconComponent={ArrowIcon}
                 className={styles.input}
+                renderValue={handleSelectChange}
             >
-                {!multiple && (
-                    <MenuItem disabled value=" ">
-                        {placeholder}
-                    </MenuItem>
-                )}
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                         {option.label}

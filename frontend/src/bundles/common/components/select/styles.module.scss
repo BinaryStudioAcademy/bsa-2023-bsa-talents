@@ -7,7 +7,7 @@
 .container .input {
     height: 38px;
     padding: 10px 7px 12px 14px;
-    color: var(--nepal);
+    color: var(--steel-gray);
     font-weight: var(--font-weight-regular);
     border: 1px solid var(--botticelli);
     border-radius: 4px;
@@ -16,11 +16,23 @@
         box-shadow 0.3s;
 }
 
+.container .placeholder {
+    color: var(--nepal);
+}
+
+.option {
+    color: var(--steel-gray);
+    font-weight: var(--font-weight-regular);
+}
+
 .container .icon {
+    position: absolute;
+    right: 7px;
     width: 20px;
     height: 20px;
     transform: rotate(0deg);
     transition: transform 0.3s ease;
+    pointer-events: none;
 }
 
 .container div[aria-expanded="true"] ~ .icon {
