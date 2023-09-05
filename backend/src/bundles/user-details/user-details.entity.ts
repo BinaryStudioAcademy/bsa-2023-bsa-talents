@@ -47,7 +47,7 @@ class UserDetailsEntity implements Entity {
 
     private 'photoId': string | null;
 
-    private 'fullName': string | null;
+    private 'fullName': string;
 
     private 'phone': string | null;
 

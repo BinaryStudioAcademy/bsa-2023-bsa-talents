@@ -28,7 +28,7 @@ type UserDetailsResponseDto = {
     preferredLanguages: ValueOf<typeof PreferredLanguages>[] | null;
     projectLinks: string[] | null;
     photoId: string | null;
-    fullName: string | null;
+    fullName: string;
     phone: string | null;
     linkedinLink: string | null;
     companyName: string | null;
