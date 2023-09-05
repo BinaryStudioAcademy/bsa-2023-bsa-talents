@@ -8,7 +8,8 @@ const ContactsCVStepValidationMessage = {
     LINKEDIN_LINK_REQUIRED: 'LinkedIn is required',
     LINKRDIN_LINK_LENGTH:
         'LinkedIn must be between {{#limit.min}} and {{#limit.max}} characters',
-    LINKEDIN_LINK_WRONG_PATTERN: 'LinkedIn link is invalid',
+    LINKEDIN_LINK_WRONG_PATTERN:
+        'LinkedIn link must begin with linkedin.com/in/',
     LINKEDIN_LINK_MIN_LENGTH:
         'LinkedIn link must be at least {{#limit}} characters',
     LINKEDIN_LINK_MAX_LENGTH:
