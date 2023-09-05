@@ -22,7 +22,12 @@ const { reducer, actions, name } = createSlice({
             state.profileStep = action.payload;
         });
         builder.addCase(contactsCVStep.fulfilled, (state, action) => {
-            state.contactsCVStep = action.payload;
+            const { fullName, phoneNumber, linkedInLink } = action.payload;
+            if (state.contactsCVStep) {
+                state.contactsCVStep.fullName = fullName;
+                state.contactsCVStep.phoneNumber = phoneNumber;
+                state.contactsCVStep.linkedInLink = linkedInLink;
+            }
         });
     },
 });
