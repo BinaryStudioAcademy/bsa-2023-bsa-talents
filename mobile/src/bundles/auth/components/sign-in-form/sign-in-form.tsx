@@ -12,7 +12,7 @@ import {
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -34,8 +34,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.flex1,
                 globalStyles.justifyContentCenter,
+                globalStyles.borderRadius10,
+                globalStyles.width100,
                 styles.container,
             ]}
         >
@@ -87,6 +88,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.flexDirectionRow,
                     globalStyles.alignSelfCenter,
                     globalStyles.alignItemsCenter,
+                    globalStyles.mt20,
                 ]}
             >
                 <Text category={TextCategory.BODY1} style={styles.text}>

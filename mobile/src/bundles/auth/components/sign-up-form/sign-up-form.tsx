@@ -51,63 +51,68 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.flex1,
                 globalStyles.justifyContentCenter,
-                styles.wrapper,
+                globalStyles.borderRadius10,
+                globalStyles.width100,
+                styles.container,
             ]}
         >
             <Text
-                category={TextCategory.H2}
-                style={globalStyles.alignSelfCenter}
+                category={TextCategory.H4}
+                style={[
+                    globalStyles.pb25,
+                    globalStyles.alignSelfCenter,
+                    styles.title,
+                ]}
             >
                 Sign Up
             </Text>
-            <FormField errors={errors} label="Email" name="email" required>
-                <Input
-                    control={control}
-                    name="email"
-                    placeholder="Enter your email"
-                />
-            </FormField>
-            <FormField
-                errors={errors}
-                label="Password"
-                name="password"
-                required
-            >
-                <Input
-                    control={control}
+            <View style={styles.formWrapper}>
+                <FormField errors={errors} label="Email" name="email" required>
+                    <Input
+                        control={control}
+                        name="email"
+                        placeholder="Enter your email"
+                    />
+                </FormField>
+                <FormField
+                    errors={errors}
+                    label="Password"
                     name="password"
-                    placeholder="Enter your password"
-                    secureTextEntry
+                    required
+                >
+                    <Input
+                        control={control}
+                        name="password"
+                        placeholder="Enter your password"
+                        secureTextEntry
+                    />
+                </FormField>
+                <Button
+                    label="Sign up"
+                    onPress={handleFormSubmit}
+                    style={[globalStyles.mt25, globalStyles.pv15]}
                 />
-            </FormField>
-
-            <View
-                style={[
-                    globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentCenter,
-                ]}
-            >
-                <RadioButtons
-                    radioButtons={radioButtons}
-                    control={control}
-                    layout="row"
-                    name="role"
-                />
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentCenter,
+                    ]}
+                >
+                    <RadioButtons
+                        radioButtons={radioButtons}
+                        control={control}
+                        layout="row"
+                        name="role"
+                    />
+                </View>
             </View>
-
-            <Button
-                label="Sign up"
-                style={[globalStyles.mt25, globalStyles.pv15]}
-                onPress={handleFormSubmit}
-            />
-
             <View
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.alignSelfCenter,
                     globalStyles.alignItemsCenter,
+                    globalStyles.mt20,
                 ]}
             >
                 <Text category={TextCategory.BODY1} style={styles.text}>

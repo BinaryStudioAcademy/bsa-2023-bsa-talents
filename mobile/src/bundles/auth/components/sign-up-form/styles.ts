@@ -1,17 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-import { Color } from '~/bundles/common/enums/enums';
+import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    wrapper: {
-        gap: 25,
+    container: {
+        gap: 10,
         backgroundColor: '#FFFFFF',
+    },
+    title: {
+        fontFamily: FontFamily.INTER_BOLD,
     },
     text: {
         color: Color.TEXT2,
     },
     linkToSignIn: {
         color: Color.PRIMARY,
+    },
+    formWrapper: {
+        gap: 25,
     },
 });
 
