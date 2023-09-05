@@ -1,12 +1,12 @@
 .container {
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px);
     padding: 20px;
     background-color: var(--steel-gray);
 }
 
-.selling-point {
+.sellingPoint {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
@@ -31,7 +31,7 @@
     }
 }
 
-.form-wrapper {
+.formWrapper {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@
     padding-left: 27px;
 }
 
-.animated-text-wrapper {
+.animatedTextWrapper {
     position: relative;
     display: none;
     width: 550px;
@@ -70,12 +70,12 @@
     animation: openclose 5s ease-in-out infinite;
 }
 
-.message-1 {
+.messageOne {
     margin-bottom: 10px;
 }
 
 @media screen and (width >= 900px) {
-    .selling-point {
+    .sellingPoint {
         display: flex;
         gap: 27px;
 
@@ -89,7 +89,7 @@
         padding: 40px;
     }
 
-    .animated-text-wrapper {
+    .animatedTextWrapper {
         display: block;
     }
 }

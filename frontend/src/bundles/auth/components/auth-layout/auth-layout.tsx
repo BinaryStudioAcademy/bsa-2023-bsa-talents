@@ -12,17 +12,17 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
         <>
             <Grid container className={styles.container}>
                 <Grid item xs={12} md={6}>
-                    <Grid item className={styles['selling-point']}>
+                    <Grid item className={styles.sellingPoint}>
                         <div className={styles.logo}></div>{' '}
                         {/* TODO: Change to Logo component*/}
                         <Typography
-                            className={styles['animated-text-wrapper']}
+                            className={styles.animatedTextWrapper}
                             variant="h1"
                         >
-                            <div className={styles.message}>
+                            <Grid className={styles.message}>
                                 <span
                                     className={getValidClassNames(
-                                        styles['message-1'],
+                                        styles.messageOne,
                                         styles.text,
                                     )}
                                 >
@@ -38,11 +38,11 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
                                 >
                                     Start your career easily.{' '}
                                 </span>
-                            </div>
+                            </Grid>
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid className={styles['form-wrapper']} item xs={12} md={6}>
+                <Grid className={styles.formWrapper} item xs={12} md={6}>
                     <Grid item className={styles.wrapper}>
                         {children}
                     </Grid>
