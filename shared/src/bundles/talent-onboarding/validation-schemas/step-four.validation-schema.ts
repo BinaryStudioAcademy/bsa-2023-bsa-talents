@@ -61,28 +61,26 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
                 StepFourValidationMessage.LINKEDIN_LINK_REGEX,
         }),
 
-    cv: joi
-        .object()
-        .keys({
-            size: joi
-                .number()
-                .integer()
-                .max(StepFourValidationRule.CV_MAX_SIZE)
-                .required()
-                .messages({
-                    'number.max': StepFourValidationMessage.CV_MAX_SIZE,
-                }),
-            name: joi
-                .string()
-                .regex(StepFourValidationRule.CV_TYPE_REGEX)
-                .required()
-                .messages({
-                    'string.pattern.base':
-                        StepFourValidationMessage.CV_TYPE_REGEX,
-                }),
-            uri: joi.string().required(),
-        })
-        .required(),
+    cv: joi.object().keys({
+        size: joi
+            .number()
+            .integer()
+            .max(StepFourValidationRule.CV_MAX_SIZE)
+            .messages({
+                'number.max': StepFourValidationMessage.CV_MAX_SIZE,
+            }),
+        name: joi
+            .string()
+            .regex(StepFourValidationRule.CV_TYPE_REGEX)
+            .required()
+            .messages({
+                'string.empty': StepFourValidationMessage.CV_REQUIRED,
+                'string.pattern.base': StepFourValidationMessage.CV_TYPE_REGEX,
+            }),
+        uri: joi.string().required().messages({
+            'string.empty': '',
+        }),
+    }),
 });
 
 export { StepFourValidationSchema };

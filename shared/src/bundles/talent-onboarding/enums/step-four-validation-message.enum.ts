@@ -19,6 +19,7 @@ const StepFourValidationMessage = {
         'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
     CV_MAX_SIZE: 'Max size 5MB size',
     CV_TYPE_REGEX: 'Allowed types for CV file should be docx, doc, pdf',
+    CV_REQUIRED: 'CV is required',
 } as const;
 
 export { StepFourValidationMessage };
