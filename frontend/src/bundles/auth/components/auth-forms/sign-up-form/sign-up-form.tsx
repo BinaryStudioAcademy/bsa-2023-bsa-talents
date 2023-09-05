@@ -2,6 +2,7 @@ import { UserRole } from 'shared/build/index.js';
 
 import {
     Button,
+    Checkbox,
     FormControl,
     FormLabel,
     Grid,
@@ -10,7 +11,11 @@ import {
     RadioGroup,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -35,6 +40,8 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    const [selectedRole, setSelectedRole] = useState('talent');
+
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
@@ -45,6 +52,37 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
+    );
+
+    const handleRadioChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            let role = 'talent';
+            switch (event.target.value) {
+                case UserRole.TALENT: {
+                    role = UserRole.TALENT;
+                    break;
+                }
+                case UserRole.EMPLOYER: {
+                    role = UserRole.EMPLOYER;
+                    break;
+                }
+                case UserRole.ADMIN: {
+                    role = UserRole.ADMIN;
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+            setSelectedRole(role);
+        },
+        [],
+    );
+
+    const checkboxLabel = (
+        <Grid className={styles.termsLabel}>
+            I agree to the <Link to="/">BSA Talents Terms</Link>
+        </Grid>
     );
 
     return (
@@ -86,8 +124,20 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         options={options}
                         name={'role'}
+                        value={selectedRole}
+                        onChange={handleRadioChange}
                     />
                 </FormControl>
+                {selectedRole === UserRole.TALENT && (
+                    <FormControl>
+                        <Checkbox
+                            label={checkboxLabel}
+                            isRequired
+                            isDefaultChecked
+                        />
+                    </FormControl>
+                )}
+
                 <Button
                     label="Continue"
                     className={getValidClassNames(
