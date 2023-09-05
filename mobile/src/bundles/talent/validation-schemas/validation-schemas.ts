@@ -1,1 +1,1 @@
-export { onboardingStepFourValidationSchema } from 'shared/build/index';
+export { StepFourValidationSchema } from 'shared/build/index';
