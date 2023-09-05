@@ -25,7 +25,11 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
         .trim()
         .required()
         .min(AUTH_CONSTANTS.MIN_PASSWORD_LENGTH)
-        .max(AUTH_CONSTANTS.MAX_LOGIN_INPUT_LENGTH),
+        .max(AUTH_CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
+        .regex(AUTH_CONSTANTS.PASSWORD_REGEXP)
+        .messages({
+            'string.pattern.base': UserValidationMessage.PASSWORD_WRONG,
+        }),
     role: joi
         .string()
         .trim()

@@ -12,6 +12,7 @@
 }
 
 .slider .track {
+    background-color: var(--st-tropaz);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -54,7 +55,10 @@
     opacity: 0;
 }
 
+.slider .rail {
+    background-color: var(--nepal);
+}
+
 .sliderContainer {
-    width: 250px;
-    margin: 10px;
+    margin: 5px;
 }

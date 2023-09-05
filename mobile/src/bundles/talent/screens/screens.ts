@@ -1,5 +1,5 @@
 export { BsaBadges } from './bsa-badges/bsa-badges';
-export { CvAndContacts } from './cv-and-contacts';
+export { CVAndContacts } from './cv-and-contacts';
 export { Mail } from './mail';
 export { Preview } from './preview';
 export { Profile } from './profile';
