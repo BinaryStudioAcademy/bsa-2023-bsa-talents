@@ -1,3 +1,4 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
@@ -9,8 +10,17 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    TalentOnboardingScreenName,
+    TalentOnboardingStepState,
+} from '~/bundles/common/enums/enums';
+import {
+    useAppForm,
+    useCallback,
+    useNavigation,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import {
     CountryList,
     EmploymentType,
@@ -19,7 +29,6 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 import { EmploymentTypes } from './employment-types';
 import { styles } from './styles';
 
@@ -39,21 +48,31 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
 }));
 
 type Properties = {
+    data: ProfileStepDto;
     onSubmit: (payload: ProfileStepDto) => void;
 };
 
-const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
+const ProfileForm: React.FC<Properties> = ({ data, onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
+        defaultValues: data,
         validationSchema: ProfileStepValidationSchema,
     });
+
+    const { navigate } =
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
             data.salaryExpectation = Number(data.salaryExpectation);
             onSubmit(data);
+
+            navigate(TalentOnboardingScreenName.BSA_BADGES, {
+                stepState: TalentOnboardingStepState.FOCUSED,
+            });
         })();
-    }, [handleSubmit, onSubmit]);
+    }, [handleSubmit, onSubmit, navigate]);
 
     return (
         <ScrollView

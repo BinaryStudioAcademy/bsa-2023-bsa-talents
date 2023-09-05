@@ -8,6 +8,7 @@ import {
 import {
     useAppDispatch,
     useAppRoute,
+    useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -22,10 +23,9 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    //TODO use profileStep as initial data for ProfileForm
-    // const { profileStep } = useAppSelector(({ talents }) => ({
-    //     profileStep: talents.profileFormData,
-    // }));
+    const { profileStepData } = useAppSelector(({ talents }) => ({
+        profileStepData: talents.profileFormData,
+    }));
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -40,7 +40,10 @@ const Profile: React.FC = () => {
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <ProfileForm onSubmit={handleProfileSubmit} />
+            <ProfileForm
+                data={profileStepData}
+                onSubmit={handleProfileSubmit}
+            />
         </View>
     );
 };

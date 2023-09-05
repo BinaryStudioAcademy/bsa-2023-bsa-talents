@@ -8,14 +8,11 @@ import { setProfileStep } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    //TODO get current user, whose data should be changed
-    userData: object;
     profileFormData: ProfileStepDto;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    userData: {},
     profileFormData: {
         profileName: '',
         salaryExpectation: 0,
@@ -43,7 +40,7 @@ const { reducer, actions, name } = createSlice({
                 description,
             } = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
-            state.userData = {
+            state.profileFormData = {
                 profileName,
                 salaryExpectation,
                 employmentTypes,
