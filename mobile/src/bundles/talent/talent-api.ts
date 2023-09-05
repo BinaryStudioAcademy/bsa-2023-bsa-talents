@@ -17,7 +17,7 @@ class TalentApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.AUTH, baseUrl, http, storage });
     }
-    public setProfileStep(payload: ProfileStepDto): ProfileStepDto {
+    public completeProfileStep(payload: ProfileStepDto): ProfileStepDto {
         return payload;
     }
 
@@ -25,7 +25,7 @@ class TalentApi extends HttpApiBase {
     //     super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     // }
 
-    // public async setProfileStep(
+    // public async completeProfileStep(
     //     payload: ProfileStepDto,
     // ): Promise<ProfileStepDto> {
     //     const response = await this.load(

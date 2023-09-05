@@ -11,7 +11,7 @@ const completeProfileStep = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/profile-step`, (profileStepPayload, { extra }) => {
     const { talentApi } = extra;
-    return talentApi.setProfileStep(profileStepPayload);
+    return talentApi.completeProfileStep(profileStepPayload);
 });
 
 export { completeProfileStep };
