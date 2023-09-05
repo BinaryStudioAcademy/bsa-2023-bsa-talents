@@ -41,23 +41,23 @@ const Select = <T extends FieldValues>({
     isDisabled,
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
-    const firstElementIndex = 0;
-    const secondElementIndex = 1;
+    const FIRST_ELEMENT_INDEX = 0;
+    const SECOND_ELEMENT_INDEX = 1;
 
     const { field } = useFormController({
         name,
         control,
         defaultValue: (multiple
-            ? [options[firstElementIndex].value]
-            : options[firstElementIndex].value) as PathValue<T, Path<T>>,
+            ? [options[FIRST_ELEMENT_INDEX].value]
+            : options[FIRST_ELEMENT_INDEX].value) as PathValue<T, Path<T>>,
     });
 
     const handleSelectChange = useCallback(
         (selected: PathValue<T, Path<T>>): React.ReactNode => {
             if (Array.isArray(selected)) {
                 if (
-                    selected[firstElementIndex] === ' ' &&
-                    selected.length === secondElementIndex
+                    selected[FIRST_ELEMENT_INDEX] === ' ' &&
+                    selected.length === SECOND_ELEMENT_INDEX
                 ) {
                     return (
                         <span className={styles.placeholder}>
@@ -66,7 +66,7 @@ const Select = <T extends FieldValues>({
                     );
                 }
                 return selected
-                    .slice(secondElementIndex)
+                    .slice(SECOND_ELEMENT_INDEX)
                     .map((value: string | number) => (
                         <span key={value} className={styles.option}>
                             {
@@ -78,7 +78,7 @@ const Select = <T extends FieldValues>({
                     ));
             } else if (
                 selected === ' ' ||
-                selected[firstElementIndex] === ' '
+                selected[FIRST_ELEMENT_INDEX] === ' '
             ) {
                 return (
                     <span className={styles.placeholder}>{placeholder}</span>
