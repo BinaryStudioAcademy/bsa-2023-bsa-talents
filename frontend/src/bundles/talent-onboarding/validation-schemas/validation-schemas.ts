@@ -1,1 +1,4 @@
-export { ProfileStepValidationSchema } from 'shared/build/index.js';
+export {
+    BsaBadgesStepValidationSchema,
+    ProfileStepValidationSchema,
+} from 'shared/build/index.js';
