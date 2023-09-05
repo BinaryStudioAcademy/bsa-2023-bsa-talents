@@ -1,8 +1,9 @@
-import { profileStep } from './actions.js';
+import { bsaBadgesStep, profileStep } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
+    bsaBadgesStep,
     profileStep,
 };
 

@@ -1,31 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_PAYLOAD_PROFILE_STEP as initialState } from '~/bundles/talent-onboarding/components/profile-step/constants/constants.js';
+import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '~/bundles/talent-onboarding/components/bsa-badges-step/constants/constants.js';
+import { DEFAULT_PAYLOAD_PROFILE_STEP } from '~/bundles/talent-onboarding/components/profile-step/constants/constants.js';
 
-import { profileStep } from './actions.js';
+import { type BsaBadgesStepDto, type ProfileStepDto } from '../types/types.js';
+import { bsaBadgesStep, profileStep } from './actions.js';
+
+type State = {
+    profileStep: ProfileStepDto;
+    bsaBadgesStep: BsaBadgesStepDto;
+};
+
+const initialState: State = {
+    profileStep: DEFAULT_PAYLOAD_PROFILE_STEP,
+    bsaBadgesStep: DEFAULT_PAYLOAD_BSA_BADGES_STEP,
+};
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'signUp',
+    name: 'talentOnBoarding',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(profileStep.fulfilled, (state, action) => {
-            const {
-                profileName,
-                salaryExpectation,
-                employmentTypes,
-                experienceYears,
-                jobTitle,
-                location,
-                description,
-            } = action.payload;
-            state.description = description;
-            state.employmentTypes = employmentTypes;
-            state.experienceYears = experienceYears;
-            state.jobTitle = jobTitle;
-            state.location = location;
-            state.profileName = profileName;
-            state.salaryExpectation = salaryExpectation;
+            state.profileStep = action.payload;
+        });
+        builder.addCase(bsaBadgesStep.fulfilled, (state, action) => {
+            state.bsaBadgesStep = action.payload;
         });
     },
 });

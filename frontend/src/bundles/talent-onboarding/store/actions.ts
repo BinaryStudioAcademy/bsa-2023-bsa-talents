@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type ProfileStepDto } from 'shared/build/index.js';
+import {
+    type BsaBadgesStepDto,
+    type ProfileStepDto,
+} from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -13,4 +16,12 @@ const profileStep = createAsyncThunk<
     return registerPayload;
 });
 
-export { profileStep };
+const bsaBadgesStep = createAsyncThunk<
+    BsaBadgesStepDto,
+    BsaBadgesStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/bsa-badges-step`, (registerPayload) => {
+    return registerPayload;
+});
+
+export { bsaBadgesStep, profileStep };
