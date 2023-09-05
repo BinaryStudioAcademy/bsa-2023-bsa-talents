@@ -1,3 +1,4 @@
+export { BsaBadgesStep } from './bsa-badges-step/bsa-badges-step.js';
 export { ProfileStep } from './profile-step/profile-step.js';
 export { StepContent } from './step-content/step-content.js';
 export { StepNavigation } from './step-navigation/step-navigation.js';
