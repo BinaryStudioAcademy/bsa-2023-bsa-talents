@@ -27,7 +27,7 @@ const StepNavigation: React.FC = () => {
             return <CV />;
         }
         case STEP_ROUTES.STEP_05: {
-            return <CandidateProfile isProfileOpen={false} isFifthStep />;
+            return <CandidateProfile isFifthStep />;
         }
     }
 };

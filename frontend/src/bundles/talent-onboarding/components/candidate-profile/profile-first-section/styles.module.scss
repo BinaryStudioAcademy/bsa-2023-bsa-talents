@@ -9,7 +9,15 @@ ul {
     border-right: 1px solid var(--botticelli);
 }
 
+.profileCard {
+    width: 100%;
+    padding-bottom: 13px;
+    border: none;
+}
+
 .candidatePosition {
+    display: flex;
+    justify-content: space-between;
     font-weight: var(--font-weight-semi-bold);
     font-size: 22px;
 }
@@ -19,6 +27,7 @@ ul {
 }
 
 .title {
+    margin-right: 10px;
     font-weight: var(--font-weight-medium);
 }
 
@@ -28,14 +37,32 @@ ul {
     gap: 5px;
 }
 
-.skills {
+.skillsWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.skills,
+.preferredLanguage {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.profileCardSkills {
+    display: flex;
 }
 
 .coverLetterText {
     margin-block: 10px;
     color: var(--text-primary);
+}
+
+.cardCoverLetterText {
+    margin-inline: -35px;
+    padding-inline: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--botticelli);
 }
 
 .readMoreButton {
@@ -53,11 +80,62 @@ ul {
 
 .projectDescription {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-block: 10px;
+    align-items: center;
     color: var(--text-primary);
+    padding-block: 10px;
+}
+
+.projectButton {
+    height: 36px;
+    color: var(--st-tropaz);
+    text-transform: none;
+    border: 1px solid var(--st-tropaz);
+    margin-block: 10px;
 }
 
 .projectPicture {
     max-width: 100%;
+}
+
+.candidateParameters {
+    margin-top: 7px;
+    margin-inline: -35px;
+    padding-inline: 35px;
+    padding-bottom: 24px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.salary {
+    font-weight: var(--font-weight-semi-bold);
+    font-size: 22px;
+}
+
+.profileCardReadMoreButton {
+    float: right;
+    width: 127px;
+    height: 36px;
+    font-size: var(--font-size-base);
+    text-transform: none;
+    background-color: var(--background-secondary);
+}
+
+@media screen and (width <= 500px) {
+    .candidatePosition {
+        flex-direction: column;
+    }
+
+    .skills {
+        flex-direction: column;
+    }
+}
+
+@media screen and (width <= 1300px) {
+    .profileFirstSection {
+        width: 100%;
+        padding-left: 25px;
+        border: none;
+    }
 }

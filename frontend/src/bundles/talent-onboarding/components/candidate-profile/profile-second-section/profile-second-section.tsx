@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 type Properties = {
     // replace with real data type
     candidateParameters: Record<string, string | number | string[]>;
-    isProfileOpen: boolean;
+    isProfileOpen?: boolean;
     isFifthStep?: boolean;
 };
 

@@ -1,4 +1,5 @@
 import { Button, Grid } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import {
     ProfileFirstSection,
@@ -21,13 +22,15 @@ const mockedCandidateParameters = {
 };
 
 type Properties = {
-    isProfileOpen: boolean;
+    isProfileOpen?: boolean;
     isFifthStep?: boolean;
+    isProfileCard?: boolean;
 };
 
 const CandidateProfile: React.FC<Properties> = ({
     isProfileOpen,
     isFifthStep,
+    isProfileCard,
 }) => {
     return (
         <>
@@ -38,15 +41,26 @@ const CandidateProfile: React.FC<Properties> = ({
                     className={styles.accountReadyButton}
                 />
             )}
-            <Grid className={styles.profileWrapper}>
-                <ProfileFirstSection />
-                <ProfileSecondSection
+            <Grid
+                className={getValidClassNames(
+                    styles.profileWrapper,
+                    isProfileCard ? styles.profileCardWrapper : '',
+                )}
+            >
+                <ProfileFirstSection
                     isProfileOpen={isProfileOpen}
                     isFifthStep={isFifthStep}
-                    candidateParameters={mockedCandidateParameters}
+                    isProfileCard={isProfileCard}
                 />
+                {!isProfileCard && (
+                    <ProfileSecondSection
+                        isProfileOpen={isProfileOpen}
+                        isFifthStep={isFifthStep}
+                        candidateParameters={mockedCandidateParameters}
+                    />
+                )}
             </Grid>
-            {!isProfileOpen && !isFifthStep && (
+            {!isProfileOpen && !isFifthStep && !isProfileCard && (
                 <Button
                     label="Contact candidate"
                     className={styles.contactButton}

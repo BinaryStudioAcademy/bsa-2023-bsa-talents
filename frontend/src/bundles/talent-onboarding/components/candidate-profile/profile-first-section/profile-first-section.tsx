@@ -7,6 +7,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
@@ -40,6 +41,7 @@ const mockedAcademyBadges = [
 ];
 
 const mockedSkills = ['Java Script', 'Node.js', 'React', 'GitHub'];
+const preferredLanguage = ['Українська', 'English'];
 
 const mockedHRComments = [
     {
@@ -64,16 +66,49 @@ const mockedHRComments = [
     },
 ];
 
-const ProfileFirstSection: React.FC = () => {
+type Properties = {
+    isProfileOpen?: boolean;
+    isFifthStep?: boolean;
+    isProfileCard?: boolean;
+};
+
+const ProfileFirstSection: React.FC<Properties> = ({
+    isProfileOpen,
+    isFifthStep,
+    isProfileCard,
+}) => {
     return (
-        <Grid className={styles.profileFirstSection}>
-            <Typography variant="h5" className={styles.candidatePosition}>
-                Middle Python Developer
-            </Typography>
-            <Grid className={styles.academyScore}>
-                <Typography variant="input" className={styles.title}>
-                    Academy&apos;s scores
+        <Grid
+            className={getValidClassNames(
+                styles.profileFirstSection,
+                isProfileCard ? styles.profileCard : '',
+            )}
+        >
+            <Grid>
+                <Typography variant="h5" className={styles.candidatePosition}>
+                    Middle Python Developer
+                    {isProfileCard && (
+                        <Typography variant="input" className={styles.salary}>
+                            $1500
+                        </Typography>
+                    )}
                 </Typography>
+                {isProfileCard && (
+                    <Typography
+                        variant="caption"
+                        className={styles.candidateParameters}
+                    >
+                        Ukraine | Lviv |2.5 years of experience |
+                        Upper-Intermediate | Publish today
+                    </Typography>
+                )}
+            </Grid>
+            <Grid className={styles.academyScore}>
+                {!isProfileCard && (
+                    <Typography variant="input" className={styles.title}>
+                        Academy&apos;s scores
+                    </Typography>
+                )}
                 <ul className={styles.badgeList}>
                     {mockedAcademyBadges.map((badge, index) => (
                         <li key={index}>
@@ -88,7 +123,7 @@ const ProfileFirstSection: React.FC = () => {
                     ))}
                 </ul>
             </Grid>
-            <Grid>
+            <Grid className={isProfileCard ? styles.skillsWrapper : ''}>
                 <Typography variant="input" className={styles.title}>
                     Skills
                 </Typography>
@@ -99,30 +134,54 @@ const ProfileFirstSection: React.FC = () => {
                         </li>
                     ))}
                 </ul>
+                {isFifthStep && (
+                    <>
+                        <Typography variant="input" className={styles.title}>
+                            Preferred language
+                        </Typography>
+                        <ul className={styles.preferredLanguage}>
+                            {preferredLanguage.map((language) => (
+                                <li key={language}>
+                                    <Chip label={language} />
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
             </Grid>
-            <Grid>
-                <Typography variant="input" className={styles.title}>
-                    HR comments
-                </Typography>
-                <ul className={styles.badgeList}>
-                    {mockedHRComments.map((badge, index) => (
-                        <li key={index}>
-                            <Badge
-                                small
-                                color={BadgeColors.YELLOW}
-                                primaryText={badge.score}
-                                description={badge.description}
-                                HRbadge
-                            />
-                        </li>
-                    ))}
-                </ul>
-            </Grid>
+            {!isProfileCard && (
+                <Grid>
+                    <Typography variant="input" className={styles.title}>
+                        HR comments
+                    </Typography>
+                    <ul className={styles.badgeList}>
+                        {mockedHRComments.map((badge, index) => (
+                            <li key={index}>
+                                <Badge
+                                    small
+                                    color={BadgeColors.YELLOW}
+                                    primaryText={badge.score}
+                                    description={badge.description}
+                                    HRbadge
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                </Grid>
+            )}
             <Grid className={styles.coverLetter}>
-                <Typography variant="input" className={styles.title}>
-                    Cover letter
-                </Typography>
-                <Typography variant="body1" className={styles.coverLetterText}>
+                {!isProfileCard && (
+                    <Typography variant="input" className={styles.title}>
+                        Cover letter
+                    </Typography>
+                )}
+                <Typography
+                    variant="body1"
+                    className={getValidClassNames(
+                        styles.coverLetterText,
+                        isProfileCard ? styles.cardCoverLetterText : '',
+                    )}
+                >
                     Hi! Throughout my time as a Python developer, I&apos;ve
                     developed a strong foundation in Python programming,
                     enabling me to create efficient, modular, and maintainable
@@ -132,27 +191,46 @@ const ProfileFirstSection: React.FC = () => {
                 </Typography>
                 <Button
                     label="Read more"
-                    variant="text"
-                    className={styles.readMoreButton}
+                    variant={isProfileCard ? 'contained' : 'text'}
+                    className={
+                        isProfileCard
+                            ? styles.profileCardReadMoreButton
+                            : styles.readMoreButton
+                    }
                 />
             </Grid>
-            <Grid className={styles.project}>
-                <Typography variant="input" className={styles.title}>
-                    Project
-                </Typography>
-                <Typography
-                    variant="body1"
-                    className={styles.projectDescription}
-                >
-                    6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
-                    <Button label="Repository link" variant="outlined" />
-                </Typography>
-                <img
-                    src={mockedProjectPicture}
-                    className={styles.projectPicture}
-                    alt="project"
-                />
-            </Grid>
+            {!isProfileCard && (
+                <Grid className={styles.project}>
+                    <Typography variant="input" className={styles.title}>
+                        Project
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        className={styles.projectDescription}
+                    >
+                        6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
+                        {isProfileOpen && (
+                            <Button
+                                label="Repository link"
+                                variant="outlined"
+                                className={styles.projectButton}
+                            />
+                        )}
+                    </Typography>
+                    <img
+                        src={mockedProjectPicture}
+                        className={styles.projectPicture}
+                        alt="project"
+                    />
+                    {isFifthStep && (
+                        <Button
+                            label="Repository link"
+                            variant="outlined"
+                            className={styles.projectButton}
+                        />
+                    )}
+                </Grid>
+            )}
         </Grid>
     );
 };
