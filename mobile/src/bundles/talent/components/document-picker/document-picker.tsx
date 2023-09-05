@@ -27,15 +27,15 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { notifications } from '~/framework/notifications/notifications';
+//import { notifications } from '~/framework/notifications/notifications';
 
 const handleError = (error: unknown): void => {
     if (isCancel(error)) {
-        notifications.showError({ title: 'cancelled' });
+        // notifications.showError({ title: 'cancelled' });
     } else if (isInProgress(error)) {
-        notifications.showError({
-            title: 'multiple pickers were opened, only the last will be considered',
-        });
+        // notifications.showError({
+        //     title: 'multiple pickers were opened, only the last will be considered',
+        // });
     } else {
         throw error;
     }

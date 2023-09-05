@@ -1,5 +1,5 @@
 type StepFourDto = {
-    photoId: {
+    photoId?: {
         size: number;
         uri: string;
     };

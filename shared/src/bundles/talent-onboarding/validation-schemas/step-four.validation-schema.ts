@@ -37,7 +37,8 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
     phoneNumber: joi
         .string()
         .regex(StepFourValidationRule.PHONE_NUMBER_REGEX)
-        .max(StepFourValidationRule.PHONE_NUMBER_MAX)
+        .max(StepFourValidationRule.PHONE_NUMBER_LENGTH)
+        .min(StepFourValidationRule.PHONE_NUMBER_LENGTH)
         .required()
         .messages({
             'string.max': StepFourValidationMessage.PHONE_NUMBER_LENGTH,
