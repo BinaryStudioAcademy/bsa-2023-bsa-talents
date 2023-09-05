@@ -1,0 +1,96 @@
+import { BadgeColors } from '~/bundles/common/enums/enums.js';
+
+const mockBadges = [
+    {
+        id: '1',
+        score: 2,
+        maxScore: 10,
+        description: 'Your average project score',
+        typeColor: BadgeColors.PURPLE,
+    },
+    {
+        id: '2',
+        score: 1.5,
+        maxScore: 5,
+        description: 'Your average lectures score',
+        typeColor: BadgeColors.RED,
+    },
+    {
+        id: '3',
+        score: 2.1,
+        maxScore: 4,
+        description: 'Communication score',
+        typeColor: BadgeColors.YELLOW,
+    },
+    {
+        id: '4',
+        score: 1,
+        maxScore: 5,
+        description: 'Working with team score',
+        typeColor: BadgeColors.GREEN,
+    },
+    {
+        id: '5',
+        score: 2,
+        maxScore: 10,
+        level: 'B+',
+        description: 'Level of English',
+        typeColor: BadgeColors.ORANGE,
+    },
+    {
+        id: '6',
+        score: 4,
+        maxScore: 5,
+        description: 'Punctuality',
+        isDisabled: true,
+        isSelected: true,
+        typeColor: BadgeColors.BLUE,
+    },
+    {
+        id: '7',
+        score: 2,
+        maxScore: 10,
+        description: 'Your average project score',
+        typeColor: BadgeColors.PURPLE,
+    },
+    {
+        id: '8',
+        score: 1.5,
+        maxScore: 5,
+        description: 'Your average lectures score',
+        typeColor: BadgeColors.RED,
+    },
+    {
+        id: '9',
+        score: 2.1,
+        maxScore: 4,
+        description: 'Communication score',
+        typeColor: BadgeColors.YELLOW,
+    },
+    {
+        id: '10',
+        score: 1,
+        maxScore: 5,
+        description: 'Working with team score',
+        typeColor: BadgeColors.GREEN,
+    },
+    {
+        id: '11',
+        score: 2,
+        maxScore: 10,
+        level: 'B+',
+        description: 'Level of English',
+        typeColor: BadgeColors.ORANGE,
+    },
+    {
+        id: '12',
+        score: 4,
+        maxScore: 5,
+        description: 'Punctuality',
+        isDisabled: true,
+        isSelected: true,
+        typeColor: BadgeColors.BLUE,
+    },
+];
+
+export { mockBadges };
