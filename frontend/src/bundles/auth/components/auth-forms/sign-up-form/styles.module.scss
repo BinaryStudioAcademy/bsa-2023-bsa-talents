@@ -19,3 +19,26 @@
         justify-content: center;
     }
 }
+
+.checkboxWrapper {
+    width: 100%;
+
+    label {
+        margin-left: -9px;
+    }
+}
+
+.termsLabel {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+
+    span {
+        margin-left: 5px;
+    }
+
+    span a {
+        color: var(--azure);
+        text-decoration: underline;
+    }
+}

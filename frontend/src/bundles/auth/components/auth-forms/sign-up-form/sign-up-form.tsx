@@ -80,9 +80,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 
     const checkboxLabel = (
-        <Grid className={styles.termsLabel}>
-            I agree to the <Link to="/">BSA Talents Terms</Link>
-        </Grid>
+        <p className={styles.termsLabel}>
+            I agree to the{' '}
+            <span>
+                <Link to="/">BSA Talents Terms</Link>
+            </span>
+        </p>
     );
 
     return (
@@ -129,7 +132,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 {selectedRole === UserRole.TALENT && (
-                    <FormControl>
+                    <FormControl className={styles.checkboxWrapper}>
                         <Checkbox
                             label={checkboxLabel}
                             isRequired
