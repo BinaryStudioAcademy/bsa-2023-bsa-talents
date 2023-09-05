@@ -1,5 +1,6 @@
 import joi from 'joi';
 
+import { TalentValidationMessage } from '../enums/enums';
 import { TALENT_CONSTANT } from './talent-constant';
 
 type onboardingStepFourDto = {
@@ -23,14 +24,13 @@ const onboardingStepFourValidationSchema = joi.object<
             .integer()
             .max(TALENT_CONSTANT.IMAGE_MAX_SIZE)
             .required()
-            .messages({ 'number.max': 'Allowed image file is < 5MB' }),
+            .messages({ 'number.max': TalentValidationMessage.IMG_MAX_SIZE }),
         uri: joi
             .string()
             .regex(TALENT_CONSTANT.IMAGE_TYPE_REGEX)
             .required()
             .messages({
-                'string.pattern.base':
-                    'Allowed image could be only jpeg, png, jpg',
+                'string.pattern.base': TalentValidationMessage.IMG_TYPE,
             }),
     }),
 
@@ -42,12 +42,9 @@ const onboardingStepFourValidationSchema = joi.object<
         .regex(TALENT_CONSTANT.FULL_NAME_REGEX)
         .required()
         .messages({
-            'string.min':
-                'The Full name field should min 3 characters in length',
-            'string.max':
-                'The Full name field should max 50 characters in length',
-            'string.pattern.base':
-                'The Full name field should accept A-Z, a-z, (.), (-), spaces',
+            'string.min': TalentValidationMessage.FULL_NAME_MAX_LENGTH,
+            'string.max': TalentValidationMessage.FULL_NAME_MIN_LENGTH,
+            'string.pattern.base': TalentValidationMessage.FULL_NAME_REGEX,
         }),
 
     phoneNumber: joi
@@ -56,9 +53,8 @@ const onboardingStepFourValidationSchema = joi.object<
         .max(TALENT_CONSTANT.PHONE_NUMBER_MAX)
         .required()
         .messages({
-            'string.max': 'allow up to 10 symbols total',
-            'string.pattern.base':
-                'The Phone number must start with "+" and contain digits 0-9 only',
+            'string.max': TalentValidationMessage.PHONE_NUMBER_LENGTH,
+            'string.pattern.base': TalentValidationMessage.PHONE_NUMBER_REGEX,
         }),
 
     linkedinProfile: joi
@@ -68,15 +64,13 @@ const onboardingStepFourValidationSchema = joi.object<
         .regex(TALENT_CONSTANT.LINKEDIN_REGEX)
         .required()
         .messages({
-            'string.min': 'Length should be min 30 chars',
-            'string.max': 'Length should be max 250 chars',
-            'string.pattern.base':
-                'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
+            'string.min': TalentValidationMessage.LINKEDIN_LINK_MIN_LENGTH,
+            'string.max': TalentValidationMessage.LINKEDIN_LINK_MAX_LENGTH,
+            'string.pattern.base': TalentValidationMessage.LINKEDIN_LINK_REGEX,
         }),
 
     fileCV: joi.string().regex(TALENT_CONSTANT.CV_REGEX).required().messages({
-        'string.pattern.base':
-            'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
+        'string.pattern.base': '',
     }),
 });
 
