@@ -12,7 +12,7 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
-import { onboardingStepFourValidationSchema } from '~/bundles/talent/validation-schemas/onboarding-step-4.validation-schema';
+import { onboardingStepFourValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
