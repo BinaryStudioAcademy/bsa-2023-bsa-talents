@@ -3,9 +3,15 @@
 .textarea {
     width: 100%;
     padding: 10px 0 0 14px;
-    color: var(--text-primary);
+    color: var(--text-primary-dark);
+    font-family: Inter, sans-serif;
     border: 1px solid var(--botticelli);
     border-radius: 4px;
+
+    &::placeholder {
+        color: var(--nepal);
+        -webkit-text-fill-color: var(--nepal);
+    }
 }
 
 .textarea:focus {
