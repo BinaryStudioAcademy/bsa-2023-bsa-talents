@@ -4,22 +4,9 @@ import {
     StepFourValidationMessage,
     StepFourValidationRule,
 } from '../enums/enums';
+import { type StepFourDto } from '../types/types';
 
-type onboardingStepFourDto = {
-    photoId: {
-        size: number;
-        uri: string;
-    };
-    fullName: string;
-    phoneNumber: string;
-    linkedinProfile: string;
-    fileCV: string;
-};
-
-const onboardingStepFourValidationSchema = joi.object<
-    onboardingStepFourDto,
-    true
->({
+const onboardingStepFourValidationSchema = joi.object<StepFourDto, true>({
     photoId: joi.object({
         size: joi
             .number()
