@@ -1,6 +1,6 @@
 export { App } from '../../../app/app.js';
 export { Badge } from './badge/badge.js';
-export { Button } from './button/button.js';
+export { Button, type ButtonProperties } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
 export { FileUpload } from './file-upload/file-upload.js';

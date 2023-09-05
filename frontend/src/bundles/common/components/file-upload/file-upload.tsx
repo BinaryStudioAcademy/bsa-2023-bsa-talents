@@ -7,8 +7,7 @@ import {
 import { Controller } from 'react-hook-form';
 
 import { useFormController } from '../../hooks/hooks.js';
-import { type ButtonProperties } from '../button/button.js';
-import { Button } from '../components.js';
+import { Button, type ButtonProperties } from '../components.js';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
