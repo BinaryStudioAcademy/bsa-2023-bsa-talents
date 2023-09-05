@@ -1,6 +1,7 @@
 import { type Repository } from '~/common/types/types.js';
 
 import {
+    type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsUpdateDto,
 } from './types/types.js';
@@ -28,9 +29,9 @@ class UserDetailsRepository implements Repository {
         return await Promise.resolve([]);
     }
 
-    public async create(payload: {
-        userId: string;
-    }): Promise<UserDetailsEntity> {
+    public async create(
+        payload: UserDetailsCreateRequestDto,
+    ): Promise<UserDetailsEntity> {
         const newDetails = await this.userDetailsModel
             .query()
             .insert({

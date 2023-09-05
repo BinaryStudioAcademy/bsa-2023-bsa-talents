@@ -8,9 +8,15 @@ import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UserDetailsApiPath } from './enums/enums.js';
-import { type UserDetailsUpdateRequestDto } from './types/types.js';
+import {
+    type UserDetailsCreateRequestDto,
+    type UserDetailsUpdateRequestDto,
+} from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
-import { userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
+import {
+    userDetailsCreateValidationSchema,
+    userDetailsUpdateValidationSchema,
+} from './validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -81,6 +87,11 @@ import { userDetailsUpdateValidationSchema } from './validation-schemas/validati
  *            type: string
  *          cvId:
  *            type: string
+ *   securitySchemes:
+ *     bearerAuth: # Define the JWT security scheme
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -89,6 +100,20 @@ class UserDetailsController extends ControllerBase {
         super(logger, ApiPath.USER_DETAILS);
 
         this.userDetailsService = userDetailsService;
+
+        this.addRoute({
+            path: UserDetailsApiPath.ROOT,
+            method: 'POST',
+            validation: {
+                body: userDetailsCreateValidationSchema,
+            },
+            handler: (options) =>
+                this.create(
+                    options as ApiHandlerOptions<{
+                        body: UserDetailsCreateRequestDto;
+                    }>,
+                ),
+        });
 
         this.addRoute({
             path: UserDetailsApiPath.ROOT,
@@ -105,9 +130,20 @@ class UserDetailsController extends ControllerBase {
         });
     }
 
+    private async create(
+        options: ApiHandlerOptions<{
+            body: UserDetailsCreateRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.create(options.body),
+        };
+    }
+
     /**
      * @swagger
-     * /user-details:
+     * /user-details/:
      *    patch:
      *      tags:
      *        - User Details
@@ -217,11 +253,6 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          cvId:
      *            type: string
-     *   securitySchemes:
-     *     bearerAuth: # Define the JWT security scheme
-     *       type: http
-     *       scheme: bearer
-     *       bearerFormat: JWT
      */
     private async update(
         options: ApiHandlerOptions<{

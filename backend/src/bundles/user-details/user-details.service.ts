@@ -3,6 +3,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import {
+    type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
@@ -27,9 +28,9 @@ class UserDetailsService implements Service {
         return Promise.resolve({ items: [] });
     }
 
-    public async create(payload: {
-        userId: string;
-    }): Promise<UserDetailsResponseDto> {
+    public async create(
+        payload: UserDetailsCreateRequestDto,
+    ): Promise<UserDetailsResponseDto> {
         const newUserDetails = await this.userDetailsRepository.create(payload);
         return newUserDetails.toObject();
     }
@@ -39,8 +40,10 @@ class UserDetailsService implements Service {
     ): Promise<UserDetailsEntity> {
         const { userId, ...rest } = payload;
         const userDetails = await this.userDetailsRepository.find({ userId });
+        const id = userId as string;
 
         if (!userDetails) {
+            await this.create({ userId: id });
             throw new HttpError({
                 message: ErrorMessages.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
