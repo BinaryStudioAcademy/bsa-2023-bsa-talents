@@ -56,7 +56,7 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
 
     projectLinks: joi.array().items(joi.string().trim().uri()),
     photoId: joi.string().trim(),
-    fullName: joi.string().trim(),
+    fullName: joi.string().trim().required(),
     phone: joi.string().trim(),
     linkedinLink: joi.string().trim().uri(),
     companyName: joi.string().trim(),

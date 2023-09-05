@@ -31,7 +31,7 @@ type UserDetailsCreateRequestDto = {
 
     projectLinks?: string[];
     photoId?: string;
-    fullName?: string;
+    fullName: string;
     phone?: string;
     linkedinLink?: string;
     companyName?: string;

@@ -35,8 +35,7 @@ class UserDetailsRepository implements Repository {
         const newDetails = await this.userDetailsModel
             .query()
             .insert({
-                userId: payload.userId,
-                fullName: '',
+                ...payload,
             })
             .returning('*')
             .execute();

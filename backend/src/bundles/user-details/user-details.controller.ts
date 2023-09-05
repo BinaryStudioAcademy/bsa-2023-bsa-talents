@@ -21,6 +21,11 @@ import {
 /**
  * @swagger
  * components:
+ *    securitySchemes:
+ *      bearerAuth: # Define the JWT security scheme
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
  *    schemas:
  *      UserDetails:
  *        type: object
@@ -87,11 +92,6 @@ import {
  *            type: string
  *          cvId:
  *            type: string
- *   securitySchemes:
- *     bearerAuth: # Define the JWT security scheme
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -130,6 +130,98 @@ class UserDetailsController extends ControllerBase {
         });
     }
 
+    /**
+     * @swagger
+     * /user-details/:
+     *    post:
+     *      tags:
+     *        - User Details
+     *      description: Updates a user's details
+     *      security:
+     *        - bearerAuth: []
+     *      requestBody:
+     *        description: User detail update object
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              $ref: '#/components/schemas/UserDetailsCreateRequestDto'
+     *            examples:
+     *              example:
+     *                value:
+     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  profileName: 'Lee Swagger'
+     *                  fullName: 'qwerty'
+     *      responses:
+     *         200:
+     *           description: Successful operation
+     *           content:
+     *             application/json:
+     *               schema:
+     *                 type: object
+     *                 $ref: '#/components/schemas/UserDetails'
+     * components:
+     *   schemas:
+     *      UserDetailsCreateRequestDto:
+     *        type: object
+     *        properties:
+     *          userId:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *            required: true
+     *          profileName:
+     *            type: string
+     *          salaryExpectation:
+     *            type: number
+     *          hiredSalary:
+     *            type: number
+     *          jobTitle:
+     *            type: string
+     *          location:
+     *            type: string
+     *          experienceYears:
+     *            type: number
+     *          employmentType:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description:
+     *            type: string
+     *          englishLevel:
+     *            type: string
+     *          notConsidered:
+     *            type: array
+     *            items:
+     *              type: string
+     *          preferredLanguages:
+     *            type: array
+     *            items:
+     *              type: string
+     *          projectLinks:
+     *            type: array
+     *            items:
+     *              type: string
+     *          photoId:
+     *            type: string
+     *          fullName:
+     *            type: string
+     *            required: true
+     *          phone:
+     *            type: string
+     *          linkedinLink:
+     *            type: string
+     *          companyName:
+     *            type: string
+     *          companyLogoId:
+     *            type: string
+     *          companyWebsite:
+     *            type: string
+     *          employerPosition:
+     *            type: string
+     *          cvId:
+     *            type: string
+     */
     private async create(
         options: ApiHandlerOptions<{
             body: UserDetailsCreateRequestDto;
@@ -157,7 +249,7 @@ class UserDetailsController extends ControllerBase {
      *          application/json:
      *            schema:
      *              type: object
-     *              $ref: '#/components/schemas/UserDetailsRequestDto'
+     *              $ref: '#/components/schemas/UserDetailsUpdateRequestDto'
      *            examples:
      *              example-step-1:
      *                value:
@@ -194,13 +286,15 @@ class UserDetailsController extends ControllerBase {
      *                 $ref: '#/components/schemas/UserDetails'
      * components:
      *   schemas:
-     *      UserDetailsRequestDto:
+     *      UserDetailsUpdateRequestDto:
      *        type: object
      *        properties:
+     *          id:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
      *          userId:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
-     *            required: true
      *          isHired:
      *            type: boolean
      *          profileName:

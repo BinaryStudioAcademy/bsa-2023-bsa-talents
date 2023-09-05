@@ -40,10 +40,8 @@ class UserDetailsService implements Service {
     ): Promise<UserDetailsEntity> {
         const { userId, ...rest } = payload;
         const userDetails = await this.userDetailsRepository.find({ userId });
-        const id = userId as string;
 
         if (!userDetails) {
-            await this.create({ userId: id });
             throw new HttpError({
                 message: ErrorMessages.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
