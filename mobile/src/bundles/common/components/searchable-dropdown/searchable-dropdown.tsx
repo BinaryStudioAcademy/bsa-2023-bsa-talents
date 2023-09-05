@@ -20,6 +20,7 @@ import { styles } from './styles';
 
 type Item = {
     label: string;
+    value: string;
 };
 
 type Properties<T extends FieldValues> = {
@@ -56,7 +57,6 @@ const SearchableDropdown = <T extends FieldValues>({
         <View style={styles.container}>
             <TextInput
                 placeholder="Start typing and select skills"
-                value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 onFocus={toggleIsListVisible}

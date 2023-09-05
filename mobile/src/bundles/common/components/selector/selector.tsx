@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -9,6 +14,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -18,15 +24,25 @@ type Select = {
     value: string;
 };
 
-type Properties = {
+type Properties<T extends FieldValues> = {
+    control: Control<T, null>;
+    name: FieldPath<T>;
     options: Select[];
     onSelect?: (item: Select) => void;
+    multiSelect?: boolean;
 };
 
 const iconDefaultSize = 24;
 
-const Selector: React.FC<Properties> = ({ options }) => {
-    const [selectedOption, setSelectedOption] = useState('');
+const Selector = <T extends FieldValues>({
+    name,
+    control,
+    options,
+    onSelect,
+    multiSelect = false,
+}: Properties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
+    const { value, onChange } = field;
     const [isListVisible, setIsListVisible] = useState(false);
 
     const toggleIsListVisible = (): void => {
@@ -35,12 +51,25 @@ const Selector: React.FC<Properties> = ({ options }) => {
 
     const handlePressItem = (option: Select): void => {
         toggleIsListVisible();
-        setSelectedOption(option.label);
+        onSelect && onSelect(option);
+        if (multiSelect) {
+            if (value.includes(option.value)) {
+                onChange(value.filter((item: string) => item !== option.value));
+            } else {
+                onChange([...value, option.value]);
+            }
+        } else {
+            onChange(option.value);
+        }
     };
 
     const selectIconName = isListVisible
         ? IconName.ARROW_DROP_UP
         : IconName.ARROW_DROP_DOWN;
+
+    const selectedOptions = options
+        .filter((option) => value.includes(option.value))
+        .map((option) => option.label);
 
     return (
         <View style={styles.container}>
@@ -57,7 +86,9 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 ]}
                 onPress={toggleIsListVisible}
             >
-                <Text category={TextCategory.LABEL}>{selectedOption}</Text>
+                <Text category={TextCategory.LABEL}>
+                    {selectedOptions.join(', ')}
+                </Text>
                 <Icon
                     name={selectIconName}
                     size={iconDefaultSize}

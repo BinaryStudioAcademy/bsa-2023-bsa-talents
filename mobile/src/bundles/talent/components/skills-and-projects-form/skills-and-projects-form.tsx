@@ -32,8 +32,9 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-type Skill = {
+type Item = {
     label: string;
+    value: string;
 };
 
 type Properties = {
@@ -41,12 +42,10 @@ type Properties = {
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit, setValue } = useAppForm({
+    const { control, errors, handleSubmit, setValue, resetField } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: signUpStep3ValidationSchema,
     });
-    // const values = getValues();
-
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -54,7 +53,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-    const handleSkillSelect = (skill: Skill): void => {
+    const handleSkillSelect = (skill: Item): void => {
         if (selectedSkills.includes(skill.label)) {
             return;
         }
@@ -62,18 +61,17 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             return [...previousSkills, skill.label];
         });
         setValue('hardSkills', [...selectedSkills, skill.label]);
-        // console.log(selectedSkills);
     };
 
     const handleSkillDelete = (skillLabel: string): void => {
         setSelectedSkills((previousSkills) =>
             previousSkills.filter((skill) => skill != skillLabel),
         );
+        resetField('hardSkills');
     };
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
-        // console.log(values);
 
         // setParams({ stepState: TalentOnboardingStepState.COMPLETED });
         // navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
@@ -121,7 +119,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={ENGLISH_LEVEL} />
+                <Selector
+                    options={ENGLISH_LEVEL}
+                    control={control}
+                    name="englishLevel"
+                />
             </FormField>
 
             <FormField
@@ -156,7 +158,12 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={PREFERRED_LANGUAGES_ARRAY} />
+                <Selector
+                    options={PREFERRED_LANGUAGES_ARRAY}
+                    control={control}
+                    name="preferredLanguages"
+                    multiSelect={true}
+                />
             </FormField>
 
             <FormField
@@ -165,7 +172,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 name="projectLinks"
                 containerStyle={globalStyles.pb25}
             >
-                <View style={[globalStyles.mt5, styles.links]}>
+                <View style={styles.links}>
                     {fields.map((field, index) => {
                         // console.log(field);
 

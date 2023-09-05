@@ -12,7 +12,7 @@ const SKILLS_AND_PROJECTS_DEFAULT_VALUES: UserSignUpStep3Dto = {
     englishLevel: '',
     notConsidered: [],
     preferredLanguages: [],
-    projectLinks: [],
+    projectLinks: [{ projectLink: '' }],
 };
 
 const ENGLISH_LEVEL = Object.values(EnglishLevel).map((language) => ({
@@ -26,9 +26,10 @@ const PREFERRED_LANGUAGES_ARRAY = Object.values(PreferredLanguages).map(
         label: language,
     }),
 );
-
+// TODO: Change job title to hard skills enum
 const JOB_TITLES = Object.values(JobTitle).map((title) => ({
     label: title,
+    value: title,
 }));
 
 const NOT_CONSIDERED = Object.values(NotConsidered).map((type) => ({
