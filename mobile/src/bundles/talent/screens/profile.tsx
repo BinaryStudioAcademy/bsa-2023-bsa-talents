@@ -23,9 +23,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { profileStepData } = useAppSelector(({ talents }) => ({
-        profileStepData: talents.profileStepData,
-    }));
+    const { profileStepData } = useAppSelector(({ talents }) => talents);
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
