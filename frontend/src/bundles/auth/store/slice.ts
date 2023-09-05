@@ -21,36 +21,26 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
-        builder.addMatcher(
-            isAnyOf(signUp.pending, loadUser.pending, signIn.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-            },
-        );
-        builder.addMatcher(
-            isAnyOf(signUp.rejected, loadUser.rejected, signIn.rejected),
-            (state) => {
-                state.dataStatus = DataStatus.REJECTED;
-            },
-        );
-        builder.addMatcher(
-            isAnyOf(signUp.fulfilled, loadUser.fulfilled, signIn.fulfilled),
-            (state, action) => {
-                state.dataStatus = DataStatus.FULFILLED;
-                state.currentUser = action.payload;
-            },
-        );
-        // builder.addCase(signUp.fulfilled, (state) => {
-        //     state.dataStatus = DataStatus.FULFILLED;
-        // });
-        // builder.addCase(loadUser.fulfilled, (state, action) => {
-        //     state.currentUser = action.payload;
-        //     state.dataStatus = DataStatus.FULFILLED;
-        // });
-        // builder.addCase(signIn.fulfilled, (state, action) => {
-        //     state.dataStatus = DataStatus.FULFILLED;
-        //     state.currentUser = action.payload;
-        // });
+        builder
+            .addMatcher(
+                isAnyOf(signUp.pending, loadUser.pending, signIn.pending),
+                (state) => {
+                    state.dataStatus = DataStatus.PENDING;
+                },
+            )
+            .addMatcher(
+                isAnyOf(signUp.rejected, loadUser.rejected, signIn.rejected),
+                (state) => {
+                    state.dataStatus = DataStatus.REJECTED;
+                },
+            )
+            .addMatcher(
+                isAnyOf(signUp.fulfilled, loadUser.fulfilled, signIn.fulfilled),
+                (state, action) => {
+                    state.dataStatus = DataStatus.FULFILLED;
+                    state.currentUser = action.payload;
+                },
+            );
     },
 });
 
