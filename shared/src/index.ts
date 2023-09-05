@@ -14,6 +14,8 @@ export {
     NotConsidered,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsCreateRequestDto,
+    userDetailsCreateValidationSchema,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,

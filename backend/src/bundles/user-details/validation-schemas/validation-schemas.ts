@@ -1,1 +1,4 @@
-export { userDetailsUpdateValidationSchema } from 'shared/build/index.js';
+export {
+    userDetailsCreateValidationSchema,
+    userDetailsUpdateValidationSchema,
+} from 'shared/build/index.js';
