@@ -13,13 +13,13 @@
 }
 
 .mainHeader {
-    max-width: calc(100% - 79px); // TODO: --sidebar-width
+    max-width: calc(100% - var(--sidebar-width));
 }
 
 .mainContent {
     min-height: 100vh;
     max-height: 100vh;
-    padding: 61px 0 0;
+    padding: var(--header-height) 0 0;
     overflow: hidden;
     overflow-y: visible;
     background-color: var(--botticelli);

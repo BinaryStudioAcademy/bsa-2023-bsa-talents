@@ -15,8 +15,13 @@
     --st-tropaz: #274f8d;
 
     // Gray
+    --gray-1: #aab1bb;
+    --gray-2: #828282;
     --steel-gray: #1f1e29;
     --slate-gray: #7c8798;
+
+    // Aluminium
+    --aluminium: #aab1bb;
 
     // Nepal
     --nepal: #90a3bf;
@@ -32,6 +37,9 @@
 
     // Porcelain
     --porcelain: #f5f6f7;
+
+    // Sunglow
+    --sunglow: #ffd231;
 
     // *Reusable Elements*
 
@@ -53,6 +61,12 @@
 
     // Error colors
     --error-primary: var(--torch-red);
+
+    // Header
+    --header-height: 72px;
+
+    // Sidebar
+    --sidebar-width: 80px;
 
     // *Font*
 
@@ -89,6 +103,6 @@
     --font-weight-semi-bold: 600;
     --font-weight-bold: 700;
 
-    // Elements/components sizes
-    --header-height: 72px;
+    // outline:
+    --outline: var(--botticelli);
 }
