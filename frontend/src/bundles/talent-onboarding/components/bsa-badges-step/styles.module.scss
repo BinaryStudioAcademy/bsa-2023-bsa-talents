@@ -1,0 +1,21 @@
+.formLabel {
+    margin-bottom: 20px;
+    color: var(--steel-gray);
+    font-weight: var(--font-weight-regular);
+}
+
+.formControl {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.badgeCheckboxContainer {
+    display: flex;
+}
+
+.badgesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
