@@ -4,10 +4,7 @@ import {
     useDrawerProgress,
 } from '@react-navigation/drawer';
 import React from 'react';
-import Animated, {
-    interpolate,
-    useAnimatedStyle,
-} from 'react-native-reanimated';
+import Animated, { interpolate } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text, View } from '~/bundles/common/components/components';
@@ -18,6 +15,7 @@ import {
     TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
+import { useAnimatedStyle } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type TalentOnboardingRouteProperties,
