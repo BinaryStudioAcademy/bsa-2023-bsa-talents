@@ -3,6 +3,7 @@ import fp from 'fastify-plugin';
 import { ErrorMessages } from 'shared/build/enums/enums.js';
 
 import { type UserService } from '~/bundles/users/users.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { ControllerHooks } from '~/common/packages/controller/controller.js';
 import { type Token } from '~/common/packages/token/types/types.js';
 import { checkWhiteRoute } from '~/common/server-application/helpers/check-white-route.helper.js';
@@ -35,7 +36,10 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const [, token] = authorization?.split(' ') ?? [];
 
         if (!token) {
-            throw new Error(ErrorMessages.NOT_AUTHORIZED);
+            throw new HttpError({
+                message: ErrorMessages.MISSING_TOKEN,
+                status: HttpCode.UNAUTHORIZED,
+            });
         }
 
         const { userService, tokenService } = services;
@@ -43,7 +47,10 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const authorizedUser = await userService.findById(payload.id as string);
 
         if (!authorizedUser) {
-            throw new Error(ErrorMessages.NOT_AUTHORIZED);
+            throw new HttpError({
+                message: ErrorMessages.INVALID_TOKEN,
+                status: HttpCode.UNAUTHORIZED,
+            });
         }
 
         request.user = authorizedUser;
