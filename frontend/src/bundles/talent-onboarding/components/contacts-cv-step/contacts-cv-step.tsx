@@ -2,12 +2,16 @@ import { Add as PlusIcon } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import {
     type Control,
+    type ControllerFieldState,
+    type ControllerRenderProps,
     type FieldErrors,
     type FieldValues,
     type UseFormHandleSubmit,
     type UseFormSetError,
+    type UseFormStateReturn,
     type UseFormWatch,
 } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import {
     FileUpload,
@@ -47,28 +51,99 @@ const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
     const [photoURL, setPhotoURL] = useState<string>('');
 
     const handlePhotoFileChange = useCallback(
-        (file: File): boolean => {
-            try {
-                validateFileSize('photo', file, setError);
-                setPhotoURL(URL.createObjectURL(file));
-                return true;
-            } catch {
-                return false;
-            }
-        },
+        (field: ControllerRenderProps<ContactsCVStepDto, 'photo'>) =>
+            (event: React.ChangeEvent<HTMLInputElement>): boolean => {
+                if (!event.target.files) {
+                    return false;
+                }
+
+                const [file] = [...event.target.files];
+
+                try {
+                    validateFileSize('photo', file, setError);
+                    setPhotoURL(URL.createObjectURL(file));
+                    field.onChange(file);
+                    return true;
+                } catch {
+                    return false;
+                }
+            },
         [setError],
     );
 
+    const renderPhotoInput = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<ContactsCVStepDto, 'photo'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<ContactsCVStepDto>;
+        }): JSX.Element => (
+            <FileUpload
+                {...{
+                    onChange: field.onChange,
+                    name: field.name,
+                }}
+                accept={ACCEPTED_PHOTO_TYPES.join(',')}
+                buttonProps={{
+                    label: 'Choose photo',
+                    className: getValidClassNames(
+                        styles.uploadPhotoBtn,
+                        errors.photo?.message ? styles.btnError : '',
+                    ),
+                }}
+                onChange={handlePhotoFileChange(field)}
+            />
+        ),
+        [errors.photo?.message, handlePhotoFileChange],
+    );
+
     const handleCVFileChange = useCallback(
-        (file: File): boolean => {
-            try {
-                validateFileSize('cv', file, setError);
-                return true;
-            } catch {
-                return false;
-            }
-        },
+        (field: ControllerRenderProps<ContactsCVStepDto, 'cv'>) =>
+            (event: React.ChangeEvent<HTMLInputElement>): boolean => {
+                if (!event.target.files) {
+                    return false;
+                }
+
+                const [file] = [...event.target.files];
+
+                try {
+                    validateFileSize('cv', file, setError);
+                    field.onChange(file);
+                    return true;
+                } catch {
+                    return false;
+                }
+            },
         [setError],
+    );
+
+    const renderCVInput = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<ContactsCVStepDto, 'cv'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<ContactsCVStepDto>;
+        }): JSX.Element => (
+            <FileUpload
+                {...{
+                    onChange: field.onChange,
+                    name: field.name,
+                }}
+                accept={ACCEPTED_CV_TYPES.join(',')}
+                buttonProps={{
+                    label: 'Choose file',
+                    className: getValidClassNames(
+                        styles.uploadCVBtn,
+                        errors.cv?.message ? styles.btnError : '',
+                    ),
+                    startIcon: <PlusIcon />,
+                }}
+                onChange={handleCVFileChange(field)}
+            />
+        ),
+        [errors.cv?.message, handleCVFileChange],
     );
 
     useEffect(() => {
@@ -103,18 +178,10 @@ const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
                         </Typography>
                     </FormLabel>
 
-                    <FileUpload
+                    <Controller
                         control={control}
                         name="photo"
-                        accept={ACCEPTED_PHOTO_TYPES.join(',')}
-                        buttonProps={{
-                            label: 'Choose photo',
-                            className: getValidClassNames(
-                                styles.uploadPhotoBtn,
-                                errors.photo?.message ? styles.btnError : '',
-                            ),
-                        }}
-                        handleFileChange={handlePhotoFileChange}
+                        render={renderPhotoInput}
                     />
                     <FormHelperText
                         className={getValidClassNames(
@@ -219,20 +286,12 @@ const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
                             CV
                         </Typography>
                     </FormLabel>
-                    <FileUpload
+                    <Controller
                         control={control}
                         name="cv"
-                        accept={ACCEPTED_CV_TYPES.join(',')}
-                        buttonProps={{
-                            label: 'Choose file',
-                            className: getValidClassNames(
-                                styles.uploadCVBtn,
-                                errors.cv?.message ? styles.btnError : '',
-                            ),
-                            startIcon: <PlusIcon />,
-                        }}
-                        handleFileChange={handleCVFileChange}
+                        render={renderCVInput}
                     />
+
                     <FormHelperText className={styles.fileError}>
                         {errors.cv?.type === 'fileSize' && errors.cv.message}
                     </FormHelperText>
