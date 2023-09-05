@@ -22,7 +22,7 @@ import {
  * @swagger
  * components:
  *    securitySchemes:
- *      bearerAuth: # Define the JWT security scheme
+ *      bearerAuth:
  *        type: http
  *        scheme: bearer
  *        bearerFormat: JWT
