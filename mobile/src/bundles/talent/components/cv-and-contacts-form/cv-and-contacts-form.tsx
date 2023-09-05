@@ -28,15 +28,6 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: StepFourValidationSchema,
     });
 
-    // const handleCVUpload = useCallback(() => {
-    //     // TODO: add upload file logic
-    //     return null;
-    // }, []);
-
-    // const onSubmit2 = handleSubmit((data) => {
-    //     console.log(data);
-    // });
-
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
@@ -100,13 +91,6 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                {/* <Button
-                    label="Choose file"
-                    buttonType="Outline"
-                    iconName={IconName.ADD}
-                    onPress={handleCVUpload}
-                    style={[globalStyles.borderRadius5, styles.buttonContainer]}
-                /> */}
                 <DocumentPickerC
                     label="Choose file"
                     control={control}
