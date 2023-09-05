@@ -31,8 +31,9 @@ const StepContent: React.FC<Properties> = ({
                 // Navigate or do the next step
                 onNextStep();
             }
+        } else {
+            onNextStep();
         }
-        onNextStep();
     };
 
     return (

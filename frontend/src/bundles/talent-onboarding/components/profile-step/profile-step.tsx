@@ -30,8 +30,9 @@ import {
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
-    experienceYearsScaled,
     experienceYearsSliderMarks,
+    realToSliderValue,
+    sliderToRealValue,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
@@ -39,7 +40,6 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 import { useFormSubmit } from '../../context/context.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { DEFAULT_PAYLOAD_PROFILE_STEP } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
@@ -66,7 +66,9 @@ const ProfileStep: React.FC = () => {
     });
 
     const { setSubmitForm } = useFormSubmit();
+
     const dispatch = useAppDispatch();
+
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
             await dispatch(actions.profileStep(data));
@@ -86,7 +88,7 @@ const ProfileStep: React.FC = () => {
             };
         });
         return () => {
-            setSubmitForm(null); // Cleanup
+            setSubmitForm(null);
         };
     }, [handleSubmit, onSubmit, setSubmitForm]);
 
@@ -140,18 +142,10 @@ const ProfileStep: React.FC = () => {
 
     const handleSliderOnChange = useCallback(
         (field: ControllerRenderProps<ProfileStepDto, 'experienceYears'>) =>
-            (event: Event): void => {
-                const mouseEvent = event as MouseEvent;
-                const inputElement = mouseEvent.target as HTMLInputElement;
-                const newValue = inputElement.value;
-                const exactExperienceObject = experienceYearsScaled.find(
-                    (experience) =>
-                        experience.scaledValue === Number.parseInt(newValue),
-                );
-                const exactExperienceValue = exactExperienceObject
-                    ? exactExperienceObject.value
-                    : DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears;
-                field.onChange(exactExperienceValue);
+            (event: Event, value: number | number[]): void => {
+                if (typeof value == 'number') {
+                    field.onChange(sliderToRealValue(value));
+                }
             },
         [],
     );
@@ -164,27 +158,19 @@ const ProfileStep: React.FC = () => {
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
-            const experience = experienceYearsScaled.find(
-                (experience) =>
-                    experience.value === savedPayload.experienceYears,
-            );
-            let experienceYears = 0;
-            if (experience) {
-                experienceYears = experience.scaledValue;
-            }
             return (
                 <Slider
                     name={field.name}
                     className={styles.track}
                     classes={styles}
-                    value={experienceYears}
                     marks={experienceYearsSliderMarks}
                     step={null}
                     onChange={handleSliderOnChange({ ...field })}
+                    value={realToSliderValue(field.value)}
                 />
             );
         },
-        [handleSliderOnChange, savedPayload.experienceYears],
+        [handleSliderOnChange],
     );
 
     return (
