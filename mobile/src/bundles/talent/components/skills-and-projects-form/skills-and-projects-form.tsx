@@ -1,7 +1,5 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NotConsidered } from 'shared/build/index';
 
 import {
     Button,
@@ -15,24 +13,20 @@ import {
     Tag,
     View,
 } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    Color,
-    IconName,
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
+import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
-    useNavigation,
+    useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import { type UserSignUpStep3Dto } from '~/bundles/talent/types/types';
+import { signUpStep3ValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
+    NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
@@ -43,43 +37,32 @@ type Skill = {
 };
 
 type Properties = {
-    onSubmit: () => void;
+    onSubmit: (payload: UserSignUpStep3Dto) => void;
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { navigate, goBack } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
-
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, setValue } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
+        validationSchema: signUpStep3ValidationSchema,
     });
+    // const values = getValues();
+
+    const { fields, append, remove } = useFieldArray({
+        name: 'projectLinks',
+        control,
+    });
+
     const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-    const [links, setLinks] = useState<string[]>([]);
-    const maxLinks = 3;
-
-    const handleLinkAdd = (): void => {
-        if (links.length > maxLinks) {
-            return;
-        }
-        setLinks([...links, '']);
-    };
-
-    const handleLinkDelete = (indexToRemove: number): void => {
-        setLinks((previousLinks) => {
-            const updatedLinks = [...previousLinks];
-            const numberToDelete = 1;
-            updatedLinks.splice(indexToRemove, numberToDelete);
-            return updatedLinks;
-        });
-    };
 
     const handleSkillSelect = (skill: Skill): void => {
         if (selectedSkills.includes(skill.label)) {
             return;
         }
-        setSelectedSkills([...selectedSkills, skill.label]);
+        setSelectedSkills((previousSkills) => {
+            return [...previousSkills, skill.label];
+        });
+        setValue('hardSkills', [...selectedSkills, skill.label]);
+        // console.log(selectedSkills);
     };
 
     const handleSkillDelete = (skillLabel: string): void => {
@@ -90,11 +73,13 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
+        // console.log(values);
+
         // setParams({ stepState: TalentOnboardingStepState.COMPLETED });
-        navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-            stepState: TalentOnboardingStepState.FOCUSED,
-        });
-    }, [handleSubmit, navigate, onSubmit]);
+        // navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+        //     stepState: TalentOnboardingStepState.FOCUSED,
+        // });
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView
@@ -132,7 +117,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             <FormField
                 errors={errors}
                 label="Level of English"
-                name="levelOfEnglish"
+                name="englishLevel"
                 required
                 containerStyle={globalStyles.pb25}
             >
@@ -142,7 +127,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             <FormField
                 errors={errors}
                 label="I do not consider"
-                name="notConsider"
+                name="notConsidered"
                 required
                 containerStyle={globalStyles.pb25}
             >
@@ -153,37 +138,21 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles.notConsiderContainer,
                     ]}
                 >
-                    <View style={globalStyles.flex1}>
+                    {NOT_CONSIDERED.map((option, index) => (
                         <Checkbox
-                            label={NotConsidered.GAMBLING}
-                            name="notConsider.gambling"
+                            key={option.label}
+                            label={option.label}
+                            name={`notConsidered.${index}`}
                             control={control}
                         />
-                        <Checkbox
-                            label={NotConsidered.GAMEDEV}
-                            name="notConsider.gameDev"
-                            control={control}
-                        />
-                    </View>
-                    <View style={globalStyles.flex1}>
-                        <Checkbox
-                            label={NotConsidered.DATING}
-                            name="notConsider.dating"
-                            control={control}
-                        />
-                        <Checkbox
-                            label={NotConsidered.CRYPTO}
-                            name="notConsider.crypto"
-                            control={control}
-                        />
-                    </View>
+                    ))}
                 </View>
             </FormField>
 
             <FormField
                 errors={errors}
                 label="Preferred language of communication"
-                name="levelOfEnglish"
+                name="preferredLanguages"
                 required
                 containerStyle={globalStyles.pb25}
             >
@@ -196,36 +165,33 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 name="projectLinks"
                 containerStyle={globalStyles.pb25}
             >
-                <Input
-                    control={control}
-                    name="projectLinks"
-                    placeholder="link to your project"
-                    marker="www."
-                />
-
                 <View style={[globalStyles.mt5, styles.links]}>
-                    {links.map((_, index) => (
-                        <View key={index}>
-                            <Input
-                                control={control}
-                                name="projectLinks2"
-                                placeholder="link to your project"
-                                marker="www."
-                            />
-                            <Pressable
-                                style={styles.linksBtn}
-                                onPress={(): void => {
-                                    handleLinkDelete(index);
-                                }}
-                            >
-                                <Icon
-                                    name={IconName.CLOSE}
-                                    size={20}
-                                    color={Color.ERROR}
+                    {fields.map((field, index) => {
+                        // console.log(field);
+
+                        return (
+                            <View key={field.id}>
+                                <Input
+                                    control={control}
+                                    name={`projectLinks.${index}`}
+                                    placeholder="link to your project"
+                                    marker="www."
                                 />
-                            </Pressable>
-                        </View>
-                    ))}
+                                <Pressable
+                                    style={styles.linksBtn}
+                                    onPress={(): void => {
+                                        remove(index);
+                                    }}
+                                >
+                                    <Icon
+                                        name={IconName.CLOSE}
+                                        size={20}
+                                        color={Color.ERROR}
+                                    />
+                                </Pressable>
+                            </View>
+                        );
+                    })}
                 </View>
                 <Button
                     label="Add more links"
@@ -233,7 +199,9 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     iconName={IconName.PLUS}
                     iconSize={20}
                     style={globalStyles.alignSelfFlexStart}
-                    onPress={handleLinkAdd}
+                    onPress={(): void => {
+                        append({ projectLink: '' });
+                    }}
                 />
             </FormField>
 
@@ -242,9 +210,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Back"
                     style={globalStyles.mr10}
                     buttonType={ButtonType.OUTLINE}
-                    onPress={(): void => {
-                        goBack();
-                    }}
                 />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>

@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     },
     notConsiderContainer: {
         gap: 5,
+        flexWrap: 'wrap',
+        width: 200,
     },
     tagContainer: {
         gap: 5,

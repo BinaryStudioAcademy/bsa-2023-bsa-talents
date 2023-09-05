@@ -1,46 +1,45 @@
-import { JobTitle, PreferredLanguages } from 'shared/build/index';
+import {
+    EnglishLevel,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
+} from 'shared/build/index';
 
-const SKILLS_AND_PROJECTS_DEFAULT_VALUES = {
+import { type UserSignUpStep3Dto } from '~/bundles/talent/types/types';
+
+const SKILLS_AND_PROJECTS_DEFAULT_VALUES: UserSignUpStep3Dto = {
     hardSkills: '',
-    levelOfEnglish: '',
-    notConsider: {
-        gambling: false,
-        gameDev: false,
-        dating: false,
-        crypto: false,
-        startups: false,
-    },
-    preferredLanguage: '',
-    projectLinks: '',
-    projectLinks2: '',
+    englishLevel: '',
+    notConsidered: [],
+    preferredLanguages: [],
+    projectLinks: [],
 };
 
-const ENGLISH_LEVEL = [
-    { label: 'No English', value: 'no english' },
-    { label: 'A1 Elementary', value: 'elementary' },
-    { label: 'A2 Pre-intermediate', value: 'pre-intermediate' },
-    { label: 'B1 Intermediate', value: 'intermediate' },
-    { label: 'B2 Upper intermediate', value: 'upper-intermediate' },
-    { label: 'C1 Advanced', value: 'advanced' },
-    { label: 'C2 Proficiency', value: 'proficiency' },
-];
-
-const PREFERRED_LANGUAGES_ARRAY = (
-    Object.keys(PreferredLanguages) as (keyof typeof PreferredLanguages)[]
-).map((key) => ({
-    label: PreferredLanguages[key],
-    value: key.toLowerCase(),
+const ENGLISH_LEVEL = Object.values(EnglishLevel).map((language) => ({
+    value: language,
+    label: language,
 }));
 
-const JOB_TITLES = (Object.keys(JobTitle) as (keyof typeof JobTitle)[]).map(
-    (key) => ({
-        label: JobTitle[key],
+const PREFERRED_LANGUAGES_ARRAY = Object.values(PreferredLanguages).map(
+    (language) => ({
+        value: language,
+        label: language,
     }),
 );
+
+const JOB_TITLES = Object.values(JobTitle).map((title) => ({
+    label: title,
+}));
+
+const NOT_CONSIDERED = Object.values(NotConsidered).map((type) => ({
+    value: type,
+    label: type,
+}));
 
 export {
     ENGLISH_LEVEL,
     JOB_TITLES,
+    NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 };
