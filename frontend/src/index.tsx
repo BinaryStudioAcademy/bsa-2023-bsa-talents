@@ -8,6 +8,7 @@ import { createRoot } from 'react-dom/client';
 import { Auth } from '~/bundles/auth/pages/auth.js';
 import {
     App,
+    Navigate,
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components.js';
@@ -16,6 +17,10 @@ import { store } from '~/framework/store/store.js';
 
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
+import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
+import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
+import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
+import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -30,7 +35,13 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 children: [
                                     {
                                         path: AppRoute.ROOT,
-                                        element: 'Root',
+                                        element: (
+                                            <Navigate
+                                                to={getStepRoute(
+                                                    STEP_ROUTES.STEP_01,
+                                                )}
+                                            />
+                                        ),
                                     },
                                     {
                                         path: AppRoute.SIGN_IN,
@@ -39,6 +50,26 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.SIGN_UP,
                                         element: <Auth />,
+                                    },
+                                    {
+                                        path: AppRoute.TALENT,
+                                        element: <Onboarding />,
+                                        children: [
+                                            {
+                                                path: AppRoute.TALENT,
+                                                element: (
+                                                    <Navigate
+                                                        to={getStepRoute(
+                                                            STEP_ROUTES.STEP_01,
+                                                        )}
+                                                    />
+                                                ),
+                                            },
+                                            {
+                                                path: AppRoute.TALENT_STEP,
+                                                element: <StepNavigation />,
+                                            },
+                                        ],
                                     },
                                 ],
                             },

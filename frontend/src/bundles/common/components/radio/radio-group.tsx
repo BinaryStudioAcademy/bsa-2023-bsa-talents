@@ -1,47 +1,56 @@
-import { FormControlLabel, RadioGroup as MuiRadioGroup } from '@mui/material';
+import {
+    RadioGroup as MuiRadioGroup,
+    type RadioGroupProps,
+} from '@mui/material';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 
-import { Radio } from './radio-item.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useFormController } from '~/bundles/common/hooks/hooks.js';
+
+import { FormControlLabel, Radio } from '../components.js';
 
 type Option = {
     value: string;
     label: string;
 };
 
-type Properties = {
-    options: Option[];
-    value: string;
+type Properties<T extends FieldValues> = RadioGroupProps & {
+    control?: Control<T, null>;
+    name: FieldPath<T>;
+    options?: Option[];
     className?: string;
-    row?: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const RadioGroup: React.FC<Properties> = ({
+const RadioGroup = <T extends FieldValues>({
+    control,
+    name,
     options,
-    value,
-    className,
-    onChange,
-    row,
-}) => {
+    className = '',
+    ...props
+}: Properties<T>): JSX.Element => {
+    const radioGroupClasses = getValidClassNames(className);
+    const { field } = useFormController({
+        control,
+        name,
+    });
+
     return (
-        <MuiRadioGroup
-            value={value}
-            onChange={onChange}
-            row={row}
-            className={className}
-        >
-            {options.map((option) => (
+        <MuiRadioGroup {...field} className={radioGroupClasses} {...props}>
+            {options?.map((option) => (
                 <FormControlLabel
                     key={option.value}
                     value={option.value}
+                    label={option.label}
                     control={
                         <Radio
                             value={option.value}
-                            isChecked={value === option.value}
-                            isDisabled={false}
-                            onChange={onChange}
+                            checked={field.value === option.value}
                         />
                     }
-                    label={option.label}
                 />
             ))}
         </MuiRadioGroup>

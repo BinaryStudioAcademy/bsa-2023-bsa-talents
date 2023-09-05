@@ -16,7 +16,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     CURRENT_LOCATION_OPTIONS,
     JOB_TITLE_OPTIONS,
-    USER_PROFILE_DEFAULT_VALUES,
+    TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
 
@@ -26,7 +26,7 @@ type Properties = {
 
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: USER_PROFILE_DEFAULT_VALUES,
+        defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
     });
 
     const handleFormSubmit = useCallback((): void => {

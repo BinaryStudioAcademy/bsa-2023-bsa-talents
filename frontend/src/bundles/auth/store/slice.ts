@@ -7,12 +7,12 @@ import { type UserFindResponseDto } from '~/bundles/users/users.js';
 import { loadUser, signOut, signUp } from './actions.js';
 
 type State = {
-    currentUser: UserFindResponseDto;
+    currentUser: UserFindResponseDto | null;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-    currentUser: { id: '', email: '', role: '' },
+    currentUser: null,
     dataStatus: DataStatus.IDLE,
 };
 
