@@ -1,6 +1,8 @@
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
+import { mockBadges } from '../bsa-badges-step/constants/mock-badges.constants.js';
+import { BsaBadgesStep } from '../components.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
@@ -8,7 +10,7 @@ const StepNavigation: React.FC = () => {
     // these components only for example how to use it
     // remove them when our real tab components are ready
     const Profile: React.FC = () => <button>Profile</button>;
-    const BSABadges: React.FC = () => <button>BSABadges</button>;
+    //const BSABadges: React.FC = () => <button>BSABadges</button>;
     const Skills: React.FC = () => <button>Skills and projects</button>;
     const CV: React.FC = () => <button>CV and contacts</button>;
     const Preview: React.FC = () => <button>Preview</button>;
@@ -18,7 +20,7 @@ const StepNavigation: React.FC = () => {
             return <Profile />;
         }
         case STEP_ROUTES.STEP_02: {
-            return <BSABadges />;
+            return <BsaBadgesStep badges={mockBadges} />;
         }
         case STEP_ROUTES.STEP_03: {
             return <Skills />;
