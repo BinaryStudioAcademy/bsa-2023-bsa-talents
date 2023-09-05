@@ -5,7 +5,6 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import RadioGroup, {
-    type RadioButtonProps,
     type RadioGroupProps,
 } from 'react-native-radio-buttons-group';
 
@@ -14,7 +13,6 @@ import { Color } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 
 type Properties<T extends FieldValues> = RadioGroupProps & {
-    radioButtons: RadioButtonProps[];
     name: FieldPath<T>;
     control: Control<T, null>;
 };
