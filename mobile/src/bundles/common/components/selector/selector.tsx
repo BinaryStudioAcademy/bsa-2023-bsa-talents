@@ -38,7 +38,6 @@ const Selector = <T extends FieldValues>({
     name,
     control,
     options,
-    onSelect,
     multiSelect = false,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -51,7 +50,6 @@ const Selector = <T extends FieldValues>({
 
     const handlePressItem = (option: Select): void => {
         toggleIsListVisible();
-        onSelect && onSelect(option);
         if (multiSelect) {
             if (value.includes(option.value)) {
                 onChange(value.filter((item: string) => item !== option.value));
