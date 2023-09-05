@@ -12,7 +12,7 @@ import { FormControlLabel } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
-import { Radio } from './radio-item.js';
+import { Radio } from '../radio-item/radio-item.js';
 
 type Option = {
     value: string;
