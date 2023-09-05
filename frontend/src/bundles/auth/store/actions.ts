@@ -10,13 +10,14 @@ import {
 } from '~/bundles/users/users.js';
 import { StorageKey } from '~/framework/storage/storage.js';
 
+import { AuthApiPath } from '../enums/enums.js';
 import { name as sliceName } from './slice.js';
 
 const signUp = createAsyncThunk<
     UserSignUpResponseDto,
     UserSignUpRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sign-up`, async (registerPayload, { extra }) => {
+>(`${sliceName}${AuthApiPath.SIGN_UP}`, async (registerPayload, { extra }) => {
     const { authApi, storage } = extra;
 
     const data = await authApi.signUp(registerPayload);
@@ -28,7 +29,7 @@ const loadUser = createAsyncThunk<
     UserFindResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}/get-current-user`, (_, { extra }) => {
+>(`${sliceName}${AuthApiPath.CURRENT_USER}`, (_, { extra }) => {
     const { authApi } = extra;
     return authApi.getByToken();
 });
@@ -37,7 +38,7 @@ const signIn = createAsyncThunk<
     UserSignInResponseDto,
     UserSignInRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sign-in`, async (loginPayload, { extra }) => {
+>(`${sliceName}${AuthApiPath.SIGN_IN}`, async (loginPayload, { extra }) => {
     const { authApi, storage } = extra;
     const data = await authApi.signIn(loginPayload);
     void storage.set(StorageKey.TOKEN, data.token);
