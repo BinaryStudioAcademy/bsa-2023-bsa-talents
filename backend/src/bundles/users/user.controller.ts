@@ -10,11 +10,6 @@ import { UsersApiPath } from './enums/enums.js';
 /**
  * @swagger
  * components:
- *    securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  *    schemas:
  *      RoleEnum:
  *        type: string
