@@ -6,7 +6,7 @@ import {
 } from '../enums/enums';
 import { type StepFourDto } from '../types/types';
 
-const onboardingStepFourValidationSchema = joi.object<StepFourDto, true>({
+const StepFourValidationSchema = joi.object<StepFourDto, true>({
     photoId: joi.object({
         size: joi
             .number()
@@ -68,4 +68,4 @@ const onboardingStepFourValidationSchema = joi.object<StepFourDto, true>({
         }),
 });
 
-export { onboardingStepFourValidationSchema };
+export { StepFourValidationSchema };
