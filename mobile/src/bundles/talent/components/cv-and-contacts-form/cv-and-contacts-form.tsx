@@ -8,12 +8,13 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
-import { onboardingStepFourValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { StepFourValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
+import { DocumentPickerC } from '../document-picker/document-picker';
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -24,13 +25,13 @@ type Properties = {
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
-        validationSchema: onboardingStepFourValidationSchema,
+        validationSchema: StepFourValidationSchema,
     });
 
-    const handleCVUpload = useCallback(() => {
-        // TODO: add upload file logic
-        return null;
-    }, []);
+    // const handleCVUpload = useCallback(() => {
+    //     // TODO: add upload file logic
+    //     return null;
+    // }, []);
 
     // const onSubmit2 = handleSubmit((data) => {
     //     console.log(data);
@@ -99,11 +100,17 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Button
+                {/* <Button
                     label="Choose file"
                     buttonType="Outline"
                     iconName={IconName.ADD}
                     onPress={handleCVUpload}
+                    style={[globalStyles.borderRadius5, styles.buttonContainer]}
+                /> */}
+                <DocumentPickerC
+                    label="Choose file"
+                    control={control}
+                    name="cv"
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />
             </FormField>

@@ -6,7 +6,11 @@ type StepFourDto = {
     fullName: string;
     phoneNumber: string;
     linkedinProfile: string;
-    fileCV: string;
+    cv: {
+        name: string;
+        size: number;
+        uri: string;
+    };
 };
 
 export { type StepFourDto };

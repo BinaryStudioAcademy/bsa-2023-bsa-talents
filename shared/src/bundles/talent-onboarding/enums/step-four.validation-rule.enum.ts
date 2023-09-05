@@ -10,7 +10,8 @@ const StepFourValidationRule = {
     LINKEDIN_LINK_MIN_LENGTH: 30,
     LINKEDIN_REGEX:
         /^https:\/\/www\.linkedin\.com\/in\/[\w!#$%&()*+,./:;<>?@[\\\]^{}~-]+$/,
-    CV_REGEX: /\.(docx|doc|pdf)$/,
+    CV_TYPE_REGEX: /\.(docx|doc|pdf)$/,
+    CV_MAX_SIZE: 500_000,
 } as const;
 
 export { StepFourValidationRule };

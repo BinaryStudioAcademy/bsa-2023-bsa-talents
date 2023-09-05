@@ -7,17 +7,15 @@ import {
 import { type StepFourDto } from '../types/types';
 
 const StepFourValidationSchema = joi.object<StepFourDto, true>({
-    photoId: joi.object({
+    photoId: joi.object().keys({
         size: joi
             .number()
             .integer()
             .max(StepFourValidationRule.IMAGE_MAX_SIZE)
-            .required()
             .messages({ 'number.max': StepFourValidationMessage.IMG_MAX_SIZE }),
         uri: joi
             .string()
             .regex(StepFourValidationRule.IMAGE_TYPE_REGEX)
-            .required()
             .messages({
                 'string.pattern.base': StepFourValidationMessage.IMG_TYPE,
             }),
@@ -59,13 +57,28 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
                 StepFourValidationMessage.LINKEDIN_LINK_REGEX,
         }),
 
-    fileCV: joi
-        .string()
-        .regex(StepFourValidationRule.CV_REGEX)
-        .required()
-        .messages({
-            'string.pattern.base': '',
-        }),
+    cv: joi
+        .object()
+        .keys({
+            size: joi
+                .number()
+                .integer()
+                .max(StepFourValidationRule.CV_MAX_SIZE)
+                .required()
+                .messages({
+                    'number.max': StepFourValidationMessage.CV_MAX_SIZE,
+                }),
+            name: joi
+                .string()
+                .regex(StepFourValidationRule.CV_TYPE_REGEX)
+                .required()
+                .messages({
+                    'string.pattern.base':
+                        StepFourValidationMessage.CV_TYPE_REGEX,
+                }),
+            uri: joi.string().required(),
+        })
+        .required(),
 });
 
 export { StepFourValidationSchema };

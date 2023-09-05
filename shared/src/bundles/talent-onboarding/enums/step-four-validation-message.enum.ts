@@ -14,7 +14,8 @@ const StepFourValidationMessage = {
     LINKEDIN_LINK_MIN_LENGTH: 'Length should be min 30 chars',
     LINKEDIN_LINK_REGEX:
         'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
-    CV_REGEX: '',
+    CV_MAX_SIZE: 'Max size 5MB size',
+    CV_TYPE_REGEX: 'Allowed types for CV file should be docx, doc, pdf',
 } as const;
 
 export { StepFourValidationMessage };
