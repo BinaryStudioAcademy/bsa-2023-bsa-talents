@@ -1,30 +1,17 @@
 import joi from 'joi';
 
+import { TALENT_CONSTANT } from './talent-constant';
+
 type onboardingStepFourDto = {
-    photoId:
-        | {
-              size: number;
-              uri: string;
-          }
-        | undefined;
+    photoId: {
+        size: number;
+        uri: string;
+    };
     fullName: string;
     phoneNumber: string;
     linkedinProfile: string;
     fileCV: string;
 };
-
-const IMAGE_MAX_SIZE = 500_000;
-const IMAGE_TYPE_REGEX = /\.(jpeg|jpg|png)$/;
-const MAX_LENGTH_FULL_NAME = 50;
-const MIN_LENGTH_FULL_NAME = 3;
-const LINKEDIN_LINK_MAX_LENGTH = 250;
-const LINKEDIN_LINK_MIN_LENGTH = 30;
-const FULL_NAME_REGEX = /^[\s'.A-Za-z-]+$/;
-const PHONE_NUMBER_MAX = 10;
-const PHONE_NUMBER_REGEX = /^\+\d{1,10}$/;
-const LINKEDIN_REGEX =
-    /^https:\/\/www\.linkedin\.com\/in\/[\w!#$%&()*+,./:;<>?@[\\\]^{}~-]+$/;
-const CV_REGEX = /\.(docx|doc|pdf)$/;
 
 const onboardingStepFourValidationSchema = joi.object<
     onboardingStepFourDto,
@@ -34,20 +21,25 @@ const onboardingStepFourValidationSchema = joi.object<
         size: joi
             .number()
             .integer()
-            .max(IMAGE_MAX_SIZE)
+            .max(TALENT_CONSTANT.IMAGE_MAX_SIZE)
             .required()
             .messages({ 'number.max': 'Allowed image file is < 5MB' }),
-        uri: joi.string().regex(IMAGE_TYPE_REGEX).required().messages({
-            'string.pattern.base': 'Allowed image could be only jpeg, png, jpg',
-        }),
+        uri: joi
+            .string()
+            .regex(TALENT_CONSTANT.IMAGE_TYPE_REGEX)
+            .required()
+            .messages({
+                'string.pattern.base':
+                    'Allowed image could be only jpeg, png, jpg',
+            }),
     }),
 
     fullName: joi
         .string()
         .trim()
-        .min(MIN_LENGTH_FULL_NAME)
-        .max(MAX_LENGTH_FULL_NAME)
-        .regex(FULL_NAME_REGEX)
+        .min(TALENT_CONSTANT.MIN_LENGTH_FULL_NAME)
+        .max(TALENT_CONSTANT.MAX_LENGTH_FULL_NAME)
+        .regex(TALENT_CONSTANT.FULL_NAME_REGEX)
         .required()
         .messages({
             'string.min':
@@ -60,8 +52,8 @@ const onboardingStepFourValidationSchema = joi.object<
 
     phoneNumber: joi
         .string()
-        .regex(PHONE_NUMBER_REGEX)
-        .max(PHONE_NUMBER_MAX)
+        .regex(TALENT_CONSTANT.PHONE_NUMBER_REGEX)
+        .max(TALENT_CONSTANT.PHONE_NUMBER_MAX)
         .required()
         .messages({
             'string.max': 'allow up to 10 symbols total',
@@ -71,9 +63,9 @@ const onboardingStepFourValidationSchema = joi.object<
 
     linkedinProfile: joi
         .string()
-        .min(LINKEDIN_LINK_MIN_LENGTH)
-        .max(LINKEDIN_LINK_MAX_LENGTH)
-        .regex(LINKEDIN_REGEX)
+        .min(TALENT_CONSTANT.LINKEDIN_LINK_MIN_LENGTH)
+        .max(TALENT_CONSTANT.LINKEDIN_LINK_MAX_LENGTH)
+        .regex(TALENT_CONSTANT.LINKEDIN_REGEX)
         .required()
         .messages({
             'string.min': 'Length should be min 30 chars',
@@ -82,8 +74,8 @@ const onboardingStepFourValidationSchema = joi.object<
                 'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
         }),
 
-    fileCV: joi.string().regex(CV_REGEX).required().messages({
-        'regex':
+    fileCV: joi.string().regex(TALENT_CONSTANT.CV_REGEX).required().messages({
+        'string.pattern.base':
             'LinkedIn profile field accepts only links in the format of: https://www.linkedin.com/in/',
     }),
 });
