@@ -9,7 +9,7 @@ import DocumentPicker, {
 import { Button, Text } from '~/bundles/common/components/components';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 
-type DocumentPickerProperties<T extends FieldValues> = {
+type FilePickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     label: string;
@@ -41,12 +41,12 @@ const handleError = (error: unknown): void => {
     }
 };
 
-const DocumentPickerC = <T extends FieldValues>({
+const FilePicker = <T extends FieldValues>({
     label,
     style,
     control,
     name,
-}: DocumentPickerProperties<T>): JSX.Element => {
+}: FilePickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
     const { value, onChange } = field;
@@ -84,4 +84,4 @@ const DocumentPickerC = <T extends FieldValues>({
     );
 };
 
-export { DocumentPickerC };
+export { FilePicker };
