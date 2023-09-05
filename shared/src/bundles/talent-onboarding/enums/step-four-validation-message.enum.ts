@@ -1,4 +1,4 @@
-const TalentValidationMessage = {
+const StepFourValidationMessage = {
     IMG_MAX_SIZE: 'Allowed image file is < 5MB',
     IMG_TYPE: 'Allowed image could be only jpeg, png, jpg',
     FULL_NAME_MAX_LENGTH:
@@ -17,4 +17,4 @@ const TalentValidationMessage = {
     CV_REGEX: '',
 } as const;
 
-export { TalentValidationMessage };
+export { StepFourValidationMessage };

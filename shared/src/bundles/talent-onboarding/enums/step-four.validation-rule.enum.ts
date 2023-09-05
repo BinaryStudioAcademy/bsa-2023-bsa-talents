@@ -1,4 +1,4 @@
-const TALENT_CONSTANT = {
+const StepFourValidationRule = {
     IMAGE_MAX_SIZE: 500_000,
     IMAGE_TYPE_REGEX: /\.(jpeg|jpg|png)$/,
     MAX_LENGTH_FULL_NAME: 50,
@@ -11,6 +11,6 @@ const TALENT_CONSTANT = {
     LINKEDIN_REGEX:
         /^https:\/\/www\.linkedin\.com\/in\/[\w!#$%&()*+,./:;<>?@[\\\]^{}~-]+$/,
     CV_REGEX: /\.(docx|doc|pdf)$/,
-};
+} as const;
 
-export { TALENT_CONSTANT };
+export { StepFourValidationRule };
