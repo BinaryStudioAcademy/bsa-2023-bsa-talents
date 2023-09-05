@@ -4,7 +4,7 @@ const CandidatePage: React.FC = () => {
     return (
         <>
             <BreadCrumbs />
-            <CandidateProfile isProfileOpen />
+            <CandidateProfile isProfileOpen={false} />
         </>
     );
 };
