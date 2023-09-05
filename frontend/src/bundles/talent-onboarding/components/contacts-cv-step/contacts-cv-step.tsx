@@ -1,18 +1,13 @@
 import { Add as PlusIcon } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import {
-    type Control,
     type ControllerFieldState,
     type ControllerRenderProps,
-    type FieldErrors,
-    type FieldValues,
-    type UseFormHandleSubmit,
-    type UseFormSetError,
     type UseFormStateReturn,
-    type UseFormWatch,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
+// import { useSelector } from 'react-redux';
 import {
     FileUpload,
     FormControl,
@@ -23,30 +18,66 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
+// import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks.js';
+// import { type RootReducer } from '~/framework/store/store.package.js';
+// import { useFormSubmit } from '../../context/form-submit-provider.context.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
+// import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
+import { contactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
+    DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-type ReturnValue<T extends FieldValues = FieldValues> = {
-    control: Control<T, null>;
-    errors: FieldErrors<T>;
-    handleSubmit: UseFormHandleSubmit<T>;
-    watch: UseFormWatch<T>;
-    setError: UseFormSetError<T>;
-};
+const ContactsCVStep: React.FC = () => {
+    //delete this after the comments have been uncommented.
+    const { control, errors, watch, setError } = useAppForm({
+        defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
+        validationSchema: contactsCVStepValidationSchema,
+    });
 
-type Properties = {
-    methods: ReturnValue<ContactsCVStepDto>;
-};
+    // const savedPayload = useSelector(
+    //     (state: RootReducer) => state.talentOnBoarding.contactsCVStep,
+    // );
 
-const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
-    const { control, errors, watch, setError } = methods;
+    // const { control, handleSubmit, errors, setError, watch } =
+    //     useAppForm<ContactsCVStepDto>({
+    //         defaultValues: { ...savedPayload },
+    //         validationSchema: contactsCVStepValidationSchema,
+    //     });
+
+    // const { setSubmitForm } = useFormSubmit();
+
+    // const dispatch = useAppDispatch();
+
+    // const onSubmit = useCallback(
+    //     async (data: ContactsCVStepDto): Promise<boolean> => {
+    //         await dispatch(actions.contactsCVStep(data));
+    //         return true;
+    //     },
+    //     [dispatch],
+    // );
+
+    // useEffect(() => {
+    //     setSubmitForm(() => {
+    //         return async () => {
+    //             let result = false;
+    //             await handleSubmit(async (formData) => {
+    //                 result = await onSubmit(formData);
+    //             })();
+    //             return result;
+    //         };
+    //     });
+    //     return () => {
+    //         setSubmitForm(null);
+    //     };
+    // }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const [photoURL, setPhotoURL] = useState<string>('');
 
@@ -61,7 +92,9 @@ const ContactsCVStep: React.FC<Properties> = ({ methods }) => {
 
                 try {
                     validateFileSize('photo', file, setError);
+
                     setPhotoURL(URL.createObjectURL(file));
+
                     field.onChange(file);
                     return true;
                 } catch {
