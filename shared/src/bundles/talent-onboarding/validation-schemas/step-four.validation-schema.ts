@@ -29,8 +29,9 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
         .regex(StepFourValidationRule.FULL_NAME_REGEX)
         .required()
         .messages({
-            'string.min': StepFourValidationMessage.FULL_NAME_MAX_LENGTH,
-            'string.max': StepFourValidationMessage.FULL_NAME_MIN_LENGTH,
+            'string.empty': StepFourValidationMessage.FULL_NAME_REQUIRED,
+            'string.min': StepFourValidationMessage.FULL_NAME_MIN_LENGTH,
+            'string.max': StepFourValidationMessage.FULL_NAME_MAX_LENGTH,
             'string.pattern.base': StepFourValidationMessage.FULL_NAME_REGEX,
         }),
 
@@ -41,6 +42,7 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
         .min(StepFourValidationRule.PHONE_NUMBER_LENGTH)
         .required()
         .messages({
+            'string.empty': StepFourValidationMessage.PHONE_NUMBER_REQUIRED,
             'string.max': StepFourValidationMessage.PHONE_NUMBER_LENGTH,
             'string.pattern.base': StepFourValidationMessage.PHONE_NUMBER_REGEX,
         }),
@@ -52,6 +54,7 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
         .regex(StepFourValidationRule.LINKEDIN_REGEX)
         .required()
         .messages({
+            'string.empty': StepFourValidationMessage.LINKEDIN_LINK_REQUIRED,
             'string.min': StepFourValidationMessage.LINKEDIN_LINK_MIN_LENGTH,
             'string.max': StepFourValidationMessage.LINKEDIN_LINK_MAX_LENGTH,
             'string.pattern.base':
