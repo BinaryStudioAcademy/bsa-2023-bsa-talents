@@ -9,18 +9,24 @@
 .photo {
     align-items: center;
     gap: 20px;
-    margin-bottom: 28px;
 }
 
 .photoWrapper {
     width: 180px;
     height: 180px;
-    background-color: gray;
+    background-color: var(--background-secondary);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     border-radius: 50%;
 }
+
+// @media screen and (max-width: 1210px) {
+//     .photoWrapper {
+//         width: 140px;
+//         height: 140px;
+//     }
+// }
 
 .fileError {
     color: var(--error-primary);
