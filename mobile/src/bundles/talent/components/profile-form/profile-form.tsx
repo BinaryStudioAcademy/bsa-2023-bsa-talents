@@ -81,7 +81,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.salaryExpectations?.message}
+                errorMessage={errors.salaryExpectation?.message}
                 label="Salary expectations"
                 name="salaryExpectation"
                 required
@@ -110,7 +110,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.experienceLevel?.message}
+                errorMessage={errors.experienceYears?.message}
                 label="Experience Level"
                 name="experienceYears"
                 required
@@ -124,7 +124,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.currentLocation?.message}
+                errorMessage={errors.location?.message}
                 label="Current location"
                 name="location"
                 required
@@ -138,7 +138,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.employmentType?.message}
+                errorMessage={errors.employmentTypes?.message}
                 label="Employment type"
                 name="employmentTypes"
                 required
@@ -151,7 +151,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.experience?.message}
+                errorMessage={errors.description?.message}
                 label="Briefly tell employers about your experience"
                 name="description"
                 required
