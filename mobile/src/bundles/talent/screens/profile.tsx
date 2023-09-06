@@ -2,7 +2,6 @@ import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    Color,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
@@ -25,7 +24,7 @@ const Profile: React.FC = () => {
     }, []);
 
     return (
-        <View style={[globalStyles.flex1, { backgroundColor: Color.TEXT }]}>
+        <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm onSubmit={handleProfileSubmit} />
         </View>

@@ -1,8 +1,15 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type ProfileStepDto,
+    ProfileStepValidationMessage,
+    ProfileStepValidationRule,
+    ProfileStepValidationSchema,
+} from './bundles/talent-onboarding/talent-onboarding.js';
+export {
     CountryList,
     EmploymentType,
     EnglishLevel,
+    ExperienceYears,
     JobTitle,
     NotConsidered,
     PreferredLanguages,
