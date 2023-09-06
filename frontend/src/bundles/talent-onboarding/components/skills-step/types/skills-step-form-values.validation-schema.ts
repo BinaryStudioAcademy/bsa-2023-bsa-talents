@@ -1,23 +1,22 @@
 import joi from 'joi';
-
 import {
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-} from '../../enums/enums.js';
-import { type SkillsStepDto } from '../../types/types.js';
+} from 'shared/build/index.js';
 
-const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
+import { type SkillsStepFormValues } from './skills-step-form-values.js';
+
+const SkillsStepValidationSchema = joi.object<SkillsStepFormValues, true>({
     hardSkills: joi
-        .alternatives(
-            joi
-                .array()
-                .items(joi.string().pattern(/^[ '.A-Za-z-]+$/))
-                .min(SkillsStepValidationRule.HARD_SKILLS_MIN_LENGTH),
-            joi.string().pattern(/^[ '.A-Za-z-]+$/),
+        .array()
+        .items(
+            joi.object({
+                label: joi.string().pattern(/^[ '.A-Za-z-]+$/),
+                value: joi.string().pattern(/^[ '.A-Za-z-]+$/),
+            }),
         )
+        .min(SkillsStepValidationRule.HARD_SKILLS_MIN_LENGTH)
         .messages({
-            'alternatives.match':
-                SkillsStepValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
             'string.empty': SkillsStepValidationMessage.HARD_SKILLS_REQUIRED,
             'any.required': SkillsStepValidationMessage.HARD_SKILLS_REQUIRED,
             'array.includes':
@@ -78,27 +77,20 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
         }),
 
     projectLinks: joi
-        .alternatives(
-            joi
-                .array()
-                .items(
-                    joi
-                        .string()
-                        .uri()
-                        .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
-                        .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
-                )
-                .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LINKS),
-            joi
-                .string()
-                .empty('')
-                .uri()
-                .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
-                .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
+        .array()
+        .sparse()
+        .items(
+            joi.object({
+                url: joi
+                    .string()
+                    .empty('')
+                    .uri()
+                    .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
+                    .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
+            }),
         )
+        .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LINKS)
         .messages({
-            'alternatives.match':
-                SkillsStepValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
             'array.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LINKS,
             'array.includes':
                 SkillsStepValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
