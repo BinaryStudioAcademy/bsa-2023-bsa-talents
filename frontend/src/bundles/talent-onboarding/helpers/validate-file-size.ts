@@ -12,11 +12,12 @@ const validateFileSize = <T extends FieldValues>(
     setError: UseFormSetError<T>,
 ): void => {
     if (file.size > MAX_FILE_SIZE.bytes) {
+        const errorMessage = `Please upload a ${name} smaller than ${MAX_FILE_SIZE.mb} MB.`;
         setError(name, {
-            message: `Please upload a ${name} smaller than ${MAX_FILE_SIZE.mb} MB.`,
+            message: errorMessage,
             type: 'fileSize',
         });
-        throw new Error('asdf');
+        throw new Error(errorMessage);
     }
 };
 

@@ -88,7 +88,7 @@ const ContactsCVStep: React.FC = () => {
                     return false;
                 }
 
-                const [file] = [...event.target.files];
+                const [file] = event.target.files;
 
                 try {
                     validateFileSize('photo', file, setError);
@@ -138,7 +138,7 @@ const ContactsCVStep: React.FC = () => {
                     return false;
                 }
 
-                const [file] = [...event.target.files];
+                const [file] = event.target.files;
 
                 try {
                     validateFileSize('cv', file, setError);
