@@ -43,7 +43,7 @@ const ChatListItem: React.FC<Properties> = ({
             )}
             onClick={handleClick}
         >
-            <Avatar url={avatar} userFullName={username} size="medium" />
+            <Avatar src={avatar} alt={username} />
             <Grid flexGrow={1}>
                 <div
                     className={getValidClassNames(
