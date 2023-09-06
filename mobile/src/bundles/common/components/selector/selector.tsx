@@ -90,8 +90,8 @@ const Selector: React.FC<Properties> = ({ options }) => {
                     globalStyles.pl20,
                     globalStyles.width100,
                     isListVisible && globalStyles.pb5,
-                    styles.dropdown,
                     styles.dropdownButton,
+                    !isListVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
             >
