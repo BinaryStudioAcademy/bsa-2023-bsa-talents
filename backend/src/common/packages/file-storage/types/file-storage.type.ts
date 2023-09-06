@@ -1,8 +1,8 @@
 import { type S3 } from 'aws-sdk';
 
 type UploadParameters = {
-    filePath: string;
-    newFileNameKey?: string;
+    file: Buffer;
+    newFileNameKey: string;
 };
 
 type FileStorage = {

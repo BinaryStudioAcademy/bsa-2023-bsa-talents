@@ -1,3 +1,6 @@
+import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
+import { ApiPath, FileApiPath } from 'shared/build/index.js';
+
 import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
@@ -12,19 +15,18 @@ class FileController extends ControllerBase {
     private fileService: FileService;
 
     public constructor(logger: Logger, fileService: FileService) {
-        super(logger, '/file');
+        super(logger, ApiPath.FILES);
 
         this.fileService = fileService;
 
         this.addRoute({
-            path: '/upload',
+            path: FileApiPath.UPLOAD,
             method: 'POST',
             handler: (options) =>
                 this.upload(
                     options as ApiHandlerOptions<{
                         body: {
-                            filePath: string;
-                            newFileName?: string;
+                            file: MulterFile;
                         };
                     }>,
                 ),
@@ -34,14 +36,13 @@ class FileController extends ControllerBase {
     private async upload(
         options: ApiHandlerOptions<{
             body: {
-                filePath: string;
-                newFileName?: string;
+                file: MulterFile;
             };
         }>,
     ): Promise<ApiHandlerResponse> {
         const file = await this.fileService.create({
-            filePath: options.body.filePath,
-            newFileName: options.body.newFileName,
+            file: options.body.file.buffer as Buffer,
+            newFileName: options.body.file.originalname,
         });
 
         return {

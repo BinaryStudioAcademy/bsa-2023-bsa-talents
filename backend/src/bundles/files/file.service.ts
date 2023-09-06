@@ -20,8 +20,8 @@ class FileService implements Service {
     }
 
     public async create(payload: {
-        filePath: string;
-        newFileName?: string;
+        file: Buffer;
+        newFileName: string;
     }): Promise<FileEntity> {
         return this.fileRepository.create({ ...payload });
     }

@@ -1,6 +1,3 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import AWS from 'aws-sdk';
 import { type PutObjectRequest } from 'aws-sdk/clients/s3.js';
 
@@ -22,21 +19,17 @@ class FileStorageBase implements FileStorage {
     }
 
     public async upload({
-        filePath,
-        newFileNameKey = '',
+        file,
+        newFileNameKey,
     }: {
-        filePath: string;
-        newFileNameKey?: string;
+        file: Buffer;
+        newFileNameKey: string;
     }): Promise<AWS.S3.ManagedUpload.SendData> {
-        const newFileName = newFileNameKey || path.basename(filePath);
-
         try {
-            const fileStream = fs.createReadStream(filePath);
-
             const parameters: PutObjectRequest = {
                 Bucket: this.bucketName,
-                Key: newFileName,
-                Body: fileStream,
+                Key: newFileNameKey,
+                Body: file,
             };
 
             return this.s3.upload(parameters).promise();

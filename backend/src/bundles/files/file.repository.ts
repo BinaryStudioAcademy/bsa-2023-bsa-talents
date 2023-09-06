@@ -23,14 +23,12 @@ class FileRepository implements Repository {
     }
 
     public async create(payload: {
-        filePath: string;
-        newFileName?: string;
+        file: Buffer;
+        newFileName: string;
     }): Promise<FileEntity> {
-        const { filePath, newFileName } = payload;
-
         const response = await this.fileStorage.upload({
-            filePath,
-            newFileNameKey: newFileName,
+            file: payload.file,
+            newFileNameKey: payload.newFileName,
         });
 
         const file = await this.fileModel
