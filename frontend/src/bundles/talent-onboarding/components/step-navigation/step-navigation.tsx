@@ -1,6 +1,7 @@
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
+import { ContactsCVStep } from '../components.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
@@ -10,7 +11,6 @@ const StepNavigation: React.FC = () => {
     const Profile: React.FC = () => <button>Profile</button>;
     const BSABadges: React.FC = () => <button>BSABadges</button>;
     const Skills: React.FC = () => <button>Skills and projects</button>;
-    const CV: React.FC = () => <button>CV and contacts</button>;
     const Preview: React.FC = () => <button>Preview</button>;
 
     switch (step) {
@@ -24,7 +24,7 @@ const StepNavigation: React.FC = () => {
             return <Skills />;
         }
         case STEP_ROUTES.STEP_04: {
-            return <CV />;
+            return <ContactsCVStep />;
         }
         case STEP_ROUTES.STEP_05: {
             return <Preview />;

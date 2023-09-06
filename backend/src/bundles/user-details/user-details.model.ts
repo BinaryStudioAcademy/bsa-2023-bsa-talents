@@ -1,14 +1,9 @@
 import { Model } from 'objection';
 
 import { FileModel } from '~/bundles/files/files.js';
-import {
-    type CountryList,
-    type EmploymentType,
-    type EnglishLevel,
-    type JobTitle,
-    type NotConsidered,
-    type PreferredLanguages,
-} from '~/bundles/users/enums/enums.js';
+import { HardSkillsModel } from '~/bundles/hard-skills/hard-skills.model.js';
+import { TalentBadgeModel } from '~/bundles/talent-badges/talent-badge.model.js';
+import { UserModel } from '~/bundles/users/user.model.js';
 import {
     AbstractModel,
     DatabaseTableName,
@@ -21,9 +16,14 @@ import {
 } from '~/common/packages/database/database.js';
 import { type ValueOf } from '~/common/types/types.js';
 
-import { HardSkillsModel } from '../hard-skills/hard-skills.model.js';
-import { TalentBadgeModel } from '../talent-badges/talent-badge.model.js';
-import { UserModel } from './user.model.js';
+import {
+    type CountryList,
+    type EmploymentType,
+    type EnglishLevel,
+    type JobTitle,
+    type NotConsidered,
+    type PreferredLanguages,
+} from './enums/enums.js';
 
 class UserDetailsModel extends AbstractModel {
     public 'userId': string;
@@ -46,15 +46,15 @@ class UserDetailsModel extends AbstractModel {
 
     public 'experienceYears': number | null;
 
-    public 'employmentType': ValueOf<(typeof EmploymentType)[]> | null;
+    public 'employmentType': ValueOf<typeof EmploymentType>[] | null;
 
     public 'description': string | null;
 
     public 'englishLevel': ValueOf<typeof EnglishLevel> | null;
 
-    public 'notConsidered': ValueOf<(typeof NotConsidered)[]> | null;
+    public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    public 'preferredLanguages': ValueOf<(typeof PreferredLanguages)[]> | null;
+    public 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
 
     public 'projectLinks': string[] | null;
 

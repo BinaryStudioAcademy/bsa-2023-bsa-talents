@@ -3,6 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        gap: 10,
+    },
     title: {
         fontFamily: FontFamily.INTER_BOLD,
     },

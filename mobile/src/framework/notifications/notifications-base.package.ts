@@ -13,16 +13,20 @@ class BaseNotifications implements Notification {
     }
 
     public showError(settings: ShowMessageArguments): void {
+        const { title, text } = settings;
         this.notify.show({
             type: 'error',
-            ...settings,
+            text1: title,
+            text2: text,
         });
     }
 
     public showSuccess(settings: ShowMessageArguments): void {
+        const { title, text } = settings;
         this.notify.show({
             type: 'success',
-            ...settings,
+            text1: title,
+            text2: text,
         });
     }
 }
