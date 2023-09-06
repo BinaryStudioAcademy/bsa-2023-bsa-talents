@@ -4,7 +4,7 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
-} from '../../users/enums/enums.js';
+} from '../../user-details/user-details.js';
 import {
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
