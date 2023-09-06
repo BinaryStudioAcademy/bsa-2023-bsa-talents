@@ -1,4 +1,4 @@
 export { ProfileStepValidationMessage } from './profile-step.validation-message.js';
 export { ProfileStepValidationRule } from './profile-step.validation-rule.js';
-export { SignUpStep3ValidationMessage } from './sign-up-step3.validation-message';
-export { SignUpStep3ValidationRule } from './sign-up-step3.validation-rule';
+export { SkillsStepValidationMessage } from './skills-step.validation-message.js';
+export { SkillsStepValidationRule } from './skills-step.validation-rule.js';

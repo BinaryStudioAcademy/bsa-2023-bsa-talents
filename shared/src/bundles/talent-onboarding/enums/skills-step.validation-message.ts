@@ -1,4 +1,4 @@
-const SignUpStep3ValidationMessage = {
+const SkillsStepValidationMessage = {
     HARD_SKILLS_DIDNT_MATCH_PATTERN:
         'Hard Skills must contain only letters, special chars, spaces.',
     HARD_SKILLS_REQUIRED: 'Hard Skills is required',
@@ -22,4 +22,4 @@ const SignUpStep3ValidationMessage = {
         'Project links must contain less than {{#limit.max}} chars',
 };
 
-export { SignUpStep3ValidationMessage };
+export { SkillsStepValidationMessage };
