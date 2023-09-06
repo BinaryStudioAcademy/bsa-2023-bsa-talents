@@ -26,7 +26,7 @@ type Properties<T extends FieldValues> = {
     adornmentText?: string;
     className?: string;
     inputClassNames?: string;
-    ref: RefCallBack;
+    ref?: RefCallBack;
 };
 
 const Input = <T extends FieldValues>({
