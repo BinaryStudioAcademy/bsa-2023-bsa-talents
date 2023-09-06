@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    type FieldErrors,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
+import { type FieldPath, type FieldValues } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
@@ -13,7 +9,7 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
-    errors: FieldErrors<T>;
+    errorMessage: string | undefined;
     name: FieldPath<T>;
     children: React.ReactNode;
     label?: string;
@@ -23,15 +19,13 @@ type Properties<T extends FieldValues> = {
 };
 
 const FormField = <T extends FieldValues>({
-    errors,
-    name,
+    errorMessage,
     children,
     label,
     required,
     containerStyle,
 }: Properties<T>): JSX.Element => {
-    const error = errors[name]?.message;
-    const hasError = Boolean(error);
+    const hasError = Boolean(errorMessage);
 
     return (
         <View style={containerStyle}>
@@ -55,9 +49,7 @@ const FormField = <T extends FieldValues>({
                 }),
             )}
 
-            {hasError && (
-                <Text style={styles.errorText}>{error as string}</Text>
-            )}
+            {hasError && <Text style={styles.errorText}>{errorMessage}</Text>}
         </View>
     );
 };
