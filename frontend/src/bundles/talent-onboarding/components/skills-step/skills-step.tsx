@@ -53,12 +53,22 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
 }));
 
 const SkillsStep: React.FC = () => {
-    const savedPayload = useSelector(
-        (state: RootReducer) => state.talentOnBoarding.skillsStep,
-    );
+    const {
+        hardSkills,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+    } = useSelector((state: RootReducer) => state.talentOnBoarding);
 
     const { control, handleSubmit, errors } = useAppForm<SkillsStepDto>({
-        defaultValues: { ...savedPayload },
+        defaultValues: {
+            hardSkills,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+        },
         validationSchema: SkillsStepValidationSchema,
     });
 
@@ -68,7 +78,7 @@ const SkillsStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
-            await dispatch(actions.skillsStep(data));
+            await dispatch(actions.updateTalentDetails(data));
             return true;
         },
         [dispatch],
