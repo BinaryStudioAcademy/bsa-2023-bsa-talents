@@ -1,9 +1,5 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
-    type ContactsCVStepDto,
-    ContactsCVStepValidationMessage,
-    ContactsCVStepValidationRule,
-    ContactsCVStepValidationSchema,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
