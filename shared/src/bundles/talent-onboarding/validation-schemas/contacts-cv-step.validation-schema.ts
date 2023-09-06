@@ -10,6 +10,7 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     photo: joi.object().instance(File).required(),
     fullName: joi
         .string()
+        .trim()
         .min(ContactsCVStepValidationRule.MIN_FULL_NAME_LENGTH)
         .max(ContactsCVStepValidationRule.MAX_FULL_NAME_LENGTH)
         .pattern(/^[ '.A-Za-z-]+$/)
@@ -28,7 +29,7 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
         .required()
         .messages({
             'string.empty':
-                ContactsCVStepValidationMessage.PHONE_NUMDER_REQUIRED,
+                ContactsCVStepValidationMessage.PHONE_NUMBER_REQUIRED,
             'string.pattern.base':
                 ContactsCVStepValidationMessage.PHONE_NUMBER_PATTERN,
         }),
@@ -36,7 +37,7 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     linkedInLink: joi
         .string()
         .trim()
-        .pattern(/^linkedin\.com\/in\//)
+        .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
         .min(ContactsCVStepValidationRule.MIN_LINKEDIN_LINK_LENGTH)
         .max(ContactsCVStepValidationRule.MAX_LINKEDIN_LINK_LENGTH)
         .required()
