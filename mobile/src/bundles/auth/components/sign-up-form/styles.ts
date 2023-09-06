@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     },
     linkToSignIn: {
         color: Color.PRIMARY,
+        fontFamily: FontFamily.INTER_SEMIBOLD,
     },
     formWrapper: {
         gap: 25,

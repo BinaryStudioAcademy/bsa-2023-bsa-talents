@@ -21,9 +21,7 @@ import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
     const isPendingAuth = dataStatus === DataStatus.PENDING;
     useEffect(() => {
