@@ -8,10 +8,11 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
+import { FormControlLabel } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
-import { FormControlLabel, Radio } from '../components.js';
+import { Radio } from '../radio-item/radio-item.js';
 
 type Option = {
     value: string;

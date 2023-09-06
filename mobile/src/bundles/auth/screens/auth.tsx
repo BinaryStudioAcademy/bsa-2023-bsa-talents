@@ -5,7 +5,7 @@ import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/auth/types/types';
-import { Overlay, Text } from '~/bundles/common/components/components';
+import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -54,13 +54,11 @@ const Auth: React.FC = () => {
                 return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
         }
-
         return null;
     };
 
     return (
         <>
-            <Text>state: {dataStatus}</Text>
             <Overlay isActive={isPendingAuth} />
             <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
