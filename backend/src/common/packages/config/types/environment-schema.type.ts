@@ -20,6 +20,11 @@ type EnvironmentSchema = {
     CRYPT: {
         PASSWORD_SALT_ROUNDS: number;
     };
+    AWS: {
+        AWS_ACCESS_KEY_ID: string;
+        AWS_SECRET_ACCESS_KEY: string;
+        AWS_BUCKET_NAME: string;
+    };
 };
 
 export { type EnvironmentSchema };
