@@ -8,6 +8,9 @@ const ErrorMessages = {
     USER_NOT_FOUND: 'No user found for provided credentials',
     MISSING_TOKEN: 'Missing token.',
     INVALID_TOKEN: 'Invalid token.',
+    NOT_FOUND: 'Not found.',
+    UPDATE_FAILED: 'Update failed.',
+    NOT_IMPLEMENTED: 'Not implemented.',
 } as const;
 
 export { ErrorMessages };
