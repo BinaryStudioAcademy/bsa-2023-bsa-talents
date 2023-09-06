@@ -1,15 +1,15 @@
 import joi from 'joi';
 
 import {
+    CountryList,
+    EmploymentType,
+    JobTitle,
+} from '../../../user-details/enums/enums.js';
+import {
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
 } from '../../enums/enums.js';
 import { type ProfileStepDto } from '../../types/types.js';
-import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '../../user-details/user-details.js';
 
 const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
     profileName: joi
