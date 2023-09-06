@@ -6,6 +6,13 @@ import {
 } from '../../enums/enums.js';
 import { type SkillsStepDto } from '../../types/skills-step/skills-step-dto.js';
 
+const urlValidation = joi
+    .string()
+    .empty('')
+    .uri()
+    .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
+    .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH);
+
 const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
     hardSkills: joi
         .array()
@@ -82,16 +89,7 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
     projectLinks: joi
         .array()
         .sparse()
-        .items(
-            joi.object({
-                url: joi
-                    .string()
-                    .empty('')
-                    .uri()
-                    .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
-                    .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
-            }),
-        )
+        .items(urlValidation)
         .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LINKS)
         .messages({
             'array.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LINKS,

@@ -3,9 +3,7 @@ type SkillsStepDto = {
     englishLevel: string;
     notConsidered: string[];
     preferredLanguages: string[];
-    projectLinks: {
-        url: string;
-    }[];
+    projectLinks: string[];
 };
 
 export { type SkillsStepDto };
