@@ -1,4 +1,4 @@
-type SkillsStepFormValues = {
+type SkillsStepDto = {
     hardSkills: { value: string; label: string }[];
     englishLevel: string;
     notConsidered: string[];
@@ -8,4 +8,4 @@ type SkillsStepFormValues = {
     }[];
 };
 
-export { type SkillsStepFormValues };
+export { type SkillsStepDto };

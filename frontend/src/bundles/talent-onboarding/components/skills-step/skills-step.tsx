@@ -10,11 +10,6 @@ import {
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import {
-    EnglishLevel,
-    NotConsidered,
-    PreferredLanguages,
-} from 'shared/build/index.js';
 
 import {
     Button,
@@ -27,21 +22,25 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    EnglishLevel,
+    NotConsidered,
+    PreferredLanguages,
+} from '~/bundles/talent-onboarding/enums/enums.js';
+import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { SkillsAutocomplete } from './skills-autocomplete.js';
 import styles from './styles.module.scss';
-import { type SkillsStepFormValues } from './types/skills-step-form-values.js';
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
-    getValues: () => T;
     handleSubmit: UseFormHandleSubmit<T>;
 };
 
 type Properties = {
-    methods: ReturnValue<SkillsStepFormValues>;
-    userInfo?: SkillsStepFormValues;
+    methods: ReturnValue<SkillsStepDto>;
+    userInfo?: SkillsStepDto;
 };
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -69,7 +68,7 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<SkillsStepFormValues, 'notConsidered'>,
+            field: ControllerRenderProps<SkillsStepDto, 'notConsidered'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -85,20 +84,23 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<SkillsStepFormValues, 'notConsidered'>;
+            field: ControllerRenderProps<SkillsStepDto, 'notConsidered'>;
             fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<SkillsStepFormValues>;
+            formState: UseFormStateReturn<SkillsStepDto>;
         }): React.ReactElement => {
             return (
                 <Grid
                     container
                     spacing={2}
-                    className={getValidClassNames(
-                        (styles.checkboxContainer, styles['MuiGrid-item']),
-                    )}
+                    className={getValidClassNames(styles.checkboxContainer)}
                 >
                     {notConsideredOptions.map((option) => (
-                        <Grid item xs={6} key={option.value}>
+                        <Grid
+                            item
+                            xs={6}
+                            key={option.value}
+                            className={styles['MuiGrid-item']}
+                        >
                             <Checkbox
                                 {...{
                                     onChange: field.onChange,
@@ -127,11 +129,11 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
             field,
         }: {
             field: ControllerRenderProps<
-                SkillsStepFormValues,
+                SkillsStepDto,
                 `projectLinks.${number}.url`
             >;
             fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<SkillsStepFormValues>;
+            formState: UseFormStateReturn<SkillsStepDto>;
         }): React.ReactElement => {
             const { ref, ...withoutReference } = field;
             return (

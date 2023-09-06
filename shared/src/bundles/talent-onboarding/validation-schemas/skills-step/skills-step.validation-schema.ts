@@ -1,12 +1,12 @@
 import joi from 'joi';
+
 import {
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-} from 'shared/build/index.js';
+} from '../../enums/enums.js';
+import { type SkillsStepDto } from '../../types/skills-step/skills-step-dto.js';
 
-import { type SkillsStepFormValues } from './skills-step-form-values.js';
-
-const SkillsStepValidationSchema = joi.object<SkillsStepFormValues, true>({
+const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
     hardSkills: joi
         .array()
         .items(

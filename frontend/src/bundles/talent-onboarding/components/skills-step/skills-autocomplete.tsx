@@ -6,20 +6,21 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import { type SyntheticEvent } from 'react';
 import { type Control, type FieldPath } from 'react-hook-form';
 
-// import { Chip } from '~/bundles/common/components/components.js';
+import { Chip } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
+import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import styles from './styles.module.scss';
-import { type SkillsStepFormValues } from './types/skills-step-form-values.js';
 
 type Properties = {
-    control: Control<SkillsStepFormValues>;
-    name: FieldPath<SkillsStepFormValues>;
+    control: Control<SkillsStepDto>;
+    name: FieldPath<SkillsStepDto>;
 };
 
 type Option = {
@@ -72,10 +73,18 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
     const hideDefaultTags = useCallback(() => null, []);
 
     const handleChange = useCallback(
-        () => (values: Option[]) => {
+        (event: SyntheticEvent, values: Option[]) => {
+            event.preventDefault();
             onChange(values);
         },
         [onChange],
+    );
+
+    const isOptionEqualToValue = useCallback(
+        (option: Option, value: Option): boolean => {
+            return option.value === value.value;
+        },
+        [],
     );
 
     const filterOptions = useCallback((options: Option[]) => {
@@ -99,14 +108,19 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 filterOptions={filterOptions}
                 popupIcon={null}
                 clearIcon={null}
+                isOptionEqualToValue={isOptionEqualToValue}
                 onChange={handleChange}
             />
-            {/* 
+
             <div>
-                {value.map((entry) => (
-                    <Chip label={entry.label} onDelete={() => {}} />
+                {(value as Option[]).map((entry) => (
+                    <Chip
+                        key={entry.label}
+                        label={entry.label}
+                        // onDelete={() => {}}
+                    />
                 ))}
-            </div> */}
+            </div>
             {errors.hardSkills && (
                 <FormHelperText className={styles.hasError}>
                     {errors.hardSkills.message}
