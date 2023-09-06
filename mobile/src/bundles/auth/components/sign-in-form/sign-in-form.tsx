@@ -41,7 +41,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             ]}
         >
             <Text
-                category={TextCategory.H4}
+                category={TextCategory.H3}
                 style={[
                     globalStyles.pb25,
                     globalStyles.alignSelfCenter,
