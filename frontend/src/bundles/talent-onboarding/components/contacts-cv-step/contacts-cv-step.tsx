@@ -36,7 +36,7 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    //delete this after the comments have been uncommented.
+    //TODO: delete this after the comments have been uncommented.
     const { control, errors, watch, setError } = useAppForm({
         defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
         validationSchema: contactsCVStepValidationSchema,

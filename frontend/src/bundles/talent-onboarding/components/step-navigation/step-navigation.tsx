@@ -11,7 +11,6 @@ const StepNavigation: React.FC = () => {
     const Profile: React.FC = () => <button>Profile</button>;
     const BSABadges: React.FC = () => <button>BSABadges</button>;
     const Skills: React.FC = () => <button>Skills and projects</button>;
-    // const CV: React.FC = () => <button>CV and contacts</button>;
     const Preview: React.FC = () => <button>Preview</button>;
 
     switch (step) {
