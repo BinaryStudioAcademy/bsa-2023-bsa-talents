@@ -1,7 +1,10 @@
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import { type ApiHandlerResponse } from '~/common/packages/controller/controller.js';
+import {
+    // type ApiHandlerOptions,
+    type ApiHandlerResponse,
+} from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
@@ -42,6 +45,17 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        // this.addRoute({
+        //     path: UsersApiPath.SEARCH,
+        //     method: 'GET',
+        //     handler: (options) =>
+        //         this.searchUsers(
+        //             options as ApiHandlerOptions<{
+        //                 query: { test?: string };
+        //             }>,
+        //         ),
+        // });
     }
 
     /**
@@ -68,6 +82,19 @@ class UserController extends ControllerBase {
             payload: await this.userService.findAll(),
         };
     }
+
+    // private async searchUsers(
+    //     options: ApiHandlerOptions<{
+    //         query: { test?: string };
+    //     }>,
+    // ): Promise<ApiHandlerResponse> {
+    //     const { test }: { test?: string } = options.query;
+
+    //     return {
+    //         status: HttpCode.OK,
+    //         payload: { test: 'success' },
+    //     };
+    // }
 }
 
 export { UserController };
