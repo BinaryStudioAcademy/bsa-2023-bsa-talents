@@ -22,8 +22,7 @@ const contactsCVStep = createAsyncThunk<
     ContactsCVStepDto,
     AsyncThunkConfig
 >(`${sliceName}/contacts-cv-step`, (contactsCVStepPayload) => {
-    const { talentApi } = extra;
-    return talentApi.contactsCVStep(contactsCVStepPayload);
+    return contactsCVStepPayload;
 });
 
 export { completeProfileStep, contactsCVStep };
