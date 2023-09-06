@@ -1,3 +1,4 @@
+import { FormHelperText } from '@mui/material';
 import { UserRole } from 'shared/build/index.js';
 
 import {
@@ -41,6 +42,8 @@ const options = [
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const [selectedRole, setSelectedRole] = useState('talent');
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+    const [isTermsError, setIsTermsError] = useState(false);
 
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
@@ -49,9 +52,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
-            void handleSubmit(onSubmit)(event_);
+            event_.preventDefault();
+            if (isTermsAccepted) {
+                void handleSubmit(onSubmit)(event_);
+            } else {
+                setIsTermsError(true);
+            }
         },
-        [handleSubmit, onSubmit],
+        [handleSubmit, isTermsAccepted, onSubmit],
     );
 
     const handleRadioChange = useCallback(
@@ -79,12 +87,22 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         [],
     );
 
+    const handleCheckboxChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setIsTermsAccepted(event.target.checked);
+            setIsTermsError((previous) => !previous);
+        },
+        [],
+    );
+
     const checkboxLabel = (
         <p className={styles.termsLabel}>
-            I agree to the{' '}
+            I agree to the
             <span>
+                {/* TODO: replace with actual terms link */}
                 <Link to="/">BSA Talents Terms</Link>
             </span>
+            *
         </p>
     );
 
@@ -132,12 +150,24 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 {selectedRole === UserRole.TALENT && (
-                    <FormControl className={styles.checkboxWrapper}>
+                    <FormControl
+                        className={styles.checkboxWrapper}
+                        required
+                        hasError={!isTermsAccepted}
+                    >
                         <Checkbox
                             label={checkboxLabel}
-                            isRequired
-                            isDefaultChecked
+                            isChecked={isTermsAccepted}
+                            onChange={handleCheckboxChange}
                         />
+                        <FormHelperText
+                            className={getValidClassNames(
+                                styles.termsErrorText,
+                                isTermsError && styles.rejected,
+                            )}
+                        >
+                            Please accept Terms to continue
+                        </FormHelperText>
                     </FormControl>
                 )}
 
@@ -148,6 +178,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles['btn-login'],
                     )}
                     type="submit"
+                    disabled={selectedRole === UserRole.TALENT && isTermsError}
                 />
             </form>
             <Grid item className={'footer'}>
