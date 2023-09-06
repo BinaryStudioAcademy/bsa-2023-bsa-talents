@@ -18,7 +18,7 @@ const Avatar: React.FC<Properties> = ({
             className={getValidClassNames(
                 className,
                 styles.avatar,
-                small ? styles.small : '',
+                small && styles.small,
             )}
             {...props}
         ></MUIAvatar>
