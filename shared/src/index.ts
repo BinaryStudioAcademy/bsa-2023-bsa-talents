@@ -1,13 +1,17 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type ContactsCVStepDto,
+    ContactsCVStepValidationMessage,
+    ContactsCVStepValidationRule,
+    ContactsCVStepValidationSchema,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     ProfileStepValidationSchema,
-} from './bundles/talent-onboarding/talent-onboarding.js';
-export {
-    type ContactsCVStepDto,
-    contactsCVStepValidationSchema,
+    type SkillsStepDto,
+    SkillsStepValidationMessage,
+    SkillsStepValidationRule,
+    SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,

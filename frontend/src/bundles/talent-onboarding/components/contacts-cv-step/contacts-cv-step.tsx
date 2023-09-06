@@ -26,7 +26,7 @@ import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 // import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
-import { contactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
@@ -39,7 +39,7 @@ const ContactsCVStep: React.FC = () => {
     //TODO: delete this after the comments have been uncommented.
     const { control, errors, watch, setError } = useAppForm({
         defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
-        validationSchema: contactsCVStepValidationSchema,
+        validationSchema: ContactsCVStepValidationSchema,
     });
 
     // const savedPayload = useSelector(
@@ -49,7 +49,7 @@ const ContactsCVStep: React.FC = () => {
     // const { control, handleSubmit, errors, setError, watch } =
     //     useAppForm<ContactsCVStepDto>({
     //         defaultValues: { ...savedPayload },
-    //         validationSchema: contactsCVStepValidationSchema,
+    //         validationSchema: ContactsCVStepValidationSchema,
     //     });
 
     // const { setSubmitForm } = useFormSubmit();

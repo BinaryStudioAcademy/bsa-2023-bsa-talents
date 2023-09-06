@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     type ContactsCVStepDto,
     type ProfileStepDto,
+    type SkillsStepDto,
 } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
@@ -16,6 +17,14 @@ const profileStep = createAsyncThunk<
     return registerPayload;
 });
 
+const skillsStep = createAsyncThunk<
+    SkillsStepDto,
+    SkillsStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/skills-step`, (registerPayload) => {
+    return registerPayload;
+});
+
 const contactsCVStep = createAsyncThunk<
     ContactsCVStepDto,
     ContactsCVStepDto,
@@ -24,4 +33,4 @@ const contactsCVStep = createAsyncThunk<
     return registerPayload;
 });
 
-export { contactsCVStep, profileStep };
+export { contactsCVStep, profileStep, skillsStep };

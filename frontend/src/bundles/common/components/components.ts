@@ -1,5 +1,5 @@
 export { App } from '../../../app/app.js';
-export { Avatar } from './avatar/avatar.js';
+export { Avatar, HeaderAvatar } from './avatar/components.js';
 export { Badge } from './badge/badge.js';
 export { Button, type ButtonProperties } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';

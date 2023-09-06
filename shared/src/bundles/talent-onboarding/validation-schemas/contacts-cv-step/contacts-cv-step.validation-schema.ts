@@ -3,10 +3,10 @@ import joi from 'joi';
 import {
     ContactsCVStepValidationMessage,
     ContactsCVStepValidationRule,
-} from '../enums/enums.js';
-import { type ContactsCVStepDto } from '../types/types.js';
+} from '../../enums/enums.js';
+import { type ContactsCVStepDto } from '../../types/types.js';
 
-const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
+const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     photo: joi.object().instance(File).required(),
     fullName: joi
         .string()
@@ -54,4 +54,4 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     cv: joi.object().instance(File).required(),
 });
 
-export { contactsCVStepValidationSchema };
+export { ContactsCVStepValidationSchema };

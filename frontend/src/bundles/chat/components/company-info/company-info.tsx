@@ -7,7 +7,7 @@ import {
 
 type Properties = {
     companyData: {
-        name: string;
+        companyName: string;
         employerName: string;
         employerPosition?: string;
         logoUrl?: string;
@@ -23,7 +23,7 @@ import styles from './styles.module.scss';
 const CompanyInfo: React.FC<Properties> = ({
     companyData: {
         logoUrl,
-        name,
+        companyName,
         employerName,
         employerPosition,
         about = 'No information provided.',
@@ -41,9 +41,9 @@ const CompanyInfo: React.FC<Properties> = ({
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.header}>
-                <Avatar userFullName={name} url={logoUrl} size="small" />
+                <Avatar alt={companyName} src={logoUrl} isSmall />
                 <Grid className={styles.headerInfo}>
-                    <Typography variant="h3">{name}</Typography>
+                    <Typography variant="h3">{companyName}</Typography>
                     <Typography variant="body1">
                         {employerName}, {employerPosition ?? employerPosition}
                     </Typography>
@@ -51,7 +51,7 @@ const CompanyInfo: React.FC<Properties> = ({
             </Grid>
             <div className={styles.divider}></div>
             <Grid className={styles.content}>
-                <Typography variant="h6">About {name}</Typography>
+                <Typography variant="h6">About {companyName}</Typography>
                 <Typography variant="body1">{about}</Typography>
                 {companyWebsite && (
                     <>
