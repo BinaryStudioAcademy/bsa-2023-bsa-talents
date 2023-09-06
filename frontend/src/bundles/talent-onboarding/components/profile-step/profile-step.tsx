@@ -56,12 +56,26 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
 }));
 
 const ProfileStep: React.FC = () => {
-    const savedPayload = useSelector(
-        (state: RootReducer) => state.talentOnBoarding,
-    );
+    const {
+        profileName,
+        salaryExpectation,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+    } = useSelector((state: RootReducer) => state.talentOnBoarding);
 
     const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
-        defaultValues: { ...savedPayload },
+        defaultValues: {
+            profileName,
+            salaryExpectation,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+        },
         validationSchema: ProfileStepValidationSchema,
     });
 
@@ -71,7 +85,7 @@ const ProfileStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(actions.profileStep(data));
+            await dispatch(actions.updateTalentDetails(data));
             return true;
         },
         [dispatch],
@@ -94,7 +108,7 @@ const ProfileStep: React.FC = () => {
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>,
+            field: ControllerRenderProps<ProfileStepDto, 'employmentType'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -110,7 +124,7 @@ const ProfileStep: React.FC = () => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>;
+            field: ControllerRenderProps<ProfileStepDto, 'employmentType'>;
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
@@ -256,13 +270,13 @@ const ProfileStep: React.FC = () => {
                 <FormControl className={styles.formControlCheckbox}>
                     <Controller
                         control={control}
-                        name="employmentTypes"
+                        name="employmentType"
                         render={renderCheckboxes}
                     />
                 </FormControl>
-                {errors.employmentTypes && (
+                {errors.employmentType && (
                     <FormHelperText className={styles.hasError}>
-                        {errors.employmentTypes.message}
+                        {errors.employmentType.message}
                     </FormHelperText>
                 )}
             </Grid>
