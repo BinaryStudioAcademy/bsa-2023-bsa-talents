@@ -5,11 +5,11 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = AvatarProps & {
-    small?: boolean;
+    isSmall?: boolean;
 };
 
 const Avatar: React.FC<Properties> = ({
-    small = false,
+    isSmall = false,
     className,
     ...props
 }) => {
@@ -18,12 +18,10 @@ const Avatar: React.FC<Properties> = ({
             className={getValidClassNames(
                 className,
                 styles.avatar,
-                small ? styles.small : '',
+                isSmall && styles.small,
             )}
             {...props}
-        >
-            {/* default icon/text */}
-        </MUIAvatar>
+        ></MUIAvatar>
     );
 };
 

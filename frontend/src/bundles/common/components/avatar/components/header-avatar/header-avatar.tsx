@@ -28,12 +28,10 @@ const HeaderAvatar: React.FC<Properties> = ({
                 variant="dot"
             >
                 <Avatar
-                    small
+                    isSmall
                     className={getValidClassNames(styles.headerAvatar)}
                     {...props}
-                >
-                    {/* default icon/text */}
-                </Avatar>
+                ></Avatar>
             </MUIBadge>
         </div>
     );
