@@ -32,6 +32,7 @@ const { reducer, actions, name } = createSlice({
                 isAnyOf(signUp.rejected, loadUser.rejected, signIn.rejected),
                 (state) => {
                     state.dataStatus = DataStatus.REJECTED;
+                    state.currentUser = null;
                 },
             )
             .addMatcher(
