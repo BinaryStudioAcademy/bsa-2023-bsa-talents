@@ -55,7 +55,10 @@ const Logo: React.FC<Properties> = ({
                     <BaseLogo isCollapsed={isCollapsed} />
                 </Link>
             ) : (
-                <Grid className={getValidClassNames(styles.logo, className)}>
+                <Grid
+                    container
+                    className={getValidClassNames(styles.logo, className)}
+                >
                     <BaseLogo isCollapsed={isCollapsed} />
                 </Grid>
             )}
