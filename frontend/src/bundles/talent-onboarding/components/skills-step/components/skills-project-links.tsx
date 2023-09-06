@@ -57,7 +57,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
                 return (
                     <Grid key={item.id} className={styles.projectLinks}>
                         <Input
-                            ref={ref}
+                            inputRef={ref}
                             type="text"
                             errors={{}}
                             control={control}

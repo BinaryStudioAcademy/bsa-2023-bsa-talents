@@ -14,12 +14,12 @@ const SkillsStepValidationMessage = {
     PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES:
         'Project links must be a valid URL, between 5 and 50 characters',
     PROJECT_LINKS_MAX_LINKS:
-        'Project links must contain less than {{#limit.max}} links',
+        'Project links must contain less than {{#limit}} links',
     PROJECT_LINKS_INVALID_URL: 'Project links must be a valid URL',
     PROJECT_LINKS_MIN_LENGTH:
-        'Project links must contain at least {{#limit.min}} chars',
+        'Project links must contain at least {{#limit}} chars',
     PROJECT_LINKS_MAX_LENGTH:
-        'Project links must contain less than {{#limit.max}} chars',
+        'Project links must contain less than {{#limit}} chars',
 };
 
 export { SkillsStepValidationMessage };
