@@ -7,12 +7,12 @@ import {
 
 type Properties = {
     companyData: {
-        logoUrl: string;
         name: string;
         employerName: string;
-        employerPosition: string;
-        info: string;
-        companyWebsite: string;
+        employerPosition?: string;
+        logoUrl?: string;
+        about?: string;
+        companyWebsite?: string;
     };
 };
 
@@ -26,7 +26,7 @@ const CompanyInfo: React.FC<Properties> = ({
         name,
         employerName,
         employerPosition,
-        info,
+        about = 'No information provided.',
         companyWebsite,
     },
 }) => {
@@ -45,25 +45,29 @@ const CompanyInfo: React.FC<Properties> = ({
                 <Grid className={styles.headerInfo}>
                     <Typography variant="h3">{name}</Typography>
                     <Typography variant="body1">
-                        {employerName}, {employerPosition}
+                        {employerName}, {employerPosition ?? employerPosition}
                     </Typography>
                 </Grid>
             </Grid>
             <div className={styles.divider}></div>
             <Grid className={styles.content}>
                 <Typography variant="h6">About {name}</Typography>
-                <Typography variant="body1">{info}</Typography>
-                <Typography variant="h6">Company Website</Typography>
-                <p className={styles.linkWrapper}>
-                    <a
-                        href={companyWebsite}
-                        rel="noreferrer"
-                        target="_blank"
-                        className={styles.companyLink}
-                    >
-                        {companyWebsite}
-                    </a>
-                </p>
+                <Typography variant="body1">{about}</Typography>
+                {companyWebsite && (
+                    <>
+                        <Typography variant="h6">Company Website</Typography>
+                        <p className={styles.linkWrapper}>
+                            <a
+                                href={companyWebsite}
+                                rel="noreferrer"
+                                target="_blank"
+                                className={styles.companyLink}
+                            >
+                                {companyWebsite}
+                            </a>
+                        </p>
+                    </>
+                )}
             </Grid>
             <Grid className={styles.buttons}>
                 <Button
