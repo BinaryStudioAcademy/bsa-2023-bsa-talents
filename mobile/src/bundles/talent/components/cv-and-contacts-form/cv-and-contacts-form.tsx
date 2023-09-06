@@ -88,7 +88,9 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.cv?.name?.message}
+                errorMessage={
+                    errors.cv?.name?.message ?? errors.cv?.size?.message
+                }
                 label="CV"
                 name="cv"
                 required
