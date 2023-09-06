@@ -10,7 +10,7 @@ type UserSignUpStep3Dto = {
     englishLevel: ValueOf<typeof EnglishLevel>;
     notConsidered: ValueOf<typeof NotConsidered>[];
     preferredLanguages: ValueOf<typeof PreferredLanguages>[];
-    projectLinks: { projectLink: string }[];
+    projectLinks: { url: string }[];
 };
 
 export { type UserSignUpStep3Dto };

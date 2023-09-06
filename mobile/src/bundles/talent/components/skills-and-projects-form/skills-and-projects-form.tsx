@@ -88,7 +88,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
         navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
             stepState: TalentOnboardingStepState.FOCUSED,
         });
-        // setParams({ stepState: TalentOnboardingStepState.COMPLETED });
     }, [handleSubmit, navigate, onSubmit]);
 
     return (
@@ -186,8 +185,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <View style={styles.links}>
                     {fields.map((field, index) => {
-                        // console.log(field);
-
                         return (
                             <View key={field.id}>
                                 <Input
@@ -219,7 +216,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     iconSize={20}
                     style={globalStyles.alignSelfFlexStart}
                     onPress={(): void => {
-                        append({ projectLink: '' });
+                        append({ url: '' });
                     }}
                 />
             </FormField>

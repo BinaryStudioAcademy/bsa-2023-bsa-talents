@@ -12,7 +12,7 @@ const SKILLS_AND_PROJECTS_DEFAULT_VALUES: UserSignUpStep3Dto = {
     englishLevel: '',
     notConsidered: [],
     preferredLanguages: [],
-    projectLinks: [{ projectLink: '' }],
+    projectLinks: [{ url: '' }],
 };
 
 const ENGLISH_LEVEL = Object.values(EnglishLevel).map((language) => ({

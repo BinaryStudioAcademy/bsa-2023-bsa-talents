@@ -83,7 +83,14 @@ const SearchableDropdown = <T extends FieldValues>({
                 >
                     <ScrollView nestedScrollEnabled>
                         {items
-                            .filter((item: Item) => item.label.includes(value))
+                            .filter((item: Item) => {
+                                if (typeof value != 'string') {
+                                    return;
+                                }
+                                return item.label
+                                    .toLowerCase()
+                                    .includes(value.toLowerCase());
+                            })
                             .map((item: Item) => (
                                 <TouchableOpacity
                                     key={item.label}
