@@ -9,9 +9,9 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
-    errorMessage: string | undefined;
     name: FieldPath<T>;
     children: React.ReactNode;
+    errorMessage?: string;
     label?: string;
     required?: boolean;
     hasError?: boolean;
