@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type ProfileStepDto } from 'shared/build/index.js';
+import { type ProfileStepDto, type SkillsStepDto } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -13,4 +13,12 @@ const profileStep = createAsyncThunk<
     return registerPayload;
 });
 
-export { profileStep };
+const skillsStep = createAsyncThunk<
+    SkillsStepDto,
+    SkillsStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/skills-step`, (registerPayload) => {
+    return registerPayload;
+});
+
+export { profileStep, skillsStep };
