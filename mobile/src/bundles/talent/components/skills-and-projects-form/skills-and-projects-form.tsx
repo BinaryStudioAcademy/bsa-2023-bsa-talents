@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
     Button,
-    Checkbox,
     FormField,
     Input,
     Pressable,
@@ -39,6 +38,7 @@ import {
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
+import { NotConsiderTypes } from './not-consider-types';
 import { styles } from './styles';
 
 type Properties = {
@@ -145,22 +145,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <View
-                    style={[
-                        globalStyles.flexDirectionRow,
-                        globalStyles.justifyContentSpaceBetween,
-                        styles.notConsiderContainer,
-                    ]}
-                >
-                    {NOT_CONSIDERED.map((option, index) => (
-                        <Checkbox
-                            key={option}
-                            label={option}
-                            name={`notConsidered.${index}`}
-                            control={control}
-                        />
-                    ))}
-                </View>
+                <NotConsiderTypes
+                    control={control}
+                    name="notConsidered"
+                    options={NOT_CONSIDERED}
+                />
             </FormField>
 
             <FormField
