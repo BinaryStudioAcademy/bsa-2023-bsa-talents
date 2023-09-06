@@ -1,4 +1,5 @@
 export { BreadCrumbs } from './bread-crumbs/bread-crumbs.js';
+export { CandidateParameter } from './candidate-profile/candidate-parameter/candidate-parameter.js';
 export { CandidateProfile } from './candidate-profile/candidate-profile.js';
 export { ProfileFirstSection } from './candidate-profile/profile-first-section/profile-first-section.js';
 export { ProfileSecondSection } from './candidate-profile/profile-second-section/profile-second-section.js';

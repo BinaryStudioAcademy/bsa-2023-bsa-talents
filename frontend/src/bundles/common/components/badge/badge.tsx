@@ -12,10 +12,10 @@ type Properties = {
     description: string;
     secondText?: string;
     color?: ValueOf<typeof BadgeColors>;
-    small?: boolean | undefined;
+    isSmall?: boolean;
     icon?: ReactElement;
     iconClass?: string;
-    HRbadge?: boolean;
+    isHRbadge?: boolean;
 };
 
 const Badge: React.FC<Properties> = ({
@@ -23,12 +23,12 @@ const Badge: React.FC<Properties> = ({
     description,
     secondText,
     color = BadgeColors.BLUE,
-    small = false,
+    isSmall = false,
     icon,
-    HRbadge,
+    isHRbadge,
 }) => {
     const setClass = (classStandard: string, classSmall: string): string =>
-        getValidClassNames(classStandard, small ? classSmall : '');
+        getValidClassNames(classStandard, isSmall ? classSmall : '');
 
     return (
         <Grid
@@ -38,7 +38,7 @@ const Badge: React.FC<Properties> = ({
             flexWrap="nowrap"
             gap="10px"
             className={
-                HRbadge
+                isHRbadge
                     ? setClass(styles.badge, styles.HRbadgeWrapper)
                     : setClass(styles.badge, styles.badgeSmall)
             }
@@ -49,9 +49,9 @@ const Badge: React.FC<Properties> = ({
                 justifyContent="center"
                 alignItems="center"
                 alignContent="center"
-                alignSelf={small ? 'flex-start' : 'auto'}
+                alignSelf={isSmall ? 'flex-start' : 'auto'}
                 className={
-                    HRbadge
+                    isHRbadge
                         ? styles.HRbadge
                         : setClass(styles.icon, styles.iconSmall)
                 }
@@ -63,7 +63,7 @@ const Badge: React.FC<Properties> = ({
                         styles.iconDefaultStyle,
                         styles.iconDefaultStyleSmall,
                     )}
-                    HRbadge={HRbadge}
+                    isHRbadge={isHRbadge}
                 />
             </Grid>
             <Grid
@@ -73,7 +73,7 @@ const Badge: React.FC<Properties> = ({
                 justifyContent="space-between"
                 flexWrap="nowrap"
                 className={
-                    HRbadge
+                    isHRbadge
                         ? getValidClassNames(
                               styles.content,
                               styles.HRbadgeContent,

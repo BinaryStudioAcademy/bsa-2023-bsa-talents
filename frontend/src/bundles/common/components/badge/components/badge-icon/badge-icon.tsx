@@ -7,14 +7,14 @@ import styles from '../../styles.module.scss';
 type Properties = {
     icon?: ReactElement;
     iconClass?: string;
-    HRbadge?: boolean;
+    isHRbadge?: boolean;
 };
 
-const BadgeIcon: React.FC<Properties> = ({ icon, iconClass, HRbadge }) => {
+const BadgeIcon: React.FC<Properties> = ({ icon, iconClass, isHRbadge }) => {
     if (!icon) {
         return (
             <HeadphonesOutlined
-                className={HRbadge ? styles.bigHeadphones : iconClass}
+                className={isHRbadge ? styles.bigHeadphones : iconClass}
             />
         );
     }

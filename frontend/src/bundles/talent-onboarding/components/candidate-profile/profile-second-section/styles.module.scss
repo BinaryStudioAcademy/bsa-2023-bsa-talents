@@ -23,6 +23,10 @@ ul {
         color: var(--text-primary);
         font-weight: var(--font-weight-regular);
     }
+
+    &::before {
+        content: "$ ";
+    }
 }
 
 .salaryTitle {

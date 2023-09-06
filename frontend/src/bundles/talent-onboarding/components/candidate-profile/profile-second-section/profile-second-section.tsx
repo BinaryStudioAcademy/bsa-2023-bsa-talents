@@ -7,6 +7,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import styles from './styles.module.scss';
@@ -62,128 +63,76 @@ const ProfileSecondSection: React.FC<Properties> = ({
                             styles.salaryTitle,
                         )}
                     >
-                        $ {candidateParameters.salaryExpectation}
+                        {candidateParameters.salaryExpectation}
                     </Typography>
                 )}
                 <ul className={styles.candidateParamsList}>
                     {isProfileOpen && (
-                        <li className={styles.candidateParam}>
-                            <img
-                                src={CandidateIcons.SALARY}
-                                className={styles.icon}
-                                alt="salary"
-                            />
-                            <Typography variant="h4" className={styles.salary}>
-                                $ {candidateParameters.salaryExpectation}
-                            </Typography>
-                        </li>
+                        <CandidateParameter
+                            icon={CandidateIcons.SALARY}
+                            imgAlt="salary"
+                            typographyVariant="h4"
+                            className={styles.salary}
+                            text={candidateParameters.salaryExpectation}
+                        />
                     )}
                     {isProfileOpen && (
                         <>
-                            <li className={styles.candidateParam}>
-                                <img
-                                    src={CandidateIcons.EMAIL}
-                                    className={styles.icon}
-                                    alt="email"
-                                />
-                                <Typography variant="body1">
-                                    {candidateParameters.email}
-                                </Typography>
-                            </li>
-                            <li className={styles.candidateParam}>
-                                <img
-                                    src={CandidateIcons.TELEGRAM}
-                                    className={styles.icon}
-                                    alt="telegram"
-                                />
-                                <Typography variant="body1">
-                                    {candidateParameters.telegram}
-                                </Typography>
-                            </li>
-                            <li className={styles.candidateParam}>
-                                <img
-                                    src={CandidateIcons.PHONE}
-                                    className={styles.icon}
-                                    alt="phone"
-                                />
-                                <Typography variant="body1">
-                                    {candidateParameters.phone}
-                                </Typography>
-                            </li>
+                            <CandidateParameter
+                                icon={CandidateIcons.EMAIL}
+                                imgAlt="email"
+                                text={candidateParameters.email}
+                            />
+                            <CandidateParameter
+                                icon={CandidateIcons.TELEGRAM}
+                                imgAlt="telegram"
+                                text={candidateParameters.telegram}
+                            />
+                            <CandidateParameter
+                                icon={CandidateIcons.PHONE}
+                                imgAlt="phone"
+                                text={candidateParameters.phone}
+                            />
                         </>
                     )}
-                    <li className={styles.candidateParam}>
-                        <img
-                            src={CandidateIcons.LOCATION}
-                            className={styles.icon}
-                            alt="location"
-                        />
-                        <Typography variant="body1">
-                            {candidateParameters.location}
-                        </Typography>
-                    </li>
-                    <li className={styles.candidateParam}>
-                        <img
-                            src={CandidateIcons.EXPERIENCE}
-                            className={styles.icon}
-                            alt="experience"
-                        />
-                        <Typography variant="body1">
-                            {candidateParameters.experienceYears}
-                        </Typography>
-                    </li>
-                    <li className={styles.candidateParam}>
-                        <img
-                            src={CandidateIcons.ENGLISH}
-                            className={styles.icon}
-                            alt="english"
-                        />
-                        <Typography variant="body1">
-                            {candidateParameters.englishLevel}
-                        </Typography>
-                    </li>
+                    <CandidateParameter
+                        icon={CandidateIcons.LOCATION}
+                        imgAlt="location"
+                        text={candidateParameters.location}
+                    />
+                    <CandidateParameter
+                        icon={CandidateIcons.EXPERIENCE}
+                        imgAlt="experience"
+                        text={candidateParameters.experienceYears}
+                    />
+                    <CandidateParameter
+                        icon={CandidateIcons.ENGLISH}
+                        imgAlt="english"
+                        text={candidateParameters.englishLevel}
+                    />
                     {(candidateParameters.employmentType as string[]).map(
                         (employment: string) => (
-                            <li
+                            <CandidateParameter
                                 key={employment}
-                                className={styles.candidateParam}
-                            >
-                                <img
-                                    src={CandidateIcons.EMPLOYMENT}
-                                    className={styles.icon}
-                                    alt="employment type"
-                                />
-                                <Typography variant="body1">
-                                    {employment}
-                                </Typography>
-                            </li>
+                                icon={CandidateIcons.EMPLOYMENT}
+                                imgAlt="employment type"
+                                text={employment}
+                            />
                         ),
                     )}
-                    <li className={styles.candidateParam}>
-                        <img
-                            src={CandidateIcons.EMPLOYMENT}
-                            className={styles.icon}
-                            alt="work schedule"
-                        />
-                        <Typography variant="body1">
-                            {candidateParameters.workSchedule}
-                        </Typography>
-                    </li>
+                    <CandidateParameter
+                        icon={CandidateIcons.EMPLOYMENT}
+                        imgAlt="work schedule"
+                        text={candidateParameters.workSchedule}
+                    />
                     {(candidateParameters.notConsidered as string[]).map(
                         (notConsidered) => (
-                            <li
+                            <CandidateParameter
                                 key={notConsidered}
-                                className={styles.candidateParam}
-                            >
-                                <img
-                                    src={CandidateIcons.NOT_CONSIDERED}
-                                    className={styles.icon}
-                                    alt="not considered"
-                                />
-                                <Typography variant="body1">
-                                    {notConsidered}
-                                </Typography>
-                            </li>
+                                icon={CandidateIcons.NOT_CONSIDERED}
+                                imgAlt="not considered"
+                                text={notConsidered}
+                            />
                         ),
                     )}
                 </ul>

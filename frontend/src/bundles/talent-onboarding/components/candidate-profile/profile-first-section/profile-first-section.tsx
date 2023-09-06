@@ -113,7 +113,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     {mockedAcademyBadges.map((badge, index) => (
                         <li key={index}>
                             <Badge
-                                small
+                                isSmall
                                 color={badge.color}
                                 primaryText={badge.primaryText}
                                 description={badge.description}
@@ -158,11 +158,11 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         {mockedHRComments.map((badge, index) => (
                             <li key={index}>
                                 <Badge
-                                    small
+                                    isSmall
                                     color={BadgeColors.YELLOW}
                                     primaryText={badge.score}
                                     description={badge.description}
-                                    HRbadge
+                                    isHRbadge
                                 />
                             </li>
                         ))}
