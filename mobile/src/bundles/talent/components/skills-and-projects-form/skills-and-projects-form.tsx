@@ -55,6 +55,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: signUpStep3ValidationSchema,
     });
+
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -84,10 +85,12 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
     };
 
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-        navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-            stepState: TalentOnboardingStepState.FOCUSED,
-        });
+        void handleSubmit((data) => {
+            onSubmit(data);
+            navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+                stepState: TalentOnboardingStepState.FOCUSED,
+            });
+        })();
     }, [handleSubmit, navigate, onSubmit]);
 
     return (
@@ -95,7 +98,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
+                errorMessage={errors.hardSkills?.message}
                 label="Hard Skills"
                 name="hardSkills"
                 required
@@ -124,7 +127,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
 
             <FormField
-                errors={errors}
+                errorMessage={errors.englishLevel?.message?.toString()} // message has strange type and I do not how to fix it for now
                 label="Level of English"
                 name="englishLevel"
                 required
@@ -138,7 +141,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
 
             <FormField
-                errors={errors}
+                errorMessage={errors.notConsidered?.message}
                 label="I do not consider"
                 name="notConsidered"
                 required
@@ -163,7 +166,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
 
             <FormField
-                errors={errors}
+                errorMessage={errors.preferredLanguages?.message}
                 label="Preferred language of communication"
                 name="preferredLanguages"
                 required
@@ -178,7 +181,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
 
             <FormField
-                errors={errors}
+                errorMessage={errors.projectLinks?.message}
                 label="Project links"
                 name="projectLinks"
                 containerStyle={globalStyles.pb25}
