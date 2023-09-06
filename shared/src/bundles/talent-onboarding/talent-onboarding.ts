@@ -1,4 +1,6 @@
 export {
+    ContactsCVStepValidationMessage,
+    ContactsCVStepValidationRule,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     SkillsStepValidationMessage,
