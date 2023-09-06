@@ -1,3 +1,5 @@
+import { ErrorMessages } from 'shared/build/index.js';
+
 import { type Repository } from '~/common/types/types.js';
 
 import {
@@ -25,8 +27,8 @@ class UserDetailsRepository implements Repository {
         return details ? UserDetailsEntity.initialize(details) : null;
     }
 
-    public async findAll(): ReturnType<Repository['findAll']> {
-        return await Promise.resolve([]);
+    public findAll(): ReturnType<Repository['findAll']> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public async create(
@@ -55,8 +57,8 @@ class UserDetailsRepository implements Repository {
         return UserDetailsEntity.initialize(details);
     }
 
-    public async delete(): Promise<boolean> {
-        return await Promise.resolve(true);
+    public delete(): Promise<boolean> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 }
 

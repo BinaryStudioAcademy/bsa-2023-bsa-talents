@@ -25,7 +25,7 @@ class UserDetailsService implements Service {
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
-        return Promise.resolve({ items: [] });
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public async create(
@@ -57,7 +57,7 @@ class UserDetailsService implements Service {
     }
 
     public delete(): Promise<boolean> {
-        return Promise.resolve(true);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 }
 
