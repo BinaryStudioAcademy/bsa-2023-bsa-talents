@@ -50,6 +50,7 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
                 SkillsStepValidationMessage.NOT_CONSIDERED_DIDNT_MATCH_ALLOWED_TYPES,
             'array.min': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
             'any.required': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
+            'any.only': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
         }),
 
     preferredLanguages: joi
@@ -73,6 +74,8 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
             'array.min':
                 SkillsStepValidationMessage.PREFERRED_LANGUAGES_REQUIRED,
             'any.required':
+                SkillsStepValidationMessage.PREFERRED_LANGUAGES_REQUIRED,
+            'any.only':
                 SkillsStepValidationMessage.PREFERRED_LANGUAGES_REQUIRED,
         }),
 
