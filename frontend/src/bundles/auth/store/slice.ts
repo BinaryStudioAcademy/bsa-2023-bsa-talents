@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserFindResponseDto } from '~/bundles/users/users.js';
 
-import { loadUser, signUp } from './actions.js';
+import { loadUser, signIn, signUp } from './actions.js';
 
 type State = {
     currentUser: UserFindResponseDto | null;
@@ -21,25 +21,27 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(signUp.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-        builder.addCase(signUp.fulfilled, (state) => {
-            state.dataStatus = DataStatus.FULFILLED;
-        });
-        builder.addCase(signUp.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
-        builder.addCase(loadUser.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-        builder.addCase(loadUser.fulfilled, (state, action) => {
-            state.currentUser = action.payload;
-            state.dataStatus = DataStatus.FULFILLED;
-        });
-        builder.addCase(loadUser.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
+        builder
+            .addMatcher(
+                isAnyOf(signUp.pending, loadUser.pending, signIn.pending),
+                (state) => {
+                    state.dataStatus = DataStatus.PENDING;
+                },
+            )
+            .addMatcher(
+                isAnyOf(signUp.rejected, loadUser.rejected, signIn.rejected),
+                (state) => {
+                    state.dataStatus = DataStatus.REJECTED;
+                    state.currentUser = null;
+                },
+            )
+            .addMatcher(
+                isAnyOf(signUp.fulfilled, loadUser.fulfilled, signIn.fulfilled),
+                (state, action) => {
+                    state.dataStatus = DataStatus.FULFILLED;
+                    state.currentUser = action.payload;
+                },
+            );
     },
 });
 
