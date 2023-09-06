@@ -19,3 +19,7 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.hasError {
+    color: var(--error-primary);
+}

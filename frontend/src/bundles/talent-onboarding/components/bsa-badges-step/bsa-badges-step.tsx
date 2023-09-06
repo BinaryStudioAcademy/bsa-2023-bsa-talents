@@ -1,5 +1,4 @@
 import { FormHelperText } from '@mui/material';
-import { type ReactElement } from 'react';
 import {
     Controller,
     type ControllerFieldState,
@@ -14,41 +13,65 @@ import {
     FormControl,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { type BadgeColors } from '~/bundles/common/enums/enums.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
+import { useFormSubmit } from '../../context/context.js';
+import { getRandomBadgeColor } from '../../helpers/helpers.js';
+import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { mockBadges } from './constants/mock-badges.constants.js';
 import styles from './styles.module.scss';
 
-type BsaBadge = {
-    id: string;
-    score: number;
-    maxScore: number;
-    level?: string;
-    description: string;
-    isSelected?: boolean;
-    isDisabled?: boolean;
-    icon?: ReactElement;
-    typeColor?: ValueOf<typeof BadgeColors>;
-};
-
-type Properties = {
-    badges: BsaBadge[];
-};
-
-const BsaBadgesStep: React.FC<Properties> = ({ badges }) => {
+const BsaBadgesStep: React.FC = () => {
     const savedPayload = useSelector(
         (state: RootReducer) => state.talentOnBoarding.bsaBadgesStep,
     );
 
-    const { control, errors } = useAppForm<BsaBadgesStepDto>({
+    const bsaBadges = useSelector(
+        //TODO: get all user badges here, for now mock data
+        (state: RootReducer) => state.lms.bsaBadges,
+    );
+    const bsaBadgesWithColors = bsaBadges.map((badge) => ({
+        ...badge,
+        color: getRandomBadgeColor(),
+    }));
+    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
         defaultValues: { ...savedPayload },
         validationSchema: BsaBadgesStepValidationSchema,
     });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const onSubmit = useCallback(
+        async (data: BsaBadgesStepDto): Promise<boolean> => {
+            await dispatch(actions.bsaBadgesStep(data));
+            return true;
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null);
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -74,34 +97,40 @@ const BsaBadgesStep: React.FC<Properties> = ({ badges }) => {
         }): React.ReactElement => {
             return (
                 <>
-                    {mockBadges.map((badge) => (
-                        <div
-                            key={badge.id}
-                            className={styles.badgeCheckboxContainer}
-                        >
-                            <Checkbox
+                    {bsaBadgesWithColors.map((badge) => {
+                        const primaryText =
+                            badge.level ?? String(badge.score) + ' ';
+                        const secondText = badge.level
+                            ? ''
+                            : '/ ' + String(badge.maxScore);
+                        return (
+                            <div
                                 key={badge.id}
-                                value={badge.id}
-                                isChecked={badge.isSelected}
-                                isDisabled={badge.isDisabled}
-                                onChange={handleCheckboxOnChange(
-                                    field,
-                                    badge.id,
-                                )}
-                            />
-                            <Badge
-                                primaryText={String(badge.score) + ' '}
-                                secondText={'/ ' + String(badge.maxScore)}
-                                description={badge.description}
-                                color={badge.typeColor}
-                                icon={badge.icon ?? undefined}
-                            />
-                        </div>
-                    ))}
+                                className={styles.badgeCheckboxContainer}
+                            >
+                                <Checkbox
+                                    key={badge.id}
+                                    value={badge.id}
+                                    isDisabled={badge.type == 'service'}
+                                    isChecked={field.value.includes(badge.id)}
+                                    onChange={handleCheckboxOnChange(
+                                        field,
+                                        badge.id,
+                                    )}
+                                />
+                                <Badge
+                                    primaryText={primaryText}
+                                    secondText={secondText}
+                                    description={badge.description}
+                                    color={badge.color}
+                                />
+                            </div>
+                        );
+                    })}
                 </>
             );
         },
-        [handleCheckboxOnChange],
+        [bsaBadgesWithColors, handleCheckboxOnChange],
     );
 
     return (
@@ -115,26 +144,6 @@ const BsaBadgesStep: React.FC<Properties> = ({ badges }) => {
                     name="bsaBadges"
                     render={renderCheckboxes}
                 />
-                {badges.map((badge) => (
-                    <div
-                        key={badge.id}
-                        className={styles.badgeCheckboxContainer}
-                    >
-                        <Checkbox
-                            key={badge.id}
-                            value={badge.id}
-                            isChecked={badge.isSelected}
-                            isDisabled={badge.isDisabled}
-                        />
-                        <Badge
-                            primaryText={String(badge.score) + ' '}
-                            secondText={'/ ' + String(badge.maxScore)}
-                            description={badge.description}
-                            color={badge.typeColor}
-                            icon={badge.icon}
-                        />
-                    </div>
-                ))}
             </FormControl>
             {errors.bsaBadges && (
                 <FormHelperText className={styles.hasError}>
