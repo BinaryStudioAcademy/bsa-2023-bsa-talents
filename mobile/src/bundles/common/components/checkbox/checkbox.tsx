@@ -13,13 +13,13 @@ type Properties = CheckBoxProps & {
     containerStyle?: StyleProp<ViewStyle>;
 };
 
-const Checkbox = ({
+const Checkbox: React.FC<Properties> = ({
     label,
     isChecked,
     onChange,
     containerStyle,
     ...props
-}: Properties): JSX.Element => {
+}) => {
     const toggleCheckbox = (): void => {
         onChange(!isChecked);
     };

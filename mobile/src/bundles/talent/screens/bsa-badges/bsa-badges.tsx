@@ -1,6 +1,5 @@
 import React from 'react';
 
-// this component in another task bt-104
 import {
     Button,
     Checkbox,
