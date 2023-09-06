@@ -1,9 +1,10 @@
-import { contactsCVStep, profileStep } from './actions.js';
+import { contactsCVStep, profileStep, skillsStep } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     profileStep,
+    skillsStep,
     contactsCVStep,
 };
 

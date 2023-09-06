@@ -56,7 +56,10 @@ const StepContent: React.FC<Properties> = ({
                         variant={
                             currentStep === STEP_ONE ? 'contained' : 'outlined'
                         }
-                        className={styles.buttonBack}
+                        className={getValidClassNames(
+                            styles.button,
+                            styles.buttonBack,
+                        )}
                         disabled={currentStep === STEP_ONE}
                     />
                     {/* for now I`ve just prevented working these funcs when user reach step 5
@@ -73,7 +76,10 @@ const StepContent: React.FC<Properties> = ({
                                 : 'Next'
                         }
                         variant="contained"
-                        className={styles.buttonNext}
+                        className={getValidClassNames(
+                            styles.button,
+                            styles.buttonNext,
+                        )}
                     />
                 </Grid>
             </Grid>
