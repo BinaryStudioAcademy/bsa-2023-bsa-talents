@@ -97,19 +97,16 @@ const Select = <T extends FieldValues>({
     const handleSelectChange = useCallback(
         (selected: PathValue<T, Path<T>>): React.ReactNode => {
             if (
-                Array.isArray(selected) &&
-                selected.length === SECOND_ELEMENT_INDEX &&
-                selected[FIRST_ELEMENT_INDEX] === ' '
+                (Array.isArray(selected) &&
+                    selected.length === SECOND_ELEMENT_INDEX &&
+                    selected[FIRST_ELEMENT_INDEX] === ' ') ||
+                selected === ' '
             ) {
                 return renderPlaceholder(placeholder);
             }
 
             if (Array.isArray(selected)) {
                 return renderSelectedOptions(selected, options);
-            }
-
-            if (selected === ' ') {
-                return renderPlaceholder(placeholder);
             }
 
             if (selected !== ' ') {
