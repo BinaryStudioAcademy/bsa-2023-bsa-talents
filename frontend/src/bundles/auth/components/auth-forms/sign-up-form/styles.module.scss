@@ -4,7 +4,10 @@
 
 .radio-wrapper {
     width: 100%;
-    margin-top: 10px;
+}
+
+.hasError.radio-wrapper {
+    margin-top: 0;
 }
 
 .radio-group {

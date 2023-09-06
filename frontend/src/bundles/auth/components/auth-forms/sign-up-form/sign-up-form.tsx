@@ -83,7 +83,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="password"
                     />
                 </FormControl>
-                <FormControl className={styles['radio-wrapper']}>
+                <FormControl
+                    className={getValidClassNames(
+                        styles['radio-wrapper'],
+                        errors.password ? 'hasError' : '',
+                    )}
+                >
                     <RadioGroup
                         className={styles['radio-group']}
                         control={control}
