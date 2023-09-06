@@ -1,1 +1,1 @@
-export { SearchEmployerFilter } from './search-emlpoyer-filter/search-employer-filter';
+export { SearchCandidatesFilter } from '~/bundles/employer/components/search-candidates-filter/search-candidates-filter';
