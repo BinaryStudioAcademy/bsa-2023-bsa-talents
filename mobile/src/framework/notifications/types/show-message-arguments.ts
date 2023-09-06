@@ -1,6 +1,6 @@
 type ShowMessageArguments = {
-    text1: string;
-    text2?: string;
+    title: string;
+    text?: string;
 };
 
 export { type ShowMessageArguments };
