@@ -8,6 +8,7 @@ const ErrorMessages = {
     UPDATE_FAILED: 'Update failed.',
     UNKNOWN_ERROR: 'Application error.',
     USER_NOT_FOUND: 'No user found for provided credentials.',
+    NOT_IMPLEMENTED: 'Not implemented.',
 } as const;
 
 export { ErrorMessages };
