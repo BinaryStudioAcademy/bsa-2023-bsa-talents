@@ -12,22 +12,24 @@ class BaseNotifications implements Notification {
         this.notify = Toast;
     }
 
-    public showError(settings: ShowMessageArguments): void {
+    private showMessage(
+        type: 'error' | 'success',
+        settings: ShowMessageArguments,
+    ): void {
         const { title, text } = settings;
         this.notify.show({
-            type: 'error',
+            type,
             text1: title,
             text2: text,
         });
     }
 
+    public showError(settings: ShowMessageArguments): void {
+        this.showMessage('error', settings);
+    }
+
     public showSuccess(settings: ShowMessageArguments): void {
-        const { title, text } = settings;
-        this.notify.show({
-            type: 'success',
-            text1: title,
-            text2: text,
-        });
+        this.showMessage('success', settings);
     }
 }
 
