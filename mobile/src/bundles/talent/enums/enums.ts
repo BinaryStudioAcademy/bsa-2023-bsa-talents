@@ -1,2 +1,8 @@
 export { BadgeType } from './ui/ui';
-export { SignUpStep3ValidationRule } from 'shared/build/index';
+export {
+    AuthApiPath,
+    CountryList,
+    EmploymentType,
+    JobTitle,
+    SkillsStepValidationRule,
+} from 'shared/build/index';

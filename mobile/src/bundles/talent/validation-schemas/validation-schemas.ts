@@ -1,1 +1,4 @@
-export { signUpStep3ValidationSchema } from 'shared/build/index';
+export {
+    ProfileStepValidationSchema,
+    SkillsStepValidationSchema,
+} from 'shared/build/index.js';

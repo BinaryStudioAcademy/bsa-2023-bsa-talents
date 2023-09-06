@@ -2,7 +2,7 @@ import {
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
-} from '../../users/users.js';
+} from '../../user-details/user-details';
 
 const SkillsStepValidationRule = {
     ENGLISH_LEVEL: EnglishLevel,

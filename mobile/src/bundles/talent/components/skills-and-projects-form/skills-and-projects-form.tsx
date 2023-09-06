@@ -30,7 +30,7 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
-import { signUpStep3ValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     ENGLISH_LEVEL,
@@ -48,7 +48,7 @@ type Properties = {
 const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit, setValue, resetField } = useAppForm({
         defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
-        validationSchema: signUpStep3ValidationSchema,
+        validationSchema: SkillsStepValidationSchema,
     });
 
     const { fields, append, remove } = useFieldArray({

@@ -27,8 +27,9 @@ type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     options: string[];
-    onSelect?: (item: string) => void;
+    placeholder?: string;
     multiSelect?: boolean;
+    onSelect?: (item: string) => void;
 };
 
 const iconDefaultSize = 24;
@@ -38,6 +39,7 @@ const Selector = <T extends FieldValues>({
     control,
     options,
     multiSelect = false,
+    placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
@@ -91,7 +93,7 @@ const Selector = <T extends FieldValues>({
                 onPress={toggleIsListVisible}
             >
                 <Text category={TextCategory.LABEL}>
-                    {selectedOptions.join(', ')}
+                    {placeholder ?? selectedOptions.join(', ')}
                 </Text>
                 <Icon
                     name={selectIconName}

@@ -1,1 +1,1 @@
-export { type SkillsStepDto } from 'shared/build/index';
+export { type ProfileStepDto, type SkillsStepDto } from 'shared/build/index.js';

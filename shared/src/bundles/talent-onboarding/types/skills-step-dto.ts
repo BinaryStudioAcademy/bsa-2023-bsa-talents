@@ -1,9 +1,10 @@
+import { type ValueOf } from '~/types/value-of.type';
+
 import {
     type EnglishLevel,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/users';
-import { type ValueOf } from '~/types/value-of.type';
+} from '../../user-details/user-details';
 
 type SkillsStepDto = {
     hardSkills: string[] | string;

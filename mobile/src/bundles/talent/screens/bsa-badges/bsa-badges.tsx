@@ -1,9 +1,8 @@
 import React from 'react';
 
-// this component in another task bt-104
-import { Checkbox } from '~/bundles/common/components/checkbox/checkbox';
 import {
     Button,
+    Checkbox,
     ScrollView,
     Text,
     View,
@@ -15,9 +14,9 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import {
-    useAppForm,
     useAppRoute,
     useCallback,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -34,9 +33,6 @@ import { styles } from './styles';
 const values = Object.values(BadgeType);
 
 const BsaBadges: React.FC = () => {
-    const { control } = useAppForm({
-        defaultValues: DEFAULT_VALUE_IS_CHECKED,
-    });
     const { name } = useAppRoute();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -45,6 +41,16 @@ const BsaBadges: React.FC = () => {
         // TODO: add submit logic
         return null;
     }, []);
+
+    const [checkedBadges, setCheckedBadges] = useState(
+        DEFAULT_VALUE_IS_CHECKED,
+    );
+    const handleToggleBadge = (badge: ValueOf<typeof BadgeType>): void => {
+        setCheckedBadges((previousChecked) => ({
+            ...previousChecked,
+            [badge]: !previousChecked[badge],
+        }));
+    };
 
     const renderBadges = values.map((badge) => (
         <View
@@ -55,8 +61,10 @@ const BsaBadges: React.FC = () => {
             ]}
         >
             <Checkbox
-                control={control}
-                name={badge}
+                isChecked={checkedBadges[badge]}
+                onChange={(): void => {
+                    handleToggleBadge(badge);
+                }}
                 disabled={DEFAULT_VALUE_IS_DISABLED[badge]}
             />
             <Badge badgeType={badge} />
