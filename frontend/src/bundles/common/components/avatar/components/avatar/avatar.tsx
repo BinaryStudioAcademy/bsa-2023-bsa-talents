@@ -21,9 +21,7 @@ const Avatar: React.FC<Properties> = ({
                 small ? styles.small : '',
             )}
             {...props}
-        >
-            {/* default icon/text */}
-        </MUIAvatar>
+        ></MUIAvatar>
     );
 };
 

@@ -31,9 +31,7 @@ const HeaderAvatar: React.FC<Properties> = ({
                     small
                     className={getValidClassNames(styles.headerAvatar)}
                     {...props}
-                >
-                    {/* default icon/text */}
-                </Avatar>
+                ></Avatar>
             </MUIBadge>
         </div>
     );
