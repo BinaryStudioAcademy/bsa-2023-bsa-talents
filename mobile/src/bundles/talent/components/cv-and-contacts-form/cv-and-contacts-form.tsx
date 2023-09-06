@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     Button,
+    FilePicker,
     FormField,
     Input,
     ScrollView,
@@ -14,7 +15,6 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
 import { StepFourValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { FilePicker } from '../document-picker/document-picker';
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
