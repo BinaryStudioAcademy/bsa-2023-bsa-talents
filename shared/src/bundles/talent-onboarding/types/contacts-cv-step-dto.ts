@@ -1,4 +1,4 @@
-type StepFourDto = {
+type ContactsCVStepDto = {
     photoId?: {
         size: number;
         uri: string;
@@ -13,4 +13,4 @@ type StepFourDto = {
     };
 };
 
-export { type StepFourDto };
+export { type ContactsCVStepDto };

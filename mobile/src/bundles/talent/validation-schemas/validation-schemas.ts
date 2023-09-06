@@ -1,1 +1,1 @@
-export { StepFourValidationSchema } from 'shared/build/bundles/talent-onboarding/validation-schemas/step-four.validation-schema';
+export { ProfileStepValidationSchema } from 'shared/build/bundles/talent-onboarding/validation-schemas/validation-schemas';
