@@ -186,6 +186,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                     name={`projectLinks.${index}.url`}
                                     placeholder="link to your project"
                                     marker="www."
+                                    value={undefined}
                                 />
                                 <Pressable
                                     style={styles.linksBtn}
