@@ -6,6 +6,7 @@ const ErrorMessages = {
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',
     UNKNOWN_ERROR: 'Application error',
     USER_NOT_FOUND: 'No user found for provided credentials',
+    METHOD_NOT_IMPLEMENTED: 'This method has not been implemented',
 } as const;
 
 export { ErrorMessages };
