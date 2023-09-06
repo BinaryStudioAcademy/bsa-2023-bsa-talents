@@ -14,18 +14,17 @@ import styles from './styles.module.scss';
 const mockedAcademyBadges = [
     {
         primaryText: '4.2',
-        // eslint-disable-next-line sonarjs/no-duplicate-string
-        description: 'Average project score',
+        description: 'Averag project score',
         color: BadgeColors.DARK_BLUE,
     },
     {
         primaryText: '4.2',
-        description: 'Average project score',
+        description: 'Average projec score',
         color: BadgeColors.RED,
     },
     {
         primaryText: '4.2',
-        description: 'Average project score',
+        description: 'Average project scor',
         color: BadgeColors.YELLOW,
     },
     {
@@ -162,7 +161,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                                     color={BadgeColors.YELLOW}
                                     primaryText={badge.score}
                                     description={badge.description}
-                                    isHRbadge
+                                    isRoundedIcon
                                 />
                             </li>
                         ))}

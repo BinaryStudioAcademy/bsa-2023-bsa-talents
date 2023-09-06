@@ -1,12 +1,9 @@
 import { Typography } from '~/bundles/common/components/components.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
-import { type CandidateIcons } from '~/bundles/talent-onboarding/enums/candidate-icons.enum.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-    icon: ValueOf<typeof CandidateIcons>;
-    imgAlt: string;
+    children: React.ReactNode;
     text: string | number | string[];
     className?: string;
     typographyVariant?:
@@ -25,15 +22,14 @@ type Properties = {
 };
 
 const CandidateParameter: React.FC<Properties> = ({
-    icon,
     className,
     text,
-    imgAlt,
     typographyVariant = 'body1',
+    children,
 }) => {
     return (
         <li className={styles.candidateParam}>
-            <img src={icon} className={styles.icon} alt={imgAlt} />
+            {children}
             <Typography variant={typographyVariant} className={className}>
                 {text}
             </Typography>

@@ -15,7 +15,7 @@ type Properties = {
     isSmall?: boolean;
     icon?: ReactElement;
     iconClass?: string;
-    isHRbadge?: boolean;
+    isRoundedIcon?: boolean;
 };
 
 const Badge: React.FC<Properties> = ({
@@ -25,7 +25,7 @@ const Badge: React.FC<Properties> = ({
     color = BadgeColors.BLUE,
     isSmall = false,
     icon,
-    isHRbadge,
+    isRoundedIcon,
 }) => {
     const setClass = (classStandard: string, classSmall: string): string =>
         getValidClassNames(classStandard, isSmall ? classSmall : '');
@@ -38,7 +38,7 @@ const Badge: React.FC<Properties> = ({
             flexWrap="nowrap"
             gap="10px"
             className={
-                isHRbadge
+                isRoundedIcon
                     ? setClass(styles.badge, styles.HRbadgeWrapper)
                     : setClass(styles.badge, styles.badgeSmall)
             }
@@ -51,7 +51,7 @@ const Badge: React.FC<Properties> = ({
                 alignContent="center"
                 alignSelf={isSmall ? 'flex-start' : 'auto'}
                 className={
-                    isHRbadge
+                    isRoundedIcon
                         ? styles.HRbadge
                         : setClass(styles.icon, styles.iconSmall)
                 }
@@ -63,7 +63,7 @@ const Badge: React.FC<Properties> = ({
                         styles.iconDefaultStyle,
                         styles.iconDefaultStyleSmall,
                     )}
-                    isHRbadge={isHRbadge}
+                    isRoundedIcon={isRoundedIcon}
                 />
             </Grid>
             <Grid
@@ -73,7 +73,7 @@ const Badge: React.FC<Properties> = ({
                 justifyContent="space-between"
                 flexWrap="nowrap"
                 className={
-                    isHRbadge
+                    isRoundedIcon
                         ? getValidClassNames(
                               styles.content,
                               styles.HRbadgeContent,

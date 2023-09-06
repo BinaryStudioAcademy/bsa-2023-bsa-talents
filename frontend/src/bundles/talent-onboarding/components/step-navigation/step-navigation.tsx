@@ -7,7 +7,7 @@ const StepNavigation: React.FC = () => {
     const { step } = useParameters();
 
     // these components only for example how to use it
-    // remove them when our real tab components are ready
+    //TODO: remove them when our real tab components are ready
     const Profile: React.FC = () => <button>Profile</button>;
     const BSABadges: React.FC = () => <button>BSABadges</button>;
     const Skills: React.FC = () => <button>Skills and projects</button>;

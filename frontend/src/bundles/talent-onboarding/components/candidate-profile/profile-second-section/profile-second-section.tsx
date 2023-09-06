@@ -13,7 +13,7 @@ import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    // replace with real data type
+    //TODO: replace with real data type
     candidateParameters: Record<string, string | number | string[]>;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
@@ -34,13 +34,13 @@ const ProfileSecondSection: React.FC<Properties> = ({
             label: 'No',
         },
     ];
-    // fill with real data
+    // TODO: fill with real data
     const { control } = useAppForm<{ hire: '' }>({
         defaultValues: { hire: '' },
     });
 
     return (
-        //  replace with real data
+        // TODO: replace with real data
         <Grid className={styles.profileSecondSection}>
             <Grid className={styles.candidateInfo}>
                 {isProfileOpen ? (
@@ -69,70 +69,80 @@ const ProfileSecondSection: React.FC<Properties> = ({
                 <ul className={styles.candidateParamsList}>
                     {isProfileOpen && (
                         <CandidateParameter
-                            icon={CandidateIcons.SALARY}
-                            imgAlt="salary"
                             typographyVariant="h4"
                             className={styles.salary}
                             text={candidateParameters.salaryExpectation}
-                        />
+                        >
+                            {<CandidateIcons.SALARY className={styles.icon} />}
+                        </CandidateParameter>
                     )}
                     {isProfileOpen && (
                         <>
                             <CandidateParameter
-                                icon={CandidateIcons.EMAIL}
-                                imgAlt="email"
                                 text={candidateParameters.email}
-                            />
+                            >
+                                <CandidateIcons.EMAIL className={styles.icon} />
+                            </CandidateParameter>
+
                             <CandidateParameter
-                                icon={CandidateIcons.TELEGRAM}
-                                imgAlt="telegram"
                                 text={candidateParameters.telegram}
-                            />
+                            >
+                                <CandidateIcons.TELEGRAM
+                                    className={styles.icon}
+                                />
+                            </CandidateParameter>
+
                             <CandidateParameter
-                                icon={CandidateIcons.PHONE}
-                                imgAlt="phone"
                                 text={candidateParameters.phone}
-                            />
+                            >
+                                <CandidateIcons.PHONE className={styles.icon} />
+                            </CandidateParameter>
                         </>
                     )}
+                    <CandidateParameter text={candidateParameters.location}>
+                        <CandidateIcons.LOCATION className={styles.icon} />
+                    </CandidateParameter>
+
                     <CandidateParameter
-                        icon={CandidateIcons.LOCATION}
-                        imgAlt="location"
-                        text={candidateParameters.location}
-                    />
-                    <CandidateParameter
-                        icon={CandidateIcons.EXPERIENCE}
-                        imgAlt="experience"
                         text={candidateParameters.experienceYears}
-                    />
-                    <CandidateParameter
-                        icon={CandidateIcons.ENGLISH}
-                        imgAlt="english"
-                        text={candidateParameters.englishLevel}
-                    />
+                    >
+                        <CandidateIcons.EXPERIENCE className={styles.icon} />
+                    </CandidateParameter>
+
+                    <CandidateParameter text={candidateParameters.englishLevel}>
+                        <CandidateIcons.ENGLISH className={styles.icon} />
+                    </CandidateParameter>
+
                     {(candidateParameters.employmentType as string[]).map(
                         (employment: string) => (
                             <CandidateParameter
                                 key={employment}
-                                icon={CandidateIcons.EMPLOYMENT}
-                                imgAlt="employment type"
                                 text={employment}
-                            />
+                            >
+                                <CandidateIcons.EMPLOYMENT
+                                    className={styles.icon}
+                                />
+                            </CandidateParameter>
                         ),
                     )}
-                    <CandidateParameter
-                        icon={CandidateIcons.EMPLOYMENT}
-                        imgAlt="work schedule"
-                        text={candidateParameters.workSchedule}
-                    />
+
+                    <CandidateParameter text={candidateParameters.workSchedule}>
+                        <CandidateIcons.EMPLOYMENT className={styles.icon} />
+                    </CandidateParameter>
+
                     {(candidateParameters.notConsidered as string[]).map(
                         (notConsidered) => (
                             <CandidateParameter
                                 key={notConsidered}
-                                icon={CandidateIcons.NOT_CONSIDERED}
-                                imgAlt="not considered"
                                 text={notConsidered}
-                            />
+                            >
+                                <CandidateIcons.NOT_CONSIDERED
+                                    className={getValidClassNames(
+                                        styles.icon,
+                                        styles.redIcon,
+                                    )}
+                                />
+                            </CandidateParameter>
                         ),
                     )}
                 </ul>

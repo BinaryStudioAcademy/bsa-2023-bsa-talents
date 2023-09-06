@@ -40,14 +40,16 @@ ul {
 }
 
 .icon {
-    width: 20px;
+    width: 28px;
     margin-right: 18px;
+    padding: 0;
+    color: var(--st-tropaz);
+
+    // margin: 0;
 }
 
-.candidateParam {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
+.redIcon {
+    color: var(--torch-red);
 }
 
 .name {
