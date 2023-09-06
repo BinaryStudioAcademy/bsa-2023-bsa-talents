@@ -3,8 +3,8 @@ import joi from 'joi';
 import {
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
-} from '../enums/enums.js';
-import { type BsaBadgesStepDto } from '../types/types.js';
+} from '../../enums/enums.js';
+import { type BsaBadgesStepDto } from '../../types/types.js';
 
 const BsaBadgesStepValidationSchema = joi.object<BsaBadgesStepDto, true>({
     bsaBadges: joi

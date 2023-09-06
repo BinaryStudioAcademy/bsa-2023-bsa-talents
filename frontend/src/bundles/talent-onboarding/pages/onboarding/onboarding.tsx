@@ -2,6 +2,7 @@ import arrowIcon from '~/assets/img/arrow-right.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import {
     useCallback,
+    useLocation,
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
@@ -10,6 +11,8 @@ import {
     Steps,
 } from '~/bundles/talent-onboarding/components/components.js';
 import {
+    FIRST_ELEMENT,
+    STEP_NUMBER_FROM_ROUTE,
     STEP_ONE,
     STEP_ROUTES,
     STEPS_NUMBER,
@@ -20,8 +23,16 @@ import { FormSubmitProvider } from '../../context/context.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {
-    const [currentStep, setCurrentStep] = useState<number>(STEP_ONE);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const [currentStep, setCurrentStep] = useState<number>(() => {
+        const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
+        const slug =
+            slugs.find((slug) => location.pathname.endsWith(slug)) ??
+            slugs[FIRST_ELEMENT];
+        return STEP_NUMBER_FROM_ROUTE[slug];
+    });
 
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + STEP_ONE);
