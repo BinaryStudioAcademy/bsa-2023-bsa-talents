@@ -34,13 +34,19 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    const savedPayload = useSelector(
-        (state: RootReducer) => state.talentOnBoarding.contactsCVStep,
+    const { photo, fullName, phone, linkedinLink, cv } = useSelector(
+        (state: RootReducer) => state.talentOnBoarding,
     );
 
     const { control, handleSubmit, errors, setError, watch } =
         useAppForm<ContactsCVStepDto>({
-            defaultValues: { ...savedPayload },
+            defaultValues: {
+                photo,
+                fullName,
+                phone,
+                linkedinLink,
+                cv,
+            },
             validationSchema: ContactsCVStepValidationSchema,
         });
 
@@ -50,7 +56,7 @@ const ContactsCVStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
-            await dispatch(actions.contactsCVStep(data));
+            await dispatch(actions.updateTalentDetails(data));
             return true;
         },
         [dispatch],
@@ -248,7 +254,7 @@ const ContactsCVStep: React.FC = () => {
                 <FormLabel
                     className={getValidClassNames(
                         styles.label,
-                        errors.phoneNumber?.type === REQUIRED
+                        errors.phone?.type === REQUIRED
                             ? styles.labelError
                             : '',
                     )}
@@ -264,7 +270,7 @@ const ContactsCVStep: React.FC = () => {
                     placeholder="+38000 000 00 00"
                     type="text"
                     errors={errors}
-                    name={'phoneNumber'}
+                    name={'phone'}
                 />
             </FormControl>
 
@@ -272,7 +278,7 @@ const ContactsCVStep: React.FC = () => {
                 <FormLabel
                     className={getValidClassNames(
                         styles.label,
-                        errors.linkedInLink?.type === REQUIRED
+                        errors.linkedinLink?.type === REQUIRED
                             ? styles.labelError
                             : '',
                     )}
@@ -288,7 +294,7 @@ const ContactsCVStep: React.FC = () => {
                     placeholder="link to your LinkedIn"
                     type="text"
                     errors={errors}
-                    name={'linkedInLink'}
+                    name={'linkedinLink'}
                     adornmentText="www"
                 />
             </FormControl>
