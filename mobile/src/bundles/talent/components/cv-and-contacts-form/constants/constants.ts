@@ -3,7 +3,7 @@ import { type ContactsCVStepDto } from 'shared/build/bundles/talent-onboarding/t
 const CV_AND_CONTACTS_DEFAULT_VALUES: ContactsCVStepDto = {
     fullName: '',
     phoneNumber: '',
-    linkedinProfile: '',
+    linkedinLink: '',
     cv: {
         name: '',
         size: 0,

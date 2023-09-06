@@ -49,7 +49,7 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
                 ContactsCVStepValidationMessage.PHONE_NUMBER_PATTERN,
         }),
 
-    linkedinProfile: joi
+    linkedinLink: joi
         .string()
         .min(ContactsCVStepValidationRule.MIN_LINKEDIN_LINK_LENGTH)
         .max(ContactsCVStepValidationRule.MAX_LINKEDIN_LINK_LENGTH)

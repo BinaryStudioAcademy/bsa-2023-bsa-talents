@@ -74,15 +74,15 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.linkedinProfile?.message}
+                errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
-                name="linkedinProfile"
+                name="linkedinLink"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="linkedinProfile"
+                    name="linkedinLink"
                     placeholder="link to BSA project"
                     marker="www."
                 />

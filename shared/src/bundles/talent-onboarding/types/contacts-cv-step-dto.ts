@@ -5,7 +5,7 @@ type ContactsCVStepDto = {
     };
     fullName: string;
     phoneNumber: string;
-    linkedinProfile: string;
+    linkedinLink: string;
     cv: {
         name: string;
         size: number;
