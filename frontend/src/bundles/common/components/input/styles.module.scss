@@ -11,8 +11,8 @@
 }
 
 .helperText {
-    margin: 0 14px;
-    margin-top: 5px;
+    margin: 0;
+    margin-top: 3px;
     margin-bottom: 14px;
     color: var(--error-primary);
     font-size: var(--font-size-caption);
@@ -98,5 +98,5 @@
     color: var(--text-primary);
     font-size: var(--font-size-base);
     background-color: var(--background-primary);
-    border-right: 1px solid var(--input-main);
+    border-right: 1px solid var(--botticelli);
 }
