@@ -12,11 +12,11 @@ class FileService implements Service {
     }
 
     public find(): Promise<ReturnType<Service['find']>> {
-        throw new Error(ErrorMessages.METHOD_NOT_IMPLEMENTED);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
-        throw new Error(ErrorMessages.METHOD_NOT_IMPLEMENTED);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public async create(payload: {
@@ -27,11 +27,11 @@ class FileService implements Service {
     }
 
     public update(): Promise<ReturnType<Service['update']>> {
-        throw new Error(ErrorMessages.METHOD_NOT_IMPLEMENTED);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.METHOD_NOT_IMPLEMENTED);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 }
 
