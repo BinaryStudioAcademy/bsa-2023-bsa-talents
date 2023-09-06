@@ -52,46 +52,71 @@ const Select = <T extends FieldValues>({
             : options[FIRST_ELEMENT_INDEX].value) as PathValue<T, Path<T>>,
     });
 
+    const renderPlaceholder = useCallback(
+        (placeholder: string): JSX.Element => {
+            return <span className={styles.placeholder}>{placeholder}</span>;
+        },
+        [],
+    );
+
+    const renderSelectedOptions = useCallback(
+        (
+            selected: string | string[],
+            options: { value: string | number; label: string }[],
+        ): JSX.Element[] => {
+            return (
+                Array.isArray(selected)
+                    ? selected.slice(SECOND_ELEMENT_INDEX)
+                    : [selected]
+            )
+                .filter((value) => value !== ' ')
+                .map((value: string | number) => (
+                    <span key={value} className={styles.option}>
+                        {options.find((item) => item.value === value)?.label}
+                        ,&nbsp;
+                    </span>
+                ));
+        },
+        [],
+    );
+
+    const renderSingleSelectedOption = useCallback(
+        (
+            selected: string,
+            options: { value: string | number; label: string }[],
+        ): JSX.Element => {
+            return (
+                <span className={styles.option}>
+                    {options.find((item) => item.value === selected)?.label}
+                </span>
+            );
+        },
+        [],
+    );
+
     const handleSelectChange = useCallback(
         (selected: PathValue<T, Path<T>>): React.ReactNode => {
             if (Array.isArray(selected)) {
                 if (
-                    selected[FIRST_ELEMENT_INDEX] === ' ' &&
-                    selected.length === SECOND_ELEMENT_INDEX
+                    selected.length === SECOND_ELEMENT_INDEX &&
+                    selected[FIRST_ELEMENT_INDEX] === ' '
                 ) {
-                    return (
-                        <span className={styles.placeholder}>
-                            {placeholder}
-                        </span>
-                    );
+                    return renderPlaceholder(placeholder);
                 }
-                return selected
-                    .slice(SECOND_ELEMENT_INDEX)
-                    .map((value: string | number) => (
-                        <span key={value} className={styles.option}>
-                            {
-                                options.find((item) => item.value === value)
-                                    ?.label
-                            }
-                            ,&nbsp;
-                        </span>
-                    ));
-            } else if (
-                selected === ' ' ||
-                selected[FIRST_ELEMENT_INDEX] === ' '
-            ) {
-                return (
-                    <span className={styles.placeholder}>{placeholder}</span>
-                );
+                return renderSelectedOptions(selected, options);
+            } else if (selected === ' ') {
+                return renderPlaceholder(placeholder);
             } else {
-                return (
-                    <span className={styles.option}>
-                        {options.find((item) => item.value === selected)?.label}
-                    </span>
-                );
+                return renderSingleSelectedOption(selected, options);
             }
         },
-        [options, placeholder],
+        [
+            options,
+            placeholder,
+            renderPlaceholder,
+            renderSelectedOptions,
+            renderSingleSelectedOption,
+        ],
     );
 
     return (
