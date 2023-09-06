@@ -178,7 +178,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         styles['btn-login'],
                     )}
                     type="submit"
-                    disabled={selectedRole === UserRole.TALENT && isTermsError}
                 />
             </form>
             <Grid item className={'footer'}>
