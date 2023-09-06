@@ -1,28 +1,21 @@
-import NetInfo from '@react-native-community/netinfo';
+import { useNetInfo } from '@react-native-community/netinfo';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useEffect, useState } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-const NetworkDisableModal: React.FC = () => {
-    const [isConnected, setIsConnected] = useState(false);
-    useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener((state) => {
-            const isOnline = !(state.isConnected && state.isInternetReachable);
-            setIsConnected(isOnline);
-        });
-        return () => {
-            unsubscribe();
-        };
-    }, []);
-    if (!isConnected) {
+const LostConnectionModal: React.FC = () => {
+    const { isConnected, isInternetReachable } = useNetInfo();
+    const isConnectionLos = !isConnected && !isInternetReachable;
+
+    if (!isConnectionLos) {
         return null;
     }
+
     return (
         <View
             pointerEvents="box-only"
@@ -53,4 +46,4 @@ const NetworkDisableModal: React.FC = () => {
     );
 };
 
-export { NetworkDisableModal };
+export { LostConnectionModal };
