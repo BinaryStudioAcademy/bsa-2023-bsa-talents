@@ -47,11 +47,11 @@ class UserController extends ControllerBase {
     /**
      * @swagger
      * /users/:
-     *    security:
-     *        -bearerAuth: []
      *    get:
      *      tags: [Users]
      *      description: Returns an array of users
+     *      security:
+     *        - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
