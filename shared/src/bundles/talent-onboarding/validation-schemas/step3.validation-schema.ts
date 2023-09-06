@@ -79,29 +79,20 @@ const signUpStep3 = joi.object<UserSignUpStep3Dto, true>({
         }),
 
     projectLinks: joi
-        .alternatives(
-            joi
-                .array()
-                .items(
-                    joi
-                        .string()
-                        .uri()
-                        .min(SignUpStep3ValidationRule.PROJECT_LINKS_MIN_LENGTH)
-                        .max(
-                            SignUpStep3ValidationRule.PROJECT_LINKS_MAX_LENGTH,
-                        ),
-                )
-                .max(SignUpStep3ValidationRule.PROJECT_LINKS_MAX_LINKS),
-            joi
-                .string()
-                .empty('')
-                .uri()
-                .min(SignUpStep3ValidationRule.PROJECT_LINKS_MIN_LENGTH)
-                .max(SignUpStep3ValidationRule.PROJECT_LINKS_MAX_LENGTH),
+        .array()
+        .sparse()
+        .items(
+            joi.object({
+                url: joi
+                    .string()
+                    .empty('')
+                    .uri()
+                    .min(SignUpStep3ValidationRule.PROJECT_LINKS_MIN_LENGTH)
+                    .max(SignUpStep3ValidationRule.PROJECT_LINKS_MAX_LENGTH),
+            }),
         )
+        .max(SignUpStep3ValidationRule.PROJECT_LINKS_MAX_LINKS)
         .messages({
-            'alternatives.match':
-                SignUpStep3ValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
             'array.max': SignUpStep3ValidationMessage.PROJECT_LINKS_MAX_LINKS,
             'array.includes':
                 SignUpStep3ValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,

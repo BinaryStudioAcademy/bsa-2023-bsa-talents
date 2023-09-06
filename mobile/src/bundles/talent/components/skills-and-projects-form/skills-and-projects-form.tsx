@@ -1,3 +1,4 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -13,13 +14,21 @@ import {
     Tag,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    Color,
+    IconName,
+    TalentOnboardingScreenName,
+    TalentOnboardingStepState,
+} from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
     useFieldArray,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import { type UserSignUpStep3Dto } from '~/bundles/talent/types/types';
 import { signUpStep3ValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
@@ -50,6 +59,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
         name: 'projectLinks',
         control,
     });
+    const { navigate } =
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
 
     const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
@@ -72,12 +85,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
-
+        navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+            stepState: TalentOnboardingStepState.FOCUSED,
+        });
         // setParams({ stepState: TalentOnboardingStepState.COMPLETED });
-        // navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-        //     stepState: TalentOnboardingStepState.FOCUSED,
-        // });
-    }, [handleSubmit, onSubmit]);
+    }, [handleSubmit, navigate, onSubmit]);
 
     return (
         <ScrollView
