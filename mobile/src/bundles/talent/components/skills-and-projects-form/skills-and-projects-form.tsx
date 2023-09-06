@@ -83,7 +83,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         resetField('hardSkills');
     };
 
-    const handleFormSubmit = useCallback((): void => {
+    const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
             onSubmit(data);
             navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
@@ -183,7 +183,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                             <View key={field.id}>
                                 <Input
                                     control={control}
-                                    name={`projectLinks.${index}`}
+                                    name={`projectLinks.${index}.url`}
                                     placeholder="link to your project"
                                     marker="www."
                                 />

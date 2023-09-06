@@ -76,6 +76,7 @@ const Selector = <T extends FieldValues>({
                 .map((option) => option),
         [options, value],
     );
+    const NO_SELECTED = 0;
 
     return (
         <View style={styles.container}>
@@ -93,7 +94,9 @@ const Selector = <T extends FieldValues>({
                 onPress={toggleIsListVisible}
             >
                 <Text category={TextCategory.LABEL}>
-                    {placeholder ?? selectedOptions.join(', ')}
+                    {selectedOptions.length > NO_SELECTED
+                        ? selectedOptions.join(', ')
+                        : placeholder}
                 </Text>
                 <Icon
                     name={selectIconName}
