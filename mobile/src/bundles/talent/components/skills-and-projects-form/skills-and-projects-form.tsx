@@ -42,25 +42,29 @@ import { NotConsiderTypes } from './not-consider-types';
 import { styles } from './styles';
 
 type Properties = {
+    skillsStepData: SkillsStepDto | null;
     onSubmit: (payload: SkillsStepDto) => void;
 };
 
-const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
+const SkillsAndProjectsForm: React.FC<Properties> = ({
+    onSubmit,
+    skillsStepData,
+}) => {
+    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+
     const { control, errors, handleSubmit, setValue, resetField } = useAppForm({
-        defaultValues: SKILLS_AND_PROJECTS_DEFAULT_VALUES,
+        defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: SkillsStepValidationSchema,
     });
-
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
     });
+
     const { navigate } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
-
-    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
     const handleSkillSelect = (skill: string): void => {
         if (selectedSkills.includes(skill)) {

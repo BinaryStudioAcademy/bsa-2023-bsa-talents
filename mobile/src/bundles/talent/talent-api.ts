@@ -1,7 +1,10 @@
 import { ApiPath } from '~/bundles/common/enums/enums';
 // import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 // import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
-import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import {
+    type ProfileStepDto,
+    type SkillsStepDto,
+} from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
@@ -39,6 +42,9 @@ class TalentApi extends HttpApiBase {
     //     );
     //     return await response.json<ProfileStepDto>();
     // }
+    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
+        return payload;
+    }
 }
 
 export { TalentApi };
