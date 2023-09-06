@@ -25,7 +25,7 @@ export {
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
-} from './bundles/user-details/user-details';
+} from './bundles/user-details/user-details.js';
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,

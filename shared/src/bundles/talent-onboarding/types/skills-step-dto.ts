@@ -4,7 +4,7 @@ import {
     type EnglishLevel,
     type NotConsidered,
     type PreferredLanguages,
-} from '../../user-details/user-details';
+} from '../../user-details/user-details.js';
 
 type SkillsStepDto = {
     hardSkills: string[] | string;
