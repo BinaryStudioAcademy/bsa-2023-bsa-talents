@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: Color.BACKGROUND,
+    line: {
+        backgroundColor: Color.TAG,
+        height: 3,
     },
-    formWrapper: {},
 });
 
 export { styles };
