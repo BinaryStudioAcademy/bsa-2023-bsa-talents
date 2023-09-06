@@ -5,8 +5,9 @@ import AWS from 'aws-sdk';
 import { type PutObjectRequest } from 'aws-sdk/clients/s3.js';
 
 import { config } from '../config/config.js';
+import { type FileStorage } from './types/types.js';
 
-class FileStorage {
+class FileStorageBase implements FileStorage {
     private s3: AWS.S3;
     private bucketName: string;
 
@@ -26,7 +27,7 @@ class FileStorage {
     }: {
         filePath: string;
         newFileNameKey?: string;
-    }): Promise<void> {
+    }): Promise<AWS.S3.ManagedUpload.SendData> {
         const newFileName = newFileNameKey || path.basename(filePath);
 
         try {
@@ -38,28 +39,11 @@ class FileStorage {
                 Body: fileStream,
             };
 
-            await this.s3.upload(parameters).promise();
+            return this.s3.upload(parameters).promise();
         } catch (error) {
             throw new Error((error as Error).message);
         }
     }
-
-    // TODO: Get file?
-    // async get(filePath: string) {
-    //     const params = {
-    //         Bucket: this.bucketName,
-    //         Key: filePath
-    //     }
-
-    //     try {
-    //         const x = await this.s3.getObject(params).promise()
-    //         console.log('testx: ', x.Body?.toString('utf-8'));
-    //     } catch (error) {
-    //         console.log('ERROR: ', error)
-    //     }
-    // }
 }
 
-const fileStorage = new FileStorage();
-
-export { fileStorage };
+export { FileStorageBase };
