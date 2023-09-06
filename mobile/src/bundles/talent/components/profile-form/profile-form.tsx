@@ -68,7 +68,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
+                errorMessage={errors.profileName?.message}
                 label="Profile name"
                 name="profileName"
                 required
@@ -81,7 +81,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.salaryExpectations?.message}
                 label="Salary expectations"
                 name="salaryExpectation"
                 required
@@ -96,7 +96,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.jobTitle?.message}
                 label="Job title"
                 name="jobTitle"
                 required
@@ -110,7 +110,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.experienceLevel?.message}
                 label="Experience Level"
                 name="experienceYears"
                 required
@@ -124,7 +124,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.currentLocation?.message}
                 label="Current location"
                 name="location"
                 required
@@ -138,7 +138,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentTypes"
                 required
@@ -151,7 +151,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.experience?.message}
                 label="Briefly tell employers about your experience"
                 name="description"
                 required
