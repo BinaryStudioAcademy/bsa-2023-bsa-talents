@@ -16,7 +16,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { actions as userActions } from '~/bundles/users/store';
 
-import { SignInForm, SignUpForm } from '../components/components';
+import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
@@ -62,7 +62,7 @@ const Auth: React.FC = () => {
         <>
             <Text>state: {dataStatus}</Text>
             <Overlay isActive={isPendingAuth} />
-            {getScreen(name)}
+            <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
     );
 };

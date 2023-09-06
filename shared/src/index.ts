@@ -6,9 +6,16 @@ export {
     type UserSignUpStep3Dto,
 } from './bundles/talent-onboarding/sign-up.js';
 export {
+    type ProfileStepDto,
+    ProfileStepValidationMessage,
+    ProfileStepValidationRule,
+    ProfileStepValidationSchema,
+} from './bundles/talent-onboarding/talent-onboarding.js';
+export {
     CountryList,
     EmploymentType,
     EnglishLevel,
+    ExperienceYears,
     JobTitle,
     NotConsidered,
     PreferredLanguages,
@@ -47,7 +54,11 @@ export {
     type HttpOptions,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
-export { configureString, getAvatarInitials } from './helpers/helpers.js';
+export {
+    configureString,
+    createNumberRangeArray,
+    getAvatarInitials,
+} from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
