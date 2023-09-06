@@ -7,7 +7,6 @@ const CV_AND_CONTACTS_DEFAULT_VALUES: StepFourDto = {
     cv: {
         name: '',
         size: 0,
-        uri: '',
     },
 };
 

@@ -9,7 +9,7 @@ type StepFourDto = {
     cv: {
         name: string;
         size: number;
-        uri: string;
+        uri?: string;
     };
 };
 

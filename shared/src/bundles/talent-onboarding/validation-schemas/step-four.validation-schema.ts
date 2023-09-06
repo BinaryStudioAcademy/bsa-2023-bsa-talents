@@ -77,9 +77,7 @@ const StepFourValidationSchema = joi.object<StepFourDto, true>({
                 'string.empty': StepFourValidationMessage.CV_REQUIRED,
                 'string.pattern.base': StepFourValidationMessage.CV_TYPE_REGEX,
             }),
-        uri: joi.string().required().messages({
-            'string.empty': '',
-        }),
+        uri: joi.string(),
     }),
 });
 
