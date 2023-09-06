@@ -10,7 +10,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = CheckboxProps & {
-    label?: string;
+    label?: string | React.ReactNode;
     isDisabled?: boolean;
     isDefaultChecked?: boolean;
     isChecked?: boolean;
@@ -38,11 +38,13 @@ const Checkbox: React.FC<Properties> = ({
     isDisabled,
     isRequired,
     className,
+    ...props
 }) => {
     return label ? (
         <FormControlLabel
             control={
                 <CheckboxMUI
+                    {...props}
                     defaultChecked={isDefaultChecked}
                     checked={isChecked}
                     required={isRequired}
@@ -56,6 +58,7 @@ const Checkbox: React.FC<Properties> = ({
         />
     ) : (
         <CheckboxMUI
+            {...props}
             defaultChecked={isDefaultChecked}
             checked={isChecked}
             required={isRequired}

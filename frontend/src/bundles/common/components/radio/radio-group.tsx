@@ -12,7 +12,6 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import { FormControlLabel, Radio } from '../components.js';
-import styles from './styles.module.scss';
 
 type Option = {
     value: string;
@@ -33,10 +32,7 @@ const RadioGroup = <T extends FieldValues>({
     className = '',
     ...props
 }: Properties<T>): JSX.Element => {
-    const radioGroupClasses = getValidClassNames(
-        styles['radio-group'],
-        className,
-    );
+    const radioGroupClasses = getValidClassNames(className);
     const { field } = useFormController({
         control,
         name,

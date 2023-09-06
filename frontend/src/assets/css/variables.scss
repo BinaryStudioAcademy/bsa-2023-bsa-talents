@@ -15,6 +15,8 @@
     --st-tropaz: #274f8d;
 
     // Gray
+    --gray-1: #aab1bb;
+    --gray-2: #828282;
     --steel-gray: #1f1e29;
     --slate-gray: #7c8798;
 
@@ -103,4 +105,7 @@
     --font-weight-medium: 500;
     --font-weight-semi-bold: 600;
     --font-weight-bold: 700;
+
+    // outline:
+    --outline: var(--botticelli);
 }
