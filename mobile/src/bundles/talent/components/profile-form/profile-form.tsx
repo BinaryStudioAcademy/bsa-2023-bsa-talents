@@ -16,7 +16,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     CURRENT_LOCATION_OPTIONS,
     JOB_TITLE_OPTIONS,
-    USER_PROFILE_DEFAULT_VALUES,
+    TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
 
@@ -26,7 +26,7 @@ type Properties = {
 
 const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: USER_PROFILE_DEFAULT_VALUES,
+        defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
     });
 
     const handleFormSubmit = useCallback((): void => {
@@ -38,7 +38,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
+                errorMessage={errors.profileName?.message}
                 label="Profile name"
                 name="profileName"
                 required
@@ -51,7 +51,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.salaryExpectations?.message}
                 label="Salary expectations"
                 name="salaryExpectations"
                 required
@@ -66,7 +66,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.jobTitle?.message}
                 label="Job title"
                 name="jobTitle"
                 required
@@ -75,7 +75,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Selector options={JOB_TITLE_OPTIONS} />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.experienceLevel?.message}
                 label="Experience Level"
                 name="experienceLevel"
                 required
@@ -89,7 +89,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.currentLocation?.message}
                 label="Current location"
                 name="currentLocation"
                 required
@@ -98,7 +98,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Selector options={CURRENT_LOCATION_OPTIONS} />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentType"
                 required
@@ -148,7 +148,7 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 </View>
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.experience?.message}
                 label="Briefly tell employers about your experience"
                 name="experience"
                 required

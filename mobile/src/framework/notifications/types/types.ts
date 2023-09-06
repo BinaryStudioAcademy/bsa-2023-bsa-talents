@@ -1,5 +1,2 @@
-type Notification = {
-    showError: (message: string) => void;
-    showSuccess: (message: string) => void;
-};
-export { type Notification };
+export { type Notification } from './notification';
+export { type ShowMessageArguments } from './show-message-arguments';
