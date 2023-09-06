@@ -41,11 +41,6 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-type Item = {
-    label: string;
-    value: string;
-};
-
 type Properties = {
     onSubmit: (payload: UserSignUpStep3Dto) => void;
 };
@@ -67,19 +62,19 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-    const handleSkillSelect = (skill: Item): void => {
-        if (selectedSkills.includes(skill.label)) {
+    const handleSkillSelect = (skill: string): void => {
+        if (selectedSkills.includes(skill)) {
             return;
         }
         setSelectedSkills((previousSkills) => {
-            return [...previousSkills, skill.label];
+            return [...previousSkills, skill];
         });
-        setValue('hardSkills', [...selectedSkills, skill.label]);
+        setValue('hardSkills', [...selectedSkills, skill]);
     };
 
-    const handleSkillDelete = (skillLabel: string): void => {
+    const handleSkillDelete = (skillName: string): void => {
         setSelectedSkills((previousSkills) =>
-            previousSkills.filter((skill) => skill != skillLabel),
+            previousSkills.filter((skill) => skill != skillName),
         );
         resetField('hardSkills');
     };
@@ -156,8 +151,8 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                 >
                     {NOT_CONSIDERED.map((option, index) => (
                         <Checkbox
-                            key={option.label}
-                            label={option.label}
+                            key={option}
+                            label={option}
                             name={`notConsidered.${index}`}
                             control={control}
                         />

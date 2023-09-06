@@ -18,17 +18,12 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type Item = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     hasError?: boolean;
-    items: Item[];
-    onItemSelect: (item: Item) => void;
+    items: string[];
+    onItemSelect: (item: string) => void;
 };
 
 const SearchableDropdown = <T extends FieldValues>({
@@ -40,14 +35,14 @@ const SearchableDropdown = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
-    const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [isListVisible, setIsListVisible] = useState<boolean>(false);
 
     const toggleIsListVisible = (): void => {
         setIsListVisible((previous) => !previous);
     };
 
-    const handleItemSelect = (item: Item): void => {
+    const handleItemSelect = (item: string): void => {
         setSelectedItems([...selectedItems, item]);
         onItemSelect(item);
         toggleIsListVisible();
@@ -83,17 +78,17 @@ const SearchableDropdown = <T extends FieldValues>({
                 >
                     <ScrollView nestedScrollEnabled>
                         {items
-                            .filter((item: Item) => {
+                            .filter((item: string) => {
                                 if (typeof value != 'string') {
                                     return;
                                 }
-                                return item.label
+                                return item
                                     .toLowerCase()
                                     .includes(value.toLowerCase());
                             })
-                            .map((item: Item) => (
+                            .map((item: string) => (
                                 <TouchableOpacity
-                                    key={item.label}
+                                    key={item}
                                     onPress={(): void => {
                                         handleItemSelect(item);
                                     }}
@@ -102,7 +97,7 @@ const SearchableDropdown = <T extends FieldValues>({
                                         category={TextCategory.LABEL}
                                         style={globalStyles.pv5}
                                     >
-                                        {item.label}
+                                        {item}
                                     </Text>
                                 </TouchableOpacity>
                             ))}

@@ -19,16 +19,11 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type Select = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    options: Select[];
-    onSelect?: (item: Select) => void;
+    options: string[];
+    onSelect?: (item: string) => void;
     multiSelect?: boolean;
 };
 
@@ -48,16 +43,16 @@ const Selector = <T extends FieldValues>({
         setIsListVisible((previous) => !previous);
     };
 
-    const handlePressItem = (option: Select): void => {
+    const handlePressItem = (option: string): void => {
         toggleIsListVisible();
         if (multiSelect) {
-            if (value.includes(option.value)) {
-                onChange(value.filter((item: string) => item !== option.value));
+            if (value.includes(option)) {
+                onChange(value.filter((item: string) => item !== option));
             } else {
-                onChange([...value, option.value]);
+                onChange([...value, option]);
             }
         } else {
-            onChange(option.value);
+            onChange(option);
         }
     };
 
@@ -66,8 +61,8 @@ const Selector = <T extends FieldValues>({
         : IconName.ARROW_DROP_DOWN;
 
     const selectedOptions = options
-        .filter((option) => value.includes(option.value))
-        .map((option) => option.label);
+        .filter((option) => value.includes(option))
+        .map((option) => option);
 
     return (
         <View style={styles.container}>
@@ -106,7 +101,7 @@ const Selector = <T extends FieldValues>({
                     <ScrollView nestedScrollEnabled>
                         {options.map((item) => (
                             <TouchableOpacity
-                                key={item.value}
+                                key={item}
                                 onPress={(): void => {
                                     handlePressItem(item);
                                 }}
@@ -115,7 +110,7 @@ const Selector = <T extends FieldValues>({
                                     category={TextCategory.LABEL}
                                     style={globalStyles.pv5}
                                 >
-                                    {item.label}
+                                    {item}
                                 </Text>
                             </TouchableOpacity>
                         ))}
