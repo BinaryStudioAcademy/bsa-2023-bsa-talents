@@ -16,7 +16,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import styles from './styles.module.scss';
+import styles from '../styles.module.scss';
 
 type Properties = {
     control: Control<SkillsStepDto>;
@@ -91,6 +91,16 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
         return options;
     }, []);
 
+    const handleDelete = useCallback(
+        (deletedSkill: Option) => () => {
+            const updatedSkills = (value as Option[]).filter(
+                (skill) => skill.value !== deletedSkill.value,
+            );
+            onChange(updatedSkills);
+        },
+        [value, onChange],
+    );
+
     return (
         <FormControl>
             <FormLabel className={styles.label}>
@@ -112,12 +122,12 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 onChange={handleChange}
             />
 
-            <div>
+            <div className={styles.chips}>
                 {(value as Option[]).map((entry) => (
                     <Chip
                         key={entry.label}
                         label={entry.label}
-                        // onDelete={() => {}}
+                        onDelete={handleDelete(entry)}
                     />
                 ))}
             </div>

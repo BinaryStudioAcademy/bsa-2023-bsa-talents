@@ -4,7 +4,7 @@ const DEFAULT_PAYLOAD_SKILLS_STEP: SkillsStepDto = {
     hardSkills: [],
     englishLevel: ' ',
     notConsidered: [],
-    preferredLanguages: [], // here
+    preferredLanguages: [],
     projectLinks: [{ url: '' }],
 };
 

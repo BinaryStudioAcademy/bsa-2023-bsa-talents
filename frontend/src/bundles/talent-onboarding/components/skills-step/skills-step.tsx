@@ -5,18 +5,15 @@ import {
     type ControllerRenderProps,
     type FieldErrors,
     type FieldValues,
-    useFieldArray,
     type UseFormHandleSubmit,
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
 import {
-    Button,
     Checkbox,
     FormControl,
     Grid,
-    Input,
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -29,7 +26,8 @@ import {
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import { SkillsAutocomplete } from './skills-autocomplete.js';
+import { SkillsAutocomplete } from './components/skills-autocomplete.js';
+import { SkillsProjectLinks } from './components/skills-project-links.js';
 import styles from './styles.module.scss';
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -61,10 +59,6 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
 
 const SkillsStep: React.FC<Properties> = ({ methods }) => {
     const { control, errors } = methods;
-    const { fields, append } = useFieldArray({
-        control,
-        name: 'projectLinks',
-    });
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -124,37 +118,6 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
         [handleCheckboxOnChange],
     );
 
-    const renderProjectLinkInput = useCallback(
-        ({
-            field,
-        }: {
-            field: ControllerRenderProps<
-                SkillsStepDto,
-                `projectLinks.${number}.url`
-            >;
-            fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<SkillsStepDto>;
-        }): React.ReactElement => {
-            const { ref, ...withoutReference } = field;
-            return (
-                <Input
-                    {...withoutReference}
-                    inputRef={ref}
-                    control={control}
-                    placeholder="link to BSA project"
-                    type="text"
-                    errors={{}}
-                    adornmentText="www."
-                />
-            );
-        },
-        [control],
-    );
-
-    const appendProjectLinks = useCallback((): void => {
-        append({ url: '' });
-    }, [append]);
-
     return (
         <FormControl className={styles.form}>
             <SkillsAutocomplete name="hardSkills" control={control} />
@@ -210,8 +173,8 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
                 </FormLabel>
                 <Select
                     multiple
-                    placeholder="Option"
                     control={control}
+                    placeholder="Option"
                     name={'preferredLanguages'}
                     options={preferredLanguagesOptions}
                 />
@@ -221,44 +184,7 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl>
-                <FormLabel
-                    className={getValidClassNames(
-                        styles.label,
-                        styles.labelMargin,
-                    )}
-                >
-                    <Typography variant={'label'}>Project links</Typography>
-                </FormLabel>
-
-                {fields.map((item, index) => {
-                    const error = errors.projectLinks?.[index]?.url;
-                    const message = error?.message;
-
-                    return (
-                        <Grid key={item.id} className={styles.projectLinks}>
-                            <Controller
-                                control={control}
-                                name={`projectLinks.${index}.url`}
-                                render={renderProjectLinkInput}
-                            />
-                            {Boolean(error) && (
-                                <FormHelperText className={styles.hasError}>
-                                    {message}
-                                </FormHelperText>
-                            )}
-                        </Grid>
-                    );
-                })}
-
-                <Button
-                    variant="text"
-                    type="button"
-                    label="+ Add more links"
-                    onClick={appendProjectLinks}
-                    className={styles.buttonAddLink}
-                />
-            </FormControl>
+            <SkillsProjectLinks name={'projectLinks'} control={control} />
         </FormControl>
     );
 };
