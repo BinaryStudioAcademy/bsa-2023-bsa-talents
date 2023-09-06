@@ -1,3 +1,5 @@
+import { type ValueOf } from '~/types/value-of.type';
+
 import {
     type CountryList,
     type EmploymentType,
@@ -5,10 +7,9 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/enums/enums.js';
-import { type ValueOf } from '~/common/types/types.js';
+} from '../user-details.js';
 
-type UserDetailsProperties = {
+type UserDetailsResponseDto = {
     id: string | null;
     userId: string;
     isApproved: boolean;
@@ -20,11 +21,11 @@ type UserDetailsProperties = {
     jobTitle: ValueOf<typeof JobTitle> | null;
     location: ValueOf<typeof CountryList> | null;
     experienceYears: number | null;
-    employmentType: ValueOf<(typeof EmploymentType)[]> | null;
+    employmentType: ValueOf<typeof EmploymentType>[] | null;
     description: string | null;
     englishLevel: ValueOf<typeof EnglishLevel> | null;
-    notConsidered: ValueOf<(typeof NotConsidered)[]> | null;
-    preferredLanguages: ValueOf<(typeof PreferredLanguages)[]> | null;
+    notConsidered: ValueOf<typeof NotConsidered>[] | null;
+    preferredLanguages: ValueOf<typeof PreferredLanguages>[] | null;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string;
@@ -37,4 +38,4 @@ type UserDetailsProperties = {
     cvId: string | null;
 };
 
-export { type UserDetailsProperties };
+export { type UserDetailsResponseDto };

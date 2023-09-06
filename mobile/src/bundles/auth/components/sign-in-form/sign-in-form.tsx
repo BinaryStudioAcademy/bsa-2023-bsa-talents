@@ -12,7 +12,7 @@ import {
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -34,12 +34,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.flex1,
                 globalStyles.justifyContentCenter,
+                globalStyles.borderRadius10,
+                globalStyles.width100,
+                styles.container,
             ]}
         >
             <Text
-                category={TextCategory.H4}
+                category={TextCategory.H3}
                 style={[
                     globalStyles.pb25,
                     globalStyles.alignSelfCenter,
@@ -49,14 +51,22 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 Hi! Login to your Account
             </Text>
             <View style={styles.formWrapper}>
-                <FormField errors={errors} label="Email" name="email">
+                <FormField
+                    errorMessage={errors.email?.message}
+                    label="Email"
+                    name="email"
+                >
                     <Input
                         control={control}
                         name="email"
                         placeholder="Enter your email"
                     />
                 </FormField>
-                <FormField errors={errors} label="Password" name="password">
+                <FormField
+                    errorMessage={errors.password?.message}
+                    label="Password"
+                    name="password"
+                >
                     <Input
                         control={control}
                         name="password"
@@ -86,6 +96,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.flexDirectionRow,
                     globalStyles.alignSelfCenter,
                     globalStyles.alignItemsCenter,
+                    globalStyles.mt20,
                 ]}
             >
                 <Text category={TextCategory.BODY1} style={styles.text}>

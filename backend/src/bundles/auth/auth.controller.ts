@@ -177,7 +177,7 @@ class AuthController extends ControllerBase {
      *       - Auth
      *     description: Get the current user based on the provided token
      *     security:
-     *       - BearerAuth: []
+     *       - bearerAuth: []
      *     responses:
      *       200:
      *         description: Successful operation
