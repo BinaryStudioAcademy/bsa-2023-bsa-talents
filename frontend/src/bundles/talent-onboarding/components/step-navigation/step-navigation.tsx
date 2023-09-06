@@ -1,7 +1,6 @@
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
-import { TestStepLayout } from '../skills-step/test.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
@@ -10,6 +9,7 @@ const StepNavigation: React.FC = () => {
     // remove them when our real tab components are ready
     const Profile: React.FC = () => <button>Profile</button>;
     const BSABadges: React.FC = () => <button>BSABadges</button>;
+    const Skills: React.FC = () => <button>Skills and projects</button>;
     const CV: React.FC = () => <button>CV and contacts</button>;
     const Preview: React.FC = () => <button>Preview</button>;
 
@@ -21,8 +21,7 @@ const StepNavigation: React.FC = () => {
             return <BSABadges />;
         }
         case STEP_ROUTES.STEP_03: {
-            // eslint-disable-next-line react/jsx-no-bind, @typescript-eslint/no-empty-function
-            return <TestStepLayout onSubmit={(): void => {}} />;
+            return <Skills />;
         }
         case STEP_ROUTES.STEP_04: {
             return <CV />;
