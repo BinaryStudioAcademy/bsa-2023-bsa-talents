@@ -6,11 +6,11 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { BadgeType } from '~/bundles/talent/enums/enums';
+import { BadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 
-type BadgeName = ValueOf<typeof BadgeType>;
+type BadgeName = ValueOf<typeof BadgeStepBadgesTitle>;
 
 type BadgeProperties = {
     style: StyleProp<ViewStyle>;
@@ -34,32 +34,32 @@ const Badge: React.FC<Properties> = ({
     // TODO: replace with real data
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
-            [BadgeType.AVERAGE_LECTURE_SCORE]: {
+            [BadgeStepBadgesTitle.LECTURE_SCORE]: {
                 style: styles.lectureScore,
                 ending: ' / 5',
                 defaultValue: 4.2,
             },
-            [BadgeType.AVERAGE_PROJECT_SCORE]: {
+            [BadgeStepBadgesTitle.PROJECT_SCORE]: {
                 style: styles.projectScore,
                 ending: ' / 10',
                 defaultValue: 8.4,
             },
-            [BadgeType.COMMUNICATION_SCORE]: {
+            [BadgeStepBadgesTitle.COMMUNICATION_SCORE]: {
                 style: styles.communicationScore,
                 ending: ' / 10',
                 defaultValue: 10,
             },
-            [BadgeType.WORKING_WITH_TEAM_SCORE]: {
+            [BadgeStepBadgesTitle.TEAM_SCORE]: {
                 style: styles.workingWithTeamScore,
                 ending: ' / 10',
                 defaultValue: 7,
             },
-            [BadgeType.LEVEL_OF_ENGLISH]: {
+            [BadgeStepBadgesTitle.ENGLISH_LEVEL]: {
                 style: styles.englishLevel,
                 ending: '',
                 defaultValue: 'B+',
             },
-            [BadgeType.PUNCTUALITY]: {
+            [BadgeStepBadgesTitle.PUNCTUALITY]: {
                 style: styles.punctuality,
                 ending: ' / 10',
                 defaultValue: 7,

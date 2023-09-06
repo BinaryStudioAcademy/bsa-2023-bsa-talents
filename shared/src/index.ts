@@ -1,5 +1,7 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    BadgeStepBadgesTitle,
+    type BadgeStepDto,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
@@ -13,6 +15,16 @@ export {
     JobTitle,
     NotConsidered,
     PreferredLanguages,
+    UserDetailsApiPath,
+    type UserDetailsCreateRequestDto,
+    userDetailsCreateValidationSchema,
+    type UserDetailsFindRequestDto,
+    type UserDetailsResponseDto,
+    type UserDetailsUpdateDto,
+    type UserDetailsUpdateRequestDto,
+    userDetailsUpdateValidationSchema,
+} from './bundles/user-details/user-details.js';
+export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,

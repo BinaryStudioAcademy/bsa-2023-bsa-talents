@@ -1,9 +1,10 @@
 import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
+import { type BadgeStepDto } from 'shared/build/bundles/talent-onboarding/types/badge-step-dto';
 
-import { Checkbox } from '~/bundles/common/components/checkbox/checkbox';
 import {
     Button,
+    Checkbox,
     ScrollView,
     Text,
     View,
@@ -16,10 +17,13 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppForm,
     useAppRoute,
+    useAppSelector,
     useCallback,
     useNavigation,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import {
@@ -32,19 +36,21 @@ import {
     DEFAULT_VALUE_IS_DISABLED,
 } from '~/bundles/talent/components/badge/constants/constants';
 import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { BadgeType } from '~/bundles/talent/enums/enums';
+import { BadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { actions as talentActions } from '~/bundles/talent/store';
 
 import { styles } from './styles';
 
-const values = Object.values(BadgeType);
-
-type formSubmitDto = Record<ValueOf<typeof BadgeType>, boolean>; // TODO: Change with shared dto
+const values = Object.values(BadgeStepBadgesTitle);
 
 const BsaBadges: React.FC = () => {
-    const { control, handleSubmit } = useAppForm<formSubmitDto>({
-        defaultValues: DEFAULT_VALUE_IS_CHECKED,
+    const { badgesStepData } = useAppSelector(({ talents }) => talents);
+
+    const { handleSubmit } = useAppForm<BadgeStepDto>({
+        defaultValues: badgesStepData ?? DEFAULT_VALUE_IS_CHECKED,
     });
-    const { navigate, goBack } =
+    const dispatch = useAppDispatch();
+    const { navigate } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
@@ -53,17 +59,34 @@ const BsaBadges: React.FC = () => {
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit((): void => {
-            // TODO: dispatch submit event
+        void handleSubmit((payload): void => {
+            void dispatch(talentActions.completeBadgesStep(payload));
         })();
         navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS, {
             stepState: TalentOnboardingStepState.FOCUSED,
         });
-    }, [handleSubmit, navigate]);
+    }, [dispatch, handleSubmit, navigate]);
 
     const handlePreviousPress = useCallback((): void => {
-        goBack();
-    }, [goBack]);
+        void handleSubmit((payload): void => {
+            void dispatch(talentActions.completeBadgesStep(payload));
+        })();
+        navigate(TalentOnboardingScreenName.PROFILE, {
+            stepState: TalentOnboardingStepState.FOCUSED,
+        });
+    }, [handleSubmit, navigate, dispatch]);
+
+    const [checkedBadges, setCheckedBadges] = useState(
+        DEFAULT_VALUE_IS_CHECKED,
+    );
+    const handleToggleBadge = (
+        badge: ValueOf<typeof BadgeStepBadgesTitle>,
+    ): void => {
+        setCheckedBadges((previousChecked) => ({
+            ...previousChecked,
+            [badge]: !previousChecked[badge],
+        }));
+    };
 
     const renderBadges = values.map((badge) => (
         <View
@@ -74,8 +97,10 @@ const BsaBadges: React.FC = () => {
             ]}
         >
             <Checkbox
-                control={control}
-                name={badge}
+                isChecked={checkedBadges[badge]}
+                onChange={(): void => {
+                    handleToggleBadge(badge);
+                }}
                 disabled={DEFAULT_VALUE_IS_DISABLED[badge]}
             />
             <Badge badgeType={badge} />
