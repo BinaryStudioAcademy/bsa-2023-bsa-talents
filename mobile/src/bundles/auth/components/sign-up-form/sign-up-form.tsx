@@ -68,7 +68,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 Sign Up
             </Text>
             <View style={styles.formWrapper}>
-                <FormField errors={errors} label="Email" name="email" required>
+                <FormField
+                    errorMessage={errors.email?.message}
+                    label="Email"
+                    name="email"
+                    required
+                >
                     <Input
                         control={control}
                         name="email"
@@ -76,7 +81,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormField>
                 <FormField
-                    errors={errors}
+                    errorMessage={errors.password?.message}
                     label="Password"
                     name="password"
                     required
