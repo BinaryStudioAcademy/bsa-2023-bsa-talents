@@ -3,6 +3,7 @@ export { CandidateParameter } from './candidate-profile/candidate-parameter/cand
 export { CandidateProfile } from './candidate-profile/candidate-profile.js';
 export { ProfileFirstSection } from './candidate-profile/profile-first-section/profile-first-section.js';
 export { ProfileSecondSection } from './candidate-profile/profile-second-section/profile-second-section.js';
+export { ContactsCVStep } from './contacts-cv-step/contacts-cv-step.js';
 export { ProfileStep } from './profile-step/profile-step.js';
 export { StepContent } from './step-content/step-content.js';
 export { StepNavigation } from './step-navigation/step-navigation.js';

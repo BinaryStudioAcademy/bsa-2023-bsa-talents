@@ -1,10 +1,11 @@
 import { Grid } from '@mui/material';
 import { type ReactElement } from 'react';
 
-import { BadgeColors } from '../../enums/enums.js';
-import { getValidClassNames } from '../../helpers/helpers.js';
-import { type ValueOf } from '../../types/types.js';
-import { BadgeIcon } from './components.js';
+import { BadgeColors } from '~/bundles/common/enums/enums.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+
+import { BadgeIcon } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
