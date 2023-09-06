@@ -10,6 +10,10 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
+    type ContactsCVStepDto,
+    contactsCVStepValidationSchema,
+} from './bundles/talent-onboarding/talent-onboarding.js';
+export {
     CountryList,
     EmploymentType,
     EnglishLevel,
