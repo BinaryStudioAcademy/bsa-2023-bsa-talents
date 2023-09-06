@@ -9,3 +9,4 @@ export {
 export { type ProfileStepDto } from './types/types.js';
 export { type ContactsCVStepDto } from './types/types.js';
 export { ProfileStepValidationSchema } from './validation-schemas/validation-schemas.js';
+export { ContactsCVStepValidationSchema } from './validation-schemas/validation-schemas.js';
