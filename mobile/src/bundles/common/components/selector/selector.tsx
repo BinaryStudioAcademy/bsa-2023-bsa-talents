@@ -84,36 +84,35 @@ const Selector: React.FC<Properties> = ({ options }) => {
                     />
                 </Animated.View>
             </Pressable>
-            {isListVisible && (
-                <Animated.View
-                    style={[
-                        globalStyles.pl20,
-                        globalStyles.pb5,
-                        globalStyles.width100,
-                        styles.dropdown,
-                        styles.dropdownButton,
-                        heightAnimatedStyle,
-                    ]}
-                >
-                    <ScrollView nestedScrollEnabled>
-                        {options.map((item) => (
-                            <TouchableOpacity
-                                key={item.value}
-                                onPress={(): void => {
-                                    handlePressItem(item);
-                                }}
+
+            <Animated.View
+                style={[
+                    globalStyles.pl20,
+                    globalStyles.width100,
+                    isListVisible && globalStyles.pb5,
+                    styles.dropdown,
+                    styles.dropdownButton,
+                    heightAnimatedStyle,
+                ]}
+            >
+                <ScrollView nestedScrollEnabled>
+                    {options.map((item) => (
+                        <TouchableOpacity
+                            key={item.value}
+                            onPress={(): void => {
+                                handlePressItem(item);
+                            }}
+                        >
+                            <Text
+                                category={TextCategory.LABEL}
+                                style={globalStyles.pv5}
                             >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={globalStyles.pv5}
-                                >
-                                    {item.label}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
-                </Animated.View>
-            )}
+                                {item.label}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </Animated.View>
         </View>
     );
 };
