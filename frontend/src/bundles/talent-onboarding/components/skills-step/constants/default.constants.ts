@@ -1,4 +1,4 @@
-import { type SkillsStepDto } from '../../../../../../../shared/src/bundles/talent-onboarding/types/skills-step/skills-step-dto.js';
+import { type SkillsStepDto } from 'shared/build/index.js';
 
 const DEFAULT_PAYLOAD_SKILLS_STEP: SkillsStepDto = {
     hardSkills: [],

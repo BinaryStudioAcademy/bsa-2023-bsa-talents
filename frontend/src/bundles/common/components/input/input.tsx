@@ -26,7 +26,7 @@ type Properties<T extends FieldValues> = {
     adornmentText?: string;
     className?: string;
     inputClassNames?: string;
-    inputRef?: RefCallBack;
+    ref: RefCallBack;
 };
 
 const Input = <T extends FieldValues>({
@@ -40,7 +40,7 @@ const Input = <T extends FieldValues>({
     adornmentText = '',
     className = '',
     inputClassNames,
-    inputRef,
+    ref,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -102,7 +102,7 @@ const Input = <T extends FieldValues>({
                 className: muiInputStyles,
                 disabled: isDisabled,
                 startAdornment: adornment,
-                ref: inputRef,
+                ref,
             }}
             inputProps={{
                 className: htmlInputStyles,
