@@ -3,7 +3,6 @@ import './styles.scss';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
-    useAppSelector,
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
@@ -15,9 +14,6 @@ import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback((): void => {
@@ -52,12 +48,7 @@ const Auth: React.FC = () => {
         return null;
     };
 
-    return (
-        <>
-            state: {dataStatus}
-            {getScreen(pathname)}
-        </>
-    );
+    return <>{getScreen(pathname)}</>;
 };
 
 export { Auth };
