@@ -6,8 +6,8 @@ import {
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
-// import { useSelector } from 'react-redux';
 import {
     FileUpload,
     FormControl,
@@ -18,66 +18,58 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
-// import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks.js';
-// import { type RootReducer } from '~/framework/store/store.package.js';
-// import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { useFormSubmit } from '../../context/form-submit-provider.context.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
-// import { actions } from '../../store/talent-onboarding.js';
+import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
-    DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    //TODO: delete this after the comments have been uncommented.
-    const { control, errors, watch, setError } = useAppForm({
-        defaultValues: DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
-        validationSchema: ContactsCVStepValidationSchema,
-    });
+    const savedPayload = useSelector(
+        (state: RootReducer) => state.talentOnBoarding.contactsCVStep,
+    );
 
-    // const savedPayload = useSelector(
-    //     (state: RootReducer) => state.talentOnBoarding.contactsCVStep,
-    // );
+    const { control, handleSubmit, errors, setError, watch } =
+        useAppForm<ContactsCVStepDto>({
+            defaultValues: { ...savedPayload },
+            validationSchema: ContactsCVStepValidationSchema,
+        });
 
-    // const { control, handleSubmit, errors, setError, watch } =
-    //     useAppForm<ContactsCVStepDto>({
-    //         defaultValues: { ...savedPayload },
-    //         validationSchema: ContactsCVStepValidationSchema,
-    //     });
+    const { setSubmitForm } = useFormSubmit();
 
-    // const { setSubmitForm } = useFormSubmit();
+    const dispatch = useAppDispatch();
 
-    // const dispatch = useAppDispatch();
+    const onSubmit = useCallback(
+        async (data: ContactsCVStepDto): Promise<boolean> => {
+            await dispatch(actions.contactsCVStep(data));
+            return true;
+        },
+        [dispatch],
+    );
 
-    // const onSubmit = useCallback(
-    //     async (data: ContactsCVStepDto): Promise<boolean> => {
-    //         await dispatch(actions.contactsCVStep(data));
-    //         return true;
-    //     },
-    //     [dispatch],
-    // );
-
-    // useEffect(() => {
-    //     setSubmitForm(() => {
-    //         return async () => {
-    //             let result = false;
-    //             await handleSubmit(async (formData) => {
-    //                 result = await onSubmit(formData);
-    //             })();
-    //             return result;
-    //         };
-    //     });
-    //     return () => {
-    //         setSubmitForm(null);
-    //     };
-    // }, [handleSubmit, onSubmit, setSubmitForm]);
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null);
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const [photoURL, setPhotoURL] = useState<string>('');
 
