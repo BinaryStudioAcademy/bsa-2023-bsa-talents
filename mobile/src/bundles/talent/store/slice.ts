@@ -55,16 +55,12 @@ const { reducer, actions, name } = createSlice({
             isAnyOf(completeProfileStep.pending, completeBadgesStep.pending),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
-                state.profileStepData = null;
-                state.badgesStepData = null;
             },
         );
         builder.addMatcher(
             isAnyOf(completeProfileStep.rejected, completeBadgesStep.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
-                state.profileStepData = null;
-                state.badgesStepData = null;
             },
         );
     },
