@@ -37,7 +37,10 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errorMessage={errors.photoId?.message}
+                errorMessage={
+                    errors.photoId?.size?.message ??
+                    errors.photoId?.uri?.message
+                }
                 name="photoId"
                 containerStyle={globalStyles.alignItemsCenter}
             >
@@ -85,7 +88,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.cv?.message}
+                errorMessage={errors.cv?.name?.message}
                 label="CV"
                 name="cv"
                 required

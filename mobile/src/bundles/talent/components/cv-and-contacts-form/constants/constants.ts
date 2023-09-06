@@ -1,6 +1,6 @@
-import { type StepFourDto } from 'shared/build/bundles/talent-onboarding/talent-onboarding';
+import { type ContactsCVStepDto } from 'shared/build/bundles/talent-onboarding/talent-onboarding';
 
-const CV_AND_CONTACTS_DEFAULT_VALUES: StepFourDto = {
+const CV_AND_CONTACTS_DEFAULT_VALUES: ContactsCVStepDto = {
     fullName: '',
     phoneNumber: '',
     linkedinProfile: '',
