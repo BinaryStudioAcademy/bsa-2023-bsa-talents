@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 import Animated, {
     useAnimatedStyle,
     withTiming,
@@ -13,26 +18,31 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { SELECTOR_STYLE } from './constants/constants';
 import { styles } from './styles';
 
-type Select = {
-    label: string;
-    value: string;
-};
-
-type Properties = {
-    options: Select[];
-    onSelect?: (item: Select) => void;
+type Properties<T extends FieldValues> = {
+    control: Control<T, null>;
+    name: FieldPath<T>;
+    options: string[];
+    placeholder?: string;
+    onSelect?: (item: string) => void;
 };
 
 const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
     SELECTOR_STYLE;
 
-const Selector: React.FC<Properties> = ({ options }) => {
-    const [selectedOption, setSelectedOption] = useState('');
+const Selector = <T extends FieldValues>({
+    name,
+    control,
+    options,
+    placeholder,
+}: Properties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
+    const { value, onChange } = field;
     const [isListVisible, setIsListVisible] = useState(false);
     const iconAnimatedStyle = useAnimatedStyle(() => {
         return {
@@ -55,10 +65,12 @@ const Selector: React.FC<Properties> = ({ options }) => {
         setIsListVisible((previous) => !previous);
     };
 
-    const handlePressItem = (option: Select): void => {
+    const handlePressItem = (option: string): void => {
         toggleIsListVisible();
-        setSelectedOption(option.label);
+        onChange(option);
     };
+
+    const selectedOption = options.find((option) => option === value);
 
     return (
         <View style={styles.container}>
@@ -75,7 +87,9 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 ]}
                 onPress={toggleIsListVisible}
             >
-                <Text category={TextCategory.LABEL}>{selectedOption}</Text>
+                <Text category={TextCategory.LABEL}>
+                    {selectedOption ?? placeholder}
+                </Text>
                 <Animated.View style={iconAnimatedStyle}>
                     <Icon
                         name={IconName.ARROW_DROP_DOWN}
@@ -98,7 +112,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
                 <ScrollView nestedScrollEnabled>
                     {options.map((item) => (
                         <TouchableOpacity
-                            key={item.value}
+                            key={item}
                             onPress={(): void => {
                                 handlePressItem(item);
                             }}
@@ -107,7 +121,7 @@ const Selector: React.FC<Properties> = ({ options }) => {
                                 category={TextCategory.LABEL}
                                 style={globalStyles.pv5}
                             >
-                                {item.label}
+                                {item}
                             </Text>
                         </TouchableOpacity>
                     ))}
