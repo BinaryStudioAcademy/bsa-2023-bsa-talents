@@ -5,36 +5,21 @@ import styles from './styles.module.scss';
 
 const NotFoundPage: React.FC = () => {
     return (
-        <Grid
-            container
-            xs={12}
-            className={getValidClassNames(styles.pageContainer)}
-        >
-            <Grid item className={getValidClassNames(styles.header)}>
-                <Logo />
+        <Grid container className={styles.pageContainer}>
+            <Grid container item className={styles.header}>
+                <Logo className={styles.logo} />
             </Grid>
 
-            <Grid item xs={12} className={getValidClassNames(styles.text)}>
-                <Typography
-                    variant="body1"
-                    className={getValidClassNames(styles.description)}
-                >
+            <Grid container item className={styles.text}>
+                <Typography variant="body1" className={styles.description}>
                     The page you are looking for can’t be found.
                 </Typography>
-                <Typography
-                    variant="h1"
-                    className={getValidClassNames(styles.code)}
-                >
+                <Typography variant="h1" className={styles.code}>
                     404
                 </Typography>
             </Grid>
 
-            <Grid
-                item
-                xs={12}
-                container
-                className={getValidClassNames(styles.link)}
-            >
+            <Grid container item className={getValidClassNames(styles.link)}>
                 <Link to={AppRoute.ROOT}>Return to Main</Link>
             </Grid>
 
