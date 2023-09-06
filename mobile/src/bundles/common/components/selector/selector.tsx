@@ -14,7 +14,11 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useFormController,
+    useMemo,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -43,26 +47,33 @@ const Selector = <T extends FieldValues>({
         setIsListVisible((previous) => !previous);
     };
 
-    const handlePressItem = (option: string): void => {
-        toggleIsListVisible();
-        if (multiSelect) {
-            if (value.includes(option)) {
-                onChange(value.filter((item: string) => item !== option));
+    const handlePressItem = useCallback(
+        (option: string): void => {
+            toggleIsListVisible();
+            if (multiSelect) {
+                if (value.includes(option)) {
+                    onChange(value.filter((item: string) => item !== option));
+                } else {
+                    onChange([...value, option]);
+                }
             } else {
-                onChange([...value, option]);
+                onChange(option);
             }
-        } else {
-            onChange(option);
-        }
-    };
+        },
+        [value, multiSelect, onChange],
+    );
 
     const selectIconName = isListVisible
         ? IconName.ARROW_DROP_UP
         : IconName.ARROW_DROP_DOWN;
 
-    const selectedOptions = options
-        .filter((option) => value.includes(option))
-        .map((option) => option);
+    const selectedOptions = useMemo(
+        () =>
+            options
+                .filter((option) => value.includes(option))
+                .map((option) => option),
+        [options, value],
+    );
 
     return (
         <View style={styles.container}>

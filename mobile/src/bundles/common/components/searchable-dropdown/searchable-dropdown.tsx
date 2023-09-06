@@ -23,6 +23,7 @@ type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     hasError?: boolean;
     items: string[];
+    placeholder?: string;
     onItemSelect: (item: string) => void;
 };
 
@@ -31,6 +32,7 @@ const SearchableDropdown = <T extends FieldValues>({
     name,
     hasError,
     items,
+    placeholder,
     onItemSelect,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -48,10 +50,19 @@ const SearchableDropdown = <T extends FieldValues>({
         toggleIsListVisible();
     };
 
+    const filterItems = (items: string[]): string[] => {
+        if (typeof value !== 'string') {
+            return items;
+        }
+        return items.filter((item) =>
+            item.toLowerCase().includes(value.toLowerCase()),
+        );
+    };
+
     return (
         <View style={styles.container}>
             <TextInput
-                placeholder="Start typing and select skills"
+                placeholder={placeholder}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 onFocus={toggleIsListVisible}
@@ -77,30 +88,21 @@ const SearchableDropdown = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled>
-                        {items
-                            .filter((item: string) => {
-                                if (typeof value != 'string') {
-                                    return;
-                                }
-                                return item
-                                    .toLowerCase()
-                                    .includes(value.toLowerCase());
-                            })
-                            .map((item: string) => (
-                                <TouchableOpacity
-                                    key={item}
-                                    onPress={(): void => {
-                                        handleItemSelect(item);
-                                    }}
+                        {filterItems(items).map((item: string) => (
+                            <TouchableOpacity
+                                key={item}
+                                onPress={(): void => {
+                                    handleItemSelect(item);
+                                }}
+                            >
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={globalStyles.pv5}
                                 >
-                                    <Text
-                                        category={TextCategory.LABEL}
-                                        style={globalStyles.pv5}
-                                    >
-                                        {item}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
+                                    {item}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
                     </ScrollView>
                 </View>
             )}

@@ -29,7 +29,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
-import { type UserSignUpStep3Dto } from '~/bundles/talent/types/types';
+import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { signUpStep3ValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
@@ -42,7 +42,7 @@ import {
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: (payload: UserSignUpStep3Dto) => void;
+    onSubmit: (payload: SkillsStepDto) => void;
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
@@ -103,6 +103,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     onItemSelect={handleSkillSelect}
                     control={control}
                     name="hardSkills"
+                    placeholder="Start typing and select skills"
                 />
                 <View
                     style={[
@@ -114,8 +115,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({ onSubmit }) => {
                     {selectedSkills.map((skill) => (
                         <Tag
                             key={skill}
-                            skill={skill}
+                            value={skill}
                             onPress={handleSkillDelete}
+                            iconName={IconName.CLOSE}
+                            iconSize={15}
                         />
                     ))}
                 </View>

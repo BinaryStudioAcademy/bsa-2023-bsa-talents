@@ -5,9 +5,9 @@ import {
     PreferredLanguages,
 } from 'shared/build/index';
 
-import { type UserSignUpStep3Dto } from '~/bundles/talent/types/types';
+import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
-const SKILLS_AND_PROJECTS_DEFAULT_VALUES: UserSignUpStep3Dto = {
+const SKILLS_AND_PROJECTS_DEFAULT_VALUES: SkillsStepDto = {
     hardSkills: '',
     englishLevel: '',
     notConsidered: [],

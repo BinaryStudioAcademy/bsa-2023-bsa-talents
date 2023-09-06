@@ -1,1 +1,1 @@
-export { type UserSignUpStep3Dto } from 'shared/build/index';
+export { type SkillsStepDto } from 'shared/build/index';
