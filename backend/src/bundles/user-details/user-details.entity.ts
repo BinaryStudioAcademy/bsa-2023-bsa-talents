@@ -1,3 +1,5 @@
+import { type Entity, type ValueOf } from '~/common/types/types.js';
+
 import {
     type CountryList,
     type EmploymentType,
@@ -5,9 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type PreferredLanguages,
-} from '~/bundles/users/enums/enums.js';
-import { type Entity, type ValueOf } from '~/common/types/types.js';
-
+} from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
 
 class UserDetailsEntity implements Entity {
@@ -33,15 +33,15 @@ class UserDetailsEntity implements Entity {
 
     private 'experienceYears': number | null;
 
-    private 'employmentType': ValueOf<(typeof EmploymentType)[]> | null;
+    private 'employmentType': ValueOf<typeof EmploymentType>[] | null;
 
     private 'description': string | null;
 
     private 'englishLevel': ValueOf<typeof EnglishLevel> | null;
 
-    private 'notConsidered': ValueOf<(typeof NotConsidered)[]> | null;
+    private 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    private 'preferredLanguages': ValueOf<(typeof PreferredLanguages)[]> | null;
+    private 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
 
     private 'projectLinks': string[] | null;
 

@@ -4,3 +4,4 @@ export {
     realToSliderValue,
     sliderToRealValue,
 } from './map-experience-years-to-marks/map-experience-years-to-marks.js';
+export { validateFileSize } from './validate-file-size.js';
