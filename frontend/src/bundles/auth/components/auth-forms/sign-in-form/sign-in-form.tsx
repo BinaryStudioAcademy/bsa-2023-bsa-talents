@@ -42,7 +42,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <p className="header">Hi! Login to your Account</p>
 
                 <FormControl
-                    required={true}
                     className={getValidClassNames(
                         'inputContainer',
                         errors.email ? '' : 'email',
@@ -57,7 +56,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 <FormControl
-                    required={true}
                     className={getValidClassNames(
                         'inputContainer',
                         errors.password ? '' : 'password',
@@ -75,9 +73,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Grid item className={styles.authOptions}>
                     <Checkbox
                         label={
-                            <Typography variant="label">
-                                Remember Me?
-                            </Typography>
+                            <Typography variant="label">Remember Me</Typography>
                         }
                         className={styles.checkbox}
                     />
@@ -89,7 +85,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button label="Login" className="btnLogin" type="submit" />
             </form>
             <Grid item className="footer">
-                <span className="span">Not registered Yet?</span>
+                <span className="span">Not Registered Yet?</span>
                 <Link className="cta" to={'/sign-up'}>
                     Create an account
                 </Link>
