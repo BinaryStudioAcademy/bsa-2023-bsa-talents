@@ -73,7 +73,7 @@
     text-transform: none;
 }
 
-.closeButton {
+.deleteButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,12 +86,12 @@
     &:hover {
         border: none;
     }
+}
 
-    .closeIcon {
-        margin-right: 13px;
-        color: var(--nepal);
-        font-size: var(--font-size-h6);
-    }
+.deleteIcon {
+    margin-right: 13px;
+    font-size: var(--font-size-h6);
+    fill: var(--steel-gray);
 }
 
 .submit {

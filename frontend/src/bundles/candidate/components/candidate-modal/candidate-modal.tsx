@@ -1,4 +1,7 @@
-import { Add as AddIcon, CloseRounded as CloseIcon } from '@mui/icons-material';
+import {
+    Add as AddIcon,
+    DeleteOutline as DeleteIcon,
+} from '@mui/icons-material';
 import { FormHelperText } from '@mui/material';
 import {
     Controller,
@@ -176,15 +179,15 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                             <Button
                                                 className={getValidClassNames(
                                                     styles.button,
-                                                    styles.closeButton,
+                                                    styles.deleteButton,
                                                 )}
                                                 label=""
                                                 onClick={removeLink(index)}
                                                 variant="outlined"
                                                 endIcon={
-                                                    <CloseIcon
+                                                    <DeleteIcon
                                                         className={
-                                                            styles.closeIcon
+                                                            styles.deleteIcon
                                                         }
                                                     />
                                                 }
@@ -295,7 +298,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                                 <Button
                                                     className={getValidClassNames(
                                                         styles.button,
-                                                        styles.closeButton,
+                                                        styles.deleteButton,
                                                     )}
                                                     label=""
                                                     onClick={removeTemplate(
@@ -303,9 +306,9 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                                     )}
                                                     variant="outlined"
                                                     endIcon={
-                                                        <CloseIcon
+                                                        <DeleteIcon
                                                             className={
-                                                                styles.closeIcon
+                                                                styles.deleteIcon
                                                             }
                                                         />
                                                     }
