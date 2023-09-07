@@ -8,7 +8,6 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { Steps } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
-import { useFormSubmit } from '../../context/context.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -22,19 +21,6 @@ const StepContent: React.FC<Properties> = ({
     onNextStep,
     onPreviousStep,
 }) => {
-    const { submitForm } = useFormSubmit();
-
-    const handleNextClick = async (): Promise<void> => {
-        if (submitForm) {
-            const success = await submitForm();
-            if (success) {
-                // Navigate or do the next step
-                onNextStep();
-            }
-        } else {
-            onNextStep();
-        }
-    };
     return (
         <Grid item className={styles.stepContent}>
             <Grid className={styles.stepTitle}>
@@ -82,7 +68,7 @@ const StepContent: React.FC<Properties> = ({
                         onClick={
                             currentStep === STEPS_NUMBER
                                 ? undefined
-                                : handleNextClick
+                                : onNextStep
                         }
                         label={
                             currentStep === STEPS_NUMBER

@@ -1,4 +1,3 @@
-import { FormHelperText } from '@mui/material';
 import {
     Controller,
     type ControllerFieldState,
@@ -11,23 +10,25 @@ import {
     Badge,
     Checkbox,
     FormControl,
+    FormHelperText,
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
-    useAppDispatch,
+    // useAppDispatch,
     useAppForm,
     useCallback,
-    useEffect,
+    // useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/context.js';
+//import { useFormSubmit } from '../../context/context.js';
 import { getRandomBadgeColor } from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
+//import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
+//TODO: uncomment when context for submitting will be added
 const BsaBadgesStep: React.FC = () => {
     const savedPayload = useSelector(
         (state: RootReducer) => state.talentOnBoarding.bsaBadgesStep,
@@ -41,37 +42,42 @@ const BsaBadgesStep: React.FC = () => {
         ...badge,
         color: getRandomBadgeColor(),
     }));
-    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
+    // const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
+    //     defaultValues: { ...savedPayload },
+    //     validationSchema: BsaBadgesStepValidationSchema,
+    // });
+
+    const { control, errors } = useAppForm<BsaBadgesStepDto>({
         defaultValues: { ...savedPayload },
         validationSchema: BsaBadgesStepValidationSchema,
     });
 
-    const { setSubmitForm } = useFormSubmit();
+    // const { setSubmitForm } = useFormSubmit();
 
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
 
-    const onSubmit = useCallback(
-        async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(actions.bsaBadgesStep(data));
-            return true;
-        },
-        [dispatch],
-    );
+    // const onSubmit = useCallback(
+    //     async (data: BsaBadgesStepDto): Promise<boolean> => {
+    //         await dispatch(actions.bsaBadgesStep(data));
+    //         return true;
+    //     },
+    //     [dispatch],
+    // );
 
-    useEffect(() => {
-        setSubmitForm(() => {
-            return async () => {
-                let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
-                })();
-                return result;
-            };
-        });
-        return () => {
-            setSubmitForm(null);
-        };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    // useEffect(() => {
+    //     setSubmitForm(() => {
+    //         return async () => {
+    //             let result = false;
+    //             await handleSubmit(async (formData) => {
+    //                 result = await onSubmit(formData);
+    //             })();
+    //             return result;
+    //         };
+    //     });
+    //     return () => {
+    //         setSubmitForm(null);
+    //     };
+    // }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -80,7 +86,9 @@ const BsaBadgesStep: React.FC = () => {
         ) =>
             (): void => {
                 const updatedValue = field.value.includes(selectedValue)
-                    ? field.value.filter((item) => item !== selectedValue)
+                    ? field.value.filter(
+                          (item: string) => item !== selectedValue,
+                      )
                     : [...field.value, selectedValue];
                 field.onChange(updatedValue);
             },
