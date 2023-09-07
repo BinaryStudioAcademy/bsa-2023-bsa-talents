@@ -16,7 +16,7 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
                         <div className={styles.message}></div>
                     </Grid>
                 </Grid>
-                <Grid className={styles['form-wrapper']} item xs={12} md={6}>
+                <Grid className={styles.formWrapper} item xs={12} md={6}>
                     <Grid item className={styles.wrapper}>
                         {children}
                     </Grid>

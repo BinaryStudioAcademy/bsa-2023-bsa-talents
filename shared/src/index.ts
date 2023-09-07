@@ -4,6 +4,10 @@ export {
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     ProfileStepValidationSchema,
+    type SkillsStepDto,
+    SkillsStepValidationMessage,
+    SkillsStepValidationRule,
+    SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,
