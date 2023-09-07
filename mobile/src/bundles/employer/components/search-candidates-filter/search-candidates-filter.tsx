@@ -12,14 +12,14 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
+import { Color, CountryList, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     BSA_BADGES,
     BSA_CHARACTERISTICS,
-    BSA_PROJECTS,
+    BSA_PROJECT,
     YEARS_EXPERIENCE,
 } from '~/bundles/employer/components/search-candidates-filter/constants/constants';
 import { JOB_TITLE_OPTIONS } from '~/bundles/talent/components/profile-form/constants/constants';
@@ -32,9 +32,23 @@ type Properties = {
 
 const defaultValues = {
     activeTalentsOnly: true,
+    jobTitle: '',
     englishLevel: '',
+    experienceYears: '',
+    employmentType: {
+        fullTime: true,
+        partTime: false,
+        freelance: false,
+        partTime2: false,
+        remotely: false,
+        relocation: false,
+    },
 };
 
+const locationOptions = Object.values(CountryList).map((country) => ({
+    value: country,
+    label: country,
+}));
 const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
     const { control, handleSubmit } = useAppForm({ defaultValues });
     const handleFormSubmit = useCallback((): void => {
@@ -121,18 +135,18 @@ const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
                     name="BSAProjectName"
                     containerStyle={globalStyles.pb25}
                 >
-                    <Selector options={BSA_PROJECTS} />
+                    <Selector options={BSA_PROJECT} />
                 </FormField>
                 <FormField
                     label="Location"
                     name="location"
                     containerStyle={globalStyles.pb25}
                 >
-                    <Selector options={BSA_PROJECTS} />
+                    <Selector options={locationOptions} />
                 </FormField>
                 <FormField
                     label="Location"
-                    name="location"
+                    name="englishLevel"
                     containerStyle={globalStyles.pb25}
                 >
                     <Checkbox
@@ -142,13 +156,60 @@ const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormField>
 
-                <View style={styles.formWrapper}>
-                    <Button
-                        style={[globalStyles.mb25, globalStyles.pv15]}
-                        label="Show results"
-                        onPress={handleFormSubmit}
-                    />
-                </View>
+                <FormField
+                    label="Employment type"
+                    name="employmentType"
+                    required
+                    containerStyle={globalStyles.pb25}
+                >
+                    <View
+                        style={[
+                            globalStyles.flexDirectionRow,
+                            globalStyles.justifyContentSpaceBetween,
+                            styles.employmentTypeContainer,
+                        ]}
+                    >
+                        <View style={globalStyles.flex1}>
+                            <Checkbox
+                                label="Full time"
+                                name="employmentType.fullTime"
+                                control={control}
+                            />
+                            <Checkbox
+                                label="Part-time"
+                                name="employmentType.partTime"
+                                control={control}
+                            />
+                            <Checkbox
+                                label="Freelance (projects)"
+                                name="employmentType.freelance"
+                                control={control}
+                            />
+                        </View>
+                        <View style={globalStyles.flex1}>
+                            <Checkbox
+                                label="Part-time 2"
+                                name="employmentType.partTime2"
+                                control={control}
+                            />
+                            <Checkbox
+                                label="Remotely"
+                                name="employmentType.remotely"
+                                control={control}
+                            />
+                            <Checkbox
+                                label="Relocation to another country"
+                                name="employmentType.relocation"
+                                control={control}
+                            />
+                        </View>
+                    </View>
+                </FormField>
+                <Button
+                    style={[globalStyles.mb25, globalStyles.pv15]}
+                    label="Show results"
+                    onPress={handleFormSubmit}
+                />
             </ScrollView>
         </>
     );

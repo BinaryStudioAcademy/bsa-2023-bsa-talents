@@ -6,12 +6,12 @@ import { SearchCandidatesFilter } from '~/bundles/employer/components/components
 
 const Candidates: React.FC = () => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
-    const onSubmit = (payload: unknown): unknown => {
+    const onSearchHandler = (payload: unknown): unknown => {
         return payload;
     };
     return (
         <ScrollView style={globalStyles.flex1}>
-            <SearchCandidatesFilter onSubmit={onSubmit} />
+            <SearchCandidatesFilter onSubmit={onSearchHandler} />
             <Text>Employer screen: Candidates</Text>
         </ScrollView>
     );

@@ -37,7 +37,7 @@ const BSA_BADGES = [
     },
 ];
 
-const BSA_PROJECTS = [
+const BSA_PROJECT = [
     { label: 'Talents', value: 'talents' },
     { label: 'Writorium', value: 'writorium' },
     { label: 'TowHub', value: 'towHub' },
@@ -46,4 +46,4 @@ const BSA_PROJECTS = [
     { label: 'LeetWars', value: 'leetWars' },
 ];
 
-export { BSA_BADGES, BSA_CHARACTERISTICS, BSA_PROJECTS, YEARS_EXPERIENCE };
+export { BSA_BADGES, BSA_CHARACTERISTICS, BSA_PROJECT, YEARS_EXPERIENCE };
