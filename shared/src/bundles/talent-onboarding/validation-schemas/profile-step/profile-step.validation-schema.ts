@@ -4,12 +4,12 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
-} from '../../users/enums/enums.js';
+} from '../../../user-details/enums/enums.js';
 import {
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
-} from '../enums/enums.js';
-import { type ProfileStepDto } from '../types/types.js';
+} from '../../enums/enums.js';
+import { type ProfileStepDto } from '../../types/types.js';
 
 const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
     profileName: joi
