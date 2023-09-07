@@ -9,7 +9,7 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/contacts-cv-step`, (registerPayload) => {
+>(`${sliceName}/update-talent-details`, (registerPayload) => {
     return registerPayload;
 });
 
