@@ -2,6 +2,11 @@
     width: 100%;
     font-size: var(--font-size-base);
     font-family: var(--font-family);
+
+    & svg {
+        margin-right: 7px;
+        color: var(--st-tropaz);
+    }
 }
 
 .container .input {
@@ -16,7 +21,7 @@
         box-shadow 0.3s;
 }
 
-.container .placeholder {
+.placeholder {
     color: var(--nepal);
 }
 
@@ -25,17 +30,7 @@
     font-weight: var(--font-weight-regular);
 }
 
-.container .icon {
-    position: absolute;
-    right: 7px;
-    width: 20px;
-    height: 20px;
-    transform: rotate(0deg);
-    transition: transform 0.3s ease;
-    pointer-events: none;
-}
-
-.container div[aria-expanded="true"] ~ .icon {
+.container .container div[aria-expanded="true"] ~ .icon {
     transform: rotate(180deg);
 }
 
