@@ -6,7 +6,7 @@
     background-color: var(--steel-gray);
 }
 
-.selling-point {
+.sellingPoint {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
@@ -25,16 +25,12 @@
     }
 
     & .logo {
-        display: inline-block;
-        width: 75px;
-        margin-right: auto;
-        background-color: var(--sunglow);
-        border-radius: 7px;
-        aspect-ratio: 1/1;
+        justify-content: center;
+        margin-top: 25px;
     }
 }
 
-.form-wrapper {
+.formWrapper {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -53,7 +49,7 @@
 }
 
 @media screen and (width >= 900px) {
-    .selling-point {
+    .sellingPoint {
         display: flex;
         gap: 27px;
 
@@ -62,7 +58,8 @@
         }
 
         .logo {
-            margin-left: 53px;
+            justify-content: start;
+            margin-top: unset;
         }
     }
 

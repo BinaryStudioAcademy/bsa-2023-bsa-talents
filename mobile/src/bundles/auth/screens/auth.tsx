@@ -5,7 +5,7 @@ import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/auth/types/types';
-import { Overlay, Text } from '~/bundles/common/components/components';
+import { Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -21,9 +21,7 @@ import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
     const isSignUpScreen = name === AuthScreenName.SIGN_UP;
     const isPendingAuth = dataStatus === DataStatus.PENDING;
     useEffect(() => {
@@ -54,13 +52,11 @@ const Auth: React.FC = () => {
                 return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
         }
-
         return null;
     };
 
     return (
         <>
-            <Text>state: {dataStatus}</Text>
             <Overlay isActive={isPendingAuth} />
             <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
