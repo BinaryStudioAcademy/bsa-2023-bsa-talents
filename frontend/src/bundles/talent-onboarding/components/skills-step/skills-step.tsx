@@ -5,7 +5,6 @@ import {
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 
 import {
     Checkbox,
@@ -18,6 +17,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
@@ -59,7 +59,7 @@ const SkillsStep: React.FC = () => {
         notConsidered,
         preferredLanguages,
         projectLinks,
-    } = useSelector((state: RootReducer) => state.talentOnBoarding);
+    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
     const { control, handleSubmit, errors } = useAppForm<SkillsStepDto>({
         defaultValues: {

@@ -6,7 +6,6 @@ import {
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 
 import {
     FileUpload,
@@ -18,7 +17,11 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+} from '~/bundles/common/hooks/hooks.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { useFormSubmit } from '../../context/form-submit-provider.context.js';
@@ -34,7 +37,7 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    const { photo, fullName, phone, linkedinLink, cv } = useSelector(
+    const { photo, fullName, phone, linkedinLink, cv } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 

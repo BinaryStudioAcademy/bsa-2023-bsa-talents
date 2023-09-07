@@ -5,7 +5,6 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 
 import {
     Checkbox,
@@ -21,6 +20,7 @@ import {
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
@@ -64,7 +64,7 @@ const ProfileStep: React.FC = () => {
         experienceYears,
         employmentType,
         description,
-    } = useSelector((state: RootReducer) => state.talentOnBoarding);
+    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
     const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
         defaultValues: {
