@@ -1,0 +1,73 @@
+.container {
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--steel-gray);
+}
+
+.sellingPoint {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: 34px;
+
+    & .text {
+        display: none;
+        max-width: 300px;
+        margin-right: auto;
+        margin-left: 53px;
+        color: var(--white);
+        font-weight: var(--font-weight-bold);
+        font-size: 32px;
+        font-family: var(--font-family);
+        line-height: var(--line-height-main);
+    }
+
+    & .logo {
+        display: inline-block;
+        width: 75px;
+        margin-right: auto;
+        background-color: var(--sunglow);
+        border-radius: 7px;
+        aspect-ratio: 1/1;
+    }
+}
+
+.formWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+    padding-right: 27px;
+    padding-left: 27px;
+}
+
+@media screen and (width >= 900px) {
+    .sellingPoint {
+        display: flex;
+        gap: 27px;
+
+        .text {
+            display: block;
+        }
+
+        .logo {
+            margin-left: 53px;
+        }
+    }
+
+    .container {
+        flex-direction: row;
+        padding: 40px;
+    }
+}

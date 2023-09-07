@@ -1,0 +1,125 @@
+.stepContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.stepTitle {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 170px;
+    padding-inline: 30px;
+    height: 60px;
+    border-bottom: 3px solid var(--solitude);
+}
+
+.stepTitle::before {
+    content: "";
+    position: absolute;
+    bottom: -2.5px;
+    left: 0;
+    width: 25%;
+    padding-bottom: 3px;
+    background-color: var(--st-tropaz);
+}
+
+.stepName {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    font-size: 20px;
+    letter-spacing: var(--letter-spacing-sm);
+}
+
+.stepNumber {
+    color: var(--st-tropaz);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base);
+    letter-spacing: var(--letter-spacing-lg);
+    text-transform: uppercase;
+}
+
+.stepNumber::after {
+    content: " / 05";
+    color: var(--aluminium);
+    font-weight: var(--font-weight-regular);
+}
+
+.stepBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 40px;
+}
+
+.stepButtons {
+    .button {
+        width: 104px;
+        height: 36px;
+        margin: 5px;
+        font-weight: 500;
+        font-size: 13px;
+        text-transform: capitalize;
+    }
+}
+
+.buttonBack {
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.buttonNext {
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+.wideStepButtons {
+    display: flex;
+
+    button {
+        width: 181px;
+        height: 36px;
+        margin: 7px;
+        font-size: 13px;
+        text-transform: none;
+    }
+}
+
+@media screen and (width <= 660px) {
+    .stepName {
+        font-size: 10px;
+    }
+
+    .stepNumber {
+        font-size: 8px;
+    }
+
+    .stepButtons {
+        display: flex;
+
+        button {
+            width: 60px;
+        }
+    }
+
+    .wideStepButtons {
+        flex-direction: column;
+
+        button {
+            width: 100px;
+            height: 50px;
+        }
+    }
+}

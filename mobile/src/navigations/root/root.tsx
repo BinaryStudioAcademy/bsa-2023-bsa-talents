@@ -5,7 +5,9 @@ import {
 import React from 'react';
 
 import { RootScreenName } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -19,38 +21,45 @@ const screenOptions: NativeStackNavigationOptions = {
     headerShown: false,
 };
 
-type Properties = {
-    isSignedIn?: boolean;
-    isProfileComplete?: boolean;
-    // TODO: update when enum is in shared folder
-    role?: 'talent' | 'employer';
-};
+const Root: React.FC = () => {
+    const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
+    const { isProfileComplete, role } = userData ?? {};
 
-const Root: React.FC<Properties> = ({
-    isSignedIn = false,
-    isProfileComplete = true,
-    role = 'talent',
-}) => {
-    // prettier-ignore
-    return (
-        <RootStack.Navigator screenOptions={screenOptions}>
-            {isSignedIn ? (
+    const renderStackScreen = (): React.JSX.Element => {
+        if (isSignedIn) {
+            return (
                 <RootStack.Screen
                     name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={role === 'talent' ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
+                    component={
+                        role === UserRole.TALENT
+                            ? TalentBottomTabNavigator
+                            : EmployerBottomTabNavigator
+                    }
                 />
-            ) : (isProfileComplete ? (
+            );
+        }
+
+        if (isProfileComplete) {
+            return (
                 <RootStack.Screen
                     name={RootScreenName.ONBOARDING_ROOT_ROUTE}
                     // TODO: create EmployerOnboardingNavigator for role == 'employer'
                     component={TalentOnboardingNavigator}
                 />
-            ) : (
-                <RootStack.Screen
-                    name={RootScreenName.AUTH_ROOT_ROUTE}
-                    component={AuthNavigator}
-                />
-            ))}
+            );
+        }
+
+        return (
+            <RootStack.Screen
+                name={RootScreenName.AUTH_ROOT_ROUTE}
+                component={AuthNavigator}
+            />
+        );
+    };
+
+    return (
+        <RootStack.Navigator screenOptions={screenOptions}>
+            {renderStackScreen()}
         </RootStack.Navigator>
     );
 };

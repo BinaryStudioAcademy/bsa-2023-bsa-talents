@@ -28,11 +28,7 @@ const Logo = ({
             </Grid>
 
             {!isCollapsed && (
-                <Grid
-                    item
-                    alignItems="center"
-                    className={getValidClassNames(styles.logoLabel)}
-                >
+                <Grid item alignItems="center" className={styles.logoLabel}>
                     <img src={logoLabelSvg} alt="Label-BSATalents" />
                 </Grid>
             )}

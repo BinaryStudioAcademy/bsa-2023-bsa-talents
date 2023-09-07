@@ -114,7 +114,7 @@ class ServerAppBase implements ServerApp {
                 });
 
                 await this.app.register(swaggerUi, {
-                    routePrefix: `${it.version}/documentation`,
+                    routePrefix: `api/${it.version}/documentation`,
                 });
             }),
         );

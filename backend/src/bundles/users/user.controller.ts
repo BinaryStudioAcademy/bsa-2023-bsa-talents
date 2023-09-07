@@ -11,16 +11,23 @@ import { UsersApiPath } from './enums/enums.js';
  * @swagger
  * components:
  *    schemas:
+ *      RoleEnum:
+ *        type: string
+ *        enum:
+ *          - talent
+ *          - employer
+ *          - admin
  *      User:
  *        type: object
  *        properties:
  *          id:
- *            type: number
- *            format: number
- *            minimum: 1
+ *            type: string
+ *            format: uuid
  *          email:
  *            type: string
  *            format: email
+ *          role:
+ *            $ref: '#/components/schemas/RoleEnum'
  */
 class UserController extends ControllerBase {
     private userService: UserService;
@@ -43,6 +50,8 @@ class UserController extends ControllerBase {
      *    get:
      *      tags: [Users]
      *      description: Returns an array of users
+     *      security:
+     *        - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
