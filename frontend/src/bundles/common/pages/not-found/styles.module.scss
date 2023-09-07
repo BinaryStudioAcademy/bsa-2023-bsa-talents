@@ -31,7 +31,7 @@
     }
 
     & .code {
-        font-size: max(20vh, 300px);
+        font-size: clamp(80px, 20vh, 300px);
         line-height: normal;
     }
 }
@@ -80,10 +80,6 @@
         & .description {
             font-size: var(--font-size-h5);
         }
-
-        & .code {
-            font-size: 100px;
-        }
     }
 
     .link {
@@ -98,12 +94,6 @@
 @media screen and (height <= 660px) {
     .header {
         padding: 15px 0;
-    }
-
-    .text {
-        & .code {
-            font-size: 80px;
-        }
     }
 
     .link {
