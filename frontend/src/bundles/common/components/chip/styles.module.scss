@@ -1,6 +1,6 @@
 .chip {
     gap: 6px;
-    width: auto;
+    width: fit-content;
     height: 23px;
     margin-right: 9px;
     margin-bottom: 5px;
@@ -21,6 +21,6 @@
     }
 }
 
-.delete-chip {
+.deleteChip {
     margin-right: 4px;
 }

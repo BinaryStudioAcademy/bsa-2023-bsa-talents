@@ -54,7 +54,7 @@ const Input = <T extends FieldValues>({
             )}
             <TextInput
                 onChangeText={onChange}
-                value={value}
+                value={value.toString()}
                 onBlur={onBlur}
                 {...props}
                 style={[
