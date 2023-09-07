@@ -67,6 +67,11 @@ const FONTS = {
         color: Color.PRIMARY,
         textTransform: 'uppercase' as const,
     },
+    [TextCategory.INPUT_PLACEHOLDER]: {
+        fontFamily: FontFamily.INTER_REGULAR,
+        fontSize: 13,
+        color: Color.TEXT2,
+    },
 };
 
 export { FONTS };

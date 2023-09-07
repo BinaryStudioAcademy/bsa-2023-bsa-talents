@@ -69,7 +69,13 @@ const Selector = <T extends FieldValues>({
                 ]}
                 onPress={toggleIsListVisible}
             >
-                <Text category={TextCategory.LABEL}>
+                <Text
+                    category={
+                        value
+                            ? TextCategory.LABEL
+                            : TextCategory.INPUT_PLACEHOLDER
+                    }
+                >
                     {selectedOption ?? placeholder}
                 </Text>
                 <Icon

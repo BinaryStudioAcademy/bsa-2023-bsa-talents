@@ -8,7 +8,7 @@ import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -56,6 +56,7 @@ const Input = <T extends FieldValues>({
                 onChangeText={onChange}
                 value={value.toString()}
                 onBlur={onBlur}
+                placeholderTextColor={Color.TEXT2}
                 {...props}
                 style={[
                     globalStyles.flex1,
