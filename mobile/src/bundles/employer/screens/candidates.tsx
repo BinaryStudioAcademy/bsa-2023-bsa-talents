@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ScrollView, Text } from '~/bundles/common/components/components';
+import { Text, View } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { SearchCandidatesFilter } from '~/bundles/employer/components/components';
 
@@ -10,10 +10,10 @@ const Candidates: React.FC = () => {
         return payload;
     };
     return (
-        <ScrollView style={globalStyles.flex1}>
+        <View style={globalStyles.flex1}>
             <SearchCandidatesFilter onSubmit={onSearchHandler} />
             <Text>Employer screen: Candidates</Text>
-        </ScrollView>
+        </View>
     );
 };
 
