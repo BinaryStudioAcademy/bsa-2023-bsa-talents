@@ -1,4 +1,5 @@
 import React from 'react';
+import { type RadioButtonProps } from 'react-native-radio-buttons-group';
 
 import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
 import { userSignUpValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
@@ -7,12 +8,14 @@ import {
     FormField,
     Input,
     Link,
+    RadioButtons,
     Text,
     View,
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { UserRole } from '~/bundles/users/enums/enums';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -30,20 +33,32 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
+    const radioButtons: RadioButtonProps[] = useMemo(
+        () => [
+            {
+                id: UserRole.EMPLOYER,
+                label: 'I`m hiring',
+            },
+            {
+                id: UserRole.TALENT,
+                label: 'I`m looking for a job',
+            },
+        ],
+        [],
+    );
+
     return (
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
-                globalStyles.width100,
                 styles.container,
             ]}
         >
             <Text
                 category={TextCategory.H4}
                 style={[
-                    globalStyles.pb25,
+                    globalStyles.pb15,
                     globalStyles.alignSelfCenter,
                     styles.title,
                 ]}
@@ -51,7 +66,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 Sign Up
             </Text>
             <View style={styles.formWrapper}>
-                <FormField errors={errors} label="Email" name="email" required>
+                <FormField
+                    errorMessage={errors.email?.message}
+                    label="Email"
+                    name="email"
+                    required
+                >
                     <Input
                         control={control}
                         name="email"
@@ -59,7 +79,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormField>
                 <FormField
-                    errors={errors}
+                    errorMessage={errors.password?.message}
                     label="Password"
                     name="password"
                     required
@@ -74,28 +94,32 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button
                     label="Sign up"
                     onPress={handleFormSubmit}
-                    style={[globalStyles.mt25, globalStyles.pv15]}
+                    style={[globalStyles.mt15, globalStyles.pv15]}
                 />
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentCenter,
+                    ]}
+                >
+                    <RadioButtons
+                        radioButtons={radioButtons}
+                        control={control}
+                        layout="row"
+                        name="role"
+                    />
+                </View>
             </View>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.alignSelfCenter,
-                    globalStyles.alignItemsCenter,
+                    globalStyles.justifyContentCenter,
                     globalStyles.mt20,
                 ]}
             >
-                <Text category={TextCategory.BODY1} style={styles.text}>
-                    Already have an account?{' '}
-                </Text>
-
+                <Text style={styles.text}>Already have an account? </Text>
                 <Link
-                    textComponentCategory={TextCategory.BODY1}
-                    style={[
-                        globalStyles.alignSelfFlexEnd,
-                        globalStyles.pr10,
-                        styles.linkToSignIn,
-                    ]}
+                    style={styles.linkToSignIn}
                     label="Sign In"
                     link={`/${AuthScreenName.SIGN_IN}`}
                 />

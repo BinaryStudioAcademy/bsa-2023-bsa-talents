@@ -34,9 +34,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
-                globalStyles.width100,
                 styles.container,
             ]}
         >
@@ -51,14 +49,22 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 Hi! Login to your Account
             </Text>
             <View style={styles.formWrapper}>
-                <FormField errors={errors} label="Email" name="email">
+                <FormField
+                    errorMessage={errors.email?.message}
+                    label="Email"
+                    name="email"
+                >
                     <Input
                         control={control}
                         name="email"
                         placeholder="Enter your email"
                     />
                 </FormField>
-                <FormField errors={errors} label="Password" name="password">
+                <FormField
+                    errorMessage={errors.password?.message}
+                    label="Password"
+                    name="password"
+                >
                     <Input
                         control={control}
                         name="password"
@@ -78,7 +84,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
 
                 <Button
-                    style={[globalStyles.mb25, globalStyles.pv15]}
+                    style={[globalStyles.mb15, globalStyles.pv15]}
                     label="Login"
                     onPress={handleFormSubmit}
                 />
@@ -86,22 +92,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.alignSelfCenter,
-                    globalStyles.alignItemsCenter,
+                    globalStyles.justifyContentCenter,
                     globalStyles.mt20,
                 ]}
             >
-                <Text category={TextCategory.BODY1} style={styles.text}>
-                    Not Registered Yet?{' '}
-                </Text>
-
+                <Text style={styles.text}>Not Registered Yet? </Text>
                 <Link
-                    textComponentCategory={TextCategory.BODY1}
-                    style={[
-                        globalStyles.alignSelfFlexEnd,
-                        globalStyles.pr10,
-                        styles.linkForgotPassword,
-                    ]}
+                    style={styles.linkSignUp}
                     label="Create an account"
                     link={`/${AuthScreenName.SIGN_UP}`}
                 />
