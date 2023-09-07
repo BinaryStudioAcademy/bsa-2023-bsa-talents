@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserRole } from '~/bundles/users/enums/enums';
 
-import { signIn, signUp } from './actions';
+import { loadUser, signIn, signUp } from './actions';
 
 type UserData = {
     email: string | null;
@@ -32,7 +32,7 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addMatcher(
-            isAnyOf(signUp.fulfilled, signIn.fulfilled),
+            isAnyOf(signUp.fulfilled, loadUser.fulfilled, signIn.fulfilled),
             (state, { payload }) => {
                 const { email, id, role } = payload;
                 state.dataStatus = DataStatus.FULFILLED;
@@ -40,13 +40,16 @@ const { reducer, actions, name } = createSlice({
                 state.isSignedIn = true;
             },
         );
-        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
-            state.dataStatus = DataStatus.PENDING;
-            state.isSignedIn = false;
-            state.userData = null;
-        });
         builder.addMatcher(
-            isAnyOf(signUp.rejected, signIn.rejected),
+            isAnyOf(signUp.pending, loadUser.pending, signIn.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+                state.isSignedIn = false;
+                state.userData = null;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(signUp.rejected, loadUser.rejected, signIn.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.isSignedIn = false;
