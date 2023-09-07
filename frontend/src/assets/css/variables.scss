@@ -35,9 +35,6 @@
     // Solitude
     --solitude: #dce5ff;
 
-    // Sunglow:
-    --sunglow: #ffd231;
-
     // Mountain Meadow
     --mountain-meadow: #12b76a;
 
@@ -70,6 +67,11 @@
 
     // Sidebar
     --sidebar-width: 80px;
+
+    // Avatar
+    --avatar-color: #7a77fd;
+    --avatar-online-color: var(--mountain-meadow);
+    --avatar-offline-color: var(--nepal);
 
     // *Font*
 

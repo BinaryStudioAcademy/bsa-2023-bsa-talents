@@ -5,6 +5,7 @@ import {
     type FieldErrors,
     type FieldPath,
     type FieldValues,
+    type RefCallBack,
 } from 'react-hook-form';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -26,6 +27,7 @@ type Properties<T extends FieldValues> = {
     className?: string;
     inputClassNames?: string;
     defaultValue?: string;
+    inputRef?: RefCallBack;
 };
 
 const Input = <T extends FieldValues>({
@@ -40,6 +42,7 @@ const Input = <T extends FieldValues>({
     className = '',
     inputClassNames,
     defaultValue,
+    inputRef,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -101,8 +104,11 @@ const Input = <T extends FieldValues>({
                 className: muiInputStyles,
                 disabled: isDisabled,
                 startAdornment: adornment,
+                ref: inputRef,
             }}
-            inputProps={{ className: htmlInputStyles }}
+            inputProps={{
+                className: htmlInputStyles,
+            }}
             FormHelperTextProps={{ className: helperTextStyles }}
             defaultValue={defaultValue}
         />

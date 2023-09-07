@@ -1,6 +1,5 @@
 import { Model } from 'objection';
 
-import { UserDetailsModel } from '~/bundles/users/user-details.model.js';
 import {
     AbstractModel,
     DatabaseTableName,
@@ -19,7 +18,7 @@ class HardSkillsModel extends AbstractModel {
     public static override relationMappings = {
         talents: {
             relation: Model.ManyToManyRelation,
-            modelClass: UserDetailsModel,
+            modelClass: '',
             join: {
                 from: `${DatabaseTableName.HARD_SKILLS}.${HardSkillsTableColumn.ID}`,
                 through: {
