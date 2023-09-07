@@ -25,12 +25,8 @@
     }
 
     & .logo {
-        display: inline-block;
-        width: 75px;
-        margin-right: auto;
-        background-color: var(--sunglow);
-        border-radius: 7px;
-        aspect-ratio: 1/1;
+        justify-content: center;
+        margin-top: 25px;
     }
 }
 
@@ -62,7 +58,8 @@
         }
 
         .logo {
-            margin-left: 53px;
+            justify-content: start;
+            margin-top: unset;
         }
     }
 
