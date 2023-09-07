@@ -1,0 +1,96 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 348px;
+    padding: 10px;
+}
+
+.photo {
+    align-items: center;
+    gap: 20px;
+}
+
+.photoWrapper {
+    width: 180px;
+    height: 180px;
+    background-color: var(--background-secondary);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.fileError {
+    color: var(--error-primary);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-main);
+}
+
+.photoError {
+    max-width: 122px;
+}
+
+.formControl {
+    gap: 8px;
+    width: 100%;
+}
+
+.photoFormControl {
+    flex-basis: content;
+}
+
+.label {
+    color: var(--background-secondary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-main);
+}
+
+.labelError {
+    color: var(--error-primary);
+}
+
+.labelText {
+    color: var(--text-primary-dark);
+}
+
+.uploadPhotoBtn {
+    width: 125px;
+    height: 36px;
+    color: var(--background-secondary);
+    font-size: 13px;
+    line-height: 1.21;
+    text-transform: none;
+    border-color: var(--background-secondary);
+}
+
+.uploadCVBtn {
+    max-width: 329px;
+    height: 38px;
+    color: var(--background-secondary);
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-main);
+    text-transform: none;
+    border-color: var(--background-secondary);
+}
+
+.btnError {
+    color: var(--error-primary);
+    border-color: var(--error-primary);
+
+    &:hover,
+    &:focus {
+        color: var(--error-primary);
+        border-color: var(--error-primary);
+    }
+}
+
+.info {
+    padding: 12px;
+    color: var(--text-primary-dark);
+    background-color: var(--solitude);
+    border-radius: 4px;
+}
