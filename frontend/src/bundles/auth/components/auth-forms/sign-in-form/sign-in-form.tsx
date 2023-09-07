@@ -31,7 +31,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
-            alert('You have been logged in.');
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
@@ -43,7 +42,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <p className="header">Hi! Login to your Account</p>
 
                 <FormControl
-                    className={getValidClassNames('inputContainer', 'email')}
+                    className={getValidClassNames(
+                        'inputContainer',
+                        errors.email ? '' : 'email',
+                    )}
                 >
                     <FormLabel className="label">Email *</FormLabel>
                     <Input
@@ -54,7 +56,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 <FormControl
-                    className={getValidClassNames('inputContainer', 'password')}
+                    className={getValidClassNames(
+                        'inputContainer',
+                        errors.password ? '' : 'password',
+                    )}
                 >
                     <FormLabel className="label">Password *</FormLabel>
                     <Input
