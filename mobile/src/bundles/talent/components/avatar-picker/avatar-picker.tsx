@@ -2,6 +2,7 @@ import {
     type Control,
     type FieldPath,
     type FieldValues,
+    type UseFormSetError,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type ImagePickerResponse } from 'react-native-image-picker';
@@ -30,7 +31,7 @@ type AvatarPickerProperties<T extends FieldValues> = {
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
-    setErrorMessageAvatar: React.Dispatch<React.SetStateAction<string>>;
+    setError: UseFormSetError<T>;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -38,8 +39,8 @@ const AvatarPicker = <T extends FieldValues>({
     name,
     buttonStyle,
     containerStyle,
-    setErrorMessageAvatar,
     uri,
+    setError,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -56,23 +57,14 @@ const AvatarPicker = <T extends FieldValues>({
                 }
                 const [image] = assets;
                 setAvatar(image.uri ?? uri);
-                const validateSize =
-                    image.fileSize && fileSizeValidation(image.fileSize);
-                const validateType =
-                    image.type && imageTypeValidation(image.type);
-
-                setErrorMessageAvatar('');
-
-                if (validateSize) {
-                    setErrorMessageAvatar(validateSize);
-                } else if (validateType) {
-                    setErrorMessageAvatar(validateType);
-                } else {
+                if (image.fileSize && image.type) {
+                    fileSizeValidation(name, image.fileSize, setError);
                     onChange({
                         size: image.fileSize,
                         uri: image.uri ?? uri,
                         type: image.type,
                     });
+                    imageTypeValidation(name, setError, image.type);
                 }
             } catch (error) {
                 if (error instanceof Error) {
@@ -82,7 +74,7 @@ const AvatarPicker = <T extends FieldValues>({
                 notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
             }
         },
-        [onChange, setErrorMessageAvatar, uri],
+        [name, onChange, setError, uri],
     );
 
     const imageLoadHandler = useCallback(

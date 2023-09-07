@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+    type UseFormSetError,
+} from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import DocumentPicker, {
     isCancel,
@@ -7,29 +13,23 @@ import DocumentPicker, {
 } from 'react-native-document-picker';
 
 import { Button, Text } from '~/bundles/common/components/components';
+import {
+    ButtonType,
+    IconName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { fileSizeValidation } from '~/bundles/talent/components/cv-and-contacts-form/helpers/file-size-validation';
+import { notifications } from '~/framework/notifications/notifications';
 
 type FilePickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     label: string;
     style: StyleProp<ViewStyle>;
-    setErrorMessageCV: React.Dispatch<React.SetStateAction<string>>;
+    setError: UseFormSetError<T>;
 };
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
-
-import {
-    ButtonType,
-    IconName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { fileSizeValidation } from '~/bundles/talent/components/cv-and-contacts-form/helpers/file-size-validation';
-import { notifications } from '~/framework/notifications/notifications';
 
 const handleError = (error: unknown): void => {
     if (isCancel(error)) {
@@ -48,7 +48,7 @@ const FilePicker = <T extends FieldValues>({
     style,
     control,
     name,
-    setErrorMessageCV,
+    setError,
 }: FilePickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -61,13 +61,8 @@ const FilePicker = <T extends FieldValues>({
             .then((response) => {
                 const [document] = response;
 
-                const validateSize =
-                    document.size !== null && fileSizeValidation(document.size);
-
-                setErrorMessageCV('');
-
-                if (validateSize) {
-                    setErrorMessageCV(validateSize);
+                if (document.size !== null) {
+                    fileSizeValidation(name, document.size, setError);
                 }
 
                 onChange({

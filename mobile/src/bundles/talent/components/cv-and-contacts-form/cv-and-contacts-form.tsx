@@ -10,11 +10,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useState,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
 import { ContactsCVStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -27,13 +23,10 @@ type Properties = {
 };
 
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, setError } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
         validationSchema: ContactsCVStepValidationSchema,
     });
-
-    const [errorMessageAvatar, setErrorMessageAvatar] = useState('');
-    const [errorMessageCV, setErrorMessageCV] = useState('');
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -44,14 +37,14 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errorMessage={errorMessageAvatar || errors.photo?.message}
+                errorMessage={errors.photo?.message}
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
                 <AvatarPicker
                     control={control}
                     name="photo"
-                    setErrorMessageAvatar={setErrorMessageAvatar}
+                    setError={setError}
                 />
             </FormField>
             <FormField
@@ -96,7 +89,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errorMessageCV || errors.cv?.message}
+                errorMessage={errors.cv?.message}
                 label="CV"
                 name="cv"
                 required
@@ -106,7 +99,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Choose file"
                     control={control}
                     name="cv"
-                    setErrorMessageCV={setErrorMessageCV}
+                    setError={setError}
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />
             </FormField>
