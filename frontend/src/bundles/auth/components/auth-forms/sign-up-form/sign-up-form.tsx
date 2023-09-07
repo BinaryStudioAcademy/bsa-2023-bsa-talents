@@ -54,7 +54,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
                 <FormControl
                     className={getValidClassNames(
-                        'input-container',
+                        'inputContainer',
                         errors.email ? '' : 'email',
                     )}
                 >
@@ -68,7 +68,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <FormControl
                     className={getValidClassNames(
-                        'input-container',
+                        'inputContainer',
                         errors.password ? '' : 'password',
                     )}
                 >
