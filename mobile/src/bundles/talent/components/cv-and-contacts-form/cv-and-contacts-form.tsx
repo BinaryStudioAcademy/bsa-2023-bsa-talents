@@ -38,13 +38,12 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
         >
             <FormField
                 errorMessage={
-                    errors.photoId?.size?.message ??
-                    errors.photoId?.uri?.message
+                    errors.photo?.size?.message ?? errors.photo?.uri?.message
                 }
                 name="photoId"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker control={control} name="photoId" />
+                <AvatarPicker control={control} name="photo" />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}
