@@ -11,6 +11,7 @@ export { FormHelperText } from './form-helper-text/form-helper-text.js';
 export { FormLabel } from './form-label/form-label.js';
 export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';
+export { HiredModal } from './hired-modal/hired-modal.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Logo } from './logo/logo.js';
