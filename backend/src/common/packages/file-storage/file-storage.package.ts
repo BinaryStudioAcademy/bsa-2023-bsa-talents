@@ -1,21 +1,30 @@
 import AWS from 'aws-sdk';
 import { type PutObjectRequest } from 'aws-sdk/clients/s3.js';
 
-import { config } from '../config/config.js';
 import { type FileStorage } from './types/types.js';
+
+type ConstructorParameters = {
+    accessKeyId: string;
+    secretAccessKey: string;
+    bucketName: string;
+};
 
 class FileStorageBase implements FileStorage {
     private s3: AWS.S3;
     private bucketName: string;
 
-    public constructor() {
+    public constructor({
+        accessKeyId,
+        secretAccessKey,
+        bucketName,
+    }: ConstructorParameters) {
         this.s3 = new AWS.S3({
             credentials: {
-                accessKeyId: config.ENV.AWS.AWS_ACCESS_KEY_ID,
-                secretAccessKey: config.ENV.AWS.AWS_SECRET_ACCESS_KEY,
+                accessKeyId,
+                secretAccessKey,
             },
         });
-        this.bucketName = config.ENV.AWS.AWS_BUCKET_NAME;
+        this.bucketName = bucketName;
     }
 
     public async upload({
