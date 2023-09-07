@@ -25,21 +25,21 @@ const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
 
-    const screens = {
-        defaultScreen: (
+    const navigators = {
+        auth: (
             <RootStack.Screen
                 name={RootScreenName.AUTH_ROOT_ROUTE}
                 component={AuthNavigator}
             />
         ),
-        onboardingScreen: (
+        onboarding: (
             <RootStack.Screen
                 name={RootScreenName.ONBOARDING_ROOT_ROUTE}
                 // TODO: create EmployerOnboardingNavigator for role == 'employer'
                 component={TalentOnboardingNavigator}
             />
         ),
-        mainScreen: (
+        main: (
             <RootStack.Screen
                 name={RootScreenName.MAIN_ROOT_ROUTE}
                 component={
@@ -53,12 +53,12 @@ const Root: React.FC = () => {
 
     const renderStackScreen = (): React.JSX.Element => {
         if (isSignedIn && isProfileComplete) {
-            return screens.mainScreen;
+            return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
-            return screens.onboardingScreen;
+            return navigators.onboarding;
         }
-        return screens.defaultScreen;
+        return navigators.auth;
     };
 
     return (
