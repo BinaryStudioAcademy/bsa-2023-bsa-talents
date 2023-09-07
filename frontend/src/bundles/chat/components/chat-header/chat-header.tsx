@@ -18,7 +18,7 @@ const ChatHeader: React.FC<Properties> = ({ avatarUrl, isOnline, title }) => {
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.logo}>
-                <Avatar userFullName={title} url={avatarUrl} />
+                <Avatar isSmall={true} src={avatarUrl} />
             </Grid>
             <Grid className={styles.info}>
                 <p className={styles.title}>{title}</p>
