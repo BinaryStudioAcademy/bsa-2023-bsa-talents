@@ -29,7 +29,7 @@ const HeaderAvatar: React.FC<Properties> = ({
             >
                 <Avatar
                     isSmall
-                    className={getValidClassNames(styles.headerAvatar)}
+                    className={styles.headerAvatar}
                     {...props}
                 ></Avatar>
             </MUIBadge>
