@@ -1,13 +1,13 @@
-.btn-login {
+.btnLogin {
     margin-top: 15px;
 }
 
-.radio-wrapper {
+.radioWrapper {
     width: 100%;
     margin-top: 10px;
 }
 
-.radio-group {
+.radioGroup {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (width >= 900px) {
-    .radio-group {
+    .radioGroup {
         justify-content: center;
     }
 }

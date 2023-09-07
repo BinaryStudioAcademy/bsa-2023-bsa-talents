@@ -86,7 +86,7 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
                 <Grid
                     container
                     spacing={2}
-                    className={getValidClassNames(styles.checkboxContainer)}
+                    className={styles.checkboxContainer}
                 >
                     {notConsideredOptions.map((option) => (
                         <Grid
