@@ -4,6 +4,7 @@ import { type UserDetailsUpdateRequestDto } from 'shared/build/index.js';
 import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step/constants/constants.js';
 import { DEFAULT_PAYLOAD_PROFILE_STEP } from '../components/profile-step/constants/default.constants.js';
 import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants/default.constants.js';
+import { fromUrlLinks } from '../helpers/helpers.js';
 import { updateTalentDetails } from './actions.js';
 
 type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
@@ -19,6 +20,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
     ...DEFAULT_PAYLOAD_SKILLS_STEP,
+    projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
 };
 

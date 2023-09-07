@@ -30,6 +30,7 @@ import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { useFormSubmit } from '../../context/context.js';
+import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsAutocomplete } from './components/skills-autocomplete.js';
@@ -67,7 +68,7 @@ const SkillsStep: React.FC = () => {
             englishLevel,
             notConsidered,
             preferredLanguages,
-            projectLinks,
+            projectLinks: toUrlLinks(projectLinks),
         },
         validationSchema: SkillsStepValidationSchema,
     });
@@ -78,7 +79,12 @@ const SkillsStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.updateTalentDetails({
+                    ...data,
+                    projectLinks: fromUrlLinks(data.projectLinks),
+                }),
+            );
             return true;
         },
         [dispatch],

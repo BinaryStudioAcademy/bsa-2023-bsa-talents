@@ -35,7 +35,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
     });
 
     const appendLinks = useCallback((): void => {
-        append('');
+        append({ url: '' });
     }, [append]);
 
     return (
@@ -49,10 +49,10 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
             {fields.map((item, index) => {
                 const { ref, name, ...withoutReferenceAndName } = field;
 
-                const error = errors.projectLinks?.[index];
+                const error = errors.projectLinks?.[index]?.url;
                 const message = error?.message;
                 const fieldPath =
-                    `${name}.${index}` as FieldPath<SkillsStepDto>;
+                    `${name}.${index}.url` as FieldPath<SkillsStepDto>;
 
                 return (
                     <Grid key={item.id} className={styles.projectLinks}>

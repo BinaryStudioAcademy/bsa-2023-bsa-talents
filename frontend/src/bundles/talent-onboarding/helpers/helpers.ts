@@ -4,4 +4,8 @@ export {
     realToSliderValue,
     sliderToRealValue,
 } from './map-experience-years-to-marks/map-experience-years-to-marks.js';
+export {
+    fromUrlLinks,
+    toUrlLinks,
+} from './map-project-links/map-project-links.js';
 export { validateFileSize } from './validate-file-size.js';

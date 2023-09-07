@@ -5,7 +5,7 @@ const DEFAULT_PAYLOAD_SKILLS_STEP: SkillsStepDto = {
     englishLevel: ' ',
     notConsidered: [],
     preferredLanguages: [],
-    projectLinks: [''],
+    projectLinks: [{ url: '' }],
 };
 
 export { DEFAULT_PAYLOAD_SKILLS_STEP };
