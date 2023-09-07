@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { Notifications } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -37,16 +38,22 @@ const Auth: React.FC = () => {
         switch (screen) {
             case AppRoute.SIGN_IN: {
                 return (
-                    <AuthLayout>
-                        <SignInForm onSubmit={handleSignInSubmit} />
-                    </AuthLayout>
+                    <>
+                        <AuthLayout>
+                            <SignInForm onSubmit={handleSignInSubmit} />
+                        </AuthLayout>
+                        <Notifications />
+                    </>
                 );
             }
             case AppRoute.SIGN_UP: {
                 return (
-                    <AuthLayout>
-                        <SignUpForm onSubmit={handleSignUpSubmit} />
-                    </AuthLayout>
+                    <>
+                        <AuthLayout>
+                            <SignUpForm onSubmit={handleSignUpSubmit} />
+                        </AuthLayout>
+                        <Notifications />
+                    </>
                 );
             }
         }
