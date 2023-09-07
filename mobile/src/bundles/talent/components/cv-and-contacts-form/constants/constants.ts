@@ -1,13 +1,10 @@
-import { type ContactsCVStepDto } from 'shared/build/bundles/talent-onboarding/talent-onboarding';
+import { type ContactsCVStepDto } from '~/bundles/talent/types/types';
 
 const CV_AND_CONTACTS_DEFAULT_VALUES: ContactsCVStepDto = {
     fullName: '',
     phoneNumber: '',
-    linkedinLink: '',
-    cv: {
-        name: '',
-        size: 0,
-    },
+    linkedInLink: '',
+    cv: null,
 };
 
 export { CV_AND_CONTACTS_DEFAULT_VALUES };

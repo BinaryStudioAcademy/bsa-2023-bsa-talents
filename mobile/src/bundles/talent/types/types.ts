@@ -1,4 +1,4 @@
 export {
     type ContactsCVStepDto,
     type ProfileStepDto,
-} from 'shared/build/bundles/talent-onboarding/talent-onboarding';
+} from 'shared/build/index';
