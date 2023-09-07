@@ -21,6 +21,10 @@
     margin-top: 37px;
 }
 
+.linkWrapper {
+    display: flex;
+}
+
 .link {
     margin-bottom: 5px;
 }
@@ -49,6 +53,27 @@
 
 .button {
     text-transform: none;
+}
+
+.closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    min-width: 0;
+    height: 35px;
+    margin-left: 14px;
+    border: none;
+
+    &:hover {
+        border: none;
+    }
+
+    .closeIcon {
+        margin-right: 13px;
+        color: var(--nepal);
+        font-size: var(--font-size-h6);
+    }
 }
 
 .submit {

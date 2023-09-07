@@ -1,6 +1,7 @@
 import { TextareaAutosize } from '@mui/material';
 import {
     type Control,
+    type FieldErrors,
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
@@ -12,6 +13,7 @@ import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
+    errors: FieldErrors<T>;
     name: FieldPath<T>;
     minRows: number;
     maxRows: number;

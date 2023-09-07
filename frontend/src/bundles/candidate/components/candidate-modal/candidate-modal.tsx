@@ -1,4 +1,5 @@
-import { Add as AddIcon } from '@mui/icons-material';
+import { Add as AddIcon, CloseRounded as CloseIcon } from '@mui/icons-material';
+import { FormHelperText } from '@mui/material';
 import {
     Controller,
     type ControllerRenderProps,
@@ -24,27 +25,32 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { type ContactCandidateDto } from '../../types/types.js';
+import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { DEFAULT_CONTACT_CANDIDATE_MODAL } from './constants.js';
 import styles from './styles.module.scss';
 
-type FormInput = {
-    links: { value: string }[];
-    message: string;
-    isSaveTemplate: boolean;
-};
+// type ContactCandidateDto = {
+//     links: { value: string }[];
+//     message: string;
+//     isSaveTemplate: boolean;
+//     templateName: string;
+// };
 
 const CandidateModal: React.FC = () => {
     const [isOpen, setIsOpen] = useState(true);
+    const [isSaveTemplateChecked, setIsSaveTemplateChecked] = useState(false);
 
     const closeModal = useCallback((): void => {
         setIsOpen(false);
     }, []);
 
-    const { control, errors, handleSubmit } = useAppForm<FormInput>({
+    const { control, errors, handleSubmit } = useAppForm<ContactCandidateDto>({
         defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
+        validationSchema: ContactCandidateValidationSchema,
     });
 
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         name: 'links',
         control,
     });
@@ -55,8 +61,15 @@ const CandidateModal: React.FC = () => {
         });
     }, [append]);
 
-    const onSubmit: SubmitHandler<FormInput> = useCallback(
-        (data: FormInput): void => {
+    const removeLink = useCallback(
+        (index: number) => (): void => {
+            remove(index);
+        },
+        [remove],
+    );
+
+    const onSubmit: SubmitHandler<ContactCandidateDto> = useCallback(
+        (data: ContactCandidateDto): void => {
             // eslint-disable-next-line no-console
             console.log(data); // remove later with real logic
         },
@@ -64,9 +77,10 @@ const CandidateModal: React.FC = () => {
     );
 
     const handleCheckboxOnChange = useCallback(
-        (props: ControllerRenderProps<FormInput, 'isSaveTemplate'>) =>
+        (props: ControllerRenderProps<ContactCandidateDto, 'isSaveTemplate'>) =>
             (event: React.ChangeEvent<HTMLInputElement>): void => {
                 props.onChange(event.target.checked);
+                setIsSaveTemplateChecked(event.target.checked);
             },
         [],
     );
@@ -75,7 +89,7 @@ const CandidateModal: React.FC = () => {
         ({
             field: props,
         }: {
-            field: ControllerRenderProps<FormInput, 'isSaveTemplate'>;
+            field: ControllerRenderProps<ContactCandidateDto, 'isSaveTemplate'>;
         }): React.ReactElement => {
             return (
                 <Checkbox
@@ -83,7 +97,7 @@ const CandidateModal: React.FC = () => {
                     checked={props.value}
                     className={styles.checkbox}
                     onChange={handleCheckboxOnChange(props)}
-                    label="Save as template"
+                    label="Save as a template"
                 />
             );
         },
@@ -121,18 +135,47 @@ const CandidateModal: React.FC = () => {
                             </FormLabel>
                             {fields.map((field, index) => {
                                 return (
-                                    <Input
-                                        key={field.id}
-                                        className={getValidClassNames(
-                                            styles.link,
+                                    <Grid key={index}>
+                                        <Grid
+                                            className={styles.linkWrapper}
+                                            key={field.id}
+                                        >
+                                            <Input
+                                                className={getValidClassNames(
+                                                    styles.link,
+                                                )}
+                                                control={control}
+                                                errors={errors}
+                                                name={`links.${index}.value`}
+                                                placeholder="link"
+                                                adornmentText="www."
+                                            />
+                                            <Button
+                                                className={getValidClassNames(
+                                                    styles.button,
+                                                    styles.closeButton,
+                                                )}
+                                                label=""
+                                                onClick={removeLink(index)}
+                                                variant="outlined"
+                                                endIcon={
+                                                    <CloseIcon
+                                                        className={
+                                                            styles.closeIcon
+                                                        }
+                                                    />
+                                                }
+                                            />
+                                        </Grid>
+                                        {errors.links?.[index]?.value && (
+                                            <FormHelperText error>
+                                                {
+                                                    errors.links[index]?.value
+                                                        ?.message
+                                                }
+                                            </FormHelperText>
                                         )}
-                                        type="text"
-                                        control={control}
-                                        errors={errors}
-                                        name={`links.${index}.value`}
-                                        placeholder="link"
-                                        adornmentText="www."
-                                    />
+                                    </Grid>
                                 );
                             })}
                             <Button
@@ -146,6 +189,11 @@ const CandidateModal: React.FC = () => {
                                 startIcon={<AddIcon />}
                                 color="primary"
                             />
+                            {errors.links && (
+                                <FormHelperText error>
+                                    {errors.links.message}
+                                </FormHelperText>
+                            )}
                         </FormControl>
 
                         <FormControl
@@ -165,18 +213,33 @@ const CandidateModal: React.FC = () => {
                             <Textarea
                                 className={getValidClassNames(styles.message)}
                                 control={control}
+                                errors={errors}
                                 name={'message'}
                                 placeholder="Text"
                                 minRows={4}
                                 maxRows={7}
-                                // text=""
                             />
+                            {errors.message && (
+                                <FormHelperText error>
+                                    {errors.message.message}
+                                </FormHelperText>
+                            )}
 
                             <Controller
                                 name={'isSaveTemplate'}
                                 control={control}
                                 render={renderCheckbox}
                             />
+                            {isSaveTemplateChecked && (
+                                <Input
+                                    key={'templateName'}
+                                    control={control}
+                                    errors={errors}
+                                    name={'templateName'}
+                                    placeholder="Template name"
+                                    // defaultValue=''
+                                />
+                            )}
                         </FormControl>
                         <Button
                             className={getValidClassNames(

@@ -25,6 +25,7 @@ type Properties<T extends FieldValues> = {
     adornmentText?: string;
     className?: string;
     inputClassNames?: string;
+    defaultValue?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -38,6 +39,7 @@ const Input = <T extends FieldValues>({
     adornmentText = '',
     className = '',
     inputClassNames,
+    defaultValue,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -102,6 +104,7 @@ const Input = <T extends FieldValues>({
             }}
             inputProps={{ className: htmlInputStyles }}
             FormHelperTextProps={{ className: helperTextStyles }}
+            defaultValue={defaultValue}
         />
     );
 };

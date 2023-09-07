@@ -1,5 +1,11 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type ContactCandidateDto,
+    ContactCandidateValidationMessage,
+    ContactCandidateValidationRule,
+    ContactCandidateValidationSchema,
+} from './bundles/candidate/candidate.js';
+export {
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
