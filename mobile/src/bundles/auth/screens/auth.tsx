@@ -14,9 +14,9 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
-import { actions as userActions } from '~/bundles/users/store';
 
 import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
+import { loadUser } from '../store/actions';
 
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
@@ -24,13 +24,12 @@ const Auth: React.FC = () => {
     const { dataStatus } = useAppSelector(({ auth }) => ({
         dataStatus: auth.dataStatus,
     }));
-    const isSignUpScreen = name === AuthScreenName.SIGN_UP;
+
     const isPendingAuth = dataStatus === DataStatus.PENDING;
+
     useEffect(() => {
-        if (isSignUpScreen) {
-            void dispatch(userActions.loadAll());
-        }
-    }, [isSignUpScreen, dispatch]);
+        void dispatch(loadUser());
+    }, [dispatch]);
 
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
