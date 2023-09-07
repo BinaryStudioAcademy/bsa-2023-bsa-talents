@@ -1,8 +1,6 @@
 export {
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
-    ContactsCVStepValidationMessage,
-    ContactsCVStepValidationRule,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     SkillsStepValidationMessage,
@@ -10,13 +8,11 @@ export {
 } from './enums/enums.js';
 export {
     type BsaBadgesStepDto,
-    type ContactsCVStepDto,
     type ProfileStepDto,
     type SkillsStepDto,
 } from './types/types.js';
 export {
     BsaBadgesStepValidationSchema,
-    ContactsCVStepValidationSchema,
     ProfileStepValidationSchema,
     SkillsStepValidationSchema,
 } from './validation-schemas/validation-schemas.js';
