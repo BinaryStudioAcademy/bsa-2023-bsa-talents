@@ -1,1 +1,1 @@
-export { BSABadgesApiPath } from 'shared/build/index.js';
+export { BSABadgeApiPath } from 'shared/build/index.js';

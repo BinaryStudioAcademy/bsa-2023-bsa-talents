@@ -5,7 +5,7 @@ import { type ApiHandlerResponse } from '~/common/packages/controller/controller
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
-import { BSABadgesApiPath } from './enums/enums.js';
+import { BSABadgeApiPath } from './enums/enums.js';
 
 class BSABadgesController extends ControllerBase {
     private bsaBadgesService: BSABadgesService;
@@ -16,7 +16,7 @@ class BSABadgesController extends ControllerBase {
         this.bsaBadgesService = bsaBadgesService;
 
         this.addRoute({
-            path: BSABadgesApiPath.ROOT,
+            path: BSABadgeApiPath.ROOT,
             method: 'GET',
             handler: () => this.findAll(),
         });
