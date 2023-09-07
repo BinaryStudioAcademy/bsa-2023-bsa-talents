@@ -4,7 +4,7 @@ import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
     container: {
-        gap: 10,
+        gap: 5,
         backgroundColor: '#FFFFFF',
     },
     title: {
