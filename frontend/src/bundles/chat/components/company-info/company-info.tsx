@@ -6,18 +6,12 @@ import {
 } from '~/bundles/common/components/components.js';
 
 type Properties = {
-    companyData: {
-        companyName: string;
-        employerName: string;
-        employerPosition?: string;
-        logoUrl?: string;
-        about?: string;
-        companyWebsite?: string;
-    };
+    companyData: CompanyInfoDto;
 };
 
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
+import { type CompanyInfoDto } from '../../types/types.js';
 import styles from './styles.module.scss';
 
 const CompanyInfo: React.FC<Properties> = ({
@@ -43,19 +37,33 @@ const CompanyInfo: React.FC<Properties> = ({
             <Grid className={styles.header}>
                 <Avatar alt={companyName} src={logoUrl} isSmall />
                 <Grid className={styles.headerInfo}>
-                    <Typography variant="h3">{companyName}</Typography>
-                    <Typography variant="body1">
+                    <Typography className={styles.companyName} variant="h3">
+                        {companyName}
+                    </Typography>
+                    <Typography
+                        className={styles.companyRepresentative}
+                        variant="body1"
+                    >
                         {employerName}, {employerPosition ?? employerPosition}
                     </Typography>
                 </Grid>
             </Grid>
             <div className={styles.divider}></div>
             <Grid className={styles.content}>
-                <Typography variant="h6">About {companyName}</Typography>
-                <Typography variant="body1">{about}</Typography>
+                <Typography className={styles.contentHeading} variant="h6">
+                    About {companyName}
+                </Typography>
+                <Typography className={styles.about} variant="body1">
+                    {about}
+                </Typography>
                 {companyWebsite && (
                     <>
-                        <Typography variant="h6">Company Website</Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Company Website
+                        </Typography>
                         <p className={styles.linkWrapper}>
                             <a
                                 href={companyWebsite}
