@@ -39,16 +39,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <form onSubmit={handleFormSubmit} className={'form'}>
-                <p className={getValidClassNames('header')}>
-                    Hi! Login to your Account
-                </p>
+            <form onSubmit={handleFormSubmit} className="form">
+                <p className="header">Hi! Login to your Account</p>
 
                 <FormControl
                     required={true}
-                    className={getValidClassNames('input-container', 'email')}
+                    className={getValidClassNames('inputContainer', 'email')}
                 >
-                    <FormLabel className={'label'}>Email *</FormLabel>
+                    <FormLabel className="label">Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -58,12 +56,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <FormControl
                     required={true}
-                    className={getValidClassNames(
-                        'input-container',
-                        'password',
-                    )}
+                    className={getValidClassNames('inputContainer', 'password')}
                 >
-                    <FormLabel className={'label'}>Password *</FormLabel>
+                    <FormLabel className="label">Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -72,25 +67,25 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="password"
                     />
                 </FormControl>
-                <Grid item className={styles['auth-options']}>
+                <Grid item className={styles.authOptions}>
                     <Checkbox
                         label={
                             <Typography variant="label">
                                 Remember Me?
                             </Typography>
                         }
-                        className={getValidClassNames(styles.checkbox)}
+                        className={styles.checkbox}
                     />
                     {/* TODO: Link to reset password route */}
                     <Link to="/" className={styles.forgot}>
                         <span>Forgot Password?</span>
                     </Link>
                 </Grid>
-                <Button label="Login" className={'btn-login'} type="submit" />
+                <Button label="Login" className="btnLogin" type="submit" />
             </form>
-            <Grid item className={'footer'}>
-                <span className={'span'}>Not registered Yet?</span>
-                <Link className={'cta'} to={'/sign-up'}>
+            <Grid item className="footer">
+                <span className="span">Not registered Yet?</span>
+                <Link className="cta" to={'/sign-up'}>
                     Create an account
                 </Link>
             </Grid>

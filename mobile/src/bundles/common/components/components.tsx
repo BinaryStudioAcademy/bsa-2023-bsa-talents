@@ -9,6 +9,7 @@ export { Loader } from './loader/loader';
 export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
+export { RadioButtons } from './radio-buttons/radio-buttons';
 export { ScreenLineSeparator } from './screen-line-separator/screen-line-separator';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';

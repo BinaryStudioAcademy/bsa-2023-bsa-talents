@@ -15,8 +15,10 @@ const FormControl: React.FC<Properties> = ({
     hasError = false,
     isDisabled = false,
     className = '',
+    ...props
 }) => (
     <MUIFormControl
+        {...props}
         color={color}
         variant={variant}
         error={hasError}
