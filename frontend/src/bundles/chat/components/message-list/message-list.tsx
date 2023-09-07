@@ -17,7 +17,7 @@ type Properties = {
 
 const MessageList: React.FC<Properties> = ({ messages }) => {
     return (
-        <Grid className={styles['message-list']}>
+        <Grid className={styles.messageList}>
             {messages.map((message) => (
                 <MessageItem
                     key={message.id}

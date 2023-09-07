@@ -21,14 +21,14 @@ const MessageItem: React.FC<Properties> = ({
     userFullName,
 }) => {
     const currentUserId = 'id'; // TODO: get current user from store
-    const wrapperClasses = getValidClassNames(styles['message-wrapper']);
+    const wrapperClasses = getValidClassNames(styles.messageWrapper);
     const messageClasses = getValidClassNames(
         styles.message,
-        currentUserId === userId && styles['message-own'],
+        currentUserId === userId && styles.messageOwn,
     );
     return (
         <Grid item className={wrapperClasses}>
-            <Avatar url={avatarUrl} userFullName={userFullName} />
+            <Avatar src={avatarUrl} alt={userFullName} />
             <Typography className={messageClasses} variant="body1">
                 {children}
             </Typography>

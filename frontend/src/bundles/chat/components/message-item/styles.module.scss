@@ -1,4 +1,4 @@
-.message-wrapper {
+.messageWrapper {
     display: flex;
 }
 
@@ -13,7 +13,7 @@
     border-radius: 12px;
 }
 
-.message-own {
+.messageOwn {
     order: -1;
     margin-left: auto;
     background-color: var(--solitude);

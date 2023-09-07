@@ -1,4 +1,4 @@
-.message-list {
+.messageList {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -15,12 +15,12 @@
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
-        background-color: transparent;
+        width: 2px;
+        background-color: var(--solitude);
     }
 
     &:hover::-webkit-scrollbar-thumb {
-        background-color: var(--botticelli);
-        border-radius: 5px;
+        background-color: var(--st-tropaz);
+        border-radius: 10px;
     }
 }
