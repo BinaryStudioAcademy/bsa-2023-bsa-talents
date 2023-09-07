@@ -1,6 +1,5 @@
 import { Grid, Link, Logo, Typography } from '../../components/components.js';
 import { AppRoute } from '../../enums/app-route.enum.js';
-import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 const NotFoundPage: React.FC = () => {
@@ -19,16 +18,16 @@ const NotFoundPage: React.FC = () => {
                 </Typography>
             </Grid>
 
-            <Grid container item className={getValidClassNames(styles.link)}>
+            <Grid container item className={styles.link}>
                 <Link to={AppRoute.ROOT}>Return to Main</Link>
             </Grid>
 
-            <div className={getValidClassNames(styles.cube)}></div>
-            <div className={getValidClassNames(styles.cube)}></div>
-            <div className={getValidClassNames(styles.cube)}></div>
-            <div className={getValidClassNames(styles.cube)}></div>
-            <div className={getValidClassNames(styles.cube)}></div>
-            <div className={getValidClassNames(styles.cube)}></div>
+            <div className={styles.cube}></div>
+            <div className={styles.cube}></div>
+            <div className={styles.cube}></div>
+            <div className={styles.cube}></div>
+            <div className={styles.cube}></div>
+            <div className={styles.cube}></div>
         </Grid>
     );
 };
