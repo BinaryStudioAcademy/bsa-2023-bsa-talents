@@ -12,11 +12,9 @@ import {
     useAppRoute,
     useAppSelector,
     useCallback,
-    useEffect,
 } from '~/bundles/common/hooks/hooks';
 
 import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
-import { loadUser } from '../store/actions';
 
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
@@ -26,10 +24,6 @@ const Auth: React.FC = () => {
     }));
 
     const isPendingAuth = dataStatus === DataStatus.PENDING;
-
-    useEffect(() => {
-        void dispatch(loadUser());
-    }, [dispatch]);
 
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
