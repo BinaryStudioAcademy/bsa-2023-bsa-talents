@@ -1,12 +1,18 @@
 import React from 'react';
+import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { View } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-const ScreenLineSeparator: React.FC = () => {
-    return <View style={[globalStyles.width100, styles.line]} />;
+type Properties = {
+    containerStyle?: StyleProp<ViewStyle>;
+};
+const ScreenLineSeparator: React.FC<Properties> = ({ containerStyle }) => {
+    return (
+        <View style={[globalStyles.width100, styles.line, containerStyle]} />
+    );
 };
 
 export { ScreenLineSeparator };
