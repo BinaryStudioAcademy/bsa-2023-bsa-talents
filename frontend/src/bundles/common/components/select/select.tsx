@@ -11,7 +11,7 @@ import arrowIcon from '~/assets/img/select-arrow.svg';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import { FormControl, FormLabel } from '../components.js';
-import styles from './select.module.scss';
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
@@ -53,7 +53,7 @@ const Select = <T extends FieldValues>({
             hasError={hasError}
             isDisabled={isDisabled}
         >
-            <FormLabel>{label}</FormLabel>
+            {label && <FormLabel>{label}</FormLabel>}
             <MuiSelect
                 {...field}
                 multiple={multiple}

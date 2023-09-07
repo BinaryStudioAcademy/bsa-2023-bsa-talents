@@ -1,0 +1,21 @@
+.btnLogin {
+    margin-top: 15px;
+}
+
+.radioWrapper {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.radioGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 5%;
+}
+
+@media screen and (width >= 900px) {
+    .radioGroup {
+        justify-content: center;
+    }
+}
