@@ -83,7 +83,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <FormControl
                     className={getValidClassNames(
-                        styles['radio-wrapper'],
+                        styles.radioWrapper,
                         errors.password ? 'hasError' : '',
                     )}
                 >
