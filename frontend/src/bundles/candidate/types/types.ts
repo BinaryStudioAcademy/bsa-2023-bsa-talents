@@ -1,1 +1,4 @@
-export { type ContactCandidateDto } from 'shared/build/index.js';
+export {
+    type ContactCandidateDto,
+    type MessageTemplateDto,
+} from 'shared/build/index.js';

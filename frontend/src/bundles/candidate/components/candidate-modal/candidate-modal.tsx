@@ -20,35 +20,37 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';
 import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { DEFAULT_CONTACT_CANDIDATE_MODAL } from './constants.js';
 import styles from './styles.module.scss';
 
-// type ContactCandidateDto = {
-//     links: { value: string }[];
-//     message: string;
-//     isSaveTemplate: boolean;
-//     templateName: string;
-// };
+type Properties = {
+    isOpen: boolean;
+    onClose: () => void;
+};
 
-const CandidateModal: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(true);
+const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const [isSaveTemplateChecked, setIsSaveTemplateChecked] = useState(false);
 
-    const closeModal = useCallback((): void => {
-        setIsOpen(false);
-    }, []);
+    const dispatch = useAppDispatch();
+    const { messageTemplates } = useAppSelector(({ candidate }) => ({
+        messageTemplates: candidate.messageTemplates,
+    }));
 
-    const { control, errors, handleSubmit } = useAppForm<ContactCandidateDto>({
-        defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
-        validationSchema: ContactCandidateValidationSchema,
-    });
+    const { control, errors, handleSubmit, setValue } =
+        useAppForm<ContactCandidateDto>({
+            defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
+            validationSchema: ContactCandidateValidationSchema,
+        });
 
     const { fields, append, remove } = useFieldArray({
         name: 'links',
@@ -68,12 +70,32 @@ const CandidateModal: React.FC = () => {
         [remove],
     );
 
+    const applyTemplate = useCallback(
+        (message: string) => (): void => {
+            setValue('message', message);
+        },
+        [setValue],
+    );
+
+    const removeTemplate = useCallback(
+        (templateName: string) => (): void => {
+            void dispatch(candidateActions.removeMessageTemplate(templateName));
+        },
+        [dispatch],
+    );
+
     const onSubmit: SubmitHandler<ContactCandidateDto> = useCallback(
         (data: ContactCandidateDto): void => {
+            if (data.templateName) {
+                const { templateName: name, message } = data;
+                void dispatch(
+                    candidateActions.addMessageTemplate({ name, message }),
+                );
+            }
             // eslint-disable-next-line no-console
             console.log(data); // remove later with real logic
         },
-        [],
+        [dispatch],
     );
 
     const handleCheckboxOnChange = useCallback(
@@ -113,11 +135,12 @@ const CandidateModal: React.FC = () => {
 
     return (
         isOpen && (
-            <Modal isOpen onClose={closeModal} headerLabel="Contact candidate">
-                <form
-                    className={getValidClassNames(styles.form)}
-                    onSubmit={handleFormSubmit}
-                >
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                headerLabel="Contact candidate"
+            >
+                <form className={styles.form} onSubmit={handleFormSubmit}>
                     <Grid alignItems="start">
                         <Typography variant="h6">
                             Send the first message to the candidate
@@ -237,10 +260,62 @@ const CandidateModal: React.FC = () => {
                                     errors={errors}
                                     name={'templateName'}
                                     placeholder="Template name"
-                                    // defaultValue=''
                                 />
                             )}
                         </FormControl>
+
+                        {
+                            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+                            messageTemplates.length > 0 && (
+                                <Grid>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.templates}
+                                    >
+                                        Templates
+                                    </Typography>
+                                    {messageTemplates.map((template) => {
+                                        return (
+                                            <Grid
+                                                container
+                                                justifyContent={'space-between'}
+                                                key={template.name}
+                                            >
+                                                <Button
+                                                    className={getValidClassNames(
+                                                        styles.button,
+                                                        styles.templateButton,
+                                                    )}
+                                                    onClick={applyTemplate(
+                                                        template.message,
+                                                    )}
+                                                    variant="text"
+                                                    label={template.name}
+                                                />
+                                                <Button
+                                                    className={getValidClassNames(
+                                                        styles.button,
+                                                        styles.closeButton,
+                                                    )}
+                                                    label=""
+                                                    onClick={removeTemplate(
+                                                        template.name,
+                                                    )}
+                                                    variant="outlined"
+                                                    endIcon={
+                                                        <CloseIcon
+                                                            className={
+                                                                styles.closeIcon
+                                                            }
+                                                        />
+                                                    }
+                                                />
+                                            </Grid>
+                                        );
+                                    })}
+                                </Grid>
+                            )
+                        }
                         <Button
                             className={getValidClassNames(
                                 styles.submit,

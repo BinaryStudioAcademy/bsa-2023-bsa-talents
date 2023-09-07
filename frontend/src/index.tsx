@@ -15,7 +15,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { CandidateModal } from './bundles/candidate/components/components.js'; // Remove later
+import { Candidate } from './bundles/candidate/pages/candidate.js'; // Remove after testing
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
@@ -53,8 +53,8 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: <Auth />,
                                     },
                                     {
-                                        path: AppRoute.CONTACT_TALENT,
-                                        element: <CandidateModal />,
+                                        path: AppRoute.CONTACT_TALENT, // Remove after testing
+                                        element: <Candidate />,
                                     },
                                     {
                                         path: AppRoute.TALENT,

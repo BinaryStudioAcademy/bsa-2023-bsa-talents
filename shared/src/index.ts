@@ -4,6 +4,7 @@ export {
     ContactCandidateValidationMessage,
     ContactCandidateValidationRule,
     ContactCandidateValidationSchema,
+    type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
     type ProfileStepDto,

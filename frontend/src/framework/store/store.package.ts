@@ -8,6 +8,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
+import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as signUpReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
@@ -23,6 +24,7 @@ type RootReducer = {
     signUp: ReturnType<typeof signUpReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
+    candidate: ReturnType<typeof candidateReducer>;
 };
 
 type ExtraArguments = {
@@ -51,6 +53,7 @@ class Store {
                 users: usersReducer,
                 signUp: signUpReducer,
                 app: appReducer,
+                candidate: candidateReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
