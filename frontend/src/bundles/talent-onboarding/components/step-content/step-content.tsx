@@ -28,11 +28,8 @@ const StepContent: React.FC<Properties> = ({
         if (submitForm) {
             const success = await submitForm();
             if (success) {
-                // Navigate or do the next step
                 onNextStep();
             }
-        } else {
-            onNextStep();
         }
     };
 
@@ -55,8 +52,6 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    {/* for now I`ve just prevented working these funcs when user reach step 5
-                 when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER
@@ -77,8 +72,6 @@ const StepContent: React.FC<Properties> = ({
                         )}
                         disabled={currentStep === STEP_ONE}
                     />
-                    {/* for now I`ve just prevented working these funcs when user reach step 5
-                 when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER

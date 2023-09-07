@@ -2,7 +2,7 @@ import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
 import {
-    BsaBadgesStep,
+    BadgesStep,
     ContactsCVStep,
     ProfileStep,
     SkillsStep,
@@ -11,8 +11,6 @@ import {
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
 
-    // these components only for example how to use it
-    // remove them when our real tab components are ready
     const Preview: React.FC = () => <button>Preview</button>;
 
     switch (step) {
@@ -20,7 +18,7 @@ const StepNavigation: React.FC = () => {
             return <ProfileStep />;
         }
         case STEP_ROUTES.STEP_02: {
-            return <BsaBadgesStep />;
+            return <BadgesStep />;
         }
         case STEP_ROUTES.STEP_03: {
             return <SkillsStep />;

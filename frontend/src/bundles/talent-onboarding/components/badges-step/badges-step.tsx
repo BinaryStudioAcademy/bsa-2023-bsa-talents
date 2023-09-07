@@ -27,19 +27,18 @@ import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
-const BsaBadgesStep: React.FC = () => {
-    //TODO: get all user badges here, for now mock data
-    const { bsaBadges, lmsBsaBadges } = useAppSelector((state) => ({
-        bsaBadges: state.talentOnBoarding.bsaBadges,
-        lmsBsaBadges: state.lms.bsaBadges,
+const BadgesStep: React.FC = () => {
+    const { badges, bsaBadges } = useAppSelector((state) => ({
+        badges: state.talentOnBoarding.badges,
+        bsaBadges: state.lms.bsaBadges,
     }));
 
-    const bsaBadgesWithColors = lmsBsaBadges.map((badge) => ({
+    const bsaBadgesWithColors = bsaBadges.map((badge) => ({
         ...badge,
         color: getRandomBadgeColor(),
     }));
     const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
-        defaultValues: { bsaBadges },
+        defaultValues: { badges },
         validationSchema: BsaBadgesStepValidationSchema,
     });
 
@@ -72,7 +71,7 @@ const BsaBadgesStep: React.FC = () => {
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<BsaBadgesStepDto, 'bsaBadges'>,
+            field: ControllerRenderProps<BsaBadgesStepDto, 'badges'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -90,7 +89,7 @@ const BsaBadgesStep: React.FC = () => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<BsaBadgesStepDto, 'bsaBadges'>;
+            field: ControllerRenderProps<BsaBadgesStepDto, 'badges'>;
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<BsaBadgesStepDto>;
         }): React.ReactElement => {
@@ -140,17 +139,17 @@ const BsaBadgesStep: React.FC = () => {
             <FormControl className={styles.badgesContainer}>
                 <Controller
                     control={control}
-                    name="bsaBadges"
+                    name="badges"
                     render={renderCheckboxes}
                 />
             </FormControl>
-            {errors.bsaBadges && (
+            {errors.badges && (
                 <FormHelperText className={styles.hasError}>
-                    {errors.bsaBadges.message}
+                    {errors.badges.message}
                 </FormHelperText>
             )}
         </FormControl>
     );
 };
 
-export { BsaBadgesStep };
+export { BadgesStep };

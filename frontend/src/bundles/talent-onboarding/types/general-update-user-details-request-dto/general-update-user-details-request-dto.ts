@@ -5,7 +5,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
         value: string;
         label: string;
     }[];
-    bsaBadges?: string[];
+    badges?: string[];
     photo?: File | null;
     cv?: File | null;
 };
