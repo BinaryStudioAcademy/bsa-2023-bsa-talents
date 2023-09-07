@@ -40,7 +40,7 @@ const Badge: React.FC<Properties> = ({
             gap="10px"
             className={
                 isRoundedIcon
-                    ? setClass(styles.badge, styles.HRbadgeWrapper)
+                    ? setClass(styles.badge, styles.roundedIconBadgeWrapper)
                     : setClass(styles.badge, styles.badgeSmall)
             }
             component="article"
@@ -53,7 +53,7 @@ const Badge: React.FC<Properties> = ({
                 alignSelf={isSmall ? 'flex-start' : 'auto'}
                 className={
                     isRoundedIcon
-                        ? styles.HRbadge
+                        ? styles.roundedIconBadge
                         : setClass(styles.icon, styles.iconSmall)
                 }
                 style={{ backgroundColor: color }}
@@ -77,7 +77,7 @@ const Badge: React.FC<Properties> = ({
                     isRoundedIcon
                         ? getValidClassNames(
                               styles.content,
-                              styles.HRbadgeContent,
+                              styles.roundedIconBadgeContent,
                           )
                         : styles.content
                 }

@@ -1,7 +1,11 @@
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
-import { CandidateProfile, ContactsCVStep } from '../components.js';
+import {
+    BsaBadgesStep,
+    CandidateProfile,
+    ContactsCVStep,
+} from '../components.js';
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
@@ -9,7 +13,6 @@ const StepNavigation: React.FC = () => {
     // these components only for example how to use it
     //TODO: remove them when our real tab components are ready
     const Profile: React.FC = () => <button>Profile</button>;
-    const BSABadges: React.FC = () => <button>BSABadges</button>;
     const Skills: React.FC = () => <button>Skills and projects</button>;
 
     switch (step) {
@@ -17,7 +20,7 @@ const StepNavigation: React.FC = () => {
             return <Profile />;
         }
         case STEP_ROUTES.STEP_02: {
-            return <BSABadges />;
+            return <BsaBadgesStep />;
         }
         case STEP_ROUTES.STEP_03: {
             return <Skills />;

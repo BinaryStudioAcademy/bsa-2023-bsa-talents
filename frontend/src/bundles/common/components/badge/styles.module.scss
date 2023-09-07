@@ -67,14 +67,14 @@
     line-height: 12px;
 }
 
-.HRbadge {
+.roundedIconBadge {
     align-self: auto;
     width: 45px;
     height: 45px;
     border-radius: 50%;
 }
 
-.HRbadgeWrapper {
+.roundedIconBadgeWrapper {
     width: 146px;
     height: 77px;
     padding-top: 15px;
@@ -82,7 +82,7 @@
     background-color: var(--white-lilac);
 }
 
-.HRbadgeContent {
+.roundedIconBadgeContent {
     align-self: flex-start;
     width: 20px;
     padding-bottom: 40px;
