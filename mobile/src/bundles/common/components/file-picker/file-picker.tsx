@@ -14,6 +14,7 @@ type FilePickerProperties<T extends FieldValues> = {
     name: FieldPath<T>;
     label: string;
     style: StyleProp<ViewStyle>;
+    setErrorMessageCV: React.Dispatch<React.SetStateAction<string>>;
 };
 import {
     type Control,
@@ -27,15 +28,16 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-//import { notifications } from '~/framework/notifications/notifications';
+import { fileSizeValidation } from '~/bundles/talent/components/cv-and-contacts-form/helpers/file-size-validation';
+import { notifications } from '~/framework/notifications/notifications';
 
 const handleError = (error: unknown): void => {
     if (isCancel(error)) {
-        // notifications.showError({ title: 'cancelled' });
+        notifications.showError({ title: 'cancelled' });
     } else if (isInProgress(error)) {
-        // notifications.showError({
-        //     title: 'multiple pickers were opened, only the last will be considered',
-        // });
+        notifications.showError({
+            title: 'multiple pickers were opened, only the last will be considered',
+        });
     } else {
         throw error;
     }
@@ -46,6 +48,7 @@ const FilePicker = <T extends FieldValues>({
     style,
     control,
     name,
+    setErrorMessageCV,
 }: FilePickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -57,6 +60,16 @@ const FilePicker = <T extends FieldValues>({
         })
             .then((response) => {
                 const [document] = response;
+
+                const validateSize =
+                    document.size !== null && fileSizeValidation(document.size);
+
+                setErrorMessageCV('');
+
+                if (validateSize) {
+                    setErrorMessageCV(validateSize);
+                }
+
                 onChange({
                     name: document.name,
                     size: document.size,

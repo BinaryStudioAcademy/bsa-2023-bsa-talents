@@ -22,11 +22,15 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
 import { notifications } from '~/framework/notifications/notifications';
 
+import { fileSizeValidation } from '../cv-and-contacts-form/helpers/file-size-validation';
+import { imageTypeValidation } from '../cv-and-contacts-form/helpers/image-type-validation';
+
 type AvatarPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
+    setErrorMessageFile: React.Dispatch<React.SetStateAction<string>>;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -34,6 +38,7 @@ const AvatarPicker = <T extends FieldValues>({
     name,
     buttonStyle,
     containerStyle,
+    setErrorMessageFile,
     uri,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
@@ -51,7 +56,24 @@ const AvatarPicker = <T extends FieldValues>({
                 }
                 const [image] = assets;
                 setAvatar(image.uri ?? uri);
-                onChange({ size: image.fileSize, uri: image.uri ?? uri });
+                const validateSize =
+                    image.fileSize && fileSizeValidation(image.fileSize);
+                const validateType =
+                    image.type && imageTypeValidation(image.type);
+
+                setErrorMessageFile('');
+
+                if (validateSize) {
+                    setErrorMessageFile(validateSize);
+                } else if (validateType) {
+                    setErrorMessageFile(validateType);
+                } else {
+                    onChange({
+                        size: image.fileSize,
+                        uri: image.uri ?? uri,
+                        type: image.type,
+                    });
+                }
             } catch (error) {
                 if (error instanceof Error) {
                     notifications.showError({ title: error.message });
@@ -60,7 +82,7 @@ const AvatarPicker = <T extends FieldValues>({
                 notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
             }
         },
-        [onChange, uri],
+        [onChange, setErrorMessageFile, uri],
     );
 
     const imageLoadHandler = useCallback(
