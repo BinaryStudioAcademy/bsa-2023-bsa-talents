@@ -3,8 +3,11 @@ import './styles.scss';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useLocation,
+    useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignInRequestDto,
@@ -18,7 +21,17 @@ import { actions as authActions } from '../store/auth.js';
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
+    const { dataStatus } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+    }));
+
+    useEffect(() => {
+        if (dataStatus === 'fulfilled') {
+            navigate(AppRoute.TALENT);
+        }
+    }, [dataStatus, navigate]);
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));

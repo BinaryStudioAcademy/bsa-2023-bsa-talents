@@ -15,12 +15,28 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { ProtectedRoute } from './bundles/auth/components/components.js';
+import { useAppSelector } from './bundles/common/hooks/hooks.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
+
+const AppRouting: React.FC = () => {
+    const dataStatus = useAppSelector(({ auth }) => auth.dataStatus);
+
+    const getInitialRoute = (): React.ReactElement => {
+        return dataStatus === 'fulfilled' ? (
+            <Navigate to={AppRoute.TALENT} />
+        ) : (
+            <Navigate to={AppRoute.SIGN_IN} />
+        );
+    };
+
+    return getInitialRoute();
+};
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -35,31 +51,35 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 children: [
                                     {
                                         path: AppRoute.ROOT,
-                                        element: (
-                                            <Navigate
-                                                to={getStepRoute(
-                                                    STEP_ROUTES.STEP_01,
-                                                )}
-                                            />
-                                        ),
+                                        element: <AppRouting />,
                                     },
                                     {
                                         path: AppRoute.TALENT,
-                                        element: <Onboarding />,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <Onboarding />
+                                            </ProtectedRoute>
+                                        ),
                                         children: [
                                             {
                                                 path: AppRoute.TALENT,
                                                 element: (
-                                                    <Navigate
-                                                        to={getStepRoute(
-                                                            STEP_ROUTES.STEP_01,
-                                                        )}
-                                                    />
+                                                    <ProtectedRoute>
+                                                        <Navigate
+                                                            to={getStepRoute(
+                                                                STEP_ROUTES.STEP_01,
+                                                            )}
+                                                        />
+                                                    </ProtectedRoute>
                                                 ),
                                             },
                                             {
                                                 path: AppRoute.TALENT_STEP,
-                                                element: <StepNavigation />,
+                                                element: (
+                                                    <ProtectedRoute>
+                                                        <StepNavigation />
+                                                    </ProtectedRoute>
+                                                ),
                                             },
                                         ],
                                     },
