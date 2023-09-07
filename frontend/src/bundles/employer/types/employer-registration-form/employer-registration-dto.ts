@@ -1,7 +1,7 @@
 type EmployerRegistrationDto = {
     photo: File | null;
-    fullName: File | null;
-    employerPosition: string;
+    fullName: string;
+    position: string;
     companyName: string;
     companyWebsite: string;
     location: string;

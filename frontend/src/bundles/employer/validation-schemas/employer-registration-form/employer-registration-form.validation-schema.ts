@@ -29,7 +29,7 @@ const EmployerRegistrationValidationSchema = joi.object<
                 EmployerRegistrationValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    employerPosition: joi.string().trim(),
+    position: joi.string().trim(),
     companyName: joi.string().trim(),
     companyWebsite: joi.string().trim().uri(),
     companyLogo: joi.object().instance(File).required(),
