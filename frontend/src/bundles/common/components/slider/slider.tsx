@@ -1,4 +1,8 @@
-import { Box as MUIBox, Slider as MUISlider } from '@mui/material';
+import {
+    Box as MUIBox,
+    Slider as MUISlider,
+    type SliderProps,
+} from '@mui/material';
 import { useCallback } from 'react';
 
 import styles from './styles.module.scss';
@@ -8,7 +12,7 @@ type Option = {
     value: number;
 };
 
-type Properties = {
+type Properties = SliderProps & {
     marks: Option[];
     label?: string;
     value?: number;
@@ -24,11 +28,12 @@ const CustomSlider: React.FC<Properties> = ({
     value,
     step = null,
     valueLabelDisplay = 'on',
+    ...props
 }) => {
     const getValueLabel = useCallback(
         (value: number): string | null => {
             const mark = marks.find((mark) => mark.value === value);
-            return mark?.label ?? null;
+            return mark ? String(mark.label) : null;
         },
         [marks],
     );
@@ -37,6 +42,7 @@ const CustomSlider: React.FC<Properties> = ({
         <MUIBox className={styles.sliderContainer}>
             {label && <span>{label}</span>}
             <MUISlider
+                {...props}
                 className={styles.slider}
                 classes={styles}
                 style={{

@@ -24,29 +24,44 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
-    // prettier-ignore
-    return (
-      <RootStack.Navigator screenOptions={screenOptions}>
-          {isSignedIn ? (
-              <RootStack.Screen
-                  name={RootScreenName.MAIN_ROOT_ROUTE}
-                  component={role === UserRole.TALENT ? TalentBottomTabNavigator : EmployerBottomTabNavigator}
-              />
-          ) : (isProfileComplete ? (
-              <RootStack.Screen
-                  name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                  // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                  component={TalentOnboardingNavigator}
-              />
-          ) : (
-              <RootStack.Screen
-                  name={RootScreenName.AUTH_ROOT_ROUTE}
-                  component={AuthNavigator}
-              />
-          ))}
 
-      </RootStack.Navigator>
-  );
+    const renderStackScreen = (): React.JSX.Element => {
+        if (isSignedIn) {
+            return (
+                <RootStack.Screen
+                    name={RootScreenName.MAIN_ROOT_ROUTE}
+                    component={
+                        role === UserRole.TALENT
+                            ? TalentBottomTabNavigator
+                            : EmployerBottomTabNavigator
+                    }
+                />
+            );
+        }
+
+        if (isProfileComplete) {
+            return (
+                <RootStack.Screen
+                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                    component={TalentOnboardingNavigator}
+                />
+            );
+        }
+
+        return (
+            <RootStack.Screen
+                name={RootScreenName.AUTH_ROOT_ROUTE}
+                component={AuthNavigator}
+            />
+        );
+    };
+
+    return (
+        <RootStack.Navigator screenOptions={screenOptions}>
+            {renderStackScreen()}
+        </RootStack.Navigator>
+    );
 };
 
 export { Root };
