@@ -1,8 +1,9 @@
 import { type UserService } from '~/bundles/users/user.service.js';
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { type UserSearchUsersRequestDto } from '~/bundles/users/users.js';
+import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
-    // type ApiHandlerOptions,
+    type ApiHandlerOptions,
     type ApiHandlerResponse,
 } from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
@@ -46,16 +47,16 @@ class UserController extends ControllerBase {
             handler: () => this.findAll(),
         });
 
-        // this.addRoute({
-        //     path: UsersApiPath.SEARCH,
-        //     method: 'GET',
-        //     handler: (options) =>
-        //         this.searchUsers(
-        //             options as ApiHandlerOptions<{
-        //                 query: { test?: string };
-        //             }>,
-        //         ),
-        // });
+        this.addRoute({
+            path: UsersApiPath.SEARCH,
+            method: 'GET',
+            handler: (options) =>
+                this.searchUsers(
+                    options as ApiHandlerOptions<{
+                        query: UserSearchUsersRequestDto;
+                    }>,
+                ),
+        });
     }
 
     /**
@@ -83,18 +84,48 @@ class UserController extends ControllerBase {
         };
     }
 
-    // private async searchUsers(
-    //     options: ApiHandlerOptions<{
-    //         query: { test?: string };
-    //     }>,
-    // ): Promise<ApiHandlerResponse> {
-    //     const { test }: { test?: string } = options.query;
+    private async searchUsers(
+        options: ApiHandlerOptions<{
+            query: UserSearchUsersRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const {
+            search,
+            jobTitle,
+            location,
+            isHired,
+            hardSkills,
+            experienceYears,
+            englishLevel,
+            employmentType,
+            BSABadges,
+        } = options.query;
+        const searchCriteria: UserSearchUsersRequestDto = {
+            ...(search !== undefined && { search }),
+            ...(jobTitle !== undefined && { jobTitle }),
+            ...(location !== undefined && { location }),
+            ...(isHired !== undefined && { isHired }),
+            ...(hardSkills !== undefined && { hardSkills }),
+            ...(experienceYears !== undefined && { experienceYears }),
+            ...(englishLevel !== undefined && { englishLevel }),
+            ...(employmentType !== undefined && { employmentType }),
+            ...(BSABadges !== undefined && { BSABadges }),
+        };
 
-    //     return {
-    //         status: HttpCode.OK,
-    //         payload: { test: 'success' },
-    //     };
-    // }
+        if (Object.keys(searchCriteria).length === 0) {
+            throw new HttpError({
+                status: HttpCode.BAD_REQUEST,
+                message: ErrorMessages.USER_NOT_FOUND,
+            });
+        }
+
+        const searchResult = await this.userService.searchUsers(searchCriteria);
+
+        return {
+            status: HttpCode.OK,
+            payload: searchResult,
+        };
+    }
 }
 
 export { UserController };

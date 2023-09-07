@@ -37,6 +37,7 @@ export {
     type UserGetAllResponseDto,
     UserRole,
     UsersApiPath,
+    type UserSearchUsersRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     userSignInValidationSchema,
