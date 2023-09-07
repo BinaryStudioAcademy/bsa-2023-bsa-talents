@@ -25,36 +25,40 @@ const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
 
-    const renderStackScreen = (): React.JSX.Element => {
-        if (isSignedIn) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={
-                        role === UserRole.TALENT
-                            ? TalentBottomTabNavigator
-                            : EmployerBottomTabNavigator
-                    }
-                />
-            );
-        }
-
-        if (isProfileComplete) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                    component={TalentOnboardingNavigator}
-                />
-            );
-        }
-
-        return (
+    const screens = {
+        defaultScreen: (
             <RootStack.Screen
                 name={RootScreenName.AUTH_ROOT_ROUTE}
                 component={AuthNavigator}
             />
-        );
+        ),
+        onboardingScreen: (
+            <RootStack.Screen
+                name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                component={TalentOnboardingNavigator}
+            />
+        ),
+        mainScreen: (
+            <RootStack.Screen
+                name={RootScreenName.MAIN_ROOT_ROUTE}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentBottomTabNavigator
+                        : EmployerBottomTabNavigator
+                }
+            />
+        ),
+    };
+
+    const renderStackScreen = (): React.JSX.Element => {
+        if (isSignedIn && isProfileComplete) {
+            return screens.mainScreen;
+        }
+        if (isSignedIn && !isProfileComplete) {
+            return screens.onboardingScreen;
+        }
+        return screens.defaultScreen;
     };
 
     return (
