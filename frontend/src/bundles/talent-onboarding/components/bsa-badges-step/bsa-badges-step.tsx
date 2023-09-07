@@ -4,7 +4,6 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 
 import {
     Badge,
@@ -16,10 +15,10 @@ import {
 import {
     // useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     // useEffect,
 } from '~/bundles/common/hooks/hooks.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
 
 //import { useFormSubmit } from '../../context/context.js';
 import { getRandomBadgeColor } from '../../helpers/helpers.js';
@@ -30,14 +29,12 @@ import styles from './styles.module.scss';
 
 //TODO: uncomment when context for submitting will be added
 const BsaBadgesStep: React.FC = () => {
-    const savedPayload = useSelector(
-        (state: RootReducer) => state.talentOnBoarding.bsaBadgesStep,
-    );
+    //TODO: get all user badges here, for now mock data
+    const { savedPayload, bsaBadges } = useAppSelector((state) => ({
+        savedPayload: state.talentOnBoarding.bsaBadgesStep,
+        bsaBadges: state.lms.bsaBadges,
+    }));
 
-    const bsaBadges = useSelector(
-        //TODO: get all user badges here, for now mock data
-        (state: RootReducer) => state.lms.bsaBadges,
-    );
     const bsaBadgesWithColors = bsaBadges.map((badge) => ({
         ...badge,
         color: getRandomBadgeColor(),
