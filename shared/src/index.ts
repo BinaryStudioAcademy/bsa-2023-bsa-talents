@@ -1,11 +1,19 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
-    BadgeStepBadgesTitle,
     type BadgeStepDto,
+    type BsaBadgesStepDto,
+    BsaBadgesStepValidationMessage,
+    BsaBadgesStepValidationRule,
+    BsaBadgesStepValidationSchema,
+    BsaBadgeStepBadgesTitle,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     ProfileStepValidationSchema,
+    type SkillsStepDto,
+    SkillsStepValidationMessage,
+    SkillsStepValidationRule,
+    SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,

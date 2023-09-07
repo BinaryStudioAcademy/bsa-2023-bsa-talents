@@ -1,12 +1,12 @@
-import { type BadgeStepBadgesTitle } from '~/bundles/talent-onboarding/enums/enums.js';
+import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent-onboarding/enums/enums.js';
 
 type BadgeStepDto = {
-    [BadgeStepBadgesTitle.ENGLISH_LEVEL]: true;
-    [BadgeStepBadgesTitle.LECTURE_SCORE]: true;
-    [BadgeStepBadgesTitle.PROJECT_SCORE]: true;
-    [BadgeStepBadgesTitle.COMMUNICATION_SCORE]: boolean;
-    [BadgeStepBadgesTitle.PUNCTUALITY]: boolean;
-    [BadgeStepBadgesTitle.TEAM_SCORE]: boolean;
+    [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: true;
+    [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: true;
+    [BsaBadgeStepBadgesTitle.PROJECT_SCORE]: true;
+    [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: boolean;
+    [BsaBadgeStepBadgesTitle.PUNCTUALITY]: boolean;
+    [BsaBadgeStepBadgesTitle.TEAM_SCORE]: boolean;
 };
 
 export { type BadgeStepDto };

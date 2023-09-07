@@ -13,8 +13,10 @@ const FormControlLabel: React.FC<Properties> = ({
     control,
     label,
     className = '',
+    ...props
 }) => (
     <MUIFormControlLabel
+        {...props}
         label={label}
         control={control}
         className={className}

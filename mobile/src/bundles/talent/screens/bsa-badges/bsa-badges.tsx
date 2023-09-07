@@ -36,12 +36,12 @@ import {
     DEFAULT_VALUE_IS_DISABLED,
 } from '~/bundles/talent/components/badge/constants/constants';
 import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { BadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { actions as talentActions } from '~/bundles/talent/store';
 
 import { styles } from './styles';
 
-const values = Object.values(BadgeStepBadgesTitle);
+const values = Object.values(BsaBadgeStepBadgesTitle);
 
 const BsaBadges: React.FC = () => {
     const { badgesStepData } = useAppSelector(({ talents }) => talents);
@@ -80,7 +80,7 @@ const BsaBadges: React.FC = () => {
         DEFAULT_VALUE_IS_CHECKED,
     );
     const handleToggleBadge = (
-        badge: ValueOf<typeof BadgeStepBadgesTitle>,
+        badge: ValueOf<typeof BsaBadgeStepBadgesTitle>,
     ): void => {
         setCheckedBadges((previousChecked) => ({
             ...previousChecked,

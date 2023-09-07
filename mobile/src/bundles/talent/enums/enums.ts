@@ -1,6 +1,6 @@
 export { AuthApiPath } from 'shared/build/index';
 export {
-    BadgeStepBadgesTitle,
+    BsaBadgeStepBadgesTitle,
     CountryList,
     EmploymentType,
     JobTitle,

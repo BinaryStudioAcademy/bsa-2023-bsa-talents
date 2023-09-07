@@ -1,4 +1,4 @@
-const BadgeStepBadgesTitle = {
+const BsaBadgeStepBadgesTitle = {
     PROJECT_SCORE: 'You average project score',
     LECTURE_SCORE: 'You average lecture score"',
     COMMUNICATION_SCORE: 'Communication score',
@@ -7,4 +7,4 @@ const BadgeStepBadgesTitle = {
     PUNCTUALITY: 'Punctuality',
 } as const;
 
-export { BadgeStepBadgesTitle };
+export { BsaBadgeStepBadgesTitle };

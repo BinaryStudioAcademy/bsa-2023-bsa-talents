@@ -1,5 +1,4 @@
 import { Grid, Header, Sidebar } from '../../components/components.js';
-import { getValidClassNames } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -13,15 +12,15 @@ const PageLayout: React.FC<Properties> = ({
     isOnline,
     children,
 }) => (
-    <Grid container className={getValidClassNames(styles.pageContainer)}>
+    <Grid container className={styles.pageContainer}>
         <Sidebar />
-        <Grid item className={getValidClassNames(styles.mainContainer)}>
+        <Grid item className={styles.mainContainer}>
             <Header
                 avatarUrl={avatarUrl}
                 isOnline={isOnline}
-                className={getValidClassNames(styles.mainHeader)}
+                className={styles.mainHeader}
             />
-            <Grid item className={getValidClassNames(styles.mainContent)}>
+            <Grid item className={styles.mainContent}>
                 {children}
             </Grid>
         </Grid>

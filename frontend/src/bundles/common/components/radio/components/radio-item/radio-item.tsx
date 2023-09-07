@@ -8,10 +8,10 @@ type RadioProperties = {
     className?: string;
 } & RadioProps;
 
-const radioIconClasses = getValidClassNames(styles['radio-icon']);
+const radioIconClasses = styles.radioIcon;
 const radioCheckedIconClasses = getValidClassNames(
-    styles['radio-icon'],
-    styles['radio-icon-checked'],
+    styles.radioIcon,
+    styles.radioIconChecked,
 );
 const RadioIcon = <span className={radioIconClasses} />;
 const RadioIconChecked = <span className={radioCheckedIconClasses} />;
@@ -20,7 +20,7 @@ const Radio: React.FC<RadioProperties> = ({
     className = '',
     ...restProperties
 }) => {
-    const radioClasses = getValidClassNames(className);
+    const radioClasses = className;
     return (
         <MuiRadio
             checkedIcon={RadioIconChecked}

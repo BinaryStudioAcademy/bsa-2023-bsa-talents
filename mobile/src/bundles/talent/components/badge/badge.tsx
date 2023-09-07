@@ -6,11 +6,11 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { BadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 
-type BadgeName = ValueOf<typeof BadgeStepBadgesTitle>;
+type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 type BadgeProperties = {
     style: StyleProp<ViewStyle>;
@@ -34,32 +34,32 @@ const Badge: React.FC<Properties> = ({
     // TODO: replace with real data
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
-            [BadgeStepBadgesTitle.LECTURE_SCORE]: {
+            [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: {
                 style: styles.lectureScore,
                 ending: ' / 5',
                 defaultValue: 4.2,
             },
-            [BadgeStepBadgesTitle.PROJECT_SCORE]: {
+            [BsaBadgeStepBadgesTitle.PROJECT_SCORE]: {
                 style: styles.projectScore,
                 ending: ' / 10',
                 defaultValue: 8.4,
             },
-            [BadgeStepBadgesTitle.COMMUNICATION_SCORE]: {
+            [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: {
                 style: styles.communicationScore,
                 ending: ' / 10',
                 defaultValue: 10,
             },
-            [BadgeStepBadgesTitle.TEAM_SCORE]: {
+            [BsaBadgeStepBadgesTitle.TEAM_SCORE]: {
                 style: styles.workingWithTeamScore,
                 ending: ' / 10',
                 defaultValue: 7,
             },
-            [BadgeStepBadgesTitle.ENGLISH_LEVEL]: {
+            [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: {
                 style: styles.englishLevel,
                 ending: '',
                 defaultValue: 'B+',
             },
-            [BadgeStepBadgesTitle.PUNCTUALITY]: {
+            [BsaBadgeStepBadgesTitle.PUNCTUALITY]: {
                 style: styles.punctuality,
                 ending: ' / 10',
                 defaultValue: 7,
