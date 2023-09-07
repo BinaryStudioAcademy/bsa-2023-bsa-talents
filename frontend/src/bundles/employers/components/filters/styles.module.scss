@@ -1,0 +1,11 @@
+.wrapper {
+    flex-direction: column;
+    width: 429px;
+    min-height: 100vh;
+}
+
+.title {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    line-height: 28px;
+}
