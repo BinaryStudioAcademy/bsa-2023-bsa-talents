@@ -14,6 +14,7 @@ import {
     TalentOnboardingScreenName,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
+import { getYearsTitle } from '~/bundles/common/helpers/helpers';
 import {
     useAppForm,
     useCallback,
@@ -117,10 +118,10 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
-                    thumbTitleValue="Beginner"
                     name="experienceYears"
                     control={control}
                     thumbTitleValueWidth={100}
+                    onTitleChange={getYearsTitle}
                 />
             </FormField>
             <FormField

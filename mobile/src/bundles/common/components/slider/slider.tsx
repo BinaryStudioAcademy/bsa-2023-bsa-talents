@@ -10,7 +10,7 @@ import {
 import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { Color } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useWindowDimensions,
@@ -22,9 +22,10 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    thumbTitleValue: string;
+    thumbTitleValue?: string;
     containerStyle?: StyleProp<ViewStyle>;
     thumbTitleValueWidth?: number;
+    onTitleChange?: (value: number) => string;
 } & Omit<SliderProps, 'style' | 'value' | 'onValueChange'>;
 
 const defaultMinSliderValue = 0;
@@ -39,6 +40,7 @@ const Slider = <T extends FieldValues>({
     thumbTitleValueWidth = defaultValueWidth,
     minimumValue = defaultMinSliderValue,
     maximumValue = defaultMaxSliderValue,
+    onTitleChange,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -46,14 +48,12 @@ const Slider = <T extends FieldValues>({
     const { width } = useWindowDimensions();
     const offset = (thumbTitleValueWidth / maximumValue) * value;
     const leftValue = (value * width) / maximumValue - offset;
+    const title = onTitleChange ? onTitleChange(value) : thumbTitleValue;
 
     return (
         <View style={[globalStyles.pv5, containerStyle]}>
-            <Text
-                style={{ left: leftValue, width: thumbTitleValueWidth }}
-                category={TextCategory.BODY1}
-            >
-                {thumbTitleValue}
+            <Text style={{ left: leftValue, width: thumbTitleValueWidth }}>
+                {title}
             </Text>
             <CommunitySlider
                 style={styles.slider}
