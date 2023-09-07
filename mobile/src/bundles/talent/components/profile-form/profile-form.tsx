@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
     Button,
+    EmploymentTypes,
     FormField,
     Input,
     ScrollView,
@@ -30,7 +31,6 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
-import { EmploymentTypes } from './employment-types';
 import { styles } from './styles';
 
 const jobTitleOptions = Object.values(JobTitle);
