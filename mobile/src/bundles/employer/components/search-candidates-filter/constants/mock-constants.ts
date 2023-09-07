@@ -1,49 +1,69 @@
-const YEARS_EXPERIENCE = [
-    { label: '< 1', value: '<1' },
-    { label: 'from 1 to 2', value: '>1 && <2' },
-    { label: '2+', value: '2+' },
-];
+const YEARS_EXPERIENCE = ['< 1', 'from 1 to 2', '2+'];
 
-const BSA_CHARACTERISTICS = [
-    { label: 'bad', value: 'bad' },
-    { label: 'good', value: 'good' },
-    { label: 'great', value: 'great' },
-];
+const BSA_CHARACTERISTICS = ['bad', 'good', 'great'];
 
 const BSA_BADGES = [
+    'Project average score',
+    'Lecture average score',
+    'Communication score',
+    'Working with team score',
+    'Level of english',
+    'Punctuality',
+];
+
+const RADIO_BUTTONS = [
     {
-        label: 'Project average score',
-        value: 'pas',
+        id: 'a1',
+        label: 'A1',
     },
     {
-        label: 'Lecture average score',
-        value: 'las',
+        id: 'a2',
+        label: 'A2',
     },
     {
-        label: 'Communication score',
-        value: 'cs',
+        id: 'b1',
+        label: 'B1',
     },
     {
-        label: 'Working with team score',
-        value: 'ts',
+        id: 'b2',
+        label: 'B2',
     },
     {
-        label: 'Level of english',
-        value: 'el',
+        id: 'c1',
+        label: 'C1',
     },
     {
-        label: 'Punctuality',
-        value: 'punctuality',
+        id: 'c2',
+        label: 'C2',
     },
 ];
 
 const BSA_PROJECT = [
-    { label: 'Talents', value: 'talents' },
-    { label: 'Writorium', value: 'writorium' },
-    { label: 'TowHub', value: 'towHub' },
-    { label: 'CalmPal', value: 'calmPal' },
-    { label: 'EasyMeets', value: 'easyMeets' },
-    { label: 'LeetWars', value: 'leetWars' },
+    'Talents',
+    'Writorium',
+    'TowHub',
+    'CalmPal',
+    'EasyMeets',
+    'LeetWars',
 ];
+const DEFAULT_VALUES = {
+    activeTalentsOnly: true,
+    jobTitle: '',
+    hardSkills: '',
+    BSABadges: '',
+    BSACharacteristics: '',
+    location: '',
+    BSAProjectName: '',
+    englishLevel: '',
+    experienceYears: '',
+    employmentTypes: [],
+};
 
-export { BSA_BADGES, BSA_CHARACTERISTICS, BSA_PROJECT, YEARS_EXPERIENCE };
+export {
+    BSA_BADGES,
+    BSA_CHARACTERISTICS,
+    BSA_PROJECT,
+    DEFAULT_VALUES,
+    RADIO_BUTTONS,
+    YEARS_EXPERIENCE,
+};
