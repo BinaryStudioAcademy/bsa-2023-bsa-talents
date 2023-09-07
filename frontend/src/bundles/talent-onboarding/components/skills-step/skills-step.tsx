@@ -1,4 +1,3 @@
-import { FormHelperText, FormLabel } from '@mui/material';
 import {
     type ControllerFieldState,
     type ControllerRenderProps,
@@ -9,6 +8,8 @@ import { Controller } from 'react-hook-form';
 import {
     Checkbox,
     FormControl,
+    FormHelperText,
+    FormLabel,
     Grid,
     Select,
     Typography,
@@ -131,7 +132,7 @@ const SkillsStep: React.FC = () => {
                 <Grid
                     container
                     spacing={2}
-                    className={getValidClassNames(styles.checkboxContainer)}
+                    className={styles.checkboxContainer}
                 >
                     {notConsideredOptions.map((option) => (
                         <Grid

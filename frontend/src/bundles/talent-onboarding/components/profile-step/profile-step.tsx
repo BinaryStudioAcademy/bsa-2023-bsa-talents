@@ -1,4 +1,3 @@
-import { FormHelperText } from '@mui/material';
 import {
     Controller,
     type ControllerFieldState,
@@ -9,6 +8,7 @@ import {
 import {
     Checkbox,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,

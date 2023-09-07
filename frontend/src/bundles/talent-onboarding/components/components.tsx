@@ -1,3 +1,4 @@
+export { BsaBadgesStep } from './bsa-badges-step/bsa-badges-step.js';
 export { ContactsCVStep } from './contacts-cv-step/contacts-cv-step.js';
 export { ProfileStep } from './profile-step/profile-step.js';
 export { SkillsStep } from './skills-step/skills-step.js';
