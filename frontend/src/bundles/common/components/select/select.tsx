@@ -41,41 +41,27 @@ const Select = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
-    const SECOND_ELEMENT_INDEX = 1;
-
     const handleSelectChange = useCallback(
         (selected: string | number | (string | number)[]) => {
             if (
                 !selected ||
-                (Array.isArray(selected) &&
-                    selected.length === SECOND_ELEMENT_INDEX)
+                (Array.isArray(selected) && selected.length === 0)
             ) {
-                return <em className={styles.placeholder}>{placeholder}</em>;
-            }
-
-            if (isMulti && Array.isArray(selected)) {
-                return selected
-                    .filter(Boolean)
-                    .map((value: string | number) => (
-                        <span key={value} className={styles.option}>
-                            {
-                                options.find((item) => item.value === value)
-                                    ?.label
-                            }
-                            ,&nbsp;
-                        </span>
-                    ));
-            }
-
-            if (selected) {
                 return (
-                    <span className={styles.option}>
-                        {options.find((item) => item.value === selected)?.label}
-                    </span>
+                    <span className={styles.placeholder}>{placeholder}</span>
                 );
             }
+
+            if (Array.isArray(selected)) {
+                const selectedOptions = options.filter((option) =>
+                    selected.includes(option.value),
+                );
+                return selectedOptions.map((option) => option.label).join(', ');
+            }
+
+            return options.find((option) => option.value === selected)?.label;
         },
-        [isMulti, options, placeholder],
+        [options, placeholder],
     );
 
     return (
