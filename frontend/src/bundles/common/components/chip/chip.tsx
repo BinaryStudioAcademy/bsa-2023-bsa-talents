@@ -12,7 +12,7 @@ type Properties = {
 
 const Chip: React.FC<Properties> = ({ label, onDelete }) => {
     const chipClassName = getValidClassNames(styles.chip, {
-        [styles['delete-chip']]: onDelete,
+        [styles.deleteChip]: onDelete,
     });
 
     return (
