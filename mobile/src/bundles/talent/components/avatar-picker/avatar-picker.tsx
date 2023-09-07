@@ -30,7 +30,7 @@ type AvatarPickerProperties<T extends FieldValues> = {
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
-    setErrorMessageFile: React.Dispatch<React.SetStateAction<string>>;
+    setErrorMessageAvatar: React.Dispatch<React.SetStateAction<string>>;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -38,7 +38,7 @@ const AvatarPicker = <T extends FieldValues>({
     name,
     buttonStyle,
     containerStyle,
-    setErrorMessageFile,
+    setErrorMessageAvatar,
     uri,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
@@ -61,12 +61,12 @@ const AvatarPicker = <T extends FieldValues>({
                 const validateType =
                     image.type && imageTypeValidation(image.type);
 
-                setErrorMessageFile('');
+                setErrorMessageAvatar('');
 
                 if (validateSize) {
-                    setErrorMessageFile(validateSize);
+                    setErrorMessageAvatar(validateSize);
                 } else if (validateType) {
-                    setErrorMessageFile(validateType);
+                    setErrorMessageAvatar(validateType);
                 } else {
                     onChange({
                         size: image.fileSize,
@@ -82,7 +82,7 @@ const AvatarPicker = <T extends FieldValues>({
                 notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
             }
         },
-        [onChange, setErrorMessageFile, uri],
+        [onChange, setErrorMessageAvatar, uri],
     );
 
     const imageLoadHandler = useCallback(

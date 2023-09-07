@@ -32,7 +32,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: ContactsCVStepValidationSchema,
     });
 
-    const [errorMessageFile, setErrorMessageFile] = useState('');
+    const [errorMessageAvatar, setErrorMessageAvatar] = useState('');
     const [errorMessageCV, setErrorMessageCV] = useState('');
 
     const handleFormSubmit = useCallback((): void => {
@@ -44,14 +44,14 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errorMessage={errorMessageFile || errors.photo?.message}
+                errorMessage={errorMessageAvatar || errors.photo?.message}
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
                 <AvatarPicker
                     control={control}
                     name="photo"
-                    setErrorMessageFile={setErrorMessageFile}
+                    setErrorMessageAvatar={setErrorMessageAvatar}
                 />
             </FormField>
             <FormField
