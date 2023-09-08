@@ -7,6 +7,28 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { BSABadgeApiPath } from './enums/enums.js';
 
+/**
+ * @swagger
+ * components:
+ *    securitySchemes:
+ *      bearerAuth:
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
+ *    schemas:
+ *      BSABadge:
+ *        type: object
+ *        properties:
+ *          id:
+ *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            type: string
+ *          type:
+ *            type: string
+ *          name:
+ *            type: string
+ *          maxScore:
+ *            type: number
+ */
 class BSABadgesController extends ControllerBase {
     private bsaBadgesService: BSABadgesService;
 
@@ -22,10 +44,30 @@ class BSABadgesController extends ControllerBase {
         });
     }
 
+    /**
+     * @swagger
+     * /bsa-badges/:
+     *    get:
+     *      tags: [BSA Badges]
+     *      description: Returns an array of BSA Badges
+     *      security:
+     *        - bearerAuth: []
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: array
+     *                items:
+     *                  $ref: '#/components/schemas/BSABadge'
+     */
     private async findAll(): Promise<ApiHandlerResponse> {
+        const badges = await this.bsaBadgesService.findAll();
+
         return {
             status: HttpCode.OK,
-            payload: await this.bsaBadgesService.findAll(),
+            payload: badges,
         };
     }
 }
