@@ -1,3 +1,7 @@
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
@@ -76,6 +80,22 @@ class ServerAppBase implements ServerApp {
         const routers = this.apis.flatMap((it) => it.routes);
 
         this.addRoutes(routers);
+    }
+
+    private async initServe(): Promise<void> {
+        const staticPath = join(
+            dirname(fileURLToPath(import.meta.url)),
+            '../../../public',
+        );
+
+        await this.app.register(fastifyStatic, {
+            root: staticPath,
+            prefix: '/',
+        });
+
+        this.app.setNotFoundHandler(async (_request, response) => {
+            await response.sendFile('index.html', staticPath);
+        });
     }
 
     public async initMiddlewares(): Promise<void> {
@@ -180,6 +200,8 @@ class ServerAppBase implements ServerApp {
     public async init(): Promise<void> {
         this.logger.info('Application initialization…');
 
+        await this.initServe();
+
         await this.initMiddlewares();
 
         await this.initPlugins();
@@ -195,6 +217,7 @@ class ServerAppBase implements ServerApp {
         await this.app
             .listen({
                 port: this.config.ENV.APP.PORT,
+                host: this.config.ENV.APP.HOST,
             })
             .catch((error: Error) => {
                 this.logger.error(error.message, {

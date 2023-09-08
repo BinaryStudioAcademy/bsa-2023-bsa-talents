@@ -138,7 +138,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.employmentTypes?.message}
+                errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentTypes"
                 required
@@ -146,7 +146,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             >
                 <EmploymentTypes
                     control={control}
-                    name="employmentTypes"
+                    name="employmentType"
                     options={employmentTypeOptions}
                 />
             </FormField>
