@@ -21,13 +21,12 @@ jobs:
             - name: Install NodeJS
               uses: actions/setup-node@v3
               with:
-                  node-version: 18.x
+                  node-version: 18
 
             - name: Install Dependencies
-              with:
-                  npm-version: 8.x.x
               run: |
-                  npm install
+                  npm install -g npm@8
+                  npm ci
 
             - name: Code Linting
               run: |
