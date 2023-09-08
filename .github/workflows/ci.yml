@@ -17,16 +17,15 @@ jobs:
         steps:
             - name: Checkout Source Code
               uses: actions/checkout@v3
-              with:
-                  node-version: 18.x
-                  npm-version: 8.x.x
 
             - name: Install NodeJS
               uses: actions/setup-node@v3
               with:
-                  node-version-file: .nvmrc
+                  node-version: 18.x
 
             - name: Install Dependencies
+              with:
+                  npm-version: 8.x.x
               run: |
                   npm install
 
