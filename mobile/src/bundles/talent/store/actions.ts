@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
-    type ContactsCVStepDto,
+    type CvAndContactsFormDto,
     type ProfileStepDto,
 } from '~/bundles/talent/types/types';
 
@@ -18,8 +18,8 @@ const completeProfileStep = createAsyncThunk<
 });
 
 const contactsCVStep = createAsyncThunk<
-    ContactsCVStepDto,
-    ContactsCVStepDto,
+    CvAndContactsFormDto,
+    CvAndContactsFormDto,
     AsyncThunkConfig
 >(`${sliceName}/contacts-cv-step`, (contactsCVStepPayload) => {
     return contactsCVStepPayload;
