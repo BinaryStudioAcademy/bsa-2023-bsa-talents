@@ -27,6 +27,7 @@ type Properties<T extends FieldValues> = {
     className?: string;
     inputClassNames?: string;
     inputRef?: RefCallBack;
+    value?: string | number;
 };
 
 const Input = <T extends FieldValues>({
@@ -41,6 +42,7 @@ const Input = <T extends FieldValues>({
     className = '',
     inputClassNames,
     inputRef,
+    ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -108,6 +110,7 @@ const Input = <T extends FieldValues>({
                 className: htmlInputStyles,
             }}
             FormHelperTextProps={{ className: helperTextStyles }}
+            {...props}
         />
     );
 };

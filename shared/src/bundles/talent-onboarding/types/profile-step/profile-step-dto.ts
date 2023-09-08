@@ -1,6 +1,6 @@
 type ProfileStepDto = {
     profileName: string;
-    salaryExpectation?: number;
+    salaryExpectation: number;
     jobTitle: string;
     location: string;
     experienceYears: number;
