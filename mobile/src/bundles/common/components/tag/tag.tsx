@@ -11,10 +11,16 @@ type Properties = {
     value: string;
     iconName?: string;
     iconSize?: number;
-    onPress: (value: string) => void;
+    onPress?: (value: string) => void;
 };
+const iconDefaultSize = 12;
 
-const Tag: React.FC<Properties> = ({ value, iconName, iconSize, onPress }) => {
+const Tag: React.FC<Properties> = ({
+    value,
+    iconName,
+    iconSize = iconDefaultSize,
+    onPress,
+}) => {
     return (
         <Pressable
             style={[
@@ -26,7 +32,7 @@ const Tag: React.FC<Properties> = ({ value, iconName, iconSize, onPress }) => {
                 styles.tag,
             ]}
             onPress={(): void => {
-                onPress(value);
+                onPress?.(value);
             }}
         >
             <Text category={TextCategory.LABEL}>{value}</Text>

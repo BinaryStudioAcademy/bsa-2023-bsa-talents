@@ -1,5 +1,5 @@
 import { type NavigationProp } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -25,12 +25,14 @@ import {
     useCallback,
     useFieldArray,
     useNavigation,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
+import { CheckboxTypes } from '../components';
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
@@ -38,7 +40,6 @@ import {
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
-import { NotConsiderTypes } from './not-consider-types';
 import { styles } from './styles';
 
 type Properties = {
@@ -149,7 +150,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <NotConsiderTypes
+                <CheckboxTypes
                     control={control}
                     name="notConsidered"
                     options={NOT_CONSIDERED}

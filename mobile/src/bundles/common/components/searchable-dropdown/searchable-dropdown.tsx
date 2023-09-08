@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
@@ -13,7 +13,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import { useFormController, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -37,7 +37,6 @@ const SearchableDropdown = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange, onBlur } = field;
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [isListVisible, setIsListVisible] = useState<boolean>(false);
 
     const toggleIsListVisible = (): void => {
@@ -45,12 +44,11 @@ const SearchableDropdown = <T extends FieldValues>({
     };
 
     const handleItemSelect = (item: string): void => {
-        setSelectedItems([...selectedItems, item]);
         onItemSelect(item);
         toggleIsListVisible();
     };
 
-    const filterItems = (items: string[]): string[] => {
+    const filteredItems = (items: string[]): string[] => {
         if (typeof value !== 'string') {
             return items;
         }
@@ -88,7 +86,7 @@ const SearchableDropdown = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled>
-                        {filterItems(items).map((item: string) => (
+                        {filteredItems(items).map((item: string) => (
                             <TouchableOpacity
                                 key={item}
                                 onPress={(): void => {

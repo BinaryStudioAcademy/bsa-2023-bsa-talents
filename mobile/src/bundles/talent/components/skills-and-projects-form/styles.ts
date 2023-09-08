@@ -5,9 +5,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
-    notConsiderContainer: {
-        gap: 5,
-    },
     tagContainer: {
         gap: 5,
         flexWrap: 'wrap',
