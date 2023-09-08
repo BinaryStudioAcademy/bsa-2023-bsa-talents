@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
-    type UserSignInRequestDto,
+    type UserSignInForm,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
@@ -32,13 +32,16 @@ const signUp = createAsyncThunk<
 
 const signIn = createAsyncThunk<
     UserSignInResponseDto,
-    UserSignInRequestDto,
+    UserSignInForm,
     AsyncThunkConfig
 >(`${sliceName}/sign-in`, async (signInPayload, { extra }) => {
     const { authApi, storage, notifications } = extra;
     try {
-        const response = await authApi.signIn(signInPayload);
-        await storage.set(StorageKey.TOKEN, response.token);
+        const { isRememberMeChecked, ...signInData } = signInPayload;
+        const response = await authApi.signIn(signInData);
+        if (isRememberMeChecked) {
+            await storage.set(StorageKey.TOKEN, response.token);
+        }
         return response;
     } catch (error) {
         const errorMessage = getErrorMessage(error);

@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
         color: Color.PRIMARY,
         fontFamily: FontFamily.INTER_SEMIBOLD,
     },
+    signUpWrapper: {
+        flexWrap: 'wrap',
+    },
     formWrapper: {
         gap: 25,
     },

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { type UserSignInRequestDto } from '~/bundles/auth/types/types';
+import { type UserSignInForm } from '~/bundles/auth/types/types';
 import { userSignInValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
     Button,
+    Checkbox,
     FormField,
     Input,
     Link,
@@ -11,24 +12,31 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: (payload: UserSignInRequestDto) => void;
+    onSubmit: (payload: UserSignInForm) => void;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
+    const { control, errors, handleSubmit } = useAppForm<UserSignInForm>({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
         validationSchema: userSignInValidationSchema,
     });
+    const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
+        void handleSubmit((userData) => {
+            onSubmit({ ...userData, isRememberMeChecked });
+        })();
+    }, [isRememberMeChecked, handleSubmit, onSubmit]);
 
     return (
         <View
@@ -51,7 +59,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View style={styles.formWrapper}>
                 <FormField
                     errorMessage={errors.email?.message}
-                    label="Email"
+                    label="Email*"
                     name="email"
                 >
                     <Input
@@ -62,7 +70,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormField>
                 <FormField
                     errorMessage={errors.password?.message}
-                    label="Password"
+                    label="Password*"
                     name="password"
                 >
                     <Input
@@ -72,16 +80,33 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         secureTextEntry
                     />
                 </FormField>
-                <Link
-                    textComponentCategory={TextCategory.CAPTION}
+                <View
                     style={[
-                        globalStyles.alignSelfFlexEnd,
-                        globalStyles.pr10,
-                        styles.linkForgotPassword,
+                        globalStyles.flexDirectionRow,
+                        globalStyles.ph25,
+                        globalStyles.justifyContentSpaceAround,
+                        globalStyles.alignItemsCenter,
                     ]}
-                    label="Forgot Password?"
-                    link={`/${AuthScreenName.SIGN_UP}`}
-                />
+                >
+                    <Checkbox
+                        label="Remember Me"
+                        isChecked={isRememberMeChecked}
+                        onChange={(): void => {
+                            setIsRememberMeChecked(!isRememberMeChecked);
+                        }}
+                    />
+                    <Link
+                        textComponentCategory={TextCategory.CAPTION}
+                        style={[
+                            globalStyles.alignSelfFlexEnd,
+                            globalStyles.pr10,
+                            styles.linkForgotPassword,
+                        ]}
+                        label="Forgot Password?"
+                        link={`/${AuthScreenName.SIGN_UP}`}
+                    />
+                    {/* TODO: Create forget password logic */}
+                </View>
 
                 <Button
                     style={[globalStyles.mb15, globalStyles.pv15]}
@@ -93,7 +118,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentCenter,
-                    globalStyles.mt20,
+                    globalStyles.flex1,
+                    globalStyles.m20,
+                    styles.signUpWrapper,
                 ]}
             >
                 <Text style={styles.text}>Not Registered Yet? </Text>
