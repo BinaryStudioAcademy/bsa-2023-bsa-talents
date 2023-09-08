@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         color: Color.PRIMARY,
         fontFamily: FontFamily.INTER_SEMIBOLD,
     },
-    signUpWrapper: {
+    linkContainer: {
         flexWrap: 'wrap',
         flexShrink: 1,
         gap: 5,

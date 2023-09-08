@@ -97,10 +97,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
                     globalStyles.m10,
-                    styles.signUpWrapper,
+                    styles.linkContainer,
                 ]}
             >
-                <Text style={[styles.text]}>Not Registered Yet?</Text>
+                <Text style={styles.text}>Not Registered Yet?</Text>
                 <Link
                     style={styles.linkSignUp}
                     label="Create an account"
