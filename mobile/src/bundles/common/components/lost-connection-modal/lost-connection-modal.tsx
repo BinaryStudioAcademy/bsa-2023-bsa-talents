@@ -10,9 +10,9 @@ import { styles } from './styles';
 
 const LostConnectionModal: React.FC = () => {
     const { isConnected, isInternetReachable } = useNetInfo();
-    const isConnectionLos = !isConnected && !isInternetReachable;
+    const isConnectionLost = !isConnected && !isInternetReachable;
 
-    if (!isConnectionLos) {
+    if (!isConnectionLost) {
         return null;
     }
 
@@ -39,7 +39,7 @@ const LostConnectionModal: React.FC = () => {
             >
                 <Icon name={IconName.WIFI_OFF} size={25} color={'#fff'} />
                 <Text style={styles.message} category={TextCategory.MENU}>
-                    Internet connection error
+                    No connection to the server
                 </Text>
             </View>
         </View>
