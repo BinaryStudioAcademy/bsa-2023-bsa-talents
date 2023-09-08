@@ -14,7 +14,6 @@ import {
     TalentOnboardingScreenName,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
-import { getYearsTitle } from '~/bundles/common/helpers/helpers';
 import {
     useAppForm,
     useCallback,
@@ -26,11 +25,15 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
+    ProfileStepValidationRule,
 } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
+import {
+    EXPERIENCE_YEARS,
+    TALENT_PROFILE_DEFAULT_VALUES,
+} from './constants/constants';
 import { EmploymentTypes } from './employment-types';
 import { styles } from './styles';
 
@@ -121,7 +124,13 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     name="experienceYears"
                     control={control}
                     thumbTitleValueWidth={100}
-                    onTitleChange={getYearsTitle}
+                    minimumValue={
+                        ProfileStepValidationRule.MIN_YEARS_OF_EXPERIENCE
+                    }
+                    maximumValue={
+                        ProfileStepValidationRule.MAX_YEARS_OF_EXPERIENCE
+                    }
+                    sliderOptions={EXPERIENCE_YEARS}
                 />
             </FormField>
             <FormField

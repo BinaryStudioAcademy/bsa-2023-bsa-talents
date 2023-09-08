@@ -19,13 +19,18 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
+type SliderOption = {
+    value: string | number;
+    label?: string;
+};
+
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     thumbTitleValue?: string;
     containerStyle?: StyleProp<ViewStyle>;
     thumbTitleValueWidth?: number;
-    onTitleChange?: (value: number) => string;
+    sliderOptions: SliderOption[];
 } & Omit<SliderProps, 'style' | 'value' | 'onValueChange'>;
 
 const defaultMinSliderValue = 0;
@@ -35,12 +40,11 @@ const defaultValueWidth = 70;
 const Slider = <T extends FieldValues>({
     name,
     control,
-    thumbTitleValue,
     containerStyle,
     thumbTitleValueWidth = defaultValueWidth,
     minimumValue = defaultMinSliderValue,
     maximumValue = defaultMaxSliderValue,
-    onTitleChange,
+    sliderOptions,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -48,12 +52,17 @@ const Slider = <T extends FieldValues>({
     const { width } = useWindowDimensions();
     const offset = (thumbTitleValueWidth / maximumValue) * value;
     const leftValue = (value * width) / maximumValue - offset;
-    const title = onTitleChange ? onTitleChange(value) : thumbTitleValue;
+    const title = sliderOptions.find((option) => option.value === value);
 
     return (
         <View style={[globalStyles.pv5, containerStyle]}>
-            <Text style={{ left: leftValue, width: thumbTitleValueWidth }}>
-                {title}
+            <Text
+                style={{
+                    left: leftValue,
+                    width: thumbTitleValueWidth,
+                }}
+            >
+                {title?.label ?? value}
             </Text>
             <CommunitySlider
                 style={styles.slider}
@@ -62,7 +71,7 @@ const Slider = <T extends FieldValues>({
                 minimumTrackTintColor={Color.PRIMARY}
                 maximumTrackTintColor={'#b3c3f2'}
                 thumbTintColor={Color.PRIMARY}
-                step={1}
+                step={0.5}
                 onValueChange={onChange}
                 value={value}
                 {...props}
