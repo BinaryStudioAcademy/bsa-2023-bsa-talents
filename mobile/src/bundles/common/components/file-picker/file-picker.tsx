@@ -23,24 +23,14 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { fileSizeValidation } from '~/bundles/talent/components/cv-and-contacts-form/helpers/file-size-validation';
 import { notifications } from '~/framework/notifications/notifications';
 
+import { getErrorMessage } from '../../helpers/helpers';
+
 type FilePickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     label: string;
     style: StyleProp<ViewStyle>;
     setError: UseFormSetError<T>;
-};
-
-const handleError = (error: unknown): void => {
-    if (isCancel(error)) {
-        notifications.showError({ title: 'cancelled' });
-    } else if (isInProgress(error)) {
-        notifications.showError({
-            title: 'multiple pickers were opened, only the last will be considered',
-        });
-    } else {
-        throw error;
-    }
 };
 
 const FilePicker = <T extends FieldValues>({
@@ -54,6 +44,21 @@ const FilePicker = <T extends FieldValues>({
 
     const { value, onChange } = field;
 
+    const handleError = (error: unknown): void => {
+        if (isCancel(error)) {
+            notifications.showError({ title: 'cancelled' });
+        } else if (isInProgress(error)) {
+            notifications.showError({
+                title: 'multiple pickers were opened, only the last will be considered',
+            });
+        } else {
+            const errorMessage = getErrorMessage(error);
+            setError(name, {
+                message: errorMessage,
+            });
+        }
+    };
+
     const handleDocumentPick = (): void => {
         DocumentPicker.pick({
             type: [types.doc, types.docx, types.pdf],
@@ -62,7 +67,7 @@ const FilePicker = <T extends FieldValues>({
                 const [document] = response;
 
                 if (document.size !== null) {
-                    fileSizeValidation(name, document.size, setError);
+                    fileSizeValidation(name, document.size);
                 }
 
                 onChange({

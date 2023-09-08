@@ -2,7 +2,6 @@ import {
     type Control,
     type FieldPath,
     type FieldValues,
-    type UseFormSetError,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type ImagePickerResponse } from 'react-native-image-picker';
@@ -13,7 +12,8 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ErrorMessages, TextCategory } from '~/bundles/common/enums/enums';
+import { TextCategory } from '~/bundles/common/enums/enums';
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import {
     useCallback,
     useFormController,
@@ -31,7 +31,6 @@ type AvatarPickerProperties<T extends FieldValues> = {
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
-    setError: UseFormSetError<T>;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -40,7 +39,6 @@ const AvatarPicker = <T extends FieldValues>({
     buttonStyle,
     containerStyle,
     uri,
-    setError,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -56,25 +54,23 @@ const AvatarPicker = <T extends FieldValues>({
                     return;
                 }
                 const [image] = assets;
-                setAvatar(image.uri ?? uri);
                 if (image.fileSize && image.type) {
-                    fileSizeValidation(name, image.fileSize, setError);
+                    fileSizeValidation(name, image.fileSize);
+                    imageTypeValidation(image.type);
+
                     onChange({
                         size: image.fileSize,
                         uri: image.uri ?? uri,
                         type: image.type,
                     });
-                    imageTypeValidation(name, setError, image.type);
+                    setAvatar(image.uri ?? uri);
                 }
             } catch (error) {
-                if (error instanceof Error) {
-                    notifications.showError({ title: error.message });
-                    return;
-                }
-                notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
+                const errorMessage = getErrorMessage(error);
+                notifications.showError({ title: errorMessage });
             }
         },
-        [name, onChange, setError, uri],
+        [name, onChange, uri],
     );
 
     const imageLoadHandler = useCallback(
