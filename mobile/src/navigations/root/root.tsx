@@ -22,8 +22,8 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: React.FC = () => {
-    const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
-    const { isProfileComplete, role } = userData ?? {};
+    const { isSignedIn, currentUser } = useAppSelector(({ auth }) => auth);
+    const { isProfileComplete, role } = currentUser ?? {};
 
     const navigators = {
         auth: (

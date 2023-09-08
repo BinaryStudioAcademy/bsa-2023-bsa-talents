@@ -1,4 +1,3 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
@@ -10,17 +9,8 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import {
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useNavigation,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import {
     CountryList,
     EmploymentType,
@@ -48,20 +38,16 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
         validationSchema: ProfileStepValidationSchema,
     });
 
-    const { navigate } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
-
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
-            onSubmit({ ...data, salaryExpectation: +data.salaryExpectation });
-
-            navigate(TalentOnboardingScreenName.BSA_BADGES, {
-                stepState: TalentOnboardingStepState.FOCUSED,
+            onSubmit({
+                ...data,
+                salaryExpectation: +data.salaryExpectation,
+                //TODO delete when it fixes in DB
+                experienceYears: Math.round(data.experienceYears),
             });
         })();
-    }, [handleSubmit, onSubmit, navigate]);
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView

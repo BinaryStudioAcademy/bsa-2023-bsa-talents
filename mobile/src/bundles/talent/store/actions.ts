@@ -1,5 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserDetailsCreateRequestDto,
@@ -14,18 +15,32 @@ const createTalentDetails = createAsyncThunk<
     UserDetailsResponseDto,
     UserDetailsCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/onboarding`, (onboardingPayload, { extra }) => {
-    const { talentApi } = extra;
-    return talentApi.completeTalentDetails(onboardingPayload);
+>(`${sliceName}/createTalentDetails`, async (onboardingPayload, { extra }) => {
+    const { talentApi, notifications } = extra;
+    try {
+        return await talentApi.completeTalentDetails(onboardingPayload);
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
 });
 
 const updateOnboardingData = createAsyncThunk<
     UserDetailsUpdateDto,
     UserDetailsUpdateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/onboarding`, (stepPayload, { extra }) => {
-    const { talentApi } = extra;
-    return talentApi.completeOnboardingStep(stepPayload);
+>(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
+    const { talentApi, notifications } = extra;
+    try {
+        return await talentApi.completeOnboardingStep(stepPayload);
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
 });
 
-export { createTalentDetails, updateOnboardingData };
+const setCompletedStep = createAction<number>(`${sliceName}/setCompletedStep`);
+
+export { createTalentDetails, setCompletedStep, updateOnboardingData };

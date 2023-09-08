@@ -7,20 +7,26 @@ import {
     type UserDetailsResponseDto,
 } from '~/bundles/talent/types/types';
 
-import { createTalentDetails, updateOnboardingData } from './actions';
+import {
+    createTalentDetails,
+    setCompletedStep,
+    updateOnboardingData,
+} from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsResponseDto | null;
-    profileStepData1: ProfileStepDto | null;
-    profileStepData2: ProfileStepDto | null;
+    completedStep: number;
+    profileStepData: ProfileStepDto | null;
+    //TODO add other steps
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
-    profileStepData1: null,
-    profileStepData2: null,
+    completedStep: 0,
+    profileStepData: null,
+    //TODO add other steps
 };
 
 const { reducer, actions, name } = createSlice({
@@ -28,18 +34,21 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(setCompletedStep, (state, action) => {
+            state.completedStep = action.payload;
+        });
         builder.addMatcher(
             (action) =>
                 action.type === createTalentDetails.fulfilled.type ||
                 action.type === updateOnboardingData.fulfilled.type,
             (state, action) => {
-                state.profileStepData1 = {
+                state.dataStatus = DataStatus.FULFILLED;
+                state.profileStepData = {
                     ...action.payload,
                 } as ProfileStepDto;
-                state.dataStatus = DataStatus.FULFILLED;
+                //TODO add other steps
             },
         );
-
         builder.addMatcher(
             (action) =>
                 action.type === createTalentDetails.pending.type ||
@@ -48,7 +57,6 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.PENDING;
             },
         );
-
         builder.addMatcher(
             (action) =>
                 action.type === createTalentDetails.rejected.type ||

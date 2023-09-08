@@ -1,9 +1,14 @@
-import { createTalentDetails, updateOnboardingData } from './actions';
+import {
+    createTalentDetails,
+    setCompletedStep,
+    updateOnboardingData,
+} from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
     createTalentDetails,
+    setCompletedStep,
     updateOnboardingData,
 };
 

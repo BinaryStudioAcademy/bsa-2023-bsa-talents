@@ -62,7 +62,7 @@ const Slider = <T extends FieldValues>({
                 minimumTrackTintColor={Color.PRIMARY}
                 maximumTrackTintColor={'#b3c3f2'}
                 thumbTintColor={Color.PRIMARY}
-                step={1}
+                step={0.5}
                 onValueChange={onChange}
                 value={value}
                 {...props}
