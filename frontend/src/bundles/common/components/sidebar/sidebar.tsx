@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 const menuItems = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.CANDIDATES,
         name: 'Candidates',
         icon: <FolderShared />,
     },

@@ -1,13 +1,15 @@
-import { Grid, Sidebar } from '~/bundles/common/components/components.js';
+import { PageLayout } from '~/bundles/common/components/components.js';
 
 import { EmployeeFilters } from '../components/components.js';
 
 const Candidates: React.FC = () => {
     return (
-        <Grid container>
-            <Sidebar />
+        <PageLayout
+            isOnline={true}
+            avatarUrl="https://static.vecteezy.com/system/resources/previews/016/274/193/large_2x/eurasian-lynx-in-winter-free-photo.jpg"
+        >
             <EmployeeFilters />
-        </Grid>
+        </PageLayout>
     );
 };
 

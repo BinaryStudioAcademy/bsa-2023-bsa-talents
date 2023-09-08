@@ -5,6 +5,7 @@ const AppRoute = {
     RESET_PASSWORD: '/reset-password',
     TALENT: '/talent',
     TALENT_STEP: '/talent/onboarding/step/:step',
+    CANDIDATES: '/candidates',
     OTHER: '*',
 } as const;
 
