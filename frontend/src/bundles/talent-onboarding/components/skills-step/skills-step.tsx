@@ -1,10 +1,6 @@
 import {
-    type Control,
     type ControllerFieldState,
     type ControllerRenderProps,
-    type FieldErrors,
-    type FieldValues,
-    type UseFormHandleSubmit,
     type UseFormStateReturn,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
@@ -19,28 +15,28 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
+import { useFormSubmit } from '../../context/context.js';
+import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
+import { actions } from '../../store/talent-onboarding.js';
+import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsAutocomplete } from './components/skills-autocomplete.js';
 import { SkillsProjectLinks } from './components/skills-project-links.js';
 import styles from './styles.module.scss';
-
-type ReturnValue<T extends FieldValues = FieldValues> = {
-    control: Control<T, null>;
-    errors: FieldErrors<T>;
-    handleSubmit: UseFormHandleSubmit<T>;
-};
-
-type Properties = {
-    methods: ReturnValue<SkillsStepDto>;
-    userInfo?: SkillsStepDto;
-};
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
     value: level,
@@ -58,8 +54,57 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
     label: option,
 }));
 
-const SkillsStep: React.FC<Properties> = ({ methods }) => {
-    const { control, errors } = methods;
+const SkillsStep: React.FC = () => {
+    const {
+        hardSkills,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+
+    const { control, handleSubmit, errors } = useAppForm<SkillsStepDto>({
+        defaultValues: {
+            hardSkills,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks: toUrlLinks(projectLinks),
+        },
+        validationSchema: SkillsStepValidationSchema,
+    });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const onSubmit = useCallback(
+        async (data: SkillsStepDto): Promise<boolean> => {
+            await dispatch(
+                actions.updateTalentDetails({
+                    ...data,
+                    projectLinks: fromUrlLinks(data.projectLinks),
+                }),
+            );
+            return true;
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null);
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -106,6 +151,7 @@ const SkillsStep: React.FC<Properties> = ({ methods }) => {
                                 key={option.value}
                                 label={option.label}
                                 value={option.value}
+                                isChecked={field.value.includes(option.value)}
                                 onChange={handleCheckboxOnChange(
                                     field,
                                     option.value,
