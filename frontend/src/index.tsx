@@ -9,6 +9,7 @@ import { Auth } from '~/bundles/auth/pages/auth.js';
 import {
     App,
     Navigate,
+    PageLayout,
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components.js';
@@ -70,24 +71,37 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                             },
                                         ],
                                     },
-                                ],
-                            },
-                            {
-                                path: AppRoute.SIGN_IN,
-                                element: <Auth />,
-                            },
-                            {
-                                path: AppRoute.SIGN_UP,
-                                element: <Auth />,
-                            },
-                            {
-                                path: AppRoute.RESET_PASSWORD,
-                                element: <Auth />,
-                            },
+                                    {
+                                        path: '/home',
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <div></div>
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_IN,
+                                        element: <Auth />,
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_UP,
+                                        element: <Auth />,
+                                    },
+                                    {
+                                        path: AppRoute.RESET_PASSWORD,
+                                        element: <Auth />,
+                                    },
 
-                            {
-                                path: AppRoute.OTHER,
-                                element: <NotFoundPage />,
+                                    {
+                                        path: AppRoute.OTHER,
+                                        element: <NotFoundPage />,
+                                    },
+                                ],
                             },
                         ]}
                     />

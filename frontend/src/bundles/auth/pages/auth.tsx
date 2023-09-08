@@ -1,6 +1,5 @@
 import './styles.scss';
 
-import { Notifications } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -32,11 +31,12 @@ const Auth: React.FC = () => {
         currentUser: auth.currentUser,
     }));
 
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        if (currentUser) {
+        if (currentUser && token) {
             navigate(AppRoute.TALENT);
         }
-    }, [currentUser, navigate]);
+    }, [currentUser, navigate, token]);
 
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
@@ -60,7 +60,6 @@ const Auth: React.FC = () => {
                         <AuthLayout>
                             <SignInForm onSubmit={handleSignInSubmit} />
                         </AuthLayout>
-                        <Notifications />
                     </>
                 );
             }
@@ -70,7 +69,6 @@ const Auth: React.FC = () => {
                         <AuthLayout>
                             <SignUpForm onSubmit={handleSignUpSubmit} />
                         </AuthLayout>
-                        <Notifications />
                     </>
                 );
             }

@@ -2,7 +2,6 @@ import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Loader,
     Notifications,
-    PageLayout,
     RouterOutlet,
 } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
@@ -28,9 +27,7 @@ const App: React.FC = () => {
             dataStatus !== DataStatus.REJECTED ? (
                 <Loader />
             ) : (
-                <PageLayout avatarUrl="" isOnline>
-                    <RouterOutlet />
-                </PageLayout>
+                <RouterOutlet />
             )}
             <Notifications />
         </>
