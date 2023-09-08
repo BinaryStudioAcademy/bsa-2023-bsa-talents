@@ -22,6 +22,7 @@ const LostConnectionModal: React.FC = () => {
             style={[
                 globalStyles.width100,
                 globalStyles.height100,
+                globalStyles.justifyContentCenter,
                 styles.wrapper,
             ]}
         >
@@ -30,14 +31,19 @@ const LostConnectionModal: React.FC = () => {
                     styles.container,
                     globalStyles.flexDirectionRow,
                     globalStyles.alignItemsCenter,
+                    globalStyles.justifyContentCenter,
                     globalStyles.m25,
-                    globalStyles.p10,
+                    globalStyles.pv10,
+                    globalStyles.ph25,
                     globalStyles.borderRadius10,
-                    globalStyles.justifyContentSpaceAround,
-                    globalStyles.alignItemsCenter,
                 ]}
             >
-                <Icon name={IconName.WIFI_OFF} size={25} color={'#fff'} />
+                <Icon
+                    style={globalStyles.mr10}
+                    name={IconName.WIFI_OFF}
+                    size={25}
+                    color={'#fff'}
+                />
                 <Text style={styles.message} category={TextCategory.MENU}>
                     No connection to the server
                 </Text>
