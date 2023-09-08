@@ -5,9 +5,9 @@ import {
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
-} from '../../user-details/user-details.js';
+} from '../user-details.js';
 
-type UserSearchUsersRequestDto = {
+type UserDetailsSearchUsersRequestDto = {
     search?: string;
 
     isHired?: boolean;
@@ -22,4 +22,4 @@ type UserSearchUsersRequestDto = {
     // TODO add BSA project name
 };
 
-export { type UserSearchUsersRequestDto };
+export { type UserDetailsSearchUsersRequestDto };

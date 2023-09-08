@@ -12,6 +12,7 @@ export {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';

@@ -1,4 +1,4 @@
-import { type UserSearchUsersRequestDto } from 'shared/build/index.js';
+import { type UserDetailsSearchUsersRequestDto } from 'shared/build/index.js';
 import { ErrorMessages } from 'shared/build/index.js';
 
 import {
@@ -37,7 +37,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public async searchUsers(
-        payload: UserSearchUsersRequestDto,
+        payload: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[] | null> {
         let query = this.userDetailsModel.query();
 

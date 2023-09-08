@@ -1,8 +1,8 @@
 export {
     type UserCreateResponseDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
-    type UserSearchUsersRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

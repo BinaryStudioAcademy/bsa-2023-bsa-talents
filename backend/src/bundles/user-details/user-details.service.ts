@@ -6,6 +6,7 @@ import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
@@ -26,6 +27,15 @@ class UserDetailsService implements Service {
 
     public findAll(): Promise<{ items: unknown[] }> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    }
+
+    public async searchUsers(
+        searchData: UserDetailsSearchUsersRequestDto,
+    ): Promise<UserDetailsEntity[] | null> {
+        const selectedUsers = await this.userDetailsRepository.searchUsers(
+            searchData,
+        );
+        return selectedUsers ?? null;
     }
 
     public async create(

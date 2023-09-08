@@ -1,5 +1,5 @@
-import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -10,6 +10,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
@@ -125,6 +126,17 @@ class UserDetailsController extends ControllerBase {
                 this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.SEARCH,
+            method: 'GET',
+            handler: (options) =>
+                this.searchUsers(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsSearchUsersRequestDto;
                     }>,
                 ),
         });
@@ -356,6 +368,51 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.update(options.body),
+        };
+    }
+
+    private async searchUsers(
+        options: ApiHandlerOptions<{
+            query: UserDetailsSearchUsersRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const {
+            search,
+            jobTitle,
+            location,
+            isHired,
+            hardSkills,
+            experienceYears,
+            englishLevel,
+            employmentType,
+            BSABadges,
+        } = options.query;
+        const searchCriteria: UserDetailsSearchUsersRequestDto = {
+            ...(search !== undefined && { search }),
+            ...(jobTitle !== undefined && { jobTitle }),
+            ...(location !== undefined && { location }),
+            ...(isHired !== undefined && { isHired }),
+            ...(hardSkills !== undefined && { hardSkills }),
+            ...(experienceYears !== undefined && { experienceYears }),
+            ...(englishLevel !== undefined && { englishLevel }),
+            ...(employmentType !== undefined && { employmentType }),
+            ...(BSABadges !== undefined && { BSABadges }),
+        };
+
+        if (Object.keys(searchCriteria).length === 0) {
+            throw new HttpError({
+                status: HttpCode.BAD_REQUEST,
+                message: ErrorMessages.USER_NOT_FOUND,
+            });
+        }
+
+        const searchResult = await this.userDetailsService.searchUsers(
+            searchCriteria,
+        );
+
+        return {
+            status: HttpCode.OK,
+            payload: searchResult,
         };
     }
 }
