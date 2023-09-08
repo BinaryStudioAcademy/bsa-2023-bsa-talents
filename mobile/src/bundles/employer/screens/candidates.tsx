@@ -13,8 +13,8 @@ const Candidates: React.FC = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const filterAnimationStyle = useAnimatedStyle(() => {
         return {
-            width: withTiming(isFilterOpen ? '0%' : '100%'),
-            height: withTiming(isFilterOpen ? '0%' : '100%'),
+            width: withTiming(isFilterOpen ? '100%' : '0%'),
+            height: withTiming(isFilterOpen ? '100%' : '0%'),
         };
     });
     // eslint-disable-next-line unicorn/consistent-function-scoping
