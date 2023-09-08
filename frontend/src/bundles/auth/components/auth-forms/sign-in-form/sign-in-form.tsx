@@ -82,7 +82,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         <span>Forgot Password?</span>
                     </Link>
                 </Grid>
-                <Button label="Login" className="btnLogin" type="submit" />
+                <Button label="Login" className="btn" type="submit" />
             </form>
             <Grid item className="footer">
                 <span className="span">Not Registered Yet?</span>
