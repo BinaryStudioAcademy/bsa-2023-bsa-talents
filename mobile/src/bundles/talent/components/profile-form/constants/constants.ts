@@ -6,7 +6,7 @@ const TALENT_PROFILE_DEFAULT_VALUES: ProfileStepDto = {
     jobTitle: '',
     location: '',
     experienceYears: 0,
-    employmentTypes: [],
+    employmentType: [],
     description: '',
 };
 
