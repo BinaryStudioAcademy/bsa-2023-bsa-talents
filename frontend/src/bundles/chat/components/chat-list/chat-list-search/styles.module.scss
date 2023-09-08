@@ -16,3 +16,8 @@
     color: var(--steel-gray);
     opacity: 0.4;
 }
+
+.search:hover,
+.search:focus {
+    outline: 1px solid var(--st-tropaz);
+}
