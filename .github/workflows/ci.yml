@@ -26,7 +26,7 @@ jobs:
             - name: Install Dependencies
               run: |
                   npm install -g npm@8
-                  npm ci
+                  npm run install:all
 
             - name: Code Linting
               run: |
