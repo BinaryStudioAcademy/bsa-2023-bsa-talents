@@ -5,6 +5,7 @@ import {
     PageLayout,
     RouterOutlet,
 } from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -23,12 +24,13 @@ const App: React.FC = () => {
 
     return (
         <>
-            {dataStatus == 'fulfilled' || dataStatus == 'rejected' ? (
+            {dataStatus !== DataStatus.FULFILLED &&
+            dataStatus !== DataStatus.REJECTED ? (
+                <Loader />
+            ) : (
                 <PageLayout avatarUrl="" isOnline>
                     <RouterOutlet />
                 </PageLayout>
-            ) : (
-                <Loader />
             )}
             <Notifications />
         </>
