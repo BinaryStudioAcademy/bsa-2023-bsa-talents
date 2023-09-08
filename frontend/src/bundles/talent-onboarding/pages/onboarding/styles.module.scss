@@ -1,3 +1,7 @@
+:root {
+    --step-width: 328px;
+}
+
 .header {
     display: flex;
     padding-block: 20px;
@@ -49,7 +53,7 @@
     margin-bottom: 20px;
 }
 
-@media screen and (width <= 660px) {
+@media screen and (width <=660px) {
     .registration {
         flex-direction: column;
     }
