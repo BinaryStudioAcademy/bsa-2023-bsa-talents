@@ -41,11 +41,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker
-                    control={control}
-                    name="photo"
-                    setError={setError}
-                />
+                <AvatarPicker control={control} name="photo" />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}
