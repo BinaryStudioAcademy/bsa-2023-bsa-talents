@@ -37,7 +37,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.ROOT,
                                         element: (
-                                            <Navigate to={AppRoute.SIGN_IN} />
+                                            <Navigate to={AppRoute.TALENT} />
                                         ),
                                     },
                                     {

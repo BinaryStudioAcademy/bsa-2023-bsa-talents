@@ -33,6 +33,7 @@ const Auth: React.FC = () => {
             navigate(AppRoute.TALENT);
         }
     }, [currentUser, navigate]);
+
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));
