@@ -15,6 +15,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { ProtectedRoute } from './bundles/auth/components/components.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
@@ -36,30 +37,36 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.ROOT,
                                         element: (
-                                            <Navigate
-                                                to={getStepRoute(
-                                                    STEP_ROUTES.STEP_01,
-                                                )}
-                                            />
+                                            <Navigate to={AppRoute.SIGN_IN} />
                                         ),
                                     },
                                     {
                                         path: AppRoute.TALENT,
-                                        element: <Onboarding />,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <Onboarding />
+                                            </ProtectedRoute>
+                                        ),
                                         children: [
                                             {
                                                 path: AppRoute.TALENT,
                                                 element: (
-                                                    <Navigate
-                                                        to={getStepRoute(
-                                                            STEP_ROUTES.STEP_01,
-                                                        )}
-                                                    />
+                                                    <ProtectedRoute>
+                                                        <Navigate
+                                                            to={getStepRoute(
+                                                                STEP_ROUTES.STEP_01,
+                                                            )}
+                                                        />
+                                                    </ProtectedRoute>
                                                 ),
                                             },
                                             {
                                                 path: AppRoute.TALENT_STEP,
-                                                element: <StepNavigation />,
+                                                element: (
+                                                    <ProtectedRoute>
+                                                        <StepNavigation />
+                                                    </ProtectedRoute>
+                                                ),
                                             },
                                         ],
                                     },

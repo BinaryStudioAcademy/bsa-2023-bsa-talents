@@ -9,8 +9,34 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/update-talent-details`, (registerPayload) => {
+>(`${sliceName}/update-talent-details`, async (registerPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    if ('badges' in registerPayload) {
+        return registerPayload;
+    }
+
+    await talentOnBoardingApi.updateUserDetails({
+        fullName: 'Nika',
+        ...registerPayload,
+    });
+
     return registerPayload;
 });
 
-export { updateTalentDetails };
+const createTalentDetails = createAsyncThunk<
+    UserDetailsGeneralCustom,
+    UserDetailsGeneralCustom,
+    AsyncThunkConfig
+>(`${sliceName}/create-talent-details`, async (registerPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    await talentOnBoardingApi.createUserDetails({
+        ...registerPayload,
+        fullName: 'Nika',
+    });
+
+    return registerPayload;
+});
+
+export { createTalentDetails, updateTalentDetails };

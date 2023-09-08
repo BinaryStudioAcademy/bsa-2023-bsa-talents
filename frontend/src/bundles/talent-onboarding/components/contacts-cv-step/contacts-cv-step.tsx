@@ -57,12 +57,22 @@ const ContactsCVStep: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            const { fullName, phone, linkedinLink } = data;
+            await dispatch(
+                actions.updateTalentDetails({
+                    fullName,
+                    phone,
+                    linkedinLink,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {

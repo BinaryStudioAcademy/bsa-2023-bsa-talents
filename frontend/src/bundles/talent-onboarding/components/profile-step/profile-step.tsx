@@ -83,12 +83,19 @@ const ProfileStep: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.createTalentDetails({
+                    ...data,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {
