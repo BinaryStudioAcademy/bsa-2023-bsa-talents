@@ -1,16 +1,12 @@
-.container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.modal {
     padding: clamp(10px, 5vh, 40px) clamp(10px, 10vw, 120px);
 }
 
-.radioGroup {
-    display: flex;
-    flex-direction: row;
+.modalContainer {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
 .buttonWrapper {
