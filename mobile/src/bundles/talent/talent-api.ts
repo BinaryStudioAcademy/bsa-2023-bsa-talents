@@ -1,8 +1,10 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
-    type ProfileStepDto,
+    type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsUpdateDto,
+    type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -19,9 +21,24 @@ class TalentApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async completeProfileStep(
-        payload: ProfileStepDto,
+    public async completeTalentDetails(
+        payload: UserDetailsCreateRequestDto,
     ): Promise<UserDetailsResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserDetailsResponseDto>();
+    }
+
+    public async completeOnboardingStep(
+        payload: UserDetailsUpdateRequestDto,
+    ): Promise<UserDetailsUpdateDto> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -31,7 +48,7 @@ class TalentApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsResponseDto>();
+        return await response.json<UserDetailsUpdateDto>();
     }
 }
 

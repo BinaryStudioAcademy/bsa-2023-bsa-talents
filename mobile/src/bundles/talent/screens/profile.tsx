@@ -23,7 +23,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { stepData } = useAppSelector(({ talents }) => talents);
+    const { profileStepData1 } = useAppSelector(({ talents }) => talents);
     const { currentUser } = useAppSelector(({ auth }) => auth);
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
@@ -47,7 +47,7 @@ const Profile: React.FC = () => {
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm
-                profileStepData={stepData.profileStepData1}
+                profileStepData={profileStepData1}
                 onSubmit={handleProfileSubmit}
             />
         </View>

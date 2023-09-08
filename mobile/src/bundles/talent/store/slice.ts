@@ -7,36 +7,20 @@ import {
     type UserDetailsResponseDto,
 } from '~/bundles/talent/types/types';
 
-import { completeProfileStep } from './actions';
+import { createTalentDetails, updateOnboardingData } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    stepData: {
-        profileStepData1: ProfileStepDto | null;
-        profileStepData2: ProfileStepDto | null;
-    };
+    onboardingData: UserDetailsResponseDto | null;
+    profileStepData1: ProfileStepDto | null;
+    profileStepData2: ProfileStepDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    stepData: {
-        profileStepData1: null,
-        profileStepData2: null,
-    },
-};
-
-const mapKeysToFields = (key: string): keyof State['stepData'] | undefined => {
-    switch (key) {
-        case 'keyFromUserDetails1': {
-            return 'profileStepData1';
-        }
-        case 'keyFromUserDetails2': {
-            return 'profileStepData2';
-        }
-        default: {
-            return undefined;
-        }
-    }
+    onboardingData: null,
+    profileStepData1: null,
+    profileStepData2: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -44,20 +28,30 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(completeProfileStep.fulfilled, (state, action) => {
-            for (const key in action.payload) {
-                const fieldName = mapKeysToFields(key);
-                if (fieldName !== undefined) {
-                    state.stepData[fieldName] =
-                        action.payload[key as keyof UserDetailsResponseDto];
-                }
-            }
+        builder.addCase(createTalentDetails.fulfilled, (state, action) => {
+            state.onboardingData = action.payload;
+            state.profileStepData1 = { ...action.payload } as ProfileStepDto;
             state.dataStatus = DataStatus.FULFILLED;
         });
-        builder.addCase(completeProfileStep.pending, (state) => {
+
+        builder.addCase(createTalentDetails.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
-        builder.addCase(completeProfileStep.rejected, (state) => {
+
+        builder.addCase(createTalentDetails.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+        });
+
+        builder.addCase(updateOnboardingData.fulfilled, (state, action) => {
+            state.profileStepData1 = { ...action.payload } as ProfileStepDto;
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+
+        builder.addCase(updateOnboardingData.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+
+        builder.addCase(updateOnboardingData.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
     },
