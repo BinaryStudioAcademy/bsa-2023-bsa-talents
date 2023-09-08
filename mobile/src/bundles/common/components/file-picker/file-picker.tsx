@@ -54,6 +54,7 @@ const FilePicker = <T extends FieldValues>({
         } else {
             const errorMessage = getErrorMessage(error);
             setError(name, {
+                type: 'fileSize',
                 message: errorMessage,
             });
         }
