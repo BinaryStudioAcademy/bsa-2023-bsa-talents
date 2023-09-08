@@ -32,6 +32,8 @@ jobs:
               uses: actions/checkout@v3
               with:
                   fetch-depth: 0
+                  node-version: 18.x
+                  npm-version: 8.x.x
 
             - name: Install NodeJS
               uses: actions/setup-node@v3

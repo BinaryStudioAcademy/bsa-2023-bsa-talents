@@ -17,6 +17,9 @@ jobs:
         steps:
             - name: Checkout Source Code
               uses: actions/checkout@v3
+              with:
+                  node-version: 18.x
+                  npm-version: 8.x.x
 
             - name: Install NodeJS
               uses: actions/setup-node@v3
