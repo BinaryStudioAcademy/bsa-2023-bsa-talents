@@ -28,32 +28,35 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(createTalentDetails.fulfilled, (state, action) => {
-            state.onboardingData = action.payload;
-            state.profileStepData1 = { ...action.payload } as ProfileStepDto;
-            state.dataStatus = DataStatus.FULFILLED;
-        });
+        builder.addMatcher(
+            (action) =>
+                action.type === createTalentDetails.fulfilled.type ||
+                action.type === updateOnboardingData.fulfilled.type,
+            (state, action) => {
+                state.profileStepData1 = {
+                    ...action.payload,
+                } as ProfileStepDto;
+                state.dataStatus = DataStatus.FULFILLED;
+            },
+        );
 
-        builder.addCase(createTalentDetails.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
+        builder.addMatcher(
+            (action) =>
+                action.type === createTalentDetails.pending.type ||
+                action.type === updateOnboardingData.pending.type,
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
 
-        builder.addCase(createTalentDetails.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
-
-        builder.addCase(updateOnboardingData.fulfilled, (state, action) => {
-            state.profileStepData1 = { ...action.payload } as ProfileStepDto;
-            state.dataStatus = DataStatus.FULFILLED;
-        });
-
-        builder.addCase(updateOnboardingData.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-
-        builder.addCase(updateOnboardingData.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
+        builder.addMatcher(
+            (action) =>
+                action.type === createTalentDetails.rejected.type ||
+                action.type === updateOnboardingData.rejected.type,
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 

@@ -1,9 +1,10 @@
-import { completeProfileStep } from './actions';
+import { createTalentDetails, updateOnboardingData } from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
-    completeProfileStep,
+    createTalentDetails,
+    updateOnboardingData,
 };
 
 export { allActions as actions };
