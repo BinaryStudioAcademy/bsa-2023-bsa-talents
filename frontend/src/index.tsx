@@ -44,14 +44,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: AppRoute.SIGN_IN,
-                                        element: <Auth />,
-                                    },
-                                    {
-                                        path: AppRoute.SIGN_UP,
-                                        element: <Auth />,
-                                    },
-                                    {
                                         path: AppRoute.TALENT,
                                         element: <Onboarding />,
                                         children: [
@@ -72,6 +64,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                 ],
+                            },
+                            {
+                                path: AppRoute.SIGN_IN,
+                                element: <Auth />,
+                            },
+                            {
+                                path: AppRoute.SIGN_UP,
+                                element: <Auth />,
                             },
                             {
                                 path: AppRoute.OTHER,

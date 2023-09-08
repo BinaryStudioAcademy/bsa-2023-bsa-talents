@@ -1,7 +1,11 @@
 import React from 'react';
 
 import logoImg from '~/assets/images/logo-with-name.png';
-import { Image, StatusBar, View } from '~/bundles/common/components/components';
+import {
+    Image,
+    ScrollView,
+    StatusBar,
+} from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -15,17 +19,19 @@ const AuthWrapper: React.FC<Properties> = ({ children }) => {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor={Color.TEXT} />
-            <View
-                style={[
-                    globalStyles.flex1,
+            <ScrollView
+                contentContainerStyle={[
                     globalStyles.defaultScreenPadding,
-                    globalStyles.alignItemsCenter,
+                    globalStyles.pb5,
                     styles.container,
                 ]}
             >
-                <Image source={logoImg} style={styles.img} />
+                <Image
+                    source={logoImg}
+                    style={[globalStyles.alignSelfCenter, styles.img]}
+                />
                 {children}
-            </View>
+            </ScrollView>
         </>
     );
 };

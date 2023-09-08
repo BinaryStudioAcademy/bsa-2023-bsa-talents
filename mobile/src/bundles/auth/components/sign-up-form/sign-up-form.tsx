@@ -51,16 +51,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
-                globalStyles.width100,
                 styles.container,
             ]}
         >
             <Text
                 category={TextCategory.H4}
                 style={[
-                    globalStyles.pb25,
+                    globalStyles.pb15,
                     globalStyles.alignSelfCenter,
                     styles.title,
                 ]}
@@ -96,7 +94,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button
                     label="Sign up"
                     onPress={handleFormSubmit}
-                    style={[globalStyles.mt25, globalStyles.pv15]}
+                    style={[globalStyles.mt15, globalStyles.pv15]}
                 />
                 <View
                     style={[
@@ -115,22 +113,13 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.alignSelfCenter,
-                    globalStyles.alignItemsCenter,
+                    globalStyles.justifyContentCenter,
                     globalStyles.mt20,
                 ]}
             >
-                <Text category={TextCategory.BODY1} style={styles.text}>
-                    Already have an account?{' '}
-                </Text>
-
+                <Text style={styles.text}>Already have an account? </Text>
                 <Link
-                    textComponentCategory={TextCategory.BODY1}
-                    style={[
-                        globalStyles.alignSelfFlexEnd,
-                        globalStyles.pr10,
-                        styles.linkToSignIn,
-                    ]}
+                    style={styles.linkToSignIn}
                     label="Sign In"
                     link={`/${AuthScreenName.SIGN_IN}`}
                 />
