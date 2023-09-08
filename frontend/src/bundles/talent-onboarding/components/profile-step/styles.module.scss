@@ -1,5 +1,9 @@
 .form {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    max-width: 328px;
+    padding: 10px;
 }
 
 .formControl {
