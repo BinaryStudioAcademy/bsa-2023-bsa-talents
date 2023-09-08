@@ -1,12 +1,16 @@
 import joi from 'joi';
 
+import { type CvAndContactsFormDto } from '~/bundles/talent/types/types.js';
+
 import {
     ContactsCVStepValidationMessage,
     ContactsCVStepValidationRule,
 } from '../../enums/enums.js';
-import { type ContactsCVStepDto } from '../../types/types.js';
 
-const CvAndContactsFormValidationSchema = joi.object<ContactsCVStepDto, true>({
+const CvAndContactsFormValidationSchema = joi.object<
+    CvAndContactsFormDto,
+    true
+>({
     photo: joi.object().instance(File).required(),
     fullName: joi
         .string()
