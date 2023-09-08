@@ -8,7 +8,7 @@ import {
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
 const SKILLS_AND_PROJECTS_DEFAULT_VALUES: SkillsStepDto = {
-    hardSkills: '',
+    hardSkills: [],
     englishLevel: '',
     notConsidered: [],
     preferredLanguages: [],

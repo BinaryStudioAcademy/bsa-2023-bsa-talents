@@ -29,7 +29,7 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxTypes } from '../components';
+import { CheckboxGroup } from '../components';
 import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -144,7 +144,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <CheckboxTypes
+                <CheckboxGroup
                     control={control}
                     name="employmentTypes"
                     options={employmentTypeOptions}

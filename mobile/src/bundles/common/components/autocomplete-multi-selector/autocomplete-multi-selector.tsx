@@ -14,13 +14,18 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useFormController,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
-    control: Control<T, null>;
+    control?: Control<T, null>;
     name: FieldPath<T>;
     hasError?: boolean;
     items: string[];
@@ -35,47 +40,49 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-    const { value, onChange, onBlur } = field;
+    const { value, onBlur } = field;
     const [isListVisible, setIsListVisible] = useState<boolean>(false);
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
     const toggleIsListVisible = (): void => {
         setIsListVisible((previous) => !previous);
     };
 
     const handleItemSelect = (item: string): void => {
-        if (selectedItems.includes(item)) {
+        if (value.includes(item)) {
             return;
         }
-        setSelectedItems((previousItems) => {
-            return [...previousItems, item];
-        });
+        value.push(item);
         toggleIsListVisible();
     };
 
     const handleItemDelete = (itemName: string): void => {
-        setSelectedItems((previousItems) =>
-            previousItems.filter((item) => item != itemName),
-        );
+        return value.filter((item: string) => item !== itemName);
     };
 
-    const filteredItems = (items: string[]): string[] => {
-        if (typeof value !== 'string') {
-            return items;
-        }
-        return items.filter(
-            (item) =>
-                item.toLowerCase().includes(value.toLowerCase()) &&
-                !selectedItems.includes(item),
-        );
-    };
+    const filterItems = useCallback(
+        (items: string[]) => {
+            if (typeof value !== 'string') {
+                return items;
+            }
+            return items.filter(
+                (item) =>
+                    item.toLowerCase().includes(value.toLowerCase()) &&
+                    !value.includes(item),
+            );
+        },
+        [value],
+    );
+
+    const filteredItems = useMemo(
+        () => filterItems(items),
+        [filterItems, items],
+    );
 
     return (
         <>
             <View style={styles.container}>
                 <TextInput
                     placeholder={placeholder}
-                    onChangeText={onChange}
                     onBlur={onBlur}
                     onFocus={toggleIsListVisible}
                     style={[
@@ -100,7 +107,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                         ]}
                     >
                         <ScrollView nestedScrollEnabled>
-                            {filteredItems(items).map((item: string) => (
+                            {filteredItems.map((item: string) => (
                                 <TouchableOpacity
                                     key={item}
                                     onPress={(): void => {
@@ -126,7 +133,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {selectedItems.map((item) => (
+                {value.map((item: string) => (
                     <Tag
                         key={item}
                         value={item}

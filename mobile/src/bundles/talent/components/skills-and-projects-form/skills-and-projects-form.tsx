@@ -30,7 +30,7 @@ import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/t
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxTypes } from '../components';
+import { CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
@@ -90,7 +90,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
             </FormField>
 
             <FormField
-                errorMessage={errors.englishLevel?.message?.toString()} // message has strange type and I do not how to fix it for now
+                errorMessage={errors.englishLevel?.message?.toString()}
                 label="Level of English"
                 name="englishLevel"
                 required
@@ -110,7 +110,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <CheckboxTypes
+                <CheckboxGroup
                     control={control}
                     name="notConsidered"
                     options={NOT_CONSIDERED}
