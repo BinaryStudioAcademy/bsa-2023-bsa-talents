@@ -13,7 +13,7 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
-import { ContactsCVStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -25,7 +25,7 @@ type Properties = {
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit, setError } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
-        validationSchema: ContactsCVStepValidationSchema,
+        validationSchema: CvAndContactsFormValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {
