@@ -23,7 +23,7 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
                 ContactsCVStepValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    phoneNumber: joi
+    phone: joi
         .string()
         .pattern(/^\+\d{12}$/)
         .required()
@@ -34,7 +34,7 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
                 ContactsCVStepValidationMessage.PHONE_NUMBER_PATTERN,
         }),
 
-    linkedInLink: joi
+    linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)

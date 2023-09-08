@@ -4,7 +4,7 @@ type ProfileStepDto = {
     jobTitle: string;
     location: string;
     experienceYears: number;
-    employmentTypes: string[];
+    employmentType: string[];
     description: string;
 };
 
