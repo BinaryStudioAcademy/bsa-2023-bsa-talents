@@ -21,4 +21,14 @@ const removeMessageTemplate = createAsyncThunk<
     return templatePayload;
 });
 
-export { addMessageTemplate, removeMessageTemplate };
+type editTemplatePayload = { oldName: string; newName: string };
+
+const editMessageTemplate = createAsyncThunk<
+    editTemplatePayload,
+    editTemplatePayload,
+    AsyncThunkConfig
+>(`${sliceName}/edit-message-template`, (templatePayload) => {
+    return templatePayload;
+});
+
+export { addMessageTemplate, editMessageTemplate, removeMessageTemplate };

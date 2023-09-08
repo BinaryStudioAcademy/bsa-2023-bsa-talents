@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { type MessageTemplateDto } from '../types/types.js';
-import { addMessageTemplate, removeMessageTemplate } from './actions.js';
+import {
+    addMessageTemplate,
+    editMessageTemplate,
+    removeMessageTemplate,
+} from './actions.js';
 
 type State = {
     messageTemplates: MessageTemplateDto[];
@@ -34,6 +38,16 @@ const { reducer, actions, name } = createSlice({
             state.messageTemplates = [...state.messageTemplates].filter(
                 (template) => template.name !== action.payload,
             );
+        });
+
+        builder.addCase(editMessageTemplate.fulfilled, (state, action) => {
+            const { newName, oldName } = action.payload;
+            state.messageTemplates = state.messageTemplates.map((template) => {
+                if (template.name === oldName) {
+                    return { ...template, name: newName };
+                }
+                return template;
+            });
         });
     },
 });

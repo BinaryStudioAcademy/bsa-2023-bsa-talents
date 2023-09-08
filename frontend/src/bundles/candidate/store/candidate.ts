@@ -1,9 +1,14 @@
-import { addMessageTemplate, removeMessageTemplate } from './actions.js';
+import {
+    addMessageTemplate,
+    editMessageTemplate,
+    removeMessageTemplate,
+} from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     addMessageTemplate,
+    editMessageTemplate,
     removeMessageTemplate,
 };
 

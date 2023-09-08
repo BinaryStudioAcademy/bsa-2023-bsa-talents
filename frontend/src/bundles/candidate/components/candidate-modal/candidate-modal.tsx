@@ -33,7 +33,11 @@ import {
 import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';
 import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { DEFAULT_CONTACT_CANDIDATE_MODAL } from './constants.js';
+import {
+    // TemplateItem,
+    TemplateList,
+} from '../components.js';
+import { DEFAULT_CONTACT_CANDIDATE_MODAL, MODAL_CONST } from './constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -80,12 +84,12 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
         [setValue],
     );
 
-    const removeTemplate = useCallback(
-        (templateName: string) => (): void => {
-            void dispatch(candidateActions.removeMessageTemplate(templateName));
-        },
-        [dispatch],
-    );
+    // const removeTemplate = useCallback(
+    //     (templateName: string) => (): void => {
+    //         void dispatch(candidateActions.removeMessageTemplate(templateName));
+    //     },
+    //     [dispatch],
+    // );
 
     const onSubmit: SubmitHandler<ContactCandidateDto> = useCallback(
         (data: ContactCandidateDto): void => {
@@ -209,6 +213,9 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                     styles.button,
                                     styles.addLink,
                                 )}
+                                disabled={
+                                    fields.length === MODAL_CONST.MAX_LINKS
+                                }
                                 onClick={addLink}
                                 variant="text"
                                 label="Add more links"
@@ -258,7 +265,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             />
                             {isSaveTemplateChecked && (
                                 <Input
-                                    key={'templateName'}
+                                    // key={'templateName'}
                                     control={control}
                                     errors={errors}
                                     name={'templateName'}
@@ -267,58 +274,18 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             )}
                         </FormControl>
 
-                        {
-                            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-                            messageTemplates.length > 0 && (
-                                <Grid>
-                                    <Typography
-                                        variant="body1"
-                                        className={styles.templates}
-                                    >
-                                        Templates
-                                    </Typography>
-                                    {messageTemplates.map((template) => {
-                                        return (
-                                            <Grid
-                                                container
-                                                justifyContent={'space-between'}
-                                                key={template.name}
-                                            >
-                                                <Button
-                                                    className={getValidClassNames(
-                                                        styles.button,
-                                                        styles.templateButton,
-                                                    )}
-                                                    onClick={applyTemplate(
-                                                        template.message,
-                                                    )}
-                                                    variant="text"
-                                                    label={template.name}
-                                                />
-                                                <Button
-                                                    className={getValidClassNames(
-                                                        styles.button,
-                                                        styles.deleteButton,
-                                                    )}
-                                                    label=""
-                                                    onClick={removeTemplate(
-                                                        template.name,
-                                                    )}
-                                                    variant="outlined"
-                                                    endIcon={
-                                                        <DeleteIcon
-                                                            className={
-                                                                styles.deleteIcon
-                                                            }
-                                                        />
-                                                    }
-                                                />
-                                            </Grid>
-                                        );
-                                    })}
-                                </Grid>
-                            )
-                        }
+                        {messageTemplates.length >
+                            MODAL_CONST.EMPTY_ARRAY_LENGTH && (
+                            <Grid>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.templates}
+                                >
+                                    Templates
+                                </Typography>
+                                {<TemplateList applyTemplate={applyTemplate} />}
+                            </Grid>
+                        )}
                         <Button
                             className={getValidClassNames(
                                 styles.submit,

@@ -28,6 +28,8 @@ type Properties<T extends FieldValues> = {
     inputClassNames?: string;
     defaultValue?: string;
     inputRef?: RefCallBack;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -43,6 +45,7 @@ const Input = <T extends FieldValues>({
     inputClassNames,
     defaultValue,
     inputRef,
+    ...properties
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -97,7 +100,7 @@ const Input = <T extends FieldValues>({
             type={type}
             placeholder={placeholder}
             error={hasError}
-            helperText={(error as string) || ''}
+            helperText={(error as string) || ' '}
             className={textFieldRootStyles}
             required={isRequired}
             InputProps={{
@@ -111,6 +114,7 @@ const Input = <T extends FieldValues>({
             }}
             FormHelperTextProps={{ className: helperTextStyles }}
             defaultValue={defaultValue}
+            {...properties}
         />
     );
 };
