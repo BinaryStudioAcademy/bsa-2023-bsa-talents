@@ -7,7 +7,7 @@ import {
 import { type BsaBadgesStepDto } from '../../types/types.js';
 
 const BsaBadgesStepValidationSchema = joi.object<BsaBadgesStepDto, true>({
-    bsaBadges: joi
+    badges: joi
         .array()
         .min(BsaBadgesStepValidationRule.BSA_BADGES_MIN_LENGTH)
         .required()
