@@ -1,11 +1,10 @@
 import joi from 'joi';
 
-import { type CvAndContactsFormDto } from '~/bundles/talent/types/types.js';
-
 import {
     CvAndContactsFormValidationMessage,
     CvAndContactsFormValidationRule,
-} from '../../enums/enums.js';
+} from '~/bundles/talent/enums/enums';
+import { type CvAndContactsFormDto } from '~/bundles/talent/types/types.js';
 
 const CvAndContactsFormValidationSchema = joi.object<
     CvAndContactsFormDto,
