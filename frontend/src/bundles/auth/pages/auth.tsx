@@ -12,7 +12,11 @@ import {
 } from '~/bundles/users/users.js';
 
 import { AuthLayout } from '../components/auth-layout/auth-layout.js';
-import { SignInForm, SignUpForm } from '../components/components.js';
+import {
+    ResetPassword,
+    SignInForm,
+    SignUpForm,
+} from '../components/components.js';
 import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
@@ -46,6 +50,13 @@ const Auth: React.FC = () => {
                 return (
                     <AuthLayout>
                         <SignUpForm onSubmit={handleSignUpSubmit} />
+                    </AuthLayout>
+                );
+            }
+            case AppRoute.RESET_PASSWORD: {
+                return (
+                    <AuthLayout>
+                        <ResetPassword />
                     </AuthLayout>
                 );
             }
