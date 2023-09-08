@@ -1,5 +1,5 @@
 type BsaBadgesStepDto = {
-    bsaBadges: string[];
+    badges: string[];
 };
 
 export { type BsaBadgesStepDto };
