@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     },
     signUpWrapper: {
         flexWrap: 'wrap',
+        flexShrink: 1,
+        gap: 5,
     },
     formWrapper: {
         gap: 25,

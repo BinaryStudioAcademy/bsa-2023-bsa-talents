@@ -117,13 +117,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentCenter,
-                    globalStyles.flex1,
-                    globalStyles.m20,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    globalStyles.m10,
                     styles.signUpWrapper,
                 ]}
             >
-                <Text style={styles.text}>Not Registered Yet? </Text>
+                <Text style={[styles.text]}>Not Registered Yet?</Text>
                 <Link
                     style={styles.linkSignUp}
                     label="Create an account"
