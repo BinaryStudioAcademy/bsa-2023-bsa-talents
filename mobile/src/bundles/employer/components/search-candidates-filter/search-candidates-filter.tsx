@@ -37,13 +37,17 @@ import { styles } from './styles';
 
 type Properties = {
     onSubmit: (payload: unknown) => void;
+    onFilterClose: () => void;
 };
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);
 const employmentTypeOptions = Object.values(EmploymentType);
 
-const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
+const SearchCandidatesFilter: React.FC<Properties> = ({
+    onSubmit,
+    onFilterClose,
+}) => {
     const { control, handleSubmit } = useAppForm({
         defaultValues: DEFAULT_VALUES,
     });
@@ -57,6 +61,7 @@ const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
                 globalStyles.defaultScreenPadding,
                 globalStyles.borderRadius10,
                 globalStyles.width100,
+                globalStyles.height100,
                 styles.container,
             ]}
         >
@@ -78,6 +83,7 @@ const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
                         name={IconName.CLOSE}
                         size={25}
                         color={Color.PRIMARY}
+                        onPress={onFilterClose}
                     />
                 </Pressable>
             </View>
@@ -201,10 +207,11 @@ const SearchCandidatesFilter: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <Button
-                style={[globalStyles.mb25, globalStyles.pv15]}
+                style={globalStyles.mb25}
                 label="Show results"
                 onPress={handleFormSubmit}
             />
+            <View style={globalStyles.mb25} />
         </ScrollView>
     );
 };
