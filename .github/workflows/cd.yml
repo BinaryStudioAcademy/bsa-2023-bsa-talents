@@ -23,7 +23,7 @@ jobs:
 
             - name: Zipping
               run: |
-                  zip -r build.zip backend frontend shared package.json package-lock.json .eslintrc.yml tsconfig.json
+                  zip -r build.zip backend frontend shared package.json package-lock.json .eslintrc.yml tsconfig.json prepare-build.sh
 
             - name: Deploy to EB
               uses: einaregilsson/beanstalk-deploy@v16
