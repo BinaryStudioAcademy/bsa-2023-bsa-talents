@@ -1,25 +1,34 @@
+import './styles.scss';
+
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
-    useAppSelector,
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
 
-import { SignInForm, SignUpForm } from '../components/components.js';
+import { AuthLayout } from '../components/auth-layout/auth-layout.js';
+import {
+    ResetPassword,
+    SignInForm,
+    SignUpForm,
+} from '../components/components.js';
 import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
     const { pathname } = useLocation();
 
-    const handleSignInSubmit = useCallback((): void => {
-        // handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
@@ -31,22 +40,32 @@ const Auth: React.FC = () => {
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AppRoute.SIGN_IN: {
-                return <SignInForm onSubmit={handleSignInSubmit} />;
+                return (
+                    <AuthLayout>
+                        <SignInForm onSubmit={handleSignInSubmit} />
+                    </AuthLayout>
+                );
             }
             case AppRoute.SIGN_UP: {
-                return <SignUpForm onSubmit={handleSignUpSubmit} />;
+                return (
+                    <AuthLayout>
+                        <SignUpForm onSubmit={handleSignUpSubmit} />
+                    </AuthLayout>
+                );
+            }
+            case AppRoute.RESET_PASSWORD: {
+                return (
+                    <AuthLayout>
+                        <ResetPassword />
+                    </AuthLayout>
+                );
             }
         }
 
         return null;
     };
 
-    return (
-        <>
-            state: {dataStatus}
-            {getScreen(pathname)}
-        </>
-    );
+    return <>{getScreen(pathname)}</>;
 };
 
 export { Auth };

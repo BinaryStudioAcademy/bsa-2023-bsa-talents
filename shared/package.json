@@ -5,7 +5,7 @@
     "private": true,
     "engines": {
         "node": "18.x.x",
-        "npm": "9.x.x"
+        "npm": "8.x.x"
     },
     "exports": {
         "./build/*": {

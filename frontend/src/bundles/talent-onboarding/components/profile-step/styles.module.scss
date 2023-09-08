@@ -1,0 +1,34 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: var(--step-width);
+    padding: 10px;
+}
+
+.formControl {
+    padding: 10px;
+}
+
+.checkboxContainer {
+    padding: 10px 16px;
+}
+
+.formControlCheckbox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.formControlSlider {
+    margin: 0 5px;
+    padding: 0 10px;
+}
+
+.formLabel {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+}
+
+.hasError {
+    color: var(--error-primary);
+}

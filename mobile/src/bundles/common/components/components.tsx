@@ -10,6 +10,7 @@ export { LostConnectionModal } from './lost-connection-modal/lost-connection-mod
 export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
+export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Text } from './text/text';
@@ -20,6 +21,7 @@ export {
     Pressable,
     Modal as RNModal,
     ScrollView,
+    StatusBar,
     TouchableOpacity,
     View,
 } from 'react-native';

@@ -5,6 +5,7 @@ import {
     type FieldErrors,
     type FieldPath,
     type FieldValues,
+    type RefCallBack,
 } from 'react-hook-form';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -20,8 +21,12 @@ type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     placeholder?: string;
     type?: InputType;
+    isRequired?: boolean;
     isDisabled?: boolean;
     adornmentText?: string;
+    className?: string;
+    inputClassNames?: string;
+    inputRef?: RefCallBack;
 };
 
 const Input = <T extends FieldValues>({
@@ -30,8 +35,12 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type = 'text',
+    isRequired = false,
     isDisabled = false,
     adornmentText = '',
+    className = '',
+    inputClassNames,
+    inputRef,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -62,16 +71,18 @@ const Input = <T extends FieldValues>({
         );
     }
 
-    const textFieldRootStyles = getValidClassNames(styles.root);
+    const textFieldRootStyles = getValidClassNames(styles.root, className);
     const muiInputStyles = getValidClassNames(
         styles.inputWrapper,
         isDisabled && styles.inputDisabled,
         hasError && styles.hasError,
+        inputClassNames,
     );
     const htmlInputStyles = getValidClassNames(
         styles.input,
         type === 'search' && styles.inputPaddingSearch,
         adornmentText && styles.inputPaddingTextAdornsment,
+        inputClassNames,
     );
     const helperTextStyles = getValidClassNames(
         styles.helperText,
@@ -84,14 +95,18 @@ const Input = <T extends FieldValues>({
             type={type}
             placeholder={placeholder}
             error={hasError}
-            helperText={(error as string) || ' '}
+            helperText={(error as string) || ''}
             className={textFieldRootStyles}
+            required={isRequired}
             InputProps={{
                 className: muiInputStyles,
                 disabled: isDisabled,
                 startAdornment: adornment,
+                ref: inputRef,
             }}
-            inputProps={{ className: htmlInputStyles }}
+            inputProps={{
+                className: htmlInputStyles,
+            }}
             FormHelperTextProps={{ className: helperTextStyles }}
         />
     );
