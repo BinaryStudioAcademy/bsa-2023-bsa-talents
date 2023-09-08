@@ -38,68 +38,64 @@ class UserDetailsRepository implements Repository {
 
     public async searchUsers(
         payload: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[] | null> {
+    ): Promise<UserDetailsEntity[]> {
         let query = this.userDetailsModel.query();
 
-        try {
-            if (payload.search) {
-                query = query.where('fullName', 'ilike', `%${payload.search}%`);
-            }
-
-            if (payload.isHired) {
-                query = query.where('isHired', payload.isHired);
-            }
-
-            if (payload.jobTitle) {
-                query = query.where('jobTitle', payload.jobTitle);
-            }
-
-            if (payload.experienceYears) {
-                query = query.where('experienceYears', payload.experienceYears);
-            }
-
-            if (payload.hardSkills && payload.hardSkills.length > 0) {
-                query = query.whereExists(
-                    this.userDetailsModel
-                        .relatedQuery('talentHardSkills')
-                        .whereRaw(
-                            `talent_hard_skills.${TalentHardSkillsTableColumn.HARD_SKILL_ID} = ANY(?)`,
-                            [payload.hardSkills],
-                        ),
-                );
-            }
-
-            if (payload.BSABadges && payload.BSABadges.length > 0) {
-                query = query.whereExists(
-                    this.userDetailsModel
-                        .relatedQuery('talentBadges')
-                        .whereRaw(
-                            `talent_badges.${TalentBadgesTableColumn.BADGE_ID} = ANY(?)`,
-                            [payload.BSABadges],
-                        ),
-                );
-            }
-
-            if (payload.location) {
-                query = query.where('location', payload.location);
-            }
-
-            if (payload.englishLevel) {
-                query = query.where('englishLevel', payload.englishLevel);
-            }
-
-            if (payload.employmentType && payload.employmentType.length > 0) {
-                query = query.whereIn('employmentType', payload.employmentType);
-            }
-
-            const searchResults = await query;
-
-            return searchResults.map((result) =>
-                UserDetailsEntity.initialize(result),
-            );
-        } catch {
-            return null;
+        if (payload.search) {
+            query = query.where('fullName', 'ilike', `%${payload.search}%`);
         }
+
+        if (payload.isHired) {
+            query = query.where('isHired', payload.isHired);
+        }
+
+        if (payload.jobTitle) {
+            query = query.where('jobTitle', payload.jobTitle);
+        }
+
+        if (payload.experienceYears) {
+            query = query.where('experienceYears', payload.experienceYears);
+        }
+
+        if (payload.hardSkills && payload.hardSkills.length > 0) {
+            query = query.whereExists(
+                this.userDetailsModel
+                    .relatedQuery('talentHardSkills')
+                    .whereIn(
+                        `talent_hard_skills.${TalentHardSkillsTableColumn.HARD_SKILL_ID} = ANY(?)`,
+                        [payload.hardSkills],
+                    ),
+            );
+        }
+
+        if (payload.BSABadges && payload.BSABadges.length > 0) {
+            query = query.whereExists(
+                this.userDetailsModel
+                    .relatedQuery('talentBadges')
+                    .whereIn(
+                        `talent_badges.${TalentBadgesTableColumn.BADGE_ID} = ANY(?)`,
+                        [payload.BSABadges],
+                    ),
+            );
+        }
+
+        if (payload.location) {
+            query = query.where('location', payload.location);
+        }
+
+        if (payload.englishLevel) {
+            query = query.where('englishLevel', payload.englishLevel);
+        }
+
+        if (payload.employmentType && payload.employmentType.length > 0) {
+            query = query.whereIn('employmentType', payload.employmentType);
+        }
+
+        const searchResults = await query;
+
+        return searchResults.map((result) =>
+            UserDetailsEntity.initialize(result),
+        );
     }
 
     public async create(

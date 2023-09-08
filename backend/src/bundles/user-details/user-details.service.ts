@@ -29,13 +29,10 @@ class UserDetailsService implements Service {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async searchUsers(
+    public searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[] | null> {
-        const selectedUsers = await this.userDetailsRepository.searchUsers(
-            searchData,
-        );
-        return selectedUsers ?? null;
+    ): Promise<UserDetailsEntity[]> {
+        return this.userDetailsRepository.searchUsers(searchData);
     }
 
     public async create(

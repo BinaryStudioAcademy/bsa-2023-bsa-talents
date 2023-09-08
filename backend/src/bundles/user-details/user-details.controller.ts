@@ -1,5 +1,5 @@
-import { ApiPath, ErrorMessages } from '~/common/enums/enums.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { ApiPath } from '~/common/enums/enums.js';
+import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -131,7 +131,7 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
-            path: UserDetailsApiPath.SEARCH,
+            path: UserDetailsApiPath.ROOT,
             method: 'GET',
             handler: (options) =>
                 this.searchUsers(
@@ -371,44 +371,86 @@ class UserDetailsController extends ControllerBase {
         };
     }
 
+    /**
+     * @swagger
+     * /user-details/:
+     *    get:
+     *      tags:
+     *        - User Details
+     *      description: Search for user details based on criteria
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: search
+     *          schema:
+     *            type: string
+     *          description: Search query to filter by user's full name (optional)
+     *        - in: query
+     *          name: isHired
+     *          schema:
+     *            type: boolean
+     *          description: Filter by hired status (optional)
+     *        - in: query
+     *          name: jobTitle
+     *          schema:
+     *            type: string
+     *          description: Filter by job title (optional)
+     *        - in: query
+     *          name: experienceYears
+     *          schema:
+     *            type: number
+     *          description: Filter by years of experience (optional)
+     *        - in: query
+     *          name: hardSkills
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by hard skills (optional)
+     *        - in: query
+     *          name: BSABadges
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by BSA badges (optional)
+     *        - in: query
+     *          name: location
+     *          schema:
+     *            type: string
+     *          description: Filter by location (optional)
+     *        - in: query
+     *          name: englishLevel
+     *          schema:
+     *            type: string
+     *          description: Filter by English level (optional)
+     *        - in: query
+     *          name: employmentType
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by employment type (optional)
+     *      responses:
+     *         200:
+     *           description: Successful operation
+     *           content:
+     *             application/json:
+     *               schema:
+     *                 type: array
+     *                 items:
+     *                   $ref: '#/components/schemas/UserDetails'
+     */
+
     private async searchUsers(
         options: ApiHandlerOptions<{
             query: UserDetailsSearchUsersRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const {
-            search,
-            jobTitle,
-            location,
-            isHired,
-            hardSkills,
-            experienceYears,
-            englishLevel,
-            employmentType,
-            BSABadges,
-        } = options.query;
-        const searchCriteria: UserDetailsSearchUsersRequestDto = {
-            ...(search !== undefined && { search }),
-            ...(jobTitle !== undefined && { jobTitle }),
-            ...(location !== undefined && { location }),
-            ...(isHired !== undefined && { isHired }),
-            ...(hardSkills !== undefined && { hardSkills }),
-            ...(experienceYears !== undefined && { experienceYears }),
-            ...(englishLevel !== undefined && { englishLevel }),
-            ...(employmentType !== undefined && { employmentType }),
-            ...(BSABadges !== undefined && { BSABadges }),
-        };
-
-        if (Object.keys(searchCriteria).length === 0) {
-            throw new HttpError({
-                status: HttpCode.BAD_REQUEST,
-                message: ErrorMessages.USER_NOT_FOUND,
-            });
-        }
-
-        const searchResult = await this.userDetailsService.searchUsers(
-            searchCriteria,
-        );
+        const searchResult = await this.userDetailsService.searchUsers({
+            ...options.query,
+        });
 
         return {
             status: HttpCode.OK,
