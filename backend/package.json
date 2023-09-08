@@ -5,7 +5,7 @@
     "type": "module",
     "engines": {
         "node": "18.x.x",
-        "npm": "9.x.x"
+        "npm": "8.x.x"
     },
     "scripts": {
         "lint:type": "npx tsc --noEmit",
@@ -16,7 +16,7 @@
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
         "migrate:dev:down": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:down",
         "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
-        "build": "tsc && npm run build:copy",
+        "build": "tsc && tsc-alias -p tsconfig.json && npm run build:copy",
         "build:copy": "cp -r package.json build",
         "prestart": "npm run migrate",
         "migrate": "knex migrate:latest",
@@ -45,6 +45,7 @@
         "pg": "8.11.2",
         "pino": "8.15.0",
         "pino-pretty": "10.2.0",
-        "swagger-jsdoc": "6.2.8"
+        "swagger-jsdoc": "6.2.8",
+        "tsc-alias": "1.6.11"
     }
 }
