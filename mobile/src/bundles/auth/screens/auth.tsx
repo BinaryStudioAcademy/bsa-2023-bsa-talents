@@ -2,7 +2,7 @@ import React from 'react';
 
 import { actions as authActions } from '~/bundles/auth/store';
 import {
-    type UserSignInForm,
+    type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/auth/types/types';
 import { Overlay } from '~/bundles/common/components/components';
@@ -31,7 +31,7 @@ const Auth: React.FC = () => {
     }, [isSignUpScreen, dispatch]);
 
     const handleSignInSubmit = useCallback(
-        (payload: UserSignInForm): void => {
+        (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));
         },
         [dispatch],
