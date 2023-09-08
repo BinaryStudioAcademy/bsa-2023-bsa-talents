@@ -15,6 +15,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { ResetPassword } from './bundles/auth/pages/reset-password/reset-password.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
@@ -73,6 +74,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 path: AppRoute.SIGN_UP,
                                 element: <Auth />,
                             },
+                            {
+                                path: AppRoute.RESET_PASSWORD,
+                                element: <ResetPassword />,
+                            },
+
                             {
                                 path: AppRoute.OTHER,
                                 element: <NotFoundPage />,

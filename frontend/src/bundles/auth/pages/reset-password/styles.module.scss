@@ -1,0 +1,45 @@
+.container {
+    display: block;
+    min-height: 100vh;
+    background-color: var(--steel-gray);
+}
+
+.h1 {
+    margin-bottom: 15px;
+    color: var(--white);
+    font-size: clamp(var(--font-size-base), 42px, var(--font-size-h1));
+    text-align: center;
+}
+
+.header {
+    max-height: max-content;
+    padding-top: 25px;
+}
+
+.logo {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 48px;
+}
+
+.input {
+    max-width: 95%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.formWrapper {
+    width: max-content;
+    margin: 0 auto;
+}
+
+.button {
+    width: 100%;
+    max-width: 95%;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: var(--font-family);
+    text-transform: unset;
+}
