@@ -23,23 +23,31 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { profileStepData } = useAppSelector(({ talents }) => talents);
+    const { stepData } = useAppSelector(({ talents }) => talents);
+    const { currentUser } = useAppSelector(({ auth }) => auth);
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
     const handleProfileSubmit = useCallback(
         (payload: ProfileStepDto): void => {
-            void dispatch(talentActions.completeProfileStep(payload));
+            const userId = currentUser?.id;
+
+            const updatedPayload = {
+                ...payload,
+                userId,
+            };
+
+            void dispatch(talentActions.completeProfileStep(updatedPayload));
         },
-        [dispatch],
+        [dispatch, currentUser?.id],
     );
 
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm
-                profileStepData={profileStepData}
+                profileStepData={stepData.profileStepData1}
                 onSubmit={handleProfileSubmit}
             />
         </View>

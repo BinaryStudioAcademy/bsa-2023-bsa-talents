@@ -31,11 +31,11 @@ const EmploymentTypes = <T extends FieldValues>({
     const handleToggleCheckbox = useCallback(
         (selectedType: string) => {
             const isCheckedBefore = value.includes(selectedType);
-            const updatedEmploymentTypes = isCheckedBefore
+            const updatedEmploymentType = isCheckedBefore
                 ? value.filter((type: string) => type !== selectedType)
                 : [...value, selectedType];
 
-            onChange(updatedEmploymentTypes);
+            onChange(updatedEmploymentType);
         },
         [value, onChange],
     );

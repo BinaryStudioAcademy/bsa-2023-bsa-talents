@@ -1,1 +1,6 @@
-export { type ProfileStepDto } from 'shared/build/index.js';
+export {
+    type ProfileStepDto,
+    type UserDetailsResponseDto,
+    type UserDetailsUpdateDto,
+    type UserDetailsUpdateRequestDto,
+} from 'shared/build/index.js';
