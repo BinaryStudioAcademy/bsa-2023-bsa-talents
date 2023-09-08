@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         zIndex: 1,
     },
+    tagContainer: {
+        gap: 5,
+        flexWrap: 'wrap',
+    },
 });
 
 export { styles };

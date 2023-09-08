@@ -1,3 +1,4 @@
+export { AutocompleteMultiSelector } from './autocomplete-multi-selector/autocomplete-multi-selector';
 export { Avatar } from './avatar/avatar';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
@@ -10,7 +11,6 @@ export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
 export { RadioButtons } from './radio-buttons/radio-buttons';
-export { SearchableDropdown } from './searchable-dropdown/searchable-dropdown';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Tag } from './tag/tag';

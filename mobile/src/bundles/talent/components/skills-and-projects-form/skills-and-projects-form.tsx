@@ -3,14 +3,13 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
+    AutocompleteMultiSelector,
     Button,
     FormField,
     Input,
     Pressable,
     ScrollView,
-    SearchableDropdown,
     Selector,
-    Tag,
     View,
 } from '~/bundles/common/components/components';
 import {
@@ -25,7 +24,6 @@ import {
     useCallback,
     useFieldArray,
     useNavigation,
-    useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
@@ -51,9 +49,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
     onSubmit,
     skillsStepData,
 }) => {
-    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-
-    const { control, errors, handleSubmit, setValue, resetField } = useAppForm({
+    const { control, errors, handleSubmit } = useAppForm({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: SkillsStepValidationSchema,
     });
@@ -61,28 +57,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         name: 'projectLinks',
         control,
     });
-
     const { navigate } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
-
-    const handleSkillSelect = (skill: string): void => {
-        if (selectedSkills.includes(skill)) {
-            return;
-        }
-        setSelectedSkills((previousSkills) => {
-            return [...previousSkills, skill];
-        });
-        setValue('hardSkills', [...selectedSkills, skill]);
-    };
-
-    const handleSkillDelete = (skillName: string): void => {
-        setSelectedSkills((previousSkills) =>
-            previousSkills.filter((skill) => skill != skillName),
-        );
-        resetField('hardSkills');
-    };
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
@@ -103,30 +81,12 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 name="hardSkills"
                 required
             >
-                <SearchableDropdown
+                <AutocompleteMultiSelector
                     items={JOB_TITLES}
-                    onItemSelect={handleSkillSelect}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
                 />
-                <View
-                    style={[
-                        globalStyles.mt15,
-                        globalStyles.flexDirectionRow,
-                        styles.tagContainer,
-                    ]}
-                >
-                    {selectedSkills.map((skill) => (
-                        <Tag
-                            key={skill}
-                            value={skill}
-                            onPress={handleSkillDelete}
-                            iconName={IconName.CLOSE}
-                            iconSize={15}
-                        />
-                    ))}
-                </View>
             </FormField>
 
             <FormField

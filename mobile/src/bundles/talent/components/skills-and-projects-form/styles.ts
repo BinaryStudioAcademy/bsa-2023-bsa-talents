@@ -5,10 +5,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
-    tagContainer: {
-        gap: 5,
-        flexWrap: 'wrap',
-    },
     links: {
         gap: 5,
         position: 'relative',
