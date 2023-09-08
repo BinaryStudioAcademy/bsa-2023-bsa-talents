@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 26px;
-    width: 328px;
+    max-width: var(--step-width);
     padding: 10px;
 }
 

@@ -7,7 +7,7 @@
 .formControl {
     display: flex;
     align-items: center;
-    max-width: 328px;
+    max-width: var(--step-width);
     margin-bottom: 20px;
     padding: 10px;
 }
