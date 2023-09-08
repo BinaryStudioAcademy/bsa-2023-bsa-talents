@@ -1,6 +1,11 @@
+const SINGLE_YEAR = 1;
+
 const getYearsTitle = (value?: number): string => {
-    const singleYear = 1;
-    return value ? `${value} year${value === singleYear ? '' : 's'}` : 'no';
+    if (!value) {
+        return 'no';
+    }
+
+    return `${value} year${value === SINGLE_YEAR ? '' : 's'}`;
 };
 
 export { getYearsTitle };
