@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { type UserSignInForm } from '~/bundles/auth/types/types';
+import { type UserSignInRequestDto } from '~/bundles/auth/types/types';
 import { userSignInValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
     Button,
-    Checkbox,
     FormField,
     Input,
     Link,
@@ -12,31 +11,24 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useState,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: (payload: UserSignInForm) => void;
+    onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm<UserSignInForm>({
+    const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
         defaultValues: USER_SIGN_IN_DEFAULT_VALUES,
         validationSchema: userSignInValidationSchema,
     });
-    const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit((userData) => {
-            onSubmit({ ...userData, isRememberMeChecked });
-        })();
-    }, [isRememberMeChecked, handleSubmit, onSubmit]);
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     return (
         <View
@@ -82,34 +74,17 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         secureTextEntry
                     />
                 </FormField>
-                <View
+                <Link
+                    textComponentCategory={TextCategory.CAPTION}
                     style={[
-                        globalStyles.flexDirectionRow,
-                        globalStyles.ph25,
-                        globalStyles.justifyContentSpaceAround,
-                        globalStyles.alignItemsCenter,
+                        globalStyles.alignSelfFlexEnd,
+                        globalStyles.pr10,
+                        styles.linkForgotPassword,
                     ]}
-                >
-                    <Checkbox
-                        label="Remember Me"
-                        isChecked={isRememberMeChecked}
-                        onChange={(): void => {
-                            setIsRememberMeChecked(!isRememberMeChecked);
-                        }}
-                    />
-                    <Link
-                        textComponentCategory={TextCategory.CAPTION}
-                        style={[
-                            globalStyles.alignSelfFlexEnd,
-                            globalStyles.pr10,
-                            styles.linkForgotPassword,
-                        ]}
-                        label="Forgot Password?"
-                        link={`/${AuthScreenName.SIGN_UP}`}
-                    />
-                    {/* TODO: Create forget password logic */}
-                </View>
-
+                    label="Forgot Password?"
+                    link={`/${AuthScreenName.SIGN_UP}`}
+                />
+                {/* TODO: Create forget password logic */}
                 <Button
                     style={[globalStyles.mb15, globalStyles.pv15]}
                     label="Login"
