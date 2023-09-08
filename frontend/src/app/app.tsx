@@ -9,7 +9,6 @@ import {
     useAppDispatch,
     useAppSelector,
     useEffect,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 
 const App: React.FC = () => {
@@ -18,21 +17,13 @@ const App: React.FC = () => {
         dataStatus: auth.dataStatus,
     }));
 
-    const [isUserFullfilled, setIsUserFullfilled] = useState(false);
-
-    useEffect(() => {
-        setIsUserFullfilled(
-            dataStatus === 'fulfilled' || dataStatus == 'rejected',
-        );
-    }, [dataStatus]);
-
     useEffect(() => {
         void dispatch(authActions.loadUser());
     }, [dispatch]);
 
     return (
         <>
-            {isUserFullfilled ? (
+            {dataStatus == 'fulfilled' || dataStatus == 'rejected' ? (
                 <PageLayout avatarUrl="" isOnline>
                     <RouterOutlet />
                 </PageLayout>
