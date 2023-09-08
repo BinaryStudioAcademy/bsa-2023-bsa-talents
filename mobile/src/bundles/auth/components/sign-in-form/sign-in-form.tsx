@@ -59,7 +59,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View style={styles.formWrapper}>
                 <FormField
                     errorMessage={errors.email?.message}
-                    label="Email*"
+                    required={true}
+                    label="Email"
                     name="email"
                 >
                     <Input
@@ -70,7 +71,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormField>
                 <FormField
                     errorMessage={errors.password?.message}
-                    label="Password*"
+                    label="Password"
+                    required={true}
                     name="password"
                 >
                     <Input
