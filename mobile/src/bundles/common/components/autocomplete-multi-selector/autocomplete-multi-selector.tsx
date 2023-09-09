@@ -19,6 +19,7 @@ import {
     useFormController,
     useMemo,
     useState,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -41,22 +42,19 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
-    const [isListVisible, setIsListVisible] = useState<boolean>(false);
     const [search, setSearch] = useState('');
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     const handleSearch = (text: string): void => {
         setSearch(text);
     };
 
-    const toggleIsListVisible = (): void => {
-        setIsListVisible((previous) => !previous);
-    };
     const handleItemSelect = (item: string): void => {
         if (value.includes(item)) {
             return;
         }
         value.push(item);
-        toggleIsListVisible();
+        toggleVisibility();
     };
 
     const handleItemDelete = (itemName: string): void => {
@@ -84,7 +82,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <TextInput
                     placeholder={placeholder}
                     onBlur={onBlur}
-                    onFocus={toggleIsListVisible}
+                    onFocus={toggleVisibility}
                     value={search}
                     onChangeText={handleSearch}
                     style={[
@@ -99,7 +97,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                         hasError && styles.error,
                     ]}
                 />
-                {isListVisible && (
+                {isVisible && (
                     <View
                         style={[
                             globalStyles.pl20,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
@@ -18,6 +18,7 @@ import {
     useCallback,
     useFormController,
     useMemo,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -43,15 +44,11 @@ const Selector = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
-    const [isListVisible, setIsListVisible] = useState(false);
-
-    const toggleIsListVisible = (): void => {
-        setIsListVisible((previous) => !previous);
-    };
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     const handlePressItem = useCallback(
         (option: string): void => {
-            toggleIsListVisible();
+            toggleVisibility();
             if (multiSelect) {
                 if (value.includes(option)) {
                     onChange(value.filter((item: string) => item !== option));
@@ -62,10 +59,10 @@ const Selector = <T extends FieldValues>({
                 onChange(option);
             }
         },
-        [value, multiSelect, onChange],
+        [toggleVisibility, multiSelect, value, onChange],
     );
 
-    const selectIconName = isListVisible
+    const selectIconName = isVisible
         ? IconName.ARROW_DROP_UP
         : IconName.ARROW_DROP_DOWN;
 
@@ -91,7 +88,7 @@ const Selector = <T extends FieldValues>({
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
                 ]}
-                onPress={toggleIsListVisible}
+                onPress={toggleVisibility}
             >
                 <Text category={TextCategory.LABEL}>
                     {selectedOptions.length > NO_SELECTED
@@ -104,7 +101,7 @@ const Selector = <T extends FieldValues>({
                     color={Color.PRIMARY}
                 />
             </Pressable>
-            {isListVisible && (
+            {isVisible && (
                 <View
                     style={[
                         globalStyles.pl20,
