@@ -1,5 +1,3 @@
-import { userSignUpValidationSchema } from '~/bundles/users/users.js';
-
 import { useAppForm, useCallback, useState } from '../../hooks/hooks.js';
 import {
     Button,
@@ -14,7 +12,7 @@ import styles from './styles.module.scss';
 type Properties = {
     label: string;
     modalLabel: string;
-    onSubmit: (payload: unknown) => void;
+    onSubmit: (payload: { isHired: boolean }) => void;
 };
 
 const options = [
@@ -29,23 +27,22 @@ const options = [
 ];
 
 const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
+    const { control } = useAppForm<{ check: string }>({
+        defaultValues: { check: 'false' },
+    });
+
     const [isHired, setIsHired] = useState(false);
     const [isSubmitStep, setIsSubmitStep] = useState(false);
 
-    const { control } = useAppForm<{ check: string }>({
-        defaultValues: { check: 'false' },
-        validationSchema: userSignUpValidationSchema,
-    });
-
-    const handleToSubmitStep = useCallback((): void => {
+    const handleToSubmitStep = useCallback(() => {
         setIsSubmitStep(true);
     }, []);
 
-    const handleModalClose = useCallback((): void => {
+    const handleModalClose = useCallback(() => {
         setIsSubmitStep(false);
     }, []);
 
-    const handleConfirm = useCallback((): void => {
+    const handleConfirm = useCallback(() => {
         onSubmit({ isHired });
         handleModalClose();
     }, [isHired, onSubmit, handleModalClose]);
