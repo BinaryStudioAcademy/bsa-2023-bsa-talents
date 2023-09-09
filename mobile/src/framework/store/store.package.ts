@@ -4,6 +4,7 @@ import {
     type ThunkMiddleware,
 } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
+import flipper from 'redux-flipper';
 
 import { authApi } from '~/bundles/auth/auth';
 import { reducer as authReducer } from '~/bundles/auth/store/slice';
@@ -50,11 +51,17 @@ class Store {
                 users: usersReducer,
             },
             middleware: (getDefaultMiddleware) => {
-                return getDefaultMiddleware({
+                const middleware = getDefaultMiddleware({
                     thunk: {
                         extraArgument: this.extraArguments,
                     },
                 });
+
+                if (__DEV__) {
+                    middleware.push(flipper());
+                }
+
+                return middleware;
             },
         });
     }

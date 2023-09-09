@@ -13,6 +13,7 @@ import {
     Link,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 
@@ -78,11 +79,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         className={styles.checkbox}
                     />
                     {/* TODO: Link to reset password route */}
-                    <Link to="/" className={styles.forgot}>
+                    <Link
+                        to={AppRoute.RESET_PASSWORD}
+                        className={styles.forgot}
+                    >
                         <span>Forgot Password?</span>
                     </Link>
                 </Grid>
-                <Button label="Login" className="btnLogin" type="submit" />
+                <Button label="Login" className="btn" type="submit" />
             </form>
             <Grid item className="footer">
                 <span className="span">Not Registered Yet?</span>
