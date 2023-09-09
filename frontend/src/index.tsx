@@ -45,44 +45,30 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.TALENT,
                                         element: (
                                             <ProtectedRoute>
-                                                <Onboarding />
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <Onboarding />
+                                                </PageLayout>
                                             </ProtectedRoute>
                                         ),
                                         children: [
                                             {
                                                 path: AppRoute.TALENT,
                                                 element: (
-                                                    <ProtectedRoute>
-                                                        <Navigate
-                                                            to={getStepRoute(
-                                                                STEP_ROUTES.STEP_01,
-                                                            )}
-                                                        />
-                                                    </ProtectedRoute>
+                                                    <Navigate
+                                                        to={getStepRoute(
+                                                            STEP_ROUTES.STEP_01,
+                                                        )}
+                                                    />
                                                 ),
                                             },
                                             {
                                                 path: AppRoute.TALENT_STEP,
-                                                element: (
-                                                    <ProtectedRoute>
-                                                        <StepNavigation />
-                                                    </ProtectedRoute>
-                                                ),
+                                                element: <StepNavigation />,
                                             },
                                         ],
-                                    },
-                                    {
-                                        path: '/home',
-                                        element: (
-                                            <ProtectedRoute>
-                                                <PageLayout
-                                                    avatarUrl=""
-                                                    isOnline
-                                                >
-                                                    <div></div>
-                                                </PageLayout>
-                                            </ProtectedRoute>
-                                        ),
                                     },
                                     {
                                         path: AppRoute.SIGN_IN,
