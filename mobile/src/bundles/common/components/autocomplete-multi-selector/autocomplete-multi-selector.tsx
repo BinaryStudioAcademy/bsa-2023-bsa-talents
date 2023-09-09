@@ -40,13 +40,17 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-    const { value, onBlur } = field;
+    const { value, onBlur, onChange } = field;
     const [isListVisible, setIsListVisible] = useState<boolean>(false);
+    const [search, setSearch] = useState('');
+
+    const handleSearch = (text: string): void => {
+        setSearch(text);
+    };
 
     const toggleIsListVisible = (): void => {
         setIsListVisible((previous) => !previous);
     };
-
     const handleItemSelect = (item: string): void => {
         if (value.includes(item)) {
             return;
@@ -56,21 +60,17 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     };
 
     const handleItemDelete = (itemName: string): void => {
-        return value.filter((item: string) => item !== itemName);
+        onChange(value.filter((item: string) => item !== itemName));
     };
 
     const filterItems = useCallback(
-        (items: string[]) => {
-            if (typeof value !== 'string') {
-                return items;
-            }
-            return items.filter(
+        (items: string[]) =>
+            items.filter(
                 (item) =>
-                    item.toLowerCase().includes(value.toLowerCase()) &&
+                    item.toLowerCase().includes(search.toLowerCase()) &&
                     !value.includes(item),
-            );
-        },
-        [value],
+            ),
+        [search, value],
     );
 
     const filteredItems = useMemo(
@@ -85,6 +85,8 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     placeholder={placeholder}
                     onBlur={onBlur}
                     onFocus={toggleIsListVisible}
+                    value={search}
+                    onChangeText={handleSearch}
                     style={[
                         globalStyles.pv10,
                         globalStyles.pl15,
