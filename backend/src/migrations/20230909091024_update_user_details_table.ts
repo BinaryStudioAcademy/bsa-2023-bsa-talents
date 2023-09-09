@@ -16,8 +16,7 @@ async function up(knex: Knex): Promise<void> {
 
 async function down(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.string(ColumnName.FULL_NAME).notNullable().alter();
-        table.integer(ColumnName.EXPERIENCE_YEARS);
+        table.integer(ColumnName.EXPERIENCE_YEARS).alter();
     });
 }
 
