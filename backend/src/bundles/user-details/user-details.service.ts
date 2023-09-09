@@ -24,6 +24,12 @@ class UserDetailsService implements Service {
         return this.userDetailsRepository.find({ ...payload });
     }
 
+    public async findByUserId(
+        userId: string,
+    ): Promise<UserDetailsEntity | null> {
+        return await this.userDetailsRepository.find({ userId });
+    }
+
     public findAll(): Promise<{ items: unknown[] }> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
