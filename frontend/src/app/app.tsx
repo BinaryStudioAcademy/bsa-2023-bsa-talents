@@ -21,14 +21,16 @@ const App: React.FC = () => {
         void dispatch(authActions.loadUser());
     }, [dispatch]);
 
+    if (
+        dataStatus !== DataStatus.FULFILLED &&
+        dataStatus !== DataStatus.REJECTED
+    ) {
+        return <Loader />;
+    }
+
     return (
         <>
-            {dataStatus !== DataStatus.FULFILLED &&
-            dataStatus !== DataStatus.REJECTED ? (
-                <Loader />
-            ) : (
-                <RouterOutlet />
-            )}
+            <RouterOutlet />
             <Notifications />
         </>
     );
