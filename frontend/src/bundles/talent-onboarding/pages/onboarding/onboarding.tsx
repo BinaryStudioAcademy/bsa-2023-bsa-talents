@@ -6,13 +6,14 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { NotFoundPage } from '~/bundles/common/pages/not-found/not-found.js';
 import {
     StepContent,
     Steps,
 } from '~/bundles/talent-onboarding/components/components.js';
 import {
     FIRST_ELEMENT,
-    STEP_NUMBER_FROM_ROUTE,
+    STEP_NUMBERS,
     STEP_ONE,
     STEP_ROUTES,
     STEPS_NUMBER,
@@ -26,12 +27,12 @@ const Onboarding: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const slugs = Object.keys(STEP_NUMBERS);
+    const slug = slugs.find((slug) => location.pathname.endsWith(slug));
+
     const [currentStep, setCurrentStep] = useState<number>(() => {
-        const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
-        const slug =
-            slugs.find((slug) => location.pathname.endsWith(slug)) ??
-            slugs[FIRST_ELEMENT];
-        return STEP_NUMBER_FROM_ROUTE[slug];
+        const slugToNumber = slug ?? slugs[FIRST_ELEMENT];
+        return STEP_NUMBERS[slugToNumber];
     });
 
     const handleNextStep = useCallback((): void => {
@@ -39,7 +40,7 @@ const Onboarding: React.FC = () => {
 
         const nextStepPath =
             STEP_ROUTES[
-                `STEP_0${currentStep + STEP_ONE}` as keyof typeof STEP_ROUTES
+                `STEP_0${currentStep + STEP_ONE}` 
             ];
 
         navigate(getStepRoute(nextStepPath));
@@ -50,11 +51,15 @@ const Onboarding: React.FC = () => {
 
         const previousStepPath =
             STEP_ROUTES[
-                `STEP_0${currentStep - STEP_ONE}` as keyof typeof STEP_ROUTES
+                `STEP_0${currentStep - STEP_ONE}` 
             ];
 
         navigate(getStepRoute(previousStepPath));
     }, [currentStep, navigate]);
+
+    if (!slug) {
+        return <NotFoundPage />;
+    }
 
     return (
         <FormSubmitProvider>

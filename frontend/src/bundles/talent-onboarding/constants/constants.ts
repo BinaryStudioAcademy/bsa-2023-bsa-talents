@@ -5,23 +5,17 @@ const LAST_TWO_CHARS = -2;
 const STEP_ONE = 1;
 const STEPS_NUMBER = 5;
 
-const STEP_ROUTES = Object.fromEntries(
-    Object.entries(Steps).map(([key, value]) => [
-        key,
-        value.toLowerCase().replaceAll(' ', '-'),
-    ]),
-) as { [K in keyof typeof Steps]: string };
+const StepKeys = Object.keys(Steps);
 
-const STEP_NUMBER_FROM_ROUTE = Object.fromEntries(
-    Object.entries(STEP_ROUTES)
-        .map((x) => x.reverse())
-        .map(([key, value]) => [key, Number(value.slice(LAST_TWO_CHARS))]),
-);
+const STEP_ROUTES: Record<string, string> = {};
+for (const key of StepKeys) {(STEP_ROUTES[key] = Steps[key as keyof typeof Steps]
+            .toLowerCase()
+            .replaceAll(' ', '-'))
+;}
 
-export {
-    FIRST_ELEMENT,
-    STEP_NUMBER_FROM_ROUTE,
-    STEP_ONE,
-    STEP_ROUTES,
-    STEPS_NUMBER,
-};
+const STEP_NUMBERS: Record<string, number> = {};
+for (const key of StepKeys) {
+    STEP_NUMBERS[STEP_ROUTES[key]] = Number(key.slice(LAST_TWO_CHARS));
+}
+
+export { FIRST_ELEMENT, STEP_NUMBERS, STEP_ONE, STEP_ROUTES, STEPS_NUMBER };
