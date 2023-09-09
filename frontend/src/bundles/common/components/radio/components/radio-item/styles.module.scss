@@ -1,4 +1,4 @@
-.radio-icon {
+.radioIcon {
     width: 16px;
     height: 16px;
     margin: 5px;
@@ -14,21 +14,21 @@
         inset 0 -1px 1px var(--shadow-secondary);
 }
 
-.radio-icon.Mui-focusVisible {
+.radioIcon.Mui-focusVisible {
     outline: 2px auto var(--shadow-primary);
     outline-offset: 2px;
 }
 
-.radio-icon input:hover {
+.radioIcon input:hover {
     background-color: var(--background-primary);
 }
 
-.radio-icon input:disabled {
+.radioIcon input:disabled {
     background: var(--nepal);
     box-shadow: none;
 }
 
-.radio-icon-checked {
+.radioIconChecked {
     background-color: var(--background-secondary);
     background-image: linear-gradient(
         180deg,
@@ -37,7 +37,7 @@
     );
 }
 
-.radio-icon-checked::before {
+.radioIconChecked::before {
     display: block;
     width: 16px;
     height: 16px;
@@ -49,6 +49,6 @@
     content: "";
 }
 
-.radio-icon-checked input:hover {
+.radioIconChecked input:hover {
     background-color: var(--background-secondary);
 }

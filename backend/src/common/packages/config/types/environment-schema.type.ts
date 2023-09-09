@@ -5,6 +5,7 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+        HOST: string;
     };
     JWT: {
         SECRET: string;
@@ -12,7 +13,11 @@ type EnvironmentSchema = {
         ALG: string;
     };
     DB: {
-        CONNECTION_STRING: string;
+        USERNAME: string;
+        PASSWORD: string;
+        HOST: string;
+        PORT: number;
+        NAME: string;
         DIALECT: string;
         POOL_MIN: number;
         POOL_MAX: number;

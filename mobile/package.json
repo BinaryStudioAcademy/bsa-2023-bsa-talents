@@ -4,7 +4,7 @@
     "private": true,
     "engines": {
         "node": "18.x.x",
-        "npm": "9.x.x"
+        "npm": "8.x.x"
     },
     "scripts": {
         "android": "react-native run-android",
@@ -54,6 +54,8 @@
         "babel-plugin-module-resolver": "5.0.0",
         "eslint": "8.47.0",
         "metro-react-native-babel-preset": "0.76.8",
-        "prettier": "3.0.2"
+        "prettier": "3.0.2",
+        "react-native-flipper": "0.212.0",
+        "redux-flipper": "2.0.2"
     }
 }

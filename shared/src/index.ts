@@ -1,5 +1,9 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type BsaBadgesStepDto,
+    BsaBadgesStepValidationMessage,
+    BsaBadgesStepValidationRule,
+    BsaBadgesStepValidationSchema,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
@@ -8,10 +12,6 @@ export {
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
     SkillsStepValidationSchema,
-} from './bundles/talent-onboarding/talent-onboarding.js';
-export {
-    type ContactsCVStepDto,
-    contactsCVStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,

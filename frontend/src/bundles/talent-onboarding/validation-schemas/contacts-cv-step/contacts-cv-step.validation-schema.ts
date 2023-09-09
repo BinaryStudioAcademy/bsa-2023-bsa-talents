@@ -3,10 +3,10 @@ import joi from 'joi';
 import {
     ContactsCVStepValidationMessage,
     ContactsCVStepValidationRule,
-} from '../enums/enums.js';
-import { type ContactsCVStepDto } from '../types/types.js';
+} from '../../enums/enums.js';
+import { type ContactsCVStepDto } from '../../types/types.js';
 
-const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
+const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     photo: joi.object().instance(File).required(),
     fullName: joi
         .string()
@@ -23,7 +23,7 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
                 ContactsCVStepValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    phoneNumber: joi
+    phone: joi
         .string()
         .pattern(/^\+\d{12}$/)
         .required()
@@ -34,7 +34,7 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
                 ContactsCVStepValidationMessage.PHONE_NUMBER_PATTERN,
         }),
 
-    linkedInLink: joi
+    linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
@@ -54,4 +54,4 @@ const contactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     cv: joi.object().instance(File).required(),
 });
 
-export { contactsCVStepValidationSchema };
+export { ContactsCVStepValidationSchema };

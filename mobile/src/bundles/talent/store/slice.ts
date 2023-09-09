@@ -30,7 +30,7 @@ const { reducer, actions, name } = createSlice({
             const {
                 profileName,
                 salaryExpectation,
-                employmentTypes,
+                employmentType,
                 experienceYears,
                 jobTitle,
                 location,
@@ -40,7 +40,7 @@ const { reducer, actions, name } = createSlice({
             state.profileStepData = {
                 profileName,
                 salaryExpectation,
-                employmentTypes,
+                employmentType,
                 experienceYears,
                 jobTitle,
                 location,
