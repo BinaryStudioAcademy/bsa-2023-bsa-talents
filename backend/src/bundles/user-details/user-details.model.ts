@@ -60,7 +60,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'photoId': string | null;
 
-    public 'fullName': string;
+    public 'fullName': string | null;
 
     public 'phone': string | null;
 
