@@ -6,7 +6,7 @@ const DEFAULT_PAYLOAD_PROFILE_STEP: ProfileStepDto = {
     jobTitle: ' ',
     location: ' ',
     experienceYears: 0,
-    employmentTypes: [],
+    employmentType: [],
     description: '',
 };
 

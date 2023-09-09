@@ -8,6 +8,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { Steps } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
+import { useFormSubmit } from '../../context/context.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -21,6 +22,17 @@ const StepContent: React.FC<Properties> = ({
     onNextStep,
     onPreviousStep,
 }) => {
+    const { submitForm } = useFormSubmit();
+
+    const handleNextClick = async (): Promise<void> => {
+        if (submitForm) {
+            const success = await submitForm();
+            if (success) {
+                onNextStep();
+            }
+        }
+    };
+
     return (
         <Grid item className={styles.stepContent}>
             <Grid className={styles.stepTitle}>
@@ -40,8 +52,6 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    {/* for now I`ve just prevented working these funcs when user reach step 5
-                 when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER
@@ -56,16 +66,17 @@ const StepContent: React.FC<Properties> = ({
                         variant={
                             currentStep === STEP_ONE ? 'contained' : 'outlined'
                         }
-                        className={styles.buttonBack}
+                        className={getValidClassNames(
+                            styles.button,
+                            styles.buttonBack,
+                        )}
                         disabled={currentStep === STEP_ONE}
                     />
-                    {/* for now I`ve just prevented working these funcs when user reach step 5
-                 when we have next part of app we should change it (onClick) */}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER
                                 ? undefined
-                                : onNextStep
+                                : handleNextClick
                         }
                         label={
                             currentStep === STEPS_NUMBER
@@ -73,7 +84,10 @@ const StepContent: React.FC<Properties> = ({
                                 : 'Next'
                         }
                         variant="contained"
-                        className={styles.buttonNext}
+                        className={getValidClassNames(
+                            styles.button,
+                            styles.buttonNext,
+                        )}
                     />
                 </Grid>
             </Grid>
