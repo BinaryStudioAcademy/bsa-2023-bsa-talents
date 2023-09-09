@@ -25,4 +25,16 @@ const updateTalentDetails = createAsyncThunk<
         : talentOnBoardingApi.createUserDetails(registerPayload));
 });
 
-export { updateTalentDetails };
+const getTalentDetails = createAsyncThunk<
+    UserDetailsGeneralCustom | null,
+    UserDetailsGeneralCustom,
+    AsyncThunkConfig
+>(`${sliceName}/get-talent-details`, async (findPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    return await talentOnBoardingApi.getUserDetailsByUserId({
+        userId: findPayload.userId,
+    });
+});
+
+export { getTalentDetails, updateTalentDetails };

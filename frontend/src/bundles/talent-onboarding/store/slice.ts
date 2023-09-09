@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { type UserDetailsUpdateRequestDto } from 'shared/build/index.js';
+import {
+    type UserDetailsFindRequestDto,
+    type UserDetailsUpdateRequestDto,
+} from 'shared/build/index.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
 import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step/constants/constants.js';
@@ -8,7 +11,7 @@ import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants
 import { fromUrlLinks } from '../helpers/helpers.js';
 import { mockBadges } from '../mock-data/mock-data.js';
 import { type UserDetailsGeneralCustom } from '../types/types.js';
-import { updateTalentDetails } from './actions.js';
+import { getTalentDetails, updateTalentDetails } from './actions.js';
 
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
@@ -27,8 +30,36 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
+            const noNullableKeysArray = new Set([
+                'notConsidered',
+                'preferredLanguages',
+                'employmentType',
+            ]);
+            const noNullableKeysString = new Set([
+                'fullName',
+                'linkedinLink',
+                'phone',
+            ]);
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
+                if (
+                    noNullableKeysArray.has(typedKey) &&
+                    action.payload[typedKey] === null
+                ) {
+                    state[typedKey] = [];
+                } else if (
+                    noNullableKeysString.has(typedKey) &&
+                    action.payload[typedKey] === null
+                ) {
+                    state[typedKey] = '';
+                } else {
+                    state[typedKey] = action.payload[typedKey];
+                }
+            }
+        });
+        builder.addCase(getTalentDetails.fulfilled, (state, action) => {
+            for (const key in action.payload) {
+                const typedKey = key as keyof UserDetailsFindRequestDto;
                 state[typedKey] = action.payload[typedKey];
             }
         });

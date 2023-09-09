@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 type Properties = {
     currentStep: number;
     onNextStep: () => void;
-    onPreviousStep: () => void;
+    onPreviousStep: () => Promise<void>;
 };
 
 const StepContent: React.FC<Properties> = ({
