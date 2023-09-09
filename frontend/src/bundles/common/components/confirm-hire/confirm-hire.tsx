@@ -84,7 +84,7 @@ const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
                             className={styles.radioGroup}
                             control={control}
                             options={options}
-                            name={'check'}
+                            name="check"
                         />
                     </FormControl>
 
