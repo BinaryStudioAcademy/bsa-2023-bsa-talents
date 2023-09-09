@@ -2,6 +2,7 @@ import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
+    AutocompleteSelector,
     Button,
     FormField,
     Input,
@@ -93,6 +94,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
+                    value={undefined}
                 />
             </FormField>
             <FormField
@@ -130,10 +132,10 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector
+                <AutocompleteSelector
                     control={control}
                     name="location"
-                    options={locationOptions}
+                    items={locationOptions}
                     placeholder="Option"
                 />
             </FormField>
