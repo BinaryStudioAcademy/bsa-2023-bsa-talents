@@ -2,6 +2,7 @@ import arrowIcon from '~/assets/img/arrow-right.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import {
     useCallback,
+    useEffect,
     useLocation,
     useNavigate,
     useState,
@@ -56,6 +57,16 @@ const Onboarding: React.FC = () => {
         navigate(getStepRoute(previousStepPath));
     }, [currentStep, navigate]);
 
+    useEffect(() => {
+        const updateStepFromLocation = (): void => {
+            const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
+            const slug =
+                slugs.find((slug) => location.pathname.endsWith(slug)) ??
+                slugs[FIRST_ELEMENT];
+            setCurrentStep(STEP_NUMBER_FROM_ROUTE[slug]);
+        };
+        updateStepFromLocation();
+    }, [location.pathname]);
     return (
         <FormSubmitProvider>
             <Grid className={styles.careerWrapper}>
