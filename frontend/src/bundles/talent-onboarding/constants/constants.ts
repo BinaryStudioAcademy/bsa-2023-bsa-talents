@@ -8,10 +8,11 @@ const STEPS_NUMBER = 5;
 const StepKeys = Object.keys(Steps);
 
 const STEP_ROUTES: Record<string, string> = {};
-for (const key of StepKeys) {(STEP_ROUTES[key] = Steps[key as keyof typeof Steps]
-            .toLowerCase()
-            .replaceAll(' ', '-'))
-;}
+for (const key of StepKeys) {
+    STEP_ROUTES[key] = Steps[key as keyof typeof Steps]
+        .toLowerCase()
+        .replaceAll(' ', '-');
+}
 
 const STEP_NUMBERS: Record<string, number> = {};
 for (const key of StepKeys) {

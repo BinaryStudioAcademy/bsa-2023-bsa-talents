@@ -38,10 +38,7 @@ const Onboarding: React.FC = () => {
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + STEP_ONE);
 
-        const nextStepPath =
-            STEP_ROUTES[
-                `STEP_0${currentStep + STEP_ONE}` 
-            ];
+        const nextStepPath = STEP_ROUTES[`STEP_0${currentStep + STEP_ONE}`];
 
         navigate(getStepRoute(nextStepPath));
     }, [currentStep, navigate]);
@@ -49,10 +46,7 @@ const Onboarding: React.FC = () => {
     const handlePreviousStep = useCallback((): void => {
         setCurrentStep(currentStep - STEP_ONE);
 
-        const previousStepPath =
-            STEP_ROUTES[
-                `STEP_0${currentStep - STEP_ONE}` 
-            ];
+        const previousStepPath = STEP_ROUTES[`STEP_0${currentStep - STEP_ONE}`];
 
         navigate(getStepRoute(previousStepPath));
     }, [currentStep, navigate]);
