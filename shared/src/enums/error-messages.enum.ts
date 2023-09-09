@@ -6,6 +6,7 @@ const ErrorMessages = {
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',
     MISSING_TOKEN: 'Missing token.',
     INVALID_TOKEN: 'Invalid token.',
+    UNAUTHORIZED_USER: 'User not authorized.',
     NOT_FOUND: 'Not found.',
     UPDATE_FAILED: 'Update failed.',
     UNKNOWN_ERROR: 'Application error.',
