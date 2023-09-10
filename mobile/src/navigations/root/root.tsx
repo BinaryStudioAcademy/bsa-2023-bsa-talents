@@ -4,8 +4,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { loadUser } from '~/bundles/auth/store/actions';
-import { Overlay } from '~/bundles/common/components/components';
+import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -39,11 +38,11 @@ const Root: React.FC = () => {
     const isPendingAuth = dataStatus === DataStatus.PENDING;
 
     useEffect(() => {
-        void dispatch(loadUser());
+        void dispatch(loadCurrentUser());
     }, [dispatch]);
 
     if (isPendingAuth) {
-        return <Overlay isActive={isPendingAuth} />;
+        return null;
     }
 
     const renderStackScreen = (): React.JSX.Element => {
