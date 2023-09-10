@@ -18,8 +18,20 @@ const STEP_NUMBER_FROM_ROUTE = Object.fromEntries(
         .map(([key, value]) => [key, Number(value.slice(LAST_TWO_CHARS))]),
 );
 
+const NOT_NULLABLE_KEY_ARRAY = new Set([
+    'notConsidered',
+    'preferredLanguages',
+    'employmentType',
+    'hardSkills',
+    'projectLinks',
+]);
+
+const NOT_NULLABLE_KEY_STRING = new Set(['fullName', 'linkedinLink', 'phone']);
+
 export {
     FIRST_ELEMENT,
+    NOT_NULLABLE_KEY_ARRAY,
+    NOT_NULLABLE_KEY_STRING,
     STEP_NUMBER_FROM_ROUTE,
     STEP_ONE,
     STEP_ROUTES,
