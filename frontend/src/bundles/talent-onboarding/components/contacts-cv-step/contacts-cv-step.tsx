@@ -1,5 +1,5 @@
 import { Add as PlusIcon } from '@mui/icons-material';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     type ControllerFieldState,
     type ControllerRenderProps,
@@ -37,21 +37,30 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    const { photo, fullName, phone, linkedinLink, cv } = useAppSelector(
+    const { fullName, phone, linkedinLink } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
-    const { control, handleSubmit, errors, setError, watch } =
+    const { control, handleSubmit, errors, setError, watch, reset } =
         useAppForm<ContactsCVStepDto>({
-            defaultValues: {
-                photo,
-                fullName,
-                phone,
-                linkedinLink,
-                cv,
-            },
+            defaultValues: useMemo(
+                () => ({
+                    fullName,
+                    phone,
+                    linkedinLink,
+                }),
+                [fullName, linkedinLink, phone],
+            ),
             validationSchema: ContactsCVStepValidationSchema,
         });
+
+    useEffect(() => {
+        reset({
+            fullName,
+            phone,
+            linkedinLink,
+        });
+    }, [fullName, phone, linkedinLink, reset]);
 
     const { setSubmitForm } = useFormSubmit();
 

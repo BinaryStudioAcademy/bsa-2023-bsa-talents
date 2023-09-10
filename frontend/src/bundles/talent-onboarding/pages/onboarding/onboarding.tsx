@@ -4,6 +4,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useLocation,
     useNavigate,
     useState,
@@ -64,6 +65,10 @@ const Onboarding: React.FC = () => {
 
         navigate(getStepRoute(previousStepPath));
     }, [currentStep, currentUser?.id, dispatch, navigate]);
+
+    useEffect(() => {
+        void dispatch(actions.getTalentDetails({ userId: currentUser?.id }));
+    }, [currentUser?.id, dispatch]);
 
     return (
         <FormSubmitProvider>
