@@ -4,6 +4,7 @@ import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
@@ -43,4 +44,24 @@ const updateOnboardingData = createAsyncThunk<
 
 const setCompletedStep = createAction<number>(`${sliceName}/setCompletedStep`);
 
-export { createTalentDetails, setCompletedStep, updateOnboardingData };
+const getTalentDetails = createAsyncThunk<
+    UserDetailsResponseDto | null,
+    UserDetailsFindRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/getTalentDetails`, (detailsPayload, { extra }) => {
+    const { talentApi, notifications } = extra;
+    try {
+        return talentApi.getTalentDetailsById(detailsPayload);
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
+});
+
+export {
+    createTalentDetails,
+    getTalentDetails,
+    setCompletedStep,
+    updateOnboardingData,
+};

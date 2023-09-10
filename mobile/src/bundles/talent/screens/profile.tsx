@@ -12,6 +12,7 @@ import {
     useAppRoute,
     useAppSelector,
     useCallback,
+    useEffect,
     useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -24,15 +25,39 @@ import {
     ProfileForm,
 } from '~/bundles/talent/components/components';
 import { actions as talentActions } from '~/bundles/talent/store';
-import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import {
+    type ProfileStepDto,
+    type UserDetailsFindRequestDto,
+} from '~/bundles/talent/types/types';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { profileStepData, completedStep } = useAppSelector(
+    const { completedStep, onboardingData } = useAppSelector(
         ({ talents }) => talents,
     );
     const { currentUser } = useAppSelector(({ auth }) => auth);
+
+    const {
+        profileName,
+        salaryExpectation,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+    } = onboardingData ?? {};
+    const profileStepData: ProfileStepDto | null = onboardingData
+        ? ({
+              profileName,
+              salaryExpectation,
+              jobTitle,
+              location,
+              experienceYears,
+              employmentType,
+              description,
+          } as ProfileStepDto)
+        : null;
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -41,6 +66,13 @@ const Profile: React.FC = () => {
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
+
+    useEffect(() => {
+        const payload: UserDetailsFindRequestDto = {
+            userId: currentUser?.id ?? '',
+        };
+        void dispatch(talentActions.getTalentDetails(payload));
+    }, [currentUser?.id, dispatch]);
 
     const handleSubmit = useCallback(
         async (payload: ProfileStepDto): Promise<void> => {
@@ -91,6 +123,7 @@ const Profile: React.FC = () => {
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm
+                key={profileStepData?.profileName ?? 'no-profile-data'}
                 profileStepData={profileStepData}
                 onSubmit={handleProfileSubmit}
             />

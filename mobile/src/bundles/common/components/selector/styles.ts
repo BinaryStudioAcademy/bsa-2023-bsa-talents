@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         zIndex: 1,
     },
+    placeholder: {
+        color: Color.TEXT2,
+    },
 });
 
 export { styles };

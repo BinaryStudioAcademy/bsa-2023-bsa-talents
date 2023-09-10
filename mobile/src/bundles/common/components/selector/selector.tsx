@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
@@ -14,7 +14,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import { useFormController, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -38,6 +38,8 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const [isListVisible, setIsListVisible] = useState(false);
+
+    const placeHolderStyle = value ? {} : styles.placeholder;
 
     const toggleIsListVisible = (): void => {
         setIsListVisible((previous) => !previous);
@@ -69,7 +71,7 @@ const Selector = <T extends FieldValues>({
                 ]}
                 onPress={toggleIsListVisible}
             >
-                <Text category={TextCategory.LABEL}>
+                <Text category={TextCategory.LABEL} style={placeHolderStyle}>
                     {selectedOption ?? placeholder}
                 </Text>
                 <Icon

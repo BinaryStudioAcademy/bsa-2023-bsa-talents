@@ -76,9 +76,12 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <Input
                     control={control}
                     name="salaryExpectation"
-                    placeholder="0000"
+                    placeholder={
+                        profileStepData?.salaryExpectation ? undefined : '0000'
+                    }
                     keyboardType="numeric"
                     marker="$"
+                    defaultValue={profileStepData?.salaryExpectation.toString()}
                     value={undefined}
                 />
             </FormField>
