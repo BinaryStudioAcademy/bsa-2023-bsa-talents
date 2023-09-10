@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, TextField, type TextFieldProps } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -28,9 +28,7 @@ type Properties<T extends FieldValues> = {
     inputClassNames?: string;
     defaultValue?: string;
     inputRef?: RefCallBack;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value?: string;
-};
+} & TextFieldProps;
 
 const Input = <T extends FieldValues>({
     control,

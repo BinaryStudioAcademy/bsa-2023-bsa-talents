@@ -1,5 +1,6 @@
 import {
     CheckOutlined as CheckIcon,
+    Close as CloseIcon,
     DeleteOutline as DeleteIcon,
     EditOutlined as EditIcon,
 } from '@mui/icons-material';
@@ -29,14 +30,12 @@ type Properties<T extends FieldValues> = {
     errors: FieldErrors<T>;
     name: Path<T>;
     applyTemplate: (message: string) => () => void;
-    removeTemplate: (templateName: string) => () => void;
 };
 
-const TemplateItem = <T extends FieldValues>({
+const MessageTemplate = <T extends FieldValues>({
     template,
     templates,
     applyTemplate,
-    removeTemplate,
     control,
     errors,
     name,
@@ -44,10 +43,11 @@ const TemplateItem = <T extends FieldValues>({
     const dispatch = useAppDispatch();
     const [isEdit, setIsEdit] = useState(false);
     const [editedName, setEditedName] = useState(template.name);
+
     const editTemplate = useCallback(() => {
-        // console.log(name);
         setIsEdit(true);
     }, []);
+
     const handleNameChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setEditedName(event.target.value);
@@ -72,6 +72,17 @@ const TemplateItem = <T extends FieldValues>({
         [dispatch, editedName, templates],
     );
 
+    function cancelTemplateEdit(): void {
+        setIsEdit(false);
+    }
+
+    const removeTemplate = useCallback(
+        (templateName: string) => (): void => {
+            void dispatch(candidateActions.removeMessageTemplate(templateName));
+        },
+        [dispatch],
+    );
+
     return isEdit ? (
         <Grid container justifyContent={'space-between'}>
             <Input
@@ -86,7 +97,6 @@ const TemplateItem = <T extends FieldValues>({
                 value={editedName}
                 onChange={handleNameChange}
             />
-            {/* <input value={editedName} onChange={handleNameChange}></input> */}
             <Grid>
                 <Button
                     className={getValidClassNames(
@@ -104,9 +114,10 @@ const TemplateItem = <T extends FieldValues>({
                         styles.deleteButton,
                     )}
                     label=""
-                    onClick={removeTemplate(template.name)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onClick={cancelTemplateEdit}
                     variant="outlined"
-                    endIcon={<DeleteIcon className={styles.deleteIcon} />}
+                    endIcon={<CloseIcon className={styles.deleteIcon} />}
                 />
             </Grid>
         </Grid>
@@ -147,4 +158,4 @@ const TemplateItem = <T extends FieldValues>({
     );
 };
 
-export { TemplateItem };
+export { MessageTemplate };
