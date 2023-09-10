@@ -15,6 +15,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
@@ -62,6 +63,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 element: <StepNavigation />,
                                             },
                                         ],
+                                    },
+                                    {
+                                        path: AppRoute.CHATS,
+                                        element: <ChatsPage />,
                                     },
                                 ],
                             },

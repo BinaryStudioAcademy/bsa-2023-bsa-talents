@@ -12,7 +12,7 @@ const menuItems = [
         icon: <FolderShared />,
     },
     {
-        link: AppRoute.SIGN_UP,
+        link: AppRoute.CHATS,
         name: 'Chats',
         icon: <EmailRounded />,
     },

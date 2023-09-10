@@ -1,5 +1,6 @@
 const AppRoute = {
     ROOT: '/',
+    CHATS: '/chats',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     RESET_PASSWORD: '/reset-password',
