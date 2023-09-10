@@ -31,9 +31,7 @@ const Root: React.FC = () => {
     const { isProfileComplete, role } = userData ?? {};
     const dispatch = useAppDispatch();
 
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
 
     const isPendingAuth = dataStatus === DataStatus.PENDING;
 
