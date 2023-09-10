@@ -19,7 +19,7 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { fileSizeValidation } from '~/bundles/talent/helpers/file-size-validation';
 import { notifications } from '~/framework/notifications/notifications';
 
