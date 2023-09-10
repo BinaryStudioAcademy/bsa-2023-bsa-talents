@@ -4,7 +4,7 @@
     "private": true,
     "engines": {
         "node": "18.x.x",
-        "npm": "9.x.x"
+        "npm": "8.x.x"
     },
     "scripts": {
         "android": "react-native run-android",
@@ -36,7 +36,6 @@
         "react-native-reanimated": "3.4.2",
         "react-native-safe-area-context": "4.7.1",
         "react-native-screens": "3.24.0",
-        "react-native-toast-message": "2.1.6",
         "react-native-splash-screen": "3.3.0",
         "react-native-toast-message": "2.1.6",
         "react-native-vector-icons": "10.0.0",
@@ -55,6 +54,8 @@
         "babel-plugin-module-resolver": "5.0.0",
         "eslint": "8.47.0",
         "metro-react-native-babel-preset": "0.76.8",
-        "prettier": "3.0.2"
+        "prettier": "3.0.2",
+        "react-native-flipper": "0.212.0",
+        "redux-flipper": "2.0.2"
     }
 }
