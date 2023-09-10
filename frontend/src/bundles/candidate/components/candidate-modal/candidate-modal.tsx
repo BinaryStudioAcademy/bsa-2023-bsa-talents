@@ -61,25 +61,19 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
         control,
     });
 
-    const addLink = useCallback(() => {
+    const addLink = (): void => {
         append({
             value: '',
         });
-    }, [append]);
+    };
 
-    const removeLink = useCallback(
-        (index: number) => (): void => {
-            remove(index);
-        },
-        [remove],
-    );
+    const removeLink = (index: number) => (): void => {
+        remove(index);
+    };
 
-    const applyTemplate = useCallback(
-        (message: string) => (): void => {
-            setValue('message', message);
-        },
-        [setValue],
-    );
+    const applyTemplate = (message: string) => (): void => {
+        setValue('message', message);
+    };
 
     const onSubmit: SubmitHandler<ContactCandidateDto> = useCallback(
         (data: ContactCandidateDto): void => {
@@ -207,6 +201,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                 styles.addLink,
                             )}
                             disabled={fields.length === MODAL_CONST.MAX_LINKS}
+                            // eslint-disable-next-line react/jsx-no-bind
                             onClick={addLink}
                             variant="text"
                             label="Add more links"
@@ -279,6 +274,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                         key={template.name}
                                         template={template}
                                         templates={messageTemplates}
+                                        // eslint-disable-next-line react/jsx-no-bind
                                         applyTemplate={applyTemplate}
                                         control={templateControl}
                                         errors={templateErrors}

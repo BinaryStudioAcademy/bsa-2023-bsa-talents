@@ -44,16 +44,19 @@ const MessageTemplate = <T extends FieldValues>({
     const [isEdit, setIsEdit] = useState(false);
     const [editedName, setEditedName] = useState(template.name);
 
-    const editTemplate = useCallback(() => {
+    const editTemplate = (): void => {
         setIsEdit(true);
-    }, []);
+    };
 
-    const handleNameChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setEditedName(event.target.value);
-        },
-        [],
-    );
+    const cancelTemplateEdit = (): void => {
+        setIsEdit(false);
+    };
+
+    const handleNameChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ): void => {
+        setEditedName(event.target.value);
+    };
 
     const confirmTemplateEdit = useCallback(
         (oldName: string) => (): void => {
@@ -72,10 +75,6 @@ const MessageTemplate = <T extends FieldValues>({
         [dispatch, editedName, templates],
     );
 
-    function cancelTemplateEdit(): void {
-        setIsEdit(false);
-    }
-
     const removeTemplate = useCallback(
         (templateName: string) => (): void => {
             void dispatch(candidateActions.removeMessageTemplate(templateName));
@@ -89,35 +88,32 @@ const MessageTemplate = <T extends FieldValues>({
                 className={getValidClassNames(
                     styles.button,
                     styles.templateButton,
+                    styles.template,
+                    styles.templateInput,
                 )}
                 placeholder="Template name"
                 control={control}
                 errors={errors}
                 name={name}
                 value={editedName}
+                // eslint-disable-next-line react/jsx-no-bind
                 onChange={handleNameChange}
             />
-            <Grid>
+            <Grid className={styles.buttonsContainer}>
                 <Button
-                    className={getValidClassNames(
-                        styles.button,
-                        styles.deleteButton,
-                    )}
+                    className={getValidClassNames(styles.button)}
                     label=""
                     onClick={confirmTemplateEdit(template.name)}
                     variant="outlined"
-                    endIcon={<CheckIcon className={styles.deleteIcon} />}
+                    endIcon={<CheckIcon className={styles.buttonIcon} />}
                 />
                 <Button
-                    className={getValidClassNames(
-                        styles.button,
-                        styles.deleteButton,
-                    )}
+                    className={getValidClassNames(styles.button)}
                     label=""
                     // eslint-disable-next-line react/jsx-no-bind
                     onClick={cancelTemplateEdit}
                     variant="outlined"
-                    endIcon={<CloseIcon className={styles.deleteIcon} />}
+                    endIcon={<CloseIcon className={styles.buttonIcon} />}
                 />
             </Grid>
         </Grid>
@@ -127,31 +123,27 @@ const MessageTemplate = <T extends FieldValues>({
                 className={getValidClassNames(
                     styles.button,
                     styles.templateButton,
+                    styles.template,
                 )}
                 onClick={applyTemplate(template.message)}
                 variant="text"
                 label={template.name}
             />
-            <Grid>
+            <Grid className={styles.buttonsContainer}>
                 <Button
-                    className={getValidClassNames(
-                        styles.button,
-                        styles.deleteButton,
-                    )}
+                    className={getValidClassNames(styles.button)}
                     label=""
+                    // eslint-disable-next-line react/jsx-no-bind
                     onClick={editTemplate}
                     variant="outlined"
-                    endIcon={<EditIcon className={styles.deleteIcon} />}
+                    endIcon={<EditIcon className={styles.buttonIcon} />}
                 />
                 <Button
-                    className={getValidClassNames(
-                        styles.button,
-                        styles.deleteButton,
-                    )}
+                    className={getValidClassNames(styles.button)}
                     label=""
                     onClick={removeTemplate(template.name)}
                     variant="outlined"
-                    endIcon={<DeleteIcon className={styles.deleteIcon} />}
+                    endIcon={<DeleteIcon className={styles.buttonIcon} />}
                 />
             </Grid>
         </Grid>
