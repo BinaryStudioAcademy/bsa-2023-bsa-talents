@@ -9,13 +9,14 @@ const ColumnName = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.setNullable(ColumnName.FULL_NAME);
+        table.string(ColumnName.FULL_NAME).nullable().alter();
         table.decimal(ColumnName.EXPERIENCE_YEARS).alter();
     });
 }
 
 async function down(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
+        table.string(ColumnName.FULL_NAME).notNullable().alter();
         table.integer(ColumnName.EXPERIENCE_YEARS).alter();
     });
 }

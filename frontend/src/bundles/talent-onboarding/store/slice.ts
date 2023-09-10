@@ -1,8 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
     type UserDetailsFindRequestDto,
     type UserDetailsUpdateRequestDto,
 } from 'shared/build/index.js';
+
+import { DataStatus } from '~/bundles/common/enums/enums.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
 import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step/constants/constants.js';
@@ -22,6 +24,7 @@ const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_SKILLS_STEP,
     projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
+    dataStatus: DataStatus.IDLE,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -30,17 +33,35 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] = action.payload[typedKey];
+                state[typedKey] =
+                    typedKey === 'englishLevel' &&
+                    action.payload[typedKey] === null
+                        ? ' '
+                        : action.payload[typedKey];
             }
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsFindRequestDto;
-                state[typedKey] = action.payload[typedKey];
+
+                state[typedKey] =
+                    typedKey === 'englishLevel' &&
+                    action.payload[typedKey] === null
+                        ? ' '
+                        : action.payload[typedKey];
             }
         });
+        builder.addMatcher(
+            isAnyOf(getTalentDetails.pending, updateTalentDetails.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
     },
 });
 
