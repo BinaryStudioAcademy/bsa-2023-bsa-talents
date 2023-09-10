@@ -13,7 +13,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     badges?: string[];
     photo?: File | null;
     cv?: File | null;
-    dataStatus: ValueOf<typeof DataStatus>;
+    dataStatus?: ValueOf<typeof DataStatus>;
 };
 
 export { type UserDetailsGeneralCustom };
