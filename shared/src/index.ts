@@ -68,10 +68,12 @@ export {
 export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
-    createNumberRangeArray,
     getAvatarInitials,
+    getItemsWithSelected,
+    getSearchedItems,
 } from './helpers/helpers.js';
 export {
+    type ChatListItemType,
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
     type ServerErrorResponse,
