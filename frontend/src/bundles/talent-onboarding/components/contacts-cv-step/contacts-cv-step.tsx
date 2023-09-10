@@ -32,7 +32,6 @@ import { ContactsCVStepValidationSchema } from '../../validation-schemas/validat
 import {
     ACCEPTED_CV_TYPES,
     ACCEPTED_PHOTO_TYPES,
-    REQUIRED,
 } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -249,15 +248,7 @@ const ContactsCVStep: React.FC = () => {
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel
-                    className={getValidClassNames(
-                        styles.label,
-                        errors.fullName?.type === REQUIRED
-                            ? styles.labelError
-                            : '',
-                    )}
-                    required
-                >
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'} className={styles.labelText}>
                         Full name
                     </Typography>
@@ -273,15 +264,7 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel
-                    className={getValidClassNames(
-                        styles.label,
-                        errors.phone?.type === REQUIRED
-                            ? styles.labelError
-                            : '',
-                    )}
-                    required
-                >
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'} className={styles.labelText}>
                         Phone number
                     </Typography>
@@ -297,15 +280,7 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel
-                    className={getValidClassNames(
-                        styles.label,
-                        errors.linkedinLink?.type === REQUIRED
-                            ? styles.labelError
-                            : '',
-                    )}
-                    required
-                >
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'} className={styles.labelText}>
                         LinkedIn profile
                     </Typography>
@@ -323,15 +298,7 @@ const ContactsCVStep: React.FC = () => {
 
             <div>
                 <FormControl className={styles.formControl}>
-                    <FormLabel
-                        className={getValidClassNames(
-                            styles.label,
-                            errors.cv?.type === 'object.base'
-                                ? styles.labelError
-                                : '',
-                        )}
-                        required
-                    >
+                    <FormLabel className={styles.label} required>
                         <Typography
                             variant="label"
                             className={styles.labelText}
