@@ -65,7 +65,7 @@ class UserDetailsRepository implements Repository {
     public async create(
         payload: UserDetailsCreateRequestDto,
     ): Promise<UserDetailsEntity> {
-        const newDetails = await this.userDetailsModel
+        const details = await this.userDetailsModel
             .query()
             .insert({
                 ...payload,
@@ -73,7 +73,34 @@ class UserDetailsRepository implements Repository {
             .returning('*')
             .execute();
 
-        return UserDetailsEntity.initialize(newDetails);
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            projectLinks: details.projectLinks ?? [],
+            photoId: details.photoId,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: details.companyLogoId,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+        });
     }
 
     public async update(
