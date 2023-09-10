@@ -70,7 +70,7 @@ const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
             'string.empty': ProfileStepValidationMessage.LOCATION_REQUIRED,
         }),
 
-    employmentTypes: joi
+    employmentType: joi
         .array()
         .items(joi.string().valid(...Object.values(EmploymentType)))
         .min(ProfileStepValidationRule.EMPLOYMENT_TYPES_MIN_LENGTH)

@@ -45,36 +45,40 @@ const Root: React.FC = () => {
         return null;
     }
 
-    const renderStackScreen = (): React.JSX.Element => {
-        if (isSignedIn) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={
-                        role === UserRole.TALENT
-                            ? TalentBottomTabNavigator
-                            : EmployerBottomTabNavigator
-                    }
-                />
-            );
-        }
-
-        if (isProfileComplete) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                    component={TalentOnboardingNavigator}
-                />
-            );
-        }
-
-        return (
+    const navigators = {
+        auth: (
             <RootStack.Screen
                 name={RootScreenName.AUTH_ROOT_ROUTE}
                 component={AuthNavigator}
             />
-        );
+        ),
+        onboarding: (
+            <RootStack.Screen
+                name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                component={TalentOnboardingNavigator}
+            />
+        ),
+        main: (
+            <RootStack.Screen
+                name={RootScreenName.MAIN_ROOT_ROUTE}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentBottomTabNavigator
+                        : EmployerBottomTabNavigator
+                }
+            />
+        ),
+    };
+
+    const renderStackScreen = (): React.JSX.Element => {
+        if (isSignedIn && isProfileComplete) {
+            return navigators.main;
+        }
+        if (isSignedIn && !isProfileComplete) {
+            return navigators.onboarding;
+        }
+        return navigators.auth;
     };
 
     return (

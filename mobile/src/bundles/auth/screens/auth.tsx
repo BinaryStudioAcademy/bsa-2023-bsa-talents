@@ -19,10 +19,7 @@ import { AuthWrapper, SignInForm, SignUpForm } from '../components/components';
 const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
-
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
     const isPendingAuth = dataStatus === DataStatus.PENDING;
 
     const handleSignInSubmit = useCallback(
