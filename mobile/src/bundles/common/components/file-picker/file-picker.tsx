@@ -20,7 +20,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { fileSizeValidation } from '~/bundles/talent/components/cv-and-contacts-form/helpers/file-size-validation';
+import { fileSizeValidation } from '~/bundles/talent/helpers/file-size-validation';
 import { notifications } from '~/framework/notifications/notifications';
 
 import { getErrorMessage } from '../../helpers/helpers';

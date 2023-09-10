@@ -1,6 +1,6 @@
 import { type FieldPath, type FieldValues } from 'react-hook-form';
 
-import { MAX_FILE_SIZE } from '../constants/constants';
+import { MAX_FILE_SIZE } from '../components/cv-and-contacts-form/constants/constants';
 
 const fileSizeValidation = <T extends FieldValues>(
     name: FieldPath<T>,

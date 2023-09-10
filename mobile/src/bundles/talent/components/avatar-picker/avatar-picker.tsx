@@ -23,8 +23,8 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
 import { notifications } from '~/framework/notifications/notifications';
 
-import { fileSizeValidation } from '../cv-and-contacts-form/helpers/file-size-validation';
-import { imageTypeValidation } from '../cv-and-contacts-form/helpers/image-type-validation';
+import { fileSizeValidation } from '../../helpers/file-size-validation';
+import { imageTypeValidation } from '../../helpers/image-type-validation';
 
 type AvatarPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
