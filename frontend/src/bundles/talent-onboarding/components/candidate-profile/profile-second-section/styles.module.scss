@@ -10,7 +10,7 @@ ul {
 }
 
 .candidateInfo {
-    min-width: 290px;
+    min-width: 324px;
     margin-top: 40px;
     border: 1px solid var(--botticelli);
     border-radius: 8px;
@@ -85,6 +85,7 @@ ul {
 .hireCandidates {
     justify-content: center;
     align-items: center;
+    min-width: 324px;
     height: 155px;
     margin-top: 15px;
     background-color: var(--background-primary);
@@ -121,24 +122,44 @@ ul {
     .publishDate {
         margin-left: 0;
     }
+
+    .contactButton {
+        width: 230px;
+        margin-block: 10px;
+    }
 }
 
-@media screen and (width <= 610px) {
-    .profileSecondSection {
-        padding: 0;
-    }
-
+@media screen and (width <= 660px) {
     .candidateInfo {
-        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         border: none;
+        padding-inline: 5px;
+        margin-inline: 5px;
     }
 
     .candidateParamsList {
-        padding-left: 7px;
+        padding-left: 0;
         border: none;
     }
 
     .salaryTitle {
-        padding-left: 20px;
+        padding-right: 120px;
+        border: none;
+        padding-block: 0;
+    }
+
+    .name {
+        padding-right: 155px;
+        padding-block: 0;
+        border: none;
+    }
+
+    .hireCandidates {
+        min-width: 100%;
+        border: none;
+        border-radius: 0;
     }
 }

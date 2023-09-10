@@ -105,11 +105,11 @@
 
 @media screen and (width <= 660px) {
     .stepName {
-        font-size: 10px;
+        font-size: 15px;
     }
 
     .stepNumber {
-        font-size: 8px;
+        font-size: 12px;
     }
 
     .stepButtons {
@@ -121,11 +121,13 @@
     }
 
     .wideStepButtons {
-        flex-direction: column;
-
         button {
-            width: 100px;
+            width: 120px;
             height: 50px;
         }
+    }
+
+    .stepBody {
+        padding: 0;
     }
 }

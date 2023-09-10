@@ -33,7 +33,7 @@ const CandidateProfile: React.FC<Properties> = ({
     isProfileCard,
 }) => {
     return (
-        <>
+        <Grid className={styles.wrapper}>
             {isFifthStep && (
                 <Button
                     label="Your account is ready!"
@@ -66,7 +66,7 @@ const CandidateProfile: React.FC<Properties> = ({
                     className={styles.contactButton}
                 />
             )}
-        </>
+        </Grid>
     );
 };
 

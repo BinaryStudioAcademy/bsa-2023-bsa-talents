@@ -52,13 +52,22 @@
 @media screen and (width <= 660px) {
     .registration {
         flex-direction: column;
+        width: 100%;
+        margin: 0;
     }
 
     .career {
-        padding-inline: 40px;
+        width: 100%;
+        padding: 0;
     }
 
     .header {
-        padding-left: 40px;
+        margin-bottom: 10px;
+        padding-left: 10px;
+        font-size: var(--font-size-h5);
+    }
+
+    .careerContent {
+        padding-left: 10px;
     }
 }

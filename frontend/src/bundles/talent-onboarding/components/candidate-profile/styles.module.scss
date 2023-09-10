@@ -17,8 +17,7 @@ ul {
 }
 
 .contactButton {
-    width: 100%;
-    max-width: 324px;
+    width: 324px;
     height: 45px;
     margin-bottom: 85px;
     margin-left: 50px;
@@ -27,8 +26,10 @@ ul {
 }
 
 .accountReadyButton {
+    display: flex;
     width: 325px;
     height: 54px;
+    margin: 0 auto;
     color: var(--text-primary-dark);
     text-transform: none;
     background-color: var(--solitude);
@@ -41,18 +42,26 @@ ul {
     }
 }
 
-@media screen and (width <= 610px) {
-    .profileWrapper {
-        width: 190px;
-        margin: 0 auto;
-        border: none;
+@media screen and (width <= 660px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .accountReadyButton {
-        width: 190px;
+    .profileWrapper {
+        margin-inline: 5px;
+        margin-block: 12px;
     }
 
     .contactButton {
-        display: none;
+        width: 90%;
+        margin: 0;
+        margin-block: 10px;
+    }
+
+    .accountReadyButton {
+        width: 200px;
+        margin-block: 20px;
     }
 }

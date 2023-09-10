@@ -5,13 +5,13 @@ ul {
 
 .profileFirstSection {
     width: 65%;
-    padding: 45px 35px;
+    padding: 30px 35px;
     border-right: 1px solid var(--botticelli);
 }
 
 .profileCard {
     width: 100%;
-    padding-bottom: 13px;
+    padding-bottom: 17px;
     border: none;
 }
 
@@ -35,6 +35,11 @@ ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
     gap: 5px;
+    margin-block: 15px;
+
+    li {
+        margin: 0 auto;
+    }
 }
 
 .skillsWrapper {
@@ -96,7 +101,7 @@ ul {
 }
 
 .projectPicture {
-    max-width: 100%;
+    width: 100%;
 }
 
 .candidateParameters {
@@ -117,25 +122,44 @@ ul {
     float: right;
     width: 127px;
     height: 36px;
+    margin-top: 10px;
     font-size: var(--font-size-base);
     text-transform: none;
     background-color: var(--background-secondary);
 }
 
-@media screen and (width <= 500px) {
-    .candidatePosition {
+@media screen and (width <= 1300px) {
+    .profileFirstSection {
+        display: flex;
         flex-direction: column;
-    }
-
-    .skills {
-        flex-direction: column;
+        width: 100%;
+        border: none;
     }
 }
 
-@media screen and (width <= 1300px) {
+@media screen and (width <= 660px) {
+    .candidatePosition,
+    .salary {
+        font-size: var(--font-size-h6);
+    }
+
     .profileFirstSection {
-        width: 100%;
-        padding-left: 25px;
+        padding: 15px;
         border: none;
+    }
+
+    .candidateParameters {
+        margin-inline: -15px;
+        padding-inline: 15px;
+    }
+
+    .academyScore {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (width < 335px) {
+    .badgeList {
+        grid-template-columns: 1fr;
     }
 }
