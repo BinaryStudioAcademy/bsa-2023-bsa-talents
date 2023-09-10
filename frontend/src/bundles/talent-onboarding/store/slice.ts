@@ -8,10 +8,6 @@ import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/const
 import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step/constants/constants.js';
 import { DEFAULT_PAYLOAD_PROFILE_STEP } from '../components/profile-step/constants/default.constants.js';
 import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants/default.constants.js';
-import {
-    NOT_NULLABLE_KEY_ARRAY,
-    NOT_NULLABLE_KEY_STRING,
-} from '../constants/constants.js';
 import { fromUrlLinks } from '../helpers/helpers.js';
 import { mockBadges } from '../mock-data/mock-data.js';
 import { type UserDetailsGeneralCustom } from '../types/types.js';
@@ -36,19 +32,7 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                if (
-                    NOT_NULLABLE_KEY_ARRAY.has(typedKey) &&
-                    action.payload[typedKey] === null
-                ) {
-                    state[typedKey] = [];
-                } else if (
-                    NOT_NULLABLE_KEY_STRING.has(typedKey) &&
-                    action.payload[typedKey] === null
-                ) {
-                    state[typedKey] = '';
-                } else {
-                    state[typedKey] = action.payload[typedKey];
-                }
+                state[typedKey] = action.payload[typedKey];
             }
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {

@@ -24,7 +24,38 @@ class UserDetailsRepository implements Repository {
             .query()
             .findOne({ ...payload });
 
-        return details ? UserDetailsEntity.initialize(details) : null;
+        if (!details) {
+            return null;
+        }
+
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            projectLinks: details.projectLinks ?? [],
+            photoId: details.photoId,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: details.companyLogoId,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+        });
     }
 
     public findAll(): ReturnType<Repository['findAll']> {
@@ -54,7 +85,34 @@ class UserDetailsRepository implements Repository {
             .query()
             .patchAndFetchById(id, rest);
 
-        return UserDetailsEntity.initialize(details);
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            projectLinks: details.projectLinks ?? [],
+            photoId: details.photoId,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: details.companyLogoId,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+        });
     }
 
     public delete(): Promise<boolean> {
