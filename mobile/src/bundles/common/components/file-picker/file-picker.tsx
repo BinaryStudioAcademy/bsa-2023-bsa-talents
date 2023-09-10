@@ -6,11 +6,7 @@ import {
     type UseFormSetError,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
-import DocumentPicker, {
-    isCancel,
-    isInProgress,
-    types,
-} from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 
 import { Button, Text } from '~/bundles/common/components/components';
 import {
@@ -21,9 +17,10 @@ import {
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { fileSizeValidation } from '~/bundles/talent/helpers/file-size-validation';
-import { notifications } from '~/framework/notifications/notifications';
 
+//import { notifications } from '~/framework/notifications/notifications';
 import { getErrorMessage } from '../../helpers/helpers';
+import { ACCEPTED_DOCUMENT_TYPE } from './constants/constants';
 
 type FilePickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
@@ -44,40 +41,33 @@ const FilePicker = <T extends FieldValues>({
 
     const { value, onChange } = field;
 
-    const handleError = (error: unknown): void => {
-        if (isCancel(error)) {
-            notifications.showError({ title: 'cancelled' });
-        } else if (isInProgress(error)) {
-            notifications.showError({
-                title: 'multiple pickers were opened, only the last will be considered',
+    const handleDocumentPick = async (): Promise<void> => {
+        try {
+            const pickerResult = await DocumentPicker.pick({
+                type: [
+                    ACCEPTED_DOCUMENT_TYPE.DOC,
+                    ACCEPTED_DOCUMENT_TYPE.DOCX,
+                    ACCEPTED_DOCUMENT_TYPE.PDF,
+                ],
             });
-        } else {
+
+            const [document] = pickerResult;
+
+            if (document.size !== null) {
+                fileSizeValidation(name, document.size);
+            }
+            onChange({
+                name: document.name,
+                size: document.size,
+                uri: document.uri,
+            });
+        } catch (error) {
             const errorMessage = getErrorMessage(error);
             setError(name, {
                 type: 'fileSize',
                 message: errorMessage,
             });
         }
-    };
-
-    const handleDocumentPick = (): void => {
-        DocumentPicker.pick({
-            type: [types.doc, types.docx, types.pdf],
-        })
-            .then((response) => {
-                const [document] = response;
-
-                if (document.size !== null) {
-                    fileSizeValidation(name, document.size);
-                }
-
-                onChange({
-                    name: document.name,
-                    size: document.size,
-                    uri: document.uri,
-                });
-            })
-            .catch(handleError);
     };
 
     return (
@@ -87,7 +77,7 @@ const FilePicker = <T extends FieldValues>({
                 style={style}
                 buttonType={ButtonType.OUTLINE}
                 iconName={IconName.ADD}
-                onPress={handleDocumentPick}
+                onPress={void handleDocumentPick}
             />
             {value?.name && (
                 <Text category={TextCategory.BODY1} style={globalStyles.pt5}>
