@@ -31,13 +31,13 @@ const signUp = createAsyncThunk<
     }
 });
 
-const loadUser = createAsyncThunk<
+const loadCurrentUser = createAsyncThunk<
     UserFindResponseDto,
     undefined,
     AsyncThunkConfig
 >(`${sliceName}${AuthApiPath.CURRENT_USER}`, (_, { extra }) => {
     const { authApi } = extra;
-    return authApi.getByToken();
+    return authApi.getCurrentUser();
 });
 
 const signIn = createAsyncThunk<
@@ -57,4 +57,4 @@ const signIn = createAsyncThunk<
     }
 });
 
-export { loadUser, signIn, signUp };
+export { loadCurrentUser, signIn, signUp };
