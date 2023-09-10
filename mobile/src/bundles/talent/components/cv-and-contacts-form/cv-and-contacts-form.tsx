@@ -23,7 +23,7 @@ type Properties = {
 };
 
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit, setError } = useAppForm({
+    const { control, errors, handleSubmit } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
         validationSchema: CvAndContactsFormValidationSchema,
     });
@@ -95,7 +95,6 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Choose file"
                     control={control}
                     name="cv"
-                    setError={setError}
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />
             </FormField>

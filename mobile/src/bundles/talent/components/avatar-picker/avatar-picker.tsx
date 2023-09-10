@@ -21,10 +21,10 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
+import { checkIfFileSizeValid } from '~/bundles/talent/helpers/check-if-file-size-valid';
+import { checkIfImageTypeValid } from '~/bundles/talent/helpers/check-if-image-type-valid';
+import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
 import { notifications } from '~/framework/notifications/notifications';
-
-import { fileSizeValidation } from '../../helpers/file-size-validation';
-import { imageTypeValidation } from '../../helpers/image-type-validation';
 
 type AvatarPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
@@ -54,23 +54,35 @@ const AvatarPicker = <T extends FieldValues>({
                     return;
                 }
                 const [image] = assets;
-                if (image.fileSize && image.type) {
-                    fileSizeValidation(name, image.fileSize);
-                    imageTypeValidation(image.type);
 
+                const isSizeValid = checkIfFileSizeValid(image.fileSize);
+                const isTypeValid = checkIfImageTypeValid(image.type);
+
+                if (isSizeValid && isTypeValid) {
                     onChange({
                         size: image.fileSize,
                         uri: image.uri ?? uri,
                         type: image.type,
                     });
                     setAvatar(image.uri ?? uri);
+                } else {
+                    const messageFileSize = isSizeValid
+                        ? ''
+                        : ERROR_MESSAGE.SIZE;
+                    const messageImageType = isTypeValid
+                        ? ''
+                        : ERROR_MESSAGE.IMAGE_TYPE;
+
+                    notifications.showError({
+                        title: messageFileSize || messageImageType,
+                    });
                 }
             } catch (error) {
                 const errorMessage = getErrorMessage(error);
                 notifications.showError({ title: errorMessage });
             }
         },
-        [name, onChange, uri],
+        [onChange, uri],
     );
 
     const imageLoadHandler = useCallback(

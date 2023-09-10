@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
-    type UseFormSetError,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
@@ -16,9 +15,13 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { fileSizeValidation } from '~/bundles/talent/helpers/file-size-validation';
+import { checkIfFileSizeValid } from '~/bundles/talent/helpers/check-if-file-size-valid';
+import {
+    ERROR_MESSAGE,
+    MAX_FILE_SIZE,
+} from '~/bundles/talent/helpers/constants/constants';
+import { notifications } from '~/framework/notifications/notifications';
 
-//import { notifications } from '~/framework/notifications/notifications';
 import { getErrorMessage } from '../../helpers/helpers';
 import { ACCEPTED_DOCUMENT_TYPE } from './constants/constants';
 
@@ -27,7 +30,6 @@ type FilePickerProperties<T extends FieldValues> = {
     name: FieldPath<T>;
     label: string;
     style: StyleProp<ViewStyle>;
-    setError: UseFormSetError<T>;
 };
 
 const FilePicker = <T extends FieldValues>({
@@ -35,13 +37,12 @@ const FilePicker = <T extends FieldValues>({
     style,
     control,
     name,
-    setError,
 }: FilePickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
     const { value, onChange } = field;
 
-    const handleDocumentPick = async (): Promise<void> => {
+    const handleDocumentPick = useCallback(async () => {
         try {
             const pickerResult = await DocumentPicker.pick({
                 type: [
@@ -53,22 +54,31 @@ const FilePicker = <T extends FieldValues>({
 
             const [document] = pickerResult;
 
-            if (document.size !== null) {
-                fileSizeValidation(name, document.size);
+            const isSizeValid = checkIfFileSizeValid(document.size);
+
+            if (isSizeValid) {
+                onChange({
+                    name: document.name,
+                    size: document.size,
+                    uri: document.uri,
+                });
+            } else {
+                notifications.showError({ title: ERROR_MESSAGE.SIZE });
+                onChange(null);
             }
-            onChange({
-                name: document.name,
-                size: document.size,
-                uri: document.uri,
-            });
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            setError(name, {
-                type: 'fileSize',
-                message: errorMessage,
-            });
+            notifications.showError({ title: errorMessage });
         }
-    };
+    }, [onChange]);
+
+    const fileLoadHandler = useCallback((): void => {
+        void handleDocumentPick();
+    }, [handleDocumentPick]);
+
+    const acceptedDocumentTypes = Object.keys(ACCEPTED_DOCUMENT_TYPE)
+        .map((type) => type.toLowerCase())
+        .join(', ');
 
     return (
         <>
@@ -77,13 +87,12 @@ const FilePicker = <T extends FieldValues>({
                 style={style}
                 buttonType={ButtonType.OUTLINE}
                 iconName={IconName.ADD}
-                onPress={void handleDocumentPick}
+                onPress={fileLoadHandler}
             />
-            {value?.name && (
-                <Text category={TextCategory.BODY1} style={globalStyles.pt5}>
-                    {value.name}
-                </Text>
-            )}
+            <Text category={TextCategory.BODY1} style={globalStyles.pt5}>
+                {value?.name ??
+                    `File size < ${MAX_FILE_SIZE.mb} MB, Allowed: ${acceptedDocumentTypes}`}
+            </Text>
         </>
     );
 };
