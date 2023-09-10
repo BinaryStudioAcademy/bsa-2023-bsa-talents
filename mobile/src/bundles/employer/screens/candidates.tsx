@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { Text } from '~/bundles/common/components/components';
+import { View } from '~/bundles/common/components/components';
+import { globalStyles } from '~/bundles/common/styles/styles';
+
+import { CandidatesHeader } from '../components/components';
 
 const Candidates: React.FC = () => {
-    return <Text>Employer screen: Candidates</Text>;
+    return (
+        <View style={globalStyles.flex1}>
+            <CandidatesHeader />
+        </View>
+    );
 };
 
 export { Candidates };
