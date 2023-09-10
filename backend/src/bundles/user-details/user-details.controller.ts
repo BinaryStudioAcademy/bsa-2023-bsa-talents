@@ -448,9 +448,9 @@ class UserDetailsController extends ControllerBase {
             query: UserDetailsSearchUsersRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const searchResult = await this.userDetailsService.searchUsers({
-            ...options.query,
-        });
+        const searchResult = await this.userDetailsService.searchUsers(
+            options.query,
+        );
 
         return {
             status: HttpCode.OK,

@@ -1,10 +1,7 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { type UserDetailsSearchUsersRequestDto } from 'shared/build/index.js';
 import { ErrorMessages } from 'shared/build/index.js';
 
-import {
-    TalentBadgesTableColumn,
-    TalentHardSkillsTableColumn,
-} from '~/common/packages/database/database.js';
 import { type Repository } from '~/common/types/types.js';
 
 import {
@@ -39,57 +36,66 @@ class UserDetailsRepository implements Repository {
     public async searchUsers(
         payload: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
-        let query = this.userDetailsModel.query();
+        const query = this.userDetailsModel.query().where((builder) => {
+            if (payload.search) {
+                void builder.where('fullName', 'ilike', `%${payload.search}%`);
+            }
 
-        if (payload.search) {
-            query = query.where('fullName', 'ilike', `%${payload.search}%`);
-        }
+            if (payload.isHired) {
+                void builder.where('isHired', payload.isHired);
+            }
 
-        if (payload.isHired) {
-            query = query.where('isHired', payload.isHired);
-        }
+            if (payload.jobTitle) {
+                void builder.where('jobTitle', payload.jobTitle);
+            }
 
-        if (payload.jobTitle) {
-            query = query.where('jobTitle', payload.jobTitle);
-        }
+            if (payload.experienceYears) {
+                void builder.where('experienceYears', payload.experienceYears);
+            }
 
-        if (payload.experienceYears) {
-            query = query.where('experienceYears', payload.experienceYears);
-        }
+            if (payload.hardSkills && payload.hardSkills.length > 0) {
+                const hardSkillsIdArray = Array.isArray(payload.hardSkills)
+                    ? payload.hardSkills
+                    : [payload.hardSkills];
+                void builder.whereExists(
+                    this.userDetailsModel
+                        .relatedQuery('talentHardSkills')
+                        .whereIn('hard_skill_id', hardSkillsIdArray),
+                );
+            }
 
-        if (payload.hardSkills && payload.hardSkills.length > 0) {
-            query = query.whereExists(
-                this.userDetailsModel
-                    .relatedQuery('talentHardSkills')
-                    .whereIn(
-                        `talent_hard_skills.${TalentHardSkillsTableColumn.HARD_SKILL_ID} = ANY(?)`,
-                        [payload.hardSkills],
-                    ),
-            );
-        }
+            if (payload.BSABadges && payload.BSABadges.length > 0) {
+                const badgeIdArray = Array.isArray(payload.BSABadges)
+                    ? payload.BSABadges
+                    : [payload.BSABadges];
 
-        if (payload.BSABadges && payload.BSABadges.length > 0) {
-            query = query.whereExists(
-                this.userDetailsModel
-                    .relatedQuery('talentBadges')
-                    .whereIn(
-                        `talent_badges.${TalentBadgesTableColumn.BADGE_ID} = ANY(?)`,
-                        [payload.BSABadges],
-                    ),
-            );
-        }
+                void builder.whereExists(
+                    this.userDetailsModel
+                        .relatedQuery('talentBadges')
+                        .whereIn('badge_id', badgeIdArray),
+                );
+            }
 
-        if (payload.location) {
-            query = query.where('location', payload.location);
-        }
+            if (payload.location) {
+                void builder.where('location', payload.location);
+            }
 
-        if (payload.englishLevel) {
-            query = query.where('englishLevel', payload.englishLevel);
-        }
+            if (payload.englishLevel) {
+                void builder.where('englishLevel', payload.englishLevel);
+            }
 
-        if (payload.employmentType && payload.employmentType.length > 0) {
-            query = query.whereIn('employmentType', payload.employmentType);
-        }
+            if (payload.employmentType && payload.employmentType.length > 0) {
+                const employmentTypes = Array.isArray(payload.employmentType)
+                    ? payload.employmentType
+                    : [payload.employmentType];
+
+                void builder.whereRaw(
+                    `"employment_type" @> ARRAY[${employmentTypes
+                        .map((type) => `'${type}'`)
+                        .join(', ')}]::text[]`,
+                );
+            }
+        });
 
         const searchResults = await query;
 
