@@ -62,6 +62,12 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.PENDING;
             },
         );
+        builder.addMatcher(
+            isAnyOf(getTalentDetails.rejected, updateTalentDetails.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 
