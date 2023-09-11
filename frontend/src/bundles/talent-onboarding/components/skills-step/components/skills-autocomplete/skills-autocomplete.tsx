@@ -15,7 +15,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     control: Control<SkillsStepDto>;

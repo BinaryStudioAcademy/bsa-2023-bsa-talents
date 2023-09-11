@@ -1,19 +1,24 @@
 import { type Control, type FieldPath } from 'react-hook-form';
 
 import {
- Button,     FormControl,
+    Button,
+    FormControl,
     FormHelperText,
     FormLabel,
-Grid, Input,    Typography } from '~/bundles/common/components/components.js';
+    Grid,
+    Input,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import {     useCallback,
-useFieldArray ,
+import {
+    useCallback,
+    useFieldArray,
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../../constants/constants.js';
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     control: Control<SkillsStepDto>;
