@@ -74,6 +74,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: <Auth />,
                             },
                             {
+                                path: AppRoute.RESET_PASSWORD,
+                                element: <Auth />,
+                            },
+
+                            {
                                 path: AppRoute.OTHER,
                                 element: <NotFoundPage />,
                             },

@@ -2,6 +2,7 @@ import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
+    AutocompleteSelector,
     Button,
     FormField,
     Input,
@@ -25,12 +26,16 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
+    ProfileStepValidationRule,
 } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
-import { EmploymentTypes } from './employment-types';
+import { CheckboxGroup } from '../components';
+import {
+    EXPERIENCE_YEARS,
+    TALENT_PROFILE_DEFAULT_VALUES,
+} from './constants/constants';
 import { styles } from './styles';
 
 const jobTitleOptions = Object.values(JobTitle);
@@ -93,6 +98,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
+                    value={undefined}
                 />
             </FormField>
             <FormField
@@ -117,10 +123,16 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
-                    thumbTitleValue="Beginner"
                     name="experienceYears"
                     control={control}
                     thumbTitleValueWidth={100}
+                    minimumValue={
+                        ProfileStepValidationRule.MIN_YEARS_OF_EXPERIENCE
+                    }
+                    maximumValue={
+                        ProfileStepValidationRule.MAX_YEARS_OF_EXPERIENCE
+                    }
+                    sliderOptions={EXPERIENCE_YEARS}
                 />
             </FormField>
             <FormField
@@ -130,23 +142,23 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector
+                <AutocompleteSelector
                     control={control}
                     name="location"
-                    options={locationOptions}
+                    items={locationOptions}
                     placeholder="Option"
                 />
             </FormField>
             <FormField
-                errorMessage={errors.employmentTypes?.message}
+                errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentTypes"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <EmploymentTypes
+                <CheckboxGroup
                     control={control}
-                    name="employmentTypes"
+                    name="employmentType"
                     options={employmentTypeOptions}
                 />
             </FormField>

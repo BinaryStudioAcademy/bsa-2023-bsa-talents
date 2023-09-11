@@ -13,25 +13,23 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
-    // useAppDispatch,
+    useAppDispatch,
     useAppForm,
     useAppSelector,
     useCallback,
-    // useEffect,
+    useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 
-//import { useFormSubmit } from '../../context/context.js';
+import { useFormSubmit } from '../../context/context.js';
 import { getRandomBadgeColor } from '../../helpers/helpers.js';
-//import { actions } from '../../store/talent-onboarding.js';
+import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
-//TODO: uncomment when context for submitting will be added
-const BsaBadgesStep: React.FC = () => {
-    //TODO: get all user badges here, for now mock data
-    const { savedPayload, bsaBadges } = useAppSelector((state) => ({
-        savedPayload: state.talentOnBoarding.bsaBadgesStep,
+const BadgesStep: React.FC = () => {
+    const { badges, bsaBadges } = useAppSelector((state) => ({
+        badges: state.talentOnBoarding.badges,
         bsaBadges: state.lms.bsaBadges,
     }));
 
@@ -39,46 +37,41 @@ const BsaBadgesStep: React.FC = () => {
         ...badge,
         color: getRandomBadgeColor(),
     }));
-    // const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
-    //     defaultValues: { ...savedPayload },
-    //     validationSchema: BsaBadgesStepValidationSchema,
-    // });
-
-    const { control, errors } = useAppForm<BsaBadgesStepDto>({
-        defaultValues: { ...savedPayload },
+    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
+        defaultValues: { badges },
         validationSchema: BsaBadgesStepValidationSchema,
     });
 
-    // const { setSubmitForm } = useFormSubmit();
+    const { setSubmitForm } = useFormSubmit();
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-    // const onSubmit = useCallback(
-    //     async (data: BsaBadgesStepDto): Promise<boolean> => {
-    //         await dispatch(actions.bsaBadgesStep(data));
-    //         return true;
-    //     },
-    //     [dispatch],
-    // );
+    const onSubmit = useCallback(
+        async (data: BsaBadgesStepDto): Promise<boolean> => {
+            await dispatch(actions.updateTalentDetails(data));
+            return true;
+        },
+        [dispatch],
+    );
 
-    // useEffect(() => {
-    //     setSubmitForm(() => {
-    //         return async () => {
-    //             let result = false;
-    //             await handleSubmit(async (formData) => {
-    //                 result = await onSubmit(formData);
-    //             })();
-    //             return result;
-    //         };
-    //     });
-    //     return () => {
-    //         setSubmitForm(null);
-    //     };
-    // }, [handleSubmit, onSubmit, setSubmitForm]);
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null);
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<BsaBadgesStepDto, 'bsaBadges'>,
+            field: ControllerRenderProps<BsaBadgesStepDto, 'badges'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -96,7 +89,7 @@ const BsaBadgesStep: React.FC = () => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<BsaBadgesStepDto, 'bsaBadges'>;
+            field: ControllerRenderProps<BsaBadgesStepDto, 'badges'>;
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<BsaBadgesStepDto>;
         }): React.ReactElement => {
@@ -146,17 +139,17 @@ const BsaBadgesStep: React.FC = () => {
             <FormControl className={styles.badgesContainer}>
                 <Controller
                     control={control}
-                    name="bsaBadges"
+                    name="badges"
                     render={renderCheckboxes}
                 />
             </FormControl>
-            {errors.bsaBadges && (
+            {errors.badges && (
                 <FormHelperText className={styles.hasError}>
-                    {errors.bsaBadges.message}
+                    {errors.badges.message}
                 </FormHelperText>
             )}
         </FormControl>
     );
 };
 
-export { BsaBadgesStep };
+export { BadgesStep };
