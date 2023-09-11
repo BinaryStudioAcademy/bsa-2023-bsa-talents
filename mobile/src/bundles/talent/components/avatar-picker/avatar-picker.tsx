@@ -21,9 +21,11 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
-import { checkIfFileSizeValid } from '~/bundles/talent/helpers/check-if-file-size-valid';
-import { checkIfImageTypeValid } from '~/bundles/talent/helpers/check-if-image-type-valid';
 import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
+import {
+    checkIfFileSizeValid,
+    checkIfImageTypeValid,
+} from '~/bundles/talent/helpers/helpers';
 import { notifications } from '~/framework/notifications/notifications';
 
 type AvatarPickerProperties<T extends FieldValues> = {

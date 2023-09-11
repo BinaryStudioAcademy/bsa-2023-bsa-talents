@@ -23,7 +23,7 @@ import {
 import { notifications } from '~/framework/notifications/notifications';
 
 import { getErrorMessage } from '../../helpers/helpers';
-import { ACCEPTED_DOCUMENT_TYPE } from './constants/constants';
+import { ACCEPTED_DOCUMENT_TYPES } from './constants/constants';
 
 type FilePickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
@@ -45,11 +45,7 @@ const FilePicker = <T extends FieldValues>({
     const handleDocumentPick = useCallback(async () => {
         try {
             const pickerResult = await DocumentPicker.pick({
-                type: [
-                    ACCEPTED_DOCUMENT_TYPE.DOC,
-                    ACCEPTED_DOCUMENT_TYPE.DOCX,
-                    ACCEPTED_DOCUMENT_TYPE.PDF,
-                ],
+                type: ACCEPTED_DOCUMENT_TYPES,
             });
 
             const [document] = pickerResult;
@@ -76,10 +72,6 @@ const FilePicker = <T extends FieldValues>({
         void handleDocumentPick();
     }, [handleDocumentPick]);
 
-    const acceptedDocumentTypes = Object.keys(ACCEPTED_DOCUMENT_TYPE)
-        .map((type) => type.toLowerCase())
-        .join(', ');
-
     return (
         <>
             <Button
@@ -91,7 +83,7 @@ const FilePicker = <T extends FieldValues>({
             />
             <Text category={TextCategory.BODY1} style={globalStyles.pt5}>
                 {value?.name ??
-                    `File size < ${MAX_FILE_SIZE.mb} MB, Allowed: ${acceptedDocumentTypes}`}
+                    `File size < ${MAX_FILE_SIZE.mb} MB, allowed: doc, docx, pdf`}
             </Text>
         </>
     );
