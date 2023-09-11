@@ -1,18 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import {
+    type BadgeStepDto,
+    type ProfileStepDto,
+} from '~/bundles/talent/types/types';
 
-import { completeProfileStep } from './actions';
+import { completeBadgesStep, completeProfileStep } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     profileStepData: ProfileStepDto | null;
+    badgesStepData: BadgeStepDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
+    badgesStepData: null,
     profileStepData: null,
 };
 
@@ -42,12 +47,22 @@ const { reducer, actions, name } = createSlice({
                 description,
             };
         });
-        builder.addCase(completeProfileStep.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
+        builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
+            state.badgesStepData = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
         });
-        builder.addCase(completeProfileStep.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
+        builder.addMatcher(
+            isAnyOf(completeProfileStep.pending, completeBadgesStep.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(completeProfileStep.rejected, completeBadgesStep.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 
