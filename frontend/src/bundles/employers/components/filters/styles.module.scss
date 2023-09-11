@@ -1,11 +1,30 @@
 .wrapper {
     flex-direction: column;
+    gap: 20px;
     width: 429px;
     min-height: 100vh;
+    padding: 0 50px;
+    background-color: var(--white);
+}
+
+.header {
+    height: 59px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--botticelli);
 }
 
 .title {
     color: var(--text-primary-dark);
     font-weight: var(--font-weight-medium);
     line-height: 28px;
+}
+
+.labels {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+}
+
+.radioGroup {
+    flex-direction: row;
 }

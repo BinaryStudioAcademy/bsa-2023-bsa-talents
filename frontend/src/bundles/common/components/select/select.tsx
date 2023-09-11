@@ -40,7 +40,6 @@ const Select = <T extends FieldValues>({
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-
     const handleSelectChange = useCallback(
         (selected: string | number | (string | number)[]) => {
             if (
@@ -77,6 +76,7 @@ const Select = <T extends FieldValues>({
                 multiple={isMulti}
                 className={styles.input}
                 renderValue={handleSelectChange}
+                value={field.value || []}
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
