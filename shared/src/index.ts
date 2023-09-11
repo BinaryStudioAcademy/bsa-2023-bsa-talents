@@ -7,10 +7,12 @@ export {
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
+    type BadgeStepDto,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
+    BsaBadgeStepBadgesTitle,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
