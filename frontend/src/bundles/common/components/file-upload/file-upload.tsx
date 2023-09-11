@@ -2,7 +2,7 @@ import {
     Button,
     type ButtonProperties,
 } from '~/bundles/common/components/components.js';
-import { useCallback,useRef } from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useRef } from '~/bundles/common/hooks/hooks.js';
 
 type Properties = {
     accept: string;
