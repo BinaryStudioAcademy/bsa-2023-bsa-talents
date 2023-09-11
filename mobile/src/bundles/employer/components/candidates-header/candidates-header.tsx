@@ -6,7 +6,11 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-const CandidatesHeader: React.FC = () => {
+type Properties = {
+    numberOfUsers: number;
+};
+
+const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
     return (
         <View
             style={[
@@ -27,7 +31,7 @@ const CandidatesHeader: React.FC = () => {
                     globalStyles.mt5,
                 ]}
             >
-                63
+                {numberOfUsers}
             </Text>
         </View>
     );

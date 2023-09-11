@@ -13,12 +13,21 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-const SearchTalents: React.FC = () => {
+type Properties = {
+    searchQuery: string;
+    setSearchQuery: (text: string) => void;
+};
+
+const SearchTalents: React.FC<Properties> = ({
+    searchQuery,
+    setSearchQuery,
+}) => {
     const { control } = useAppForm({
         defaultValues: {
             searchTalents: '',
         },
     });
+
     return (
         <View
             style={[
@@ -35,6 +44,10 @@ const SearchTalents: React.FC = () => {
                     control={control}
                     placeholder="Search candidates"
                     iconName={IconName.MAGNIFY}
+                    value={searchQuery}
+                    onChangeText={(text): void => {
+                        setSearchQuery(text);
+                    }}
                 />
             </FormField>
             <Pressable
