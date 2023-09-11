@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
@@ -13,7 +13,8 @@ import {
     IconName,
     TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
+import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { checkIfFileSizeValid } from '~/bundles/talent/helpers/check-if-file-size-valid';
 import {
@@ -22,7 +23,6 @@ import {
 } from '~/bundles/talent/helpers/constants/constants';
 import { notifications } from '~/framework/notifications/notifications';
 
-import { getErrorMessage } from '../../helpers/helpers';
 import { ACCEPTED_DOCUMENT_TYPES } from './constants/constants';
 
 type FilePickerProperties<T extends FieldValues> = {
