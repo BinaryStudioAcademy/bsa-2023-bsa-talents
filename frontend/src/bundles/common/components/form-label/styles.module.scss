@@ -4,6 +4,7 @@
     }
 
     span:last-child::before {
+        color: var(--st-tropaz);
         visibility: visible;
         content: "*";
     }

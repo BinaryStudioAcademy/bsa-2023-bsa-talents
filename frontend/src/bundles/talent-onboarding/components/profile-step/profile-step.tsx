@@ -249,7 +249,7 @@ const ProfileStep: React.FC = () => {
             </FormControl>
             <FormControl className={styles.formControl}>
                 <FormLabel className={styles.formLabel} required>
-                    <Typography variant={'label'}>Current location</Typography>
+                    <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
                 <Select
                     control={control}
