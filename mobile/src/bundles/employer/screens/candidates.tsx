@@ -35,7 +35,7 @@ const mockUsers = [
         BADGES: [
             { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
             { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
-            { label: 'You average project score', value: 9 },
+            { label: BsaBadgeStepBadgesTitle.PROJECT_SCORE, value: 9 },
         ],
     },
     {
@@ -58,7 +58,7 @@ const mockUsers = [
         BADGES: [
             { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'B1' },
             { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
-            { label: 'You average lecture score', value: 8 },
+            { label: BsaBadgeStepBadgesTitle.LECTURE_SCORE, value: 8 },
         ],
     },
     {
@@ -75,7 +75,7 @@ const mockUsers = [
         BADGES: [
             { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
             { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'C1' },
-            { label: 'You average project score', value: 9 },
+            { label: BsaBadgeStepBadgesTitle.LECTURE_SCORE, value: 9 },
         ],
     },
 ];
