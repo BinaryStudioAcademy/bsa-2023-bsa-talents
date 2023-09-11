@@ -1,9 +1,8 @@
 import { HeadphonesOutlined } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
-import { type ReactElement } from 'react';
 
 type Properties = {
-    icon?: ReactElement;
+    icon?: React.ReactElement;
     iconClass?: string;
 };
 
