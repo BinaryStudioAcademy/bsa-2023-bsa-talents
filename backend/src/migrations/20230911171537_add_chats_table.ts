@@ -1,21 +1,18 @@
 import { type Knex } from 'knex';
 
 const uuid = 'uuid_generate_v4()';
-const constraintName = 'chat_messages_pkey';
+const constraintName = 'chats_pkey';
 
 const TableName = {
     CHATS: 'chats',
-    CHAT_MESSAGES: 'chat_messages',
     USERS: 'users',
 };
 
 const ColumnName = {
     ID: 'id',
-    SENDER_ID: 'sender_id',
-    RECEIVER_ID: 'receiver_id',
-    CHAT_ID: 'chat_id',
-    MESSAGE: 'message',
-    IS_READ: 'is_read',
+    OWNER_ID: 'owner_id',
+    PARTICIPANT_ID: 'participant_id',
+    NAME: 'name',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
 };
@@ -28,7 +25,7 @@ const RelationRule = {
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
-    return knex.schema.createTable(TableName.CHAT_MESSAGES, (table) => {
+    return knex.schema.createTable(TableName.CHATS, (table) => {
         table
             .uuid(ColumnName.ID)
             .unique()
@@ -37,32 +34,22 @@ async function up(knex: Knex): Promise<void> {
             .primary({ constraintName });
 
         table
-            .uuid(ColumnName.SENDER_ID)
+            .uuid(ColumnName.OWNER_ID)
             .notNullable()
             .references(ColumnName.ID)
             .inTable(TableName.USERS)
-            .onUpdate(RelationRule.CASCADE)
-            .onDelete(RelationRule.SET_NULL);
-
-        table
-            .uuid(ColumnName.RECEIVER_ID)
-            .notNullable()
-            .references(ColumnName.ID)
-            .inTable(TableName.USERS)
-            .onUpdate(RelationRule.CASCADE)
-            .onDelete(RelationRule.SET_NULL);
-
-        table
-            .uuid(ColumnName.CHAT_ID)
-            .notNullable()
-            .references(ColumnName.ID)
-            .inTable(TableName.CHATS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
 
-        table.text(ColumnName.MESSAGE).notNullable();
+        table
+            .uuid(ColumnName.PARTICIPANT_ID)
+            .notNullable()
+            .references(ColumnName.ID)
+            .inTable(TableName.USERS)
+            .onUpdate(RelationRule.CASCADE)
+            .onDelete(RelationRule.CASCADE);
 
-        table.boolean(ColumnName.IS_READ).notNullable().defaultTo(false);
+        table.text(ColumnName.NAME).notNullable();
 
         table
             .dateTime(ColumnName.CREATED_AT)
@@ -76,7 +63,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-    return knex.schema.dropTable(TableName.CHAT_MESSAGES);
+    return knex.schema.dropTable(TableName.CHATS);
 }
 
 export { down, up };
