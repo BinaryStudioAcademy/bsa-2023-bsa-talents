@@ -1,4 +1,5 @@
 import { Menu as MUIMenu, type MenuProps } from '@mui/base/Menu';
+import { MenuList as MUIMenuList } from '@mui/material';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
@@ -12,7 +13,7 @@ const Menu: React.FC<Properties> = ({ children, className, ...props }) => {
             className={getValidClassNames(styles.menu, className)}
             {...props}
         >
-            {children}
+            <MUIMenuList className={styles.menuList}>{children}</MUIMenuList>
         </MUIMenu>
     );
 };

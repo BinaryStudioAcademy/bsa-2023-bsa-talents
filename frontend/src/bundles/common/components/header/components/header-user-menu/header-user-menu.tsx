@@ -34,8 +34,6 @@ const HeaderUserMenu: React.FC<Properties> = () => {
 
     return (
         <Menu>
-            {/* another items */}
-            {/* <Divider /> */}
             <MenuItem onClick={handleSignOut}>
                 <Logout fontSize="small" className={styles.signOutIcon} />
                 <Typography variant="h6" className={styles.signOut}>
