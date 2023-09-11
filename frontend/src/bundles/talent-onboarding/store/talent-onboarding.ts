@@ -1,9 +1,9 @@
-import { profileStep } from './actions.js';
+import { updateTalentDetails } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    profileStep,
+    updateTalentDetails,
 };
 
 export { allActions as actions };

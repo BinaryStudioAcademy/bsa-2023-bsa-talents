@@ -1,9 +1,19 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type BadgeStepDto,
+    type BsaBadgesStepDto,
+    BsaBadgesStepValidationMessage,
+    BsaBadgesStepValidationRule,
+    BsaBadgesStepValidationSchema,
+    BsaBadgeStepBadgesTitle,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     ProfileStepValidationSchema,
+    type SkillsStepDto,
+    SkillsStepValidationMessage,
+    SkillsStepValidationRule,
+    SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,
@@ -13,6 +23,16 @@ export {
     JobTitle,
     NotConsidered,
     PreferredLanguages,
+    UserDetailsApiPath,
+    type UserDetailsCreateRequestDto,
+    userDetailsCreateValidationSchema,
+    type UserDetailsFindRequestDto,
+    type UserDetailsResponseDto,
+    type UserDetailsUpdateDto,
+    type UserDetailsUpdateRequestDto,
+    userDetailsUpdateValidationSchema,
+} from './bundles/user-details/user-details.js';
+export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,

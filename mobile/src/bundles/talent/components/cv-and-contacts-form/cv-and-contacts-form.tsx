@@ -39,7 +39,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
+                errorMessage={errors.photoId?.message}
                 name="photoId"
                 required
                 containerStyle={globalStyles.pb25}
@@ -47,7 +47,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 <AvatarPicker />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.fullName?.message}
                 label="Full name"
                 name="fullName"
                 required
@@ -60,7 +60,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.phoneNumber?.message}
                 label="Phone number"
                 name="phoneNumber"
                 required
@@ -74,7 +74,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.linkedinProfile?.message}
                 label="Linkedin profile"
                 name="linkedinProfile"
                 required
@@ -88,7 +88,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.cv?.message}
                 label="CV"
                 name="cv"
                 required
@@ -97,7 +97,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button
                     label="Choose file"
                     buttonType="Outline"
-                    iconName={IconName.ADD}
+                    iconName={IconName.PLUS}
                     onPress={handleCVUpload}
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />

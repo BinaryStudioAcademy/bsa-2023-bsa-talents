@@ -1,8 +1,9 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
+    AutocompleteSelector,
     Button,
-    Checkbox,
     FormField,
     Input,
     ScrollView,
@@ -10,35 +11,69 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
-
 import {
-    CURRENT_LOCATION_OPTIONS,
-    JOB_TITLE_OPTIONS,
+    TalentOnboardingScreenName,
+    TalentOnboardingStepState,
+} from '~/bundles/common/enums/enums';
+import {
+    useAppForm,
+    useCallback,
+    useNavigation,
+} from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import {
+    CountryList,
+    EmploymentType,
+    JobTitle,
+    ProfileStepValidationRule,
+} from '~/bundles/talent/enums/enums';
+import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+
+import { CheckboxGroup } from '../components';
+import {
+    EXPERIENCE_YEARS,
     TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
 
+const jobTitleOptions = Object.values(JobTitle);
+const locationOptions = Object.values(CountryList);
+const employmentTypeOptions = Object.values(EmploymentType);
+
 type Properties = {
-    onSubmit: () => void;
+    profileStepData: ProfileStepDto | null;
+    onSubmit: (payload: ProfileStepDto) => void;
 };
 
-const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
+const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: TALENT_PROFILE_DEFAULT_VALUES,
+        defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
+        validationSchema: ProfileStepValidationSchema,
     });
 
-    const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
+    const { navigate } =
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
+
+    const handleFormSubmit = useCallback(() => {
+        void handleSubmit((data) => {
+            onSubmit({ ...data, salaryExpectation: +data.salaryExpectation });
+
+            navigate(TalentOnboardingScreenName.BSA_BADGES, {
+                stepState: TalentOnboardingStepState.FOCUSED,
+            });
+        })();
+    }, [handleSubmit, onSubmit, navigate]);
 
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
+                errorMessage={errors.profileName?.message}
                 label="Profile name"
                 name="profileName"
                 required
@@ -51,112 +86,92 @@ const ProfileForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.salaryExpectation?.message}
                 label="Salary expectations"
-                name="salaryExpectations"
+                name="salaryExpectation"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="salaryExpectations"
+                    name="salaryExpectation"
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
+                    value={undefined}
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.jobTitle?.message}
                 label="Job title"
                 name="jobTitle"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={JOB_TITLE_OPTIONS} />
+                <Selector
+                    options={jobTitleOptions}
+                    control={control}
+                    name="jobTitle"
+                    placeholder="Option"
+                />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.experienceYears?.message}
                 label="Experience Level"
-                name="experienceLevel"
+                name="experienceYears"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
-                    thumbTitleValue="Beginner"
-                    name="experienceLevel"
+                    name="experienceYears"
                     control={control}
                     thumbTitleValueWidth={100}
+                    minimumValue={
+                        ProfileStepValidationRule.MIN_YEARS_OF_EXPERIENCE
+                    }
+                    maximumValue={
+                        ProfileStepValidationRule.MAX_YEARS_OF_EXPERIENCE
+                    }
+                    sliderOptions={EXPERIENCE_YEARS}
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.location?.message}
                 label="Current location"
-                name="currentLocation"
+                name="location"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Selector options={CURRENT_LOCATION_OPTIONS} />
+                <AutocompleteSelector
+                    control={control}
+                    name="location"
+                    items={locationOptions}
+                    placeholder="Option"
+                />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.employmentType?.message}
                 label="Employment type"
-                name="employmentType"
+                name="employmentTypes"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <View
-                    style={[
-                        globalStyles.flexDirectionRow,
-                        globalStyles.justifyContentSpaceBetween,
-                        styles.employmentTypeContainer,
-                    ]}
-                >
-                    <View style={globalStyles.flex1}>
-                        <Checkbox
-                            label="Full time"
-                            name="employmentType.fullTime"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Part-time"
-                            name="employmentType.partTime"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Freelance (projects)"
-                            name="employmentType.freelance"
-                            control={control}
-                        />
-                    </View>
-                    <View style={globalStyles.flex1}>
-                        <Checkbox
-                            label="Part-time 2"
-                            name="employmentType.partTime2"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Remotely"
-                            name="employmentType.remotely"
-                            control={control}
-                        />
-                        <Checkbox
-                            label="Relocation to another country"
-                            name="employmentType.relocation"
-                            control={control}
-                        />
-                    </View>
-                </View>
+                <CheckboxGroup
+                    control={control}
+                    name="employmentType"
+                    options={employmentTypeOptions}
+                />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.description?.message}
                 label="Briefly tell employers about your experience"
-                name="experience"
+                name="description"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="experience"
+                    name="description"
                     placeholder="Text"
                     numberOfLines={5}
                     multiline={true}
