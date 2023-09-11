@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     button: {
         position: 'absolute',
         right: 0,
+        zIndex: 1,
     },
     verticalLine: {
         height: 380,
