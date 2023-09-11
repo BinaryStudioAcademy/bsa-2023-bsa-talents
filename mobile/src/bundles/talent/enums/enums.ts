@@ -4,4 +4,5 @@ export {
     CountryList,
     EmploymentType,
     JobTitle,
+    ProfileStepValidationRule,
 } from 'shared/build/index.js';
