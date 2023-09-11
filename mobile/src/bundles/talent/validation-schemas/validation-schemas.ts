@@ -1,1 +1,4 @@
-export { ProfileStepValidationSchema } from 'shared/build/index.js';
+export {
+    ProfileStepValidationSchema,
+    SkillsStepValidationSchema,
+} from 'shared/build/index.js';
