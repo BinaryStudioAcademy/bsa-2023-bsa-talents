@@ -1,5 +1,6 @@
 :root {
     --search-bar-height: 48px;
+    --chat-list-item-width: 317px;
 }
 
 .chatListContainer {
@@ -28,6 +29,7 @@
 }
 
 .nothingWasFound {
+    min-width: var(--chat-list-item-width);
     padding: 12px;
     color: var(--steel-gray);
     font-weight: 400;

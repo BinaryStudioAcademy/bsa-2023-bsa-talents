@@ -1,5 +1,5 @@
 .chatListItem {
-    min-width: 317px;
+    min-width: var(--chat-list-item-width);
     min-height: 72px;
     max-height: 72px;
     padding: 12px;
