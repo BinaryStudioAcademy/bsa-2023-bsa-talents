@@ -28,7 +28,7 @@ type Option = {
     value: string;
 };
 
-// mock data, will get this from db
+//TODO: mock data, will get this from db
 const hardSkillsOptions: Option[] = [
     { value: 'React', label: 'React' },
     { value: 'Node.js', label: 'Node.js' },
@@ -87,10 +87,6 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
         [],
     );
 
-    const filterOptions = useCallback((options: Option[]) => {
-        return options;
-    }, []);
-
     const handleDelete = useCallback(
         (deletedSkill: Option) => () => {
             const updatedSkills = (value as Option[]).filter(
@@ -114,8 +110,8 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 value={value as Option[]}
                 renderInput={renderInput}
                 options={hardSkillsOptions}
+                //filterSelectedOptions
                 renderTags={hideDefaultTags}
-                filterOptions={filterOptions}
                 popupIcon={null}
                 clearIcon={null}
                 isOptionEqualToValue={isOptionEqualToValue}
