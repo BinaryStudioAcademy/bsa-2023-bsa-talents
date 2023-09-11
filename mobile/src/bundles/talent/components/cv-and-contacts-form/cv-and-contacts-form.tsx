@@ -97,7 +97,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Button
                     label="Choose file"
                     buttonType="Outline"
-                    iconName={IconName.ADD}
+                    iconName={IconName.PLUS}
                     onPress={handleCVUpload}
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />

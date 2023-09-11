@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
@@ -18,7 +18,12 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useFormController,
+    useMemo,
+    useVisibility,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { SELECTOR_STYLE } from './constants/constants';
@@ -30,6 +35,7 @@ type Properties<T extends FieldValues> = {
     hasError?: boolean;
     options: string[];
     placeholder?: string;
+    multiSelect?: boolean;
     onSelect?: (item: string) => void;
 };
 
@@ -41,40 +47,52 @@ const Selector = <T extends FieldValues>({
     control,
     hasError,
     options,
+    multiSelect = false,
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
-    const [isListVisible, setIsListVisible] = useState(false);
+    const { isVisible, toggleVisibility } = useVisibility(false);
     const placeHolderStyle = value ? {} : styles.placeholder;
+
     const iconAnimatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [
-                { rotate: withTiming(isListVisible ? '180deg' : '0deg') },
-            ],
+            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
         };
     });
 
     const heightAnimatedStyle = useAnimatedStyle(() => {
         return {
             maxHeight: withTiming(
-                isListVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
+                isVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
                 { duration: 400 },
             ),
         };
     });
 
-    const toggleIsListVisible = (): void => {
-        setIsListVisible((previous) => !previous);
-    };
-
-    const handlePressItem = (option: string): void => {
-        toggleIsListVisible();
-        onChange(option);
-    };
-
-    const selectedOption = options.find((option) => option === value);
-
+    const handlePressItem = useCallback(
+        (option: string): void => {
+            toggleVisibility();
+            if (multiSelect) {
+                if (value.includes(option)) {
+                    onChange(value.filter((item: string) => item !== option));
+                } else {
+                    onChange([...value, option]);
+                }
+            } else {
+                onChange(option);
+            }
+        },
+        [toggleVisibility, multiSelect, value, onChange],
+    );
+    const selectedOptions = useMemo(
+        () =>
+            options
+                .filter((option) => value.includes(option))
+                .map((option) => option),
+        [options, value],
+    );
+    const NO_SELECTED = 0;
     return (
         <View style={styles.container}>
             <Pressable
@@ -89,10 +107,12 @@ const Selector = <T extends FieldValues>({
                     styles.dropdownButton,
                     hasError && styles.error,
                 ]}
-                onPress={toggleIsListVisible}
+                onPress={toggleVisibility}
             >
                 <Text category={TextCategory.LABEL} style={placeHolderStyle}>
-                    {selectedOption ?? placeholder}
+                    {selectedOptions.length > NO_SELECTED
+                        ? selectedOptions.join(', ')
+                        : placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>
                     <Icon
@@ -102,14 +122,13 @@ const Selector = <T extends FieldValues>({
                     />
                 </Animated.View>
             </Pressable>
-
             <Animated.View
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isListVisible && globalStyles.pb5,
+                    isVisible && globalStyles.pb5,
                     styles.dropdownButton,
-                    !isListVisible && styles.dropdownClosed,
+                    !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
             >

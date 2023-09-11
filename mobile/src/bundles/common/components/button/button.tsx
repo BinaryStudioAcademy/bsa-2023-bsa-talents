@@ -5,7 +5,7 @@ import {
     type TextStyle,
     type ViewStyle,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Pressable, Text } from '~/bundles/common/components/components';
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
