@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type BadgeStepDto,
+    type CvAndContactsFormDto,
     type ProfileStepDto,
     type SkillsStepDto,
 } from '~/bundles/talent/types/types';
@@ -27,6 +28,14 @@ const completeBadgesStep = createAsyncThunk<
     return talentApi.completeBadgesStep(profileStepPayload);
 });
 
+const contactsCVStep = createAsyncThunk<
+    CvAndContactsFormDto,
+    CvAndContactsFormDto,
+    AsyncThunkConfig
+>(`${sliceName}/contacts-cv-step`, (contactsCVStepPayload) => {
+    return contactsCVStepPayload;
+});
+
 const completeSkillsStep = createAsyncThunk<
     SkillsStepDto,
     SkillsStepDto,
@@ -36,4 +45,9 @@ const completeSkillsStep = createAsyncThunk<
     return talentApi.completeSkillsStep(skillsStepPayload);
 });
 
-export { completeBadgesStep, completeProfileStep, completeSkillsStep };
+export {
+    completeBadgesStep,
+    completeProfileStep,
+    completeSkillsStep,
+    contactsCVStep,
+};
