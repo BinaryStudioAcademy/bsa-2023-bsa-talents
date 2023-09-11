@@ -10,10 +10,11 @@ import styles from './styles.module.scss';
 type Properties = {
     className?: string;
     isCollapsed?: boolean;
+    withLink: boolean;
     link?: ValueOf<typeof AppRoute>;
 };
 
-const BaseLogo: React.FC<Properties> = ({ isCollapsed }) => {
+const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
     return (
         <>
             <Grid
@@ -39,11 +40,12 @@ const BaseLogo: React.FC<Properties> = ({ isCollapsed }) => {
 const Logo: React.FC<Properties> = ({
     className = '',
     isCollapsed = false,
-    link = { AppRoute },
+    withLink = false,
+    link = AppRoute.ROOT,
 }) => {
     return (
         <Grid container>
-            {link === AppRoute.ROOT ? (
+            {withLink ? (
                 <Link
                     to={link}
                     className={getValidClassNames(styles.logo, className)}
