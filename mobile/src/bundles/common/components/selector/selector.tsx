@@ -53,7 +53,7 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
-    const placeHolderStyle = value ? {} : styles.placeholder;
+    const placeHolderStyle = value ?? styles.placeholder;
 
     const iconAnimatedStyle = useAnimatedStyle(() => {
         return {

@@ -12,7 +12,6 @@ import {
     useAppRoute,
     useAppSelector,
     useCallback,
-    useEffect,
     useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -25,10 +24,7 @@ import {
     ProfileForm,
 } from '~/bundles/talent/components/components';
 import { actions as talentActions } from '~/bundles/talent/store';
-import {
-    type ProfileStepDto,
-    type UserDetailsFindRequestDto,
-} from '~/bundles/talent/types/types';
+import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
@@ -36,7 +32,8 @@ const Profile: React.FC = () => {
     const { completedStep, onboardingData } = useAppSelector(
         ({ talents }) => talents,
     );
-    const { currentUser } = useAppSelector(({ auth }) => auth);
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const userId = currentUserData?.id ?? '';
 
     const {
         profileName,
@@ -67,16 +64,8 @@ const Profile: React.FC = () => {
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
 
-    useEffect(() => {
-        const payload: UserDetailsFindRequestDto = {
-            userId: currentUser?.id ?? '',
-        };
-        void dispatch(talentActions.getTalentDetails(payload));
-    }, [currentUser?.id, dispatch]);
-
     const handleSubmit = useCallback(
         async (payload: ProfileStepDto): Promise<void> => {
-            const userId = currentUser?.id ?? '';
             const fullName = payload.profileName;
             const updatedCreateTalentPayload = {
                 ...payload,
@@ -103,7 +92,9 @@ const Profile: React.FC = () => {
 
             if (result.payload) {
                 const setStepResult = dispatch(
-                    talentActions.setCompletedStep(stepNumber),
+                    talentActions.setCompletedStep(
+                        TalentOnboardingScreenName.PROFILE,
+                    ),
                 );
                 if (setStepResult.payload) {
                     navigate(TalentOnboardingScreenName.BSA_BADGES, {
@@ -112,7 +103,7 @@ const Profile: React.FC = () => {
                 }
             }
         },
-        [dispatch, currentUser?.id, completedStep, stepNumber, navigate],
+        [dispatch, navigate, userId, completedStep],
     );
 
     const handleProfileSubmit = (payload: ProfileStepDto): void => {

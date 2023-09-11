@@ -5,13 +5,19 @@ import {
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
+import {
+    DataStatus,
+    RootScreenName,
+    TalentOnboardingScreenName,
+} from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { actions as talentActions } from '~/bundles/talent/store';
+import { type UserDetailsFindRequestDto } from '~/bundles/talent/types/types';
 import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
@@ -27,17 +33,27 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: React.FC = () => {
-    const { isSignedIn, currentUser } = useAppSelector(({ auth }) => auth);
-    const { isProfileComplete, role } = currentUser ?? {};
+    const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
+        ({ auth }) => auth,
+    );
+    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
-    const { dataStatus } = useAppSelector(({ auth }) => auth);
-
     const isPendingAuth = dataStatus === DataStatus.PENDING;
+    const isProfileComplete =
+        completedStep === TalentOnboardingScreenName.PREVIEW;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
+
+    useEffect(() => {
+        const payload: UserDetailsFindRequestDto = {
+            userId: currentUserData?.id,
+        };
+        void dispatch(talentActions.getTalentDetails(payload));
+    }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return null;
@@ -74,6 +90,7 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
+            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;

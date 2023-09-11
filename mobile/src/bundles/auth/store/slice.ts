@@ -14,13 +14,13 @@ type UserData = UserFindResponseDto & {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    currentUser: UserData | null;
+    currentUserData: UserData | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
-    currentUser: null,
+    currentUserData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -37,7 +37,7 @@ const { reducer, actions, name } = createSlice({
             (state, { payload }) => {
                 const { email, id, role } = payload;
                 state.dataStatus = DataStatus.FULFILLED;
-                state.currentUser = {
+                state.currentUserData = {
                     email,
                     role,
                     id,
@@ -51,7 +51,7 @@ const { reducer, actions, name } = createSlice({
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
                 state.isSignedIn = false;
-                state.currentUser = null;
+                state.currentUserData = null;
             },
         );
         builder.addMatcher(
@@ -59,7 +59,7 @@ const { reducer, actions, name } = createSlice({
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.isSignedIn = false;
-                state.currentUser = null;
+                state.currentUserData = null;
             },
         );
     },

@@ -55,7 +55,7 @@ class TalentApi extends HttpApiBase {
     }
 
     // public async getTalentDetailsById(
-    //     payload: UserDetailsFindRequestDto,
+    //     payload: UserDetailsFindByUserIdRequestDto,
     // ): Promise<UserDetailsResponseDto | null> {
     //     const { userId = '' } = payload;
     // const response = await this.load(
@@ -104,6 +104,8 @@ class TalentApi extends HttpApiBase {
 
         return fakeTalentDetailsData;
     }
+
+    //TODO temporary
     public completeBadgesStep(payload: BadgeStepDto): BadgeStepDto {
         return payload;
     }

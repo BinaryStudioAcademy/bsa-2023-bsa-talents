@@ -45,7 +45,7 @@ const updateOnboardingData = createAsyncThunk<
     }
 });
 
-const setCompletedStep = createAction<number>(`${sliceName}/setCompletedStep`);
+const setCompletedStep = createAction<string>(`${sliceName}/setCompletedStep`);
 
 const getTalentDetails = createAsyncThunk<
     UserDetailsResponseDto | null,
@@ -62,6 +62,7 @@ const getTalentDetails = createAsyncThunk<
     }
 });
 
+//TODO temporary
 const completeBadgesStep = createAsyncThunk<
     BadgeStepDto,
     BadgeStepDto,
