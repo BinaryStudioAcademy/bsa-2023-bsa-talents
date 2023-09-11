@@ -1,5 +1,8 @@
+import { useRef } from 'react';
+
 import { Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useEffect } from '~/bundles/common/hooks/hooks.js';
 
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
@@ -18,6 +21,15 @@ type Properties = {
 };
 
 const MessageList: React.FC<Properties> = ({ messages, className }) => {
+    const autoScrollElement = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (messages.length > 0) {
+            autoScrollElement.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+            });
+        }
+    }, [messages.length]);
     return (
         <Grid className={getValidClassNames(styles.messageList, className)}>
             {messages.map((message) => (
@@ -30,6 +42,7 @@ const MessageList: React.FC<Properties> = ({ messages, className }) => {
                     {message.value}
                 </MessageItem>
             ))}
+            <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
     );
 };

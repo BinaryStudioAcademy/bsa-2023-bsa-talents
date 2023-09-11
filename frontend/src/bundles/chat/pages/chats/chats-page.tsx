@@ -105,7 +105,7 @@ const ChatsPage: React.FC = () => {
                 <Grid className={styles.chatList}>
                     <ChatList chatItems={items} />
                 </Grid>
-                <Grid flexGrow={1} direction="column">
+                <Grid container flexGrow={1} direction="column">
                     <ChatHeader
                         title="hello"
                         isOnline

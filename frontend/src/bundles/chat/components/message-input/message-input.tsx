@@ -54,7 +54,7 @@ const MessageInput: React.FC<Properties> = ({ onClick, className }) => {
                 placeholder="Type a message"
                 multiline={true}
                 minRows={1}
-                maxRows={7}
+                maxRows={3}
                 className={inputStyles}
                 onChange={handleInputChange}
                 onFocus={handleFocus}
