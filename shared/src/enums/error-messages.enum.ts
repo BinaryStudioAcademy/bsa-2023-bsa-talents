@@ -4,7 +4,6 @@ const ErrorMessages = {
     INCORRECT_EMAIL: 'Incorrect email.',
     EMAIL_ALREADY_EXISTS: 'Email is already taken.',
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',
-    MISSING_TOKEN: 'Missing token.',
     INVALID_TOKEN: 'Invalid token.',
     UNAUTHORIZED_USER: 'User not authorized.',
     NOT_FOUND: 'Not found.',
