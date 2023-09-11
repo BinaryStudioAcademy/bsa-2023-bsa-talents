@@ -25,7 +25,7 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
 
     phone: joi
         .string()
-        .pattern(/^\+\d{12}$/)
+        .pattern(/^\+(?:\d ?){10,14}\d$/)
         .required()
         .messages({
             'string.empty':

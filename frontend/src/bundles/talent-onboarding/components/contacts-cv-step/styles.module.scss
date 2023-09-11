@@ -7,13 +7,14 @@
 }
 
 .photo {
+    display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
 }
 
 .photoWrapper {
-    width: 180px;
-    height: 180px;
+    width: 50%;
+    padding-top: 50%;
     background-color: var(--background-secondary);
     background-repeat: no-repeat;
     background-position: center;
@@ -42,14 +43,15 @@
 }
 
 .label {
+    margin-bottom: 5px;
     color: var(--background-secondary);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     line-height: var(--line-height-main);
-}
 
-.labelError {
-    color: var(--error-primary);
+    .requiredField {
+        color: var(--st-tropaz);
+    }
 }
 
 .labelText {
@@ -57,16 +59,18 @@
 }
 
 .uploadPhotoBtn {
-    width: 125px;
+    max-width: 125px;
     height: 36px;
     color: var(--background-secondary);
     font-size: 13px;
-    line-height: 1.21;
+    line-height: var(--line-height-main);
     text-transform: none;
     border-color: var(--background-secondary);
 }
 
 .uploadCVBtn {
+    display: flex;
+    align-items: center;
     max-width: 329px;
     height: 38px;
     color: var(--background-secondary);
@@ -75,6 +79,10 @@
     line-height: var(--line-height-main);
     text-transform: none;
     border-color: var(--background-secondary);
+
+    & span {
+        margin-top: -1px;
+    }
 }
 
 .btnError {
@@ -89,6 +97,7 @@
 }
 
 .info {
+    margin-top: -12px;
     padding: 12px;
     color: var(--text-primary-dark);
     background-color: var(--solitude);
