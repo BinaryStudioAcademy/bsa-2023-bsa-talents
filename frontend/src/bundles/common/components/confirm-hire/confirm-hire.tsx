@@ -106,7 +106,7 @@ const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
                 onConfirm={handleConfirm}
                 onDecline={handleModalClose}
                 onClose={handleModalClose}
-            ></ConfirmModal>
+            />
         </>
     );
 };
