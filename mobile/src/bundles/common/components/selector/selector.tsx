@@ -27,6 +27,7 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
+    hasError?: boolean;
     options: string[];
     placeholder?: string;
     onSelect?: (item: string) => void;
@@ -38,12 +39,14 @@ const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
 const Selector = <T extends FieldValues>({
     name,
     control,
+    hasError,
     options,
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const [isListVisible, setIsListVisible] = useState(false);
+    const placeHolderStyle = value ? {} : styles.placeholder;
     const iconAnimatedStyle = useAnimatedStyle(() => {
         return {
             transform: [
@@ -84,10 +87,11 @@ const Selector = <T extends FieldValues>({
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
+                    hasError && styles.error,
                 ]}
                 onPress={toggleIsListVisible}
             >
-                <Text category={TextCategory.LABEL}>
+                <Text category={TextCategory.LABEL} style={placeHolderStyle}>
                     {selectedOption ?? placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>

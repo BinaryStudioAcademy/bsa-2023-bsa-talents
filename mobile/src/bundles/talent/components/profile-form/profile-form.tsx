@@ -97,6 +97,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
+                    value={undefined}
                 />
             </FormField>
             <FormField
