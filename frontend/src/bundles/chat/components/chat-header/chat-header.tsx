@@ -5,18 +5,24 @@ import styles from './styles.module.scss';
 
 type Properties = {
     avatarUrl?: string;
+    className?: string;
     isOnline: boolean;
     title: string;
 };
 
-const ChatHeader: React.FC<Properties> = ({ avatarUrl, isOnline, title }) => {
+const ChatHeader: React.FC<Properties> = ({
+    avatarUrl,
+    className,
+    isOnline,
+    title,
+}) => {
     const onlineIconClasses = getValidClassNames(
         styles.icon,
         isOnline ? styles.online : styles.offline,
     );
 
     return (
-        <Grid className={styles.wrapper}>
+        <Grid className={getValidClassNames(styles.wrapper, className)}>
             <Grid className={styles.logo}>
                 <Avatar isSmall={true} src={avatarUrl} />
             </Grid>

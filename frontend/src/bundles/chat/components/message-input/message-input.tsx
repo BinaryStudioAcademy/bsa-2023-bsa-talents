@@ -9,9 +9,10 @@ import styles from './styles.module.scss';
 
 type Properties = {
     onClick?: (message: string) => void;
+    className?: string;
 };
 
-const MessageInput: React.FC<Properties> = ({ onClick }) => {
+const MessageInput: React.FC<Properties> = ({ onClick, className }) => {
     const [message, setMessage] = useState('');
     const [isFocused, setIsFocused] = useState(false);
 
@@ -45,7 +46,7 @@ const MessageInput: React.FC<Properties> = ({ onClick }) => {
     );
 
     return (
-        <Grid className={styles.wrapper}>
+        <Grid className={getValidClassNames(styles.wrapper, className)}>
             <MuiInput
                 value={message}
                 name="message"
