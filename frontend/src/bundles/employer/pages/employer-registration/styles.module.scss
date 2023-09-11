@@ -16,12 +16,10 @@
     border-radius: 8px;
 }
 
-@media screen and (width <=660px) {
-    .registration {
-        flex-direction: column;
-    }
-
+@media screen and (width <=760px) {
     .header {
+        margin-bottom: 20px;
         padding-left: 40px;
+        font-size: 20px;
     }
 }

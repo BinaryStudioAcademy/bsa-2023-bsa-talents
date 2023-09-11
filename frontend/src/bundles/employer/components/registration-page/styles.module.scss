@@ -17,6 +17,7 @@
 .form {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     width: 100%;
 }
 
@@ -170,5 +171,65 @@
 
     &:hover {
         background-color: var(--hover-primary);
+    }
+}
+
+@media screen and (width <=1240px) {
+    .formInput {
+        width: 60%;
+    }
+}
+
+@media screen and (width <=1050px) {
+    .photoWrapper {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media screen and (width <=960px) {
+    .formField {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .photoWrapper {
+        width: 150px;
+        height: 150px;
+    }
+
+    .formInput {
+        width: 100%;
+    }
+}
+
+@media screen and (width <=840px) {
+    .header {
+        margin-bottom: 20px;
+    }
+
+    .photoWrapper {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+@media screen and (width <=760px) {
+    .form {
+        flex-direction: column-reverse;
+    }
+
+    .formFields {
+        width: 100%;
+    }
+
+    .photo {
+        width: fit-content;
+    }
+
+    .paragraph {
+        h2 {
+            font-size: 24px;
+        }
     }
 }
