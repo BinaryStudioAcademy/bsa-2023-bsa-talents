@@ -1,0 +1,17 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageTitle {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-h4);
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 50px;
+}
