@@ -1,0 +1,10 @@
+.label {
+    span:last-child {
+        visibility: hidden;
+    }
+
+    span:last-child::before {
+        visibility: visible;
+        content: "*";
+    }
+}
