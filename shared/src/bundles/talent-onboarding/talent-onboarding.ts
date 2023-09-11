@@ -1,7 +1,9 @@
 export {
+    BSABadgeApiPath,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgeStepBadgesTitle,
+    HardSkillsApiPath,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
     SkillsStepValidationMessage,
