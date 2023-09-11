@@ -98,7 +98,7 @@ const Selector = <T extends FieldValues>({
             <Pressable
                 style={[
                     globalStyles.pv10,
-                    globalStyles.pl15,
+                    globalStyles.pl10,
                     globalStyles.pr5,
                     globalStyles.borderRadius5,
                     globalStyles.flexDirectionRow,
@@ -126,7 +126,7 @@ const Selector = <T extends FieldValues>({
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isVisible && globalStyles.pb5,
+                    isVisible && styles.dropdown,
                     styles.dropdownButton,
                     !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,

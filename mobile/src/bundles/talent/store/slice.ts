@@ -64,18 +64,6 @@ const { reducer, actions, name } = createSlice({
             state.badgesStepData = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
         });
-        builder.addMatcher(
-            isAnyOf(completeProfileStep.pending, completeBadgesStep.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-            },
-        );
-        builder.addMatcher(
-            isAnyOf(completeProfileStep.rejected, completeBadgesStep.rejected),
-            (state) => {
-                state.dataStatus = DataStatus.REJECTED;
-            },
-        );
         builder.addCase(completeSkillsStep.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
@@ -99,6 +87,18 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(completeSkillsStep.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
+        builder.addMatcher(
+            isAnyOf(completeProfileStep.pending, completeBadgesStep.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(completeProfileStep.rejected, completeBadgesStep.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 
