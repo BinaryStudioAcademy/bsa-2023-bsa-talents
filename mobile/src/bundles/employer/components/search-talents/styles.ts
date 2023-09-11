@@ -3,6 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
+    container: {
+        gap: 10,
+    },
+    search: {
+        width: '75%',
+    },
     filtersBtn: {
         backgroundColor: '#fff',
     },

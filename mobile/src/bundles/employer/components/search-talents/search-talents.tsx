@@ -7,7 +7,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -22,18 +22,19 @@ const SearchTalents: React.FC = () => {
     return (
         <View
             style={[
-                globalStyles.p25,
+                styles.container,
+                globalStyles.mt15,
+                globalStyles.mh15,
                 globalStyles.flexDirectionRow,
-                globalStyles.justifyContentSpaceAround,
                 globalStyles.alignItemsCenter,
             ]}
         >
-            <FormField name="searchTalents" containerStyle={{ width: '70%' }}>
+            <FormField name="searchTalents" containerStyle={styles.search}>
                 <Input
                     name="searchTalents"
                     control={control}
                     placeholder="Search candidates"
-                    iconName="magnify"
+                    iconName={IconName.MAGNIFY}
                 />
             </FormField>
             <Pressable
@@ -44,7 +45,7 @@ const SearchTalents: React.FC = () => {
                     globalStyles.ph15,
                 ]}
             >
-                <Text category={TextCategory.MENU} style={styles.filtersText}>
+                <Text category={TextCategory.BUTTON} style={styles.filtersText}>
                     Filters
                 </Text>
             </Pressable>
