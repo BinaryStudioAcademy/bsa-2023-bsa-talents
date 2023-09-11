@@ -1,8 +1,8 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 import {
+    type CompletedStep,
     type CountryList,
-    type CurrentStep,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -64,7 +64,7 @@ class UserDetailsEntity implements Entity {
 
     private 'cvId': string | null;
 
-    private 'currentStep': ValueOf<typeof CurrentStep> | null;
+    private 'completedStep': ValueOf<typeof CompletedStep> | null;
 
     private constructor({
         id,
@@ -93,7 +93,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
-        currentStep,
+        completedStep,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -121,7 +121,7 @@ class UserDetailsEntity implements Entity {
         this.companyWebsite = companyWebsite;
         this.employerPosition = employerPosition;
         this.cvId = cvId;
-        this.currentStep = currentStep;
+        this.completedStep = completedStep;
     }
 
     public static initialize({
@@ -151,7 +151,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
-        currentStep,
+        completedStep,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -180,7 +180,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite,
             employerPosition,
             cvId,
-            currentStep,
+            completedStep,
         });
     }
 
@@ -210,7 +210,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
-        currentStep,
+        completedStep,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -239,7 +239,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite,
             employerPosition,
             cvId,
-            currentStep,
+            completedStep,
         });
     }
 
@@ -271,7 +271,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite: this.companyWebsite,
             employerPosition: this.employerPosition,
             cvId: this.cvId,
-            currentStep: this.currentStep,
+            completedStep: this.completedStep,
         };
     }
 
@@ -303,7 +303,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite: this.companyWebsite,
             employerPosition: this.employerPosition,
             cvId: this.cvId,
-            currentStep: this.currentStep,
+            completedStep: this.completedStep,
         };
     }
 }

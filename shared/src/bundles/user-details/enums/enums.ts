@@ -1,5 +1,5 @@
+export { CompletedStep } from './completed-step.enum.js';
 export { CountryList } from './country-list.enum.js';
-export { CurrentStep } from './current-step.enum.js';
 export { EmploymentType } from './employment-type.enum.js';
 export { EnglishLevel } from './english-level.enum.js';
 export { ExperienceYears } from './experience-years-list.enum.js';

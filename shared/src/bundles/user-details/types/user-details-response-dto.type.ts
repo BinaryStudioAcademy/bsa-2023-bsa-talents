@@ -1,8 +1,8 @@
 import { type ValueOf } from '~/types/value-of.type';
 
 import {
+    type CompletedStep,
     type CountryList,
-    type CurrentStep,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -37,7 +37,7 @@ type UserDetailsResponseDto = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
-    currentStep: ValueOf<typeof CurrentStep> | null;
+    completedStep: ValueOf<typeof CompletedStep> | null;
 };
 
 export { type UserDetailsResponseDto };

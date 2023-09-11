@@ -2,8 +2,8 @@ export { ContactsCVStepValidationMessage } from './contacts-cv-step/contacts-cv-
 export { ContactsCVStepValidationRule } from './contacts-cv-step/contacts-cv-step.validation-rule.js';
 export { Steps } from './steps.enum.js';
 export {
+    CompletedStep,
     CountryList,
-    CurrentStep,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,

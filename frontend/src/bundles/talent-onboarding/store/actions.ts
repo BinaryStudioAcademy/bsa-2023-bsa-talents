@@ -19,7 +19,7 @@ const updateTalentDetails = createAsyncThunk<
         }
         const { talentOnBoarding } = getState();
 
-        return await (talentOnBoarding.currentStep
+        return await (talentOnBoarding.completedStep
             ? talentOnBoardingApi.updateUserDetails(registerPayload)
             : talentOnBoardingApi.createUserDetails(registerPayload));
     },

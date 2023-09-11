@@ -14,8 +14,8 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
+    CompletedStep,
     CountryList,
-    CurrentStep,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,

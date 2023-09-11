@@ -26,8 +26,8 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
+    CompletedStep,
     CountryList,
-    CurrentStep,
     EmploymentType,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
@@ -127,7 +127,7 @@ const ProfileStep: React.FC = () => {
                 actions.updateTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    currentStep: CurrentStep.STEP_2,
+                    completedStep: CompletedStep.STEP_1,
                 }),
             );
             return true;

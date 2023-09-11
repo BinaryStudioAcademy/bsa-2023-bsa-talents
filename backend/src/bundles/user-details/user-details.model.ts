@@ -17,8 +17,8 @@ import {
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
+    type CompletedStep,
     type CountryList,
-    type CurrentStep,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -81,7 +81,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'talentBadges': TalentBadgeModel[];
 
-    public 'currentStep': ValueOf<typeof CurrentStep>;
+    public 'completedStep': ValueOf<typeof CompletedStep>;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;
