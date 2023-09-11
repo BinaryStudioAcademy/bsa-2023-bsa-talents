@@ -27,7 +27,15 @@ class UserDetailsService implements Service {
     public async findByUserId(
         userId: string,
     ): Promise<UserDetailsEntity | null> {
-        return await this.userDetailsRepository.find({ userId });
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessages.USER_DETAILS_NOT_FOUND,
+            });
+        }
+        return userDetails;
     }
 
     public findAll(): Promise<{ items: unknown[] }> {

@@ -34,7 +34,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 
     public async createUserDetails(
@@ -49,7 +49,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 
     public async updateUserDetails(
@@ -64,7 +64,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 }
 
