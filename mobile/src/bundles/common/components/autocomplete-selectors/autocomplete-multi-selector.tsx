@@ -15,7 +15,6 @@ import {
 } from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
-    useCallback,
     useFormController,
     useMemo,
     useState,
@@ -61,20 +60,13 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         onChange(value.filter((item: string) => item !== itemName));
     };
 
-    const filterItems = useCallback(
-        (items: string[]) =>
-            items.filter(
-                (item) =>
-                    item.toLowerCase().includes(search.toLowerCase()) &&
-                    !value.includes(item),
-            ),
-        [search, value],
-    );
-
-    const filteredItems = useMemo(
-        () => filterItems(items),
-        [filterItems, items],
-    );
+    const filteredItems = useMemo(() => {
+        return items.filter(
+            (item) =>
+                item.toLowerCase().includes(search.toLowerCase()) &&
+                !value.includes(item),
+        );
+    }, [search, value, items]);
 
     return (
         <>

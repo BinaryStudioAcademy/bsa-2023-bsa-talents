@@ -14,7 +14,6 @@ import {
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import {
-    useCallback,
     useFormController,
     useMemo,
     useState,
@@ -54,18 +53,11 @@ const AutocompleteSelector = <T extends FieldValues>({
         toggleVisibility();
     };
 
-    const filterItems = useCallback(
-        (items: string[]) =>
-            items.filter((item) =>
-                item.toLowerCase().includes(search.toLowerCase()),
-            ),
-        [search],
-    );
-
-    const filteredItems = useMemo(
-        () => filterItems(items),
-        [filterItems, items],
-    );
+    const filteredItems = useMemo(() => {
+        return items.filter((item) =>
+            item.toLowerCase().includes(search.toLowerCase()),
+        );
+    }, [search, items]);
 
     return (
         <>
