@@ -23,6 +23,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
@@ -66,8 +67,34 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
-        defaultValues: {
+    const { control, handleSubmit, errors, reset } = useAppForm<ProfileStepDto>(
+        {
+            defaultValues: useMemo(
+                () => ({
+                    profileName,
+                    salaryExpectation,
+                    jobTitle,
+                    location,
+                    experienceYears,
+                    employmentType,
+                    description,
+                }),
+                [
+                    profileName,
+                    salaryExpectation,
+                    jobTitle,
+                    location,
+                    experienceYears,
+                    employmentType,
+                    description,
+                ],
+            ),
+            validationSchema: ProfileStepValidationSchema,
+        },
+    );
+
+    useEffect(() => {
+        reset({
             profileName,
             salaryExpectation,
             jobTitle,
@@ -75,20 +102,35 @@ const ProfileStep: React.FC = () => {
             experienceYears,
             employmentType,
             description,
-        },
-        validationSchema: ProfileStepValidationSchema,
-    });
+        });
+    }, [
+        description,
+        employmentType,
+        experienceYears,
+        jobTitle,
+        location,
+        profileName,
+        reset,
+        salaryExpectation,
+    ]);
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.updateTalentDetails({
+                    ...data,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {

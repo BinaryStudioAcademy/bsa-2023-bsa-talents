@@ -21,6 +21,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     EnglishLevel,
@@ -63,32 +64,63 @@ const SkillsStep: React.FC = () => {
         projectLinks,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors } = useAppForm<SkillsStepDto>({
-        defaultValues: {
+    const { control, handleSubmit, errors, reset } = useAppForm<SkillsStepDto>({
+        defaultValues: useMemo(
+            () => ({
+                hardSkills,
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                projectLinks: toUrlLinks(projectLinks),
+            }),
+            [
+                englishLevel,
+                hardSkills,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            ],
+        ),
+        validationSchema: SkillsStepValidationSchema,
+    });
+
+    useEffect(() => {
+        reset({
             hardSkills,
             englishLevel,
             notConsidered,
             preferredLanguages,
             projectLinks: toUrlLinks(projectLinks),
-        },
-        validationSchema: SkillsStepValidationSchema,
-    });
-
+        });
+    }, [
+        hardSkills,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        reset,
+        projectLinks,
+    ]);
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
+            const { englishLevel, notConsidered, preferredLanguages } = data;
             await dispatch(
                 actions.updateTalentDetails({
-                    ...data,
+                    englishLevel,
+                    notConsidered,
+                    preferredLanguages,
+                    userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
                 }),
             );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {
