@@ -1,3 +1,5 @@
+export { AutocompleteMultiSelector } from './autocomplete-selectors/autocomplete-multi-selector';
+export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-selector';
 export { Avatar } from './avatar/avatar';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
@@ -13,6 +15,7 @@ export { Overlay } from './overlay/overlay';
 export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
+export { Tag } from './tag/tag';
 export { Text } from './text/text';
 export {
     ActivityIndicator,

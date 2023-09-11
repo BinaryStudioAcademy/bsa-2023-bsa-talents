@@ -93,6 +93,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <FilePicker
                     label="Choose file"
+                    iconName={IconName.PLUS}
                     control={control}
                     name="cv"
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}

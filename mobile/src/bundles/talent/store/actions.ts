@@ -5,6 +5,7 @@ import {
     type BadgeStepDto,
     type CvAndContactsFormDto,
     type ProfileStepDto,
+    type SkillsStepDto,
 } from '~/bundles/talent/types/types';
 
 import { name as sliceName } from './slice';
@@ -26,7 +27,6 @@ const completeBadgesStep = createAsyncThunk<
     const { talentApi } = extra;
     return talentApi.completeBadgesStep(profileStepPayload);
 });
-
 const contactsCVStep = createAsyncThunk<
     CvAndContactsFormDto,
     CvAndContactsFormDto,
@@ -35,4 +35,18 @@ const contactsCVStep = createAsyncThunk<
     return contactsCVStepPayload;
 });
 
-export { completeBadgesStep, completeProfileStep, contactsCVStep };
+const completeSkillsStep = createAsyncThunk<
+    SkillsStepDto,
+    SkillsStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/skills-step`, (skillsStepPayload, { extra }) => {
+    const { talentApi } = extra;
+    return talentApi.completeSkillsStep(skillsStepPayload);
+});
+
+export {
+    completeBadgesStep,
+    completeProfileStep,
+    completeSkillsStep,
+    contactsCVStep,
+};
