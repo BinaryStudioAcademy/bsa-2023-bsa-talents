@@ -123,7 +123,7 @@ const Selector = <T extends FieldValues>({
                     globalStyles.pl20,
                     globalStyles.width100,
                     isVisible && globalStyles.pb5,
-                    styles.dropdownButton,
+                    styles.dropdown,
                     !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
