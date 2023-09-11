@@ -3,6 +3,7 @@ export { ContactsCVStepValidationRule } from './contacts-cv-step/contacts-cv-ste
 export { Steps } from './steps.enum.js';
 export {
     CountryList,
+    CurrentStep,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,

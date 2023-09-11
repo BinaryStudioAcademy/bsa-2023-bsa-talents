@@ -27,6 +27,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
+    CurrentStep,
     EmploymentType,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
@@ -126,6 +127,7 @@ const ProfileStep: React.FC = () => {
                 actions.updateTalentDetails({
                     ...data,
                     userId: currentUser?.id,
+                    currentStep: CurrentStep.STEP_2,
                 }),
             );
             return true;

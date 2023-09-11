@@ -36,6 +36,7 @@ const Onboarding: React.FC = () => {
 
     const [currentStep, setCurrentStep] = useState<number>(() => {
         const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
+
         const slug =
             slugs.find((slug) => location.pathname.endsWith(slug)) ??
             slugs[FIRST_ELEMENT];
@@ -67,7 +68,11 @@ const Onboarding: React.FC = () => {
     }, [currentStep, currentUser?.id, dispatch, navigate]);
 
     useEffect(() => {
-        void dispatch(actions.getTalentDetails({ userId: currentUser?.id }));
+        void dispatch(
+            actions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
     }, [currentUser?.id, dispatch]);
 
     return (

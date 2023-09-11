@@ -15,6 +15,7 @@ export {
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     CountryList,
+    CurrentStep,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,

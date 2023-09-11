@@ -25,6 +25,7 @@ import {
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { CurrentStep } from '../../enums/enums.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
@@ -76,6 +77,7 @@ const ContactsCVStep: React.FC = () => {
                     phone,
                     linkedinLink,
                     userId: currentUser?.id,
+                    currentStep: CurrentStep.STEP_5,
                 }),
             );
             return true;

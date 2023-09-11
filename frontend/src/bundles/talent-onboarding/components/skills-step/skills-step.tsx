@@ -24,6 +24,7 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
+    CurrentStep,
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
@@ -116,6 +117,7 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
+                    currentStep: CurrentStep.STEP_4,
                 }),
             );
             return true;

@@ -25,6 +25,7 @@ const initialState: UserDetailsGeneralCustom = {
     projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     dataStatus: DataStatus.IDLE,
+    currentStep: null,
 };
 
 const { reducer, actions, name } = createSlice({

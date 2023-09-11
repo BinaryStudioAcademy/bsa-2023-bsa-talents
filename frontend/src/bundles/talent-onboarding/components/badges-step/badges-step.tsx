@@ -21,6 +21,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { useFormSubmit } from '../../context/context.js';
+import { CurrentStep } from '../../enums/enums.js';
 import { getRandomBadgeColor } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
@@ -48,7 +49,12 @@ const BadgesStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.updateTalentDetails({
+                    ...data,
+                    currentStep: CurrentStep.STEP_3,
+                }),
+            );
             return true;
         },
         [dispatch],

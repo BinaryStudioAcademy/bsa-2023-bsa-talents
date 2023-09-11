@@ -1,5 +1,6 @@
 export {
     CountryList,
+    CurrentStep,
     EmploymentType,
     EnglishLevel,
     JobTitle,
