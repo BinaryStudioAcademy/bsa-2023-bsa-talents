@@ -8,6 +8,14 @@ const styles = StyleSheet.create({
         gap: 10,
         borderWidth: 1,
         borderColor: Color.INPUT,
+        position: 'relative',
+    },
+    small: {
+        width: 150,
+    },
+    iconSmall: {
+        position: 'relative',
+        bottom: 15,
     },
     maxScore: {
         color: Color.TEXT2,

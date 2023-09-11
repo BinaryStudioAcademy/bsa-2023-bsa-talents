@@ -4,6 +4,7 @@ import { ScrollView, StatusBar } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import {
     CandidateCard,
@@ -31,6 +32,11 @@ const mockUsers = [
             'Vite',
             'React Native',
         ],
+        BADGES: [
+            { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
+            { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
+            { label: 'You average project score', value: 9 },
+        ],
     },
     {
         ID: 2,
@@ -49,6 +55,11 @@ const mockUsers = [
             'React',
             'React Native',
         ],
+        BADGES: [
+            { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'B1' },
+            { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
+            { label: 'You average lecture score', value: 8 },
+        ],
     },
     {
         ID: 3,
@@ -61,6 +72,11 @@ const mockUsers = [
         ENGLISH_LEVEL: 'Advanced',
         PUBLISHED: 'Published 2 days ago',
         HARD_SKILLS: ['JavaScript', 'GitHub', 'NodeJS', 'React', 'Vite'],
+        BADGES: [
+            { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
+            { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'C1' },
+            { label: 'You average project score', value: 9 },
+        ],
     },
 ];
 const numberOfMockUsers = mockUsers.length;

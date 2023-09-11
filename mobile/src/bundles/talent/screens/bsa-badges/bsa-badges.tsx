@@ -3,6 +3,11 @@ import React from 'react';
 import { type BadgeStepDto } from 'shared/build/bundles/talent-onboarding/types/badge-step-dto';
 
 import {
+    DEFAULT_VALUE_IS_CHECKED,
+    DEFAULT_VALUE_IS_DISABLED,
+} from '~/bundles/common/components/badge/constants/constants';
+import {
+    Badge,
     Button,
     Checkbox,
     ScrollView,
@@ -30,11 +35,6 @@ import {
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { Badge } from '~/bundles/talent/components/badge/badge';
-import {
-    DEFAULT_VALUE_IS_CHECKED,
-    DEFAULT_VALUE_IS_DISABLED,
-} from '~/bundles/talent/components/badge/constants/constants';
 import { NewAccountHeader } from '~/bundles/talent/components/components';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { actions as talentActions } from '~/bundles/talent/store';

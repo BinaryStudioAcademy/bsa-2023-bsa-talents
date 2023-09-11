@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    Badge,
     Button,
     Tag,
     Text,
@@ -8,8 +9,12 @@ import {
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
+import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
+
+type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 type Properties = {
     ID: number;
@@ -21,8 +26,13 @@ type Properties = {
     DESCRIPTION: string;
     PUBLISHED: string;
     HARD_SKILLS: string[];
+    BADGES: {
+        label: BadgeName;
+        value: string | number;
+    }[];
 };
 const maxSkills = 4;
+const maxBadges = 2;
 const maxCharCount = 150;
 
 const CandidateCard: React.FC<Properties> = ({
@@ -35,6 +45,7 @@ const CandidateCard: React.FC<Properties> = ({
     DESCRIPTION,
     PUBLISHED,
     HARD_SKILLS,
+    BADGES,
 }) => {
     return (
         <View
@@ -76,8 +87,22 @@ const CandidateCard: React.FC<Properties> = ({
                 </View>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />
-            <View style={[globalStyles.pv20, globalStyles.ph15]}>
-                <Text>BADGES</Text>
+            <View
+                style={[
+                    globalStyles.pv20,
+                    globalStyles.ph15,
+                    globalStyles.flexDirectionRow,
+                ]}
+            >
+                {BADGES.slice(0, maxBadges).map((badge) => (
+                    <Badge
+                        key={badge.label}
+                        value={badge.value}
+                        badgeType={badge.label}
+                        size="small"
+                        iconSize={20}
+                    />
+                ))}
             </View>
             <View
                 style={[
