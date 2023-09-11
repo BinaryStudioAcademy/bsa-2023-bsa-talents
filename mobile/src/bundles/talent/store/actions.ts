@@ -4,6 +4,7 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type BadgeStepDto,
     type ProfileStepDto,
+    type SkillsStepDto,
 } from '~/bundles/talent/types/types';
 
 import { name as sliceName } from './slice';
@@ -26,4 +27,13 @@ const completeBadgesStep = createAsyncThunk<
     return talentApi.completeBadgesStep(profileStepPayload);
 });
 
-export { completeBadgesStep, completeProfileStep };
+const completeSkillsStep = createAsyncThunk<
+    SkillsStepDto,
+    SkillsStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/skills-step`, (skillsStepPayload, { extra }) => {
+    const { talentApi } = extra;
+    return talentApi.completeSkillsStep(skillsStepPayload);
+});
+
+export { completeBadgesStep, completeProfileStep, completeSkillsStep };

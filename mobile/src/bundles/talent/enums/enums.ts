@@ -5,4 +5,5 @@ export {
     EmploymentType,
     JobTitle,
     ProfileStepValidationRule,
+    SkillsStepValidationRule,
 } from 'shared/build/index.js';
