@@ -44,19 +44,20 @@ const MessageTemplate = <T extends FieldValues>({
     const [isEdit, setIsEdit] = useState(false);
     const [editedName, setEditedName] = useState(template.name);
 
-    const editTemplate = (): void => {
+    const editTemplate = useCallback((): void => {
         setIsEdit(true);
-    };
+    }, []);
 
-    const cancelTemplateEdit = (): void => {
+    const cancelTemplateEdit = useCallback((): void => {
         setIsEdit(false);
-    };
+    }, []);
 
-    const handleNameChange = (
-        event: React.ChangeEvent<HTMLInputElement>,
-    ): void => {
-        setEditedName(event.target.value);
-    };
+    const handleNameChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>): void => {
+            setEditedName(event.target.value);
+        },
+        [],
+    );
 
     const confirmTemplateEdit = useCallback(
         (oldName: string) => (): void => {
@@ -96,7 +97,6 @@ const MessageTemplate = <T extends FieldValues>({
                 errors={errors}
                 name={name}
                 value={editedName}
-                // eslint-disable-next-line react/jsx-no-bind
                 onChange={handleNameChange}
             />
             <Grid className={styles.buttonsContainer}>
@@ -110,7 +110,6 @@ const MessageTemplate = <T extends FieldValues>({
                 <Button
                     className={getValidClassNames(styles.button)}
                     label=""
-                    // eslint-disable-next-line react/jsx-no-bind
                     onClick={cancelTemplateEdit}
                     variant="outlined"
                     endIcon={<CloseIcon className={styles.buttonIcon} />}
@@ -133,7 +132,6 @@ const MessageTemplate = <T extends FieldValues>({
                 <Button
                     className={getValidClassNames(styles.button)}
                     label=""
-                    // eslint-disable-next-line react/jsx-no-bind
                     onClick={editTemplate}
                     variant="outlined"
                     endIcon={<EditIcon className={styles.buttonIcon} />}
