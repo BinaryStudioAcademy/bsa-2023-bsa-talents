@@ -54,30 +54,9 @@ const { reducer, actions, name } = createSlice({
                 description,
             };
         });
-        builder.addCase(completeProfileStep.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-        builder.addCase(completeProfileStep.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
         builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
             state.badgesStepData = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
-        });
-        builder.addMatcher(
-            isAnyOf(completeProfileStep.pending, completeBadgesStep.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-            },
-        );
-        builder.addMatcher(
-            isAnyOf(completeProfileStep.rejected, completeBadgesStep.rejected),
-            (state) => {
-                state.dataStatus = DataStatus.REJECTED;
-            },
-        );
-        builder.addCase(completeSkillsStep.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
             const {
@@ -96,9 +75,26 @@ const { reducer, actions, name } = createSlice({
                 projectLinks,
             };
         });
-        builder.addCase(completeSkillsStep.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        });
+        builder.addMatcher(
+            isAnyOf(
+                completeProfileStep.pending,
+                completeBadgesStep.pending,
+                completeSkillsStep.pending,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(
+                completeProfileStep.rejected,
+                completeBadgesStep.rejected,
+                completeSkillsStep.rejected,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 
