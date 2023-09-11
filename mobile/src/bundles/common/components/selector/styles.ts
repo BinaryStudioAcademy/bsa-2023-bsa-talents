@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     placeholder: {
         color: Color.TEXT2,
     },
+    error: {
+        borderColor: Color.ERROR,
+    },
 });
 
 export { styles };

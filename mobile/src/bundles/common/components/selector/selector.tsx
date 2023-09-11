@@ -32,6 +32,7 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
+    hasError?: boolean;
     options: string[];
     placeholder?: string;
     multiSelect?: boolean;
@@ -44,6 +45,7 @@ const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
 const Selector = <T extends FieldValues>({
     name,
     control,
+    hasError,
     options,
     multiSelect = false,
     placeholder,
@@ -96,13 +98,14 @@ const Selector = <T extends FieldValues>({
             <Pressable
                 style={[
                     globalStyles.pv10,
-                    globalStyles.pl15,
+                    globalStyles.pl10,
                     globalStyles.pr5,
                     globalStyles.borderRadius5,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
+                    hasError && styles.error,
                 ]}
                 onPress={toggleVisibility}
             >
@@ -123,7 +126,7 @@ const Selector = <T extends FieldValues>({
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isVisible && globalStyles.pb5,
+                    isVisible && styles.dropdown,
                     styles.dropdownButton,
                     !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
