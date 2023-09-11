@@ -4,6 +4,7 @@ import { ApiPath } from '~/bundles/common/enums/enums';
 import {
     type BadgeStepDto,
     type ProfileStepDto,
+    type SkillsStepDto,
 } from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -27,6 +28,9 @@ class TalentApi extends HttpApiBase {
     public completeBadgesStep(payload: BadgeStepDto): BadgeStepDto {
         return payload;
     }
+    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
+        return payload;
+    }
 
     // public constructor({ baseUrl, http, storage }: Constructor) {
     //     super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
@@ -46,6 +50,7 @@ class TalentApi extends HttpApiBase {
     //     );
     //     return await response.json<ProfileStepDto>();
     // }
+
     //
 
     // public async completeTalentedStep<T>(payload: T): Promise<T> {
