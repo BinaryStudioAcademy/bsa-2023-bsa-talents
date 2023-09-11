@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
         color: Color.PRIMARY,
         fontFamily: FontFamily.INTER_SEMIBOLD,
     },
+    linkContainer: {
+        flexWrap: 'wrap',
+        flexShrink: 1,
+        gap: 5,
+    },
     formWrapper: {
         gap: 25,
     },

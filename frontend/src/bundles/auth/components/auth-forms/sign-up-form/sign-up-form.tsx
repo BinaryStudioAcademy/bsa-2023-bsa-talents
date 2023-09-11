@@ -53,7 +53,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <p className="header">Sign Up to get started!</p>
 
                 <FormControl
-                    className={getValidClassNames('inputContainer', 'email')}
+                    className={getValidClassNames(
+                        'inputContainer',
+                        errors.email ? '' : 'email',
+                    )}
                 >
                     <FormLabel className="label">Email *</FormLabel>
                     <Input
@@ -64,7 +67,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 <FormControl
-                    className={getValidClassNames('inputContainer', 'password')}
+                    className={getValidClassNames(
+                        'inputContainer',
+                        errors.password ? '' : 'password',
+                    )}
                 >
                     <FormLabel className="label">Password *</FormLabel>
                     <Input
@@ -75,7 +81,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="password"
                     />
                 </FormControl>
-                <FormControl className={styles.radioWrapper}>
+                <FormControl
+                    className={getValidClassNames(
+                        styles.radioWrapper,
+                        errors.password ? 'hasError' : '',
+                    )}
+                >
                     <RadioGroup
                         className={styles.radioGroup}
                         control={control}
@@ -85,7 +96,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <Button
                     label="Continue"
-                    className={getValidClassNames('btnLogin', styles.btnLogin)}
+                    className={getValidClassNames('btn', styles.btnLogin)}
                     type="submit"
                 />
             </form>

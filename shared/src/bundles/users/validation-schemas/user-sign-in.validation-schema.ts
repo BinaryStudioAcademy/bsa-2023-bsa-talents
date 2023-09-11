@@ -28,6 +28,8 @@ const userSignIn = joi.object<UserSignInRequestDto, true>({
         .max(AUTH_CONSTANTS.MAX_LOGIN_INPUT_LENGTH)
         .regex(AUTH_CONSTANTS.PASSWORD_REGEXP)
         .messages({
+            'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+            'string.min': UserValidationMessage.PASSWORD_SHORT,
             'string.pattern.base': UserValidationMessage.PASSWORD_WRONG,
         }),
 });
