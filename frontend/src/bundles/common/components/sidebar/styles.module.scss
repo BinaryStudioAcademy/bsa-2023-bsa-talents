@@ -84,9 +84,13 @@ a {
 .burgerButton {
     --size: 20px;
     --color: var(--text-primary-dark);
-    --g1: linear-gradient(var(--color) 20%, #00000000 0 80%, var(--color) 0)
+    --gradient1: linear-gradient(
+            var(--color) 20%,
+            #00000000 0 80%,
+            var(--color) 0
+        )
         no-repeat content-box border-box;
-    --g2: radial-gradient(
+    --gradient2: radial-gradient(
             circle closest-side at 50% 12.5%,
             var(--color) 95%,
             #00000000
@@ -100,10 +104,10 @@ a {
     color: inherit;
     font: inherit;
     background:
-        var(--g2) left var(--p, 0) top,
-        var(--g1) left calc(var(--size) / 10 + var(--p, 0px)) top,
-        var(--g2) right var(--p, 0) top,
-        var(--g1) right calc(var(--size) / 10 + var(--p, 0px)) top;
+        var(--gradient2) left var(--position, 0) top,
+        var(--gradient1) left calc(var(--size) / 10 + var(--position, 0px)) top,
+        var(--gradient2) right var(--position, 0) top,
+        var(--gradient1) right calc(var(--size) / 10 + var(--position, 0px)) top;
     background-size:
         20% 80%,
         40% 100%;
@@ -111,8 +115,8 @@ a {
     outline: inherit;
     cursor: pointer;
     transition:
-        background-position 0.2s var(--s, 0.2s),
-        clip-path 0s var(--s, 0.3s);
+        background-position 0.2s var(--seconds, 0.2s),
+        clip-path 0s var(--seconds, 0.3s);
     aspect-ratio: 1;
     border-inline: calc(var(--size) / 2) solid #00000000;
     clip-path: inset(0 25%);
@@ -126,14 +130,14 @@ a {
     inset: 40% 0;
     background: var(--color);
     border-radius: var(--size);
-    transition: transform 0.3s calc(0.3s - var(--s, 0.3s));
+    transition: transform 0.3s calc(0.3s - var(--seconds, 0.3s));
     content: "";
 }
 
 .checked {
     --color: #ffd231;
-    --p: calc(-1 * var(--size));
-    --s: 0s;
+    --position: calc(-1 * var(--size));
+    --seconds: 0s;
 
     clip-path: inset(0);
 }
