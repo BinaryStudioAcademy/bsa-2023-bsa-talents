@@ -6,7 +6,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { type SyntheticEvent } from 'react';
 import { type Control, type FieldPath } from 'react-hook-form';
 
 import { Chip } from '~/bundles/common/components/components.js';
@@ -73,7 +72,7 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
     const hideDefaultTags = useCallback(() => null, []);
 
     const handleChange = useCallback(
-        (event: SyntheticEvent, values: Option[]) => {
+        (event: React.SyntheticEvent, values: Option[]) => {
             event.preventDefault();
             onChange(values);
         },
