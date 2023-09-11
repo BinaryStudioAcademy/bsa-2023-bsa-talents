@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ScrollView, StatusBar } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
-import { useState } from '~/bundles/common/hooks/hooks';
+import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import {
@@ -67,6 +67,13 @@ const numberOfMockUsers = mockUsers.length;
 
 const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
+
+    const filteredCandidates = useMemo(() => {
+        return mockUsers.filter((user) =>
+            user.JOB_TITLE.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
+    }, [searchQuery]);
+
     return (
         <>
             <StatusBar
@@ -84,15 +91,9 @@ const Candidates: React.FC = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
-                {mockUsers
-                    .filter((user) =>
-                        user.JOB_TITLE.toLowerCase().includes(
-                            searchQuery.toLowerCase(),
-                        ),
-                    )
-                    .map((user) => (
-                        <CandidateCard key={user.ID} {...user} />
-                    ))}
+                {filteredCandidates.map((user) => (
+                    <CandidateCard key={user.ID} {...user} />
+                ))}
             </ScrollView>
         </>
     );
