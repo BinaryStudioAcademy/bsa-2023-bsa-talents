@@ -21,7 +21,6 @@ import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
-    useState,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -48,30 +47,26 @@ const AutocompleteSelector = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
-    const [search, setSearch] = useState('');
     const { isVisible, toggleVisibility } = useVisibility(false);
 
     const handleSearch = (text: string): void => {
-        setSearch(text);
         onChange(text);
     };
 
     const handleItemSelect = (item: string): void => {
-        setSearch(item);
         onChange(item);
         toggleVisibility();
     };
 
     const filteredItems = useMemo(() => {
-        if (!search) {
+        if (!value) {
             return items;
         }
 
         return items.filter(
-            (item) =>
-                search && item.toLowerCase().includes(search.toLowerCase()),
+            (item) => value && item.toLowerCase().includes(value.toLowerCase()),
         );
-    }, [search, items]);
+    }, [value, items]);
 
     const iconAnimatedStyle = useAnimatedStyle(() => {
         return {
@@ -116,7 +111,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                         </Animated.View>
                     </TouchableOpacity>
                 </View>
-                {isVisible && (
+                {isVisible && filteredItems.length > 0 && (
                     <View
                         style={[
                             globalStyles.pl20,
