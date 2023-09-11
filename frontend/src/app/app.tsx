@@ -21,6 +21,8 @@ const App: React.FC = () => {
     useEffect(() => {
         if (token) {
             void dispatch(authActions.loadUser());
+        } else {
+            dispatch(authActions.setUserNotAuthenticated());
         }
     }, [dispatch, token]);
 
