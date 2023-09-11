@@ -1,7 +1,8 @@
 import { Add as PlusIcon } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 
-import { Controller ,
+import {
+    Controller,
     FileUpload,
     FormControl,
     FormHelperText,
@@ -23,7 +24,7 @@ import {
 } from '~/bundles/common/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { useFormSubmit } from '../../context/context.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
