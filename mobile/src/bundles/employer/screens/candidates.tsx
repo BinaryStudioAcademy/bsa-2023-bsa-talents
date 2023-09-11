@@ -1,15 +1,28 @@
 import React from 'react';
 
-import { View } from '~/bundles/common/components/components';
+import { StatusBar, View } from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { CandidatesHeader } from '../components/components';
+import { CandidatesHeader, SearchTalents } from '../components/components';
 
 const Candidates: React.FC = () => {
     return (
-        <View style={globalStyles.flex1}>
-            <CandidatesHeader />
-        </View>
+        <>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Color.BACKGROUND}
+            />
+            <View
+                style={[
+                    globalStyles.flex1,
+                    { backgroundColor: Color.BACKGROUND },
+                ]}
+            >
+                <CandidatesHeader />
+                <SearchTalents />
+            </View>
+        </>
     );
 };
 

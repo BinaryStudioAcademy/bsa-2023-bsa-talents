@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
         backgroundColor: Color.INPUT,
         opacity: 0.5,
     },
+    icon: {
+        position: 'absolute',
+        left: 0,
+        top: 12,
+    },
 });
 
 export { styles };

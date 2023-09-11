@@ -6,9 +6,10 @@ import {
 } from 'react-hook-form';
 import { type TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -19,7 +20,11 @@ type Properties<T extends FieldValues> = TextInputProps & {
     name: FieldPath<T>;
     hasError?: boolean;
     marker?: string;
+    iconName?: string;
+    iconSize?: number;
 };
+
+const defaultIconSize = 25;
 
 const Input = <T extends FieldValues>({
     editable = true,
@@ -28,6 +33,8 @@ const Input = <T extends FieldValues>({
     name,
     marker,
     multiline = false,
+    iconName,
+    iconSize = defaultIconSize,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -52,6 +59,16 @@ const Input = <T extends FieldValues>({
                     <Text category={TextCategory.INPUT}>{marker}</Text>
                 </View>
             )}
+
+            {iconName && (
+                <Icon
+                    name={iconName}
+                    size={iconSize}
+                    color={Color.PRIMARY}
+                    style={styles.icon}
+                />
+            )}
+
             <TextInput
                 onChangeText={onChange}
                 value={value.toString()}
@@ -59,9 +76,10 @@ const Input = <T extends FieldValues>({
                 {...props}
                 style={[
                     globalStyles.flex1,
-                    globalStyles.pl10,
+                    globalStyles.pl25,
                     globalStyles.Input,
                     !marker && globalStyles.borderRadius5,
+                    !iconName && globalStyles.pl10,
                     styles.input,
                     multiline && styles.multiline,
                     !editable && styles.disabled,
