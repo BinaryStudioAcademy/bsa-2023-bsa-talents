@@ -8,6 +8,8 @@ export { database };
 export { Abstract as AbstractModel } from './abstract.model.js';
 export {
     BSABadgesTableColumn,
+    ChatMessagesTableColumn,
+    ChatsTableColumn,
     DatabaseTableName,
     FilesTableColumn,
     HardSkillsTableColumn,
