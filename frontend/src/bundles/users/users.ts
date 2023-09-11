@@ -11,6 +11,7 @@ const userApi = new UserApi({
 });
 
 export { userApi };
+export { UserRole } from './enums/enums.js';
 export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,

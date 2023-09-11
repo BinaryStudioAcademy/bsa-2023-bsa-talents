@@ -1,5 +1,4 @@
-import { UserRole } from 'shared/build/index.js';
-
+import { UserRole } from '~/bundles/users/users.js';
 import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
 const DEFAULT_SIGN_UP_PAYLOAD: UserSignUpRequestDto = {
