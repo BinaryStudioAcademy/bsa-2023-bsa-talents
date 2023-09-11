@@ -55,7 +55,7 @@ const TalentOnboardingNavigator: React.FC = () => {
                 name={TalentOnboardingScreenName.SKILLS_AND_PROJECTS}
                 component={SkillsAndProjects}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.COMPLETED,
+                    stepState: TalentOnboardingStepState.FOCUSED,
                 }}
             />
             <Drawer.Screen
