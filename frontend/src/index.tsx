@@ -47,7 +47,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                             <ProtectedRoute>
                                                 <PageLayout
                                                     avatarUrl=""
-                                                    isOnline
+                                                    isOnline={false}
                                                 >
                                                     <Onboarding />
                                                 </PageLayout>
@@ -82,7 +82,22 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.RESET_PASSWORD,
                                         element: <Auth />,
                                     },
-
+                                    {
+                                        path: AppRoute.CHATS,
+                                        element: (
+                                            <PageLayout avatarUrl="" isOnline>
+                                                <div></div>
+                                            </PageLayout>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.CANDIDATES,
+                                        element: (
+                                            <PageLayout avatarUrl="" isOnline>
+                                                <div></div>
+                                            </PageLayout>
+                                        ),
+                                    },
                                     {
                                         path: AppRoute.OTHER,
                                         element: <NotFoundPage />,
