@@ -11,7 +11,12 @@ import {
     type Path,
 } from 'react-hook-form';
 
-import { Button, Grid, Input } from '~/bundles/common/components/components.js';
+import {
+    Button,
+    FormHelperText,
+    Grid,
+    Input,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -42,6 +47,7 @@ const MessageTemplate = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const dispatch = useAppDispatch();
     const [isEdit, setIsEdit] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [editedName, setEditedName] = useState(template.name);
 
     const editTemplate = useCallback((): void => {
@@ -49,20 +55,24 @@ const MessageTemplate = <T extends FieldValues>({
     }, []);
 
     const cancelTemplateEdit = useCallback((): void => {
+        setErrorMessage('');
         setIsEdit(false);
     }, []);
 
     const handleNameChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
+            if (errorMessage) {
+                setErrorMessage('');
+            }
             setEditedName(event.target.value);
         },
-        [],
+        [errorMessage],
     );
 
     const confirmTemplateEdit = useCallback(
         (oldName: string) => (): void => {
             if (templates.some((template) => template.name === editedName)) {
-                alert('Duplicate name');
+                setErrorMessage('Duplicate name');
                 return;
             }
             void dispatch(
@@ -84,37 +94,42 @@ const MessageTemplate = <T extends FieldValues>({
     );
 
     return isEdit ? (
-        <Grid container justifyContent={'space-between'}>
-            <Input
-                className={getValidClassNames(
-                    styles.button,
-                    styles.templateButton,
-                    styles.template,
-                    styles.templateInput,
-                )}
-                placeholder="Template name"
-                control={control}
-                errors={errors}
-                name={name}
-                value={editedName}
-                onChange={handleNameChange}
-            />
-            <Grid className={styles.buttonsContainer}>
-                <Button
-                    className={getValidClassNames(styles.button)}
-                    label=""
-                    onClick={confirmTemplateEdit(template.name)}
-                    variant="outlined"
-                    endIcon={<CheckIcon className={styles.buttonIcon} />}
+        <Grid>
+            <Grid container justifyContent={'space-between'}>
+                <Input
+                    className={getValidClassNames(
+                        styles.button,
+                        styles.templateButton,
+                        styles.template,
+                        styles.templateInput,
+                    )}
+                    placeholder="Template name"
+                    control={control}
+                    errors={errors}
+                    name={name}
+                    value={editedName}
+                    onChange={handleNameChange}
                 />
-                <Button
-                    className={getValidClassNames(styles.button)}
-                    label=""
-                    onClick={cancelTemplateEdit}
-                    variant="outlined"
-                    endIcon={<CloseIcon className={styles.buttonIcon} />}
-                />
+                <Grid className={styles.buttonsContainer}>
+                    <Button
+                        className={getValidClassNames(styles.button)}
+                        label=""
+                        onClick={confirmTemplateEdit(template.name)}
+                        variant="outlined"
+                        endIcon={<CheckIcon className={styles.buttonIcon} />}
+                    />
+                    <Button
+                        className={getValidClassNames(styles.button)}
+                        label=""
+                        onClick={cancelTemplateEdit}
+                        variant="outlined"
+                        endIcon={<CloseIcon className={styles.buttonIcon} />}
+                    />
+                </Grid>
             </Grid>
+            {errorMessage && (
+                <FormHelperText error>{errorMessage}</FormHelperText>
+            )}
         </Grid>
     ) : (
         <Grid container justifyContent={'space-between'}>
