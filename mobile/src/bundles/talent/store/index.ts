@@ -1,9 +1,14 @@
-import { completeProfileStep, completeSkillsStep } from './actions';
+import {
+    completeBadgesStep,
+    completeProfileStep,
+    completeSkillsStep,
+} from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
     completeProfileStep,
+    completeBadgesStep,
     completeSkillsStep,
 };
 

@@ -1,8 +1,9 @@
-export { BadgeType } from './ui/ui';
+export { AuthApiPath } from 'shared/build/index';
 export {
-    AuthApiPath,
+    BsaBadgeStepBadgesTitle,
     CountryList,
     EmploymentType,
     JobTitle,
+    ProfileStepValidationRule,
     SkillsStepValidationRule,
-} from 'shared/build/index';
+} from 'shared/build/index.js';

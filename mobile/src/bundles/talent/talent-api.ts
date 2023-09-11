@@ -2,6 +2,7 @@ import { ApiPath } from '~/bundles/common/enums/enums';
 // import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 // import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
+    type BadgeStepDto,
     type ProfileStepDto,
     type SkillsStepDto,
 } from '~/bundles/talent/types/types';
@@ -24,6 +25,13 @@ class TalentApi extends HttpApiBase {
         return payload;
     }
 
+    public completeBadgesStep(payload: BadgeStepDto): BadgeStepDto {
+        return payload;
+    }
+    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
+        return payload;
+    }
+
     // public constructor({ baseUrl, http, storage }: Constructor) {
     //     super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     // }
@@ -42,9 +50,21 @@ class TalentApi extends HttpApiBase {
     //     );
     //     return await response.json<ProfileStepDto>();
     // }
-    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
-        return payload;
-    }
+
+    //
+
+    // public async completeTalentedStep<T>(payload: T): Promise<T> {
+    //     const response = await this.load(
+    //         this.getFullEndpoint(UserDetailsApiPath.UPDATE, {}),
+    //         {
+    //             method: 'PATCH',
+    //             contentType: ContentType.JSON,
+    //             payload: JSON.stringify(payload),
+    //             hasAuth: true,
+    //         },
+    //     );
+    //     return await response.json<T>();
+    // }
 }
 
 export { TalentApi };

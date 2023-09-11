@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
+    type BadgeStepDto,
     type ProfileStepDto,
     type SkillsStepDto,
 } from '~/bundles/talent/types/types';
@@ -17,6 +18,15 @@ const completeProfileStep = createAsyncThunk<
     return talentApi.completeProfileStep(profileStepPayload);
 });
 
+const completeBadgesStep = createAsyncThunk<
+    BadgeStepDto,
+    BadgeStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/badges`, (profileStepPayload, { extra }) => {
+    const { talentApi } = extra;
+    return talentApi.completeBadgesStep(profileStepPayload);
+});
+
 const completeSkillsStep = createAsyncThunk<
     SkillsStepDto,
     SkillsStepDto,
@@ -26,4 +36,4 @@ const completeSkillsStep = createAsyncThunk<
     return talentApi.completeSkillsStep(skillsStepPayload);
 });
 
-export { completeProfileStep, completeSkillsStep };
+export { completeBadgesStep, completeProfileStep, completeSkillsStep };

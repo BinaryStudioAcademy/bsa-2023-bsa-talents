@@ -11,3 +11,4 @@ export {
     useController as useFormController,
 } from 'react-hook-form';
 export { useWindowDimensions } from 'react-native';
+export { useAnimatedStyle } from 'react-native-reanimated';
