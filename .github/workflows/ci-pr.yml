@@ -36,11 +36,12 @@ jobs:
             - name: Install NodeJS
               uses: actions/setup-node@v3
               with:
-                  node-version-file: .nvmrc
+                  node-version: 18
 
             - name: Install Dependencies
               run: |
-                  npm install
+                  npm install -g npm@8
+                  npm run install:all
 
             - name: Lint Commits
               run: |

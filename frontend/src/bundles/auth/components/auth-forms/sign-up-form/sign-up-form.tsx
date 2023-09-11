@@ -96,7 +96,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <Button
                     label="Continue"
-                    className={getValidClassNames('btnLogin', styles.btnLogin)}
+                    className={getValidClassNames('btn', styles.btnLogin)}
                     type="submit"
                 />
             </form>

@@ -4,12 +4,12 @@ import styles from './styles.module.scss';
 
 const NotFoundPage: React.FC = () => {
     return (
-        <Grid container xs={12} className={styles.pageContainer}>
-            <Grid item className={styles.header}>
-                <Logo />
+        <Grid container className={styles.pageContainer}>
+            <Grid container item className={styles.header}>
+                <Logo className={styles.logo} />
             </Grid>
 
-            <Grid item xs={12} className={styles.text}>
+            <Grid container item className={styles.text}>
                 <Typography variant="body1" className={styles.description}>
                     The page you are looking for can’t be found.
                 </Typography>
@@ -18,7 +18,7 @@ const NotFoundPage: React.FC = () => {
                 </Typography>
             </Grid>
 
-            <Grid item xs={12} container className={styles.link}>
+            <Grid container item className={styles.link}>
                 <Link to={AppRoute.ROOT}>Return to Main</Link>
             </Grid>
 
