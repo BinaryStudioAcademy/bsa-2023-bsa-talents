@@ -1,8 +1,8 @@
 type ContactsCVStepDto = {
     photo: File | null;
     fullName: string;
-    phoneNumber: string;
-    linkedInLink: string;
+    phone: string;
+    linkedinLink: string;
     cv: File | null;
 };
 

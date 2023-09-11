@@ -2,6 +2,7 @@ export {
     BSABadgeApiPath,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
+    BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
@@ -9,6 +10,7 @@ export {
     SkillsStepValidationRule,
 } from './enums/enums.js';
 export {
+    type BadgeStepDto,
     type BsaBadgesStepDto,
     type ProfileStepDto,
     type SkillsStepDto,

@@ -11,8 +11,8 @@ const MAX_FILE_SIZE = {
 const DEFAULT_CONTACTS_CV_STEP_PAYLOAD: ContactsCVStepDto = {
     photo: null,
     fullName: '',
-    phoneNumber: '',
-    linkedInLink: '',
+    phone: '',
+    linkedinLink: '',
     cv: null,
 };
 

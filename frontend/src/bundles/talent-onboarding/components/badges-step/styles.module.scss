@@ -7,7 +7,9 @@
 .formControl {
     display: flex;
     align-items: center;
+    max-width: var(--step-width);
     margin-bottom: 20px;
+    padding: 10px;
 }
 
 .badgeCheckboxContainer {

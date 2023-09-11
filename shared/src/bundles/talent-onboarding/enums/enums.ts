@@ -1,4 +1,5 @@
 export { BSABadgeApiPath } from './bsa-badge/bsa-badge-api-path.enum.js';
+export { BsaBadgeStepBadgesTitle } from './bsa-badges-step/bsa-badge-step.badges-title.js';
 export { BsaBadgesStepValidationMessage } from './bsa-badges-step/bsa-badges-step.validation-message.js';
 export { BsaBadgesStepValidationRule } from './bsa-badges-step/bsa-badges-step.validation-rule.js';
 export { HardSkillsApiPath } from './hard-skills/hard-skills-api-path.enum.js';
