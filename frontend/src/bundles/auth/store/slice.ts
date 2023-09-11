@@ -19,11 +19,7 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'auth',
-    reducers: {
-        setUserNotAuthenticated: (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addMatcher(

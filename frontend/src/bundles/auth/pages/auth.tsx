@@ -7,7 +7,7 @@ import {
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
-import { StepsRoute } from '~/bundles/talent-onboarding/enums/steps.enum.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import {
     type UserSignInRequestDto,

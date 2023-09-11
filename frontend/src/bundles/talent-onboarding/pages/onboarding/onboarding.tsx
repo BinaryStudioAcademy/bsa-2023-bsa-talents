@@ -19,9 +19,9 @@ import {
     FIRST_ELEMENT,
     STEP_NUMBER_FROM_ROUTE,
     STEP_ONE,
-    STEP_ROUTES,
     STEPS_NUMBER,
 } from '~/bundles/talent-onboarding/constants/constants.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 
 import { FormSubmitProvider } from '../../context/context.js';
@@ -42,8 +42,8 @@ const Onboarding: React.FC = () => {
         setCurrentStep(currentStep + STEP_ONE);
 
         const nextStepPath =
-            STEP_ROUTES[
-                `STEP_0${currentStep + STEP_ONE}` as keyof typeof STEP_ROUTES
+            StepsRoute[
+                `STEP_0${currentStep + STEP_ONE}` as keyof typeof StepsRoute
             ];
 
         navigate(getStepRoute(nextStepPath));
@@ -53,8 +53,8 @@ const Onboarding: React.FC = () => {
         setCurrentStep(currentStep - STEP_ONE);
 
         const previousStepPath =
-            STEP_ROUTES[
-                `STEP_0${currentStep - STEP_ONE}` as keyof typeof STEP_ROUTES
+            StepsRoute[
+                `STEP_0${currentStep - STEP_ONE}` as keyof typeof StepsRoute
             ];
 
         navigate(getStepRoute(previousStepPath));

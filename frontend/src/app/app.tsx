@@ -19,11 +19,7 @@ const App: React.FC = () => {
 
     const token = localStorage.getItem('token');
     useEffect(() => {
-        if (token) {
-            void dispatch(authActions.loadUser());
-        } else {
-            dispatch(authActions.setUserNotAuthenticated());
-        }
+        void dispatch(authActions.loadUser());
     }, [dispatch, token]);
 
     if (dataStatus == DataStatus.PENDING) {

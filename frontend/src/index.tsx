@@ -47,20 +47,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: AppRoute.TALENT,
-                                        element: (
-                                            <ProtectedRoute>
-                                                <Onboarding />
-                                            </ProtectedRoute>
-                                        ),
-                                        children: [
-                                            {
-                                                path: AppRoute.TALENT_STEP,
-                                                element: <StepNavigation />,
-                                            },
-                                        ],
-                                    },
-                                    {
                                         path: AppRoute.SIGN_IN,
                                         element: (
                                             <PublicRoute>
@@ -83,6 +69,20 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 <Auth />
                                             </PublicRoute>
                                         ),
+                                    },
+                                    {
+                                        path: AppRoute.TALENT_STEP,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <Onboarding />
+                                            </ProtectedRoute>
+                                        ),
+                                        children: [
+                                            {
+                                                path: '',
+                                                element: <StepNavigation />,
+                                            },
+                                        ],
                                     },
                                     {
                                         path: AppRoute.CHATS,
