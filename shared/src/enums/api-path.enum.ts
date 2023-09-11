@@ -3,6 +3,8 @@ const ApiPath = {
     USER_DETAILS: '/user-details',
     AUTH: '/auth',
     DOCUMENTATION: '/documentation',
+    BSA_BADGES: '/bsa-badges',
+    HARD_SKILLS: '/hard-skills',
 } as const;
 
 export { ApiPath };

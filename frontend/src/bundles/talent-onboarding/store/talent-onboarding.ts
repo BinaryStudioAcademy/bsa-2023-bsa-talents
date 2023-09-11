@@ -1,17 +1,9 @@
-import {
-    bsaBadgesStep,
-    contactsCVStep,
-    profileStep,
-    skillsStep,
-} from './actions.js';
+import { updateTalentDetails } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    bsaBadgesStep,
-    profileStep,
-    skillsStep,
-    contactsCVStep,
+    updateTalentDetails,
 };
 
 export { allActions as actions };
