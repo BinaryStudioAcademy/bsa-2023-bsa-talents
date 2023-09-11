@@ -41,6 +41,27 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(setCompletedStep, (state, action) => {
             state.completedStep = action.payload;
         });
+        builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
+            state.badgesStepData = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
+            const {
+                hardSkills,
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            } = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+            state.skillsStepData = {
+                hardSkills,
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            };
+        });
         builder.addMatcher(
             (action) =>
                 action.type === createTalentDetails.fulfilled.type ||
@@ -69,28 +90,6 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.REJECTED;
             },
         );
-
-        builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
-            state.badgesStepData = action.payload;
-            state.dataStatus = DataStatus.FULFILLED;
-        });
-        builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
-            const {
-                hardSkills,
-                englishLevel,
-                notConsidered,
-                preferredLanguages,
-                projectLinks,
-            } = action.payload;
-            state.dataStatus = DataStatus.FULFILLED;
-            state.skillsStepData = {
-                hardSkills,
-                englishLevel,
-                notConsidered,
-                preferredLanguages,
-                projectLinks,
-            };
-        });
         builder.addMatcher(
             isAnyOf(completeBadgesStep.pending, completeSkillsStep.pending),
             (state) => {
