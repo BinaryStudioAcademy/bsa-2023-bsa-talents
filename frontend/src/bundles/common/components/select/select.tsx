@@ -3,29 +3,30 @@ import {
     type Control,
     type FieldPath,
     type FieldValues,
-    type Path,
-    type PathValue,
 } from 'react-hook-form';
 
-import arrowIcon from '~/assets/img/select-arrow.svg';
-import { useFormController } from '~/bundles/common/hooks/hooks.js';
+import {
+    useCallback,
+    useFormController,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { FormControl, FormLabel } from '../components.js';
 import styles from './styles.module.scss';
 
+type SelectOption<T> = {
+    value: T;
+    label: string;
+};
+
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    options: { value: string | number; label: string }[];
+    options: SelectOption<string | number>[];
     placeholder?: string;
     label?: string;
-    multiple?: boolean;
+    isMulti?: boolean;
     hasError?: boolean;
     isDisabled?: boolean;
-};
-
-const ArrowIcon = (): JSX.Element => {
-    return <img className={styles.icon} src={arrowIcon} alt="arrow icon" />;
 };
 
 const Select = <T extends FieldValues>({
@@ -33,19 +34,35 @@ const Select = <T extends FieldValues>({
     name,
     options,
     label,
-    multiple,
+    isMulti,
     hasError,
     isDisabled,
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
-    const firstElementIndex = 0;
-    const { field } = useFormController({
-        name,
-        control,
-        defaultValue: (multiple
-            ? [options[firstElementIndex].value]
-            : options[firstElementIndex].value) as PathValue<T, Path<T>>,
-    });
+    const { field } = useFormController({ name, control });
+
+    const handleSelectChange = useCallback(
+        (selected: string | number | (string | number)[]) => {
+            if (
+                !selected ||
+                (Array.isArray(selected) && selected.length === 0)
+            ) {
+                return (
+                    <span className={styles.placeholder}>{placeholder}</span>
+                );
+            }
+
+            if (Array.isArray(selected)) {
+                const selectedOptions = options.filter((option) =>
+                    selected.includes(option.value),
+                );
+                return selectedOptions.map((option) => option.label).join(', ');
+            }
+
+            return options.find((option) => option.value === selected)?.label;
+        },
+        [options, placeholder],
+    );
 
     return (
         <FormControl
@@ -56,15 +73,11 @@ const Select = <T extends FieldValues>({
             {label && <FormLabel>{label}</FormLabel>}
             <MuiSelect
                 {...field}
-                multiple={multiple}
-                IconComponent={ArrowIcon}
+                displayEmpty
+                multiple={isMulti}
                 className={styles.input}
+                renderValue={handleSelectChange}
             >
-                {!multiple && (
-                    <MenuItem disabled value=" ">
-                        {placeholder}
-                    </MenuItem>
-                )}
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                         {option.label}
