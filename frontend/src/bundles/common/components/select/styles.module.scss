@@ -11,7 +11,7 @@
 
 .container .input {
     height: 38px;
-    padding: 10px 7px 12px 14px;
+    padding: 10px 7px 10px 14px;
     color: var(--steel-gray);
     font-weight: var(--font-weight-regular);
     border: 1px solid var(--botticelli);
@@ -45,4 +45,8 @@
 
 .container .input:hover {
     border-color: var(--botticelli);
+}
+
+.input div:first-child {
+    padding: 4px;
 }
