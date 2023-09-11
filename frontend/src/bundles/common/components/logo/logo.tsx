@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 type Properties = {
     className?: string;
     isCollapsed?: boolean;
-    withLink: boolean;
+    withLink?: boolean;
     link?: ValueOf<typeof AppRoute>;
 };
 
