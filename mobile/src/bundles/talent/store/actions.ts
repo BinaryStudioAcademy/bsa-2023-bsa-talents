@@ -27,6 +27,7 @@ const completeBadgesStep = createAsyncThunk<
     const { talentApi } = extra;
     return talentApi.completeBadgesStep(profileStepPayload);
 });
+
 const contactsCVStep = createAsyncThunk<
     CvAndContactsFormDto,
     CvAndContactsFormDto,
