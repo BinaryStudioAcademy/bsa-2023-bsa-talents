@@ -1,5 +1,3 @@
-import { useForm } from 'react-hook-form';
-
 import {
     Checkbox,
     FormLabel,
@@ -7,24 +5,24 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
     ExperienceYears,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 
+import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaBadges,
     BsaCharacteristics,
     BsaProject,
 } from '../../enums/enums.js';
-import { type SelectOption } from '../../types/select-option.js';
+import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
 import styles from './styles.module.scss';
 
-const jobTitleOptions: SelectOption<string | number>[] = Object.values(
-    JobTitle,
-).map((title) => ({
+const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
 }));
@@ -57,19 +55,8 @@ const locationOptions = Object.values(CountryList).map((country) => ({
 }));
 
 const EmployeeFilters: React.FC = () => {
-    const { control } = useForm({
-        defaultValues: {
-            activeSearchingOnly: true,
-            jobTitles: [],
-            userYearsOfExperience: [],
-            hardSkills: [],
-            userBsaCharacteristics: [],
-            userBsaBadges: [],
-            userBsaProject: [],
-            userLocation: [],
-            levelOfEnglish: [],
-            employmentType: [],
-        },
+    const { control } = useAppForm<EmployeesFiltersDto>({
+        defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
     });
 
     return (
@@ -80,7 +67,7 @@ const EmployeeFilters: React.FC = () => {
                 </Typography>
             </Grid>
             <Grid item>
-                <Checkbox label="Active searching takents only" />
+                <Checkbox label="Active searching talents only" />
             </Grid>
             <Grid>
                 <FormLabel className={styles.labels}>
