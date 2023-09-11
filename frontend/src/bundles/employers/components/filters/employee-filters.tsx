@@ -19,6 +19,7 @@ import {
     BsaProject,
 } from '../../enums/enums.js';
 import { type SelectOption } from '../../types/select-option.js';
+import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions: SelectOption<string | number>[] = Object.values(
@@ -58,12 +59,16 @@ const locationOptions = Object.values(CountryList).map((country) => ({
 const EmployeeFilters: React.FC = () => {
     const { control } = useForm({
         defaultValues: {
+            activeSearchingOnly: true,
             jobTitles: [],
             userYearsOfExperience: [],
+            hardSkills: [],
             userBsaCharacteristics: [],
             userBsaBadges: [],
             userBsaProject: [],
             userLocation: [],
+            levelOfEnglish: [],
+            employmentType: [],
         },
     });
 
@@ -85,7 +90,14 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="jobTitles"
                         isMulti={true}
+                        placeholder="Options"
                     />
+                </FormLabel>
+            </Grid>
+            <Grid>
+                <FormLabel className={styles.labels}>
+                    {'Hard Skills'}
+                    <SkillsAutocomplete name="hardSkills" control={control} />
                 </FormLabel>
             </Grid>
             <Grid>
@@ -96,6 +108,7 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="userYearsOfExperience"
                         isMulti={true}
+                        placeholder="Options"
                     />
                 </FormLabel>
             </Grid>
@@ -107,6 +120,7 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="userBsaCharacteristics"
                         isMulti={true}
+                        placeholder="Options"
                     />
                 </FormLabel>
             </Grid>
@@ -118,6 +132,7 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="userBsaBadges"
                         isMulti={true}
+                        placeholder="Options"
                     />
                 </FormLabel>
             </Grid>
@@ -129,6 +144,7 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="userBsaProject"
                         isMulti={true}
+                        placeholder="Options"
                     />
                 </FormLabel>
             </Grid>
@@ -140,6 +156,7 @@ const EmployeeFilters: React.FC = () => {
                         control={control}
                         name="userLocation"
                         isMulti={true}
+                        placeholder="Options"
                     />
                 </FormLabel>
             </Grid>
