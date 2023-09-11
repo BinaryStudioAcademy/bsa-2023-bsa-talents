@@ -3,6 +3,9 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
+    type BadgeStepDto,
+    type CvAndContactsFormDto,
+    type SkillsStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
@@ -59,7 +62,36 @@ const getTalentDetails = createAsyncThunk<
     }
 });
 
+const completeBadgesStep = createAsyncThunk<
+    BadgeStepDto,
+    BadgeStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/badges`, (profileStepPayload, { extra }) => {
+    const { talentApi } = extra;
+    return talentApi.completeBadgesStep(profileStepPayload);
+});
+
+const contactsCVStep = createAsyncThunk<
+    CvAndContactsFormDto,
+    CvAndContactsFormDto,
+    AsyncThunkConfig
+>(`${sliceName}/contacts-cv-step`, (contactsCVStepPayload) => {
+    return contactsCVStepPayload;
+});
+
+const completeSkillsStep = createAsyncThunk<
+    SkillsStepDto,
+    SkillsStepDto,
+    AsyncThunkConfig
+>(`${sliceName}/skills-step`, (skillsStepPayload, { extra }) => {
+    const { talentApi } = extra;
+    return talentApi.completeSkillsStep(skillsStepPayload);
+});
+
 export {
+    completeBadgesStep,
+    completeSkillsStep,
+    contactsCVStep,
     createTalentDetails,
     getTalentDetails,
     setCompletedStep,

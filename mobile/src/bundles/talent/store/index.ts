@@ -1,4 +1,6 @@
 import {
+    completeBadgesStep,
+    completeSkillsStep,
     createTalentDetails,
     getTalentDetails,
     setCompletedStep,
@@ -12,6 +14,8 @@ const allActions = {
     getTalentDetails,
     setCompletedStep,
     updateOnboardingData,
+    completeBadgesStep,
+    completeSkillsStep,
 };
 
 export { allActions as actions };

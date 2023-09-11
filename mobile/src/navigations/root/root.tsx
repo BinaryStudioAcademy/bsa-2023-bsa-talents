@@ -4,8 +4,13 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { RootScreenName } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
@@ -24,6 +29,19 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: React.FC = () => {
     const { isSignedIn, currentUser } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = currentUser ?? {};
+    const dispatch = useAppDispatch();
+
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
+
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
+
+    useEffect(() => {
+        void dispatch(loadCurrentUser());
+    }, [dispatch]);
+
+    if (isPendingAuth) {
+        return null;
+    }
 
     const navigators = {
         auth: (

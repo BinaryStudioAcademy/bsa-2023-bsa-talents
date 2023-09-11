@@ -18,7 +18,7 @@ type Properties<T extends FieldValues> = {
     options: string[];
 };
 
-const EmploymentTypes = <T extends FieldValues>({
+const CheckboxGroup = <T extends FieldValues>({
     name,
     control,
     options,
@@ -31,11 +31,11 @@ const EmploymentTypes = <T extends FieldValues>({
     const handleToggleCheckbox = useCallback(
         (selectedType: string) => {
             const isCheckedBefore = value.includes(selectedType);
-            const updatedEmploymentType = isCheckedBefore
+            const updatedCheckboxGroup = isCheckedBefore
                 ? value.filter((type: string) => type !== selectedType)
                 : [...value, selectedType];
 
-            onChange(updatedEmploymentType);
+            onChange(updatedCheckboxGroup);
         },
         [value, onChange],
     );
@@ -58,7 +58,7 @@ const EmploymentTypes = <T extends FieldValues>({
             style={[
                 globalStyles.flexDirectionRow,
                 globalStyles.justifyContentSpaceBetween,
-                styles.employmentTypeContainer,
+                styles.checkboxGroupContainer,
             ]}
         >
             <View style={globalStyles.flex1}>
@@ -71,4 +71,4 @@ const EmploymentTypes = <T extends FieldValues>({
     );
 };
 
-export { EmploymentTypes };
+export { CheckboxGroup };

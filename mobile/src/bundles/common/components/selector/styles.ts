@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
     },
+    dropdownClosed: {
+        borderWidth: 0,
+    },
     dropdownButton: {
         borderWidth: 1,
         borderColor: Color.INPUT,
@@ -13,7 +16,6 @@ const styles = StyleSheet.create({
     dropdown: {
         position: 'absolute',
         top: '95%',
-        maxHeight: 150,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         backgroundColor: '#FFF',

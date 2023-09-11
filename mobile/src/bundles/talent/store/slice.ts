@@ -1,10 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { type UserDetailsResponseDto } from '~/bundles/talent/types/types';
+import {
+    type BadgeStepDto,
+    type SkillsStepDto,
+    type UserDetailsResponseDto,
+} from '~/bundles/talent/types/types';
 
 import {
+    completeBadgesStep,
+    completeSkillsStep,
     createTalentDetails,
     getTalentDetails,
     setCompletedStep,
@@ -15,12 +21,16 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsResponseDto | null;
     completedStep: number;
+    badgesStepData: BadgeStepDto | null;
+    skillsStepData: SkillsStepDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
     completedStep: 0,
+    badgesStepData: null,
+    skillsStepData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -55,6 +65,40 @@ const { reducer, actions, name } = createSlice({
                 action.type === createTalentDetails.rejected.type ||
                 action.type === updateOnboardingData.rejected.type ||
                 action.type === getTalentDetails.rejected.type,
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
+
+        builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
+            state.badgesStepData = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
+            const {
+                hardSkills,
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            } = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+            state.skillsStepData = {
+                hardSkills,
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            };
+        });
+        builder.addMatcher(
+            isAnyOf(completeBadgesStep.pending, completeSkillsStep.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(completeBadgesStep.rejected, completeSkillsStep.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
             },

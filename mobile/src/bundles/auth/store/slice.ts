@@ -4,7 +4,7 @@ import { type UserFindResponseDto } from '~/bundles/auth/types/types';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-import { signIn, signUp } from './actions';
+import { loadCurrentUser, signIn, signUp } from './actions';
 
 type UserData = UserFindResponseDto & {
     isProfileComplete: boolean;
@@ -29,7 +29,11 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addMatcher(
-            isAnyOf(signUp.fulfilled, signIn.fulfilled),
+            isAnyOf(
+                signUp.fulfilled,
+                loadCurrentUser.fulfilled,
+                signIn.fulfilled,
+            ),
             (state, { payload }) => {
                 const { email, id, role } = payload;
                 state.dataStatus = DataStatus.FULFILLED;
@@ -42,13 +46,16 @@ const { reducer, actions, name } = createSlice({
                 state.isSignedIn = true;
             },
         );
-        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
-            state.dataStatus = DataStatus.PENDING;
-            state.isSignedIn = false;
-            state.currentUser = null;
-        });
         builder.addMatcher(
-            isAnyOf(signUp.rejected, signIn.rejected),
+            isAnyOf(signUp.pending, loadCurrentUser.pending, signIn.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+                state.isSignedIn = false;
+                state.currentUser = null;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(signUp.rejected, loadCurrentUser.rejected, signIn.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.isSignedIn = false;
