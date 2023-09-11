@@ -26,10 +26,10 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
-    CompletedStep,
     CountryList,
     EmploymentType,
     JobTitle,
+    OnboardingSteps,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -127,7 +127,7 @@ const ProfileStep: React.FC = () => {
                 actions.updateTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    completedStep: CompletedStep.STEP_1,
+                    completedStep: OnboardingSteps.STEP_01,
                 }),
             );
             return true;

@@ -21,7 +21,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { useFormSubmit } from '../../context/context.js';
-import { CompletedStep } from '../../enums/enums.js';
+import { OnboardingSteps } from '../../enums/enums.js';
 import { getRandomBadgeColor } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
@@ -52,7 +52,7 @@ const BadgesStep: React.FC = () => {
             await dispatch(
                 actions.updateTalentDetails({
                     ...data,
-                    completedStep: CompletedStep.STEP_2,
+                    completedStep: OnboardingSteps.STEP_02,
                 }),
             );
             return true;

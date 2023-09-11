@@ -1,12 +1,12 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CompletedStep,
     type CountryList,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
@@ -64,7 +64,7 @@ class UserDetailsEntity implements Entity {
 
     private 'cvId': string | null;
 
-    private 'completedStep': ValueOf<typeof CompletedStep> | null;
+    private 'completedStep': ValueOf<typeof OnboardingSteps> | null;
 
     private constructor({
         id,

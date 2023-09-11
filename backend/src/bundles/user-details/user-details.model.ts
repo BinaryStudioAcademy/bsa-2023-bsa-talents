@@ -17,12 +17,12 @@ import {
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CompletedStep,
     type CountryList,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from './enums/enums.js';
 
@@ -81,7 +81,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'talentBadges': TalentBadgeModel[];
 
-    public 'completedStep': ValueOf<typeof CompletedStep>;
+    public 'completedStep': ValueOf<typeof OnboardingSteps>;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;

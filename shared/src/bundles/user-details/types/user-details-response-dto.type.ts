@@ -1,12 +1,12 @@
 import { type ValueOf } from '~/types/value-of.type';
 
 import {
-    type CompletedStep,
     type CountryList,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from '../user-details.js';
 
@@ -37,7 +37,7 @@ type UserDetailsResponseDto = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
-    completedStep: ValueOf<typeof CompletedStep> | null;
+    completedStep: ValueOf<typeof OnboardingSteps> | null;
 };
 
 export { type UserDetailsResponseDto };

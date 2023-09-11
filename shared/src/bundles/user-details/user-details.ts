@@ -1,11 +1,11 @@
 export {
-    CompletedStep,
     CountryList,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
 } from './enums/enums.js';

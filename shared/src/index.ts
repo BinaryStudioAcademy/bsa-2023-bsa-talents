@@ -18,13 +18,13 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CompletedStep,
     CountryList,
     EmploymentType,
     EnglishLevel,
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,

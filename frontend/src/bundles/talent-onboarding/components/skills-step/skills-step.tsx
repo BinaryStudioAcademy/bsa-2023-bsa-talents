@@ -24,9 +24,9 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
-    CompletedStep,
     EnglishLevel,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
@@ -117,7 +117,7 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
-                    completedStep: CompletedStep.STEP_3,
+                    completedStep: OnboardingSteps.STEP_03,
                 }),
             );
             return true;
