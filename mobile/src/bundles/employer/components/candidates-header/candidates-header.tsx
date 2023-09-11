@@ -11,19 +11,20 @@ const CandidatesHeader: React.FC = () => {
         <View
             style={[
                 globalStyles.p25,
-                globalStyles.flexDirectionRow,
+                // globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
                 styles.container,
             ]}
         >
             <Text category={TextCategory.H3}>Candidates</Text>
             <Text
-                category={TextCategory.STEP}
+                category={TextCategory.BODY1}
                 style={[
                     styles.talentsNumber,
                     globalStyles.borderRadius10,
                     globalStyles.alignSelfCenter,
                     globalStyles.ph5,
+                    globalStyles.mt5,
                 ]}
             >
                 63
