@@ -12,14 +12,11 @@ const ProtectedRoute: FC<Properties> = ({ children }) => {
     const { currentUser } = useAppSelector(({ auth }) => ({
         currentUser: auth.currentUser,
     }));
-
     const hasUser = Boolean(currentUser);
-
-    return hasUser ? (
-        <>{children}</>
-    ) : (
-        <Navigate to={AppRoute.SIGN_IN} replace />
-    );
+    if (hasUser) {
+        return <>{children}</>;
+    }
+    return <Navigate to={AppRoute.SIGN_IN} replace />;
 };
 
 export { ProtectedRoute };

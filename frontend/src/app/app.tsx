@@ -17,14 +17,14 @@ const App: React.FC = () => {
         dataStatus: auth.dataStatus,
     }));
 
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        void dispatch(authActions.loadUser());
-    }, [dispatch]);
+        if (token) {
+            void dispatch(authActions.loadUser());
+        }
+    }, [dispatch, token]);
 
-    if (
-        dataStatus !== DataStatus.FULFILLED &&
-        dataStatus !== DataStatus.REJECTED
-    ) {
+    if (dataStatus == DataStatus.PENDING) {
         return <Loader />;
     }
 

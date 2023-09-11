@@ -6,4 +6,12 @@ const Steps = {
     STEP_05: 'Preview',
 } as const;
 
-export { Steps };
+const StepsRoute = {
+    STEP_01: 'profile',
+    STEP_02: 'bsa-badges',
+    STEP_03: 'skills-and-projects',
+    STEP_04: 'cv-and-ontacts',
+    STEP_05: 'preview',
+} as const;
+
+export { Steps, StepsRoute };

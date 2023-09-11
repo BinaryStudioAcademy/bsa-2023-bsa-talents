@@ -10,17 +10,18 @@ import {
     App,
     Navigate,
     PageLayout,
+    ProtectedRoute,
+    PublicRoute,
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { ProtectedRoute } from './bundles/auth/components/components.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
-import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
+import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
@@ -38,32 +39,21 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.ROOT,
                                         element: (
-                                            <Navigate to={AppRoute.SIGN_IN} />
+                                            <Navigate
+                                                to={getStepRoute(
+                                                    StepsRoute.STEP_01,
+                                                )}
+                                            />
                                         ),
                                     },
                                     {
                                         path: AppRoute.TALENT,
                                         element: (
                                             <ProtectedRoute>
-                                                <PageLayout
-                                                    avatarUrl=""
-                                                    isOnline={false}
-                                                >
-                                                    <Onboarding />
-                                                </PageLayout>
+                                                <Onboarding />
                                             </ProtectedRoute>
                                         ),
                                         children: [
-                                            {
-                                                path: AppRoute.TALENT,
-                                                element: (
-                                                    <Navigate
-                                                        to={getStepRoute(
-                                                            STEP_ROUTES.STEP_01,
-                                                        )}
-                                                    />
-                                                ),
-                                            },
                                             {
                                                 path: AppRoute.TALENT_STEP,
                                                 element: <StepNavigation />,
@@ -72,37 +62,64 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     },
                                     {
                                         path: AppRoute.SIGN_IN,
-                                        element: <Auth />,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
                                     },
                                     {
                                         path: AppRoute.SIGN_UP,
-                                        element: <Auth />,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
                                     },
                                     {
                                         path: AppRoute.RESET_PASSWORD,
-                                        element: <Auth />,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
                                     },
                                     {
                                         path: AppRoute.CHATS,
                                         element: (
-                                            <PageLayout avatarUrl="" isOnline>
-                                                <div></div>
-                                            </PageLayout>
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <div></div>
+                                                </PageLayout>
+                                            </ProtectedRoute>
                                         ),
                                     },
                                     {
                                         path: AppRoute.CANDIDATES,
                                         element: (
-                                            <PageLayout avatarUrl="" isOnline>
-                                                <div></div>
-                                            </PageLayout>
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <div></div>
+                                                </PageLayout>
+                                            </ProtectedRoute>
                                         ),
                                     },
-                                    {
-                                        path: AppRoute.OTHER,
-                                        element: <NotFoundPage />,
-                                    },
                                 ],
+                            },
+
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFoundPage />,
+                            },
+                            {
+                                path: AppRoute.OTHER,
+                                element: <NotFoundPage />,
                             },
                         ]}
                     />

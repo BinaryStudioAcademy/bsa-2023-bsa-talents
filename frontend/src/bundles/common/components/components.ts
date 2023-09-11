@@ -18,6 +18,8 @@ export { Logo } from './logo/logo.js';
 export { Modal } from './modal/modal.js';
 export { Notifications } from './notifications/notifications.js';
 export { PageLayout } from './page-layout/page-layout.js';
+export { ProtectedRoute } from './protected-route/protected-route.js';
+export { PublicRoute } from './public-route/public-route.js';
 export { Radio, RadioGroup } from './radio/radio.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';

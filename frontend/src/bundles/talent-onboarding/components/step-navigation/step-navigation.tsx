@@ -1,3 +1,5 @@
+import { Navigate } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { useParameters } from '~/bundles/common/hooks/hooks.js';
 
 import { STEP_ROUTES } from '../../constants/constants.js';
@@ -28,6 +30,9 @@ const StepNavigation: React.FC = () => {
         }
         case STEP_ROUTES.STEP_05: {
             return <Preview />;
+        }
+        default: {
+            return <Navigate to={AppRoute.NOT_FOUND} replace />;
         }
     }
 };
