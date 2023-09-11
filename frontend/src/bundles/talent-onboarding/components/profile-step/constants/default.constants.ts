@@ -2,7 +2,7 @@ import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js'
 
 const DEFAULT_PAYLOAD_PROFILE_STEP: ProfileStepDto = {
     profileName: '',
-    salaryExpectation: 0,
+    salaryExpectation: 1,
     jobTitle: '',
     location: '',
     experienceYears: 0,
