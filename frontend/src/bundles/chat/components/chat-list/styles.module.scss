@@ -1,3 +1,7 @@
+:root {
+    --search-bar-height: 48px;
+}
+
 .chatListContainer {
     height: 100%;
     padding: 10px 0;
@@ -5,7 +9,7 @@
 }
 
 .chatList {
-    height: calc(100% - 48px); /* minus search bar height */
+    height: calc(100% - var(--search-bar-height));
     min-height: 100px;
     margin: 0;
     padding: 0 16px;
