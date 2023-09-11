@@ -11,6 +11,7 @@ const IconName = {
     MAIL: 'mail',
     MENU: 'menu',
     HEADPHONES: 'headphones',
+    PLUS: 'plus',
 } as const;
 
 export { IconName };

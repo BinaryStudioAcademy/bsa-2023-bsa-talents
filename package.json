@@ -4,16 +4,17 @@
     "private": "true",
     "engines": {
         "node": "18.x.x",
-        "npm": "9.x.x"
+        "npm": "8.x.x"
     },
     "workspaces": [
         "shared",
         "backend",
         "frontend",
-        "mobile"
+        "mobile",
+        "build"
     ],
     "scripts": {
-        "postinstall": "npm run build:shared",
+        "install:all": "npm i && npm run build:shared",
         "build:shared": "npm run build -w shared",
         "build:frontend": "npm run build -w frontend",
         "build:backend": "npm run build -w backend",
@@ -24,7 +25,10 @@
         "lint:css": "npm run lint:css --workspaces --if-present",
         "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,scss,html}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:prettify && npm run lint:type && npm run lint:js && npm run lint:css",
-        "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html}\""
+        "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html}\"",
+        "build": "npm run build:shared && npm run build:backend && npm run build:frontend && sh ./prepare-build.sh",
+        "prestart": "npm i && npm run build",
+        "start": "cd ./build/backend && npm run start"
     },
     "devDependencies": {
         "@commitlint/cli": "17.7.1",

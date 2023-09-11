@@ -1,4 +1,7 @@
 import { authController } from '~/bundles/auth/auth.js';
+import { bsaBadgesController } from '~/bundles/bsa-badges/bsa-badges.js';
+import { hardSkillsController } from '~/bundles/hard-skills/hard-skills.js';
+import { userDetailsController } from '~/bundles/user-details/user-details.js';
 import { userController } from '~/bundles/users/users.js';
 import { config, database, logger } from '~/common/packages/packages.js';
 
@@ -10,6 +13,9 @@ const apiV1 = new ServerAppApiBase(
     config,
     ...authController.routes,
     ...userController.routes,
+    ...userDetailsController.routes,
+    ...hardSkillsController.routes,
+    ...bsaBadgesController.routes,
 );
 const serverApp = new ServerAppBase({
     config,

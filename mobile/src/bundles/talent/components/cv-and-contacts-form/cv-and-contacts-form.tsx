@@ -2,16 +2,18 @@ import React from 'react';
 
 import {
     Button,
+    FilePicker,
     FormField,
     Input,
     ScrollView,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
+import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -23,12 +25,8 @@ type Properties = {
 const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
+        validationSchema: CvAndContactsFormValidationSchema,
     });
-
-    const handleCVUpload = useCallback(() => {
-        // TODO: add upload file logic
-        return null;
-    }, []);
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -39,15 +37,14 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
             <FormField
-                errors={errors}
-                name="photoId"
-                required
-                containerStyle={globalStyles.pb25}
+                errorMessage={errors.photo && 'Photo is required'}
+                name="photo"
+                containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker />
+                <AvatarPicker control={control} name="photo" />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.fullName?.message}
                 label="Full name"
                 name="fullName"
                 required
@@ -60,7 +57,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.phoneNumber?.message}
                 label="Phone number"
                 name="phoneNumber"
                 required
@@ -74,31 +71,30 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.linkedInLink?.message}
                 label="Linkedin profile"
-                name="linkedinProfile"
+                name="linkedInLink"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="linkedinProfile"
+                    name="linkedInLink"
                     placeholder="link to BSA project"
                     marker="www."
                 />
             </FormField>
             <FormField
-                errors={errors}
+                errorMessage={errors.cv && 'CV is required'}
                 label="CV"
                 name="cv"
                 required
                 containerStyle={globalStyles.pb25}
             >
-                <Button
+                <FilePicker
                     label="Choose file"
-                    buttonType="Outline"
-                    iconName={IconName.ADD}
-                    onPress={handleCVUpload}
+                    control={control}
+                    name="cv"
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />
             </FormField>

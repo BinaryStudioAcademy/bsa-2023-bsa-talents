@@ -1,18 +1,14 @@
-import { FormHelperText } from '@mui/material';
 import {
-    type Control,
     Controller,
     type ControllerFieldState,
     type ControllerRenderProps,
-    type FieldErrors,
-    type FieldValues,
-    type UseFormHandleSubmit,
     type UseFormStateReturn,
 } from 'react-hook-form';
 
 import {
     Checkbox,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -21,31 +17,31 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
     EmploymentType,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
-    experienceYearsScaled,
     experienceYearsSliderMarks,
+    realToSliderValue,
+    sliderToRealValue,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { DEFAULT_PAYLOAD_PROFILE_STEP } from './constants/constants.js';
+import { useFormSubmit } from '../../context/context.js';
+import { actions } from '../../store/talent-onboarding.js';
+import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
-type ReturnValue<T extends FieldValues = FieldValues> = {
-    control: Control<T, null>;
-    errors: FieldErrors<T>;
-    handleSubmit: UseFormHandleSubmit<T>;
-};
-
-type Properties = {
-    methods: ReturnValue<ProfileStepDto>;
-    userInfo?: ProfileStepDto;
-};
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
@@ -59,12 +55,60 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     label: type,
 }));
 
-const ProfileStep: React.FC<Properties> = ({ methods }) => {
-    const { control, errors } = methods;
+const ProfileStep: React.FC = () => {
+    const {
+        profileName,
+        salaryExpectation,
+        jobTitle,
+        location,
+        experienceYears,
+        employmentType,
+        description,
+    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+
+    const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
+        defaultValues: {
+            profileName,
+            salaryExpectation,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+        },
+        validationSchema: ProfileStepValidationSchema,
+    });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const onSubmit = useCallback(
+        async (data: ProfileStepDto): Promise<boolean> => {
+            await dispatch(actions.updateTalentDetails(data));
+            return true;
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
+                })();
+                return result;
+            };
+        });
+        return () => {
+            setSubmitForm(null);
+        };
+    }, [handleSubmit, onSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
-            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>,
+            field: ControllerRenderProps<ProfileStepDto, 'employmentType'>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -80,7 +124,7 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
         ({
             field,
         }: {
-            field: ControllerRenderProps<ProfileStepDto, 'employmentTypes'>;
+            field: ControllerRenderProps<ProfileStepDto, 'employmentType'>;
             fieldState: ControllerFieldState;
             formState: UseFormStateReturn<ProfileStepDto>;
         }): React.ReactElement => {
@@ -97,6 +141,7 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
                             key={option.value}
                             label={option.label}
                             value={option.value}
+                            isChecked={field.value.includes(option.value)}
                             onChange={handleCheckboxOnChange(
                                 field,
                                 option.value,
@@ -111,18 +156,10 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
 
     const handleSliderOnChange = useCallback(
         (field: ControllerRenderProps<ProfileStepDto, 'experienceYears'>) =>
-            (event: Event): void => {
-                const mouseEvent = event as MouseEvent;
-                const inputElement = mouseEvent.target as HTMLInputElement;
-                const newValue = inputElement.value;
-                const exactExperienceObject = experienceYearsScaled.find(
-                    (experience) =>
-                        experience.scaledValue === Number.parseInt(newValue),
-                );
-                const exactExperienceValue = exactExperienceObject
-                    ? exactExperienceObject.value
-                    : DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears;
-                field.onChange(exactExperienceValue);
+            (event: Event, value: number | number[]): void => {
+                if (typeof value == 'number') {
+                    field.onChange(sliderToRealValue(value));
+                }
             },
         [],
     );
@@ -137,18 +174,13 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
         }): React.ReactElement => {
             return (
                 <Slider
-                    {...{
-                        onChange: field.onChange,
-                        onBlur: field.onBlur,
-                        name: field.name,
-                        value: field.value,
-                    }}
+                    name={field.name}
                     className={styles.track}
                     classes={styles}
-                    value={DEFAULT_PAYLOAD_PROFILE_STEP.experienceYears}
                     marks={experienceYearsSliderMarks}
                     step={null}
-                    onChange={handleSliderOnChange(field)}
+                    onChange={handleSliderOnChange({ ...field })}
+                    value={realToSliderValue(field.value)}
                 />
             );
         },
@@ -238,13 +270,13 @@ const ProfileStep: React.FC<Properties> = ({ methods }) => {
                 <FormControl className={styles.formControlCheckbox}>
                     <Controller
                         control={control}
-                        name="employmentTypes"
+                        name="employmentType"
                         render={renderCheckboxes}
                     />
                 </FormControl>
-                {errors.employmentTypes && (
+                {errors.employmentType && (
                     <FormHelperText className={styles.hasError}>
-                        {errors.employmentTypes.message}
+                        {errors.employmentType.message}
                     </FormHelperText>
                 )}
             </Grid>
