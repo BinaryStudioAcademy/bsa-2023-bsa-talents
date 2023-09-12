@@ -82,8 +82,8 @@ export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
     getAvatarInitials,
-    getNestedProperty,
     getItemsWithSelected,
+    getNestedProperty,
     getSearchedItems,
 } from './helpers/helpers.js';
 export {
