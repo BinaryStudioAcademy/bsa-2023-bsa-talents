@@ -50,7 +50,7 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
-    const error = getNestedProperty(errors, name)?.message;
+    const error = getNestedProperty<T>(errors, name)?.message;
     const hasError = Boolean(error);
 
     let adornment = null;
