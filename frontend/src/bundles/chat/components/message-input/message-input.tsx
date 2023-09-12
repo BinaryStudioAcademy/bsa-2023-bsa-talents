@@ -8,13 +8,21 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onClick?: (message: string) => void;
+    onSend?: (message: string) => void;
     className?: string;
 };
 
-const MessageInput: React.FC<Properties> = ({ onClick, className }) => {
+const MessageInput: React.FC<Properties> = ({ onSend, className }) => {
     const [message, setMessage] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [isShiftDown, setIsShiftDown] = useState(false);
+
+    const sendMessage = useCallback((): void => {
+        if (onSend && message.trim()) {
+            onSend(message.trim());
+            setMessage('');
+        }
+    }, [message, onSend]);
 
     const handleInputChange = useCallback(
         (
@@ -26,11 +34,37 @@ const MessageInput: React.FC<Properties> = ({ onClick, className }) => {
     );
 
     const handleSendClick = useCallback(() => {
-        if (onClick && message.trim()) {
-            onClick(message);
-            setMessage('');
-        }
-    }, [message, onClick]);
+        sendMessage();
+    }, [sendMessage]);
+
+    const handleKeyDown = useCallback(
+        (
+            event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+        ) => {
+            if (event.key === 'Shift') {
+                setIsShiftDown(true);
+            }
+            if (event.key === 'Enter' && !isShiftDown) {
+                event.preventDefault();
+                sendMessage();
+            }
+        },
+        [isShiftDown, sendMessage],
+    );
+
+    const handleKeyUp = useCallback(
+        (
+            event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+        ) => {
+            if (event.key === 'Shift') {
+                setIsShiftDown(false);
+            }
+            if (event.key === 'Enter' && !isShiftDown) {
+                setMessage('');
+            }
+        },
+        [isShiftDown],
+    );
 
     const handleFocus = useCallback(() => {
         setIsFocused(true);
@@ -59,6 +93,8 @@ const MessageInput: React.FC<Properties> = ({ onClick, className }) => {
                 onChange={handleInputChange}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                onKeyUp={handleKeyUp}
                 disableUnderline={true}
                 endAdornment={
                     <InputAdornment position="end" className={styles.adornment}>

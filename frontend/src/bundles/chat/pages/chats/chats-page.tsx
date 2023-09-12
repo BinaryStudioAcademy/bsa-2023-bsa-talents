@@ -6,10 +6,14 @@ import {
 } from '~/bundles/chat/components/components.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 
+// import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { items, messages } from '../../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
+    // const sendMessage = useCallback((message: string) => {
+    // }, []);
+
     return (
         <Grid container direction="column">
             <Typography variant="h4" className={styles.header}>
@@ -29,7 +33,10 @@ const ChatsPage: React.FC = () => {
                         messages={messages}
                         className={styles.messageList}
                     />
-                    <MessageInput className={styles.chatInput} />
+                    <MessageInput
+                        className={styles.chatInput}
+                        // onSend={sendMessage}
+                    />
                 </Grid>
             </Grid>
         </Grid>
