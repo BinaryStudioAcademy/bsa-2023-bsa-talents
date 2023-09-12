@@ -1,10 +1,7 @@
 import arrowIcon from '~/assets/img/arrow-right.svg';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import {
-    useAppDispatch,
-    useAppSelector,
     useCallback,
-    useEffect,
     useLocation,
     useNavigate,
     useState,
@@ -21,18 +18,13 @@ import {
     STEPS_NUMBER,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { FormSubmitProvider } from '../../context/context.js';
-import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-
-    const dispatch = useAppDispatch();
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const [currentStep, setCurrentStep] = useState<number>(() => {
         const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
@@ -64,14 +56,6 @@ const Onboarding: React.FC = () => {
 
         navigate(getStepRoute(previousStepPath));
     }, [currentStep, navigate]);
-
-    useEffect(() => {
-        void dispatch(
-            actions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
 
     return (
         <FormSubmitProvider>
