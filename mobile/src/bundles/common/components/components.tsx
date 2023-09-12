@@ -20,7 +20,6 @@ export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Tag } from './tag/tag';
 export { Text } from './text/text';
-export { RadioWrapper } from '~/bundles/common/components/radio-wrapper/radio-wrapper';
 export {
     ActivityIndicator,
     FlatList,

@@ -1,4 +1,4 @@
-const YEARS_EXPERIENCE = ['< 1', 'from 1 to 2', '2+'];
+const YEARS_EXPERIENCE = ['>1', 'from 1 to 2', '2+'];
 
 const BSA_CHARACTERISTICS = ['bad', 'good', 'great'];
 
@@ -11,32 +11,7 @@ const BSA_BADGES = [
     'Punctuality',
 ];
 
-const RADIO_BUTTONS = [
-    {
-        id: 'a1',
-        label: 'A1',
-    },
-    {
-        id: 'a2',
-        label: 'A2',
-    },
-    {
-        id: 'b1',
-        label: 'B1',
-    },
-    {
-        id: 'b2',
-        label: 'B2',
-    },
-    {
-        id: 'c1',
-        label: 'C1',
-    },
-    {
-        id: 'c2',
-        label: 'C2',
-    },
-];
+const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 const BSA_PROJECT = [
     'Talents',
@@ -49,12 +24,12 @@ const BSA_PROJECT = [
 const DEFAULT_VALUES = {
     activeTalentsOnly: true,
     jobTitle: '',
-    hardSkills: '',
+    hardSkills: [],
     BSABadges: '',
     BSACharacteristics: '',
     location: '',
     BSAProjectName: '',
-    englishLevel: '',
+    englishLevel: [],
     experienceYears: '',
     employmentTypes: [],
 };
@@ -64,6 +39,6 @@ export {
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
-    RADIO_BUTTONS,
+    ENGLISH_LEVEL,
     YEARS_EXPERIENCE,
 };
