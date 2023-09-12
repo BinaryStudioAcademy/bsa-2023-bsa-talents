@@ -52,13 +52,7 @@ async function up(knex: Knex): Promise<void> {
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.SET_NULL);
 
-        table
-            .uuid(ColumnName.CHAT_ID)
-            .notNullable()
-            .references(ColumnName.ID)
-            .inTable(TableName.CHATS)
-            .onUpdate(RelationRule.CASCADE)
-            .onDelete(RelationRule.CASCADE);
+        table.uuid(ColumnName.ID).notNullable().defaultTo(knex.raw(uuid));
 
         table.text(ColumnName.MESSAGE).notNullable();
 

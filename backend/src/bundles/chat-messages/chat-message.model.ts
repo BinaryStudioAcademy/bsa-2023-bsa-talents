@@ -3,12 +3,10 @@ import { type JSONSchema, Model, type RelationMappings } from 'objection';
 import {
     AbstractModel,
     ChatMessagesTableColumn,
-    ChatsTableColumn,
     DatabaseTableName,
     UserDetailsTableColumn,
 } from '~/common/packages/database/database.js';
 
-import { ChatModel } from '../chats/chat.model.js';
 import { UserDetailsModel } from '../user-details/user-details.model.js';
 import { UserModel } from '../users/user.model.js';
 
@@ -52,15 +50,6 @@ class ChatMessageModel extends AbstractModel {
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.RECEIVER_ID}`,
                     to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
-                },
-            },
-
-            chat: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: ChatModel,
-                join: {
-                    from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.CHAT_ID}`,
-                    to: `${DatabaseTableName.CHATS}.${ChatsTableColumn.ID}`,
                 },
             },
         };
