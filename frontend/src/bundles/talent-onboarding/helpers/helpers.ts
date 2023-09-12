@@ -9,4 +9,4 @@ export {
     fromUrlLinks,
     toUrlLinks,
 } from './map-project-links/map-project-links.js';
-export { validateFileSize } from '~/helpers/helpers.js';
+export { validateFileSize } from './validate-file-size.js';
