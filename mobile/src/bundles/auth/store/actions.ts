@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
     type UserSignInRequestDto,
@@ -57,4 +57,6 @@ const signIn = createAsyncThunk<
     }
 });
 
-export { loadCurrentUser, signIn, signUp };
+const logout = createAction(`${sliceName}/logout`);
+
+export { loadCurrentUser, logout, signIn, signUp };

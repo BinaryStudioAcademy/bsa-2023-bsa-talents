@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserRole } from '~/bundles/users/enums/enums';
 
-import { loadCurrentUser, signIn, signUp } from './actions';
+import { loadCurrentUser, logout, signIn, signUp } from './actions';
 
 type UserData = {
     email: string | null;
@@ -31,6 +31,11 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(logout, (state) => {
+            state.dataStatus = DataStatus.IDLE;
+            state.isSignedIn = false;
+            state.userData = null;
+        });
         builder.addMatcher(
             isAnyOf(
                 signUp.fulfilled,
