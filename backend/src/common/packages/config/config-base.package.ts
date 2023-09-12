@@ -128,6 +128,26 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            AWS: {
+                AWS_ACCESS_KEY_ID: {
+                    doc: 'Access ID for AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_ACCESS_KEY_ID',
+                    default: null,
+                },
+                AWS_SECRET_ACCESS_KEY: {
+                    doc: 'Secret key for AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_SECRET_ACCESS_KEY',
+                    default: null,
+                },
+                AWS_BUCKET_NAME: {
+                    doc: 'Name of AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_BUCKET_NAME',
+                    default: null,
+                },
+            },
         });
     }
 }

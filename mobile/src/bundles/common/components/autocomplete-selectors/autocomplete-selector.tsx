@@ -5,6 +5,11 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import { TextInput } from 'react-native';
+import Animated, {
+    useAnimatedStyle,
+    withTiming,
+} from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     ScrollView,
@@ -12,15 +17,15 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
-    useState,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
+import { SELECTOR_STYLE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
@@ -31,6 +36,8 @@ type Properties<T extends FieldValues> = {
     placeholder?: string;
 };
 
+const { ICON_SIZE, MARGIN_BOTTOM } = SELECTOR_STYLE;
+
 const AutocompleteSelector = <T extends FieldValues>({
     control,
     name,
@@ -39,48 +46,72 @@ const AutocompleteSelector = <T extends FieldValues>({
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-    const { onBlur, onChange } = field;
-    const [search, setSearch] = useState('');
+    const { value, onBlur, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
 
     const handleSearch = (text: string): void => {
-        setSearch(text);
+        onChange(text);
     };
 
     const handleItemSelect = (item: string): void => {
-        setSearch(item);
         onChange(item);
         toggleVisibility();
     };
 
     const filteredItems = useMemo(() => {
-        return items.filter((item) =>
-            item.toLowerCase().includes(search.toLowerCase()),
+        if (!value) {
+            return items;
+        }
+
+        return items.filter(
+            (item) => value && item.toLowerCase().includes(value.toLowerCase()),
         );
-    }, [search, items]);
+    }, [value, items]);
+
+    const iconAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            marginBottom: MARGIN_BOTTOM,
+            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
+        };
+    });
 
     return (
         <>
             <View style={styles.container}>
-                <TextInput
-                    placeholder={placeholder}
-                    onBlur={onBlur}
-                    onFocus={toggleVisibility}
-                    value={search}
-                    onChangeText={handleSearch}
-                    style={[
-                        globalStyles.pv10,
-                        globalStyles.pl15,
-                        globalStyles.pr5,
-                        globalStyles.borderRadius5,
-                        globalStyles.flexDirectionRow,
-                        globalStyles.justifyContentSpaceBetween,
-                        globalStyles.alignItemsCenter,
-                        styles.input,
-                        hasError && styles.error,
-                    ]}
-                />
-                {isVisible && (
+                <View>
+                    <TextInput
+                        placeholder={placeholder}
+                        onBlur={onBlur}
+                        onFocus={toggleVisibility}
+                        value={value}
+                        maxLength={100}
+                        onChangeText={handleSearch}
+                        style={[
+                            globalStyles.pv10,
+                            globalStyles.pl10,
+                            globalStyles.pr5,
+                            globalStyles.borderRadius5,
+                            globalStyles.flexDirectionRow,
+                            globalStyles.justifyContentSpaceBetween,
+                            globalStyles.alignItemsCenter,
+                            styles.input,
+                            hasError && styles.error,
+                        ]}
+                        placeholderTextColor={Color.TEXT2}
+                    />
+                    <TouchableOpacity onPress={toggleVisibility}>
+                        <Animated.View
+                            style={[iconAnimatedStyle, styles.dropdownButton]}
+                        >
+                            <Icon
+                                name={IconName.ARROW_DROP_DOWN}
+                                size={ICON_SIZE}
+                                color={Color.PRIMARY}
+                            />
+                        </Animated.View>
+                    </TouchableOpacity>
+                </View>
+                {isVisible && filteredItems.length > 0 && (
                     <View
                         style={[
                             globalStyles.pl20,

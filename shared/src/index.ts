@@ -6,13 +6,16 @@ export {
     ContactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
+export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
+    BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
+    HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
@@ -29,6 +32,7 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,
