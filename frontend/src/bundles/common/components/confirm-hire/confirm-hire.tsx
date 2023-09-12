@@ -17,18 +17,18 @@ type Properties = {
 
 const options = [
     {
-        value: 'true',
+        value: 'Yes',
         label: 'Yes',
     },
     {
-        value: 'false',
+        value: 'No',
         label: 'No',
     },
 ];
 
 const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
     const { control } = useAppForm<{ check: string }>({
-        defaultValues: { check: 'false' },
+        defaultValues: { check: 'No' },
     });
 
     const [isHired, setIsHired] = useState(false);
@@ -52,19 +52,8 @@ const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
             event_.preventDefault();
             const check = event_.target.check.value;
 
-            switch (check) {
-                case 'true': {
-                    setIsHired(true);
-                    break;
-                }
-                case 'false': {
-                    setIsHired(false);
-                    break;
-                }
-                default: {
-                    return;
-                }
-            }
+            const isHired = check === 'Yes' ? true : false;
+            setIsHired(isHired);
 
             handleToSubmitStep();
         },
