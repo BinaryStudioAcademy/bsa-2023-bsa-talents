@@ -4,8 +4,13 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { RootScreenName } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
@@ -24,37 +29,54 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
+    const dispatch = useAppDispatch();
 
-    const renderStackScreen = (): React.JSX.Element => {
-        if (isSignedIn) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={
-                        role === UserRole.TALENT
-                            ? TalentBottomTabNavigator
-                            : EmployerBottomTabNavigator
-                    }
-                />
-            );
-        }
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
 
-        if (isProfileComplete) {
-            return (
-                <RootStack.Screen
-                    name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                    // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                    component={TalentOnboardingNavigator}
-                />
-            );
-        }
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
 
-        return (
+    useEffect(() => {
+        void dispatch(loadCurrentUser());
+    }, [dispatch]);
+
+    if (isPendingAuth) {
+        return null;
+    }
+
+    const navigators = {
+        auth: (
             <RootStack.Screen
                 name={RootScreenName.AUTH_ROOT_ROUTE}
                 component={AuthNavigator}
             />
-        );
+        ),
+        onboarding: (
+            <RootStack.Screen
+                name={RootScreenName.ONBOARDING_ROOT_ROUTE}
+                // TODO: create EmployerOnboardingNavigator for role == 'employer'
+                component={TalentOnboardingNavigator}
+            />
+        ),
+        main: (
+            <RootStack.Screen
+                name={RootScreenName.MAIN_ROOT_ROUTE}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentBottomTabNavigator
+                        : EmployerBottomTabNavigator
+                }
+            />
+        ),
+    };
+
+    const renderStackScreen = (): React.JSX.Element => {
+        if (isSignedIn && isProfileComplete) {
+            return navigators.main;
+        }
+        if (isSignedIn && !isProfileComplete) {
+            return navigators.onboarding;
+        }
+        return navigators.auth;
     };
 
     return (

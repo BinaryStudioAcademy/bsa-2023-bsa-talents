@@ -10,22 +10,14 @@
 .header {
     width: 100%;
     max-width: 420px;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-medium);
     font-size: var(--font-size-h4);
     font-family: var(--font-family);
     line-height: var(--line-height-main);
     text-align: center;
 }
 
-.email-sign {
-    margin-top: 27px;
-    margin-bottom: 23px;
-    color: var(--gray-1);
-    font-size: var(--font-size-caption);
-    font-family: var(--font-family);
-}
-
-.input-container {
+.inputContainer {
     width: 100%;
 
     &.email {
@@ -45,7 +37,7 @@
     font-family: var(--font-family);
 }
 
-.btn-login {
+.btn {
     width: 100%;
     max-width: 420px;
     padding-top: 15px;

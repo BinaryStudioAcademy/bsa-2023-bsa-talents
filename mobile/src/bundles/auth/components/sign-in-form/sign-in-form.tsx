@@ -34,14 +34,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         <View
             style={[
                 globalStyles.defaultScreenPadding,
-                globalStyles.justifyContentCenter,
                 globalStyles.borderRadius10,
-                globalStyles.width100,
                 styles.container,
             ]}
         >
             <Text
-                category={TextCategory.H3}
+                category={TextCategory.H4}
                 style={[
                     globalStyles.pb25,
                     globalStyles.alignSelfCenter,
@@ -53,6 +51,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View style={styles.formWrapper}>
                 <FormField
                     errorMessage={errors.email?.message}
+                    required={true}
                     label="Email"
                     name="email"
                 >
@@ -65,6 +64,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <FormField
                     errorMessage={errors.password?.message}
                     label="Password"
+                    required={true}
                     name="password"
                 >
                     <Input
@@ -84,9 +84,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Forgot Password?"
                     link={`/${AuthScreenName.SIGN_UP}`}
                 />
-
+                {/* TODO: Create forget password logic */}
                 <Button
-                    style={[globalStyles.mb25, globalStyles.pv15]}
+                    style={[globalStyles.mb15, globalStyles.pv15]}
                     label="Login"
                     onPress={handleFormSubmit}
                 />
@@ -94,22 +94,15 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.alignSelfCenter,
+                    globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
-                    globalStyles.mt20,
+                    globalStyles.m10,
+                    styles.linkContainer,
                 ]}
             >
-                <Text category={TextCategory.BODY1} style={styles.text}>
-                    Not Registered Yet?{' '}
-                </Text>
-
+                <Text style={styles.text}>Not Registered Yet?</Text>
                 <Link
-                    textComponentCategory={TextCategory.BODY1}
-                    style={[
-                        globalStyles.alignSelfFlexEnd,
-                        globalStyles.pr10,
-                        styles.linkForgotPassword,
-                    ]}
+                    style={styles.linkSignUp}
                     label="Create an account"
                     link={`/${AuthScreenName.SIGN_UP}`}
                 />

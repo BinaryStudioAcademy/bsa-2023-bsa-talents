@@ -24,6 +24,8 @@ const Checkbox: React.FC<Properties> = ({
         onChange(!isChecked);
     };
 
+    const checkboxColor = props.disabled ? Color.INPUT : Color.PRIMARY;
+
     return (
         <View
             style={[
@@ -35,7 +37,7 @@ const Checkbox: React.FC<Properties> = ({
             <CheckBox
                 value={isChecked}
                 onValueChange={toggleCheckbox}
-                tintColors={{ true: Color.PRIMARY, false: Color.INPUT }}
+                tintColors={{ true: checkboxColor, false: Color.INPUT }}
                 {...props}
             />
             {label && (

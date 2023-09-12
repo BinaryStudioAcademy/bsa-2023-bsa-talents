@@ -9,7 +9,6 @@ import {
 } from 'react-hook-form';
 
 import { FormControlLabel } from '~/bundles/common/components/components.js';
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import { Radio } from '../radio-item/radio-item.js';
@@ -35,7 +34,7 @@ const RadioGroup = <T extends FieldValues>({
     value = 'talent',
     ...props
 }: Properties<T>): JSX.Element => {
-    const radioGroupClasses = getValidClassNames(className);
+    const radioGroupClasses = className;
     const { field } = useFormController({
         control,
         name,

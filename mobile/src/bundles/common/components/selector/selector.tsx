@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
+import Animated, {
+    useAnimatedStyle,
+    withTiming,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -14,99 +18,138 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useFormController,
+    useMemo,
+    useVisibility,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
+import { SELECTOR_STYLE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
+    hasError?: boolean;
     options: string[];
     placeholder?: string;
+    multiSelect?: boolean;
     onSelect?: (item: string) => void;
 };
 
-const iconDefaultSize = 24;
+const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
+    SELECTOR_STYLE;
 
 const Selector = <T extends FieldValues>({
     name,
     control,
+    hasError,
     options,
+    multiSelect = false,
     placeholder,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
-    const [isListVisible, setIsListVisible] = useState(false);
+    const { isVisible, toggleVisibility } = useVisibility(false);
+    const placeHolderStyle = value ? {} : styles.placeholder;
 
-    const toggleIsListVisible = (): void => {
-        setIsListVisible((previous) => !previous);
-    };
+    const iconAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
+        };
+    });
 
-    const handlePressItem = (option: string): void => {
-        toggleIsListVisible();
-        onChange(option);
-    };
+    const heightAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            maxHeight: withTiming(
+                isVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
+                { duration: 400 },
+            ),
+        };
+    });
 
-    const selectedOption = options.find((option) => option === value);
-
-    const selectIconName = isListVisible
-        ? IconName.ARROW_DROP_UP
-        : IconName.ARROW_DROP_DOWN;
-
+    const handlePressItem = useCallback(
+        (option: string): void => {
+            toggleVisibility();
+            if (multiSelect) {
+                if (value.includes(option)) {
+                    onChange(value.filter((item: string) => item !== option));
+                } else {
+                    onChange([...value, option]);
+                }
+            } else {
+                onChange(option);
+            }
+        },
+        [toggleVisibility, multiSelect, value, onChange],
+    );
+    const selectedOptions = useMemo(
+        () =>
+            options
+                .filter((option) => value.includes(option))
+                .map((option) => option),
+        [options, value],
+    );
+    const NO_SELECTED = 0;
     return (
         <View style={styles.container}>
             <Pressable
                 style={[
                     globalStyles.pv10,
-                    globalStyles.pl15,
+                    globalStyles.pl10,
                     globalStyles.pr5,
                     globalStyles.borderRadius5,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
+                    hasError && styles.error,
                 ]}
-                onPress={toggleIsListVisible}
+                onPress={toggleVisibility}
             >
-                <Text category={TextCategory.LABEL}>
-                    {selectedOption ?? placeholder}
+                <Text category={TextCategory.LABEL} style={placeHolderStyle}>
+                    {selectedOptions.length > NO_SELECTED
+                        ? selectedOptions.join(', ')
+                        : placeholder}
                 </Text>
-                <Icon
-                    name={selectIconName}
-                    size={iconDefaultSize}
-                    color={Color.PRIMARY}
-                />
+                <Animated.View style={iconAnimatedStyle}>
+                    <Icon
+                        name={IconName.ARROW_DROP_DOWN}
+                        size={ICON_SIZE}
+                        color={Color.PRIMARY}
+                    />
+                </Animated.View>
             </Pressable>
-            {isListVisible && (
-                <View
-                    style={[
-                        globalStyles.pl20,
-                        globalStyles.pb5,
-                        globalStyles.width100,
-                        styles.dropdown,
-                        styles.dropdownButton,
-                    ]}
-                >
-                    <ScrollView nestedScrollEnabled>
-                        {options.map((item) => (
-                            <TouchableOpacity
-                                key={item}
-                                onPress={(): void => {
-                                    handlePressItem(item);
-                                }}
+            <Animated.View
+                style={[
+                    globalStyles.pl20,
+                    globalStyles.width100,
+                    isVisible && styles.dropdown,
+                    styles.dropdownButton,
+                    !isVisible && styles.dropdownClosed,
+                    heightAnimatedStyle,
+                ]}
+            >
+                <ScrollView nestedScrollEnabled>
+                    {options.map((item) => (
+                        <TouchableOpacity
+                            key={item}
+                            onPress={(): void => {
+                                handlePressItem(item);
+                            }}
+                        >
+                            <Text
+                                category={TextCategory.LABEL}
+                                style={globalStyles.pv5}
                             >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={globalStyles.pv5}
-                                >
-                                    {item}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
-                </View>
-            )}
+                                {item}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </Animated.View>
         </View>
     );
 };

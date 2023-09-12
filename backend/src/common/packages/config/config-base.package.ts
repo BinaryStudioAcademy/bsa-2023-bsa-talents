@@ -43,6 +43,12 @@ class ConfigBase implements Config {
                     env: 'PORT',
                     default: null,
                 },
+                HOST: {
+                    doc: 'Host for server app',
+                    format: String,
+                    env: 'HOST',
+                    default: null,
+                },
             },
             JWT: {
                 SECRET: {
@@ -65,10 +71,34 @@ class ConfigBase implements Config {
                 },
             },
             DB: {
-                CONNECTION_STRING: {
-                    doc: 'Database connection string',
+                USERNAME: {
+                    doc: 'Database connection username',
                     format: String,
-                    env: 'DB_CONNECTION_STRING',
+                    env: 'DB_USERNAME',
+                    default: null,
+                },
+                PASSWORD: {
+                    doc: 'Database connection password',
+                    format: String,
+                    env: 'DB_PASSWORD',
+                    default: null,
+                },
+                HOST: {
+                    doc: 'Database connection host',
+                    format: String,
+                    env: 'DB_HOST',
+                    default: null,
+                },
+                PORT: {
+                    doc: 'Database connection port',
+                    format: Number,
+                    env: 'DB_PORT',
+                    default: null,
+                },
+                NAME: {
+                    doc: 'Database name to connect',
+                    format: String,
+                    env: 'DB_NAME',
                     default: null,
                 },
                 DIALECT: {
@@ -95,6 +125,26 @@ class ConfigBase implements Config {
                     doc: 'Salt rounds for password encryption',
                     format: Number,
                     env: 'PASSWORD_SALT_ROUNDS',
+                    default: null,
+                },
+            },
+            AWS: {
+                AWS_ACCESS_KEY_ID: {
+                    doc: 'Access ID for AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_ACCESS_KEY_ID',
+                    default: null,
+                },
+                AWS_SECRET_ACCESS_KEY: {
+                    doc: 'Secret key for AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_SECRET_ACCESS_KEY',
+                    default: null,
+                },
+                AWS_BUCKET_NAME: {
+                    doc: 'Name of AWS S3 bucket',
+                    format: String,
+                    env: 'AWS_BUCKET_NAME',
                     default: null,
                 },
             },

@@ -108,15 +108,16 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <>
-            <form onSubmit={handleFormSubmit} className={'form'}>
-                <p className={getValidClassNames('header')}>
-                    Sign Up to get started!
-                </p>
+            <form onSubmit={handleFormSubmit} className="form">
+                <p className="header">Sign Up to get started!</p>
 
                 <FormControl
-                    className={getValidClassNames('input-container', 'email')}
+                    className={getValidClassNames(
+                        'inputContainer',
+                        errors.email ? '' : 'email',
+                    )}
                 >
-                    <FormLabel className={'label'}>Email *</FormLabel>
+                    <FormLabel className="label">Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -126,11 +127,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </FormControl>
                 <FormControl
                     className={getValidClassNames(
-                        'input-container',
-                        'password',
+                        'inputContainer',
+                        errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className={'label'}>Password *</FormLabel>
+                    <FormLabel className="label">Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -139,9 +140,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="password"
                     />
                 </FormControl>
-                <FormControl className={styles['radio-wrapper']}>
+                <FormControl
+                    className={getValidClassNames(
+                        styles.radioWrapper,
+                        errors.password ? 'hasError' : '',
+                    )}
+                >
                     <RadioGroup
-                        className={styles['radio-group']}
+                        className={styles.radioGroup}
                         control={control}
                         options={options}
                         name={'role'}
@@ -173,18 +179,15 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
                 <Button
                     label="Continue"
-                    className={getValidClassNames(
-                        'btn-login',
-                        styles['btn-login'],
-                    )}
+                    className={getValidClassNames('btn', styles.btnLogin)}
                     type="submit"
                 />
             </form>
-            <Grid item className={'footer'}>
-                <Link className={'cta'} to={'/sign-in'}>
+            <Grid item className="footer">
+                <Link className="cta" to={'/sign-in'}>
                     I already have an account
                 </Link>
-                <Link to={'/'} className={'span'}>
+                <Link to={'/'} className="span">
                     Privacy Policy
                 </Link>
             </Grid>
