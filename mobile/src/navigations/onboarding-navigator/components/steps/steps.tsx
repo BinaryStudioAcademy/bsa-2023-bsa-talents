@@ -27,6 +27,7 @@ import {
     type TalentOnboardingRouteProperties,
     type ValueOf,
 } from '~/bundles/common/types/types';
+import { storage } from '~/framework/storage/storage';
 
 import { Step } from '../components';
 import { ANIMATION_VALUES } from './constants/constants';
@@ -45,6 +46,11 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
     const { navigation, state } = props;
     const progress = useDrawerProgress();
     const dispatch = useAppDispatch();
+
+    const handleLogout = (): void => {
+        void storage.drop('token');
+        dispatch(logout());
+    };
 
     const textAnimatedStyle = useAnimatedStyle(() => {
         const translateY = interpolate(
@@ -125,9 +131,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                 <Button
                     label="Logout"
                     style={styles.logout}
-                    onPress={(): void => {
-                        dispatch(logout);
-                    }}
+                    onPress={handleLogout}
                 />
             </Animated.View>
         </DrawerContentScrollView>
