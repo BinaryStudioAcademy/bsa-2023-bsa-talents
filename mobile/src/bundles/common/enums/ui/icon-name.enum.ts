@@ -11,6 +11,7 @@ const IconName = {
     MAIL: 'mail',
     MENU: 'menu',
     HEADPHONES: 'headphones',
+    PLUS: 'plus',
     WIFI_OFF: 'wifi-off',
 } as const;
 
