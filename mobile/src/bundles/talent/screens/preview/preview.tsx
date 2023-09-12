@@ -197,21 +197,38 @@ const Preview: React.FC = () => {
                         setTab(ProfileTab.SCORES_SKILLS);
                     }}
                 >
-                    <Text category={TextCategory.LABEL}>Scores & skills</Text>
+                    <Text
+                        category={TextCategory.LABEL}
+                        style={
+                            tab === ProfileTab.SCORES_SKILLS && styles.active
+                        }
+                    >
+                        Scores & skills
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={(): void => {
                         setTab(ProfileTab.FEEDBACKS);
                     }}
                 >
-                    <Text category={TextCategory.LABEL}>Feedbacks</Text>
+                    <Text
+                        category={TextCategory.LABEL}
+                        style={tab === ProfileTab.FEEDBACKS && styles.active}
+                    >
+                        Feedbacks
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={(): void => {
                         setTab(ProfileTab.PROJECT);
                     }}
                 >
-                    <Text category={TextCategory.LABEL}>Project</Text>
+                    <Text
+                        category={TextCategory.LABEL}
+                        style={tab === ProfileTab.PROJECT && styles.active}
+                    >
+                        Project
+                    </Text>
                 </TouchableOpacity>
             </View>
             <View

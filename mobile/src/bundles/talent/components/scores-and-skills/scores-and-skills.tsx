@@ -45,7 +45,7 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
                 })}
             </View>
 
-            <Text category={TextCategory.H4} style={globalStyles.pb10}>
+            <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
                 Skills
             </Text>
             <View
