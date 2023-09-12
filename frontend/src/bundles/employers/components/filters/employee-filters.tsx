@@ -1,3 +1,11 @@
+/* eslint-disable no-console */
+import {
+    Controller,
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from 'react-hook-form';
+
 import {
     Checkbox,
     FormLabel,
@@ -5,9 +13,14 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
+    EmploymentType,
     ExperienceYears,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
@@ -54,10 +67,124 @@ const locationOptions = Object.values(CountryList).map((country) => ({
     label: country,
 }));
 
+const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
+    value: type,
+    label: type,
+}));
+
 const EmployeeFilters: React.FC = () => {
-    const { control } = useAppForm<EmployeesFiltersDto>({
+    const { control, watch } = useAppForm<EmployeesFiltersDto>({
         defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
     });
+
+    const [
+        activeSearchingOnly,
+        jobTitles,
+        userYearsOfExperience,
+        hardSkills,
+        userBsaCharacteristics,
+        userBsaBadges,
+        userBsaProject,
+        userLocation,
+        levelOfEnglish,
+        employmentType,
+    ] = watch([
+        'activeSearchingOnly',
+        'jobTitles',
+        'userYearsOfExperience',
+        'hardSkills',
+        'userBsaCharacteristics',
+        'userBsaBadges',
+        'userBsaProject',
+        'userLocation',
+        'levelOfEnglish',
+        'employmentType',
+    ]);
+
+    useEffect(() => {
+        console.log(activeSearchingOnly);
+        console.log(jobTitles);
+        console.log(userYearsOfExperience);
+        console.log(hardSkills);
+        console.log(userBsaCharacteristics);
+        console.log(userBsaBadges);
+        console.log(userBsaProject);
+        console.log(userLocation);
+        console.log(levelOfEnglish);
+        console.log(employmentType);
+
+        //TODO: call here dispatch method for filtering candidates with passing all those fields
+    }, [
+        jobTitles,
+        hardSkills,
+        activeSearchingOnly,
+        userYearsOfExperience,
+        userBsaCharacteristics,
+        userBsaBadges,
+        userBsaProject,
+        userLocation,
+        levelOfEnglish,
+        employmentType,
+    ]);
+
+    const handleCheckboxOnChange = useCallback(
+        (
+            field: ControllerRenderProps<EmployeesFiltersDto, 'employmentType'>,
+            selectedValue: string,
+        ) =>
+            (): void => {
+                const updatedValue = field.value.includes(selectedValue)
+                    ? field.value.filter((item) => item !== selectedValue)
+                    : [...field.value, selectedValue];
+                field.onChange(updatedValue);
+            },
+        [],
+    );
+
+    const renderCheckboxes = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<EmployeesFiltersDto, 'employmentType'>;
+            fieldState: ControllerFieldState;
+            formState: UseFormStateReturn<EmployeesFiltersDto>;
+        }): React.ReactElement => {
+            return (
+                <Grid
+                    container
+                    spacing={2}
+                    className={styles.checkboxContainer}
+                >
+                    {employmentTypeOptions.map((option) => (
+                        <Grid
+                            item
+                            xs={6}
+                            key={option.value}
+                            className={styles['MuiGrid-item']}
+                        >
+                            <Checkbox
+                                {...{
+                                    onChange: field.onChange,
+                                    onBlur: field.onBlur,
+                                    name: field.name,
+                                    value: field.value,
+                                }}
+                                key={option.value}
+                                label={option.label}
+                                value={option.value}
+                                isChecked={field.value.includes(option.value)}
+                                onChange={handleCheckboxOnChange(
+                                    field,
+                                    option.value,
+                                )}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            );
+        },
+        [handleCheckboxOnChange],
+    );
 
     return (
         <Grid container className={styles.wrapper}>
@@ -67,6 +194,11 @@ const EmployeeFilters: React.FC = () => {
                 </Typography>
             </Grid>
             <Grid item>
+                <Controller
+                    control={control}
+                    name="employmentType"
+                    render={renderCheckboxes}
+                />
                 <Checkbox label="Active searching talents only" />
             </Grid>
             <Grid>
