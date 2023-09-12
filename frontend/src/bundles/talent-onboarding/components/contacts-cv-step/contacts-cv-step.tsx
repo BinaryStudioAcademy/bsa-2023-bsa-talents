@@ -195,7 +195,7 @@ const ContactsCVStep: React.FC = () => {
                     style={{
                         backgroundImage: `url(${photoURL})`,
                     }}
-                />
+                ></Grid>
 
                 <FormControl
                     className={getValidClassNames(
