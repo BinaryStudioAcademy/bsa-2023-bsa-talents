@@ -3,7 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     Button,
-    EmploymentTypes,
     FormCheckbox,
     FormField,
     Input,
@@ -19,11 +18,7 @@ import { Color, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '~/bundles/employer/enums/enums';
+import { CountryList, JobTitle } from '~/bundles/employer/enums/enums';
 
 import {
     BSA_BADGES,
@@ -42,7 +37,6 @@ type Properties = {
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);
-const employmentTypeOptions = Object.values(EmploymentType);
 
 const SearchCandidatesFilter: React.FC<Properties> = ({
     onSubmit,
@@ -194,18 +188,7 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
                     containerStyle={styles.radioButtons}
                 />
             </FormField>
-            <FormField
-                label="Employment type"
-                name="employmentTypes"
-                required
-                containerStyle={globalStyles.pb25}
-            >
-                <EmploymentTypes
-                    control={control}
-                    name="employmentTypes"
-                    options={employmentTypeOptions}
-                />
-            </FormField>
+
             <Button
                 style={globalStyles.mb25}
                 label="Show results"
