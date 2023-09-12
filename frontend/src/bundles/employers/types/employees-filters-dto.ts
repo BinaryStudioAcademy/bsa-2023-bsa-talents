@@ -1,4 +1,5 @@
 type EmployeesFiltersDto = {
+    searchType: string;
     searchValue: string;
     activeSearchingOnly: boolean;
     jobTitles: string[];

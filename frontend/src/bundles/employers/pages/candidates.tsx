@@ -2,6 +2,7 @@ import {
     Button,
     Grid,
     Input,
+    RadioGroup,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -24,6 +25,7 @@ const FIELDS: [
     keyof EmployeesFiltersDto,
     ...(keyof EmployeesFiltersDto)[],
 ] = [
+    'searchType',
     'searchValue',
     'activeSearchingOnly',
     'jobTitles',
@@ -80,6 +82,18 @@ const Candidates: React.FC = () => {
                         label={'Filters'}
                     />
                 </Grid>
+                <RadioGroup
+                    name={'searchType'}
+                    control={control}
+                    row={true}
+                    options={[
+                        { value: 'Basic search', label: 'Basic search' },
+                        {
+                            value: 'Full-text search',
+                            label: 'Full-text search',
+                        },
+                    ]}
+                />
                 <Grid
                     className={getValidClassNames(
                         styles.searchResults,
