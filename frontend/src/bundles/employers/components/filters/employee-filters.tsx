@@ -26,6 +26,7 @@ import {
     BsaProject,
     CountryList,
     EmploymentType,
+    EnglishLevel,
     ExperienceYears,
     JobTitle,
 } from '../../enums/enums.js';
@@ -63,6 +64,11 @@ const bsaProject = Object.values(BsaProject).map((project) => ({
 const locationOptions = Object.values(CountryList).map((country) => ({
     value: country,
     label: country,
+}));
+
+const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
+    value: level,
+    label: level.split(' ')[0],
 }));
 
 const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
@@ -126,8 +132,8 @@ const EmployeeFilters: React.FC = () => {
     ]);
 
     const handleCheckboxOnChange = useCallback(
-        (
-            field: ControllerRenderProps<EmployeesFiltersDto, 'employmentType'>,
+        <Field extends 'employmentType' | 'levelOfEnglish'>(
+            field: ControllerRenderProps<EmployeesFiltersDto, Field>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -139,6 +145,49 @@ const EmployeeFilters: React.FC = () => {
         [],
     );
 
+    const renderEnglishLevelCheckboxes = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<EmployeesFiltersDto, 'levelOfEnglish'>;
+            formState: UseFormStateReturn<EmployeesFiltersDto>;
+        }): React.ReactElement => {
+            return (
+                <Grid
+                    container
+                    spacing={2}
+                    className={styles.checkboxContainer}
+                >
+                    {englishLevelOptions.map((option) => (
+                        <Grid
+                            item
+                            xs={6}
+                            key={option.value}
+                            className={styles['MuiGrid-item']}
+                        >
+                            <Checkbox
+                                {...{
+                                    onChange: field.onChange,
+                                    onBlur: field.onBlur,
+                                    name: field.name,
+                                    value: field.value,
+                                }}
+                                key={option.value}
+                                label={option.label}
+                                value={option.value}
+                                isChecked={field.value.includes(option.value)}
+                                onChange={handleCheckboxOnChange(
+                                    field,
+                                    option.value,
+                                )}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            );
+        },
+        [handleCheckboxOnChange],
+    );
     const renderCheckboxes = useCallback(
         ({
             field,
@@ -296,6 +345,16 @@ const EmployeeFilters: React.FC = () => {
                         name="userLocation"
                         isMulti={true}
                         placeholder="Options"
+                    />
+                </FormLabel>
+            </Grid>
+            <Grid>
+                <FormLabel className={styles.labels}>
+                    {'Level of English'}
+                    <Controller
+                        control={control}
+                        name="levelOfEnglish"
+                        render={renderEnglishLevelCheckboxes}
                     />
                 </FormLabel>
             </Grid>

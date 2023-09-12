@@ -5,6 +5,7 @@ export { HardSkills } from './hard-skills.enum.js';
 export {
     CountryList,
     EmploymentType,
+    EnglishLevel,
     ExperienceYears,
     JobTitle,
 } from '~/bundles/talent-onboarding/enums/enums.js';
