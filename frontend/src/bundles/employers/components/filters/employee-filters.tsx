@@ -186,6 +186,26 @@ const EmployeeFilters: React.FC = () => {
         [handleCheckboxOnChange],
     );
 
+    const renderSingleCheckbox = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<
+                EmployeesFiltersDto,
+                'activeSearchingOnly'
+            >;
+        }): React.ReactElement => (
+            <Checkbox
+                // eslint-disable-next-line react/jsx-no-bind
+                onChange={(event): void => {
+                    field.onChange(event.target.checked);
+                }}
+                checked={field.value}
+            />
+        ),
+        [],
+    );
+
     return (
         <Grid container className={styles.wrapper}>
             <Grid item>
@@ -194,12 +214,14 @@ const EmployeeFilters: React.FC = () => {
                 </Typography>
             </Grid>
             <Grid item>
-                <Controller
-                    control={control}
-                    name="employmentType"
-                    render={renderCheckboxes}
-                />
-                <Checkbox label="Active searching talents only" />
+                <FormLabel className={styles.labels}>
+                    <Controller
+                        name="activeSearchingOnly"
+                        control={control}
+                        render={renderSingleCheckbox}
+                    />
+                    {'Active searching talents only'}
+                </FormLabel>
             </Grid>
             <Grid>
                 <FormLabel className={styles.labels}>
@@ -276,6 +298,16 @@ const EmployeeFilters: React.FC = () => {
                         name="userLocation"
                         isMulti={true}
                         placeholder="Options"
+                    />
+                </FormLabel>
+            </Grid>
+            <Grid>
+                <FormLabel className={styles.labels}>
+                    {'Employment Type'}
+                    <Controller
+                        control={control}
+                        name="employmentType"
+                        render={renderCheckboxes}
                     />
                 </FormLabel>
             </Grid>
