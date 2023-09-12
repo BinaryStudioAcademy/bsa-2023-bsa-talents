@@ -4,5 +4,6 @@ export { EnglishLevel } from './english-level.enum.js';
 export { ExperienceYears } from './experience-years-list.enum.js';
 export { JobTitle } from './job-title.enum.js';
 export { NotConsidered } from './not-considered.enum.js';
+export { OnboardingSteps } from './onboarding-steps.enum.js';
 export { PreferredLanguages } from './preferred-languages.enum.js';
 export { UserDetailsApiPath } from './user-details-api-path.enum.js';
