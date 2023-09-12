@@ -12,6 +12,7 @@ const IconName = {
     MENU: 'menu',
     HEADPHONES: 'headphones',
     PLUS: 'plus',
+    WIFI_OFF: 'wifi-off',
 } as const;
 
 export { IconName };
