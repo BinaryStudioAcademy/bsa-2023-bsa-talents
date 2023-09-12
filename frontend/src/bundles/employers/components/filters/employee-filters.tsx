@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 import {
+    type Control,
     Controller,
     type ControllerFieldState,
     type ControllerRenderProps,
@@ -13,13 +13,8 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
-import {
-    useAppForm,
-    useCallback,
-    useEffect,
-} from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
-import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaBadges,
     BsaCharacteristics,
@@ -76,61 +71,11 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     label: type,
 }));
 
-const EmployeeFilters: React.FC = () => {
-    const { control, watch } = useAppForm<EmployeesFiltersDto>({
-        defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
-    });
-
-    const [
-        activeSearchingOnly,
-        jobTitles,
-        userYearsOfExperience,
-        hardSkills,
-        userBsaCharacteristics,
-        userBsaBadges,
-        userBsaProject,
-        userLocation,
-        levelOfEnglish,
-        employmentType,
-    ] = watch([
-        'activeSearchingOnly',
-        'jobTitles',
-        'userYearsOfExperience',
-        'hardSkills',
-        'userBsaCharacteristics',
-        'userBsaBadges',
-        'userBsaProject',
-        'userLocation',
-        'levelOfEnglish',
-        'employmentType',
-    ]);
-
-    useEffect(() => {
-        console.log(activeSearchingOnly);
-        console.log(jobTitles);
-        console.log(userYearsOfExperience);
-        console.log(hardSkills);
-        console.log(userBsaCharacteristics);
-        console.log(userBsaBadges);
-        console.log(userBsaProject);
-        console.log(userLocation);
-        console.log(levelOfEnglish);
-        console.log(employmentType);
-
-        //TODO: call here dispatch method for filtering candidates with passing all those fields
-    }, [
-        jobTitles,
-        hardSkills,
-        activeSearchingOnly,
-        userYearsOfExperience,
-        userBsaCharacteristics,
-        userBsaBadges,
-        userBsaProject,
-        userLocation,
-        levelOfEnglish,
-        employmentType,
-    ]);
-
+const EmployeeFilters = ({
+    control,
+}: {
+    control: Control<EmployeesFiltersDto, null>;
+}): JSX.Element => {
     const handleCheckboxOnChange = useCallback(
         <Field extends 'employmentType' | 'levelOfEnglish'>(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,

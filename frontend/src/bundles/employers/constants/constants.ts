@@ -11,6 +11,7 @@ const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
     userLocation: [],
     levelOfEnglish: [],
     employmentType: [],
+    searchValue: '',
 };
 
 export { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD };

@@ -9,6 +9,7 @@ type EmployeesFiltersDto = {
     userLocation: string[];
     levelOfEnglish: string[];
     employmentType: string[];
+    searchValue: string;
 };
 
 export { type EmployeesFiltersDto };
