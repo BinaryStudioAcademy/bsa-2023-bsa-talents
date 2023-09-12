@@ -51,6 +51,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View style={styles.formWrapper}>
                 <FormField
                     errorMessage={errors.email?.message}
+                    required={true}
                     label="Email"
                     name="email"
                 >
@@ -63,6 +64,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <FormField
                     errorMessage={errors.password?.message}
                     label="Password"
+                    required={true}
                     name="password"
                 >
                     <Input
@@ -82,7 +84,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     label="Forgot Password?"
                     link={`/${AuthScreenName.SIGN_UP}`}
                 />
-
+                {/* TODO: Create forget password logic */}
                 <Button
                     style={[globalStyles.mb15, globalStyles.pv15]}
                     label="Login"
@@ -92,11 +94,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentCenter,
-                    globalStyles.mt20,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    globalStyles.m10,
+                    styles.linkContainer,
                 ]}
             >
-                <Text style={styles.text}>Not Registered Yet? </Text>
+                <Text style={styles.text}>Not Registered Yet?</Text>
                 <Link
                     style={styles.linkSignUp}
                     label="Create an account"
