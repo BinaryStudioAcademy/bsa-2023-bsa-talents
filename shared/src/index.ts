@@ -7,10 +7,14 @@ export {
     fileSizeValidator,
 } from './bundles/employer/employer.js';
 export {
+    type BadgeStepDto,
+    BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
+    BsaBadgeStepBadgesTitle,
+    HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
