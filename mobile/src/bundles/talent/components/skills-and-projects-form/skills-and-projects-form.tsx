@@ -34,6 +34,7 @@ import { CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
+    MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
@@ -100,6 +101,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     options={ENGLISH_LEVEL}
                     control={control}
                     name="englishLevel"
+                    placeholder="Option"
                 />
             </FormField>
 
@@ -129,6 +131,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     control={control}
                     name="preferredLanguages"
                     multiSelect={true}
+                    placeholder="Option"
                 />
             </FormField>
 
@@ -136,7 +139,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.projectLinks?.message}
                 label="Project links"
                 name="projectLinks"
-                containerStyle={globalStyles.pb25}
             >
                 <View style={styles.links}>
                     {fields.map((field, index) => {
@@ -145,26 +147,34 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                 <Input
                                     control={control}
                                     name={`projectLinks.${index}.url`}
-                                    placeholder="link to your project"
+                                    placeholder={
+                                        index === 0
+                                            ? 'link to BSA project'
+                                            : 'link to your project'
+                                    }
                                     marker="www."
                                     value={undefined}
                                 />
-                                <Pressable
-                                    style={styles.linksBtn}
-                                    onPress={(): void => {
-                                        remove(index);
-                                    }}
-                                >
-                                    <Icon
-                                        name={IconName.CLOSE}
-                                        size={20}
-                                        color={Color.ERROR}
-                                    />
-                                </Pressable>
+                                {index !== 0 && (
+                                    <Pressable
+                                        style={styles.linksBtn}
+                                        onPress={(): void => {
+                                            remove(index);
+                                        }}
+                                    >
+                                        <Icon
+                                            name={IconName.CLOSE}
+                                            size={20}
+                                            color={Color.ERROR}
+                                        />
+                                    </Pressable>
+                                )}
                             </View>
                         );
                     })}
                 </View>
+            </FormField>
+            {fields.length < MAX_LINKS && (
                 <Button
                     label="Add more links"
                     buttonType={ButtonType.GHOST}
@@ -175,9 +185,9 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                         append({ url: '' });
                     }}
                 />
-            </FormField>
+            )}
 
-            <View style={globalStyles.flexDirectionRow}>
+            <View style={[globalStyles.flexDirectionRow, globalStyles.pt25]}>
                 <Button
                     label="Back"
                     style={globalStyles.mr10}

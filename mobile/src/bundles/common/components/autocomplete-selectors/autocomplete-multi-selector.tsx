@@ -52,8 +52,9 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         if (value.includes(item)) {
             return;
         }
-        value.push(item);
         toggleVisibility();
+        value.push(item);
+        onChange(value);
     };
 
     const handleItemDelete = (itemName: string): void => {
