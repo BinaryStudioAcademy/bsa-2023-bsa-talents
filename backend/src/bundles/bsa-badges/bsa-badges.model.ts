@@ -7,7 +7,7 @@ import {
     TalentBadgesTableColumn,
 } from '~/common/packages/database/database.js';
 
-import { TalentBadgeModel } from '../talent-badges/talent-badges.js';
+import { TalentBadgeModel } from '../talent-badges/talent-badge.model.js';
 
 class BSABadgesModel extends AbstractModel {
     public 'type': string;
