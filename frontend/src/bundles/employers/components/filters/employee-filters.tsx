@@ -67,7 +67,7 @@ const locationOptions = Object.values(CountryList).map((country) => ({
 }));
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
-    value: level,
+    value: level.split(' ')[0],
     label: level,
 }));
 

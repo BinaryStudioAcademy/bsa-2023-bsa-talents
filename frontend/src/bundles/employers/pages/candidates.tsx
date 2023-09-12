@@ -17,10 +17,7 @@ const Candidates: React.FC = () => {
         },
     });
     return (
-        <PageLayout
-            isOnline={true}
-            avatarUrl="https://static.vecteezy.com/system/resources/previews/016/274/193/large_2x/eurasian-lynx-in-winter-free-photo.jpg"
-        >
+        <PageLayout isOnline={true} avatarUrl="">
             <Grid className={styles.wrapper}>
                 <Grid className={styles.mainContent}>
                     <Grid>
