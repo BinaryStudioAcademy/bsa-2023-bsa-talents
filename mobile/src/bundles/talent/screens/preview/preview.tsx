@@ -10,6 +10,7 @@ import {
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
+import { ScoresAndSkills } from '../../components/scores-and-skills/scores-and-skills';
 import { BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { styles } from './style';
 
@@ -185,9 +186,12 @@ const Preview: React.FC = () => {
                     <Text category={TextCategory.LABEL}>Project</Text>
                 </TouchableOpacity>
             </View>
-            <View
-                style={[styles.profileWrapper, globalStyles.borderRadius5]}
-            ></View>
+            <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
+                <ScoresAndSkills
+                    badges={mockUser.BADGES}
+                    skills={mockUser.HARD_SKILLS}
+                />
+            </View>
         </ScrollView>
     );
 };
