@@ -22,7 +22,6 @@ const LostConnectionModal: React.FC = () => {
             style={[
                 globalStyles.width100,
                 globalStyles.height100,
-                globalStyles.justifyContentCenter,
                 styles.wrapper,
             ]}
         >
