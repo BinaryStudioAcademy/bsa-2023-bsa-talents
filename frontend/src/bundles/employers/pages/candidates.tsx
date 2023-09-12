@@ -1,12 +1,16 @@
 import {
+    Button,
     Grid,
     Input,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
+    useCallback,
     useEffect,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 
 import { EmployeeFilters } from '../components/components.js';
@@ -32,6 +36,7 @@ const FIELDS: [
     'levelOfEnglish',
     'employmentType',
 ];
+
 const Candidates: React.FC = () => {
     const { watch, control, getValues } = useAppForm<EmployeesFiltersDto>({
         defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
@@ -39,29 +44,70 @@ const Candidates: React.FC = () => {
 
     const watchedValues = watch(FIELDS);
     const dispatch = useAppDispatch();
-
+    const [isFilterOpened, setIsFilterOpened] = useState(false);
     useEffect(() => {
         const editedValues = getValues();
         void dispatch(employerActions.searchCandidates(editedValues));
     }, [dispatch, getValues, watchedValues]);
 
+    const handleFiltersClick = useCallback(() => {
+        setIsFilterOpened(!isFilterOpened);
+    }, [isFilterOpened]);
+
     return (
-        <Grid className={styles.wrapper}>
+        <Grid className={styles.searchPageWrapper}>
             <Grid className={styles.mainContent}>
                 <Grid>
                     <Typography variant="h4" className={styles.pageTitle}>
                         Candidates
                     </Typography>
                 </Grid>
-                <Input
-                    name="searchValue"
-                    control={control}
-                    errors={{}}
-                    type="search"
-                />
-                Search results
+                <Grid className={styles.searchFilterWrapper}>
+                    <Input
+                        name="searchValue"
+                        control={control}
+                        errors={{}}
+                        type="search"
+                    />
+                    <Button
+                        className={getValidClassNames(
+                            styles.filtersButton,
+                            isFilterOpened
+                                ? styles.filtersButtonActive
+                                : styles.filtersButtonNotActive,
+                        )}
+                        onClick={handleFiltersClick}
+                        label={'Filters'}
+                    />
+                </Grid>
+                <Grid
+                    className={getValidClassNames(
+                        styles.searchResults,
+                        isFilterOpened ? styles.searchResultsHidden : '',
+                    )}
+                >
+                    Search results
+                </Grid>
             </Grid>
-            <EmployeeFilters control={control} />
+            <Grid
+                className={getValidClassNames(
+                    styles.filters,
+                    isFilterOpened ? styles.filtersActive : '',
+                )}
+            >
+                <EmployeeFilters control={control} />
+                <Button
+                    className={getValidClassNames(
+                        styles.filtersButton,
+                        styles.showResultsButton,
+                        isFilterOpened
+                            ? styles.filtersButtonActive
+                            : styles.filtersButtonNotActive,
+                    )}
+                    onClick={handleFiltersClick}
+                    label={'Show results'}
+                />
+            </Grid>
         </Grid>
     );
 };
