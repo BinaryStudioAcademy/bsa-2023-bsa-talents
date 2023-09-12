@@ -1,15 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from '~/bundles/common/components/components';
+import { ScrollView, Text, View } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
+import { Feedbacks } from '../../components/feedbacks/feedbacks';
 import { ScoresAndSkills } from '../../components/scores-and-skills/scores-and-skills';
 import { BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { styles } from './style';
@@ -27,6 +23,14 @@ const mockUser = {
         'Hi! Throughout my time as a  Python developer, I`ve developed a strong foundation in Python programming, enabling me to create efficient, modular, and maintainable code. I`ve become adept at leveraging the language`s versatile libraries and frameworks to tackle complex tasks and deliver robust solutions',
     ENGLISH_LEVEL: 'Upper-Intermediate',
     PUBLISHED: 'Published today',
+    PERSONAL_TYPE: ['Thinker'],
+    HR_BADGES: [
+        'Communicative',
+        'Collaboration',
+        'Creative',
+        'Problem-solving',
+        'Leadership',
+    ],
     HARD_SKILLS: [
         'JavaScript',
         'GitHub',
@@ -36,17 +40,21 @@ const mockUser = {
         'React Native',
     ],
     BADGES: [
-        { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
-        { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
-        { label: BsaBadgeStepBadgesTitle.PROJECT_SCORE, value: 9 },
+        { label: BsaBadgeStepBadgesTitle.LECTURE_SCORE, value: 7 },
+        { label: BsaBadgeStepBadgesTitle.PROJECT_SCORE, value: 8 },
+        { label: BsaBadgeStepBadgesTitle.TEAM_SCORE, value: 8 },
     ],
 };
 
 const iconSize = 24;
 
 const Preview: React.FC = () => {
+    // const [tab, setTab] = useState('Scores');
+
     return (
-        <ScrollView style={globalStyles.defaultScreenPadding}>
+        <ScrollView
+            style={[globalStyles.defaultScreenPadding, globalStyles.mb25]}
+        >
             <Text category={TextCategory.H4} style={globalStyles.pb10}>
                 {mockUser.JOB_TITLE}
             </Text>
@@ -173,24 +181,44 @@ const Preview: React.FC = () => {
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
-                    globalStyles.pb20,
                 ]}
             >
-                <TouchableOpacity>
+                @typescript-eslint/no-confusing-void-expression
+                {/* <TouchableOpacity onPress={():void => setTab('score')}>
                     <Text category={TextCategory.LABEL}>Scores & skills</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity  onPress={():void => setTab('feedbacks')}>
                     <Text category={TextCategory.LABEL}>Feedbacks</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity  onPress={():void => setTab('project')}>
                     <Text category={TextCategory.LABEL}>Project</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
-            <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
-                <ScoresAndSkills
-                    badges={mockUser.BADGES}
-                    skills={mockUser.HARD_SKILLS}
-                />
+            <View
+                style={[
+                    styles.scoreAndSkillsWrapper,
+                    globalStyles.borderRadius10,
+                    globalStyles.mv20,
+                ]}
+            >
+                {tab === 'score' && (
+                    <ScoresAndSkills
+                        badges={mockUser.BADGES}
+                        skills={mockUser.HARD_SKILLS}
+                    />
+                )}
+                {tab === 'feedbacks' && (
+                    <Feedbacks
+                        personalityType={mockUser.PERSONAL_TYPE}
+                        HRBadges={mockUser.HR_BADGES}
+                    />
+                )}
+                {tab === 'project' && (
+                    <ScoresAndSkills
+                        badges={mockUser.BADGES}
+                        skills={mockUser.HARD_SKILLS}
+                    />
+                )}
             </View>
         </ScrollView>
     );

@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: Color.INPUT,
     },
-    tabsBodyWrapper: {
-        borderTopWidth: 1,
+    scoreAndSkillsWrapper: {
+        borderWidth: 1,
         borderColor: Color.INPUT,
         backgroundColor: '#FFFFFF',
     },

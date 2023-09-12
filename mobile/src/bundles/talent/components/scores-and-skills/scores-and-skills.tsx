@@ -25,20 +25,37 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
             <Text category={TextCategory.H4} style={globalStyles.pb10}>
                 Academy's scores
             </Text>
-            {badges.map((badge) => {
-                return (
-                    <Badge
-                        key={badge.label}
-                        badgeType={badge.label}
-                        value={badge.value}
-                    />
-                );
-            })}
+            <View
+                style={[
+                    globalStyles.pv20,
+                    globalStyles.flexDirectionRow,
+                    styles.badgesWrapper,
+                ]}
+            >
+                {badges.map((badge) => {
+                    return (
+                        <Badge
+                            key={badge.label}
+                            badgeType={badge.label}
+                            value={badge.value}
+                            //size="small"
+                            iconSize={30}
+                        />
+                    );
+                })}
+            </View>
 
             <Text category={TextCategory.H4} style={globalStyles.pb10}>
                 Skills
             </Text>
-            <View style={[globalStyles.flexDirectionRow, styles.tagsWrapper]}>
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.alignItemsCenter,
+                    globalStyles.pb20,
+                    styles.tagsWrapper,
+                ]}
+            >
                 {skills.map((skill) => {
                     return <Tag key={skill} value={skill} />;
                 })}
