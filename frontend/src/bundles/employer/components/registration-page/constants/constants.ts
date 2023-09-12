@@ -1,11 +1,7 @@
-import { type EmployerRegistrationDto } from '~/bundles/employer/types/types.js';
+import { type EmployerRegistrationDto } from 'shared/build/index.js';
 
 const REQUIRED = 'string.empty';
 const ACCEPTED_PHOTO_TYPES = ['.jpeg', '.png', '.jpg'];
-const MAX_FILE_SIZE = {
-    'mb': 5,
-    'bytes': 5_242_880,
-};
 
 const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerRegistrationDto = {
     photo: null,
@@ -22,6 +18,5 @@ const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerRegistrationDto = {
 export {
     ACCEPTED_PHOTO_TYPES,
     DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
-    MAX_FILE_SIZE,
     REQUIRED,
 };

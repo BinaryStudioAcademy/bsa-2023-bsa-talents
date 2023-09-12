@@ -1,5 +1,12 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type EmployerRegistrationDto,
+    EmployerRegistrationValidationMessage,
+    EmployerRegistrationValidationRule,
+    EmployerRegistrationValidationSchema,
+    fileSizeValidator,
+} from './bundles/employer/employer.js';
+export {
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
