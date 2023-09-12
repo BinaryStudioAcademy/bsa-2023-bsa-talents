@@ -4,9 +4,13 @@ ul {
 }
 
 .profileFirstSection {
-    width: 65%;
+    width: 70%;
     padding: 30px 35px;
     border-right: 1px solid var(--botticelli);
+}
+
+.profileStepFirstSection {
+    border-right: none;
 }
 
 .profileCard {
@@ -36,10 +40,10 @@ ul {
     grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
     gap: 5px;
     margin-block: 15px;
+}
 
-    li {
-        margin: 0 auto;
-    }
+.bigBadgeList {
+    grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
 }
 
 .skillsWrapper {
@@ -158,8 +162,12 @@ ul {
     }
 }
 
-@media screen and (width < 335px) {
+@media screen and (width < 420px) {
     .badgeList {
         grid-template-columns: 1fr;
+
+        li {
+            margin: 0 auto;
+        }
     }
 }

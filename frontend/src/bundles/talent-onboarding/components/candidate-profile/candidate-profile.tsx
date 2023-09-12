@@ -1,10 +1,10 @@
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-
 import {
     ProfileFirstSection,
     ProfileSecondSection,
-} from '../../../talent-onboarding/components/components.js';
+} from '~/bundles/talent-onboarding/components/components.js';
+
 import styles from './styles.module.scss';
 
 const mockedCandidateParameters = {

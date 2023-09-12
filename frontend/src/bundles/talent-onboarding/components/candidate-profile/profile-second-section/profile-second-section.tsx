@@ -35,8 +35,8 @@ const ProfileSecondSection: React.FC<Properties> = ({
         },
     ];
     // TODO: fill with real data
-    const { control } = useAppForm<{ hire: '' }>({
-        defaultValues: { hire: '' },
+    const { control } = useAppForm<{ hire: 'Yes' }>({
+        defaultValues: { hire: 'Yes' },
     });
 
     return (

@@ -81,6 +81,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
             className={getValidClassNames(
                 styles.profileFirstSection,
                 isProfileCard ? styles.profileCard : '',
+                isFifthStep ? styles.profileStepFirstSection : '',
             )}
         >
             <Grid>
@@ -108,11 +109,17 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         Academy&apos;s scores
                     </Typography>
                 )}
-                <ul className={styles.badgeList}>
+                <ul
+                    className={getValidClassNames(
+                        styles.badgeList,
+                        isFifthStep ? styles.bigBadgeList : '',
+                    )}
+                >
                     {mockedAcademyBadges.map((badge, index) => (
                         <li key={index}>
                             <Badge
                                 isSmall
+                                isFifthStep={isFifthStep}
                                 color={badge.color}
                                 primaryText={badge.primaryText}
                                 description={badge.description}
@@ -148,7 +155,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     </>
                 )}
             </Grid>
-            {!isProfileCard && (
+            {!isProfileCard && !isFifthStep && (
                 <Grid>
                     <Typography variant="input" className={styles.title}>
                         HR comments

@@ -6,15 +6,16 @@ ul {
 .profileSecondSection {
     display: flex;
     flex-direction: column;
-    width: 35%;
+    width: 30%;
 }
 
 .candidateInfo {
     min-width: 324px;
-    margin-top: 40px;
+    max-width: 300px;
+    margin: 40px auto;
+    margin-bottom: 15px;
     border: 1px solid var(--botticelli);
     border-radius: 8px;
-    margin-inline: 50px;
 }
 
 .salary {
@@ -30,13 +31,13 @@ ul {
 }
 
 .salaryTitle {
-    padding-left: 45px;
+    padding-left: 35px;
     padding-block: 10px;
     border-bottom: 1px solid var(--botticelli);
 }
 
 .candidateParamsList {
-    padding-left: 45px;
+    padding-left: 35px;
 }
 
 .icon {
@@ -53,7 +54,7 @@ ul {
 .name {
     display: flex;
     align-items: center;
-    padding-left: 37px;
+    padding-left: 30px;
     font-weight: var(--font-weight-semi-bold);
     font-size: 20px;
     border-bottom: 1px solid var(--botticelli);
@@ -69,8 +70,7 @@ ul {
 }
 
 .publishDate {
-    margin-top: 6px;
-    margin-left: 50px;
+    margin-left: 30px;
     color: var(--nepal);
 }
 
@@ -79,19 +79,19 @@ ul {
     margin-top: 35px;
     text-transform: none;
     background-color: var(--background-secondary);
-    margin-inline: 50px;
+    margin-inline: 30px;
 }
 
 .hireCandidates {
     justify-content: center;
     align-items: center;
     min-width: 324px;
+    max-width: 300px;
     height: 155px;
-    margin-top: 15px;
+    margin: 0 auto;
     background-color: var(--background-primary);
     border: 1px solid var(--botticelli);
     border-radius: 8px;
-    margin-inline: 50px;
 }
 
 .submit {
@@ -152,7 +152,7 @@ ul {
     }
 
     .name {
-        padding-right: 155px;
+        padding-right: 150px;
         padding-block: 0;
         border: none;
     }
@@ -161,5 +161,9 @@ ul {
         min-width: 100%;
         border: none;
         border-radius: 0;
+    }
+
+    .publishDate {
+        margin-top: -25px;
     }
 }
