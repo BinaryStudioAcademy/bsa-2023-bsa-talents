@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import Toast from 'react-native-toast-message';
 import { Provider as StoreProvider } from 'react-redux';
 
+import { LostConnectionModal } from '~/bundles/common/components/components';
 import { useEffect } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { store } from '~/framework/store/store';
@@ -24,6 +25,7 @@ const App: FC = () => {
                     <RootNavigation />
                 </NavigationContainer>
             </GestureHandlerRootView>
+            <LostConnectionModal />
             <Toast />
         </StoreProvider>
     );
