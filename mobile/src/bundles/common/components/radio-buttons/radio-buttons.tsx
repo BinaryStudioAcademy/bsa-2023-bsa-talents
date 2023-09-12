@@ -44,6 +44,7 @@ const RadioButtons = <T extends FieldValues>({
                 radioButtons={radioButtonsWithStyles}
                 onPress={onChange}
                 selectedId={value}
+                containerStyle={{ flexWrap: 'wrap' }}
                 {...props}
             />
         </View>
