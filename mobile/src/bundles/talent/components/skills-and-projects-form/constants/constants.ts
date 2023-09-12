@@ -20,10 +20,12 @@ const PREFERRED_LANGUAGES_ARRAY = Object.values(PreferredLanguages);
 // TODO: Change job title to hard skills enum
 const JOB_TITLES = Object.values(JobTitle);
 const NOT_CONSIDERED = Object.values(NotConsidered);
+const MAX_LINKS = 5;
 
 export {
     ENGLISH_LEVEL,
     JOB_TITLES,
+    MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
