@@ -14,7 +14,6 @@ const SkillsStepValidationRule = {
     PROJECT_LINKS_MAX_LINKS: 5,
     PROJECT_LINKS_MIN_LENGTH: 5,
     PROJECT_LINKS_MAX_LENGTH: 50,
-    PROJECT_LINKS_PATTERN: /^[\w!#$%&()*+,./:;<=>?@[\\\]^{|}~-]+$/,
 };
 
 export { SkillsStepValidationRule };
