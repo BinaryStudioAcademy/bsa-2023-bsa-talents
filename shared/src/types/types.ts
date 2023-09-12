@@ -1,3 +1,4 @@
+export { type ChatListItemType } from './chat-list-item.type.js';
 export { type ServerErrorDetail } from './server-error-detail.type.js';
 export {
     type ServerCommonErrorResponse,

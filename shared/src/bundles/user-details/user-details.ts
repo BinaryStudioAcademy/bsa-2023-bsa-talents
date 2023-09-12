@@ -5,6 +5,7 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
 } from './enums/enums.js';
