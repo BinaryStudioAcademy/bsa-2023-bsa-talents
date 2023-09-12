@@ -15,7 +15,7 @@ class ChatMessageModel extends AbstractModel {
     public 'receiverId': string;
     public 'chatId': string;
     public 'message': string;
-    public 'isRead'?: boolean;
+    public 'isRead': boolean;
 
     public static override get tableName(): string {
         return DatabaseTableName.CHAT_MESSAGES;
