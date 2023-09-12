@@ -1,21 +1,20 @@
 import logoSvg from '~/assets/img/logo/logo.svg';
 import logoLabelSvg from '~/assets/img/logo/logo-label.svg';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
-import { getValidClassNames } from '../../helpers/helpers.js';
-import { Grid } from '../components.js';
+import { Grid, Link } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
     className?: string;
     isCollapsed?: boolean;
+    withLink?: boolean;
 };
 
-const Logo = ({
-    className = '',
-    isCollapsed = false,
-}: Properties): JSX.Element => {
+const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
     return (
-        <Grid container className={getValidClassNames(styles.logo, className)}>
+        <>
             <Grid
                 item
                 alignItems="center"
@@ -30,6 +29,32 @@ const Logo = ({
             {!isCollapsed && (
                 <Grid item alignItems="center" className={styles.logoLabel}>
                     <img src={logoLabelSvg} alt="Label-BSATalents" />
+                </Grid>
+            )}
+        </>
+    );
+};
+
+const Logo: React.FC<Properties> = ({
+    className = '',
+    isCollapsed = false,
+    withLink = false,
+}) => {
+    return (
+        <Grid container>
+            {withLink ? (
+                <Link
+                    to={AppRoute.ROOT}
+                    className={getValidClassNames(styles.logo, className)}
+                >
+                    <BaseLogo isCollapsed={isCollapsed} />
+                </Link>
+            ) : (
+                <Grid
+                    container
+                    className={getValidClassNames(styles.logo, className)}
+                >
+                    <BaseLogo isCollapsed={isCollapsed} />
                 </Grid>
             )}
         </Grid>
