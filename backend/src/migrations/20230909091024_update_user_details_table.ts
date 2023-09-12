@@ -25,6 +25,10 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
+    await knex(TABLE_NAME)
+        .where({ [ColumnName.FULL_NAME]: null })
+        .update({ [ColumnName.FULL_NAME]: '' });
+
     return knex.schema.alterTable(TABLE_NAME, (table) => {
         table.string(ColumnName.FULL_NAME).notNullable().alter();
         table.integer(ColumnName.EXPERIENCE_YEARS).alter();

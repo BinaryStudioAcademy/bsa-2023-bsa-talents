@@ -49,7 +49,6 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsFindRequestDto;
-
                 state[typedKey] = action.payload[typedKey];
             }
         });
