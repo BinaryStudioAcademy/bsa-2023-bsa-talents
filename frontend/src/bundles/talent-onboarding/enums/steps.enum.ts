@@ -1,4 +1,4 @@
-const Steps = {
+const StepLabels = {
     STEP_01: 'Profile',
     STEP_02: 'BSA badges',
     STEP_03: 'Skills and projects',
@@ -6,4 +6,4 @@ const Steps = {
     STEP_05: 'Preview',
 } as const;
 
-export { Steps };
+export { StepLabels };
