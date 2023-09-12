@@ -19,7 +19,7 @@
     justify-content: center;
     align-items: start;
 
-    p {
+    .title {
         margin: 0;
         overflow: hidden;
         color: var(--text-primary-dark);
@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
 
-    p {
+    .textStatus {
         margin: 0;
         color: var(--text-primary-dark);
         font-weight: var(--font-weight-semi-bold);

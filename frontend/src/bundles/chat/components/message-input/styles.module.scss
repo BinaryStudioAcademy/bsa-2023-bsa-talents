@@ -14,6 +14,7 @@
     align-items: center;
     width: 100%;
     padding: 10px 20px;
+    padding-right: 40px;
     overflow: hidden;
     color: var(--text-primary-dark);
     border: 2px solid var(--botticelli);
@@ -23,18 +24,18 @@
         border: 2px solid var(--st-tropaz);
     }
 
-    textarea {
+    :global(.MuiInputBase-inputMultiline) {
         overflow-y: scroll;
         font-size: 14px;
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
 
-    textarea::-webkit-scrollbar {
+    :global(.MuiInputBase-inputMultiline::-webkit-scrollbar) {
         width: 0;
     }
 
-    textarea::placeholder {
+    :global(.MuiInputBase-inputMultiline::-webkit-scrollbar::placeholder) {
         color: var(--text-primary);
         font-size: 14px;
     }
@@ -42,4 +43,10 @@
 
 .focused {
     border: 2px solid var(--st-tropaz);
+}
+
+.adornment {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
 }

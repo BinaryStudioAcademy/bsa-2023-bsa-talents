@@ -24,7 +24,9 @@ const ChatHeader: React.FC<Properties> = ({ avatarUrl, isOnline, title }) => {
                 <p className={styles.title}>{title}</p>
                 <Grid className={styles.status}>
                     <Grid className={onlineIconClasses} />
-                    <p>{isOnline ? 'Online' : 'Offline'}</p>
+                    <p className={styles.textStatus}>
+                        {isOnline ? 'Online' : 'Offline'}
+                    </p>
                 </Grid>
             </Grid>
         </Grid>
