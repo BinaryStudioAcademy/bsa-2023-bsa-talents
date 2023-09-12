@@ -69,7 +69,7 @@ const TalentOnboardingNavigator: React.FC = () => {
                 name={TalentOnboardingScreenName.PREVIEW}
                 component={Preview}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.DISABLED,
+                    stepState: TalentOnboardingStepState.FOCUSED,
                 }}
             />
         </Drawer.Navigator>

@@ -13,6 +13,10 @@ const IconName = {
     HEADPHONES: 'headphones',
     PLUS: 'plus',
     WIFI_OFF: 'wifi-off',
+    LANGUAGE: 'language',
+    EXPERIENCE: 'integration-instructions',
+    FORUM: 'forum',
+    NOT_CONSIDER: 'do-not-disturb-on',
 } as const;
 
 export { IconName };
