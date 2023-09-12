@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
     },
     profileItems: {
-        gap: 16,
         borderTopWidth: 1,
         borderColor: Color.INPUT,
     },

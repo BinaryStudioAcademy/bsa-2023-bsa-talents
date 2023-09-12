@@ -5,7 +5,36 @@ import { ScrollView, Text, View } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
+import { BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { styles } from './style';
+
+// TODO replace with real user data
+const mockUser = {
+    ID: 1,
+    SALARY_EXPECTATION: 1500,
+    JOB_TITLE: 'Middle python developer',
+    LOCATION: 'Ukraine',
+    EMPLOYMENT_TYPE: ['Remote work', 'Full time'],
+    NOT_CONCEDER: ['crypto'],
+    EXPERIENCE_YEARS: 2.5,
+    DESCRIPTION:
+        'Hi! Throughout my time as a  Python developer, I`ve developed a strong foundation in Python programming, enabling me to create efficient, modular, and maintainable code. I`ve become adept at leveraging the language`s versatile libraries and frameworks to tackle complex tasks and deliver robust solutions',
+    ENGLISH_LEVEL: 'Upper-Intermediate',
+    PUBLISHED: 'Published today',
+    HARD_SKILLS: [
+        'JavaScript',
+        'GitHub',
+        'NodeJS',
+        'React',
+        'Vite',
+        'React Native',
+    ],
+    BADGES: [
+        { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
+        { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
+        { label: BsaBadgeStepBadgesTitle.PROJECT_SCORE, value: 9 },
+    ],
+};
 
 const iconSize = 24;
 
@@ -13,14 +42,14 @@ const Preview: React.FC = () => {
     return (
         <ScrollView style={globalStyles.defaultScreenPadding}>
             <Text category={TextCategory.H4} style={globalStyles.pb10}>
-                Middle Python Developer
+                {mockUser.JOB_TITLE}
             </Text>
             <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
                 <Text
                     category={TextCategory.H3}
                     style={[globalStyles.pv10, globalStyles.pl25]}
                 >
-                    $ 1500 / mo
+                    $ {mockUser.SALARY_EXPECTATION} / mo
                 </Text>
                 <View
                     style={[
@@ -29,7 +58,12 @@ const Preview: React.FC = () => {
                         styles.profileItems,
                     ]}
                 >
-                    <View style={globalStyles.flexDirectionRow}>
+                    <View
+                        style={[
+                            globalStyles.flexDirectionRow,
+                            globalStyles.pb15,
+                        ]}
+                    >
                         <Icon
                             name={IconName.LANGUAGE}
                             size={iconSize}
@@ -39,10 +73,15 @@ const Preview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            Ukraine
+                            {mockUser.LOCATION}
                         </Text>
                     </View>
-                    <View style={globalStyles.flexDirectionRow}>
+                    <View
+                        style={[
+                            globalStyles.flexDirectionRow,
+                            globalStyles.pb15,
+                        ]}
+                    >
                         <Icon
                             name={IconName.EXPERIENCE}
                             size={iconSize}
@@ -52,10 +91,15 @@ const Preview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            1 year of experience
+                            {mockUser.EXPERIENCE_YEARS} year of experience
                         </Text>
                     </View>
-                    <View style={globalStyles.flexDirectionRow}>
+                    <View
+                        style={[
+                            globalStyles.flexDirectionRow,
+                            globalStyles.pb15,
+                        ]}
+                    >
                         <Icon
                             name={IconName.FORUM}
                             size={iconSize}
@@ -65,36 +109,40 @@ const Preview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            English: Upper-Intermediate
+                            English: {mockUser.ENGLISH_LEVEL}
                         </Text>
                     </View>
-                    <View style={globalStyles.flexDirectionRow}>
-                        <Icon
-                            name={IconName.CHECK_CIRCLE}
-                            size={iconSize}
-                            color={Color.PRIMARY}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
-                        >
-                            Remote work
-                        </Text>
+                    <View>
+                        {mockUser.EMPLOYMENT_TYPE.map((type) => {
+                            return (
+                                <View
+                                    key={type}
+                                    style={[
+                                        globalStyles.flexDirectionRow,
+                                        globalStyles.pb15,
+                                    ]}
+                                >
+                                    <Icon
+                                        name={IconName.CHECK_CIRCLE}
+                                        size={iconSize}
+                                        color={Color.PRIMARY}
+                                    />
+                                    <Text
+                                        category={TextCategory.BODY1}
+                                        style={globalStyles.pl10}
+                                    >
+                                        {type}
+                                    </Text>
+                                </View>
+                            );
+                        })}
                     </View>
-                    <View style={globalStyles.flexDirectionRow}>
-                        <Icon
-                            name={IconName.CHECK_CIRCLE}
-                            size={iconSize}
-                            color={Color.PRIMARY}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
-                        >
-                            Full time
-                        </Text>
-                    </View>
-                    <View style={globalStyles.flexDirectionRow}>
+                    <View
+                        style={[
+                            globalStyles.flexDirectionRow,
+                            globalStyles.pb15,
+                        ]}
+                    >
                         <Icon
                             name={IconName.NOT_CONSIDER}
                             size={iconSize}
@@ -110,14 +158,10 @@ const Preview: React.FC = () => {
                 </View>
             </View>
             <Text category={TextCategory.INPUT} style={globalStyles.pt5}>
-                Published today
+                {mockUser.PUBLISHED}
             </Text>
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
-                Hi! Throughout my time as a Python developer, I've developed a
-                strong foundation in Python programming, enabling me to create
-                efficient, modular, and maintainable code. I've become adept at
-                leveraging the language's versatile libraries and frameworks to
-                tackle complex tasks and deliver robust solutions.{' '}
+                {mockUser.DESCRIPTION}
             </Text>
         </ScrollView>
     );
