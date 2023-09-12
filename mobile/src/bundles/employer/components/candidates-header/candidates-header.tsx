@@ -7,7 +7,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './styles';
 
 type Properties = {
-    numberOfUsers: number;
+    numberOfUsers?: number;
 };
 
 const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {

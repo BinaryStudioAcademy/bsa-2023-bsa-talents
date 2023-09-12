@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
         color: Color.PRIMARY,
         fontFamily: FontFamily.INTER_SEMIBOLD,
     },
+    input: {
+        borderWidth: 1,
+        borderColor: Color.INPUT,
+    },
 });
 
 export { styles };

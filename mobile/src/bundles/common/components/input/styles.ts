@@ -25,9 +25,14 @@ const styles = StyleSheet.create({
         opacity: 0.5,
     },
     icon: {
-        position: 'absolute',
-        left: 0,
-        top: 12,
+        borderWidth: 1,
+        borderRightWidth: 0,
+        borderColor: Color.INPUT,
+        borderTopLeftRadius: 5,
+        borderBottomLeftRadius: 5,
+    },
+    inputBorder: {
+        borderLeftWidth: 0,
     },
 });
 

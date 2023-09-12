@@ -61,12 +61,20 @@ const Input = <T extends FieldValues>({
             )}
 
             {iconName && (
-                <Icon
-                    name={iconName}
-                    size={iconSize}
-                    color={Color.PRIMARY}
-                    style={styles.icon}
-                />
+                <View
+                    style={[
+                        globalStyles.alignSelfCenter,
+                        globalStyles.pv15,
+                        globalStyles.pl5,
+                        styles.icon,
+                    ]}
+                >
+                    <Icon
+                        name={iconName}
+                        size={iconSize}
+                        color={Color.PRIMARY}
+                    />
+                </View>
             )}
 
             <TextInput
@@ -76,10 +84,10 @@ const Input = <T extends FieldValues>({
                 {...props}
                 style={[
                     globalStyles.flex1,
-                    globalStyles.pl25,
                     globalStyles.Input,
-                    !marker && globalStyles.borderRadius5,
+                    !marker && !iconName && globalStyles.borderRadius5,
                     !iconName && globalStyles.pl10,
+                    iconName && styles.inputBorder,
                     styles.input,
                     multiline && styles.multiline,
                     !editable && styles.disabled,

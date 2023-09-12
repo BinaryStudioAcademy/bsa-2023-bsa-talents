@@ -15,16 +15,16 @@ import {
 // TODO replace with real users
 const mockUsers = [
     {
-        ID: 1,
-        SALARY_EXPECTATION: 1500,
-        JOB_TITLE: 'middle python developer',
-        LOCATION: 'Ukraine',
-        EXPERIENCE_YEARS: 2.5,
-        DESCRIPTION:
+        id: 1,
+        salaryExpectation: 1500,
+        jobTitle: 'middle python developer',
+        location: 'Ukraine',
+        experienceYears: 2.5,
+        description:
             'Responsible for driving revenue growth by identifying and pursuing new business opportunities, as well as maintaining relationships with existing clients text text text text text text text text text',
-        ENGLISH_LEVEL: 'Upper-Intermediate',
-        PUBLISHED: 'Published today',
-        HARD_SKILLS: [
+        englishLevel: 'Upper-Intermediate',
+        published: 'Published today',
+        hardSkills: [
             'JavaScript',
             'GitHub',
             'NodeJS',
@@ -32,47 +32,41 @@ const mockUsers = [
             'Vite',
             'React Native',
         ],
-        BADGES: [
+        badges: [
             { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
             { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
             { label: BsaBadgeStepBadgesTitle.PROJECT_SCORE, value: 9 },
         ],
     },
     {
-        ID: 2,
-        SALARY_EXPECTATION: 2500,
-        JOB_TITLE: 'middle c++ developer',
-        LOCATION: 'Ukraine',
-        EXPERIENCE_YEARS: 1,
-        DESCRIPTION:
+        id: 2,
+        salaryExpectation: 2500,
+        jobTitle: 'middle c++ developer',
+        location: 'Ukraine',
+        experienceYears: 1,
+        description:
             'Responsible for driving revenue growth by identifying and pursuing new business opportunities, as well as maintaining relationships with existing clients text text text text text text text text text text',
-        ENGLISH_LEVEL: 'Intermediate',
-        PUBLISHED: 'Published yesterday',
-        HARD_SKILLS: [
-            'JavaScript',
-            'GitHub',
-            'NodeJS',
-            'React',
-            'React Native',
-        ],
-        BADGES: [
+        englishLevel: 'Intermediate',
+        published: 'Published yesterday',
+        hardSkills: ['JavaScript', 'GitHub', 'NodeJS', 'React', 'React Native'],
+        badges: [
             { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'B1' },
             { label: BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE, value: 7 },
             { label: BsaBadgeStepBadgesTitle.LECTURE_SCORE, value: 8 },
         ],
     },
     {
-        ID: 3,
-        SALARY_EXPECTATION: 2000,
-        JOB_TITLE: 'middle javascript developer',
-        LOCATION: 'Ukraine',
-        EXPERIENCE_YEARS: 2.5,
-        DESCRIPTION:
+        id: 3,
+        salaryExpectation: 2000,
+        jobTitle: 'middle javascript developer',
+        location: 'Ukraine',
+        experienceYears: 2.5,
+        description:
             'Responsible for driving revenue growth by identifying and pursuing new business opportunities, as well as maintaining relationships with existing clients text text text text text text text text text text text',
-        ENGLISH_LEVEL: 'Advanced',
-        PUBLISHED: 'Published 2 days ago',
-        HARD_SKILLS: ['JavaScript', 'GitHub', 'NodeJS', 'React', 'Vite'],
-        BADGES: [
+        englishLevel: 'Advanced',
+        published: 'Published 2 days ago',
+        hardSkills: ['JavaScript', 'GitHub', 'NodeJS', 'React', 'Vite'],
+        badges: [
             { label: BsaBadgeStepBadgesTitle.PUNCTUALITY, value: 8 },
             { label: BsaBadgeStepBadgesTitle.ENGLISH_LEVEL, value: 'C1' },
             { label: BsaBadgeStepBadgesTitle.LECTURE_SCORE, value: 9 },
@@ -85,8 +79,11 @@ const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredCandidates = useMemo(() => {
-        return mockUsers.filter((user) =>
-            user.JOB_TITLE.toLowerCase().includes(searchQuery.toLowerCase()),
+        return mockUsers.filter(
+            (
+                user, //TODO replace with real users
+            ) =>
+                user.jobTitle.toLowerCase().includes(searchQuery.toLowerCase()),
         );
     }, [searchQuery]);
 
@@ -108,7 +105,7 @@ const Candidates: React.FC = () => {
                     setSearchQuery={setSearchQuery}
                 />
                 {filteredCandidates.map((user) => (
-                    <CandidateCard key={user.ID} {...user} />
+                    <CandidateCard key={user.id} {...user} />
                 ))}
             </ScrollView>
         </>
