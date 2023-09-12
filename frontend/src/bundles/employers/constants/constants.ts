@@ -1,6 +1,7 @@
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 
 const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
+    searchValue: '',
     activeSearchingOnly: true,
     jobTitles: [],
     userYearsOfExperience: [],
