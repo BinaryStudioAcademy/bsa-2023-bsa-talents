@@ -41,6 +41,7 @@ const ContactCandidateValidationSchema = joi.object<ContactCandidateDto, true>({
 
     message: joi
         .string()
+        .trim()
         .min(ContactCandidateValidationRule.MIN_MESSAGE_LENGTH)
         .max(ContactCandidateValidationRule.MAX_MESSAGE_LENGTH)
         .required()

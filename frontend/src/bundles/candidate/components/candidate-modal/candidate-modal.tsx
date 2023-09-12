@@ -190,14 +190,6 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                             }
                                         />
                                     </Grid>
-                                    {errors.links?.[index]?.value && (
-                                        <FormHelperText error>
-                                            {
-                                                errors.links[index]?.value
-                                                    ?.message
-                                            }
-                                        </FormHelperText>
-                                    )}
                                 </Grid>
                             );
                         })}
@@ -214,7 +206,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             color="primary"
                         />
                         {errors.links && (
-                            <FormHelperText error>
+                            <FormHelperText className={styles.error}>
                                 {errors.links.message}
                             </FormHelperText>
                         )}
@@ -238,13 +230,13 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             className={getValidClassNames(styles.message)}
                             control={control}
                             errors={errors}
-                            name={'message'}
+                            name="message"
                             placeholder="Text"
                             minRows={4}
                             maxRows={7}
                         />
                         {errors.message && (
-                            <FormHelperText error>
+                            <FormHelperText className={styles.error}>
                                 {errors.message.message}
                             </FormHelperText>
                         )}

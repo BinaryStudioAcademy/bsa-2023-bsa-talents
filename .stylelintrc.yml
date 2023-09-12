@@ -14,6 +14,11 @@ rules:
     unit-disallowed-list:
         - em
         - rem
+    selector-pseudo-class-no-unknown:
+      - true
+      - ignorePseudoClasses:
+          - global
+          - local
 
     order/order:
         - custom-properties

@@ -8,7 +8,10 @@ import {
     type RefCallBack,
 } from 'react-hook-form';
 
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import {
+    getNestedProperty,
+    getValidClassNames,
+} from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -47,7 +50,7 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
-    const error = errors[name]?.message;
+    const error = getNestedProperty(errors, name)?.message;
     const hasError = Boolean(error);
 
     let adornment = null;
@@ -98,7 +101,7 @@ const Input = <T extends FieldValues>({
             type={type}
             placeholder={placeholder}
             error={hasError}
-            helperText={(error as string) || ''}
+            helperText={error ?? ''}
             className={textFieldRootStyles}
             required={isRequired}
             InputProps={{

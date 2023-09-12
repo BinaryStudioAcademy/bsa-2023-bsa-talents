@@ -79,6 +79,7 @@ export {
     configureString,
     createNumberRangeArray,
     getAvatarInitials,
+    getNestedProperty,
 } from './helpers/helpers.js';
 export {
     type ServerCommonErrorResponse,
