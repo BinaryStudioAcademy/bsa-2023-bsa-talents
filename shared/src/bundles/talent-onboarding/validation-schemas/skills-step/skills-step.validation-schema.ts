@@ -87,7 +87,7 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
                 url: joi
                     .string()
                     .empty('')
-                    .uri()
+                    .regex(SkillsStepValidationRule.PROJECT_LINKS_PATTERN)
                     .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
                     .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
             }),
@@ -97,7 +97,8 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
             'array.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LINKS,
             'array.includes':
                 SkillsStepValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
-            'string.uri': SkillsStepValidationMessage.PROJECT_LINKS_INVALID_URL,
+            'string.regex':
+                SkillsStepValidationMessage.PROJECT_LINKS_INVALID_URL,
             'string.min': SkillsStepValidationMessage.PROJECT_LINKS_MIN_LENGTH,
             'string.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LENGTH,
         }),

@@ -91,6 +91,10 @@
     .MuiGrid-item {
         padding-top: 0;
     }
+
+    .MuiGrid-item > label > span {
+        padding: 6px;
+    }
 }
 
 .checkboxTitle {
@@ -98,7 +102,7 @@
 }
 
 .projectLinks {
-    margin-bottom: 16px;
+    margin-bottom: 2px;
 }
 
 .buttonAddLink {
