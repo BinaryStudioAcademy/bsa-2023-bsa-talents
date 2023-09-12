@@ -25,7 +25,6 @@ type Properties = SliderProps & {
 const CustomSlider: React.FC<Properties> = ({
     marks = [],
     label,
-    value,
     step = null,
     valueLabelDisplay = 'on',
     ...props
@@ -50,7 +49,6 @@ const CustomSlider: React.FC<Properties> = ({
                     marginTop: '20px',
                 }}
                 aria-label={label}
-                defaultValue={value}
                 marks={marks}
                 step={step}
                 valueLabelDisplay={valueLabelDisplay}

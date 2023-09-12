@@ -22,12 +22,8 @@
     }
 
     & .logo {
-        display: inline-block;
-        width: 75px;
-        margin-right: auto;
-        background-color: #ffd231;
-        border-radius: 7px;
-        aspect-ratio: 1/1;
+        justify-content: center;
+        margin-top: 25px;
     }
 }
 
@@ -81,6 +77,11 @@
 
         .text {
             display: block;
+        }
+
+        .logo {
+            justify-content: start;
+            margin-top: unset;
         }
     }
 

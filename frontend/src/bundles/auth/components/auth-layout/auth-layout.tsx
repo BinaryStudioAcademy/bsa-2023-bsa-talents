@@ -1,4 +1,8 @@
-import { Grid, Typography } from '~/bundles/common/components/components.js';
+import {
+    Grid,
+    Logo,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
@@ -13,8 +17,7 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
             <Grid container className={styles.container}>
                 <Grid item xs={12} md={6}>
                     <Grid item className={styles.sellingPoint}>
-                        <div className={styles.logo}></div>{' '}
-                        {/* TODO: Change to Logo component*/}
+                        <Logo className={styles.logo} />
                         <Typography
                             className={styles.animatedTextWrapper}
                             variant="h1"
