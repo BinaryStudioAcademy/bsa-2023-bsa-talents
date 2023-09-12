@@ -3,8 +3,6 @@
     flex-direction: column;
     align-items: center;
     width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    max-width: var(--sidebar-width);
     min-height: 100vh;
     padding-top: 15px;
     background-color: var(--text-primary-dark);
@@ -16,12 +14,7 @@
 }
 
 .logo {
-    display: block;
-    width: 44px;
-    height: 44px;
     margin-bottom: 20px;
-    background: #ffd231;
-    border-radius: 7px;
 }
 
 .list {

@@ -219,7 +219,7 @@ const SkillsStep: React.FC = () => {
                     <span className={styles.requiredField}>*</span>
                 </FormLabel>
                 <Select
-                    multiple
+                    isMulti
                     control={control}
                     placeholder="Option"
                     name={'preferredLanguages'}

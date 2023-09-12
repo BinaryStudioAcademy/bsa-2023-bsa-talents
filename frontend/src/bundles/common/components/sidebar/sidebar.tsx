@@ -1,6 +1,6 @@
 import { EmailRounded, FolderShared } from '@mui/icons-material';
 
-import { Link, Logo } from '~/bundles/common/components/components.js';
+import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
@@ -9,12 +9,12 @@ import styles from './styles.module.scss';
 
 const menuItems = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.CANDIDATES,
         name: 'Candidates',
         icon: <FolderShared />,
     },
     {
-        link: AppRoute.SIGN_UP,
+        link: AppRoute.CHATS,
         name: 'Chats',
         icon: <EmailRounded />,
     },
@@ -29,13 +29,13 @@ const Sidebar: React.FC = () => {
 
     return (
         <>
-            <div
+            <Grid
                 className={getValidClassNames(
                     isSidebarVisible ? styles.visible : styles.hidden,
                     styles.wrapper,
                 )}
             >
-                <Logo isCollapsed={true} className={styles.logo} />
+                <Logo isCollapsed={true} className={styles.logo} withLink />
                 <ul className={styles.list}>
                     {menuItems.map((item) => (
                         <li key={item.link} className={styles.listItem}>
@@ -46,7 +46,7 @@ const Sidebar: React.FC = () => {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </Grid>
 
             {/* BURGER */}
             <div className={styles.burgerBackground}></div>
