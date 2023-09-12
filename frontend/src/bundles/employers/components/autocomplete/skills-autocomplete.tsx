@@ -83,9 +83,9 @@ const SkillsAutocomplete = <T extends FieldValues>({
         [],
     );
 
-    const filterOptions = useCallback((options: Option[]) => {
-        return options;
-    }, []);
+    // const filterOptions = useCallback((options: Option[]) => {
+    //     return options;
+    // }, []);
 
     const handleDelete = useCallback(
         (deletedSkill: Option) => () => {
@@ -106,7 +106,7 @@ const SkillsAutocomplete = <T extends FieldValues>({
                 renderInput={renderInput}
                 options={hardSkillsOptions}
                 renderTags={hideDefaultTags}
-                filterOptions={filterOptions}
+                // filterOptions={filterOptions}
                 popupIcon={null}
                 clearIcon={null}
                 isOptionEqualToValue={isOptionEqualToValue}
