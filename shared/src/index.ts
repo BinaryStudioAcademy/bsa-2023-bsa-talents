@@ -1,4 +1,5 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
+export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
@@ -24,6 +25,7 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,

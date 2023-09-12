@@ -4,15 +4,14 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-
-type Properties = {
-    companyData: CompanyInfoDto;
-};
-
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { type CompanyInfoDto } from '../../types/types.js';
 import styles from './styles.module.scss';
+
+type Properties = {
+    companyData: CompanyInfoDto;
+};
 
 const CompanyInfo: React.FC<Properties> = ({
     companyData: {
