@@ -3,6 +3,7 @@ import {
     type ControllerRenderProps,
     type FieldPath,
 } from 'react-hook-form';
+import { type EmployerRegistrationDto } from 'shared/build/index.js';
 
 import {
     FileUpload,
@@ -16,7 +17,6 @@ import {
     useCallback,
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
-import { type EmployerRegistrationDto } from '~/bundles/employer/types/types.js';
 
 import { ACCEPTED_PHOTO_TYPES } from '../constants/constants.js';
 import styles from '../styles.module.scss';
@@ -64,20 +64,22 @@ const EmployerFileUpload: React.FC<Properties> = ({ name, control }) => {
                     label: 'Choose photo',
                     className: getValidClassNames(
                         styles.uploadPhotoBtn,
-                        errors.photo?.message ? styles.btnError : '',
+                        errors[name]?.message ? styles.btnError : '',
                     ),
                 }}
                 onChange={handleFileChange(field)}
             />
 
-            <FormHelperText
-                className={getValidClassNames(
-                    styles.fileError,
-                    styles.photoError,
-                )}
-            >
-                {errors.photo?.type === 'fileSize' && errors.photo.message}
-            </FormHelperText>
+            {errors[name] && (
+                <FormHelperText
+                    className={getValidClassNames(
+                        styles.fileError,
+                        styles.photoError,
+                    )}
+                >
+                    {`${errors[name]?.message}`}
+                </FormHelperText>
+            )}
         </FormControl>
     );
 };

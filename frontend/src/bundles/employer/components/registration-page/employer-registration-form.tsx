@@ -1,4 +1,9 @@
 import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
+import {
+    CountryList,
+    type EmployerRegistrationDto,
+    EmployerRegistrationValidationSchema,
+} from 'shared/build/index.js';
 
 import {
     Button,
@@ -16,10 +21,8 @@ import {
     useAppForm,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { CountryList } from '~/bundles/employer/enums/enums.js';
-import { type EmployerRegistrationDto } from '~/bundles/employer/types/types.js';
 
-import { EmployerRegistrationValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { actions } from '../../store/employer.js';
 import { EmployerFileUpload } from './components/employer-file-upload.js';
 import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -41,7 +44,7 @@ const EmployerRegistrationForm: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: EmployerRegistrationDto): Promise<boolean> => {
-            await dispatch(actions.createTalentDetails(data));
+            await dispatch(actions.createEmployerDetails(data));
             return true;
         },
         [dispatch],
@@ -207,7 +210,7 @@ const EmployerRegistrationForm: React.FC = () => {
                                 />
                                 {errors.location && (
                                     <FormHelperText className={styles.hasError}>
-                                        {errors.location.message}
+                                        {`${errors.location.message}`}
                                     </FormHelperText>
                                 )}
                             </Grid>
@@ -229,7 +232,7 @@ const EmployerRegistrationForm: React.FC = () => {
                             />
                             {errors.description && (
                                 <FormHelperText className={styles.hasError}>
-                                    {errors.description.message}
+                                    {`${errors.description.message}`}
                                 </FormHelperText>
                             )}
                         </FormControl>
