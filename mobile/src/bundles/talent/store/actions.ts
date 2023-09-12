@@ -35,7 +35,7 @@ const updateOnboardingData = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { talentApi, notifications } = extra;
-    const { badges, ...payload } = stepPayload;
+    const { badges, hardSkills, ...payload } = stepPayload;
 
     if (Object.keys(payload).length === 0) {
         return stepPayload as UserDetailsGeneralResponseDto;
@@ -43,7 +43,11 @@ const updateOnboardingData = createAsyncThunk<
     try {
         const response = await talentApi.completeOnboardingStep(payload);
 
-        return { ...response, ...(badges && { badges }) };
+        return {
+            ...response,
+            ...(hardSkills && { hardSkills }),
+            ...(badges && { badges }),
+        };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

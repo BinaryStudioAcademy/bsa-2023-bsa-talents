@@ -50,7 +50,7 @@ const BadgesGroup = <T extends FieldValues>({
                     ]}
                 >
                     <Checkbox
-                        isChecked={value ? value.includes(badge) : false}
+                        isChecked={value?.includes(badge)}
                         onChange={(): void => {
                             handleToggleCheckbox(badge);
                         }}

@@ -57,19 +57,21 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         name: 'projectLinks',
         control,
     });
+
     const { navigate } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
 
-    const handleFormSubmit = useCallback(() => {
-        void handleSubmit((data) => {
-            onSubmit(data);
-            navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-                stepState: TalentOnboardingStepState.FOCUSED,
-            });
-        })();
-    }, [handleSubmit, navigate, onSubmit]);
+    const handlePreviousPress = useCallback((): void => {
+        navigate(TalentOnboardingScreenName.BSA_BADGES, {
+            stepState: TalentOnboardingStepState.FOCUSED,
+        });
+    }, [navigate]);
+
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView
@@ -179,9 +181,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
 
             <View style={globalStyles.flexDirectionRow}>
                 <Button
-                    label="Back"
                     style={globalStyles.mr10}
+                    label="Back"
                     buttonType={ButtonType.OUTLINE}
+                    onPress={handlePreviousPress}
                 />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>

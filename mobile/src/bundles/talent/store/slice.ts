@@ -2,10 +2,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
-import {
-    type SkillsStepDto,
-    type UserDetailsGeneralResponseDto,
-} from '~/bundles/talent/types/types';
+import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types';
 
 import {
     createTalentDetails,
@@ -18,18 +15,12 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsGeneralResponseDto | null;
     completedStep: string | null;
-
-    //TODO temporary
-    skillsStepData: SkillsStepDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
     completedStep: null,
-
-    //TODO temporary
-    skillsStepData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -75,36 +66,6 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.REJECTED;
             },
         );
-
-        // builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
-        //     const {
-        //         hardSkills,
-        //         englishLevel,
-        //         notConsidered,
-        //         preferredLanguages,
-        //         projectLinks,
-        //     } = action.payload;
-        //     state.dataStatus = DataStatus.FULFILLED;
-        //     state.skillsStepData = {
-        //         hardSkills,
-        //         englishLevel,
-        //         notConsidered,
-        //         preferredLanguages,
-        //         projectLinks,
-        //     };
-        // });
-        // builder.addMatcher(
-        //     isAnyOf(completeSkillsStep.pending),
-        //     (state) => {
-        //         state.dataStatus = DataStatus.PENDING;
-        //     },
-        // );
-        // builder.addMatcher(
-        //     isAnyOf(completeSkillsStep.rejected),
-        //     (state) => {
-        //         state.dataStatus = DataStatus.REJECTED;
-        //     },
-        // );
     },
 });
 

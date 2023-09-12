@@ -1,47 +1,101 @@
+import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    Color,
-    type TalentOnboardingScreenName,
+    TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
+    TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppRoute,
     useAppSelector,
     useCallback,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    type TalentOnboardingNavigationParameterList,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
     SkillsAndProjectsForm,
 } from '~/bundles/talent/components/components';
+import {
+    stringsToUrlObjects,
+    urlObjectsToStrings,
+} from '~/bundles/talent/helpers/helpers';
 import { actions as talentActions } from '~/bundles/talent/store';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
 const SkillsAndProjects: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { skillsStepData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
+
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const userId = currentUserData?.id ?? '';
+
+    const skillsStepData: SkillsStepDto | null = onboardingData
+        ? {
+              hardSkills: onboardingData.hardSkills ?? [],
+              englishLevel: onboardingData.englishLevel,
+              notConsidered: onboardingData.notConsidered ?? [],
+              preferredLanguages: onboardingData.preferredLanguages ?? [],
+              projectLinks: stringsToUrlObjects(onboardingData.projectLinks),
+          }
+        : null;
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
-    const handleSkillsSubmit = useCallback(
-        (payload: SkillsStepDto): void => {
-            void dispatch(talentActions.completeSkillsStep(payload));
+    const { navigate } =
+        useNavigation<
+            NavigationProp<TalentOnboardingNavigationParameterList>
+        >();
+
+    const handleSubmit = useCallback(
+        async (payload: SkillsStepDto): Promise<void> => {
+            const updatedSkillsAndProjectsPayload = {
+                ...payload,
+                userId,
+                projectLinks: urlObjectsToStrings(payload.projectLinks),
+            };
+
+            const result = await dispatch(
+                talentActions.updateOnboardingData(
+                    updatedSkillsAndProjectsPayload,
+                ),
+            );
+
+            if (result.payload) {
+                const setStepResult = dispatch(
+                    talentActions.setCompletedStep(
+                        TalentOnboardingScreenName.SKILLS_AND_PROJECTS,
+                    ),
+                );
+                if (setStepResult.payload) {
+                    navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+                        stepState: TalentOnboardingStepState.FOCUSED,
+                    });
+                }
+            }
         },
-        [dispatch],
+        [dispatch, navigate, userId],
     );
 
+    const handleSkillsSubmit = (payload: SkillsStepDto): void => {
+        void handleSubmit(payload);
+    };
+
     return (
-        <View style={[globalStyles.flex1, { backgroundColor: Color.TEXT }]}>
+        <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <SkillsAndProjectsForm
-                onSubmit={handleSkillsSubmit}
                 skillsStepData={skillsStepData}
+                onSubmit={handleSkillsSubmit}
             />
         </View>
     );

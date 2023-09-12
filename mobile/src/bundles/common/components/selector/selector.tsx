@@ -88,7 +88,7 @@ const Selector = <T extends FieldValues>({
     const selectedOptions = useMemo(
         () =>
             options
-                .filter((option) => value.includes(option))
+                .filter((option) => value?.includes(option))
                 .map((option) => option),
         [options, value],
     );

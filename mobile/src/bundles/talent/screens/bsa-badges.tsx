@@ -31,6 +31,9 @@ const BsaBadges: React.FC = () => {
     const dispatch = useAppDispatch();
     const { onboardingData } = useAppSelector(({ talents }) => talents);
 
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const userId = currentUserData?.id ?? '';
+
     const badgesStepData: BsaBadgesStepDto | null = onboardingData?.badges
         ? {
               badges: onboardingData.badges,
@@ -47,8 +50,13 @@ const BsaBadges: React.FC = () => {
 
     const handleSubmit = useCallback(
         async (payload: BsaBadgesStepDto): Promise<void> => {
+            const updatedBadgesPayload = {
+                ...payload,
+                userId,
+            };
+
             const result = await dispatch(
-                talentActions.updateOnboardingData(payload),
+                talentActions.updateOnboardingData(updatedBadgesPayload),
             );
 
             if (result.payload) {
@@ -64,7 +72,7 @@ const BsaBadges: React.FC = () => {
                 }
             }
         },
-        [dispatch, navigate],
+        [dispatch, navigate, userId],
     );
 
     const handleBadgesSubmit = (payload: BsaBadgesStepDto): void => {
