@@ -2,7 +2,11 @@
     --border: 1px solid var(--solitude);
     --page-title-height: 70px;
     --chat-header-height: 80px;
+    --chat-header-padding: 24px;
     --chat-input-height: 90px;
+    --chat-wrapper-height: calc(
+        99vh - var(--header-height) - var(--page-title-height)
+    );
 }
 
 .header {
@@ -14,8 +18,13 @@
 }
 
 .chatWrapper {
-    height: calc(99vh - var(--header-height) - var(--page-title-height));
+    position: relative;
+    height: var(--chat-wrapper-height);
     background-color: var(--white);
+}
+
+.chatWrapperOnChatListOpened {
+    overflow-y: hidden;
 }
 
 .chatList {
@@ -24,8 +33,24 @@
     border-right: var(--border);
 }
 
+.chatListOpened {
+    position: absolute;
+    top: var(--chat-header-height);
+    right: 0;
+    left: 0;
+    z-index: 1;
+    max-width: 100%;
+    height: calc(var(--chat-wrapper-height) - var(--page-title-height));
+    background-color: var(--white);
+}
+
+.chatWindow {
+    position: relative;
+}
+
 .chatHeader {
     height: var(--chat-header-height);
+    padding: var(--chat-header-padding);
 }
 
 .messageList {
@@ -35,4 +60,13 @@
 
 .chatInput {
     height: var(--chat-input-height);
+}
+
+.openChatListButtonWrapper {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: var(--chat-header-height);
+    padding: 0 calc(var(--chat-header-padding) - 8px);
 }
