@@ -4,14 +4,21 @@ import { Image, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
+import { styles } from './style';
+
 const Project = (): JSX.Element => {
     return (
-        <View style={[globalStyles.pv20, globalStyles.ph15]}>
-            <Text category={TextCategory.H4} style={globalStyles.pb10}>
+        <View>
+            <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
                 Project
             </Text>
             {/* todo replace with actual data */}
-            <Text>6 weeks / 6 engineers, 2 QA / JS / Healthtech industry</Text>
+            <Text
+                category={TextCategory.CAPTION}
+                style={[styles.text, globalStyles.pb10]}
+            >
+                6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
+            </Text>
             <Image
                 // eslint-disable-next-line unicorn/prefer-module
                 source={require('~/assets/images/project.png')}

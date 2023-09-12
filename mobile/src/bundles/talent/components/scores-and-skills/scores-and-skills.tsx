@@ -21,8 +21,8 @@ type Properties = {
 
 const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
     return (
-        <View style={[globalStyles.pv20, globalStyles.ph15]}>
-            <Text category={TextCategory.H4} style={globalStyles.pb10}>
+        <View>
+            <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
                 Academy's scores
             </Text>
             <View

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { ScrollView, Text, View } from '~/bundles/common/components/components';
+import {
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { Feedbacks } from '../../components/feedbacks/feedbacks';
+import { Project } from '../../components/project/project';
 import { ScoresAndSkills } from '../../components/scores-and-skills/scores-and-skills';
 import { BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { styles } from './style';
@@ -49,13 +55,13 @@ const mockUser = {
 const iconSize = 24;
 
 const Preview: React.FC = () => {
-    // const [tab, setTab] = useState('Scores');
+    const [tab, setTab] = useState('score');
 
     return (
         <ScrollView
             style={[globalStyles.defaultScreenPadding, globalStyles.mb25]}
         >
-            <Text category={TextCategory.H4} style={globalStyles.pb10}>
+            <Text category={TextCategory.H5} style={globalStyles.pb10}>
                 {mockUser.JOB_TITLE}
             </Text>
             <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
@@ -183,22 +189,35 @@ const Preview: React.FC = () => {
                     globalStyles.justifyContentSpaceBetween,
                 ]}
             >
-                @typescript-eslint/no-confusing-void-expression
-                {/* <TouchableOpacity onPress={():void => setTab('score')}>
+                <TouchableOpacity
+                    onPress={(): void => {
+                        setTab('score');
+                    }}
+                >
                     <Text category={TextCategory.LABEL}>Scores & skills</Text>
                 </TouchableOpacity>
-                <TouchableOpacity  onPress={():void => setTab('feedbacks')}>
+                <TouchableOpacity
+                    onPress={(): void => {
+                        setTab('feedbacks');
+                    }}
+                >
                     <Text category={TextCategory.LABEL}>Feedbacks</Text>
                 </TouchableOpacity>
-                <TouchableOpacity  onPress={():void => setTab('project')}>
+                <TouchableOpacity
+                    onPress={(): void => {
+                        setTab('project');
+                    }}
+                >
                     <Text category={TextCategory.LABEL}>Project</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
             <View
                 style={[
                     styles.scoreAndSkillsWrapper,
                     globalStyles.borderRadius10,
                     globalStyles.mv20,
+                    globalStyles.pv20,
+                    globalStyles.ph15,
                 ]}
             >
                 {tab === 'score' && (
@@ -213,12 +232,7 @@ const Preview: React.FC = () => {
                         HRBadges={mockUser.HR_BADGES}
                     />
                 )}
-                {tab === 'project' && (
-                    <ScoresAndSkills
-                        badges={mockUser.BADGES}
-                        skills={mockUser.HARD_SKILLS}
-                    />
-                )}
+                {tab === 'project' && <Project />}
             </View>
         </ScrollView>
     );
