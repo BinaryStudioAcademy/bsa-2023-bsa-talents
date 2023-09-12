@@ -17,6 +17,7 @@ import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../constants/constants.js';
 import styles from '../styles.module.scss';
+import { CloseIconButton } from './close-icon/close-icon-button.js';
 
 type Properties = {
     control: Control<SkillsStepDto>;
@@ -29,7 +30,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
         formState: { errors },
     } = useFormController<SkillsStepDto>({ name, control });
 
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: 'projectLinks',
     });
@@ -37,6 +38,13 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
     const appendLinks = useCallback((): void => {
         append({ url: '' });
     }, [append]);
+
+    const removeLink = useCallback(
+        (index: number): void => {
+            remove(index);
+        },
+        [remove],
+    );
 
     return (
         <FormControl>
@@ -66,6 +74,12 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
                             name={fieldPath}
                             {...withoutReferenceAndName}
                         />
+                        {index !== 0 && (
+                            <CloseIconButton
+                                index={index}
+                                onClick={removeLink}
+                            />
+                        )}
 
                         {Boolean(error) && (
                             <FormHelperText className={styles.hasError}>

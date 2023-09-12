@@ -1,0 +1,13 @@
+.closeIcon {
+    position: absolute;
+    top: 50%;
+    right: 9px;
+    font-size: 20px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease-in;
+
+    &:active {
+        transform: translateY(-50%) scale(0.93);
+    }
+}
