@@ -102,6 +102,7 @@ const MessageTemplate = <T extends FieldValues>({
                         styles.templateButton,
                         styles.template,
                         styles.templateInput,
+                        errorMessage && styles.templateError,
                     )}
                     placeholder="Template name"
                     control={control}
@@ -128,7 +129,9 @@ const MessageTemplate = <T extends FieldValues>({
                 </Grid>
             </Grid>
             {errorMessage && (
-                <FormHelperText error>{errorMessage}</FormHelperText>
+                <FormHelperText className={styles.error}>
+                    {errorMessage}
+                </FormHelperText>
             )}
         </Grid>
     ) : (

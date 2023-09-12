@@ -33,3 +33,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.templateError :global(.MuiInputBase-root) {
+    border-color: var(--error-primary);
+}
+
+.templateError :global(.MuiInputBase-input),
+.error {
+    color: var(--error-primary);
+}
