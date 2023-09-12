@@ -18,18 +18,16 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
-import {
-    CountryList,
-    EmploymentType,
-    ExperienceYears,
-    JobTitle,
-} from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaBadges,
     BsaCharacteristics,
     BsaProject,
+    CountryList,
+    EmploymentType,
+    ExperienceYears,
+    JobTitle,
 } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
