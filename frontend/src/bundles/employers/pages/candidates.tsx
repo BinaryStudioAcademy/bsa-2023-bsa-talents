@@ -2,7 +2,6 @@
 import {
     Grid,
     Input,
-    PageLayout,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useAppForm, useEffect } from '~/bundles/common/hooks/hooks.js';
@@ -72,25 +71,23 @@ const Candidates: React.FC = () => {
     ]);
 
     return (
-        <PageLayout isOnline={true} avatarUrl="">
-            <Grid className={styles.wrapper}>
-                <Grid className={styles.mainContent}>
-                    <Grid>
-                        <Typography variant="h4" className={styles.pageTitle}>
-                            Candidates
-                        </Typography>
-                    </Grid>
-                    <Input
-                        name="searchValue"
-                        control={control}
-                        errors={{}}
-                        type="search"
-                    />
-                    Search results
+        <Grid className={styles.wrapper}>
+            <Grid className={styles.mainContent}>
+                <Grid>
+                    <Typography variant="h4" className={styles.pageTitle}>
+                        Candidates
+                    </Typography>
                 </Grid>
-                <EmployeeFilters control={control} />
+                <Input
+                    name="searchValue"
+                    control={control}
+                    errors={{}}
+                    type="search"
+                />
+                Search results
             </Grid>
-        </PageLayout>
+            <EmployeeFilters control={control} />
+        </Grid>
     );
 };
 
