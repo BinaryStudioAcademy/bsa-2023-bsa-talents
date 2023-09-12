@@ -30,7 +30,7 @@
     font-weight: 400;
     font-size: 14px;
 
-    span {
+    :global(.MuiButton-startIcon) {
         margin-right: 4px;
     }
 }
@@ -58,7 +58,7 @@
     border-color: var(--botticelli);
 }
 
-.messageLabel span:last-child {
+.messageLabel :global(.MuiFormLabel-asterisk) {
     color: var(--vivid);
 }
 
