@@ -1,10 +1,14 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
+    type BadgeStepDto,
+    BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
+    BsaBadgeStepBadgesTitle,
+    HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,

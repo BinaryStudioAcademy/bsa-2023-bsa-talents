@@ -10,6 +10,7 @@ import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
 import { AuthApiPath } from './enums/enums';
+import { type UserFindResponseDto } from './types/types';
 
 type Constructor = {
     baseUrl: string;
@@ -36,6 +37,18 @@ class AuthApi extends HttpApiBase {
         );
 
         return await response.json<UserSignUpResponseDto>();
+    }
+
+    public async getCurrentUser(): Promise<UserFindResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(AuthApiPath.CURRENT_USER, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<UserFindResponseDto>();
     }
 
     public async signIn(
