@@ -110,7 +110,6 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 value={value as Option[]}
                 renderInput={renderInput}
                 options={hardSkillsOptions}
-                //filterSelectedOptions
                 renderTags={hideDefaultTags}
                 popupIcon={null}
                 clearIcon={null}
