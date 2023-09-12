@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { type ValueOf } from 'shared/build/index';
 
-import {
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from '~/bundles/common/components/components';
+import { ScrollView, Text, View } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
-import { Feedbacks } from '../../components/feedbacks/feedbacks';
-import { Project } from '../../components/project/project';
-import { ScoresAndSkills } from '../../components/scores-and-skills/scores-and-skills';
-import { BsaBadgeStepBadgesTitle, ProfileTab } from '../../enums/enums';
+import { PreviewTabs } from '../../components/preview-tabs/preview-tabs';
 import { styles } from './style';
 
 // TODO replace with real user data
@@ -55,11 +47,7 @@ const mockUser = {
 
 const iconSize = 24;
 
-type Tab = ValueOf<typeof ProfileTab>;
-
 const Preview: React.FC = () => {
-    const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
-
     return (
         <ScrollView
             style={[globalStyles.defaultScreenPadding, globalStyles.mb25]}
@@ -186,53 +174,12 @@ const Preview: React.FC = () => {
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {mockUser.DESCRIPTION}
             </Text>
-            <View
-                style={[
-                    globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentSpaceBetween,
-                ]}
-            >
-                {Object.values(ProfileTab).map((profileTab: Tab) => {
-                    return (
-                        <TouchableOpacity
-                            key={profileTab}
-                            onPress={(): void => {
-                                setTab(profileTab);
-                            }}
-                        >
-                            <Text
-                                category={TextCategory.LABEL}
-                                style={tab === profileTab && styles.active}
-                            >
-                                {profileTab}
-                            </Text>
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-            <View
-                style={[
-                    styles.scoreAndSkillsWrapper,
-                    globalStyles.borderRadius10,
-                    globalStyles.mv20,
-                    globalStyles.pv20,
-                    globalStyles.ph15,
-                ]}
-            >
-                {tab === ProfileTab.SCORES_SKILLS && (
-                    <ScoresAndSkills
-                        badges={mockUser.BADGES}
-                        skills={mockUser.HARD_SKILLS}
-                    />
-                )}
-                {tab === ProfileTab.FEEDBACKS && (
-                    <Feedbacks
-                        personalityType={mockUser.PERSONAL_TYPE}
-                        HRBadges={mockUser.HR_BADGES}
-                    />
-                )}
-                {tab === ProfileTab.PROJECT && <Project />}
-            </View>
+            <PreviewTabs
+                badges={mockUser.BADGES}
+                hardSkills={mockUser.HARD_SKILLS}
+                personalType={mockUser.PERSONAL_TYPE}
+                HRBadges={mockUser.HR_BADGES}
+            />
         </ScrollView>
     );
 };
