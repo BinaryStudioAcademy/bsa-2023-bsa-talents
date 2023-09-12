@@ -14,10 +14,17 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(createEmployerDetails.fulfilled, (state, action) => {
-            for (const key in action.payload) {
-                const typedKey = key as keyof EmployerRegistrationDto;
-                state[typedKey] = action.payload[typedKey];
-            }
+            const data = action.payload;
+
+            state.photo = data.photo;
+            state.fullName = data.fullName;
+            state.position = data.position;
+            state.companyName = data.companyName;
+            state.companyWebsite = data.companyWebsite;
+            state.location = data.location;
+            state.description = data.description;
+            state.companyLogo = data.companyLogo;
+            state.linkedInLink = data.linkedInLink;
         });
     },
 });

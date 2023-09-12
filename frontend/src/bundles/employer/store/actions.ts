@@ -7,6 +7,7 @@ import { name as sliceName } from './slice.js';
 
 const createEmployerDetails = createAsyncThunk<
     EmployerRegistrationDto,
+    EmployerRegistrationDto,
     AsyncThunkConfig
 >(`${sliceName}/create-employer`, (registerPayload) => {
     return registerPayload;
