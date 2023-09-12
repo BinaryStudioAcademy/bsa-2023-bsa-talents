@@ -1,0 +1,6 @@
+const SELECTOR_STYLE = {
+    ICON_SIZE: 24,
+    MARGIN_BOTTOM: 12,
+};
+
+export { SELECTOR_STYLE };

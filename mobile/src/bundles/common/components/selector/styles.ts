@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         zIndex: 1,
     },
+    placeholder: {
+        color: Color.TEXT2,
+    },
+    error: {
+        borderColor: Color.ERROR,
+    },
 });
 
 export { styles };
