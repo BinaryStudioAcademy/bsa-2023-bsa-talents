@@ -79,10 +79,6 @@
     line-height: var(--line-height-main);
     text-transform: none;
     border-color: var(--background-secondary);
-
-    & span {
-        margin-top: -1px;
-    }
 }
 
 .btnError {
