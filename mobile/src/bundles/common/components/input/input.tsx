@@ -87,7 +87,7 @@ const Input = <T extends FieldValues>({
                     globalStyles.Input,
                     !marker && !iconName && globalStyles.borderRadius5,
                     !iconName && globalStyles.pl10,
-                    iconName && styles.inputBorder,
+                    !!iconName && styles.inputBorder,
                     styles.input,
                     multiline && styles.multiline,
                     !editable && styles.disabled,
