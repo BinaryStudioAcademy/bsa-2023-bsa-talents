@@ -1,12 +1,10 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
-    type BadgeStepDto,
     type SkillsStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
-    type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
@@ -41,7 +39,7 @@ class TalentApi extends HttpApiBase {
 
     public async completeOnboardingStep(
         payload: UserDetailsUpdateRequestDto,
-    ): Promise<UserDetailsUpdateDto> {
+    ): Promise<UserDetailsResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -51,7 +49,7 @@ class TalentApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsUpdateDto>();
+        return await response.json<UserDetailsResponseDto>();
     }
 
     // public async getTalentDetailsById(
@@ -106,9 +104,6 @@ class TalentApi extends HttpApiBase {
     }
 
     //TODO temporary
-    public completeBadgesStep(payload: BadgeStepDto): BadgeStepDto {
-        return payload;
-    }
     public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
         return payload;
     }

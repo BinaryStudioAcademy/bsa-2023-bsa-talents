@@ -3,9 +3,9 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
-    type BadgeStepDto,
+    type BsaBadgesStepDto,
     type SkillsStepDto,
-    type UserDetailsResponseDto,
+    type UserDetailsGeneralResponseDto,
 } from '~/bundles/talent/types/types';
 
 import {
@@ -17,10 +17,11 @@ import {
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    onboardingData: UserDetailsResponseDto | null;
+    onboardingData: UserDetailsGeneralResponseDto | null;
     completedStep: string | null;
+    badges: BsaBadgesStepDto | null;
+
     //TODO temporary
-    badgesStepData: BadgeStepDto | null;
     skillsStepData: SkillsStepDto | null;
 };
 
@@ -28,8 +29,9 @@ const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
     completedStep: null,
+    badges: null,
+
     //TODO temporary
-    badgesStepData: null,
     skillsStepData: null,
 };
 
@@ -50,7 +52,11 @@ const { reducer, actions, name } = createSlice({
                 ].includes(action.type),
             (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
-                state.onboardingData = action.payload;
+                state.onboardingData = {
+                    ...state.onboardingData,
+                    ...action.payload,
+                };
+                state.badges = action.payload.badges;
             },
         );
         builder.addMatcher(
@@ -74,10 +80,6 @@ const { reducer, actions, name } = createSlice({
             },
         );
 
-        // builder.addCase(completeBadgesStep.fulfilled, (state, action) => {
-        //     state.badgesStepData = action.payload;
-        //     state.dataStatus = DataStatus.FULFILLED;
-        // });
         // builder.addCase(completeSkillsStep.fulfilled, (state, action) => {
         //     const {
         //         hardSkills,
@@ -96,13 +98,13 @@ const { reducer, actions, name } = createSlice({
         //     };
         // });
         // builder.addMatcher(
-        //     isAnyOf(completeBadgesStep.pending, completeSkillsStep.pending),
+        //     isAnyOf(completeSkillsStep.pending),
         //     (state) => {
         //         state.dataStatus = DataStatus.PENDING;
         //     },
         // );
         // builder.addMatcher(
-        //     isAnyOf(completeBadgesStep.rejected, completeSkillsStep.rejected),
+        //     isAnyOf(completeSkillsStep.rejected),
         //     (state) => {
         //         state.dataStatus = DataStatus.REJECTED;
         //     },

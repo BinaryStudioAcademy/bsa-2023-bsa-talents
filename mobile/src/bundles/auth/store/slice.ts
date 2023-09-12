@@ -6,15 +6,10 @@ import { type ValueOf } from '~/bundles/common/types/types';
 
 import { loadCurrentUser, signIn, signUp } from './actions';
 
-type UserData = UserFindResponseDto & {
-    isProfileComplete: boolean;
-};
-// TODO: Replace user data with shared UserData Type
-
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
-    currentUserData: UserData | null;
+    currentUserData: UserFindResponseDto | null;
 };
 
 const initialState: State = {
@@ -41,7 +36,6 @@ const { reducer, actions, name } = createSlice({
                     email,
                     role,
                     id,
-                    isProfileComplete: false,
                 };
                 state.isSignedIn = true;
             },

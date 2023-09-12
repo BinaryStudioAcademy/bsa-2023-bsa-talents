@@ -1,14 +1,13 @@
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 
 // TODO: refactor when there'll be real data
-
-const DEFAULT_VALUE_IS_CHECKED = {
-    [BsaBadgeStepBadgesTitle.PROJECT_SCORE]: true,
-    [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: true,
-    [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: false,
-    [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: true,
-    [BsaBadgeStepBadgesTitle.PUNCTUALITY]: false,
-    [BsaBadgeStepBadgesTitle.TEAM_SCORE]: false,
+const BADGES_STEP_DEFAULT_VALUES: BsaBadgesStepDto = {
+    badges: [
+        BsaBadgeStepBadgesTitle.PROJECT_SCORE,
+        BsaBadgeStepBadgesTitle.LECTURE_SCORE,
+        BsaBadgeStepBadgesTitle.ENGLISH_LEVEL,
+    ],
 };
 
 const DEFAULT_VALUE_IS_DISABLED = {
@@ -20,4 +19,4 @@ const DEFAULT_VALUE_IS_DISABLED = {
     [BsaBadgeStepBadgesTitle.TEAM_SCORE]: false,
 };
 
-export { DEFAULT_VALUE_IS_CHECKED, DEFAULT_VALUE_IS_DISABLED };
+export { BADGES_STEP_DEFAULT_VALUES, DEFAULT_VALUE_IS_DISABLED };

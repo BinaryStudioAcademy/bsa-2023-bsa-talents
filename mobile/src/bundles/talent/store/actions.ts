@@ -3,14 +3,13 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
-    type BadgeStepDto,
     type CvAndContactsFormDto,
     type SkillsStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsGeneralRequestDto,
+    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
-    type UserDetailsUpdateDto,
-    type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 
 import { name as sliceName } from './slice';
@@ -31,13 +30,20 @@ const createTalentDetails = createAsyncThunk<
 });
 
 const updateOnboardingData = createAsyncThunk<
-    UserDetailsUpdateDto,
-    UserDetailsUpdateRequestDto,
+    UserDetailsGeneralResponseDto,
+    UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { talentApi, notifications } = extra;
+    const { badges, ...payload } = stepPayload;
+
+    if (Object.keys(payload).length === 0) {
+        return stepPayload as UserDetailsGeneralResponseDto;
+    }
     try {
-        return await talentApi.completeOnboardingStep(stepPayload);
+        const response = await talentApi.completeOnboardingStep(payload);
+
+        return { ...response, ...(badges && { badges }) };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -63,15 +69,6 @@ const getTalentDetails = createAsyncThunk<
 });
 
 //TODO temporary
-const completeBadgesStep = createAsyncThunk<
-    BadgeStepDto,
-    BadgeStepDto,
-    AsyncThunkConfig
->(`${sliceName}/badges`, (profileStepPayload, { extra }) => {
-    const { talentApi } = extra;
-    return talentApi.completeBadgesStep(profileStepPayload);
-});
-
 const contactsCVStep = createAsyncThunk<
     CvAndContactsFormDto,
     CvAndContactsFormDto,
@@ -90,7 +87,6 @@ const completeSkillsStep = createAsyncThunk<
 });
 
 export {
-    completeBadgesStep,
     completeSkillsStep,
     contactsCVStep,
     createTalentDetails,
