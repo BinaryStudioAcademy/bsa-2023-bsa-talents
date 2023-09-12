@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { type ValueOf } from 'shared/build/index';
 
 import {
     ScrollView,
@@ -13,7 +14,7 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { Feedbacks } from '../../components/feedbacks/feedbacks';
 import { Project } from '../../components/project/project';
 import { ScoresAndSkills } from '../../components/scores-and-skills/scores-and-skills';
-import { BsaBadgeStepBadgesTitle } from '../../enums/enums';
+import { BsaBadgeStepBadgesTitle, ProfileTab } from '../../enums/enums';
 import { styles } from './style';
 
 // TODO replace with real user data
@@ -55,7 +56,9 @@ const mockUser = {
 const iconSize = 24;
 
 const Preview: React.FC = () => {
-    const [tab, setTab] = useState('score');
+    const [tab, setTab] = useState<ValueOf<typeof ProfileTab>>(
+        ProfileTab.SCORES_SKILLS,
+    );
 
     return (
         <ScrollView
@@ -191,21 +194,21 @@ const Preview: React.FC = () => {
             >
                 <TouchableOpacity
                     onPress={(): void => {
-                        setTab('score');
+                        setTab(ProfileTab.SCORES_SKILLS);
                     }}
                 >
                     <Text category={TextCategory.LABEL}>Scores & skills</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={(): void => {
-                        setTab('feedbacks');
+                        setTab(ProfileTab.FEEDBACKS);
                     }}
                 >
                     <Text category={TextCategory.LABEL}>Feedbacks</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={(): void => {
-                        setTab('project');
+                        setTab(ProfileTab.PROJECT);
                     }}
                 >
                     <Text category={TextCategory.LABEL}>Project</Text>
@@ -220,19 +223,19 @@ const Preview: React.FC = () => {
                     globalStyles.ph15,
                 ]}
             >
-                {tab === 'score' && (
+                {tab === ProfileTab.SCORES_SKILLS && (
                     <ScoresAndSkills
                         badges={mockUser.BADGES}
                         skills={mockUser.HARD_SKILLS}
                     />
                 )}
-                {tab === 'feedbacks' && (
+                {tab === ProfileTab.FEEDBACKS && (
                     <Feedbacks
                         personalityType={mockUser.PERSONAL_TYPE}
                         HRBadges={mockUser.HR_BADGES}
                     />
                 )}
-                {tab === 'project' && <Project />}
+                {tab === ProfileTab.PROJECT && <Project />}
             </View>
         </ScrollView>
     );
