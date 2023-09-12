@@ -38,7 +38,7 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
                             key={badge.label}
                             badgeType={badge.label}
                             value={badge.value}
-                            //size="small"
+                            size="small"
                             iconSize={30}
                         />
                     );

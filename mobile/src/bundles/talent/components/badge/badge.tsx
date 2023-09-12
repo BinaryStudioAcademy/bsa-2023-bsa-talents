@@ -22,6 +22,7 @@ type Properties = {
     value?: string | number;
     badgeType: BadgeName;
     iconSize?: number;
+    size?: string;
 };
 
 const defaultIconSize = 40;
@@ -30,6 +31,7 @@ const Badge: React.FC<Properties> = ({
     badgeType,
     value,
     iconSize = defaultIconSize,
+    size = 'large',
 }) => {
     // TODO: replace with real data
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
@@ -70,12 +72,13 @@ const Badge: React.FC<Properties> = ({
     return (
         <View
             style={[
-                globalStyles.flex1,
+                size === 'large' ? globalStyles.flex1 : styles.small,
+                size === 'large'
+                    ? globalStyles.alignItemsCenter
+                    : globalStyles.alignItemsFlexStart,
                 globalStyles.flexDirectionRow,
-                globalStyles.alignItemsCenter,
                 globalStyles.borderRadius9,
                 globalStyles.p10,
-                globalStyles.m5,
                 styles.wrapper,
             ]}
         >

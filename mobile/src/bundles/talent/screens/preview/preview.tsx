@@ -55,10 +55,10 @@ const mockUser = {
 
 const iconSize = 24;
 
+type Tab = ValueOf<typeof ProfileTab>;
+
 const Preview: React.FC = () => {
-    const [tab, setTab] = useState<ValueOf<typeof ProfileTab>>(
-        ProfileTab.SCORES_SKILLS,
-    );
+    const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
 
     return (
         <ScrollView
@@ -192,44 +192,23 @@ const Preview: React.FC = () => {
                     globalStyles.justifyContentSpaceBetween,
                 ]}
             >
-                <TouchableOpacity
-                    onPress={(): void => {
-                        setTab(ProfileTab.SCORES_SKILLS);
-                    }}
-                >
-                    <Text
-                        category={TextCategory.LABEL}
-                        style={
-                            tab === ProfileTab.SCORES_SKILLS && styles.active
-                        }
-                    >
-                        Scores & skills
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={(): void => {
-                        setTab(ProfileTab.FEEDBACKS);
-                    }}
-                >
-                    <Text
-                        category={TextCategory.LABEL}
-                        style={tab === ProfileTab.FEEDBACKS && styles.active}
-                    >
-                        Feedbacks
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={(): void => {
-                        setTab(ProfileTab.PROJECT);
-                    }}
-                >
-                    <Text
-                        category={TextCategory.LABEL}
-                        style={tab === ProfileTab.PROJECT && styles.active}
-                    >
-                        Project
-                    </Text>
-                </TouchableOpacity>
+                {Object.values(ProfileTab).map((profileTab: Tab) => {
+                    return (
+                        <TouchableOpacity
+                            key={profileTab}
+                            onPress={(): void => {
+                                setTab(profileTab);
+                            }}
+                        >
+                            <Text
+                                category={TextCategory.LABEL}
+                                style={tab === profileTab && styles.active}
+                            >
+                                {profileTab}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
             <View
                 style={[

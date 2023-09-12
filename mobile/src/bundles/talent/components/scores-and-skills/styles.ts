@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
 
     badgesWrapper: {
         flexWrap: 'wrap',
+        gap: 8,
     },
 });
 

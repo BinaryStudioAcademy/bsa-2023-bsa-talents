@@ -117,7 +117,7 @@ const BsaBadges: React.FC = () => {
                 >
                     Choose BSA badges you want to show in your profile
                 </Text>
-                <View>{renderBadges}</View>
+                <View style={styles.badgerWrapper}>{renderBadges}</View>
                 <View
                     style={[globalStyles.flexDirectionRow, globalStyles.mv20]}
                 >
