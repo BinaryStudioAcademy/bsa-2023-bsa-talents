@@ -124,7 +124,7 @@ const ProfileStep: React.FC = () => {
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
             await dispatch(
-                actions.updateTalentDetails({
+                actions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
                     completedStep: OnboardingSteps.STEP_01,
