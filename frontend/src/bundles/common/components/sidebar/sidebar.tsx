@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.logo}>
-                <Logo isCollapsed={true} withLink link={AppRoute.ROOT} />
+                <Logo isCollapsed={true} withLink />
             </Grid>
 
             <ul className={styles.list}>
