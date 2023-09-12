@@ -288,7 +288,7 @@ const ProfileStep: React.FC = () => {
                     </Typography>
                 </FormLabel>
                 <Textarea
-                    placeholder="Text"
+                    placeholder="Tell us a little bit about yourself"
                     control={control}
                     name={'description'}
                     minRows={7}
