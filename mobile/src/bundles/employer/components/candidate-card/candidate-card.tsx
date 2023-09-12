@@ -9,34 +9,16 @@ import {
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
-import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
+import { type Candidate } from '../../types/types';
 import { styles } from './styles';
 
-type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
-
-type Properties = {
-    id: number;
-    salaryExpectation: number;
-    jobTitle: string;
-    location: string;
-    experienceYears: number;
-    englishLevel: string;
-    description: string;
-    published: string;
-    hardSkills: string[];
-    badges: {
-        label: BadgeName;
-        value: string | number;
-    }[];
-};
 const maxSkills = 4;
 const maxBadges = 2;
 const maxCharCount = 150;
 
-const CandidateCard: React.FC<Properties> = ({
-    id,
+const CandidateCard: React.FC<Candidate> = ({
+    userId,
     salaryExpectation,
     jobTitle,
     location,
@@ -125,14 +107,14 @@ const CandidateCard: React.FC<Properties> = ({
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
-                    {description.slice(0, maxCharCount)}...
+                    {description?.slice(0, maxCharCount)}...
                 </Text>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />
             <Button
                 label="Read more"
                 style={[globalStyles.alignSelfFlexEnd, globalStyles.m10]}
-                onPress={(): number => id} // TODO redirect to certain candidate
+                onPress={(): string => userId} // TODO redirect to certain candidate
             />
         </View>
     );

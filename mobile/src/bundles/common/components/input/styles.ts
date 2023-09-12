@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.INPUT,
         opacity: 0.5,
     },
-    icon: {
+    iconContainer: {
         borderWidth: 1,
         borderRightWidth: 0,
         borderColor: Color.INPUT,

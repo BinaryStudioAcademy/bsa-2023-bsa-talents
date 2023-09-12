@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    FormField,
     Input,
     Pressable,
     Text,
@@ -38,7 +37,7 @@ const SearchTalents: React.FC<Properties> = ({
                 globalStyles.alignItemsCenter,
             ]}
         >
-            <FormField name="searchTalents" containerStyle={styles.search}>
+            <View style={styles.search}>
                 <Input
                     name="searchTalents"
                     control={control}
@@ -49,7 +48,7 @@ const SearchTalents: React.FC<Properties> = ({
                         setSearchQuery(text);
                     }}
                 />
-            </FormField>
+            </View>
             <Pressable
                 style={[
                     styles.filtersBtn,

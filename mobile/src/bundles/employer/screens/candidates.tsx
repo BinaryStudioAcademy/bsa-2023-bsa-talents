@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { ScrollView, StatusBar } from '~/bundles/common/components/components';
+import {
+    FlatList,
+    StatusBar,
+    View,
+} from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -11,11 +15,12 @@ import {
     CandidatesHeader,
     SearchTalents,
 } from '../components/components';
+import { type Candidate } from '../types/types';
 
 // TODO replace with real users
 const mockUsers = [
     {
-        id: 1,
+        userId: '1',
         salaryExpectation: 1500,
         jobTitle: 'middle python developer',
         location: 'Ukraine',
@@ -39,7 +44,7 @@ const mockUsers = [
         ],
     },
     {
-        id: 2,
+        userId: '2',
         salaryExpectation: 2500,
         jobTitle: 'middle c++ developer',
         location: 'Ukraine',
@@ -56,7 +61,7 @@ const mockUsers = [
         ],
     },
     {
-        id: 3,
+        userId: '3',
         salaryExpectation: 2000,
         jobTitle: 'middle javascript developer',
         location: 'Ukraine',
@@ -79,13 +84,17 @@ const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredCandidates = useMemo(() => {
-        return mockUsers.filter(
-            (
-                user, //TODO replace with real users
-            ) =>
-                user.jobTitle.toLowerCase().includes(searchQuery.toLowerCase()),
+        //TODO replace with request to backend
+        return mockUsers.filter((user) =>
+            user.jobTitle.toLowerCase().includes(searchQuery.toLowerCase()),
         );
     }, [searchQuery]);
+
+    const renderCandidateCard = ({
+        item,
+    }: {
+        item: Candidate;
+    }): React.ReactElement => <CandidateCard key={item.userId} {...item} />;
 
     return (
         <>
@@ -93,7 +102,7 @@ const Candidates: React.FC = () => {
                 barStyle="dark-content"
                 backgroundColor={Color.BACKGROUND}
             />
-            <ScrollView
+            <View
                 style={[
                     globalStyles.flex1,
                     { backgroundColor: Color.BACKGROUND },
@@ -104,10 +113,12 @@ const Candidates: React.FC = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
-                {filteredCandidates.map((user) => (
-                    <CandidateCard key={user.id} {...user} />
-                ))}
-            </ScrollView>
+                <FlatList
+                    data={filteredCandidates}
+                    renderItem={renderCandidateCard}
+                    keyExtractor={(item): string => item.userId}
+                />
+            </View>
         </>
     );
 };

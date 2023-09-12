@@ -66,7 +66,7 @@ const Input = <T extends FieldValues>({
                         globalStyles.alignSelfCenter,
                         globalStyles.pv15,
                         globalStyles.pl5,
-                        styles.icon,
+                        styles.iconContainer,
                     ]}
                 >
                     <Icon

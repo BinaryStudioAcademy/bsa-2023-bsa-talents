@@ -21,18 +21,20 @@ const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
             ]}
         >
             <Text category={TextCategory.H3}>Candidates</Text>
-            <Text
-                category={TextCategory.LABEL}
-                style={[
-                    styles.talentsNumber,
-                    globalStyles.borderRadius10,
-                    globalStyles.alignSelfCenter,
-                    globalStyles.ph10,
-                    globalStyles.mt5,
-                ]}
-            >
-                {numberOfUsers}
-            </Text>
+            {!!numberOfUsers && (
+                <Text
+                    category={TextCategory.LABEL}
+                    style={[
+                        styles.talentsNumber,
+                        globalStyles.borderRadius10,
+                        globalStyles.alignSelfCenter,
+                        globalStyles.ph10,
+                        globalStyles.mt5,
+                    ]}
+                >
+                    {numberOfUsers}
+                </Text>
+            )}
         </View>
     );
 };
