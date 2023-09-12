@@ -2,12 +2,11 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
+    AutocompleteMultiSelector,
     Button,
     FormCheckbox,
     FormField,
-    Input,
     Pressable,
-    RadioWrapper,
     ScreenLineSeparator,
     ScrollView,
     Selector,
@@ -18,14 +17,19 @@ import { Color, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { CountryList, JobTitle } from '~/bundles/employer/enums/enums';
+import {
+    CountryList,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/employer/enums/enums';
+import { CheckboxGroup } from '~/bundles/talent/components/checkbox-group/checkbox-group';
 
 import {
     BSA_BADGES,
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
-    RADIO_BUTTONS,
+    ENGLISH_LEVEL,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
@@ -37,6 +41,7 @@ type Properties = {
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);
+const employmentTypeOptions = Object.values(EmploymentType);
 
 const SearchCandidatesFilter: React.FC<Properties> = ({
     onSubmit,
@@ -116,16 +121,12 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
                     options={YEARS_EXPERIENCE}
                 />
             </FormField>
-            <FormField
-                label="Hard Skills"
-                name="hardSkills"
-                containerStyle={globalStyles.pb25}
-            >
-                {/*TODO: TAKE SKILLS COMPONENT FROM ONBOARD STEP 3*/}
-                <Input
-                    placeholder="Start typing and select skills"
+            <FormField label="Hard Skills" name="hardSkills">
+                <AutocompleteMultiSelector
+                    items={jobTitleOptions}
                     control={control}
                     name="hardSkills"
+                    placeholder="Start typing and select skills"
                 />
             </FormField>
             <FormField
@@ -181,14 +182,23 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
                 name="englishLevel"
                 containerStyle={globalStyles.pb25}
             >
-                <RadioWrapper
-                    name="englishLevel"
+                <CheckboxGroup
                     control={control}
-                    radioButtons={RADIO_BUTTONS}
-                    containerStyle={styles.radioButtons}
+                    name="englishLevel"
+                    options={ENGLISH_LEVEL}
                 />
             </FormField>
-
+            <FormField
+                label="Employment type"
+                name="employmentTypes"
+                containerStyle={globalStyles.pb25}
+            >
+                <CheckboxGroup
+                    control={control}
+                    name="employmentTypes"
+                    options={employmentTypeOptions}
+                />
+            </FormField>
             <Button
                 style={globalStyles.mb25}
                 label="Show results"

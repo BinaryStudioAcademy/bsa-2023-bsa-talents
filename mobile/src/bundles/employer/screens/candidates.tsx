@@ -17,10 +17,10 @@ const Candidates: React.FC = () => {
             height: withTiming(isFilterOpen ? '100%' : '0%'),
         };
     });
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    const onSearchHandler = (payload: unknown): unknown => {
-        return payload;
+    const onSearchHandler = (): void => {
+        setIsFilterOpen(false);
     };
+
     const handleFilterToggle = (): void => {
         setIsFilterOpen((previous) => !previous);
     };

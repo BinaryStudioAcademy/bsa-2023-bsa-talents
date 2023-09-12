@@ -3,6 +3,6 @@ export {
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
-    RADIO_BUTTONS,
+    ENGLISH_LEVEL,
     YEARS_EXPERIENCE,
 } from './mock-constants';
