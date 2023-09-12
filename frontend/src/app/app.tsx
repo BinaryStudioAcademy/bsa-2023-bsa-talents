@@ -22,14 +22,14 @@ const App: React.FC = () => {
         void dispatch(authActions.loadUser());
     }, [dispatch, token]);
 
-    if (dataStatus == DataStatus.PENDING) {
+    if (dataStatus === DataStatus.PENDING) {
         return <Loader />;
     }
 
     return (
         <>
             <RouterOutlet />
-            <Notifications />
+            {dataStatus === DataStatus.REJECTED && <Notifications />}
         </>
     );
 };
