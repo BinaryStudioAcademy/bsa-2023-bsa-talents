@@ -57,7 +57,7 @@ class UserDetailsRepository implements Repository {
                     this.userDetailsModel
                         .relatedQuery('talentHardSkills')
                         .alias('ths')
-                        .whereIn('hard_skill_id', [payload.hardSkills]),
+                        .whereIn('hard_skill_id', payload.hardSkills),
                 );
             }
 

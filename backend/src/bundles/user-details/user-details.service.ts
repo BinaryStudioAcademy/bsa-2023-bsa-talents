@@ -32,6 +32,21 @@ class UserDetailsService implements Service {
     public searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
+        if (searchData.hardSkills) {
+            searchData.hardSkills = Array.isArray(searchData.hardSkills)
+                ? searchData.hardSkills
+                : [searchData.hardSkills];
+        }
+        if (searchData.BSABadges) {
+            searchData.BSABadges = Array.isArray(searchData.BSABadges)
+                ? searchData.BSABadges
+                : [searchData.BSABadges];
+        }
+        if (searchData.employmentType) {
+            searchData.employmentType = Array.isArray(searchData.employmentType)
+                ? searchData.employmentType
+                : [searchData.employmentType];
+        }
         return this.userDetailsRepository.searchUsers(searchData);
     }
 

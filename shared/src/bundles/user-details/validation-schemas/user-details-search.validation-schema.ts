@@ -20,9 +20,13 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
 
     experienceYears: joi.number(),
 
-    hardSkills: joi.array().items(joi.string().trim()),
+    hardSkills: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-    BSABadges: joi.array().items(joi.string().trim()),
+    BSABadges: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
     location: joi
         .string()
@@ -34,7 +38,13 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         .trim()
         .valid(...Object.values(EnglishLevel)),
 
-    employmentType: joi.array().items(
+    employmentType: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(EmploymentType)),
+        ),
         joi
             .string()
             .trim()
