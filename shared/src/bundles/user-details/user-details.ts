@@ -18,3 +18,4 @@ export {
 } from './types/types.js';
 export { userDetailsUpdate as userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
 export { userDetailsCreate as userDetailsCreateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsSearch as userDetailsSearchValidationSchema } from './validation-schemas/validation-schemas.js';

@@ -16,6 +16,7 @@ import {
 import { type UserDetailsService } from './user-details.service.js';
 import {
     userDetailsCreateValidationSchema,
+    userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
 } from './validation-schemas/validation-schemas.js';
 
@@ -133,6 +134,9 @@ class UserDetailsController extends ControllerBase {
         this.addRoute({
             path: UserDetailsApiPath.ROOT,
             method: 'GET',
+            validation: {
+                query: userDetailsSearchValidationSchema,
+            },
             handler: (options) =>
                 this.searchUsers(
                     options as ApiHandlerOptions<{
@@ -407,6 +411,8 @@ class UserDetailsController extends ControllerBase {
      *            type: array
      *            items:
      *              type: string
+     *          style: form
+     *          explode: true
      *          description: Filter by hard skills (optional)
      *        - in: query
      *          name: BSABadges
@@ -414,6 +420,8 @@ class UserDetailsController extends ControllerBase {
      *            type: array
      *            items:
      *              type: string
+     *          style: form
+     *          explode: true
      *          description: Filter by BSA badges (optional)
      *        - in: query
      *          name: location
@@ -431,6 +439,8 @@ class UserDetailsController extends ControllerBase {
      *            type: array
      *            items:
      *              type: string
+     *          style: form
+     *          explode: true
      *          description: Filter by employment type (optional)
      *      responses:
      *         200:

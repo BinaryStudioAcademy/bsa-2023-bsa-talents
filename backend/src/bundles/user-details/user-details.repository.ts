@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import { type UserDetailsSearchUsersRequestDto } from 'shared/build/index.js';
 import { ErrorMessages } from 'shared/build/index.js';
 
@@ -54,25 +53,19 @@ class UserDetailsRepository implements Repository {
             }
 
             if (payload.hardSkills && payload.hardSkills.length > 0) {
-                const hardSkillsIdArray = Array.isArray(payload.hardSkills)
-                    ? payload.hardSkills
-                    : [payload.hardSkills];
                 void builder.whereExists(
                     this.userDetailsModel
                         .relatedQuery('talentHardSkills')
-                        .whereIn('hard_skill_id', hardSkillsIdArray),
+                        .alias('ths')
+                        .whereIn('hard_skill_id', [payload.hardSkills]),
                 );
             }
 
             if (payload.BSABadges && payload.BSABadges.length > 0) {
-                const badgeIdArray = Array.isArray(payload.BSABadges)
-                    ? payload.BSABadges
-                    : [payload.BSABadges];
-
                 void builder.whereExists(
                     this.userDetailsModel
                         .relatedQuery('talentBadges')
-                        .whereIn('badge_id', badgeIdArray),
+                        .whereIn('badge_id', payload.BSABadges),
                 );
             }
 
@@ -85,16 +78,15 @@ class UserDetailsRepository implements Repository {
             }
 
             if (payload.employmentType && payload.employmentType.length > 0) {
-                const employmentTypes = Array.isArray(payload.employmentType)
-                    ? payload.employmentType
-                    : [payload.employmentType];
-
                 void builder.whereRaw(
-                    `"employment_type" @> ARRAY[${employmentTypes
+                    `"employment_type" @> ARRAY[${payload.employmentType
                         .map((type) => `'${type}'`)
                         .join(', ')}]::text[]`,
                 );
             }
+
+            // TODO add BSA characteristics
+            // TODO add BSA project name
         });
 
         const searchResults = await query;
