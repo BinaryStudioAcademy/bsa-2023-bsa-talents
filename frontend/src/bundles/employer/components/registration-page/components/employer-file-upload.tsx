@@ -3,7 +3,6 @@ import {
     type ControllerRenderProps,
     type FieldPath,
 } from 'react-hook-form';
-import { type EmployerRegistrationDto } from 'shared/build/index.js';
 
 import {
     FileUpload,
@@ -18,6 +17,7 @@ import {
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { type EmployerRegistrationDto } from '../../../types/types.js';
 import { ACCEPTED_PHOTO_TYPES } from '../constants/constants.js';
 import styles from '../styles.module.scss';
 

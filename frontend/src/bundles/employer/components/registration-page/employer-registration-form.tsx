@@ -1,9 +1,4 @@
 import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
-import {
-    CountryList,
-    type EmployerRegistrationDto,
-    EmployerRegistrationValidationSchema,
-} from 'shared/build/index.js';
 
 import {
     Button,
@@ -22,7 +17,10 @@ import {
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { CountryList } from '../../enums/enums.js';
 import { actions } from '../../store/employer.js';
+import { type EmployerRegistrationDto } from '../../types/types.js';
+import { EmployerRegistrationValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { EmployerFileUpload } from './components/employer-file-upload.js';
 import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';

@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { CountryList } from '../../../user-details/enums/enums.js';
+import { CountryList } from '../../../user-details/enums/country-list.enum.js';
 import {
     type EmployerRegistrationDto,
     EmployerRegistrationValidationMessage,
