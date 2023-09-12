@@ -93,6 +93,7 @@ const Input = <T extends FieldValues>({
                     !editable && styles.disabled,
                     hasError && styles.error,
                 ]}
+                placeholderTextColor={Color.TEXT2}
             />
         </View>
     );

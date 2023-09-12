@@ -13,6 +13,7 @@ const IconName = {
     HEADPHONES: 'headphones',
     PLUS: 'plus',
     MAGNIFY: 'magnify',
+    WIFI_OFF: 'wifi-off',
 } as const;
 
 export { IconName };
