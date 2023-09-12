@@ -67,19 +67,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                             },
                                         ],
                                     },
+                                    {
+                                        path: AppRoute.SIGN_IN,
+                                        element: <SignInPage />,
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_UP,
+                                        element: <SignUpPage />,
+                                    },
+                                    {
+                                        path: AppRoute.RESET_PASSWORD,
+                                        element: <ResetPasswordPage />,
+                                    },
                                 ],
-                            },
-                            {
-                                path: AppRoute.SIGN_IN,
-                                element: <SignInPage />,
-                            },
-                            {
-                                path: AppRoute.SIGN_UP,
-                                element: <SignUpPage />,
-                            },
-                            {
-                                path: AppRoute.RESET_PASSWORD,
-                                element: <ResetPasswordPage />,
                             },
                             {
                                 path: AppRoute.OTHER,
