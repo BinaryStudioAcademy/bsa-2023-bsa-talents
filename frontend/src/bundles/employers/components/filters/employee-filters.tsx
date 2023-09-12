@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
     type Control,
     Controller,
@@ -15,17 +14,16 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
-import {
-    CountryList,
-    EmploymentType,
-    ExperienceYears,
-    JobTitle,
-} from '~/bundles/talent-onboarding/enums/enums.js';
 
 import {
     BsaBadges,
     BsaCharacteristics,
     BsaProject,
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
+    ExperienceYears,
+    JobTitle,
 } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
@@ -63,6 +61,11 @@ const locationOptions = Object.values(CountryList).map((country) => ({
     label: country,
 }));
 
+const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
+    value: level.split(' ')[0],
+    label: level,
+}));
+
 const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
     value: type,
     label: type,
@@ -73,8 +76,8 @@ type Properties = {
 };
 const EmployeeFilters: React.FC<Properties> = ({ control }) => {
     const handleCheckboxOnChange = useCallback(
-        (
-            field: ControllerRenderProps<EmployeesFiltersDto, 'employmentType'>,
+        <Field extends 'employmentType' | 'levelOfEnglish'>(
+            field: ControllerRenderProps<EmployeesFiltersDto, Field>,
             selectedValue: string,
         ) =>
             (): void => {
@@ -86,6 +89,44 @@ const EmployeeFilters: React.FC<Properties> = ({ control }) => {
         [],
     );
 
+    const renderEnglishLevelCheckboxes = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<EmployeesFiltersDto, 'levelOfEnglish'>;
+            formState: UseFormStateReturn<EmployeesFiltersDto>;
+        }): React.ReactElement => {
+            return (
+                <Grid container className={styles.checkboxContainer}>
+                    {englishLevelOptions.map((option) => (
+                        <Grid
+                            item
+                            key={option.value}
+                            className={styles['MuiGrid-item']}
+                        >
+                            <Checkbox
+                                {...{
+                                    onChange: field.onChange,
+                                    onBlur: field.onBlur,
+                                    name: field.name,
+                                    value: field.value,
+                                }}
+                                key={option.value}
+                                label={option.label}
+                                value={option.value}
+                                isChecked={field.value.includes(option.value)}
+                                onChange={handleCheckboxOnChange(
+                                    field,
+                                    option.value,
+                                )}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            );
+        },
+        [handleCheckboxOnChange],
+    );
     const renderCheckboxes = useCallback(
         ({
             field,
@@ -95,15 +136,10 @@ const EmployeeFilters: React.FC<Properties> = ({ control }) => {
             formState: UseFormStateReturn<EmployeesFiltersDto>;
         }): React.ReactElement => {
             return (
-                <Grid
-                    container
-                    spacing={2}
-                    className={styles.checkboxContainer}
-                >
+                <Grid container className={styles.checkboxContainer}>
                     {employmentTypeOptions.map((option) => (
                         <Grid
                             item
-                            xs={6}
                             key={option.value}
                             className={styles['MuiGrid-item']}
                         >
@@ -131,98 +167,146 @@ const EmployeeFilters: React.FC<Properties> = ({ control }) => {
         [handleCheckboxOnChange],
     );
 
+    const renderSingleCheckbox = useCallback(
+        ({
+            field,
+        }: {
+            field: ControllerRenderProps<
+                EmployeesFiltersDto,
+                'activeSearchingOnly'
+            >;
+        }): React.ReactElement => (
+            <Checkbox
+                // eslint-disable-next-line react/jsx-no-bind
+                onChange={(event): void => {
+                    field.onChange(event.target.checked);
+                }}
+                checked={field.value}
+                className={styles.checkbox}
+            />
+        ),
+        [],
+    );
+
     return (
-        <Grid container className={styles.wrapper}>
-            <Grid item>
+        <Grid container className={styles.filtersSidebar}>
+            <Grid className={styles.header}>
                 <Typography variant={'h6'} className={styles.title}>
                     Filters
                 </Typography>
             </Grid>
-            <Grid item>
-                <Controller
-                    control={control}
-                    name="employmentType"
-                    render={renderCheckboxes}
-                />
-                <Checkbox label="Active searching talents only" />
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'Job Title'}
-                    <Select
-                        options={jobTitleOptions}
+            <Grid container className={styles.filtersWrapper}>
+                <Grid>
+                    <Controller
+                        name="activeSearchingOnly"
                         control={control}
-                        name="jobTitles"
-                        isMulti={true}
-                        placeholder="Options"
+                        render={renderSingleCheckbox}
                     />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'Hard Skills'}
-                    <SkillsAutocomplete name="hardSkills" control={control} />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'Years of experience'}
-                    <Select
-                        options={yearsOfExperience}
-                        control={control}
-                        name="userYearsOfExperience"
-                        isMulti={true}
-                        placeholder="Options"
-                    />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'BSA Characteristics'}
-                    <Select
-                        options={bsaCharacteristics}
-                        control={control}
-                        name="userBsaCharacteristics"
-                        isMulti={true}
-                        placeholder="Options"
-                    />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'BSA Badges'}
-                    <Select
-                        options={bsaBadges}
-                        control={control}
-                        name="userBsaBadges"
-                        isMulti={true}
-                        placeholder="Options"
-                    />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'BSA Project'}
-                    <Select
-                        options={bsaProject}
-                        control={control}
-                        name="userBsaProject"
-                        isMulti={true}
-                        placeholder="Options"
-                    />
-                </FormLabel>
-            </Grid>
-            <Grid>
-                <FormLabel className={styles.labels}>
-                    {'Location'}
-                    <Select
-                        options={locationOptions}
-                        control={control}
-                        name="userLocation"
-                        isMulti={true}
-                        placeholder="Options"
-                    />
-                </FormLabel>
+                    <FormLabel className={styles.labels}>
+                        {'Active searching talents only'}
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'Job Title'}
+                        <Select
+                            options={jobTitleOptions}
+                            control={control}
+                            name="jobTitles"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid>
+                    <FormLabel className={styles.labels}>
+                        {'Hard Skills'}
+                        <SkillsAutocomplete
+                            name="hardSkills"
+                            control={control}
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'Years of experience'}
+                        <Select
+                            options={yearsOfExperience}
+                            control={control}
+                            name="userYearsOfExperience"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'BSA Characteristics'}
+                        <Select
+                            options={bsaCharacteristics}
+                            control={control}
+                            name="userBsaCharacteristics"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'BSA Badges'}
+                        <Select
+                            options={bsaBadges}
+                            control={control}
+                            name="userBsaBadges"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'BSA Project'}
+                        <Select
+                            options={bsaProject}
+                            control={control}
+                            name="userBsaProject"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid className={styles.filtersMultiSelect}>
+                    <FormLabel className={styles.labels}>
+                        {'Location'}
+                        <Select
+                            options={locationOptions}
+                            control={control}
+                            name="userLocation"
+                            isMulti={true}
+                            placeholder="Options"
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid>
+                    <FormLabel className={styles.labels}>
+                        {'Level of English'}
+                        <Controller
+                            control={control}
+                            name="levelOfEnglish"
+                            render={renderEnglishLevelCheckboxes}
+                        />
+                    </FormLabel>
+                </Grid>
+                <Grid>
+                    <FormLabel className={styles.labels}>
+                        {'Employment Type'}
+                        <Controller
+                            control={control}
+                            name="employmentType"
+                            render={renderCheckboxes}
+                        />
+                    </FormLabel>
+                </Grid>
             </Grid>
         </Grid>
     );

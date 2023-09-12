@@ -102,7 +102,12 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.CANDIDATES,
                                         element: (
                                             <ProtectedRoute>
-                                                <Candidates />
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <Candidates />
+                                                </PageLayout>
                                             </ProtectedRoute>
                                         ),
                                     },

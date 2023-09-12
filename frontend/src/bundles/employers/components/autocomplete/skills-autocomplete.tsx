@@ -24,7 +24,7 @@ type Option = {
     value: string;
 };
 
-// mock data, will get this from db
+// TODO: get hard skills from db
 const hardSkillsOptions: Option[] = [
     { value: 'React', label: 'React' },
     { value: 'Node.js', label: 'Node.js' },
@@ -83,10 +83,6 @@ const SkillsAutocomplete = <T extends FieldValues>({
         [],
     );
 
-    const filterOptions = useCallback((options: Option[]) => {
-        return options;
-    }, []);
-
     const handleDelete = useCallback(
         (deletedSkill: Option) => () => {
             const updatedSkills = (value as Option[]).filter(
@@ -106,7 +102,6 @@ const SkillsAutocomplete = <T extends FieldValues>({
                 renderInput={renderInput}
                 options={hardSkillsOptions}
                 renderTags={hideDefaultTags}
-                filterOptions={filterOptions}
                 popupIcon={null}
                 clearIcon={null}
                 isOptionEqualToValue={isOptionEqualToValue}
