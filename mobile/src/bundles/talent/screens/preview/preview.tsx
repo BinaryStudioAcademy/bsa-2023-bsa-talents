@@ -1,7 +1,12 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { ScrollView, Text, View } from '~/bundles/common/components/components';
+import {
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
@@ -163,6 +168,26 @@ const Preview: React.FC = () => {
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {mockUser.DESCRIPTION}
             </Text>
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.pb20,
+                ]}
+            >
+                <TouchableOpacity>
+                    <Text category={TextCategory.LABEL}>Scores & skills</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text category={TextCategory.LABEL}>Feedbacks</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text category={TextCategory.LABEL}>Project</Text>
+                </TouchableOpacity>
+            </View>
+            <View
+                style={[styles.profileWrapper, globalStyles.borderRadius5]}
+            ></View>
         </ScrollView>
     );
 };

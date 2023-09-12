@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: Color.INPUT,
     },
+    tabsBodyWrapper: {
+        borderTopWidth: 1,
+        borderColor: Color.INPUT,
+        backgroundColor: '#FFFFFF',
+    },
 });
 
 export { styles };
