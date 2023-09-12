@@ -29,7 +29,13 @@ import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 const BsaBadges: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
-    const { badges: badgesStepData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
+
+    const badgesStepData: BsaBadgesStepDto | null = onboardingData?.badges
+        ? {
+              badges: onboardingData.badges,
+          }
+        : null;
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
@@ -69,7 +75,6 @@ const BsaBadges: React.FC = () => {
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <BsaBadgesForm
-                key={JSON.stringify(badgesStepData?.badges)}
                 badgesStepData={badgesStepData}
                 onSubmit={handleBadgesSubmit}
             />

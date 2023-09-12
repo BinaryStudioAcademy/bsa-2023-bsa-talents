@@ -3,7 +3,6 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
-    type BsaBadgesStepDto,
     type SkillsStepDto,
     type UserDetailsGeneralResponseDto,
 } from '~/bundles/talent/types/types';
@@ -19,7 +18,6 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsGeneralResponseDto | null;
     completedStep: string | null;
-    badges: BsaBadgesStepDto | null;
 
     //TODO temporary
     skillsStepData: SkillsStepDto | null;
@@ -29,7 +27,6 @@ const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
     completedStep: null,
-    badges: null,
 
     //TODO temporary
     skillsStepData: null,
@@ -56,7 +53,6 @@ const { reducer, actions, name } = createSlice({
                     ...state.onboardingData,
                     ...action.payload,
                 };
-                state.badges = action.payload.badges;
             },
         );
         builder.addMatcher(
