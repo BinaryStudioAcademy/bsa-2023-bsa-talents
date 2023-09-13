@@ -166,7 +166,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     buttonType={ButtonType.GHOST}
                     iconName={IconName.PLUS}
                     iconSize={20}
-                    style={globalStyles.alignSelfFlexStart}
+                    style={[globalStyles.alignSelfFlexStart, globalStyles.mb25]}
                     onPress={(): void => {
                         append({ url: '' });
                     }}
