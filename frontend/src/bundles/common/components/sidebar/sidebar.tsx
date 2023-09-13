@@ -7,12 +7,12 @@ import styles from './styles.module.scss';
 
 const menuItems = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.CANDIDATES,
         name: 'Candidates',
         icon: <FolderShared />,
     },
     {
-        link: AppRoute.SIGN_UP,
+        link: AppRoute.CHATS,
         name: 'Chats',
         icon: <EmailRounded />,
     },
