@@ -1,1 +1,1 @@
-export { type EmployerRegistrationDto } from 'shared/build/index.js';
+export { type EmployerRegistrationDto } from './employer-registration-form/employer-registration-dto.js';

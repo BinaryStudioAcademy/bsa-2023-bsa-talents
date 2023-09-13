@@ -1,12 +1,12 @@
 import joi from 'joi';
 
-import { CountryList } from '../../../user-details/enums/country-list.enum.js';
 import {
-    type EmployerRegistrationDto,
+    CountryList,
     EmployerRegistrationValidationMessage,
     EmployerRegistrationValidationRule,
-    fileSizeValidator,
-} from '../../employer.js';
+} from '../../enums/enums.js';
+import { fileSizeValidator } from '../../helpers/file-size-validator.js';
+import { type EmployerRegistrationDto } from '../../types/types.js';
 
 const EmployerRegistrationValidationSchema = joi.object<
     EmployerRegistrationDto,
@@ -87,14 +87,14 @@ const EmployerRegistrationValidationSchema = joi.object<
     companyWebsite: joi
         .string()
         .empty('')
-        .uri()
+        .regex(/^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/)
         .min(EmployerRegistrationValidationRule.MIN_LENGTH_COMPANY_WEBSITE)
         .max(EmployerRegistrationValidationRule.MAX_LENGTH_COMPANY_WEBSITE)
         .required()
         .messages({
             'any.required':
                 EmployerRegistrationValidationMessage.COMPANY_WEBSITE_REQUIRED,
-            'string.uri':
+            'string.pattern.base':
                 EmployerRegistrationValidationMessage.COMPANY_WEBSITE_INVALID_URL,
             'string.min':
                 EmployerRegistrationValidationMessage.COMPANY_WEBSITE_MIN_LENGTH,

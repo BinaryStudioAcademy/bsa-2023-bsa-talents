@@ -1,1 +1,1 @@
-export { EmployerRegistrationValidationSchema } from 'shared/build/index.js';
+export { EmployerRegistrationValidationSchema } from './employer-registration-form/employer-registration-form.validation-schema.js';

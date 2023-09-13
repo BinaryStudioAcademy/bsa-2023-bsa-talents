@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { type EmployerRegistrationDto } from 'shared/build/index.js';
 
 import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from '../components/registration-page/constants/constants.js';
+import { type EmployerRegistrationDto } from '../types/types.js';
 import { createEmployerDetails } from './actions.js';
 
 const initialState: EmployerRegistrationDto = {

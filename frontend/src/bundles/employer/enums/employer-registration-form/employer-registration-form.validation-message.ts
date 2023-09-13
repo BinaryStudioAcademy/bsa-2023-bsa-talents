@@ -9,7 +9,8 @@ const EmployerRegistrationValidationMessage = {
     LINKEDIN_LINK_REQUIRED: 'LinkedIn is required',
     LINKEDIN_LINK_LENGTH:
         'LinkedIn must be between {{#limit.min}} and {{#limit.max}} characters',
-    LINKEDIN_LINK_WRONG_PATTERN: 'Invalid LinkedIn URL format',
+    LINKEDIN_LINK_WRONG_PATTERN:
+        'Link format must be https://www.linkedin.com/in/',
     LINKEDIN_LINK_MIN_LENGTH:
         'LinkedIn link must be at least {{#limit}} characters',
     LINKEDIN_LINK_MAX_LENGTH:
@@ -23,7 +24,8 @@ const EmployerRegistrationValidationMessage = {
     LOCATION_REQUIRED: 'Location is required',
     LOCATION_BASE: 'Please select a valid location from the provided options',
     COMPANY_WEBSITE_REQUIRED: 'Company website is required',
-    COMPANY_WEBSITE_INVALID_URL: 'Company website must be a valid URL',
+    COMPANY_WEBSITE_INVALID_URL:
+        'Company website must be a valid URL. Please make sure it starts with "http://" or "https://" and includes a valid domain name (e.g., www.example.com).',
     COMPANY_WEBSITE_MIN_LENGTH:
         'Company website must be at least {{#limit}} characters',
     COMPANY_WEBSITE_MAX_LENGTH:
