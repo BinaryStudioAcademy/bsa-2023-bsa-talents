@@ -1,4 +1,3 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
@@ -8,19 +7,10 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useNavigation,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/talent/components/badge/constants/constants';
+import { BackFormButton } from '~/bundles/talent/components/components';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -31,23 +21,18 @@ import { styles } from './styles';
 type Properties = {
     badgesStepData: BsaBadgesStepDto | null;
     onSubmit: (payload: BsaBadgesStepDto) => void;
+    currentStep: number;
 };
 
-const BsaBadgesForm: React.FC<Properties> = ({ badgesStepData, onSubmit }) => {
+const BsaBadgesForm: React.FC<Properties> = ({
+    badgesStepData,
+    onSubmit,
+    currentStep,
+}) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: badgesStepData ?? BADGES_STEP_DEFAULT_VALUES,
         validationSchema: BsaBadgesStepValidationSchema,
     });
-    const { navigate } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
-
-    const handlePreviousPress = useCallback((): void => {
-        navigate(TalentOnboardingScreenName.PROFILE, {
-            stepState: TalentOnboardingStepState.FOCUSED,
-        });
-    }, [navigate]);
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -79,12 +64,7 @@ const BsaBadgesForm: React.FC<Properties> = ({ badgesStepData, onSubmit }) => {
                     globalStyles.mb25,
                 ]}
             >
-                <Button
-                    style={globalStyles.mr10}
-                    label="Back"
-                    buttonType={ButtonType.OUTLINE}
-                    onPress={handlePreviousPress}
-                />
+                <BackFormButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>

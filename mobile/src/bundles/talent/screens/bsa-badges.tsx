@@ -85,6 +85,7 @@ const BsaBadges: React.FC = () => {
             <BsaBadgesForm
                 badgesStepData={badgesStepData}
                 onSubmit={handleBadgesSubmit}
+                currentStep={stepNumber}
             />
         </View>
     );

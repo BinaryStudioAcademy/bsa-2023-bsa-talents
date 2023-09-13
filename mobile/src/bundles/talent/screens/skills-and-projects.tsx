@@ -96,6 +96,7 @@ const SkillsAndProjects: React.FC = () => {
             <SkillsAndProjectsForm
                 skillsStepData={skillsStepData}
                 onSubmit={handleSkillsSubmit}
+                currentStep={stepNumber}
             />
         </View>
     );

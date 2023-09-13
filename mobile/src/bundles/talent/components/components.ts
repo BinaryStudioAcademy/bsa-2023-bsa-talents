@@ -1,4 +1,5 @@
 export { AvatarPicker } from './avatar-picker/avatar-picker';
+export { BackFormButton } from './back-form-button/back-form-button';
 export { Badge } from './badge/badge';
 export { BsaBadgesForm } from './badges-form/badges-form';
 export { CheckboxGroup } from './checkbox-group/checkbox-group';
