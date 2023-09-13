@@ -88,7 +88,7 @@
 .wideStepButtons {
     display: flex;
 
-    button {
+    .button {
         width: 181px;
         height: 36px;
         margin: 7px;
@@ -109,7 +109,7 @@
     .stepButtons {
         display: flex;
 
-        button {
+        .button {
             width: 60px;
         }
     }
@@ -117,7 +117,7 @@
     .wideStepButtons {
         flex-direction: column;
 
-        button {
+        .button {
             width: 100px;
             height: 50px;
         }
