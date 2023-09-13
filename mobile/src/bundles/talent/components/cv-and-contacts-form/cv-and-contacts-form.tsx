@@ -13,7 +13,7 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
-import { BackFormButton } from '~/bundles/talent/components/components';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
@@ -120,7 +120,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 </Text>
             </View>
             <View style={globalStyles.flexDirectionRow}>
-                <BackFormButton currentStep={currentStep} />
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>

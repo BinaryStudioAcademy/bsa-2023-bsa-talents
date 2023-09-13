@@ -2,10 +2,7 @@ import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import { Button } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
+import { ButtonType } from '~/bundles/common/enums/enums';
 import { useCallback, useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
@@ -15,8 +12,8 @@ type Properties = {
     currentStep: number;
 };
 
-const BackFormButton: React.FC<Properties> = ({ currentStep }) => {
-    const { navigate } =
+const OnboardingBackButton: React.FC<Properties> = ({ currentStep }) => {
+    const { reset } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
@@ -24,11 +21,12 @@ const BackFormButton: React.FC<Properties> = ({ currentStep }) => {
     const handlePreviousPress = useCallback((): void => {
         const previousScreenName = getPreviousStepTitle(currentStep);
         if (previousScreenName) {
-            navigate(previousScreenName, {
-                stepState: TalentOnboardingStepState.FOCUSED,
+            reset({
+                index: 0,
+                routes: [{ name: previousScreenName }],
             });
         }
-    }, [navigate, currentStep]);
+    }, [reset, currentStep]);
 
     return (
         <Button
@@ -40,4 +38,4 @@ const BackFormButton: React.FC<Properties> = ({ currentStep }) => {
     );
 };
 
-export { BackFormButton };
+export { OnboardingBackButton };

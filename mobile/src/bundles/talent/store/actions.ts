@@ -3,7 +3,6 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
-    type CvAndContactsFormDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsGeneralRequestDto,
@@ -44,6 +43,7 @@ const updateOnboardingData = createAsyncThunk<
 
         return {
             ...response,
+            //TODO remove when it is ready at the backend
             ...(hardSkills && { hardSkills }),
             ...(badges && { badges }),
             ...(photo && { photo }),
@@ -73,17 +73,7 @@ const getTalentDetails = createAsyncThunk<
     }
 });
 
-//TODO temporary
-const contactsCVStep = createAsyncThunk<
-    CvAndContactsFormDto,
-    CvAndContactsFormDto,
-    AsyncThunkConfig
->(`${sliceName}/contacts-cv-step`, (contactsCVStepPayload) => {
-    return contactsCVStepPayload;
-});
-
 export {
-    contactsCVStep,
     createTalentDetails,
     getTalentDetails,
     setCompletedStep,

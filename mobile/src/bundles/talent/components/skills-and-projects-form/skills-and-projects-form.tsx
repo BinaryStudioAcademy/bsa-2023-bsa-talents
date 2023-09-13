@@ -19,8 +19,8 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
-    BackFormButton,
     CheckboxGroup,
+    OnboardingBackButton,
 } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -174,7 +174,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
             )}
 
             <View style={globalStyles.flexDirectionRow}>
-                <BackFormButton currentStep={currentStep} />
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>

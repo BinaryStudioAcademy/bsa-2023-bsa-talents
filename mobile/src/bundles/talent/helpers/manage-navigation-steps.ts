@@ -8,15 +8,11 @@ type ScreenName = ValueOf<typeof TalentOnboardingScreenName>;
 
 const STEP = 1;
 
-const screenNames = Object.keys(
-    TalentOnboardingScreenNumber,
-) as (keyof typeof TalentOnboardingScreenName)[];
+const screenNames = Object.keys(TalentOnboardingScreenNumber) as ScreenName[];
 
 const getPreviousStepTitle = (currentStep: number): ScreenName | undefined => {
     const screenName = screenNames.find(
-        (key) =>
-            TalentOnboardingScreenNumber[key as ScreenName] ===
-            currentStep - STEP,
+        (key) => TalentOnboardingScreenNumber[key] === currentStep - STEP,
     );
 
     return screenName as ScreenName;
@@ -24,9 +20,7 @@ const getPreviousStepTitle = (currentStep: number): ScreenName | undefined => {
 
 const getNextStepTitle = (currentStep: number): ScreenName | undefined => {
     const screenName = screenNames.find(
-        (key) =>
-            TalentOnboardingScreenNumber[key as ScreenName] ===
-            currentStep + STEP,
+        (key) => TalentOnboardingScreenNumber[key] === currentStep + STEP,
     );
 
     return screenName as ScreenName;

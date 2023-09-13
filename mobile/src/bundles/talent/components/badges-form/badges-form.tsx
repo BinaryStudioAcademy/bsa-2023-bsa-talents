@@ -10,7 +10,7 @@ import {
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/talent/components/badge/constants/constants';
-import { BackFormButton } from '~/bundles/talent/components/components';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -64,7 +64,7 @@ const BsaBadgesForm: React.FC<Properties> = ({
                     globalStyles.mb25,
                 ]}
             >
-                <BackFormButton currentStep={currentStep} />
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>
