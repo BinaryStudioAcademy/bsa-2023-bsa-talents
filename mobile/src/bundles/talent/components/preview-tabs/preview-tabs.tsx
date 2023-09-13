@@ -20,16 +20,15 @@ import { styles } from './styles';
 const tabs = Object.values(ProfileTab);
 
 type Tab = ValueOf<typeof ProfileTab>;
-
-type Badge = {
-    label: ValueOf<typeof BsaBadgeStepBadgesTitle>;
-    value: number;
-};
+type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 //todo change to real types
 type Properties = {
-    badges: Badge[];
-    hardSkills: string[];
+    badges: BadgeName[];
+    hardSkills?: {
+        value: string;
+        label: string;
+    }[];
     personalType: string[];
     HRBadges: string[];
 };

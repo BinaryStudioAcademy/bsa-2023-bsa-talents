@@ -14,9 +14,14 @@ type Badge = {
 };
 
 type Properties = {
-    badges: Badge[];
-    skills: string[];
+    badges: BadgeName[];
+    skills?: {
+        value: string;
+        label: string;
+    }[];
 };
+
+type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 const ScoresAndSkillsContainer = ({
     badges,
@@ -37,9 +42,8 @@ const ScoresAndSkillsContainer = ({
                 {badges.map((badge) => {
                     return (
                         <Badge
-                            key={badge.label}
-                            badgeType={badge.label}
-                            value={badge.value}
+                            key={badge}
+                            badgeType={badge}
                             size={BadgeSize.SMALL}
                             iconSize={20}
                         />
@@ -58,8 +62,8 @@ const ScoresAndSkillsContainer = ({
                     styles.tagsWrapper,
                 ]}
             >
-                {skills.map((skill) => {
-                    return <Tag key={skill} value={skill} />;
+                {skills?.map((skill) => {
+                    return <Tag key={skill.label} value={skill.label} />;
                 })}
             </View>
         </View>
