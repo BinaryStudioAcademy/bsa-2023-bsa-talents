@@ -89,11 +89,10 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             selectedValue?: Field extends 'activeSearchingOnly'
                 ? boolean
                 : string,
-            event?: React.ChangeEvent<HTMLInputElement>,
         ) =>
             (): void => {
                 if (field.name === 'activeSearchingOnly') {
-                    field.onChange(event?.target.checked);
+                    field.onChange(!field.value);
                 } else if (
                     field.name === 'levelOfEnglish' ||
                     field.name === 'employmentType'
