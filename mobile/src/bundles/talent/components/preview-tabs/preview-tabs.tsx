@@ -23,7 +23,7 @@ type Badge = {
     value: number;
 };
 
-//todo change to real data
+//todo change to real types
 type Properties = {
     badges: Badge[];
     hardSkills: string[];

@@ -8,7 +8,6 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { Badge } from '../components';
 import { styles } from './styles';
 
-//import { styles } from './styles';
 type Badge = {
     label: ValueOf<typeof BsaBadgeStepBadgesTitle>;
     value: number;
@@ -27,7 +26,7 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
             </Text>
             <View
                 style={[
-                    globalStyles.pv20,
+                    globalStyles.pb20,
                     globalStyles.flexDirectionRow,
                     styles.badgesWrapper,
                 ]}

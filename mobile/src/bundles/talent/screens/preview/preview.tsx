@@ -1,11 +1,26 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { type ValueOf } from 'shared/build/index';
 
-import { ScrollView, Text, View } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Button,
+    ScrollView,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
+import { type TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    Color,
+    IconName,
+    TalentOnboardingScreenNumber,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
+import { useAppRoute } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
+import { NewAccountHeader } from '../../components/components';
 import { PreviewTabs } from '../../components/preview-tabs/preview-tabs';
 import { styles } from './style';
 
@@ -48,139 +63,159 @@ const mockUser = {
 const iconSize = 24;
 
 const Preview: React.FC = () => {
+    const { name } = useAppRoute();
+    const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
+    const stepNumber = TalentOnboardingScreenNumber[stepTitle];
+
     return (
-        <ScrollView
-            style={[globalStyles.defaultScreenPadding, globalStyles.mb25]}
-        >
-            <Text category={TextCategory.H5} style={globalStyles.pb10}>
-                {mockUser.JOB_TITLE}
-            </Text>
-            <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
-                <Text
-                    category={TextCategory.H3}
-                    style={[globalStyles.pv10, globalStyles.pl25]}
-                >
-                    $ {mockUser.SALARY_EXPECTATION} / mo
+        <View style={[globalStyles.flex1, globalStyles.mb25]}>
+            <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
+            <ScrollView
+                style={[
+                    globalStyles.defaultScreenPadding,
+                    styles.screenWrapper,
+                ]}
+            >
+                <Text category={TextCategory.H5} style={globalStyles.pb10}>
+                    {mockUser.JOB_TITLE}
                 </Text>
                 <View
-                    style={[
-                        globalStyles.pv25,
-                        globalStyles.pl25,
-                        styles.profileItems,
-                    ]}
+                    style={[styles.profileWrapper, globalStyles.borderRadius5]}
                 >
+                    <Text
+                        category={TextCategory.H3}
+                        style={[globalStyles.pv10, globalStyles.pl25]}
+                    >
+                        $ {mockUser.SALARY_EXPECTATION} / mo
+                    </Text>
                     <View
                         style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
+                            globalStyles.pv25,
+                            globalStyles.pl25,
+                            styles.profileItems,
                         ]}
                     >
-                        <Icon
-                            name={IconName.LANGUAGE}
-                            size={iconSize}
-                            color={Color.PRIMARY}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
+                        <View
+                            style={[
+                                globalStyles.flexDirectionRow,
+                                globalStyles.pb15,
+                            ]}
                         >
-                            {mockUser.LOCATION}
-                        </Text>
-                    </View>
-                    <View
-                        style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
-                        ]}
-                    >
-                        <Icon
-                            name={IconName.EXPERIENCE}
-                            size={iconSize}
-                            color={Color.PRIMARY}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
+                            <Icon
+                                name={IconName.LANGUAGE}
+                                size={iconSize}
+                                color={Color.PRIMARY}
+                            />
+                            <Text
+                                category={TextCategory.BODY1}
+                                style={globalStyles.pl10}
+                            >
+                                {mockUser.LOCATION}
+                            </Text>
+                        </View>
+                        <View
+                            style={[
+                                globalStyles.flexDirectionRow,
+                                globalStyles.pb15,
+                            ]}
                         >
-                            {mockUser.EXPERIENCE_YEARS} year of experience
-                        </Text>
-                    </View>
-                    <View
-                        style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
-                        ]}
-                    >
-                        <Icon
-                            name={IconName.FORUM}
-                            size={iconSize}
-                            color={Color.PRIMARY}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
+                            <Icon
+                                name={IconName.EXPERIENCE}
+                                size={iconSize}
+                                color={Color.PRIMARY}
+                            />
+                            <Text
+                                category={TextCategory.BODY1}
+                                style={globalStyles.pl10}
+                            >
+                                {mockUser.EXPERIENCE_YEARS} year of experience
+                            </Text>
+                        </View>
+                        <View
+                            style={[
+                                globalStyles.flexDirectionRow,
+                                globalStyles.pb15,
+                            ]}
                         >
-                            English: {mockUser.ENGLISH_LEVEL}
-                        </Text>
-                    </View>
-                    <View>
-                        {mockUser.EMPLOYMENT_TYPE.map((type) => {
-                            return (
-                                <View
-                                    key={type}
-                                    style={[
-                                        globalStyles.flexDirectionRow,
-                                        globalStyles.pb15,
-                                    ]}
-                                >
-                                    <Icon
-                                        name={IconName.CHECK_CIRCLE}
-                                        size={iconSize}
-                                        color={Color.PRIMARY}
-                                    />
-                                    <Text
-                                        category={TextCategory.BODY1}
-                                        style={globalStyles.pl10}
+                            <Icon
+                                name={IconName.FORUM}
+                                size={iconSize}
+                                color={Color.PRIMARY}
+                            />
+                            <Text
+                                category={TextCategory.BODY1}
+                                style={globalStyles.pl10}
+                            >
+                                English: {mockUser.ENGLISH_LEVEL}
+                            </Text>
+                        </View>
+                        <View>
+                            {mockUser.EMPLOYMENT_TYPE.map((type) => {
+                                return (
+                                    <View
+                                        key={type}
+                                        style={[
+                                            globalStyles.flexDirectionRow,
+                                            globalStyles.pb15,
+                                        ]}
                                     >
-                                        {type}
-                                    </Text>
-                                </View>
-                            );
-                        })}
-                    </View>
-                    <View
-                        style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
-                        ]}
-                    >
-                        <Icon
-                            name={IconName.NOT_CONSIDER}
-                            size={iconSize}
-                            color={Color.ERROR}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
+                                        <Icon
+                                            name={IconName.CHECK_CIRCLE}
+                                            size={iconSize}
+                                            color={Color.PRIMARY}
+                                        />
+                                        <Text
+                                            category={TextCategory.BODY1}
+                                            style={globalStyles.pl10}
+                                        >
+                                            {type}
+                                        </Text>
+                                    </View>
+                                );
+                            })}
+                        </View>
+                        <View
+                            style={[
+                                globalStyles.flexDirectionRow,
+                                globalStyles.pb15,
+                            ]}
                         >
-                            Does’t consider: crypto
-                        </Text>
+                            <Icon
+                                name={IconName.NOT_CONSIDER}
+                                size={iconSize}
+                                color={Color.ERROR}
+                            />
+                            <Text
+                                category={TextCategory.BODY1}
+                                style={globalStyles.pl10}
+                            >
+                                Does’t consider: crypto
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <Text category={TextCategory.INPUT} style={globalStyles.pt5}>
-                {mockUser.PUBLISHED}
-            </Text>
-            <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
-                {mockUser.DESCRIPTION}
-            </Text>
-            <PreviewTabs
-                badges={mockUser.BADGES}
-                hardSkills={mockUser.HARD_SKILLS}
-                personalType={mockUser.PERSONAL_TYPE}
-                HRBadges={mockUser.HR_BADGES}
-            />
-        </ScrollView>
+                <Text category={TextCategory.INPUT} style={globalStyles.pt5}>
+                    {mockUser.PUBLISHED}
+                </Text>
+                <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
+                    {mockUser.DESCRIPTION}
+                </Text>
+                <PreviewTabs
+                    badges={mockUser.BADGES}
+                    hardSkills={mockUser.HARD_SKILLS}
+                    personalType={mockUser.PERSONAL_TYPE}
+                    HRBadges={mockUser.HR_BADGES}
+                />
+                <View>
+                    <Button
+                        label="Save without publishing"
+                        buttonType={ButtonType.OUTLINE}
+                        style={globalStyles.mb10}
+                    />
+                    <Button label="Publish now" style={globalStyles.mb25} />
+                </View>
+            </ScrollView>
+        </View>
     );
 };
 
