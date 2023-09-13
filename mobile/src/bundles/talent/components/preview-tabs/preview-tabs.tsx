@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { type ValueOf } from 'shared/build/index';
 
 import {
@@ -7,6 +7,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
+import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { ProfileTab } from '~/bundles/talent/enums/enums';
@@ -40,6 +41,31 @@ const PreviewTabs = ({
     HRBadges,
 }: Properties): JSX.Element => {
     const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
+
+    const selectTab = useMemo(() => {
+        switch (tab) {
+            case ProfileTab.FEEDBACKS: {
+                return (
+                    <FeedbacksContainer
+                        personalityTypes={personalType}
+                        HRBadges={HRBadges}
+                    />
+                );
+            }
+            case ProfileTab.PROJECT: {
+                return <ProjectContainer />;
+            }
+            default: {
+                return (
+                    <ScoresAndSkillsContainer
+                        badges={badges}
+                        skills={hardSkills}
+                    />
+                );
+            }
+        }
+    }, [HRBadges, badges, hardSkills, personalType, tab]);
+
     return (
         <>
             <View
@@ -75,19 +101,7 @@ const PreviewTabs = ({
                     globalStyles.ph15,
                 ]}
             >
-                {tab === ProfileTab.SCORES_SKILLS && (
-                    <ScoresAndSkillsContainer
-                        badges={badges}
-                        skills={hardSkills}
-                    />
-                )}
-                {tab === ProfileTab.FEEDBACKS && (
-                    <FeedbacksContainer
-                        personalityTypes={personalType}
-                        HRBadges={HRBadges}
-                    />
-                )}
-                {tab === ProfileTab.PROJECT && <ProjectContainer />}
+                {selectTab}
             </View>
         </>
     );
