@@ -1,13 +1,13 @@
 import { EmailRounded, FolderShared } from '@mui/icons-material';
 
-import { Link, Logo } from '~/bundles/common/components/components.js';
+import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 import styles from './styles.module.scss';
 
 const menuItems = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.CANDIDATES,
         name: 'Candidates',
         icon: <FolderShared />,
     },
@@ -20,8 +20,11 @@ const menuItems = [
 
 const Sidebar: React.FC = () => {
     return (
-        <div className={styles.wrapper}>
-            <Logo isCollapsed={true} className={styles.logo} />
+        <Grid className={styles.wrapper}>
+            <Grid className={styles.logo}>
+                <Logo isCollapsed={true} withLink />
+            </Grid>
+
             <ul className={styles.list}>
                 {menuItems.map((item) => (
                     <li key={item.link} className={styles.listItem}>
@@ -32,7 +35,7 @@ const Sidebar: React.FC = () => {
                     </li>
                 ))}
             </ul>
-        </div>
+        </Grid>
     );
 };
 
