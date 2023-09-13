@@ -16,7 +16,11 @@ const Header: React.FC<Properties> = ({ avatarUrl, isOnline, className }) => {
     return (
         <header className={getValidClassNames(styles.header, className)}>
             <div className={styles.avatar}>
-                <img src={avatarUrl} alt="User Avatar" />
+                <img
+                    className={styles.avatarImg}
+                    src={avatarUrl}
+                    alt="User Avatar"
+                />
                 <div className={statusCLasses} />
             </div>
         </header>
