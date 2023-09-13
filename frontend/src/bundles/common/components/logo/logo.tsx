@@ -23,12 +23,20 @@ const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
                     isCollapsed && styles.collapsed,
                 )}
             >
-                <img src={logoSvg} alt="Logo-BSATalents" />
+                <img
+                    className={styles.logoImg}
+                    src={logoSvg}
+                    alt="Logo-BSATalents"
+                />
             </Grid>
 
             {!isCollapsed && (
                 <Grid item alignItems="center" className={styles.logoLabel}>
-                    <img src={logoLabelSvg} alt="Label-BSATalents" />
+                    <img
+                        className={styles.logoImg}
+                        src={logoLabelSvg}
+                        alt="Label-BSATalents"
+                    />
                 </Grid>
             )}
         </>

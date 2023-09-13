@@ -15,10 +15,10 @@ rules:
         - em
         - rem
     selector-pseudo-class-no-unknown:
-      - true
-      - ignorePseudoClasses:
-          - global
-          - local
+        - true
+        - ignorePseudoClasses:
+            - global
+            - local
 
     order/order:
         - custom-properties
