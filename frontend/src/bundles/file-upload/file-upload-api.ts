@@ -5,8 +5,6 @@ import { HttpApiBase } from '~/framework/api/http-api-base.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
-import { type FileApiHandlerResponse } from './types/file-api-response.type.js';
-
 type Constructor = {
     baseUrl: string;
     http: Http;
@@ -32,8 +30,7 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const parsedResponse = await response.json<FileApiHandlerResponse>();
-        return parsedResponse.payload;
+        return await response.json<string>();
     }
 
     public async uploadImage(payload: { photo: File }): Promise<string> {
@@ -50,8 +47,7 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const parsedResponse = await response.json<FileApiHandlerResponse>();
-        return parsedResponse.payload;
+        return await response.json<string>();
     }
 }
 

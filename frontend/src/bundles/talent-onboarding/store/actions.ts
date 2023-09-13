@@ -20,7 +20,7 @@ const updateTalentDetails = createAsyncThunk<
     }
 
     if (photo) {
-        photoId = await fileUploadApi.uploadImage({ photo: photo });
+        photoId = await fileUploadApi.uploadImage({ photo });
         restPayload.photoId = photoId;
     }
 
