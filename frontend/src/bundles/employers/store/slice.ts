@@ -22,7 +22,7 @@ const { reducer, actions, name } = createSlice({
     name: 'employers',
     reducers: {
         searchFiltersValuesReset: (state) => {
-            state.searchFiltersValues = DEFAULT_EMPLOYEES_FILTERS_PAYLOAD;
+            state.filters = DEFAULT_EMPLOYEES_FILTERS_PAYLOAD;
         },
     },
     extraReducers(builder) {
