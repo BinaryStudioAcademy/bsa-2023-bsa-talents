@@ -45,9 +45,10 @@ const FIELDS: [
 ];
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
-    const { watch, control, getValues } = useAppForm<EmployeesFiltersDto>({
-        defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
-    });
+    const { watch, control, getValues, reset } =
+        useAppForm<EmployeesFiltersDto>({
+            defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
+        });
     const { dataStatus, filters } = useAppSelector(({ employer }) => ({
         dataStatus: employer.dataStatus,
         filters: employer.filters,
@@ -78,12 +79,6 @@ const Candidates: React.FC = () => {
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
-
-    // if (dataStatus == DataStatus.PENDING) {
-
-    //     console.log('pending');
-    //     return <Loader />;
-    // }
 
     return (
         <Grid className={styles.searchPageWrapper}>
@@ -142,7 +137,7 @@ const Candidates: React.FC = () => {
                     isFilterOpened ? styles.filtersActive : '',
                 )}
             >
-                <EmployeeFilters control={control} />
+                <EmployeeFilters control={control} reset={reset} />
                 <Button
                     className={getValidClassNames(
                         styles.filtersButton,
