@@ -16,7 +16,7 @@ const BreadCrumbs: React.FC = () => {
     return (
         <nav className={styles.breadCrumbs}>
             <ul className={styles.breadCrumbsList}>
-                <li className={styles.breadCrumbsListItem}>
+                <li>
                     <Link to={AppRoute.CANDIDATES} className={linkClass}>
                         Candidates
                     </Link>
