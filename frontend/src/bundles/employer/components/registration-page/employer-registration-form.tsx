@@ -250,6 +250,7 @@ const EmployerRegistrationForm: React.FC = () => {
                             </Grid>
 
                             <EmployerFileUpload
+                                label="Uphoad a photo"
                                 control={control}
                                 name="photo"
                             />
@@ -270,6 +271,7 @@ const EmployerRegistrationForm: React.FC = () => {
                             </Grid>
 
                             <EmployerFileUpload
+                                label="Uphoad a company logo"
                                 control={control}
                                 name="companyLogo"
                             />
