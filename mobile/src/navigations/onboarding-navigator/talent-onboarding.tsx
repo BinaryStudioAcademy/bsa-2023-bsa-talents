@@ -6,9 +6,14 @@ import React from 'react';
 
 import {
     TalentOnboardingScreenName,
+    TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    type TalentOnboardingNavigationParameterList,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 import {
     BsaBadges,
     CVAndContacts,
@@ -22,6 +27,24 @@ import { Header, Steps } from './components/components';
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
 const TalentOnboardingNavigator: React.FC = () => {
+    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const firstStepNumber = 1;
+    const activeStepNumber = completedStep
+        ? TalentOnboardingScreenNumber[completedStep]
+        : firstStepNumber;
+
+    const getStepStatus = (
+        stepName: ValueOf<typeof TalentOnboardingScreenName>,
+    ): ValueOf<typeof TalentOnboardingStepState> => {
+        const stepNumber = TalentOnboardingScreenNumber[stepName];
+        if (stepNumber === activeStepNumber) {
+            return TalentOnboardingStepState.FOCUSED;
+        }
+        return stepNumber > activeStepNumber
+            ? TalentOnboardingStepState.DISABLED
+            : TalentOnboardingStepState.COMPLETED;
+    };
+
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -41,35 +64,45 @@ const TalentOnboardingNavigator: React.FC = () => {
                 name={TalentOnboardingScreenName.PROFILE}
                 component={Profile}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.FOCUSED,
+                    stepState: getStepStatus(
+                        TalentOnboardingScreenName.PROFILE,
+                    ),
                 }}
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.BSA_BADGES}
                 component={BsaBadges}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.FOCUSED,
+                    stepState: getStepStatus(
+                        TalentOnboardingScreenName.BSA_BADGES,
+                    ),
                 }}
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.SKILLS_AND_PROJECTS}
                 component={SkillsAndProjects}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.FOCUSED,
+                    stepState: getStepStatus(
+                        TalentOnboardingScreenName.SKILLS_AND_PROJECTS,
+                    ),
                 }}
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.CV_AND_CONTACTS}
                 component={CVAndContacts}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.COMPLETED,
+                    stepState: getStepStatus(
+                        TalentOnboardingScreenName.CV_AND_CONTACTS,
+                    ),
                 }}
             />
             <Drawer.Screen
                 name={TalentOnboardingScreenName.PREVIEW}
                 component={Preview}
                 initialParams={{
-                    stepState: TalentOnboardingStepState.DISABLED,
+                    stepState: getStepStatus(
+                        TalentOnboardingScreenName.PREVIEW,
+                    ),
                 }}
             />
         </Drawer.Navigator>
