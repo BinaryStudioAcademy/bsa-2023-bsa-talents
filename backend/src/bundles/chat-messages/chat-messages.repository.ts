@@ -31,9 +31,8 @@ class ChatMessagesRepository implements Repository {
     public async findAllByChatId(chatId: string): Promise<ChatMessageEntity[]> {
         const chatMessages = await this.chatMessageModel
             .query()
-            .where('chatId', chatId)
-            .select('*');
-
+            .select('*')
+            .where('chatId', chatId);
         return chatMessages.map((chatMessage) =>
             ChatMessageEntity.initialize(chatMessage),
         );
