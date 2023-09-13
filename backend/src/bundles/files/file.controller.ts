@@ -12,6 +12,8 @@ import { FileGroups } from '~/common/plugins/file-upload/enums/file-group.enum.j
 import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { type FileService } from './file.service.js';
+import { getUniqueName } from './helpers/get-unique-name.helper.js';
+
 /**
  * @swagger
  * components:
@@ -22,13 +24,6 @@ import { type FileService } from './file.service.js';
  *          id:
  *            type: string
  *            format: uuid
- *          url:
- *            type: string
- *            format: url
- *          filename:
- *            type: string
- *          etag:
- *            type: string
  * */
 class FileController extends ControllerBase {
     private fileService: FileService;
@@ -74,7 +69,7 @@ class FileController extends ControllerBase {
      * /file/upload:
      *    post:
      *      tags: [File]
-     *      description: Uploads a file to S3 bucket and saves details to database
+     *      description: Uploads a document or image to S3 bucket and saves details to database
      *      security:
      *        - bearerAuth: []
      *      requestBody:
@@ -102,14 +97,15 @@ class FileController extends ControllerBase {
             };
         }>,
     ): Promise<ApiHandlerResponse> {
+        const { originalname, buffer } = options.body.file;
         const file = await this.fileService.create({
-            file: options.body.file.buffer as Buffer,
-            newFileName: options.body.file.originalname,
+            file: buffer as Buffer,
+            newFileName: getUniqueName(originalname),
         });
 
         return {
             status: HttpCode.OK,
-            payload: file.toObject().id,
+            payload: JSON.stringify(file.id),
         };
     }
 }

@@ -1,7 +1,6 @@
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/types.js';
 
-import { type FileEntity } from './file.entity.js';
 import { type FileRepository } from './file.repository.js';
 
 class FileService implements Service {
@@ -22,8 +21,9 @@ class FileService implements Service {
     public async create(payload: {
         file: Buffer;
         newFileName: string;
-    }): Promise<FileEntity> {
-        return this.fileRepository.create({ ...payload });
+    }): Promise<{ id: string; url: string }> {
+        const result = await this.fileRepository.create({ ...payload });
+        return result.toObject();
     }
 
     public update(): Promise<ReturnType<Service['update']>> {
