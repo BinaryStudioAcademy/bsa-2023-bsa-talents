@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     AutocompleteMultiSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     Pressable,
@@ -30,7 +31,6 @@ import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/t
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
