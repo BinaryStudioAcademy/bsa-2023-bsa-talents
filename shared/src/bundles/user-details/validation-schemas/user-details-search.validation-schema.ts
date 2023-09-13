@@ -9,17 +9,27 @@ import {
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 
 const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
-    search: joi.string().trim(),
+    isBaseSearch: joi.boolean(),
 
-    isHired: joi.boolean(),
+    searchValue: joi.string().trim(),
 
-    jobTitle: joi
-        .string()
-        .trim()
-        .valid(...Object.values(JobTitle)),
+    searchActiveCandidatesOnly: joi.boolean(),
 
-    experienceYears: joi.number(),
-
+    jobTitle: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(JobTitle)),
+        ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(JobTitle)),
+    ),
+    yearsOfExperience: joi
+        .alternatives()
+        .try(joi.array().items(joi.number()), joi.number()),
     hardSkills: joi
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
@@ -28,16 +38,30 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-    location: joi
-        .string()
-        .trim()
-        .valid(...Object.values(CountryList)),
-
-    englishLevel: joi
-        .string()
-        .trim()
-        .valid(...Object.values(EnglishLevel)),
-
+    location: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(CountryList)),
+        ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(CountryList)),
+    ),
+    englishLevel: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(EnglishLevel)),
+        ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(EnglishLevel)),
+    ),
     employmentType: joi.alternatives().try(
         joi.array().items(
             joi
@@ -51,8 +75,13 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             .valid(...Object.values(EmploymentType)),
     ),
 
-    // TODO add BSA characteristics
-    // TODO add BSA project name
+    userBsaCharacteristics: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+
+    userBsaProject: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 });
 
 export { userDetailsSearch };

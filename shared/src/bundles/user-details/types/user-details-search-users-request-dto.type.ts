@@ -8,18 +8,18 @@ import {
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
-    search?: string;
-
-    isHired?: boolean;
-    jobTitle?: ValueOf<typeof JobTitle>;
-    experienceYears?: number;
+    isBaseSearch?: boolean;
+    searchValue: string;
+    searchActiveCandidatesOnly: boolean;
+    jobTitle?: ValueOf<typeof JobTitle>[];
+    yearsOfExperience?: number[];
     hardSkills?: string[];
     BSABadges?: string[];
-    location?: ValueOf<typeof CountryList>;
-    englishLevel?: ValueOf<typeof EnglishLevel>;
+    location?: ValueOf<typeof CountryList>[];
+    englishLevel?: ValueOf<typeof EnglishLevel>[];
     employmentType?: ValueOf<typeof EmploymentType>[];
-    // TODO add BSA characteristics
-    // TODO add BSA project name
+    userBsaCharacteristics?: string[];
+    userBsaProject?: string[];
 };
 
 export { type UserDetailsSearchUsersRequestDto };
