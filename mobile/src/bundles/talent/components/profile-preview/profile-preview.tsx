@@ -10,7 +10,7 @@ import { type BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { PreviewTabs } from '../preview-tabs/preview-tabs';
 import { styles } from './styles';
 
-// TODO replace with real user data
+// This is data for demonstration purposes.
 const mockUser = {
     PUBLISHED: 'Published today',
     PERSONAL_TYPE: ['Thinker'],
@@ -26,9 +26,7 @@ const mockUser = {
 const iconSize = 24;
 
 const ProfilePreview: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
-
-    //console.log(onboardingData);
+    const { onboardingData } = useAppSelector(({ auth }) => auth);
 
     if (!onboardingData) {
         return null;
