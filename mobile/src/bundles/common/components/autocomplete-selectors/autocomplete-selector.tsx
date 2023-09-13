@@ -18,8 +18,7 @@ import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
-    useSelectorHeightAnimation,
-    useSelectorIconAnimation,
+    useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -66,8 +65,8 @@ const AutocompleteSelector = <T extends FieldValues>({
     }, [value, items]);
 
     const isContentVisible = isVisible && filteredItems.length > 0;
-    const heightAnimatedStyle = useSelectorHeightAnimation(isContentVisible);
-    const iconAnimatedStyle = useSelectorIconAnimation(isContentVisible);
+    const { heightAnimatedStyle, iconAnimatedStyle } =
+        useSelectorAnimations(isContentVisible);
 
     return (
         <>

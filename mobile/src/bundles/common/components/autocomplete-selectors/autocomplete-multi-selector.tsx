@@ -18,7 +18,7 @@ import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
-    useSelectorHeightAnimation,
+    useSelectorAnimations,
     useState,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
@@ -45,7 +45,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const { value, onBlur, onChange } = field;
     const [search, setSearch] = useState('');
     const { isVisible, toggleVisibility } = useVisibility(false);
-    const heightAnimatedStyle = useSelectorHeightAnimation(isVisible);
+    const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
 
     const handleSearch = (text: string): void => {
         setSearch(text);

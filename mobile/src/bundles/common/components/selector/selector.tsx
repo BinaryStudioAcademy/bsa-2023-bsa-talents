@@ -19,8 +19,7 @@ import {
     useCallback,
     useFormController,
     useMemo,
-    useSelectorHeightAnimation,
-    useSelectorIconAnimation,
+    useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -49,8 +48,8 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
-    const heightAnimatedStyle = useSelectorHeightAnimation(isVisible);
-    const iconAnimatedStyle = useSelectorIconAnimation(isVisible);
+    const { heightAnimatedStyle, iconAnimatedStyle } =
+        useSelectorAnimations(isVisible);
     const placeHolderStyle = value ? {} : styles.placeholder;
 
     const handlePressItem = useCallback(
