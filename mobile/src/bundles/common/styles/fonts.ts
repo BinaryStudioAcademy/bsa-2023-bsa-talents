@@ -67,7 +67,7 @@ const FONTS = {
         color: Color.PRIMARY,
         textTransform: 'uppercase' as const,
     },
-    [TextCategory.INPUT_PLACEHOLDER]: {
+    [TextCategory.PLACEHOLDER]: {
         fontFamily: FontFamily.INTER_REGULAR,
         fontSize: 13,
         color: Color.TEXT2,
