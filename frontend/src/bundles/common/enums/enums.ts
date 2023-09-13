@@ -9,5 +9,6 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
+    HttpCode,
     ServerErrorType,
 } from 'shared/build/index.js';

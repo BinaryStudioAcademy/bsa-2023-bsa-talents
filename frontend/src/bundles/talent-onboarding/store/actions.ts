@@ -10,7 +10,19 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(`${sliceName}/update-talent-details`, async (registerPayload, { extra }) => {
-    const { talentOnBoardingApi } = extra;
+    const { talentOnBoardingApi, fileUploadApi } = extra;
+    const { cv, photo, ...restPayload } = registerPayload;
+    let cvId: string, photoId: string;
+
+    if (cv) {
+        cvId = await fileUploadApi.uploadDocument({ cv });
+        restPayload.cvId = cvId;
+    }
+
+    if (photo) {
+        photoId = await fileUploadApi.uploadImage({ photo: photo });
+        restPayload.photoId = photoId;
+    }
 
     if ('badges' in registerPayload) {
         return registerPayload;
@@ -21,8 +33,8 @@ const updateTalentDetails = createAsyncThunk<
     });
 
     return await (userDetails
-        ? talentOnBoardingApi.updateUserDetails(registerPayload)
-        : talentOnBoardingApi.createUserDetails(registerPayload));
+        ? talentOnBoardingApi.updateUserDetails(restPayload)
+        : talentOnBoardingApi.createUserDetails(restPayload));
 });
 
 const getTalentDetails = createAsyncThunk<

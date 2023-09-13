@@ -1,7 +1,4 @@
-import {
-    type ContentType,
-    ServerErrorType,
-} from '~/bundles/common/enums/enums.js';
+import { ContentType, ServerErrorType } from '~/bundles/common/enums/enums.js';
 import {
     type ServerErrorResponse,
     type ValueOf,
@@ -77,8 +74,16 @@ class HttpApiBase implements HttpApi {
         hasAuth: boolean,
     ): Promise<Headers> {
         const headers = new Headers();
+        const RADIX = 16;
 
-        headers.append(HttpHeader.CONTENT_TYPE, contentType);
+        let ct: string = contentType;
+        if (contentType === ContentType.MULTI_PART_FORM) {
+            ct = `${contentType}; boundary=------------------------${Date.now().toString(
+                RADIX,
+            )}`;
+        }
+
+        headers.append(HttpHeader.CONTENT_TYPE, ct);
 
         if (hasAuth) {
             const token = await this.storage.get<string>(StorageKey.TOKEN);
