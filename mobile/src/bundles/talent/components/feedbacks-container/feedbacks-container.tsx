@@ -2,16 +2,19 @@ import React from 'react';
 
 import { Tag, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
 type Properties = {
-    personalityType: string[];
+    personalityTypes: string[];
     HRBadges: string[];
 };
 
-const Feedbacks = ({ personalityType, HRBadges }: Properties): JSX.Element => {
+const FeedbacksContainer = ({
+    personalityTypes,
+    HRBadges,
+}: Properties): JSX.Element => {
     return (
         <>
             <Text category={TextCategory.BODY1}>Personality type</Text>
@@ -23,7 +26,7 @@ const Feedbacks = ({ personalityType, HRBadges }: Properties): JSX.Element => {
                     styles.personalityWrapper,
                 ]}
             >
-                {personalityType.map((type) => {
+                {personalityTypes.map((type) => {
                     return <Tag key={type} value={type} />;
                 })}
             </View>
@@ -44,4 +47,4 @@ const Feedbacks = ({ personalityType, HRBadges }: Properties): JSX.Element => {
     );
 };
 
-export { Feedbacks };
+export { FeedbacksContainer };

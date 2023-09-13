@@ -18,7 +18,10 @@ type Properties = {
     skills: string[];
 };
 
-const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
+const ScoresAndSkillsContainer = ({
+    badges,
+    skills,
+}: Properties): JSX.Element => {
     return (
         <View>
             <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
@@ -63,4 +66,4 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
     );
 };
 
-export { ScoresAndSkills };
+export { ScoresAndSkillsContainer };

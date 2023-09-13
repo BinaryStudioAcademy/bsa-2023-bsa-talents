@@ -6,7 +6,7 @@ import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { styles } from './style';
 
-const Project = (): JSX.Element => {
+const ProjectContainer = (): JSX.Element => {
     return (
         <View>
             <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
@@ -27,4 +27,4 @@ const Project = (): JSX.Element => {
     );
 };
 
-export { Project };
+export { ProjectContainer };

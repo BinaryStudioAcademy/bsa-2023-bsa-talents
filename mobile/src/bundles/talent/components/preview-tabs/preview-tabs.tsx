@@ -11,10 +11,12 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { ProfileTab } from '~/bundles/talent/enums/enums';
 
-import { Feedbacks } from '../feedbacks/feedbacks';
-import { Project } from '../project/project';
-import { ScoresAndSkills } from '../scores-and-skills/scores-and-skills';
+import { FeedbacksContainer } from '../feedbacks-container/feedbacks-container';
+import { ProjectContainer } from '../project-container/project-container';
+import { ScoresAndSkillsContainer } from '../scores-and-skills-container/scores-and-skills-container';
 import { styles } from './styles';
+
+const tabs = Object.values(ProfileTab);
 
 type Tab = ValueOf<typeof ProfileTab>;
 
@@ -46,7 +48,7 @@ const PreviewTabs = ({
                     globalStyles.justifyContentSpaceBetween,
                 ]}
             >
-                {Object.values(ProfileTab).map((profileTab: Tab) => {
+                {tabs.map((profileTab: Tab) => {
                     return (
                         <TouchableOpacity
                             key={profileTab}
@@ -74,15 +76,18 @@ const PreviewTabs = ({
                 ]}
             >
                 {tab === ProfileTab.SCORES_SKILLS && (
-                    <ScoresAndSkills badges={badges} skills={hardSkills} />
+                    <ScoresAndSkillsContainer
+                        badges={badges}
+                        skills={hardSkills}
+                    />
                 )}
                 {tab === ProfileTab.FEEDBACKS && (
-                    <Feedbacks
-                        personalityType={personalType}
+                    <FeedbacksContainer
+                        personalityTypes={personalType}
                         HRBadges={HRBadges}
                     />
                 )}
-                {tab === ProfileTab.PROJECT && <Project />}
+                {tab === ProfileTab.PROJECT && <ProjectContainer />}
             </View>
         </>
     );
