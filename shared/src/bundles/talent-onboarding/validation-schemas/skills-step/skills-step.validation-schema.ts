@@ -42,16 +42,7 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
                 .valid(
                     ...Object.values(SkillsStepValidationRule.NOT_CONSIDERED),
                 ),
-        )
-        .min(SkillsStepValidationRule.NOT_CONSIDERED_MIN_LENGTH)
-        .required()
-        .messages({
-            'array.includes':
-                SkillsStepValidationMessage.NOT_CONSIDERED_DIDNT_MATCH_ALLOWED_TYPES,
-            'array.min': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
-            'any.required': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
-            'any.only': SkillsStepValidationMessage.NOT_CONSIDERED_REQUIRED,
-        }),
+        ),
 
     preferredLanguages: joi
         .array()
