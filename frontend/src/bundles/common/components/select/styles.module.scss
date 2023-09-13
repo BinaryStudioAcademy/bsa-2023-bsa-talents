@@ -43,6 +43,6 @@
     border-color: var(--botticelli);
 }
 
-.input div:first-child {
+.input :global(.MuiSelect-select) {
     padding: 4px;
 }
