@@ -1,8 +1,28 @@
-.form {
+.formFilter {
     display: flex;
     flex-direction: column;
     max-width: 100%;
     padding: 0;
+}
+
+.label {
+    margin-bottom: 5px;
+    color: var(--text-primary-dark);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-main);
+
+    .requiredField {
+        color: var(--st-tropaz);
+    }
+
+    .Mui-focused {
+        color: var(--text-primary-dark);
+    }
+}
+
+.hasError {
+    margin-left: 0;
+    color: var(--error-primary);
 }
 
 .chips {

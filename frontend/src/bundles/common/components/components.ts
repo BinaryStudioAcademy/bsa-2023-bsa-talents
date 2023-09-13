@@ -1,4 +1,5 @@
 export { App } from '../../../app/app.js';
+export { CustomAutocomplete as Autocomplete } from './autocomplete/autocomplete.js';
 export { Avatar, HeaderAvatar } from './avatar/components.js';
 export { Badge } from './badge/badge.js';
 export { Button, type ButtonProperties } from './button/button.js';

@@ -1,4 +1,11 @@
-import { Autocomplete, FormControl, TextField } from '@mui/material';
+import {
+    Autocomplete,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    TextField,
+    Typography,
+} from '@mui/material';
 import { type SyntheticEvent } from 'react';
 import {
     type Control,
@@ -14,33 +21,32 @@ import {
 
 import styles from './styles.module.scss';
 
-type Properties<T extends FieldValues> = {
-    control: Control<T, null>;
-    name: FieldPath<T>;
-};
-
 type Option = {
     label: string;
     value: string;
 };
 
-// TODO: get hard skills from db
-const hardSkillsOptions: Option[] = [
-    { value: 'React', label: 'React' },
-    { value: 'Node.js', label: 'Node.js' },
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'HTML', label: 'HTML' },
-    { value: 'CSS', label: 'CSS' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'Ruby', label: 'Ruby' },
-];
+type Properties<T extends FieldValues> = {
+    control: Control<T, null>;
+    name: FieldPath<T>;
+    options: Option[];
+    isFilter?: boolean;
+    placeholder?: string;
+    label?: string;
+};
 
-const SkillsAutocomplete = <T extends FieldValues>({
+const CustomAutocomplete = <T extends FieldValues>({
     name,
     control,
+    options,
+    isFilter = false,
+    placeholder,
+    label,
 }: Properties<T>): JSX.Element => {
-    const { field } = useFormController({ name, control });
+    const {
+        field,
+        formState: { errors },
+    } = useFormController({ name, control });
 
     const { onChange, value, ...fieldPassProperties } = field;
 
@@ -51,7 +57,7 @@ const SkillsAutocomplete = <T extends FieldValues>({
                 <TextField
                     {...fieldPassProperties}
                     className={styles.inputRoot}
-                    placeholder="Start typing and select skills"
+                    placeholder={placeholder}
                     inputProps={{
                         ...inputProps,
                         className: styles.input,
@@ -63,7 +69,7 @@ const SkillsAutocomplete = <T extends FieldValues>({
                 />
             );
         },
-        [fieldPassProperties],
+        [fieldPassProperties, placeholder],
     );
 
     const hideDefaultTags = useCallback(() => null, []);
@@ -84,23 +90,29 @@ const SkillsAutocomplete = <T extends FieldValues>({
     );
 
     const handleDelete = useCallback(
-        (deletedSkill: Option) => () => {
-            const updatedSkills = (value as Option[]).filter(
-                (skill) => skill.value !== deletedSkill.value,
+        (deletedOption: Option) => () => {
+            const updatedOptions = (value as Option[]).filter(
+                (option) => option.value !== deletedOption.value,
             );
-            onChange(updatedSkills);
+            onChange(updatedOptions);
         },
         [value, onChange],
     );
 
     return (
-        <FormControl className={styles.form}>
+        <FormControl className={isFilter ? styles.formFilter : ''}>
+            {!isFilter && (
+                <FormLabel className={styles.label}>
+                    <Typography variant={'label'}>{label}</Typography>
+                    <span className={styles.requiredField}>*</span>
+                </FormLabel>
+            )}
+
             <Autocomplete<Option, true>
                 multiple
-                className={styles.autocomplete}
-                value={value || []}
+                value={value as Option[]}
                 renderInput={renderInput}
-                options={hardSkillsOptions}
+                options={options}
                 renderTags={hideDefaultTags}
                 popupIcon={null}
                 clearIcon={null}
@@ -117,8 +129,13 @@ const SkillsAutocomplete = <T extends FieldValues>({
                     />
                 ))}
             </div>
+            {errors[name] && !isFilter && (
+                <FormHelperText className={styles.hasError}>
+                    {errors[name]?.message as string}
+                </FormHelperText>
+            )}
         </FormControl>
     );
 };
 
-export { SkillsAutocomplete };
+export { CustomAutocomplete };

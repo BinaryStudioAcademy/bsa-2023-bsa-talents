@@ -7,7 +7,9 @@ import {
     type UseFormStateReturn,
 } from 'react-hook-form';
 
+import { hardSkillsOptions } from '~/assets/mock-data/hard-skills.js';
 import {
+    Autocomplete,
     Button,
     Checkbox,
     FormLabel,
@@ -28,7 +30,6 @@ import {
     JobTitle,
 } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
-import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
@@ -252,9 +253,12 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 <Grid>
                     <FormLabel className={styles.labels}>
                         {'Hard Skills'}
-                        <SkillsAutocomplete
+                        <Autocomplete
+                            isFilter={true}
                             name="hardSkills"
                             control={control}
+                            options={hardSkillsOptions}
+                            placeholder="Start typing and select skills"
                         />
                     </FormLabel>
                 </Grid>
