@@ -8,7 +8,7 @@
     background-color: var(--solitude);
     border-radius: 5px;
 
-    & span {
+    & :global(.MuiChip-label) {
         padding: 5px 6px;
         font-weight: var(--font-weight-medium);
         font-size: var(--font-size-base);
