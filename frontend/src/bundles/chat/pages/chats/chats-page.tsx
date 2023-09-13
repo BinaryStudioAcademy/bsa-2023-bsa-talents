@@ -1,10 +1,10 @@
-import { Close, PersonSearch } from '@mui/icons-material';
-import { IconButton, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import {
     ChatHeader,
     ChatList,
+    CompanyInfo,
     MessageInput,
     MessageList,
 } from '~/bundles/chat/components/components.js';
@@ -16,24 +16,40 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { currentUser, items, messages } from '../../mock-data/mock-data.js';
+import {
+    ChatInfoIcon,
+    ChatListIcon,
+} from '../../components/small-screen-button/components.js';
+import {
+    companyInfo,
+    currentUser,
+    items,
+    messages,
+} from '../../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
     const theme = useTheme();
     const isScreenLessMD = useMediaQuery(theme.breakpoints.down('md'));
+    const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
     const isScreenLessLG = useMediaQuery(theme.breakpoints.down('lg'));
 
     const [isOpenChatList, setIsOpenChatList] = useState(false);
+    const [isOpenInfo, setIsOpenInfo] = useState(false);
     const [chatMessages, setChatMessages] = useState(messages);
 
     const handleOpenChatListButton = useCallback(() => {
         setIsOpenChatList(!isOpenChatList);
     }, [isOpenChatList]);
 
+    const handleOpenInfoButton = useCallback(() => {
+        setIsOpenInfo(!isOpenInfo);
+    }, [isOpenInfo]);
+
     useEffect(() => {
-        setIsOpenChatList(false);
-    }, [isScreenLessMD]);
+        !isScreenLessMD && setIsOpenChatList(false);
+        !isScreenLessLG && setIsOpenInfo(false);
+    }, [isScreenLessMD, isScreenLessLG]);
 
     // TODO: will be replaced by redux logic with server API
     const [currentChat, setCurrentChat] = useState({
@@ -90,7 +106,7 @@ const ChatsPage: React.FC = () => {
                         className={getValidClassNames(
                             styles.chatList,
                             isScreenLessLG && styles.chatListSmall,
-                            isOpenChatList && styles.chatListOpened,
+                            isOpenChatList && styles.componentOpenedSmallest,
                         )}
                     >
                         <ChatList
@@ -105,15 +121,21 @@ const ChatsPage: React.FC = () => {
                     direction="column"
                     className={styles.chatWindow}
                 >
-                    {isScreenLessMD && (
-                        <div className={styles.openChatListButtonWrapper}>
-                            <IconButton onClick={handleOpenChatListButton}>
-                                {isOpenChatList ? (
-                                    <Close fontSize="large" />
-                                ) : (
-                                    <PersonSearch fontSize="large" />
-                                )}
-                            </IconButton>
+                    {isScreenLessLG && (
+                        <div className={styles.smallScreenButtonGroup}>
+                            {isScreenLessMD && !isOpenInfo && (
+                                <ChatListIcon
+                                    onClick={handleOpenChatListButton}
+                                    isOpen={isOpenChatList}
+                                />
+                            )}
+
+                            {!isOpenChatList && (
+                                <ChatInfoIcon
+                                    onClick={handleOpenInfoButton}
+                                    isOpen={isOpenInfo}
+                                />
+                            )}
                         </div>
                     )}
                     <ChatHeader
@@ -131,6 +153,17 @@ const ChatsPage: React.FC = () => {
                         onSend={sendMessage}
                     />
                 </Grid>
+                {(!isScreenLessLG || isOpenInfo) && (
+                    <Grid
+                        className={getValidClassNames(
+                            styles.chatCompanyInfo,
+                            isOpenInfo && styles.componentOpenedSmallest,
+                            isScreenMoreMD && styles.chatInfoOpenedMD,
+                        )}
+                    >
+                        <CompanyInfo companyData={companyInfo} />
+                    </Grid>
+                )}
             </Grid>
         </Grid>
     );

@@ -1,3 +1,4 @@
+import { type CompanyInfoDto } from '~/bundles/chat/types/types.js';
 import {
     Avatar,
     Button,
@@ -6,7 +7,6 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
-import { type CompanyInfoDto } from '../../types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -47,7 +47,6 @@ const CompanyInfo: React.FC<Properties> = ({
                     </Typography>
                 </Grid>
             </Grid>
-            <div className={styles.divider}></div>
             <Grid className={styles.content}>
                 <Typography className={styles.contentHeading} variant="h6">
                     About {companyName}

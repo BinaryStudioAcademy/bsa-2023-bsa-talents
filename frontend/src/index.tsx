@@ -88,9 +88,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.CHATS,
                                         element: (
-                                            <ProtectedRoute>
+                                            // <ProtectedRoute>
+                                            <PageLayout avatarUrl="" isOnline>
                                                 <ChatsPage />
-                                            </ProtectedRoute>
+                                            </PageLayout>
+                                            // </ProtectedRoute>
                                         ),
                                     },
                                     {

@@ -7,6 +7,7 @@
     --chat-wrapper-height: calc(
         99vh - var(--header-height) - var(--page-title-height)
     );
+    --chat-list-small-min-width: 250px;
 }
 
 .header {
@@ -29,15 +30,17 @@
 
 .chatList {
     box-sizing: border-box;
+    min-width: 350px;
     max-width: 350px;
     border-right: var(--border);
 }
 
 .chatListSmall {
-    max-width: 250px;
+    min-width: unset;
+    max-width: var(--chat-list-small-min-width);
 }
 
-.chatListOpened {
+.componentOpenedSmallest {
     position: absolute;
     top: var(--chat-header-height);
     right: 0;
@@ -46,6 +49,10 @@
     max-width: 100%;
     height: calc(var(--chat-wrapper-height) - var(--page-title-height));
     background-color: var(--white);
+}
+
+.chatInfoOpenedMD {
+    left: var(--chat-list-small-min-width);
 }
 
 .chatWindow {
@@ -66,11 +73,16 @@
     height: var(--chat-input-height);
 }
 
-.openChatListButtonWrapper {
+.smallScreenButtonGroup {
     position: absolute;
     right: 0;
     display: flex;
     align-items: center;
     height: var(--chat-header-height);
     padding: 0 calc(var(--chat-header-padding) - 8px);
+}
+
+.chatCompanyInfo {
+    flex-basis: 350px;
+    min-width: 350px;
 }
