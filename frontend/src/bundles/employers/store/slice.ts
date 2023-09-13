@@ -9,12 +9,12 @@ import { searchCandidates } from './actions.js';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    searchFiltersValues: EmployeesFiltersDto;
+    filters: EmployeesFiltersDto;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    searchFiltersValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
+    filters: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -26,9 +26,9 @@ const { reducer, actions, name } = createSlice({
         },
     },
     extraReducers(builder) {
-        builder.addCase(searchCandidates.fulfilled, (state, actions) => {
+        builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
-            state.searchFiltersValues = actions.payload;
+            state.filters = action.payload;
         });
         builder.addCase(searchCandidates.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

@@ -1,24 +1,29 @@
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 
-function debounce<
-    F extends (arguments_: EmployeesFiltersDto) => EmployeesFiltersDto,
->(
-    callback: F,
+type DebounceCallback = (
+    filters: EmployeesFiltersDto,
+    resolve: (result: EmployeesFiltersDto) => void,
+) => void;
+
+function debounce(
+    function_: DebounceCallback,
     delay: number,
-): (functionArguments: EmployeesFiltersDto) => void {
+): (
+    filters: EmployeesFiltersDto,
+    resolve: (result: EmployeesFiltersDto) => void,
+) => void {
     let debounceTimer: NodeJS.Timeout | null = null;
 
     return function (
-        this: ThisParameterType<F>,
-        arguments_: EmployeesFiltersDto,
-    ) {
+        filters: EmployeesFiltersDto,
+        resolve: (result: EmployeesFiltersDto) => void,
+    ): void {
         if (debounceTimer) {
             clearTimeout(debounceTimer);
         }
-        debounceTimer = setTimeout(
-            () => callback.call(this, arguments_),
-            delay,
-        );
+        debounceTimer = setTimeout(() => {
+            function_(filters, resolve);
+        }, delay);
     };
 }
 
