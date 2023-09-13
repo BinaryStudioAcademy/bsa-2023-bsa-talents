@@ -24,6 +24,7 @@ const mockUser = {
 };
 
 const iconSize = 24;
+type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 const ProfilePreview: React.FC = () => {
     const { onboardingData } = useAppSelector(({ auth }) => auth);
@@ -159,11 +160,7 @@ const ProfilePreview: React.FC = () => {
                 {onboardingData?.description}
             </Text>
             <PreviewTabs
-                badges={
-                    onboardingData?.badges as ValueOf<
-                        typeof BsaBadgeStepBadgesTitle
-                    >[]
-                }
+                badges={onboardingData?.badges as BadgeName[]}
                 hardSkills={onboardingData.hardSkills}
                 personalType={mockUser.PERSONAL_TYPE}
                 HRBadges={mockUser.HR_BADGES}
