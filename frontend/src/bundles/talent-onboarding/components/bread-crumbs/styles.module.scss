@@ -10,21 +10,18 @@
     display: flex;
     align-items: center;
     padding-right: 5px;
-    list-style-type: none;
-}
-
-.breadCrumbLink {
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-body);
-}
+    list-style-type: none;
 
-.breadCrumbLinkActive {
-    color: var(--st-tropaz);
-    font-weight: var(--font-weight-medium);
-}
+    a.active {
+        color: var(--text-primary);
+    }
 
-a[aria-current="page"] {
-    color: var(--text-primary);
+    a.inactive {
+        color: var(--st-tropaz);
+        font-weight: var(--font-weight-medium);
+    }
 }
 
 .icon {
