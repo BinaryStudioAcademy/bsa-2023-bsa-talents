@@ -36,20 +36,30 @@ class UserDetailsRepository implements Repository {
         payload: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
         const query = this.userDetailsModel.query().where((builder) => {
-            if (payload.search) {
-                void builder.where('fullName', 'ilike', `%${payload.search}%`);
+            if (payload.searchValue) {
+                void builder.where(
+                    'fullName',
+                    'ilike',
+                    `%${payload.searchValue}%`,
+                );
             }
 
-            if (payload.isHired) {
-                void builder.where('isHired', payload.isHired);
+            if (payload.searchActiveCandidatesOnly) {
+                void builder.where(
+                    'isHired',
+                    payload.searchActiveCandidatesOnly,
+                );
             }
 
             if (payload.jobTitle) {
                 void builder.where('jobTitle', payload.jobTitle);
             }
 
-            if (payload.experienceYears) {
-                void builder.where('experienceYears', payload.experienceYears);
+            if (payload.yearsOfExperience) {
+                void builder.where(
+                    'experienceYears',
+                    payload.yearsOfExperience,
+                );
             }
 
             if (payload.hardSkills && payload.hardSkills.length > 0) {
