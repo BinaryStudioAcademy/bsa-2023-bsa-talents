@@ -28,11 +28,10 @@ const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
 const TalentOnboardingNavigator: React.FC = () => {
     const { completedStep } = useAppSelector(({ talents }) => talents);
-    const firstStepNumber = 1;
+    const stepToActiveScreen = 1;
     const activeStepNumber = completedStep
-        ? TalentOnboardingScreenNumber[completedStep]
-        : firstStepNumber;
-
+        ? TalentOnboardingScreenNumber[completedStep] + stepToActiveScreen
+        : stepToActiveScreen;
     const getStepStatus = useCallback(
         (
             stepName: ValueOf<typeof TalentOnboardingScreenName>,
