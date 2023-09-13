@@ -223,6 +223,7 @@ const ProfileStep: React.FC = () => {
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'jobTitle'}
                     options={jobTitleOptions}
                     placeholder="Option"
@@ -254,6 +255,7 @@ const ProfileStep: React.FC = () => {
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'location'}
                     options={locationOptions}
                     placeholder="Option"
