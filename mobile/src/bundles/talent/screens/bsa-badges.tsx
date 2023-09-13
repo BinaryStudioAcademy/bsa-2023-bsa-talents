@@ -3,7 +3,7 @@ import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    TalentOnboardingScreenName,
+    type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
@@ -23,6 +23,7 @@ import {
     BsaBadgesForm,
     NewAccountHeader,
 } from '~/bundles/talent/components/components';
+import { getNextStepTitle } from '~/bundles/talent/helpers/helpers';
 import { actions as talentActions } from '~/bundles/talent/store';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 
@@ -61,18 +62,17 @@ const BsaBadges: React.FC = () => {
 
             if (result.payload) {
                 const setStepResult = dispatch(
-                    talentActions.setCompletedStep(
-                        TalentOnboardingScreenName.BSA_BADGES,
-                    ),
+                    talentActions.setCompletedStep(stepTitle),
                 );
-                if (setStepResult.payload) {
-                    navigate(TalentOnboardingScreenName.SKILLS_AND_PROJECTS, {
+                const nextStepTitle = getNextStepTitle(stepNumber);
+                if (setStepResult.payload && nextStepTitle) {
+                    navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
                 }
             }
         },
-        [dispatch, navigate, userId],
+        [dispatch, navigate, userId, stepNumber, stepTitle],
     );
 
     const handleBadgesSubmit = (payload: BsaBadgesStepDto): void => {

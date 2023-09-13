@@ -4,34 +4,12 @@ import React from 'react';
 import { Button } from '~/bundles/common/components/components';
 import {
     ButtonType,
-    type TalentOnboardingScreenName,
-    TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
 import { useCallback, useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    type TalentOnboardingNavigationParameterList,
-    type ValueOf,
-} from '~/bundles/common/types/types';
-
-type ScreenName = ValueOf<typeof TalentOnboardingScreenName>;
-
-const STEP = 1;
-
-const previousStepTitle = (currentStep: number): ScreenName | undefined => {
-    const screenNames = Object.keys(
-        TalentOnboardingScreenNumber,
-    ) as (keyof typeof TalentOnboardingScreenName)[];
-
-    const screenName = screenNames.find(
-        (key) =>
-            TalentOnboardingScreenNumber[key as ScreenName] ===
-            currentStep - STEP,
-    );
-
-    return screenName as ScreenName;
-};
+import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import { getPreviousStepTitle } from '~/bundles/talent/helpers/helpers';
 
 type Properties = {
     currentStep: number;
@@ -44,7 +22,7 @@ const BackFormButton: React.FC<Properties> = ({ currentStep }) => {
         >();
 
     const handlePreviousPress = useCallback((): void => {
-        const previousScreenName = previousStepTitle(currentStep);
+        const previousScreenName = getPreviousStepTitle(currentStep);
         if (previousScreenName) {
             navigate(previousScreenName, {
                 stepState: TalentOnboardingStepState.FOCUSED,

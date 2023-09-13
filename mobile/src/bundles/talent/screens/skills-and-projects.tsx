@@ -3,7 +3,7 @@ import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    TalentOnboardingScreenName,
+    type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
@@ -24,6 +24,7 @@ import {
     SkillsAndProjectsForm,
 } from '~/bundles/talent/components/components';
 import {
+    getNextStepTitle,
     stringsToUrlObjects,
     urlObjectsToStrings,
 } from '~/bundles/talent/helpers/helpers';
@@ -72,18 +73,17 @@ const SkillsAndProjects: React.FC = () => {
 
             if (result.payload) {
                 const setStepResult = dispatch(
-                    talentActions.setCompletedStep(
-                        TalentOnboardingScreenName.SKILLS_AND_PROJECTS,
-                    ),
+                    talentActions.setCompletedStep(stepTitle),
                 );
-                if (setStepResult.payload) {
-                    navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
+                const nextStepTitle = getNextStepTitle(stepNumber);
+                if (setStepResult.payload && nextStepTitle) {
+                    navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
                 }
             }
         },
-        [dispatch, navigate, userId],
+        [dispatch, navigate, userId, stepNumber, stepTitle],
     );
 
     const handleSkillsSubmit = (payload: SkillsStepDto): void => {

@@ -1,5 +1,4 @@
 import {
-    completeSkillsStep,
     createTalentDetails,
     getTalentDetails,
     setCompletedStep,
@@ -13,7 +12,6 @@ const allActions = {
     getTalentDetails,
     setCompletedStep,
     updateOnboardingData,
-    completeSkillsStep,
 };
 
 export { allActions as actions };

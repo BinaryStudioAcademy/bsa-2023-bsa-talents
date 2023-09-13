@@ -1,7 +1,6 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
-    type SkillsStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
@@ -101,11 +100,6 @@ class TalentApi extends HttpApiBase {
         };
 
         return fakeTalentDetailsData;
-    }
-
-    //TODO temporary
-    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
-        return payload;
     }
 }
 

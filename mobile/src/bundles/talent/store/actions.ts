@@ -4,7 +4,6 @@ import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type CvAndContactsFormDto,
-    type SkillsStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsGeneralRequestDto,
@@ -81,17 +80,7 @@ const contactsCVStep = createAsyncThunk<
     return contactsCVStepPayload;
 });
 
-const completeSkillsStep = createAsyncThunk<
-    SkillsStepDto,
-    SkillsStepDto,
-    AsyncThunkConfig
->(`${sliceName}/skills-step`, (skillsStepPayload, { extra }) => {
-    const { talentApi } = extra;
-    return talentApi.completeSkillsStep(skillsStepPayload);
-});
-
 export {
-    completeSkillsStep,
     contactsCVStep,
     createTalentDetails,
     getTalentDetails,

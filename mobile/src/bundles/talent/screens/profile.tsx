@@ -3,7 +3,7 @@ import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    TalentOnboardingScreenName,
+    type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
@@ -23,6 +23,7 @@ import {
     NewAccountHeader,
     ProfileForm,
 } from '~/bundles/talent/components/components';
+import { getNextStepTitle } from '~/bundles/talent/helpers/helpers';
 import { actions as talentActions } from '~/bundles/talent/store';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
@@ -92,18 +93,17 @@ const Profile: React.FC = () => {
 
             if (result.payload) {
                 const setStepResult = dispatch(
-                    talentActions.setCompletedStep(
-                        TalentOnboardingScreenName.PROFILE,
-                    ),
+                    talentActions.setCompletedStep(stepTitle),
                 );
-                if (setStepResult.payload) {
-                    navigate(TalentOnboardingScreenName.BSA_BADGES, {
+                const nextStepTitle = getNextStepTitle(stepNumber);
+                if (setStepResult.payload && nextStepTitle) {
+                    navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
                 }
             }
         },
-        [dispatch, navigate, userId, completedStep],
+        [dispatch, navigate, userId, completedStep, stepNumber, stepTitle],
     );
 
     const handleProfileSubmit = (payload: ProfileStepDto): void => {
