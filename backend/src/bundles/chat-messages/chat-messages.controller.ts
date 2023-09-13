@@ -118,6 +118,7 @@ class ChatMessagesController extends ControllerBase {
      *             schema:
      *               type: array
      *               items:
+     *                 type: object
      *                 $ref: '#/components/schemas/ChatMessage'
      */
     private async getAll(): Promise<ApiHandlerResponse> {
@@ -152,6 +153,7 @@ class ChatMessagesController extends ControllerBase {
      *             schema:
      *               type: array
      *               items:
+     *                 type: object
      *                 $ref: '#/components/schemas/ChatMessage'
      */
     private async getAllByChatId(
