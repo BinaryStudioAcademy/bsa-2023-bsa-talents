@@ -18,7 +18,6 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { Candidate } from './bundles/candidate/pages/candidate.js'; // Remove after testing
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
@@ -46,10 +45,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 )}
                                             />
                                         ),
-                                    },
-                                    {
-                                        path: AppRoute.CONTACT_TALENT, // Remove after testing
-                                        element: <Candidate />,
                                     },
                                     {
                                         path: AppRoute.SIGN_IN,
