@@ -46,7 +46,7 @@
     background: var(--white);
     border: none;
 
-    & fieldset {
+    & :global(.MuiOutlinedInput-notchedOutline) {
         border: none;
     }
 }
