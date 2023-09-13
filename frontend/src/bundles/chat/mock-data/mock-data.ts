@@ -1,13 +1,27 @@
 const imageAvatar =
     'https://cdn.pixabay.com/photo/2023/07/27/13/37/cottage-8153413_1280.jpg';
 
+const currentUser = {
+    id: '3',
+    userId: 'id',
+    value: 'initial',
+    avatarUrl:
+        'https://cdn.pixabay.com/photo/2023/05/11/03/34/baseball-7985433_960_720.jpg',
+    userFullName: 'Coconut',
+};
+
 const items = [
-    { userId: '1', username: 'only apple and id' },
+    {
+        userId: '1',
+        username: 'only apple and id',
+        avatar: 'https://cdn.pixabay.com/photo/2023/09/10/00/49/lovebird-8244066_1280.jpg',
+    },
     {
         userId: '2',
         username: 'regular broccoli',
         lastMessage: 'hello again, and again',
         lastMessageDate: '2h',
+        avatar: 'https://cdn.pixabay.com/photo/2023/09/10/09/50/squirrel-8244590_1280.jpg',
     },
     {
         userId: '3',
@@ -17,7 +31,11 @@ const items = [
         lastMessageDate: '21m',
         avatar: imageAvatar,
     },
-    { userId: '4', username: 'only name and id4' },
+    {
+        userId: '4',
+        username: 'only name and id4',
+        avatar: 'https://cdn.pixabay.com/photo/2023/08/27/08/20/hiking-8216486_1280.jpg',
+    },
     { userId: '5', username: 'only name and id5' },
     { userId: '6', username: 'only name and id6' },
     { userId: '7', username: 'only name and id7' },
@@ -39,14 +57,7 @@ const messages = [
         avatarUrl: '',
         userFullName: 'Broccoli',
     },
-    {
-        id: '3',
-        userId: 'id',
-        value: 'broken avatar link',
-        avatarUrl:
-            'https://cdn.pixabay.com/phot/2023/07/27/13/37/cottage-8153413_1280.jpg',
-        userFullName: 'Coconut',
-    },
+    currentUser,
     {
         id: '4',
         userId: '11',
@@ -78,10 +89,11 @@ const messages = [
     {
         id: '8',
         userId: '11',
-        value: 'hello again 2',
-        avatarUrl: imageAvatar,
+        value: 'broken avatar image link',
+        avatarUrl:
+            'https://cdn.pixabay.com/photo/2023/08/27/08/20/hiking6_1280.jpg',
         userFullName: 'Lime Lime',
     },
 ];
 
-export { items, messages };
+export { currentUser, items, messages };
