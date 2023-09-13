@@ -29,7 +29,7 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
     ),
     yearsOfExperience: joi
         .alternatives()
-        .try(joi.array().items(joi.number()), joi.number()),
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
     hardSkills: joi
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),

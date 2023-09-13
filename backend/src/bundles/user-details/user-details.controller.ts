@@ -386,24 +386,33 @@ class UserDetailsController extends ControllerBase {
      *        - bearerAuth: []
      *      parameters:
      *        - in: query
-     *          name: search
+     *          name: searchValue
      *          schema:
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: isHired
+     *          name: isBaseSearch
      *          schema:
      *            type: boolean
-     *          description: Filter by hired status (optional)
+     *          description: Determines whether search type is base or extended
+     *        - in: query
+     *          name: searchActiveCandidatesOnly
+     *          schema:
+     *            type: boolean
+     *          description: Filter by active status (optional)
      *        - in: query
      *          name: jobTitle
      *          schema:
-     *            type: string
+     *            type: array
+     *            items:
+     *              type: string
      *          description: Filter by job title (optional)
      *        - in: query
-     *          name: experienceYears
+     *          name: yearsOfExperience
      *          schema:
-     *            type: number
+     *            type: array
+     *            items:
+     *              type: string
      *          description: Filter by years of experience (optional)
      *        - in: query
      *          name: hardSkills
@@ -426,12 +435,16 @@ class UserDetailsController extends ControllerBase {
      *        - in: query
      *          name: location
      *          schema:
-     *            type: string
+     *            type: array
+     *            items:
+     *              type: string
      *          description: Filter by location (optional)
      *        - in: query
      *          name: englishLevel
      *          schema:
-     *            type: string
+     *            type: array
+     *            items:
+     *              type: string
      *          description: Filter by English level (optional)
      *        - in: query
      *          name: employmentType
@@ -442,6 +455,24 @@ class UserDetailsController extends ControllerBase {
      *          style: form
      *          explode: true
      *          description: Filter by employment type (optional)
+     *        - in: query
+     *          name: userBsaCharacteristics
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by userBsaCharacteristics (optional)
+     *        - in: query
+     *          name: userBsaProject
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by userBsaProject (optional)
      *      responses:
      *         200:
      *           description: Successful operation

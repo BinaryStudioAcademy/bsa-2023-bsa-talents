@@ -79,6 +79,7 @@ export {
     getAvatarInitials,
     getItemsWithSelected,
     getSearchedItems,
+    mapQueryValuesToArrays,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

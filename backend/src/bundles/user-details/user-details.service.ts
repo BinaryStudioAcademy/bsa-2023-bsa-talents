@@ -1,3 +1,5 @@
+import { mapQueryValuesToArrays } from 'shared/build/index.js';
+
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
@@ -32,22 +34,11 @@ class UserDetailsService implements Service {
     public searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
-        if (searchData.hardSkills) {
-            searchData.hardSkills = Array.isArray(searchData.hardSkills)
-                ? searchData.hardSkills
-                : [searchData.hardSkills];
-        }
-        if (searchData.BSABadges) {
-            searchData.BSABadges = Array.isArray(searchData.BSABadges)
-                ? searchData.BSABadges
-                : [searchData.BSABadges];
-        }
-        if (searchData.employmentType) {
-            searchData.employmentType = Array.isArray(searchData.employmentType)
-                ? searchData.employmentType
-                : [searchData.employmentType];
-        }
-        return this.userDetailsRepository.searchUsers(searchData);
+        const preparedData = mapQueryValuesToArrays(searchData, [
+            'searchValue',
+        ]);
+
+        return this.userDetailsRepository.searchUsers(preparedData);
     }
 
     public async create(
