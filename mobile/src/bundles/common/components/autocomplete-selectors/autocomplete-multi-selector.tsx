@@ -104,7 +104,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                             styles.dropdown,
                         ]}
                     >
-                        <ScrollView nestedScrollEnabled>
+                        <ScrollView nestedScrollEnabled persistentScrollbar>
                             {filteredItems.map((item: Options) => (
                                 <TouchableOpacity
                                     key={item.value}
