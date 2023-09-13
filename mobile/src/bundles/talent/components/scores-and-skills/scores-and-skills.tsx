@@ -2,7 +2,7 @@ import React from 'react';
 import { type BsaBadgeStepBadgesTitle, type ValueOf } from 'shared/build/index';
 
 import { Tag, Text, View } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
 import { Badge } from '../components';
@@ -37,8 +37,8 @@ const ScoresAndSkills = ({ badges, skills }: Properties): JSX.Element => {
                             key={badge.label}
                             badgeType={badge.label}
                             value={badge.value}
-                            size="small"
-                            iconSize={30}
+                            size={BadgeSize.SMALL}
+                            iconSize={20}
                         />
                     );
                 })}
