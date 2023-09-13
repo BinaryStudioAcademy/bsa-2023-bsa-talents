@@ -10,8 +10,7 @@ const searchCandidates = createAsyncThunk<
     EmployeesFiltersDto,
     AsyncThunkConfig
 >(`${sliceName}/search-candidates`, (filters) => {
-    // Call your async backend method here if needed
-    // For now, we're just returning the filters
+    // TODO: call search candidates API. For now, we're just returning the filters
     //console.log('api call', filters);
     return filters;
 });

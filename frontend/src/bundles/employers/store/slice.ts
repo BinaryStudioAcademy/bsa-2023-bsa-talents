@@ -25,6 +25,7 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             state.filters = action.payload;
+            //TODO: set here also candidates which will be returned from server
         });
         builder.addCase(searchCandidates.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
