@@ -27,7 +27,7 @@ import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/
 
 import {
     ENGLISH_LEVEL,
-    JOB_TITLES,
+    HARD_SKILLS,
     MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
@@ -70,7 +70,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={JOB_TITLES}
+                    items={HARD_SKILLS}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
@@ -140,7 +140,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                             : 'link to your project'
                                     }
                                     marker="www."
-                                    value={undefined}
                                 />
                                 {index !== 0 && (
                                     <Pressable
