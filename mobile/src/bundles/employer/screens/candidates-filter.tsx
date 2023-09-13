@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
     AutocompleteMultiSelector,
     Button,
-    FormCheckbox,
+    CheckboxGroup,
+    Divider,
     FormField,
     Pressable,
-    ScreenLineSeparator,
     ScrollView,
     Selector,
+    Switch,
     Text,
     View,
 } from '~/bundles/common/components/components';
@@ -22,7 +23,6 @@ import {
     EmploymentType,
     JobTitle,
 } from '~/bundles/employer/enums/enums';
-import { CheckboxGroup } from '~/bundles/talent/components/checkbox-group/checkbox-group';
 
 import {
     BSA_BADGES,
@@ -32,27 +32,22 @@ import {
     ENGLISH_LEVEL,
     YEARS_EXPERIENCE,
 } from './constants/constants';
-import { styles } from './styles';
-
-type Properties = {
-    onSubmit: (payload: unknown) => void;
-    onFilterClose: () => void;
-};
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);
 const employmentTypeOptions = Object.values(EmploymentType);
 
-const SearchCandidatesFilter: React.FC<Properties> = ({
-    onSubmit,
-    onFilterClose,
-}) => {
-    const { control, handleSubmit } = useAppForm({
+const CandidatesFilter: React.FC = () => {
+    const { control } = useAppForm({
         defaultValues: DEFAULT_VALUES,
     });
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
+        // TODO: handle submit
+    }, []);
+
+    const onFilterClose = useCallback((): void => {
+        // TODO: navigate to Candidates page
+    }, []);
 
     return (
         <ScrollView
@@ -61,7 +56,6 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
                 globalStyles.borderRadius10,
                 globalStyles.width100,
                 globalStyles.height100,
-                styles.container,
             ]}
         >
             <View
@@ -86,15 +80,16 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
                     />
                 </Pressable>
             </View>
-            <ScreenLineSeparator containerStyle={globalStyles.mb25} />
+            <Divider containerStyle={globalStyles.mb25} />
+
             <FormField
                 containerStyle={globalStyles.pb25}
                 name="activeTalentsOnly"
             >
-                <FormCheckbox
-                    label="Active searching talents only"
+                <Switch
                     name="activeTalentsOnly"
                     control={control}
+                    label="Active searching talents only"
                 />
             </FormField>
             <FormField
@@ -209,4 +204,4 @@ const SearchCandidatesFilter: React.FC<Properties> = ({
     );
 };
 
-export { SearchCandidatesFilter };
+export { CandidatesFilter };

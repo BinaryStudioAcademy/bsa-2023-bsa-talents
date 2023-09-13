@@ -9,10 +9,10 @@ import { styles } from './styles';
 type Properties = {
     containerStyle?: StyleProp<ViewStyle>;
 };
-const ScreenLineSeparator: React.FC<Properties> = ({ containerStyle }) => {
+const Divider: React.FC<Properties> = ({ containerStyle }) => {
     return (
         <View style={[globalStyles.width100, styles.line, containerStyle]} />
     );
 };
 
-export { ScreenLineSeparator };
+export { Divider };

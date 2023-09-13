@@ -4,6 +4,7 @@ import React from 'react';
 import {
     AutocompleteSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     ScrollView,
@@ -31,7 +32,6 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxGroup } from '../components';
 import {
     EXPERIENCE_YEARS,
     TALENT_PROFILE_DEFAULT_VALUES,

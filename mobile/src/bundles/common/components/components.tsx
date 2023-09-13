@@ -3,8 +3,9 @@ export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-sele
 export { Avatar } from './avatar/avatar';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
+export { CheckboxGroup } from './checkbox-group/checkbox-group';
+export { Divider } from './divider/divider';
 export { FilePicker } from './file-picker/file-picker';
-export { FormCheckbox } from './form-checkbox/form-checkbox';
 export { FormField } from './form-field/form-field';
 export { ImagePicker } from './image-picker/image-picker';
 export { Input } from './input/input';
@@ -15,9 +16,9 @@ export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
 export { RadioButtons } from './radio-buttons/radio-buttons';
-export { ScreenLineSeparator } from './screen-line-separator/screen-line-separator';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
+export { Switch } from './switch/switch';
 export { Tag } from './tag/tag';
 export { Text } from './text/text';
 export {

@@ -1,3 +1,4 @@
+// TODO: remove with real data
 const YEARS_EXPERIENCE = ['>1', 'from 1 to 2', '2+'];
 
 const BSA_CHARACTERISTICS = ['bad', 'good', 'great'];
