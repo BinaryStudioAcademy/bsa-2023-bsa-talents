@@ -64,7 +64,7 @@ class ControllerBase implements Controller {
             };
         }
         return {
-            body: { ...(body as object), file },
+            body: { ...(body as object) },
             query,
             params,
             headers,

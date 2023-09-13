@@ -8,10 +8,10 @@ import {
 } from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/types/types.js';
 import { ControllerBase } from '~/common/packages/packages.js';
+import { FileGroups } from '~/common/plugins/file-upload/enums/file-group.enum.js';
 import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { type FileService } from './file.service.js';
-
 /**
  * @swagger
  * components:
@@ -39,17 +39,33 @@ class FileController extends ControllerBase {
         this.fileService = fileService;
 
         this.addRoute({
-            path: FileApiPath.UPLOAD,
-            preHandler: uploadFile.single('document'),
+            path: FileApiPath.DOCUMENT,
+            preHandler: uploadFile.single(FileGroups.DOCUMENT),
             method: 'POST',
-            handler: (options) =>
-                this.upload(
+            handler: (options) => {
+                return this.upload(
                     options as ApiHandlerOptions<{
                         body: {
                             file: MulterFile;
                         };
                     }>,
-                ),
+                );
+            },
+        });
+
+        this.addRoute({
+            path: FileApiPath.IMAGE,
+            preHandler: uploadFile.single(FileGroups.IMAGE),
+            method: 'POST',
+            handler: (options) => {
+                return this.upload(
+                    options as ApiHandlerOptions<{
+                        body: {
+                            file: MulterFile;
+                        };
+                    }>,
+                );
+            },
         });
     }
 
@@ -93,7 +109,7 @@ class FileController extends ControllerBase {
 
         return {
             status: HttpCode.OK,
-            payload: file,
+            payload: file.toObject().id,
         };
     }
 }
