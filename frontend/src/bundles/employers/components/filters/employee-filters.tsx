@@ -184,7 +184,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 onChange={(event): void => {
                     field.onChange(event.target.checked);
                 }}
-                checked={field.value}
+                isChecked={field.value}
                 className={styles.checkbox}
             />
         ),
