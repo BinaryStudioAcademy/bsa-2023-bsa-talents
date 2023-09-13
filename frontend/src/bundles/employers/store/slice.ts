@@ -20,7 +20,11 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'employers',
-    reducers: {},
+    reducers: {
+        searchFiltersValuesReset: (state) => {
+            state.searchFiltersValues = DEFAULT_EMPLOYEES_FILTERS_PAYLOAD;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(searchCandidates.fulfilled, (state, actions) => {
             state.dataStatus = DataStatus.FULFILLED;

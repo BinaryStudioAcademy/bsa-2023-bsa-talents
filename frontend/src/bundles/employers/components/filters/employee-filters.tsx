@@ -7,13 +7,14 @@ import {
 } from 'react-hook-form';
 
 import {
+    Button,
     Checkbox,
     FormLabel,
     Grid,
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import {
     BsaBadges,
@@ -25,6 +26,7 @@ import {
     ExperienceYears,
     JobTitle,
 } from '../../enums/enums.js';
+import { actions as employerActions } from '../../store/employers.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import { SkillsAutocomplete } from '../autocomplete/skills-autocomplete.js';
 import styles from './styles.module.scss';
@@ -75,6 +77,8 @@ type Properties = {
     control: Control<EmployeesFiltersDto>;
 };
 const EmployeeFilters: React.FC<Properties> = ({ control }) => {
+    const dispatch = useAppDispatch();
+
     const handleCheckboxOnChange = useCallback(
         <Field extends 'employmentType' | 'levelOfEnglish'>(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
@@ -188,12 +192,22 @@ const EmployeeFilters: React.FC<Properties> = ({ control }) => {
         [],
     );
 
+    const handleFiltersClear = useCallback(() => {
+        dispatch(employerActions.searchFiltersValuesReset());
+    }, [dispatch]);
+
     return (
         <Grid container className={styles.filtersSidebar}>
             <Grid className={styles.header}>
                 <Typography variant={'h6'} className={styles.title}>
-                    Filters
+                    {'Filters'}
                 </Typography>
+                <Button
+                    onClick={handleFiltersClear}
+                    label="Clear filters"
+                    variant="text"
+                    className={styles.clearFiltersBtn}
+                />
             </Grid>
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
