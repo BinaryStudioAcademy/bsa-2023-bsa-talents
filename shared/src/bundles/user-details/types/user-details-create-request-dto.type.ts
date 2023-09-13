@@ -1,4 +1,4 @@
-import { type ValueOf } from '~/types/value-of.type';
+import { type ValueOf } from '~/types/value-of.type.js';
 
 import {
     type CountryList,

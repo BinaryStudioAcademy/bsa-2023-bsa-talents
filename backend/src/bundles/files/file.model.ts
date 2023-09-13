@@ -8,7 +8,7 @@ class FileModel extends AbstractModel {
 
     public 'fileName': string;
 
-    public 'contentType': string;
+    public 'etag': string;
 
     public static override get tableName(): string {
         return DatabaseTableName.FILES;

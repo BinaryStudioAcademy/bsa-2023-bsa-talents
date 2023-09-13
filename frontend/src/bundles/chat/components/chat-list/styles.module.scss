@@ -1,0 +1,37 @@
+:root {
+    --search-bar-height: 48px;
+}
+
+.chatListContainer {
+    height: 100%;
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+.chatList {
+    height: calc(100% - var(--search-bar-height));
+    min-height: 100px;
+    margin: 0;
+    padding: 0 16px;
+    overflow: hidden auto;
+    list-style: none;
+}
+
+.chatList::-webkit-scrollbar {
+    width: 2px;
+    background-color: var(--solitude);
+}
+
+.chatList::-webkit-scrollbar-thumb {
+    background-color: var(--st-tropaz);
+    border-radius: 10px;
+}
+
+.nothingWasFound {
+    padding: 12px;
+    color: var(--steel-gray);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    opacity: 0.4;
+}
