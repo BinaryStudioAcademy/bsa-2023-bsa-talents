@@ -70,7 +70,11 @@ const { reducer, actions, name } = createSlice({
             },
         );
         builder.addMatcher(
-            isAnyOf(updateTalentDetails.rejected, saveTalentDetails.rejected),
+            isAnyOf(
+                updateTalentDetails.rejected,
+                saveTalentDetails.rejected,
+                getTalentDetails.rejected,
+            ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
             },

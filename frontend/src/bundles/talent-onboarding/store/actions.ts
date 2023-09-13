@@ -62,12 +62,26 @@ const getTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom | null,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/get-talent-details`, (findPayload, { extra }) => {
-    const { talentOnBoardingApi } = extra;
+>(
+    `${sliceName}/get-talent-details`,
+    async (findPayload, { extra, rejectWithValue }) => {
+        const { talentOnBoardingApi } = extra;
 
-    return talentOnBoardingApi.getUserDetailsByUserId({
-        userId: findPayload.userId,
-    });
-});
+        try {
+            const userDetails =
+                await talentOnBoardingApi.getUserDetailsByUserId({
+                    userId: findPayload.userId,
+                });
+
+            return userDetails ?? null;
+        } catch (error) {
+            rejectWithValue({
+                _type: 'rejected',
+                error,
+            });
+            return null;
+        }
+    },
+);
 
 export { getTalentDetails, saveTalentDetails, updateTalentDetails };

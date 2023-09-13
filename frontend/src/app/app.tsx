@@ -29,7 +29,7 @@ const App: React.FC = () => {
     return (
         <>
             <RouterOutlet />
-            {dataStatus === DataStatus.REJECTED && <Notifications />}
+            <Notifications />
         </>
     );
 };
