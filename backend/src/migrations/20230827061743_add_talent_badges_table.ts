@@ -6,12 +6,11 @@ const constraintName = 'talent_badges_pkey';
 const TableName = {
     TALENT_BADGES: 'talent_badges',
     BSA_BADGES: 'bsa_badges',
-    USERS: 'users',
 };
 
 const ColumnName = {
     ID: 'id',
-    USER_ID: 'user_id',
+    USER_EMAIL: 'user_email',
     BADGE_ID: 'badge_id',
     USER_DETAILS_ID: 'user_details_id',
     SCORE: 'score',
@@ -38,12 +37,7 @@ async function up(knex: Knex): Promise<void> {
         table.integer(ColumnName.SCORE);
         table.string(ColumnName.LEVEL);
         table.boolean(ColumnName.IS_SHOWN).notNullable();
-        table
-            .integer(ColumnName.USER_ID)
-            .references(ColumnName.ID)
-            .inTable(TableName.USERS)
-            .onUpdate(RelationRule.CASCADE)
-            .onDelete(RelationRule.CASCADE);
+        table.string(ColumnName.USER_EMAIL).unique().notNullable();
         table
             .uuid(ColumnName.BADGE_ID)
             .references(ColumnName.ID)
