@@ -19,7 +19,7 @@ rules:
         - ignorePseudoClasses:
             - global
             - local
-            
+
     order/order:
         - custom-properties
         - declarations
