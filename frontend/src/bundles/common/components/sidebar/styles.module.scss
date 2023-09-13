@@ -84,13 +84,13 @@ a {
 .burgerButton {
     --size: 20px;
     --color: var(--text-primary-dark);
-    --gradient1: linear-gradient(
+    --linear-gradient-box: linear-gradient(
             var(--color) 20%,
             #00000000 0 80%,
             var(--color) 0
         )
         no-repeat content-box border-box;
-    --gradient2: radial-gradient(
+    --radial-gradient-box: radial-gradient(
             circle closest-side at 50% 12.5%,
             var(--color) 95%,
             #00000000
@@ -104,10 +104,12 @@ a {
     color: inherit;
     font: inherit;
     background:
-        var(--gradient2) left var(--position, 0) top,
-        var(--gradient1) left calc(var(--size) / 10 + var(--position, 0px)) top,
-        var(--gradient2) right var(--position, 0) top,
-        var(--gradient1) right calc(var(--size) / 10 + var(--position, 0px)) top;
+        var(--radial-gradient-box) left var(--position, 0) top,
+        var(--linear-gradient-box) left
+            calc(var(--size) / 10 + var(--position, 0px)) top,
+        var(--radial-gradient-box) right var(--position, 0) top,
+        var(--linear-gradient-box) right
+            calc(var(--size) / 10 + var(--position, 0px)) top;
     background-size:
         20% 80%,
         40% 100%;
