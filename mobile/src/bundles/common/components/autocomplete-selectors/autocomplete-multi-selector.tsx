@@ -70,7 +70,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         return items.filter(
             (item) =>
                 item.value.toLowerCase().includes(search.toLowerCase()) &&
-                !value.includes(item.value),
+                !value.some((v: Options) => v.value === item.value),
         );
     }, [search, value, items]);
 
