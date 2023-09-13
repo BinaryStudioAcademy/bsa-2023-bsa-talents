@@ -11,6 +11,7 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -278,12 +279,27 @@ const EmployerRegistrationForm: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Button
-                    type="submit"
-                    onClick={handleFormSubmit}
-                    label="Submit for verification"
-                    className={styles.submitButton}
-                />
+                <Grid>
+                    <Button
+                        type="submit"
+                        variant="outlined"
+                        onClick={handleFormSubmit}
+                        label="Preview"
+                        className={getValidClassNames(
+                            styles.buttonRegistration,
+                            styles.previewButton,
+                        )}
+                    />
+                    <Button
+                        type="submit"
+                        onClick={handleFormSubmit}
+                        label="Submit for verification"
+                        className={getValidClassNames(
+                            styles.buttonRegistration,
+                            styles.submitButton,
+                        )}
+                    />
+                </Grid>
             </FormControl>
         </Grid>
     );

@@ -162,12 +162,27 @@
     border-radius: 4px;
 }
 
-.submitButton {
+.buttonRegistration {
     width: fit-content;
     height: 36px;
     margin-top: 15px;
     font-weight: 500;
     font-size: 13px;
+    text-transform: none;
+}
+
+.previewButton {
+    margin-right: 10px;
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.submitButton {
     background-color: var(--background-secondary);
 
     &:hover {
