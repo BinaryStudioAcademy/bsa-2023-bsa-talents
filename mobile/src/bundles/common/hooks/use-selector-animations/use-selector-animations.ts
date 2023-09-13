@@ -1,5 +1,10 @@
 import { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+import {
+    INITIAL_DROPDOWN_HEIGHT,
+    MAX_DROPDOWN_HEIGHT,
+} from './constants/constants';
+
 type useSelectorAnimationsReturn = {
     iconAnimatedStyle: Record<string, unknown>;
     heightAnimatedStyle: Record<string, unknown>;
@@ -7,8 +12,6 @@ type useSelectorAnimationsReturn = {
 const useSelectorAnimations = (
     isVisible: boolean,
 ): useSelectorAnimationsReturn => {
-    const INITIAL_DROPDOWN_HEIGHT = 0;
-    const MAX_DROPDOWN_HEIGHT = 150;
     const heightAnimatedStyle = useAnimatedStyle(() => {
         return {
             maxHeight: withTiming(
