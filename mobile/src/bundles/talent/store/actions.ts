@@ -34,7 +34,7 @@ const updateOnboardingData = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { talentApi, notifications } = extra;
-    const { badges, hardSkills, ...payload } = stepPayload;
+    const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
 
     if (Object.keys(payload).length === 0) {
         return stepPayload as UserDetailsGeneralResponseDto;
@@ -46,6 +46,8 @@ const updateOnboardingData = createAsyncThunk<
             ...response,
             ...(hardSkills && { hardSkills }),
             ...(badges && { badges }),
+            ...(photo && { photo }),
+            ...(cv && { cv }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);

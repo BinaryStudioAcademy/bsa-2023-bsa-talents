@@ -18,10 +18,13 @@ import {
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    BackFormButton,
+    CheckboxGroup,
+} from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { BackFormButton, CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
     JOB_TITLES,
