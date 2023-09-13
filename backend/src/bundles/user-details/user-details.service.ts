@@ -43,8 +43,11 @@ class UserDetailsService implements Service {
             userDetails,
         );
 
-        talentBadges.map(async (talentBadge) => {
-            await this.talentBadgeService.create(talentBadge);
+        talentBadges?.map(async (talentBadge) => {
+            await this.talentBadgeService.create({
+                badgeId: talentBadge,
+                userId: userDetails.userId,
+            });
         });
 
         return newUserDetails.toObject();
@@ -53,7 +56,8 @@ class UserDetailsService implements Service {
     public async update(
         payload: UserDetailsUpdateRequestDto,
     ): Promise<UserDetailsEntity> {
-        const { userId, ...rest } = payload;
+        const { userId, talentBadges, ...rest } = payload;
+
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -62,6 +66,10 @@ class UserDetailsService implements Service {
                 status: HttpCode.NOT_FOUND,
             });
         }
+
+        talentBadges?.map(async (badgeId: string) => {
+            await this.talentBadgeService.update({ badgeId, userId });
+        });
 
         const userDetailsId = userDetails.toObject().id as string;
 

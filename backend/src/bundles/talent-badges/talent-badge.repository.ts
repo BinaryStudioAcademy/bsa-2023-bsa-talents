@@ -3,6 +3,7 @@ import { type Repository } from '~/common/types/repository.type.js';
 
 import { TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeModel } from './talent-badge.model.js';
+import { type TalentBadgeCreate } from './types/types.js';
 
 class TalentBadgeRepository implements Repository {
     private talentBadgeModel: typeof TalentBadgeModel;
@@ -15,14 +16,16 @@ class TalentBadgeRepository implements Repository {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create(badgeId: string): Promise<TalentBadgeEntity> {
+    public async create({
+        badgeId,
+        userId,
+    }: TalentBadgeCreate): Promise<TalentBadgeEntity> {
         const item = await this.talentBadgeModel
             .query()
             .insert({
                 badgeId,
                 isShown: true,
-                // TODO: change userEmail when we get data from LMS
-                userEmail: 'qwe@gmail.com',
+                userId,
             })
             .returning('*')
             .execute();
@@ -30,13 +33,24 @@ class TalentBadgeRepository implements Repository {
         return TalentBadgeEntity.initializeNew(item);
     }
 
-    public find(): Promise<TalentBadgeEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    public async find(
+        payload: Record<string, unknown>,
+    ): Promise<TalentBadgeModel | null> {
+        const badge = await this.talentBadgeModel
+            .query()
+            .findOne({ ...payload });
+
+        return badge ?? null;
     }
 
-    public update(): Promise<TalentBadgeEntity> {
-        // if a badge is in db - is shown false otherwise create with value true
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    public async update(
+        badge: TalentBadgeModel & { id: string },
+    ): Promise<TalentBadgeEntity> {
+        const talentBadge = await this.talentBadgeModel
+            .query()
+            .patchAndFetchById(badge.id, { isShown: !badge.isShown });
+
+        return TalentBadgeEntity.initializeNew(talentBadge);
     }
 
     public delete(): Promise<boolean> {

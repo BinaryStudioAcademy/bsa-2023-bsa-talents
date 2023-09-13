@@ -1,7 +1,7 @@
-import { type UserDetailsCreateDto } from './user-details-create-dto.type.js';
+import { type UserDetailsCreateDto } from './types.js';
 
 type UserDetailsCreateRequestDto = {
-    talentBadges: string[];
+    talentBadges?: string[];
 } & UserDetailsCreateDto;
 
 export { type UserDetailsCreateRequestDto };

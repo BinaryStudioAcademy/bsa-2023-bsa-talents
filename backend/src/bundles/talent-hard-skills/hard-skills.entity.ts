@@ -1,52 +1,77 @@
 import { type Entity } from '~/common/types/types.js';
 
-class HardSkillsEntity implements Entity {
+class TalentHardSkillsEntity implements Entity {
     private 'id': string | null;
 
-    private 'name': string;
+    private 'hardSkillId': string;
 
-    private constructor({ id, name }: { id: string | null; name: string }) {
+    private 'userDetailsId': string | null;
+
+    private constructor({
+        id,
+        hardSkillId,
+        userDetailsId,
+    }: {
+        id: string | null;
+        hardSkillId: string;
+        userDetailsId: string | null;
+    }) {
         this.id = id;
-        this.name = name;
+        this.hardSkillId = hardSkillId;
+        this.userDetailsId = userDetailsId;
     }
 
     public static initialize({
         id,
-        name,
+        hardSkillId,
+        userDetailsId,
     }: {
-        id: string;
-        name: string;
-    }): HardSkillsEntity {
-        return new HardSkillsEntity({
+        id: string | null;
+        hardSkillId: string;
+        userDetailsId: string | null;
+    }): TalentHardSkillsEntity {
+        return new TalentHardSkillsEntity({
             id,
-            name,
+            hardSkillId,
+            userDetailsId,
         });
     }
 
-    public static initializeNew({ name }: { name: string }): HardSkillsEntity {
-        return new HardSkillsEntity({
+    public static initializeNew({
+        hardSkillId,
+        userDetailsId,
+    }: {
+        hardSkillId: string;
+        userDetailsId: string | null;
+    }): TalentHardSkillsEntity {
+        return new TalentHardSkillsEntity({
             id: null,
-            name,
+            hardSkillId,
+            userDetailsId,
         });
     }
 
     public toObject(): {
-        id: string;
-        name: string;
+        id: string | null;
+        hardSkillId: string;
+        userDetailsId: string | null;
     } {
         return {
             id: this.id as string,
-            name: this.name,
+            hardSkillId: this.hardSkillId,
+            userDetailsId: this.userDetailsId,
         };
     }
 
     public toNewObject(): {
-        name: string;
+        hardSkillId: string;
+        userDetailsId: string | null;
     } {
         return {
-            name: this.name,
+            hardSkillId: this.hardSkillId,
+            userDetailsId: this.userDetailsId,
         };
     }
 }
 
-export { HardSkillsEntity };
+export { TalentHardSkillsEntity };

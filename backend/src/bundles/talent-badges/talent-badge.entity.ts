@@ -3,7 +3,7 @@ import { type Entity } from '~/common/types/types.js';
 class TalentBadgeEntity implements Entity {
     private 'id': string | null;
 
-    private 'userEmail': string;
+    private 'userId': string;
 
     private 'score': number | null;
 
@@ -17,7 +17,7 @@ class TalentBadgeEntity implements Entity {
 
     private constructor({
         id,
-        userEmail,
+        userId,
         score,
         level,
         badgeId,
@@ -25,7 +25,7 @@ class TalentBadgeEntity implements Entity {
         userDetailsId,
     }: {
         id: string | null;
-        userEmail: string;
+        userId: string;
         score: number | null;
         level: string | null;
         badgeId: string;
@@ -33,7 +33,7 @@ class TalentBadgeEntity implements Entity {
         userDetailsId: string | null;
     }) {
         this.id = id;
-        this.userEmail = userEmail;
+        this.userId = userId;
         this.score = score;
         this.level = level;
         this.badgeId = badgeId;
@@ -43,7 +43,7 @@ class TalentBadgeEntity implements Entity {
 
     public static initialize({
         id,
-        userEmail,
+        userId,
         score,
         level,
         badgeId,
@@ -51,7 +51,7 @@ class TalentBadgeEntity implements Entity {
         userDetailsId,
     }: {
         id: string;
-        userEmail: string;
+        userId: string;
         score: number | null;
         level: string | null;
         badgeId: string;
@@ -60,7 +60,7 @@ class TalentBadgeEntity implements Entity {
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
-            userEmail,
+            userId,
             score,
             level,
             badgeId,
@@ -70,14 +70,14 @@ class TalentBadgeEntity implements Entity {
     }
 
     public static initializeNew({
-        userEmail,
+        userId,
         score,
         level,
         badgeId,
         isShown,
         userDetailsId,
     }: {
-        userEmail: string;
+        userId: string;
         score: number | null;
         level: string | null;
         badgeId: string;
@@ -86,7 +86,7 @@ class TalentBadgeEntity implements Entity {
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id: null,
-            userEmail,
+            userId,
             score,
             level,
             badgeId,
@@ -97,7 +97,7 @@ class TalentBadgeEntity implements Entity {
 
     public toObject(): {
         id: string;
-        userEmail: string;
+        userId: string;
         score: number | null;
         level: string | null;
         badgeId: string | null;
@@ -106,7 +106,7 @@ class TalentBadgeEntity implements Entity {
     } {
         return {
             id: this.id as string,
-            userEmail: this.userEmail,
+            userId: this.userId,
             score: this.score,
             level: this.level,
             badgeId: this.badgeId,
@@ -116,7 +116,7 @@ class TalentBadgeEntity implements Entity {
     }
 
     public toNewObject(): {
-        userEmail: string;
+        userId: string;
         score: number | null;
         level: string | null;
         badgeId: string;
@@ -124,7 +124,7 @@ class TalentBadgeEntity implements Entity {
         userDetailsId: string | null;
     } {
         return {
-            userEmail: this.userEmail,
+            userId: this.userId,
             score: this.score,
             level: this.level,
             badgeId: this.badgeId,

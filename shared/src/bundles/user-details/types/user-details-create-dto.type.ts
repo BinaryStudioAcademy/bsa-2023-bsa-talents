@@ -39,7 +39,6 @@ type UserDetailsCreateDto = {
     companyWebsite?: string;
     employerPosition?: string;
     cvId?: string;
-    talentBadges: string[];
 };
 
 export { type UserDetailsCreateDto };

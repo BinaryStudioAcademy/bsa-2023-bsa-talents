@@ -3,6 +3,7 @@ import { type Service } from '~/common/types/types.js';
 
 import { type TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeRepository } from './talent-badge.repository.js';
+import { type TalentBadgeCreate } from './types/types.js';
 
 class TalentBadgeService implements Service {
     private talentBadgeRepository: TalentBadgeRepository;
@@ -19,12 +20,25 @@ class TalentBadgeService implements Service {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create(badgeId: string): Promise<TalentBadgeEntity> {
-        return await this.talentBadgeRepository.create(badgeId);
+    public async create(badge: TalentBadgeCreate): Promise<TalentBadgeEntity> {
+        return await this.talentBadgeRepository.create(badge);
     }
 
-    public update(): Promise<TalentBadgeRepository> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    public async update({
+        badgeId,
+        userId,
+    }: TalentBadgeCreate): Promise<TalentBadgeEntity> {
+        const badge = await this.talentBadgeRepository.find({
+            badgeId,
+            userId,
+        });
+
+        return await (badge
+            ? this.talentBadgeRepository.update(badge)
+            : this.talentBadgeRepository.create({
+                  badgeId,
+                  userId,
+              }));
     }
 
     public delete(): Promise<boolean> {
