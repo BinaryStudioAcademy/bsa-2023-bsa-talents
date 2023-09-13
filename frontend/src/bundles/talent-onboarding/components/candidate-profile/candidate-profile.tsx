@@ -32,6 +32,9 @@ const CandidateProfile: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
 }) => {
+    const isContactButtonVisible =
+        !isProfileOpen && !isFifthStep && !isProfileCard;
+
     return (
         <Grid className={styles.wrapper}>
             {isFifthStep && (
@@ -60,7 +63,7 @@ const CandidateProfile: React.FC<Properties> = ({
                     />
                 )}
             </Grid>
-            {!isProfileOpen && !isFifthStep && !isProfileCard && (
+            {isContactButtonVisible && (
                 <Button
                     label="Contact candidate"
                     className={styles.contactButton}
