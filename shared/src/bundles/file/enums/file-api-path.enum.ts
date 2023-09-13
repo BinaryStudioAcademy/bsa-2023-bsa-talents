@@ -1,7 +1,7 @@
 const FileApiPath = {
     UPLOAD: '/upload',
     IMAGE: '/upload/image',
-    DOCUMENT: 'upload/document',
+    DOCUMENT: '/upload/document',
 } as const;
 
 export { FileApiPath };
