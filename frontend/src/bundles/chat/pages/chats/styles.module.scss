@@ -33,6 +33,10 @@
     border-right: var(--border);
 }
 
+.chatListSmall {
+    max-width: 250px;
+}
+
 .chatListOpened {
     position: absolute;
     top: var(--chat-header-height);

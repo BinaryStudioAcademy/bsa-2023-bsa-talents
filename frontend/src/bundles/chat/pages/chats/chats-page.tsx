@@ -25,7 +25,8 @@ const ChatsPage: React.FC = () => {
     // }, []);
 
     const theme = useTheme();
-    const isScreenMedium = useMediaQuery(theme.breakpoints.down('md'));
+    const isScreenLessMD = useMediaQuery(theme.breakpoints.down('md'));
+    const isScreenLessLG = useMediaQuery(theme.breakpoints.down('lg'));
 
     const [isOpenChatList, setIsOpenChatList] = useState(false);
 
@@ -35,7 +36,7 @@ const ChatsPage: React.FC = () => {
 
     useEffect(() => {
         setIsOpenChatList(false);
-    }, [isScreenMedium]);
+    }, [isScreenLessMD]);
 
     return (
         <Grid container direction="column">
@@ -50,10 +51,11 @@ const ChatsPage: React.FC = () => {
                     isOpenChatList && styles.chatWrapperOnChatListOpened,
                 )}
             >
-                {(!isScreenMedium || isOpenChatList) && (
+                {(!isScreenLessMD || isOpenChatList) && (
                     <Grid
                         className={getValidClassNames(
                             styles.chatList,
+                            isScreenLessLG && styles.chatListSmall,
                             isOpenChatList && styles.chatListOpened,
                         )}
                     >
@@ -66,7 +68,7 @@ const ChatsPage: React.FC = () => {
                     direction="column"
                     className={styles.chatWindow}
                 >
-                    {isScreenMedium && (
+                    {isScreenLessMD && (
                         <div className={styles.openChatListButtonWrapper}>
                             <IconButton onClick={handleOpenChatListButton}>
                                 {isOpenChatList ? (
@@ -78,7 +80,7 @@ const ChatsPage: React.FC = () => {
                         </div>
                     )}
                     <ChatHeader
-                        title={'' + isScreenMedium}
+                        title={'' + isScreenLessMD}
                         isOnline
                         className={styles.chatHeader}
                     />
