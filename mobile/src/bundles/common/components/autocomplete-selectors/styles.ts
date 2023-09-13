@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
         gap: 5,
         flexWrap: 'wrap',
     },
+    dropdownButton: {
+        position: 'absolute',
+        bottom: 0,
+        right: 5,
+        zIndex: 1,
+    },
 });
 
 export { styles };
