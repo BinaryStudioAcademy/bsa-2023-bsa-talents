@@ -79,15 +79,38 @@ type Properties = {
 };
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const handleCheckboxOnChange = useCallback(
-        <Field extends 'employmentType' | 'levelOfEnglish'>(
+        <
+            Field extends
+                | 'employmentType'
+                | 'levelOfEnglish'
+                | 'activeSearchingOnly',
+        >(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
-            selectedValue: string,
+            selectedValue?: Field extends 'activeSearchingOnly'
+                ? boolean
+                : string,
+            event?: React.ChangeEvent<HTMLInputElement>,
         ) =>
             (): void => {
-                const updatedValue = field.value.includes(selectedValue)
-                    ? field.value.filter((item) => item !== selectedValue)
-                    : [...field.value, selectedValue];
-                field.onChange(updatedValue);
+                if (field.name === 'activeSearchingOnly') {
+                    field.onChange(event?.target.checked);
+                } else if (
+                    field.name === 'levelOfEnglish' ||
+                    field.name === 'employmentType'
+                ) {
+                    if (Array.isArray(field.value)) {
+                        const updatedValue = field.value.includes(
+                            selectedValue as string,
+                        )
+                            ? field.value.filter(
+                                  (item) => item !== selectedValue,
+                              )
+                            : [...field.value, selectedValue];
+                        field.onChange(updatedValue);
+                    } else {
+                        return;
+                    }
+                }
             },
         [],
     );
@@ -169,8 +192,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
         },
         [handleCheckboxOnChange],
     );
-
-    const renderSingleCheckbox = useCallback(
+    const renderActiveSearchingOnlyCheckbox = useCallback(
         ({
             field,
         }: {
@@ -180,15 +202,12 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             >;
         }): React.ReactElement => (
             <Checkbox
-                // eslint-disable-next-line react/jsx-no-bind
-                onChange={(event): void => {
-                    field.onChange(event.target.checked);
-                }}
+                onChange={handleCheckboxOnChange(field)}
                 isChecked={field.value}
                 className={styles.checkbox}
             />
         ),
-        [],
+        [handleCheckboxOnChange],
     );
 
     const handleFiltersClear = useCallback(() => {
@@ -213,7 +232,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     <Controller
                         name="activeSearchingOnly"
                         control={control}
-                        render={renderSingleCheckbox}
+                        render={renderActiveSearchingOnlyCheckbox}
                     />
                     <FormLabel className={styles.labels}>
                         {'Active searching talents only'}
