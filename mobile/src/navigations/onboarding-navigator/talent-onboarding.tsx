@@ -9,7 +9,7 @@ import {
     TalentOnboardingScreenNumber,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
@@ -33,17 +33,20 @@ const TalentOnboardingNavigator: React.FC = () => {
         ? TalentOnboardingScreenNumber[completedStep]
         : firstStepNumber;
 
-    const getStepStatus = (
-        stepName: ValueOf<typeof TalentOnboardingScreenName>,
-    ): ValueOf<typeof TalentOnboardingStepState> => {
-        const stepNumber = TalentOnboardingScreenNumber[stepName];
-        if (stepNumber === activeStepNumber) {
-            return TalentOnboardingStepState.FOCUSED;
-        }
-        return stepNumber > activeStepNumber
-            ? TalentOnboardingStepState.DISABLED
-            : TalentOnboardingStepState.COMPLETED;
-    };
+    const getStepStatus = useCallback(
+        (
+            stepName: ValueOf<typeof TalentOnboardingScreenName>,
+        ): ValueOf<typeof TalentOnboardingStepState> => {
+            const stepNumber = TalentOnboardingScreenNumber[stepName];
+            if (stepNumber === activeStepNumber) {
+                return TalentOnboardingStepState.FOCUSED;
+            }
+            return stepNumber > activeStepNumber
+                ? TalentOnboardingStepState.DISABLED
+                : TalentOnboardingStepState.COMPLETED;
+        },
+        [activeStepNumber],
+    );
 
     return (
         <Drawer.Navigator
