@@ -41,3 +41,9 @@ a {
         color: var(--white);
     }
 }
+
+@media screen and (width <= 660px) {
+    .wrapper {
+        display: none;
+    }
+}
