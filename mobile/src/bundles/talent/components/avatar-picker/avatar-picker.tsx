@@ -1,4 +1,8 @@
-import React from 'react';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
 import { type ImagePickerResponse } from 'react-native-image-picker';
 
@@ -8,23 +12,42 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ErrorMessages, TextCategory } from '~/bundles/common/enums/enums';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { TextCategory } from '~/bundles/common/enums/enums';
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
+import {
+    useCallback,
+    useFormController,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
+import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
+import {
+    checkIfFileSizeValid,
+    checkIfImageTypeValid,
+} from '~/bundles/talent/helpers/helpers';
 import { notifications } from '~/framework/notifications/notifications';
 
-type AvatarPickerProperties = {
+type AvatarPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
+    control: Control<T, null>;
+    name: FieldPath<T>;
 } & AvatarProperties;
-const AvatarPicker: React.FC<AvatarPickerProperties> = ({
+
+const AvatarPicker = <T extends FieldValues>({
+    control,
+    name,
     buttonStyle,
     containerStyle,
     uri,
     ...props
-}) => {
+}: AvatarPickerProperties<T>): JSX.Element => {
+    const { field } = useFormController({ name, control });
+    const { onChange } = field;
+
     const [avatar, setAvatar] = useState<undefined | string>();
+
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
             try {
@@ -33,16 +56,35 @@ const AvatarPicker: React.FC<AvatarPickerProperties> = ({
                     return;
                 }
                 const [image] = assets;
-                setAvatar(image.uri ?? uri);
-            } catch (error) {
-                if (error instanceof Error) {
-                    notifications.showError({ title: error.message });
-                    return;
+
+                const isSizeValid = checkIfFileSizeValid(image.fileSize);
+                const isTypeValid = checkIfImageTypeValid(image.type);
+
+                if (isSizeValid && isTypeValid) {
+                    onChange({
+                        size: image.fileSize,
+                        uri: image.uri ?? uri,
+                        type: image.type,
+                    });
+                    setAvatar(image.uri ?? uri);
+                } else {
+                    const messageFileSize = isSizeValid
+                        ? ''
+                        : ERROR_MESSAGE.SIZE;
+                    const messageImageType = isTypeValid
+                        ? ''
+                        : ERROR_MESSAGE.IMAGE_TYPE;
+
+                    notifications.showError({
+                        title: messageFileSize || messageImageType,
+                    });
                 }
-                notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
+            } catch (error) {
+                const errorMessage = getErrorMessage(error);
+                notifications.showError({ title: errorMessage });
             }
         },
-        [uri],
+        [onChange, uri],
     );
 
     const imageLoadHandler = useCallback(

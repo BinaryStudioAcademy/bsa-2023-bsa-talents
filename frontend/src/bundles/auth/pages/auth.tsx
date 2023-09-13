@@ -1,15 +1,14 @@
 import './styles.scss';
 
-import { Notifications } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
-    useAppSelector,
     useCallback,
-    useEffect,
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
+import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
@@ -28,27 +27,20 @@ const Auth: React.FC = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const { currentUser } = useAppSelector(({ auth }) => ({
-        currentUser: auth.currentUser,
-    }));
-
-    useEffect(() => {
-        if (currentUser) {
-            navigate(AppRoute.TALENT);
-        }
-    }, [currentUser, navigate]);
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));
+            navigate(getStepRoute(StepsRoute.STEP_01));
         },
-        [dispatch],
+        [dispatch, navigate],
     );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
             void dispatch(authActions.signUp(payload));
+            navigate(getStepRoute(StepsRoute.STEP_01));
         },
-        [dispatch],
+        [dispatch, navigate],
     );
 
     const getScreen = (screen: string): React.ReactNode => {
@@ -59,7 +51,6 @@ const Auth: React.FC = () => {
                         <AuthLayout>
                             <SignInForm onSubmit={handleSignInSubmit} />
                         </AuthLayout>
-                        <Notifications />
                     </>
                 );
             }
@@ -69,7 +60,6 @@ const Auth: React.FC = () => {
                         <AuthLayout>
                             <SignUpForm onSubmit={handleSignUpSubmit} />
                         </AuthLayout>
-                        <Notifications />
                     </>
                 );
             }
