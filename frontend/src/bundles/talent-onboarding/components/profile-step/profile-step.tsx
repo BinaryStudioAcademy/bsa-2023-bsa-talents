@@ -256,6 +256,7 @@ const ProfileStep: React.FC = () => {
                     errors={errors}
                     name={'salaryExpectation'}
                     adornmentText="$"
+                    value={undefined}
                 />
             </FormControl>
             <FormControl className={styles.formControl}>
