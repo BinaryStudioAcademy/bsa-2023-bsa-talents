@@ -52,6 +52,8 @@ async function up(knex: Knex): Promise<void> {
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.SET_NULL);
 
+        table.uuid(ColumnName.CHAT_ID).notNullable().defaultTo(knex.raw(uuid));
+
         table.text(ColumnName.MESSAGE).notNullable();
 
         table.boolean(ColumnName.IS_READ).notNullable().defaultTo(false);
