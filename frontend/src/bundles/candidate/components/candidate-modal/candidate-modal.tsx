@@ -2,7 +2,6 @@ import {
     Add as AddIcon,
     DeleteOutline as DeleteIcon,
 } from '@mui/icons-material';
-import { FormHelperText } from '@mui/material';
 import {
     Controller,
     type ControllerRenderProps,
@@ -14,6 +13,7 @@ import {
     Button,
     Checkbox,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -164,9 +164,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                         key={field.id}
                                     >
                                         <Input
-                                            className={getValidClassNames(
-                                                styles.link,
-                                            )}
+                                            className={styles.link}
                                             control={control}
                                             errors={errors}
                                             name={`links.${index}.value`}
@@ -212,9 +210,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                         )}
                     </FormControl>
 
-                    <FormControl
-                        className={getValidClassNames(styles.formControl)}
-                    >
+                    <FormControl className={styles.formControl}>
                         <FormLabel
                             className={getValidClassNames(
                                 styles.label,
@@ -227,7 +223,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             </Typography>
                         </FormLabel>
                         <Textarea
-                            className={getValidClassNames(styles.message)}
+                            className={styles.message}
                             control={control}
                             errors={errors}
                             name="message"

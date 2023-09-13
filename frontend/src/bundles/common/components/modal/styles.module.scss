@@ -6,7 +6,8 @@
 
 .modalContent {
     width: 643px;
-    min-height: 630px;
+    height: 630px;
+    max-height: 95vh;
     overflow: hidden;
     background-color: var(--white);
     border-radius: 8px;
