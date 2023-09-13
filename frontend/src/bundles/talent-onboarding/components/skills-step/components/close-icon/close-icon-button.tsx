@@ -9,7 +9,7 @@ type Properties = {
     onClick: (index: number) => void;
 };
 const CloseIconButton: React.FC<Properties> = ({ index, onClick }) => {
-    const clickHandler = useCallback(() => {
+    const handleClick = useCallback(() => {
         onClick(index);
     }, [index, onClick]);
 
@@ -17,7 +17,7 @@ const CloseIconButton: React.FC<Properties> = ({ index, onClick }) => {
         <Close
             color="error"
             className={styles.closeIcon}
-            onClick={clickHandler}
+            onClick={handleClick}
         />
     );
 };
