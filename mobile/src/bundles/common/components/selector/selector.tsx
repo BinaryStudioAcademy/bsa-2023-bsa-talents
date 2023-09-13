@@ -126,8 +126,8 @@ const Selector = <T extends FieldValues>({
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isVisible && styles.dropdown,
-                    styles.dropdownButton,
+                    isVisible && globalStyles.pb5,
+                    styles.dropdown,
                     !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
