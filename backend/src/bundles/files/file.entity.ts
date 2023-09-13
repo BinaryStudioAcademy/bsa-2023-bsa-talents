@@ -7,58 +7,58 @@ class FileEntity implements Entity {
 
     private 'fileName': string;
 
-    private 'contentType': string;
+    private 'etag': string;
 
     private constructor({
         id,
         url,
         fileName,
-        contentType,
+        etag,
     }: {
         id: string | null;
         url: string;
         fileName: string;
-        contentType: string;
+        etag: string;
     }) {
         this.id = id;
         this.url = url;
         this.fileName = fileName;
-        this.contentType = contentType;
+        this.etag = etag;
     }
 
     public static initialize({
         id,
         url,
         fileName,
-        contentType,
+        etag,
     }: {
         id: string;
         url: string;
         fileName: string;
-        contentType: string;
+        etag: string;
     }): FileEntity {
         return new FileEntity({
             id,
             url,
             fileName,
-            contentType,
+            etag,
         });
     }
 
     public static initializeNew({
         url,
         fileName,
-        contentType,
+        etag,
     }: {
         url: string;
         fileName: string;
-        contentType: string;
+        etag: string;
     }): FileEntity {
         return new FileEntity({
             id: null,
             url,
             fileName,
-            contentType,
+            etag,
         });
     }
 
@@ -75,12 +75,12 @@ class FileEntity implements Entity {
     public toNewObject(): {
         url: string;
         fileName: string;
-        contentType: string;
+        etag: string;
     } {
         return {
             url: this.url,
             fileName: this.fileName,
-            contentType: this.contentType,
+            etag: this.etag,
         };
     }
 }
