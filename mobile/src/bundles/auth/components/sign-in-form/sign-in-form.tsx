@@ -29,7 +29,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
-
     return (
         <View
             style={[

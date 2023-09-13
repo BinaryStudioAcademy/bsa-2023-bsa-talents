@@ -5,7 +5,7 @@ import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/auth/types/types';
-import { Overlay } from '~/bundles/common/components/components';
+import { Loader, Overlay } from '~/bundles/common/components/components';
 import { AuthScreenName, DataStatus } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -21,7 +21,6 @@ const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => auth);
     const isPendingAuth = dataStatus === DataStatus.PENDING;
-
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));
@@ -35,6 +34,15 @@ const Auth: React.FC = () => {
         },
         [dispatch],
     );
+
+    if (dataStatus === DataStatus.IDLE) {
+        return (
+            <AuthWrapper>
+                <Loader size="large" />
+            </AuthWrapper>
+        );
+    }
+
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {
