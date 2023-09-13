@@ -24,11 +24,16 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
+type Options = {
+    label: string;
+    value: string;
+};
+
 type Properties<T extends FieldValues> = {
     control?: Control<T, null>;
     name: FieldPath<T>;
     hasError?: boolean;
-    items: string[];
+    items: Options[];
     placeholder?: string;
 };
 
@@ -48,8 +53,8 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         setSearch(text);
     };
 
-    const handleItemSelect = (item: string): void => {
-        if (value.includes(item)) {
+    const handleItemSelect = (item: Options): void => {
+        if (value.includes(item.value)) {
             return;
         }
         toggleVisibility();
@@ -58,14 +63,14 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     };
 
     const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: string) => item !== itemName));
+        onChange(value.filter((item: Options) => item.value !== itemName));
     };
 
     const filteredItems = useMemo(() => {
         return items.filter(
             (item) =>
-                item.toLowerCase().includes(search.toLowerCase()) &&
-                !value.includes(item),
+                item.value.toLowerCase().includes(search.toLowerCase()) &&
+                !value.includes(item.value),
         );
     }, [search, value, items]);
 
@@ -100,9 +105,9 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                         ]}
                     >
                         <ScrollView nestedScrollEnabled>
-                            {filteredItems.map((item: string) => (
+                            {filteredItems.map((item: Options) => (
                                 <TouchableOpacity
-                                    key={item}
+                                    key={item.value}
                                     onPress={(): void => {
                                         handleItemSelect(item);
                                     }}
@@ -111,7 +116,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                                         category={TextCategory.LABEL}
                                         style={globalStyles.pv5}
                                     >
-                                        {item}
+                                        {item.label}
                                     </Text>
                                 </TouchableOpacity>
                             ))}
@@ -126,10 +131,10 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map((item: string) => (
+                {value.map((item: Options) => (
                     <Tag
-                        key={item}
-                        value={item}
+                        key={item.value}
+                        value={item.value}
                         onPress={handleItemDelete}
                         iconName={IconName.CLOSE}
                         iconSize={15}
