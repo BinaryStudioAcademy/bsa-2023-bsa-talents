@@ -3,7 +3,7 @@ type Option = {
     label: string;
     value: string;
 };
-const hardSkillsOptions: Option[] = [
+const mockHardSkills: Option[] = [
     { value: 'React', label: 'React' },
     { value: 'Node.js', label: 'Node.js' },
     { value: 'JavaScript', label: 'JavaScript' },
@@ -14,4 +14,4 @@ const hardSkillsOptions: Option[] = [
     { value: 'Ruby', label: 'Ruby' },
 ];
 
-export { hardSkillsOptions };
+export { mockHardSkills };

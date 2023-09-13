@@ -5,7 +5,7 @@ import {
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
-import { hardSkillsOptions } from '~/assets/mock-data/hard-skills.js';
+import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Checkbox,
@@ -171,7 +171,7 @@ const SkillsStep: React.FC = () => {
             <Autocomplete
                 name="hardSkills"
                 control={control}
-                options={hardSkillsOptions}
+                options={mockHardSkills}
                 placeholder="Start typing and select skills"
                 label="Hard Skills"
             />

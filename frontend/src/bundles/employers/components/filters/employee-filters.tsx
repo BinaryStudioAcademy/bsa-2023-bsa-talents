@@ -5,7 +5,7 @@ import {
     type UseFormReset,
 } from 'react-hook-form';
 
-import { hardSkillsOptions } from '~/assets/mock-data/hard-skills.js';
+import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Button,
@@ -215,7 +215,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             isFilter={true}
                             name="hardSkills"
                             control={control}
-                            options={hardSkillsOptions}
+                            options={mockHardSkills}
                             placeholder="Start typing and select skills"
                         />
                     </FormLabel>
