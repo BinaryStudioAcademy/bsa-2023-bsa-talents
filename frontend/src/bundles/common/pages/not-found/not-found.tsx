@@ -18,8 +18,10 @@ const NotFoundPage: React.FC = () => {
                 </Typography>
             </Grid>
 
-            <Grid container item className={styles.link}>
-                <Link to={AppRoute.ROOT}>Return to Main</Link>
+            <Grid container item className={styles.linkWrapper}>
+                <Link className={styles.link} to={AppRoute.ROOT}>
+                    Return to Main
+                </Link>
             </Grid>
 
             <div className={styles.cube}></div>
