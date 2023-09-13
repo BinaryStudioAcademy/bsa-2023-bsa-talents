@@ -1,4 +1,5 @@
 import {
+    Avatar,
     Button,
     FormControl,
     Grid,
@@ -51,7 +52,7 @@ const ProfileSecondSection: React.FC<Properties> = ({
                                 alt="candidate"
                             />
                         ) : (
-                            <Grid className={styles.emptyPhoto}></Grid>
+                            <Avatar className={styles.emptyPhoto} />
                         )}
                         {candidateParameters.fullName}
                     </Typography>

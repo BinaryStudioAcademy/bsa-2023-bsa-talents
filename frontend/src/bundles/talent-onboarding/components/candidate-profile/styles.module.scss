@@ -37,6 +37,7 @@ ul {
     color: var(--text-primary-dark);
     text-transform: none;
     background-color: var(--solitude);
+    pointer-events: none;
 }
 
 @media screen and (width <= 1300px) {
