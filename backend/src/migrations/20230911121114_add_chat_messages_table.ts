@@ -4,9 +4,7 @@ const uuid = 'uuid_generate_v4()';
 const constraintName = 'chat_messages_pkey';
 
 const TableName = {
-    CHATS: 'chats',
     CHAT_MESSAGES: 'chat_messages',
-    USERS: 'users',
 };
 
 const ColumnName = {
