@@ -1,10 +1,8 @@
 import {
     type Control,
     Controller,
-    type ControllerFieldState,
     type ControllerRenderProps,
     type UseFormReset,
-    type UseFormStateReturn,
 } from 'react-hook-form';
 
 import { hardSkillsOptions } from '~/assets/mock-data/hard-skills.js';
@@ -87,9 +85,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 | 'activeSearchingOnly',
         >(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
-            selectedValue?: Field extends 'activeSearchingOnly'
-                ? boolean
-                : string,
+            selectedValue?: string,
         ) =>
             (): void => {
                 if (field.name === 'activeSearchingOnly') {
@@ -115,55 +111,31 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
         [],
     );
 
-    const renderEnglishLevelCheckboxes = useCallback(
-        ({
-            field,
-        }: {
-            field: ControllerRenderProps<EmployeesFiltersDto, 'levelOfEnglish'>;
-            formState: UseFormStateReturn<EmployeesFiltersDto>;
-        }): React.ReactElement => {
-            return (
-                <Grid container className={styles.checkboxContainer}>
-                    {englishLevelOptions.map((option) => (
-                        <Grid
-                            item
-                            key={option.value}
-                            className={styles['MuiGrid-item']}
-                        >
-                            <Checkbox
-                                {...{
-                                    onChange: field.onChange,
-                                    onBlur: field.onBlur,
-                                    name: field.name,
-                                    value: field.value,
-                                }}
-                                key={option.value}
-                                label={option.label}
-                                value={option.value}
-                                isChecked={field.value.includes(option.value)}
-                                onChange={handleCheckboxOnChange(
-                                    field,
-                                    option.value,
-                                )}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            );
-        },
-        [handleCheckboxOnChange],
-    );
     const renderCheckboxes = useCallback(
-        ({
+        <
+            Field extends
+                | 'employmentType'
+                | 'levelOfEnglish'
+                | 'activeSearchingOnly',
+        >({
             field,
         }: {
-            field: ControllerRenderProps<EmployeesFiltersDto, 'employmentType'>;
-            fieldState: ControllerFieldState;
-            formState: UseFormStateReturn<EmployeesFiltersDto>;
+            field: ControllerRenderProps<EmployeesFiltersDto, Field>;
         }): React.ReactElement => {
-            return (
+            const fieldValue = field.value;
+            const optionsToRender =
+                field.name === 'employmentType'
+                    ? employmentTypeOptions
+                    : englishLevelOptions;
+            return field.name === 'activeSearchingOnly' ? (
+                <Checkbox
+                    onChange={handleCheckboxOnChange(field)}
+                    isChecked={fieldValue as boolean}
+                    className={styles.checkbox}
+                />
+            ) : (
                 <Grid container className={styles.checkboxContainer}>
-                    {employmentTypeOptions.map((option) => (
+                    {optionsToRender.map((option) => (
                         <Grid
                             item
                             key={option.value}
@@ -174,12 +146,15 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                                     onChange: field.onChange,
                                     onBlur: field.onBlur,
                                     name: field.name,
-                                    value: field.value,
+                                    value: fieldValue,
                                 }}
                                 key={option.value}
                                 label={option.label}
                                 value={option.value}
-                                isChecked={field.value.includes(option.value)}
+                                isChecked={
+                                    Array.isArray(fieldValue) &&
+                                    fieldValue.includes(option.value)
+                                }
                                 onChange={handleCheckboxOnChange(
                                     field,
                                     option.value,
@@ -190,27 +165,10 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
             );
         },
-        [handleCheckboxOnChange],
-    );
-    const renderActiveSearchingOnlyCheckbox = useCallback(
-        ({
-            field,
-        }: {
-            field: ControllerRenderProps<
-                EmployeesFiltersDto,
-                'activeSearchingOnly'
-            >;
-        }): React.ReactElement => (
-            <Checkbox
-                onChange={handleCheckboxOnChange(field)}
-                isChecked={field.value}
-                className={styles.checkbox}
-            />
-        ),
         [handleCheckboxOnChange],
     );
 
-    const handleFiltersClear = useCallback(() => {
+    const handleFiltersClear = useCallback((): void => {
         reset();
     }, [reset]);
 
@@ -232,7 +190,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     <Controller
                         name="activeSearchingOnly"
                         control={control}
-                        render={renderActiveSearchingOnlyCheckbox}
+                        render={renderCheckboxes}
                     />
                     <FormLabel className={styles.labels}>
                         {'Active searching talents only'}
@@ -328,7 +286,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Controller
                             control={control}
                             name="levelOfEnglish"
-                            render={renderEnglishLevelCheckboxes}
+                            render={renderCheckboxes}
                         />
                     </FormLabel>
                 </Grid>
