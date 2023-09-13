@@ -4,10 +4,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
-import Animated, {
-    useAnimatedStyle,
-    withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -22,11 +19,13 @@ import {
     useCallback,
     useFormController,
     useMemo,
+    useSelectorHeightAnimation,
+    useSelectorIconAnimation,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { SELECTOR_STYLE } from './constants/constants';
+import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
@@ -39,9 +38,6 @@ type Properties<T extends FieldValues> = {
     onSelect?: (item: string) => void;
 };
 
-const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
-    SELECTOR_STYLE;
-
 const Selector = <T extends FieldValues>({
     name,
     control,
@@ -53,22 +49,9 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
+    const heightAnimatedStyle = useSelectorHeightAnimation(isVisible);
+    const iconAnimatedStyle = useSelectorIconAnimation(isVisible);
     const placeHolderStyle = value ? {} : styles.placeholder;
-
-    const iconAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
-        };
-    });
-
-    const heightAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            maxHeight: withTiming(
-                isVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
-                { duration: 400 },
-            ),
-        };
-    });
 
     const handlePressItem = useCallback(
         (option: string): void => {
@@ -126,9 +109,8 @@ const Selector = <T extends FieldValues>({
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isVisible && styles.dropdown,
+                    styles.dropdown,
                     styles.dropdownButton,
-                    !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
             >

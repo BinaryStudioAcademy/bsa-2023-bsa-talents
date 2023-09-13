@@ -6,12 +6,9 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
     },
-    dropdownClosed: {
-        borderWidth: 0,
-    },
     dropdownButton: {
-        borderWidth: 1,
         borderColor: Color.INPUT,
+        borderWidth: 1,
     },
     dropdown: {
         position: 'absolute',
