@@ -2,6 +2,7 @@ import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
+import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
@@ -13,9 +14,14 @@ import { type UserDetailsRepository } from './user-details.repository.js';
 
 class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
+    private talentBadgeService: TalentBadgeService;
 
-    public constructor(userDetailsRepository: UserDetailsRepository) {
+    public constructor(
+        userDetailsRepository: UserDetailsRepository,
+        talentBadgeService: TalentBadgeService,
+    ) {
         this.userDetailsRepository = userDetailsRepository;
+        this.talentBadgeService = talentBadgeService;
     }
 
     public async find(
@@ -31,7 +37,16 @@ class UserDetailsService implements Service {
     public async create(
         payload: UserDetailsCreateRequestDto,
     ): Promise<UserDetailsResponseDto> {
-        const newUserDetails = await this.userDetailsRepository.create(payload);
+        const { talentBadges, ...userDetails } = payload;
+
+        const newUserDetails = await this.userDetailsRepository.create(
+            userDetails,
+        );
+
+        talentBadges.map(async (talentBadge) => {
+            await this.talentBadgeService.create(talentBadge);
+        });
+
         return newUserDetails.toObject();
     }
 

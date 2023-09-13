@@ -64,6 +64,7 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
     companyWebsite: joi.string().trim().uri(),
     employerPosition: joi.string().trim(),
     cvId: joi.string().trim(),
+    talentBadges: joi.array().items(joi.string().trim()),
 });
 
 export { userDetailsCreate };
