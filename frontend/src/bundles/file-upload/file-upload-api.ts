@@ -20,7 +20,7 @@ class FileUploadApi extends HttpApiBase {
 
     public async uploadDocument(payload: { cv: File }): Promise<string> {
         const formData = new FormData();
-        formData.append('file', payload.cv);
+        formData.append('document', payload.cv);
 
         const response = await this.load(
             this.getFullEndpoint(FileApiPath.DOCUMENT, {}),
@@ -32,13 +32,13 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const responseJson = await response.json<FileApiHandlerResponse>();
-        return responseJson.payload;
+        const parsedResponse = await response.json<FileApiHandlerResponse>();
+        return parsedResponse.payload;
     }
 
     public async uploadImage(payload: { photo: File }): Promise<string> {
         const formData = new FormData();
-        formData.append('file', payload.photo);
+        formData.append('image', payload.photo);
 
         const response = await this.load(
             this.getFullEndpoint(FileApiPath.IMAGE, {}),
@@ -50,8 +50,8 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const responseJson = await response.json<FileApiHandlerResponse>();
-        return responseJson.payload;
+        const parsedResponse = await response.json<FileApiHandlerResponse>();
+        return parsedResponse.payload;
     }
 }
 
