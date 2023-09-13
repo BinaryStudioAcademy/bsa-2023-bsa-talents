@@ -5,6 +5,7 @@ const constraintName = 'chat_messages_pkey';
 
 const TableName = {
     CHAT_MESSAGES: 'chat_messages',
+    USERS: 'users',
 };
 
 const ColumnName = {
