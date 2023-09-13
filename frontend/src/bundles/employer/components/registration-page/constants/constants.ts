@@ -1,6 +1,5 @@
-import { type EmployerRegistrationDto } from 'shared/build/index.js';
+import { type EmployerRegistrationDto } from '~/bundles/employer/types/types.js';
 
-const REQUIRED = 'string.empty';
 const ACCEPTED_PHOTO_TYPES = ['.jpeg', '.png', '.jpg'];
 
 const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerRegistrationDto = {
@@ -15,8 +14,4 @@ const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerRegistrationDto = {
     linkedInLink: '',
 };
 
-export {
-    ACCEPTED_PHOTO_TYPES,
-    DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
-    REQUIRED,
-};
+export { ACCEPTED_PHOTO_TYPES, DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD };
