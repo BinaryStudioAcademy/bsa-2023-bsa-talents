@@ -77,7 +77,9 @@ const SkillsStep: React.FC = () => {
                 englishLevel: setEnglishLevelValue(englishLevel),
                 notConsidered,
                 preferredLanguages,
-                projectLinks: toUrlLinks(projectLinks),
+                projectLinks: projectLinks?.length
+                    ? toUrlLinks(projectLinks)
+                    : [{ url: '' }],
             }),
             [
                 englishLevel,
@@ -102,8 +104,8 @@ const SkillsStep: React.FC = () => {
         englishLevel,
         notConsidered,
         preferredLanguages,
-        projectLinks,
         reset,
+        projectLinks,
     ]);
 
     const { setSubmitForm } = useFormSubmit();

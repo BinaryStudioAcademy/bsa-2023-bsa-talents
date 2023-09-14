@@ -4,7 +4,7 @@ import { useFieldArray } from 'react-hook-form';
 
 import { Button, Grid, Input } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback, useEffect } from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../constants/constants.js';
@@ -33,12 +33,6 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
         [remove],
     );
 
-    useEffect(() => {
-        if (fields.length === 0) {
-            appendLinks();
-        }
-    }, [appendLinks, fields.length]);
-
     return (
         <FormControl>
             <FormLabel
@@ -57,6 +51,9 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                             adornmentText="www."
                             placeholder="link to BSA project"
                             name={`projectLinks.${index}.url`}
+                            className={`${
+                                index !== 0 && styles.inputWithButton
+                            }`}
                         />
                         {index !== 0 && (
                             <CloseIconButton
