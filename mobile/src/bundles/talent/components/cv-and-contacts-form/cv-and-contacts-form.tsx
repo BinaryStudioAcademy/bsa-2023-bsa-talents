@@ -88,7 +88,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 <Input
                     control={control}
                     name="linkedinLink"
-                    placeholder="link to BSA project"
+                    placeholder="Link to linkedin profile"
                     marker="www."
                 />
             </FormField>

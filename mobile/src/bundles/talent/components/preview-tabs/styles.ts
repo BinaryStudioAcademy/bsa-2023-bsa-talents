@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Color.INPUT,
         backgroundColor: '#FFFFFF',
-        minHeight: 500,
+        minHeight: 300,
     },
     active: {
         color: Color.PRIMARY,
