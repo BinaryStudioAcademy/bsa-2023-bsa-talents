@@ -19,7 +19,7 @@
 .mainContent {
     min-height: 100vh;
     max-height: 100vh;
-    padding: 61px 0 0;
+    padding: var(--header-height) 0 0;
     overflow: hidden;
     overflow-y: visible;
     background-color: var(--white-lilac);
