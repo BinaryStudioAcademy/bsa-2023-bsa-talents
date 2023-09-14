@@ -13,6 +13,7 @@ const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
     userLocation: [],
     levelOfEnglish: [],
     employmentType: [],
+    sortingOptions: '',
 };
 
 export { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD };

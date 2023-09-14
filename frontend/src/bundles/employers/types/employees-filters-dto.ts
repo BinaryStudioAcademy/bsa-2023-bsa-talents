@@ -11,6 +11,7 @@ type EmployeesFiltersDto = {
     userLocation: string[];
     levelOfEnglish: string[];
     employmentType: string[];
+    sortingOptions: string;
 };
 
 export { type EmployeesFiltersDto };
