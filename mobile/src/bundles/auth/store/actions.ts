@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
     type UserSignInRequestDto,
@@ -57,6 +57,19 @@ const signIn = createAsyncThunk<
     }
 });
 
-const logout = createAction(`${sliceName}/logout`);
+const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
+    `${sliceName}/logout`,
+    async (_, { extra }) => {
+        const { storage, notifications } = extra;
+        try {
+            await storage.drop('token');
+            return null;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    },
+);
 
 export { loadCurrentUser, logout, signIn, signUp };

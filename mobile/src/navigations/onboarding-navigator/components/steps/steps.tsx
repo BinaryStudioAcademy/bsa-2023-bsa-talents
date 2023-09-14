@@ -27,7 +27,6 @@ import {
     type TalentOnboardingRouteProperties,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { storage } from '~/framework/storage/storage';
 
 import { Step } from '../components';
 import { ANIMATION_VALUES } from './constants/constants';
@@ -48,8 +47,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
     const dispatch = useAppDispatch();
 
     const handleLogout = (): void => {
-        void storage.drop('token');
-        dispatch(logout());
+        void dispatch(logout());
     };
 
     const textAnimatedStyle = useAnimatedStyle(() => {

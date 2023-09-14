@@ -31,7 +31,7 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(logout, (state) => {
+        builder.addCase(logout.fulfilled, (state) => {
             state.dataStatus = DataStatus.IDLE;
             state.isSignedIn = false;
             state.userData = null;
