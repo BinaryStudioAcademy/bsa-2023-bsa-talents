@@ -37,8 +37,18 @@ const Auth: React.FC = () => {
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
-            void dispatch(authActions.signUp(payload));
-            navigate(getStepRoute(StepsRoute.STEP_01));
+            switch (payload.role) {
+                case 'talent': {
+                    void dispatch(authActions.signUp(payload));
+                    navigate(getStepRoute(StepsRoute.STEP_01));
+                    break;
+                }
+                case 'employer': {
+                    void dispatch(authActions.signUp(payload));
+                    navigate(AppRoute.EMPLOYER_ONBOARDING);
+                    break;
+                }
+            }
         },
         [dispatch, navigate],
     );
