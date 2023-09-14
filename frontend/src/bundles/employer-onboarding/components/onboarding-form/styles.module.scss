@@ -1,0 +1,251 @@
+.container {
+    width: 100%;
+}
+
+.paragraph {
+    margin-bottom: 40px;
+
+    .body {
+        margin-top: 7px;
+    }
+}
+
+.formWrapper {
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.formFields {
+    gap: 10px;
+    width: 50%;
+}
+
+.formField {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .requiredField {
+        color: var(--st-tropaz);
+    }
+}
+
+.formLabel {
+    display: block;
+    width: max-content;
+    margin-right: 10px;
+}
+
+.formInput {
+    width: 70%;
+}
+
+.formTextarea {
+    display: flex;
+}
+
+.textareaLabel {
+    margin-bottom: 15px;
+}
+
+.hasError {
+    color: var(--error-primary);
+}
+
+.photoContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.photo {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: grey;
+}
+
+.photoWrapper {
+    width: 180px;
+    height: 180px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.photoIcon {
+    width: 100%;
+    height: 100%;
+}
+
+.fileError {
+    color: var(--error-primary);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-main);
+}
+
+.photoError {
+    max-width: 122px;
+}
+
+.formControl {
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.photoFormControl {
+    flex-basis: content;
+}
+
+.label {
+    width: max-content;
+    color: var(--background-secondary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-main);
+}
+
+.labelError {
+    color: var(--error-primary);
+}
+
+.labelText {
+    color: var(--text-primary-dark);
+}
+
+.uploadPhotoBtn {
+    width: 125px;
+    height: 36px;
+    color: var(--background-secondary);
+    font-size: 13px;
+    line-height: 1.21;
+    text-transform: none;
+    border-color: var(--background-secondary);
+}
+
+.uploadCVBtn {
+    max-width: 329px;
+    height: 38px;
+    color: var(--background-secondary);
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-main);
+    text-transform: none;
+    border-color: var(--background-secondary);
+}
+
+.btnError {
+    color: var(--error-primary);
+    border-color: var(--error-primary);
+
+    &:hover,
+    &:focus {
+        color: var(--error-primary);
+        border-color: var(--error-primary);
+    }
+}
+
+.info {
+    padding: 12px;
+    color: var(--text-primary-dark);
+    background-color: var(--solitude);
+    border-radius: 4px;
+}
+
+.buttonRegistration {
+    width: fit-content;
+    height: 36px;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: none;
+}
+
+.previewButton {
+    margin-right: 10px;
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.submitButton {
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+@media screen and (width <=1240px) {
+    .formInput {
+        width: 60%;
+    }
+}
+
+@media screen and (width <=1050px) {
+    .photoWrapper {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media screen and (width <=960px) {
+    .formField {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .photoWrapper {
+        width: 150px;
+        height: 150px;
+    }
+
+    .formInput {
+        width: 100%;
+    }
+}
+
+@media screen and (width <=840px) {
+    .header {
+        margin-bottom: 20px;
+    }
+
+    .photoWrapper {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+@media screen and (width <=760px) {
+    .form {
+        flex-direction: column-reverse;
+    }
+
+    .formFields {
+        width: 100%;
+    }
+
+    .photo {
+        width: fit-content;
+    }
+
+    .paragraph {
+        h2 {
+            font-size: 24px;
+        }
+    }
+}
