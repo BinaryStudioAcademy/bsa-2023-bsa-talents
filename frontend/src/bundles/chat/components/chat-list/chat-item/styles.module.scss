@@ -1,5 +1,5 @@
 .chatListItem {
-    min-width: 317px;
+    min-width: var(--chat-list-item-min-width);
     min-height: 72px;
     max-height: 72px;
     padding: 12px;
@@ -32,7 +32,8 @@
 }
 
 .truncate {
-    width: 180px;
+    width: 90px;
+    min-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
