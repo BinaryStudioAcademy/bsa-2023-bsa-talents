@@ -12,7 +12,10 @@ const EmployerOnboarding: React.FC = () => {
 
     return (
         <View style={globalStyles.flex1}>
-            <EmployerOnboardingForm onSubmit={handleEmployerDataSubmit} />
+            <EmployerOnboardingForm
+                employerOnboardingData={null}
+                onSubmit={handleEmployerDataSubmit}
+            />
         </View>
     );
 };

@@ -13,7 +13,9 @@ import {
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { CountryList } from '~/bundles/talent/enums/enums';
+import { CountryList } from '~/bundles/employer/enums/enums';
+import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
+import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
 import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -21,12 +23,18 @@ import { styles } from './styles';
 const locationOptions = Object.values(CountryList);
 
 type Properties = {
+    employerOnboardingData: EmployerOnboardingFormDto | null;
     onSubmit: () => void;
 };
 
-const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
+const EmployerOnboardingForm: React.FC<Properties> = ({
+    employerOnboardingData,
+    onSubmit,
+}) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: EMPLOYER_ONBOARDING_DEFAULT_VALUES,
+        defaultValues:
+            employerOnboardingData ?? EMPLOYER_ONBOARDING_DEFAULT_VALUES,
+        validationSchema: EmployerOnboardingFormValidationSchema,
     });
 
     const handleFormSubmit = useCallback(() => {
@@ -176,7 +184,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 errorMessage={errors.description?.message}
                 label="Briefly tell about your companyand its values"
                 name="description"
-                required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
