@@ -1,5 +1,5 @@
 import React from 'react';
-import { type ValueOf } from 'shared/build/index';
+import { type SkillsStepDto, type ValueOf } from 'shared/build/index';
 
 import {
     Text,
@@ -22,15 +22,11 @@ const tabs = Object.values(ProfileTab);
 type Tab = ValueOf<typeof ProfileTab>;
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
-//todo change to real types
 type Properties = {
     badges: BadgeName[];
-    hardSkills?: {
-        value: string;
-        label: string;
-    }[];
-    personalType: string[];
-    HRBadges: string[];
+    hardSkills?: SkillsStepDto['hardSkills'];
+    personalType?: string[];
+    HRBadges?: string[];
 };
 
 const PreviewTabs = ({

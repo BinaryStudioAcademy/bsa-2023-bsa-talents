@@ -1,5 +1,9 @@
 import React from 'react';
-import { type BsaBadgeStepBadgesTitle, type ValueOf } from 'shared/build/index';
+import {
+    type BsaBadgeStepBadgesTitle,
+    type SkillsStepDto,
+    type ValueOf,
+} from 'shared/build/index';
 
 import { Tag, Text, View } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
@@ -15,10 +19,7 @@ type Badge = {
 
 type Properties = {
     badges: BadgeName[];
-    skills?: {
-        value: string;
-        label: string;
-    }[];
+    skills?: SkillsStepDto['hardSkills'];
 };
 
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;

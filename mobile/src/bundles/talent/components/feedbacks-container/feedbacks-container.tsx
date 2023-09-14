@@ -7,8 +7,8 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './styles';
 
 type Properties = {
-    personalityTypes: string[];
-    HRBadges: string[];
+    personalityTypes?: string[];
+    HRBadges?: string[];
 };
 
 const FeedbacksContainer = ({
@@ -26,7 +26,7 @@ const FeedbacksContainer = ({
                     styles.personalityWrapper,
                 ]}
             >
-                {personalityTypes.map((type) => {
+                {personalityTypes?.map((type) => {
                     return <Tag key={type} value={type} />;
                 })}
             </View>
@@ -39,7 +39,7 @@ const FeedbacksContainer = ({
                     styles.personalityWrapper,
                 ]}
             >
-                {HRBadges.map((badge) => {
+                {HRBadges?.map((badge) => {
                     return <Tag key={badge} value={badge} />;
                 })}
             </View>
