@@ -238,12 +238,6 @@ const SkillsStep: React.FC = () => {
                     name="notConsidered"
                     render={renderCheckboxes}
                 />
-
-                {errors.notConsidered && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.notConsidered.message}
-                    </FormHelperText>
-                )}
             </FormControl>
             <FormControl>
                 <FormLabel
