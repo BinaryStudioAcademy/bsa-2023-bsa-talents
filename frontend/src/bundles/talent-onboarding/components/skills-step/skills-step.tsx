@@ -249,7 +249,7 @@ const SkillsStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl>
+            <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
                     <span className={styles.requiredField}>*</span>
