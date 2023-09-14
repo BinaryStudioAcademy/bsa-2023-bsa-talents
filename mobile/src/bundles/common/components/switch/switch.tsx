@@ -4,7 +4,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
-import ToggleSwitch from 'toggle-switch-react-native';
+import { Switch as NativeSwitch } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
@@ -32,10 +32,11 @@ const Switch = <T extends FieldValues>({
                 globalStyles.alignItemsCenter,
             ]}
         >
-            <ToggleSwitch
-                isOn={value}
-                onToggle={onChange}
-                onColor={Color.PRIMARY}
+            <NativeSwitch
+                onValueChange={onChange}
+                value={value}
+                trackColor={{ true: Color.PRIMARY }}
+                thumbColor={Color.BACKGROUND}
             />
             {label && (
                 <Text style={globalStyles.ml10} category={TextCategory.LABEL}>
