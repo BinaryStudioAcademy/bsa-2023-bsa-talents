@@ -278,7 +278,7 @@ const SkillsStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <SkillsProjectLinks name={'projectLinks'} control={control} />
+            <SkillsProjectLinks control={control} errors={errors} />
         </FormControl>
     );
 };
