@@ -20,7 +20,7 @@ const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => auth);
-    const isPendingAuth =
+    const isCurrentUserPending =
         dataStatus === DataStatus.PENDING ||
         dataStatus === DataStatus.CHECK_TOKEN;
 
@@ -52,7 +52,7 @@ const Auth: React.FC = () => {
 
     return (
         <>
-            <Overlay isActive={isPendingAuth} />
+            <Overlay isActive={isCurrentUserPending} />
             <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
     );
