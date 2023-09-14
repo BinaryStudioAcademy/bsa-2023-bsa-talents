@@ -23,6 +23,12 @@ const Preview: React.FC = () => {
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
+    //todo: add logic
+    // const handleSubmit = useOnboardingFormSubmit({ stepTitle, stepNumber });
+    // const handlePreviewSubmit = (): void => {
+    //     void handleSubmit();
+    // };
+
     return (
         <View style={[globalStyles.flex1, globalStyles.mb25]}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
@@ -33,7 +39,7 @@ const Preview: React.FC = () => {
                 ]}
             >
                 <ProfilePreview />
-                {/* todo: add logic comment */}
+                {/* todo: add logic */}
                 <View>
                     <Button
                         label="Save without publishing"

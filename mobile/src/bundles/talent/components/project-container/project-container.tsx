@@ -20,7 +20,7 @@ const ProjectContainer = (): JSX.Element => {
             >
                 6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
             </Text>
-            <Image source={projectImage} />
+            <Image style={styles.image} source={projectImage} />
         </View>
     );
 };
