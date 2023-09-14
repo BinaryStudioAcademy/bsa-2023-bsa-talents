@@ -5,6 +5,7 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types';
 
 import {
+    clearTalentStore,
     createTalentDetails,
     getTalentDetails,
     updateOnboardingData,
@@ -25,6 +26,10 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(clearTalentStore, (state) => {
+            state.dataStatus = DataStatus.IDLE;
+            state.onboardingData = null;
+        });
         builder.addMatcher(
             (action) =>
                 [

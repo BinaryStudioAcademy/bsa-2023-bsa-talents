@@ -1,5 +1,6 @@
 :root {
     --search-bar-height: 48px;
+    --chat-list-item-min-width: 200px;
 }
 
 .chatListContainer {
@@ -13,21 +14,15 @@
     min-height: 100px;
     margin: 0;
     padding: 0 16px;
-    overflow: hidden auto;
+    overflow: hidden scroll;
+    overflow-y: scroll;
     list-style: none;
-}
-
-.chatList::-webkit-scrollbar {
-    width: 2px;
-    background-color: var(--solitude);
-}
-
-.chatList::-webkit-scrollbar-thumb {
-    background-color: var(--st-tropaz);
-    border-radius: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
 }
 
 .nothingWasFound {
+    min-width: var(--chat-list-item-min-width);
     padding: 12px;
     color: var(--steel-gray);
     font-weight: 400;

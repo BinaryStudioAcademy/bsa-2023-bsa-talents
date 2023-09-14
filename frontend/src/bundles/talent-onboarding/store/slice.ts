@@ -4,6 +4,7 @@ import {
     type UserDetailsUpdateRequestDto,
 } from 'shared/build/index.js';
 
+import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
@@ -11,7 +12,6 @@ import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step
 import { DEFAULT_PAYLOAD_PROFILE_STEP } from '../components/profile-step/constants/default.constants.js';
 import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants/default.constants.js';
 import { fromUrlLinks } from '../helpers/helpers.js';
-import { mockBadges } from '../mock-data/mock-data.js';
 import { type UserDetailsGeneralCustom } from '../types/types.js';
 import {
     getTalentDetails,

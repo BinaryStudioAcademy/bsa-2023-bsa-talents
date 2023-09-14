@@ -1,9 +1,14 @@
 import React from 'react';
 
-import { Text } from '~/bundles/common/components/components';
+import { Text, View } from '~/bundles/common/components/components';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 const Candidates: React.FC = () => {
-    return <Text>Employer screen: Candidates</Text>;
+    return (
+        <View style={globalStyles.flex1}>
+            <Text>Employer screen: Candidates</Text>
+        </View>
+    );
 };
 
 export { Candidates };

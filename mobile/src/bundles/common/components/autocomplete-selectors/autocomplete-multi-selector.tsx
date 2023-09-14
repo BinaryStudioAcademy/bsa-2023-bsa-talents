@@ -73,7 +73,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         return items.filter(
             (item) =>
                 item.value.toLowerCase().includes(search.toLowerCase()) &&
-                !value.includes(item.value),
+                !value.some((v: Options) => v.value === item.value),
         );
     }, [search, value, items]);
 
@@ -103,13 +103,12 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <Animated.View
                     style={[
                         globalStyles.pl20,
-                        globalStyles.pb5,
                         globalStyles.width100,
                         heightAnimatedStyle,
                         styles.dropdown,
                     ]}
                 >
-                    <ScrollView nestedScrollEnabled>
+                    <ScrollView nestedScrollEnabled persistentScrollbar>
                         {filteredItems.map((item: Options) => (
                             <TouchableOpacity
                                 key={item.value}
@@ -138,7 +137,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 {value.map((item: Options) => (
                     <Tag
                         key={item.value}
-                        value={item.value}
+                        value={item.label}
                         onPress={handleItemDelete}
                         iconName={IconName.CLOSE}
                         iconSize={15}
