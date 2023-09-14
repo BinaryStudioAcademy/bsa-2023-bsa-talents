@@ -1,6 +1,6 @@
-import { FormHelperText } from '@mui/material';
-import { UserRole } from 'shared/build/index.js';
+import { UserRole, type ValueOf } from 'shared/build/index.js';
 
+import { actions as storeActions } from '~/app/store/app.js';
 import {
     Button,
     Checkbox,
@@ -13,6 +13,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
     useAppForm,
     useCallback,
     useState,
@@ -21,6 +22,7 @@ import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -41,9 +43,12 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const [selectedRole, setSelectedRole] = useState('talent');
+    const dispatch = useAppDispatch();
+
+    const [selectedRole, setSelectedRole] = useState<ValueOf<typeof UserRole>>(
+        UserRole.TALENT,
+    );
     const [isTermsAccepted, setIsTermsAccepted] = useState(false);
-    const [isTermsError, setIsTermsError] = useState(false);
 
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
@@ -53,32 +58,39 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            if (isTermsAccepted) {
+            if (selectedRole === UserRole.EMPLOYER) {
+                void handleSubmit(onSubmit)(event_);
+            } else if (isTermsAccepted) {
                 void handleSubmit(onSubmit)(event_);
             } else {
-                setIsTermsError(true);
+                const termsErrorMessage =
+                    'Please accept BSA Talents Terms to continue';
+                void dispatch(
+                    storeActions.notify({
+                        type: NotificationType.ERROR,
+                        message: termsErrorMessage,
+                    }),
+                );
             }
         },
-        [handleSubmit, isTermsAccepted, onSubmit],
+        [dispatch, handleSubmit, isTermsAccepted, onSubmit, selectedRole],
     );
 
     const handleRadioChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            let role = 'talent';
             switch (event.target.value) {
                 case UserRole.TALENT: {
-                    role = UserRole.TALENT;
+                    setSelectedRole(UserRole.TALENT);
                     break;
                 }
                 case UserRole.EMPLOYER: {
-                    role = UserRole.EMPLOYER;
+                    setSelectedRole(UserRole.EMPLOYER);
                     break;
                 }
                 default: {
                     break;
                 }
             }
-            setSelectedRole(role);
         },
         [],
     );
@@ -86,7 +98,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleCheckboxChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setIsTermsAccepted(event.target.checked);
-            setIsTermsError((previous) => !previous);
         },
         [],
     );
@@ -152,24 +163,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                 </FormControl>
                 {selectedRole === UserRole.TALENT && (
-                    <FormControl
-                        className={styles.checkboxWrapper}
-                        required
-                        hasError={!isTermsAccepted}
-                    >
+                    <FormControl className={styles.checkboxWrapper} required>
                         <Checkbox
                             label={checkboxLabel}
                             isChecked={isTermsAccepted}
                             onChange={handleCheckboxChange}
                         />
-                        <FormHelperText
-                            className={getValidClassNames(
-                                styles.termsErrorText,
-                                isTermsError && styles.rejected,
-                            )}
-                        >
-                            Please accept Terms to continue
-                        </FormHelperText>
                     </FormControl>
                 )}
 
@@ -183,6 +182,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Link className="cta" to={'/sign-in'}>
                     I already have an account
                 </Link>
+                {/* TODO: replace with actual privacy policy link */}
                 <Link to={'/'} className="span">
                     Privacy Policy
                 </Link>
