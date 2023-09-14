@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     AutocompleteMultiSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     Pressable,
@@ -18,10 +19,7 @@ import {
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    CheckboxGroup,
-    OnboardingBackButton,
-} from '~/bundles/talent/components/components';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
@@ -128,8 +126,13 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
             >
                 <View style={styles.links}>
                     {fields.map((field, index) => {
+                        const error = errors.projectLinks?.[index]?.url;
                         return (
-                            <View key={field.id}>
+                            <FormField
+                                key={field.id}
+                                name={`projectLinks.${index}.url`}
+                                errorMessage={error?.message}
+                            >
                                 <Input
                                     control={control}
                                     name={`projectLinks.${index}.url`}
@@ -154,7 +157,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                         />
                                     </Pressable>
                                 )}
-                            </View>
+                            </FormField>
                         );
                     })}
                 </View>

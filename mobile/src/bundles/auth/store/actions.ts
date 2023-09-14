@@ -35,9 +35,14 @@ const loadCurrentUser = createAsyncThunk<
     UserFindResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}${AuthApiPath.CURRENT_USER}`, (_, { extra }) => {
-    const { authApi } = extra;
-    return authApi.getCurrentUser();
+>(`${sliceName}${AuthApiPath.CURRENT_USER}`, async (_, { extra }) => {
+    const { authApi, storage } = extra;
+    try {
+        return authApi.getCurrentUser();
+    } catch (error) {
+        await storage.drop(StorageKey.TOKEN);
+        throw error;
+    }
 });
 
 const signIn = createAsyncThunk<
