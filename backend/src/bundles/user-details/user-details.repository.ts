@@ -3,6 +3,9 @@ import { ErrorMessages } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { searchByColumnValues } from './helpers/search-by-column-values.js';
+import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
+import { searchUserByRelativeTable } from './helpers/search-user-by-relative-table.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
@@ -70,12 +73,13 @@ class UserDetailsRepository implements Repository {
         const query = this.userDetailsModel.query().where((builder) => {
             if (payload.searchValue) {
                 void builder.where(
-                    'fullName',
+                    'profile_name',
                     'ilike',
                     `%${payload.searchValue}%`,
                 );
             }
 
+            //TODO change column name for searchActiveCandidatesOnly when it will be created
             if (payload.searchActiveCandidatesOnly) {
                 void builder.where(
                     'isHired',
@@ -83,40 +87,62 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            if (payload.jobTitle) {
-                void builder.where('jobTitle', payload.jobTitle);
+            if (payload.jobTitle && payload.jobTitle.length > 0) {
+                void builder.where((subquery) => {
+                    searchByColumnValues(
+                        subquery,
+                        payload.jobTitle,
+                        'jobTitle',
+                    );
+                });
             }
 
             if (payload.yearsOfExperience) {
-                void builder.where(
-                    'experienceYears',
-                    payload.yearsOfExperience,
-                );
+                void builder.where((subquery) => {
+                    searchByYearsOfExperience(
+                        subquery,
+                        payload.yearsOfExperience,
+                    );
+                });
             }
 
             if (payload.hardSkills && payload.hardSkills.length > 0) {
-                void builder.whereExists(
-                    this.userDetailsModel
-                        .relatedQuery('talentHardSkills')
-                        .alias('ths')
-                        .whereIn('hard_skill_id', payload.hardSkills),
-                );
+                searchUserByRelativeTable({
+                    builder,
+                    values: payload.hardSkills,
+                    columnName: 'hard_skill_id',
+                    relativeTable: 'talentHardSkills',
+                    alias: 'ths',
+                });
             }
 
             if (payload.BSABadges && payload.BSABadges.length > 0) {
-                void builder.whereExists(
-                    this.userDetailsModel
-                        .relatedQuery('talentBadges')
-                        .whereIn('badge_id', payload.BSABadges),
-                );
+                searchUserByRelativeTable({
+                    builder,
+                    values: payload.BSABadges,
+                    columnName: 'badge_id',
+                    relativeTable: 'talentBadges',
+                });
             }
 
             if (payload.location) {
-                void builder.where('location', payload.location);
+                void builder.where((subquery) => {
+                    searchByColumnValues(
+                        subquery,
+                        payload.location,
+                        'location',
+                    );
+                });
             }
 
             if (payload.englishLevel) {
-                void builder.where('englishLevel', payload.englishLevel);
+                void builder.where((subquery) => {
+                    searchByColumnValues(
+                        subquery,
+                        payload.englishLevel,
+                        'englishLevel',
+                    );
+                });
             }
 
             if (payload.employmentType && payload.employmentType.length > 0) {

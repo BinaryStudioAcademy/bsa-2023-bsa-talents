@@ -5,6 +5,7 @@ import {
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
+    type YearsOfExperience,
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
@@ -12,7 +13,7 @@ type UserDetailsSearchUsersRequestDto = {
     searchValue: string;
     searchActiveCandidatesOnly: boolean;
     jobTitle?: ValueOf<typeof JobTitle>[];
-    yearsOfExperience?: number[];
+    yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];
     BSABadges?: string[];
     location?: ValueOf<typeof CountryList>[];

@@ -8,6 +8,7 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    YearsOfExperience,
 } from './enums/enums.js';
 export {
     type UserDetailsCreateRequestDto,

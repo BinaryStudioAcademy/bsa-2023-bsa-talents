@@ -7,3 +7,4 @@ export { NotConsidered } from './not-considered.enum.js';
 export { OnboardingSteps } from './onboarding-steps.enum.js';
 export { PreferredLanguages } from './preferred-languages.enum.js';
 export { UserDetailsApiPath } from './user-details-api-path.enum.js';
+export { YearsOfExperience } from './years-of-experience.enum.js';

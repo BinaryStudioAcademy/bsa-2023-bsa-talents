@@ -5,6 +5,7 @@ import {
     EmploymentType,
     EnglishLevel,
     JobTitle,
+    YearsOfExperience,
 } from '../enums/enums.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 
@@ -27,9 +28,15 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             .trim()
             .valid(...Object.values(JobTitle)),
     ),
-    yearsOfExperience: joi
-        .alternatives()
-        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+    yearsOfExperience: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(YearsOfExperience)),
+        ),
+        joi.string().trim(),
+    ),
     hardSkills: joi
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
