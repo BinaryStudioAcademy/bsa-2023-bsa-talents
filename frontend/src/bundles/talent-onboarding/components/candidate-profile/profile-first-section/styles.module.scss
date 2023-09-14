@@ -1,0 +1,168 @@
+.profileFirstSection {
+    width: 70%;
+    padding: 30px 35px;
+    border-right: 1px solid var(--botticelli);
+}
+
+.profileStepFirstSection {
+    border-right: none;
+}
+
+.profileCard {
+    width: 100%;
+    padding-bottom: 17px;
+    border: none;
+}
+
+.candidatePosition {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--font-weight-semi-bold);
+    font-size: 22px;
+}
+
+.academyScore {
+    margin-top: 30px;
+}
+
+.title {
+    margin-right: 10px;
+    font-weight: var(--font-weight-medium);
+}
+
+.badgeList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
+    gap: 5px;
+    margin-block: 15px;
+}
+
+.bigBadgeList {
+    grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+}
+
+.skillsWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.skills,
+.preferredLanguage {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.profileCardSkills {
+    display: flex;
+}
+
+.coverLetterText {
+    margin-block: 10px;
+    color: var(--text-primary);
+}
+
+.cardCoverLetterText {
+    margin-inline: -35px;
+    padding-inline: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.readMoreButton {
+    margin-top: 7px;
+    padding: 0;
+    color: var(--st-tropaz);
+    font-size: var(--font-size-body);
+    font-style: italic;
+    text-transform: none;
+}
+
+.project {
+    margin-top: 30px;
+}
+
+.projectDescription {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary);
+    padding-block: 10px;
+}
+
+.projectButton {
+    height: 36px;
+    color: var(--st-tropaz);
+    text-transform: none;
+    border: 1px solid var(--st-tropaz);
+    margin-block: 10px;
+}
+
+.projectPicture {
+    width: 100%;
+}
+
+.candidateParameters {
+    margin-top: 7px;
+    margin-inline: -35px;
+    padding-inline: 35px;
+    padding-bottom: 24px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.salary {
+    font-weight: var(--font-weight-semi-bold);
+    font-size: 22px;
+}
+
+.profileCardReadMoreButton {
+    float: right;
+    width: 127px;
+    height: 36px;
+    margin-top: 10px;
+    font-size: var(--font-size-base);
+    text-transform: none;
+    background-color: var(--background-secondary);
+}
+
+@media screen and (width <= 1300px) {
+    .profileFirstSection {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border: none;
+    }
+}
+
+@media screen and (width <= 660px) {
+    .candidatePosition,
+    .salary {
+        font-size: var(--font-size-h6);
+    }
+
+    .profileFirstSection {
+        padding: 15px;
+        border: none;
+    }
+
+    .candidateParameters {
+        margin-inline: -15px;
+        padding-inline: 15px;
+    }
+
+    .academyScore {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (width < 420px) {
+    .badgeList {
+        grid-template-columns: 1fr;
+
+        li {
+            margin: 0 auto;
+        }
+    }
+}

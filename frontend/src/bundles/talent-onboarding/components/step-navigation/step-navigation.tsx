@@ -5,6 +5,7 @@ import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import {
     BadgesStep,
+    CandidateProfile,
     ContactsCVStep,
     ProfileStep,
     SkillsStep,
@@ -12,8 +13,6 @@ import {
 
 const StepNavigation: React.FC = () => {
     const { step } = useParameters();
-
-    const Preview: React.FC = () => <button>Preview</button>;
 
     switch (step) {
         case StepsRoute.STEP_01: {
@@ -29,7 +28,7 @@ const StepNavigation: React.FC = () => {
             return <ContactsCVStep />;
         }
         case StepsRoute.STEP_05: {
-            return <Preview />;
+            return <CandidateProfile isFifthStep />;
         }
         default: {
             return <Navigate to={AppRoute.NOT_FOUND} replace />;

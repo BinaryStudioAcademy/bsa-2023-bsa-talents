@@ -49,7 +49,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
             </FormLabel>
 
             {fields.map((item, index) => {
-                const { ref, name, ...withoutReferenceAndName } = field;
+                const { ref, name } = field;
 
                 const error = errors.projectLinks?.[index]?.url;
                 const message = error?.message;
@@ -66,7 +66,6 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
                             adornmentText="www."
                             placeholder="link to BSA project"
                             name={fieldPath}
-                            {...withoutReferenceAndName}
                         />
 
                         {Boolean(error) && (

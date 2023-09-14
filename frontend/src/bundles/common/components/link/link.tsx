@@ -6,7 +6,13 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 type Properties = {
     to: ValueOf<typeof AppRoute>;
     children: React.ReactNode;
-    className?: string;
+    className?:
+        | string
+        | ((props: {
+              isActive: boolean;
+              isPending: boolean;
+          }) => string | undefined)
+        | undefined;
 };
 
 const Link: React.FC<Properties> = ({ children, to, className }) => (

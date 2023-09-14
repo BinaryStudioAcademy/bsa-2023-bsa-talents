@@ -5,6 +5,7 @@ import {
     type FieldErrors,
     type FieldValues,
     type UseFormHandleSubmit,
+    type UseFormReset,
     type UseFormSetError,
     type UseFormSetValue,
     type UseFormWatch,
@@ -27,6 +28,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
     watch: UseFormWatch<T>;
     setValue: UseFormSetValue<T>;
     setError: UseFormSetError<T>;
+    reset: UseFormReset<T>;
 };
 
 const useAppForm = <T extends FieldValues = FieldValues>({
@@ -40,6 +42,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         watch,
         setValue,
         setError,
+        reset,
         formState: { errors },
     } = useForm<T>({
         mode,
@@ -54,6 +57,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         watch,
         setValue,
         setError,
+        reset,
     };
 };
 

@@ -31,6 +31,13 @@ const experienceYearsSliderMarks = experienceYearsScaled.map((mark) => {
     };
 });
 
+const formatNumber = (number: number): number => {
+    const INT_TO_FIXED = 1;
+    const parsedNumber = Number.parseFloat('' + number);
+
+    return Number.parseFloat(parsedNumber.toFixed(INT_TO_FIXED));
+};
+
 const sliderToRealValue = (sliderValue: number): number => {
     const experience = experienceYearsScaled.filter(
         (item) => item.scaledValue === sliderValue,
@@ -39,8 +46,9 @@ const sliderToRealValue = (sliderValue: number): number => {
 };
 const realToSliderValue = (realValue: number): number => {
     const experience = experienceYearsScaled.filter(
-        (item) => item.value === realValue,
+        (item) => item.value === formatNumber(realValue),
     )[FIRST_INDEX];
+
     return experience.scaledValue;
 };
 

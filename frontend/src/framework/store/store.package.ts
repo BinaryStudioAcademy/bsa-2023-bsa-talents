@@ -11,6 +11,7 @@ import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
+import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
@@ -30,6 +31,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    talentOnBoardingApi: typeof talentOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -70,6 +72,7 @@ class Store {
         return {
             authApi,
             userApi,
+            talentOnBoardingApi,
             notification,
             storage,
         };
