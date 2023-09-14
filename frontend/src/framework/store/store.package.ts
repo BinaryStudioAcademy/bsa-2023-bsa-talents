@@ -8,8 +8,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
+import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
-import { reducer as employerReducer } from '~/bundles/employer/store/employer.js';
+import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
@@ -24,10 +25,11 @@ import { errorHandler } from './middlewares/middlewares.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
-    employer: ReturnType<typeof employerReducer>;
+    employer: ReturnType<typeof employerOnboardingReducer>;
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
+    candidate: ReturnType<typeof candidateReducer>;
 };
 
 type ExtraArguments = {
@@ -56,9 +58,10 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
                 lms: lmsReducer,
-                employer: employerReducer,
+                employer: employerOnboardingReducer,
                 talentOnBoarding: talentOnBoardingReducer,
                 app: appReducer,
+                candidate: candidateReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,

@@ -2,15 +2,13 @@ import React from 'react';
 
 import { View } from '~/bundles/common/components/components';
 import {
-    Color,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
 import {
-    useAppDispatch,
     useAppRoute,
     useAppSelector,
-    useCallback,
+    useOnboardingFormSubmit,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -18,30 +16,39 @@ import {
     NewAccountHeader,
     SkillsAndProjectsForm,
 } from '~/bundles/talent/components/components';
-import { actions as talentActions } from '~/bundles/talent/store';
+import { stringsToUrlObjects } from '~/bundles/talent/helpers/helpers';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
 const SkillsAndProjects: React.FC = () => {
     const { name } = useAppRoute();
-    const dispatch = useAppDispatch();
-    const { skillsStepData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
+
+    const skillsStepData: SkillsStepDto | null = onboardingData
+        ? {
+              hardSkills: onboardingData.hardSkills ?? [],
+              englishLevel: onboardingData.englishLevel,
+              notConsidered: onboardingData.notConsidered ?? [],
+              preferredLanguages: onboardingData.preferredLanguages ?? [],
+              projectLinks: stringsToUrlObjects(onboardingData.projectLinks),
+          }
+        : null;
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
 
-    const handleSkillsSubmit = useCallback(
-        (payload: SkillsStepDto): void => {
-            void dispatch(talentActions.completeSkillsStep(payload));
-        },
-        [dispatch],
-    );
+    const handleSubmit = useOnboardingFormSubmit({ stepTitle, stepNumber });
+
+    const handleSkillsSubmit = (payload: SkillsStepDto): void => {
+        void handleSubmit(payload);
+    };
 
     return (
-        <View style={[globalStyles.flex1, { backgroundColor: Color.TEXT }]}>
+        <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <SkillsAndProjectsForm
-                onSubmit={handleSkillsSubmit}
                 skillsStepData={skillsStepData}
+                onSubmit={handleSkillsSubmit}
+                currentStep={stepNumber}
             />
         </View>
     );

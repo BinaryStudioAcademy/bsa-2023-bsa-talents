@@ -49,7 +49,7 @@ const Logo: React.FC<Properties> = ({
     withLink = false,
 }) => {
     return (
-        <Grid container>
+        <Grid container alignItems="center" justifyContent="center">
             {withLink ? (
                 <Link
                     to={AppRoute.ROOT}
