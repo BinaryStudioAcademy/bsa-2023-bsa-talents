@@ -10,7 +10,14 @@ export {
     TalentOnboardingScreenNumberByStep,
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
-export { AvatarType, ButtonType, Color, IconName } from './ui/ui';
+export {
+    AvatarType,
+    BadgeSize,
+    ButtonType,
+    Color,
+    IconName,
+    LoaderSize,
+} from './ui/ui';
 export {
     ApiPath,
     AppEnvironment,

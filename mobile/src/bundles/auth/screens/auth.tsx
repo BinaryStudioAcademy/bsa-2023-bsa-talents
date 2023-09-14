@@ -35,6 +35,7 @@ const Auth: React.FC = () => {
         },
         [dispatch],
     );
+
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AuthScreenName.SIGN_IN: {

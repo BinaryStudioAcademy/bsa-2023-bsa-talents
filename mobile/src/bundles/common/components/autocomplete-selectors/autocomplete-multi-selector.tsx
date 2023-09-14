@@ -103,7 +103,6 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <Animated.View
                     style={[
                         globalStyles.pl20,
-                        globalStyles.pb5,
                         globalStyles.width100,
                         heightAnimatedStyle,
                         styles.dropdown,

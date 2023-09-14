@@ -20,17 +20,21 @@ import styles from './styles.module.scss';
 
 type Properties = {
     chatItems: ChatListItemType[];
+    onItemClick?: (id: string) => void;
 };
 
-const ChatList: React.FC<Properties> = ({ chatItems }) => {
+const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
     const [items, setItems] = useState(chatItems);
     const [searchValue, setSearchValue] = useState('');
 
     const selectionHandler = useCallback(
         (id: string): void => {
             setItems(getItemsWithSelected(items, id));
+            if (onItemClick) {
+                onItemClick(id);
+            }
         },
-        [items],
+        [items, onItemClick],
     );
 
     useEffect((): void => {
