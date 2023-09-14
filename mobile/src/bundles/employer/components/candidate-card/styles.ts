@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     salary: {
         fontFamily: FontFamily.INTER_BOLD,
     },
+    badgeContainer: {
+        gap: 10,
+    },
     skills: {
         gap: 15,
     },

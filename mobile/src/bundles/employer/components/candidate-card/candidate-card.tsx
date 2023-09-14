@@ -74,6 +74,7 @@ const CandidateCard: React.FC<Candidate> = ({
                     globalStyles.pv20,
                     globalStyles.ph15,
                     globalStyles.flexDirectionRow,
+                    styles.badgeContainer,
                 ]}
             >
                 {badges.slice(0, maxBadges).map((badge) => (

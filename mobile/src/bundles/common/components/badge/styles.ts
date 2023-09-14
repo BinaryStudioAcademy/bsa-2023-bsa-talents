@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
     },
     small: {
-        width: 150,
+        width: 170,
     },
     maxScore: {
         color: Color.TEXT2,
