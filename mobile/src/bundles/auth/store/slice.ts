@@ -45,14 +45,11 @@ const { reducer, actions, name } = createSlice({
                 state.isSignedIn = true;
             },
         );
-        builder.addMatcher(
-            isAnyOf(signUp.pending, loadCurrentUser.pending, signIn.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-                state.isSignedIn = false;
-                state.currentUserData = null;
-            },
-        );
+        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
+            state.dataStatus = DataStatus.PENDING;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
         builder.addMatcher(
             isAnyOf(signUp.rejected, loadCurrentUser.rejected, signIn.rejected),
             (state) => {
