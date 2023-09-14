@@ -13,6 +13,8 @@ import { DEFAULT_VALUE_IS_DISABLED } from '~/bundles/talent/components/badge/con
 import { Badge } from '~/bundles/talent/components/components';
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
+import { styles } from './styles';
+
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     control: Control<T, null>;
@@ -40,7 +42,7 @@ const BadgesGroup = <T extends FieldValues>({
     );
 
     return (
-        <>
+        <View style={styles.groupWrapper}>
             {options.map((badge) => (
                 <View
                     key={badge}
@@ -59,7 +61,7 @@ const BadgesGroup = <T extends FieldValues>({
                     <Badge badgeType={badge} />
                 </View>
             ))}
-        </>
+        </View>
     );
 };
 

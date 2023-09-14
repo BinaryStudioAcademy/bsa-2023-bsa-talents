@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     badgerWrapper: {
         gap: 10,
     },
+    groupWrapper: {
+        gap: 10,
+    },
 });
 
 export { styles };
