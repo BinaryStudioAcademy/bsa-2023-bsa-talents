@@ -69,7 +69,12 @@ const CompanyInfo: React.FC<Properties> = ({
                                 className={styles.linkWrapper}
                             >
                                 <a
-                                    href={companyWebsite}
+                                    href={
+                                        companyWebsite.startsWith('http://') ||
+                                        companyWebsite.startsWith('https://')
+                                            ? companyWebsite
+                                            : `http://${companyWebsite}`
+                                    }
                                     rel="noreferrer"
                                     target="_blank"
                                     className={styles.companyLink}
