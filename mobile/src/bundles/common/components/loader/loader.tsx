@@ -4,13 +4,14 @@ import {
     ActivityIndicator,
     View,
 } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
+import { Color, LoaderSize } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 type LoaderProperties = {
-    size: 'small' | 'large';
+    size?: ValueOf<typeof LoaderSize>;
 };
-const Loader: React.FC<LoaderProperties> = ({ size }) => {
+const Loader: React.FC<LoaderProperties> = ({ size = LoaderSize.LARGE }) => {
     return (
         <View
             style={[

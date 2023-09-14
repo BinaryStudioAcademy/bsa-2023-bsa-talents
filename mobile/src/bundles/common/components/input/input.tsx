@@ -56,6 +56,7 @@ const Input = <T extends FieldValues>({
                 onChangeText={onChange}
                 value={value}
                 onBlur={onBlur}
+                placeholderTextColor={Color.TEXT2}
                 {...props}
                 style={[
                     globalStyles.flex1,
@@ -67,7 +68,6 @@ const Input = <T extends FieldValues>({
                     !editable && styles.disabled,
                     hasError && styles.error,
                 ]}
-                placeholderTextColor={Color.TEXT2}
             />
         </View>
     );

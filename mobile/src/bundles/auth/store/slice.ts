@@ -23,6 +23,11 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(loadCurrentUser.pending, (state) => {
+            state.dataStatus = DataStatus.CHECK_TOKEN;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
         builder.addMatcher(
             isAnyOf(
                 signUp.fulfilled,
@@ -40,14 +45,11 @@ const { reducer, actions, name } = createSlice({
                 state.isSignedIn = true;
             },
         );
-        builder.addMatcher(
-            isAnyOf(signUp.pending, loadCurrentUser.pending, signIn.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-                state.isSignedIn = false;
-                state.currentUserData = null;
-            },
-        );
+        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
+            state.dataStatus = DataStatus.PENDING;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
         builder.addMatcher(
             isAnyOf(signUp.rejected, loadCurrentUser.rejected, signIn.rejected),
             (state) => {
