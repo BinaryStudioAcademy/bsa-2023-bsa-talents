@@ -92,22 +92,21 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 }
 
                 if (
-                    field.name === CheckboxesFields.ENGLISH_LEVEL ||
-                    field.name === CheckboxesFields.EMPLOYMENT_TYPE
+                    ![
+                        CheckboxesFields.EMPLOYMENT_TYPE,
+                        CheckboxesFields.ENGLISH_LEVEL,
+                    ].includes(field.name) ||
+                    !Array.isArray(field.value)
                 ) {
-                    if (Array.isArray(field.value)) {
-                        const updatedValue = field.value.includes(
-                            selectedValue as string,
-                        )
-                            ? field.value.filter(
-                                  (item) => item !== selectedValue,
-                              )
-                            : [...field.value, selectedValue];
-                        field.onChange(updatedValue);
-                    } else {
-                        return;
-                    }
+                    return;
                 }
+
+                const updatedValue = field.value.includes(
+                    selectedValue as string,
+                )
+                    ? field.value.filter((item) => item !== selectedValue)
+                    : [...field.value, selectedValue];
+                field.onChange(updatedValue);
             },
         [],
     );
