@@ -1,5 +1,7 @@
 import './styles.scss';
 
+import { type ValueOf } from 'shared/build/index.js';
+
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -26,32 +28,40 @@ import { actions as authActions } from '../store/auth.js';
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
+
     const navigate = useNavigate();
 
-    const handleSignInSubmit = useCallback(
-        (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signIn(payload));
-            navigate(getStepRoute(StepsRoute.STEP_01));
-        },
-        [dispatch, navigate],
-    );
-
-    const handleSignUpSubmit = useCallback(
-        (payload: UserSignUpRequestDto): void => {
-            switch (payload.role) {
+    const navigateUser = useCallback(
+        ({ role }: { role: ValueOf<typeof UserRole> }): void => {
+            switch (role) {
                 case UserRole.TALENT: {
-                    void dispatch(authActions.signUp(payload));
                     navigate(getStepRoute(StepsRoute.STEP_01));
                     break;
                 }
                 case UserRole.EMPLOYER: {
-                    void dispatch(authActions.signUp(payload));
                     navigate(AppRoute.EMPLOYER_ONBOARDING);
                     break;
                 }
             }
         },
-        [dispatch, navigate],
+        [navigate],
+    );
+
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload))
+                .unwrap()
+                .then(navigateUser);
+        },
+        [dispatch, navigateUser],
+    );
+
+    const handleSignUpSubmit = useCallback(
+        (payload: UserSignUpRequestDto): void => {
+            void dispatch(authActions.signUp(payload));
+            navigateUser(payload);
+        },
+        [dispatch, navigateUser],
     );
 
     const getScreen = (screen: string): React.ReactNode => {
