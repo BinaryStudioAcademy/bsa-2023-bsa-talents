@@ -203,6 +203,7 @@ const OnboardingForm: React.FC = () => {
                             <Grid className={styles.formInput}>
                                 <Select
                                     control={control}
+                                    errors={errors}
                                     name={'location'}
                                     placeholder="Option"
                                     options={locationOptions}
@@ -226,6 +227,7 @@ const OnboardingForm: React.FC = () => {
                                 minRows={7}
                                 maxRows={9}
                                 control={control}
+                                errors={errors}
                                 placeholder="Text"
                                 name={'description'}
                             />
