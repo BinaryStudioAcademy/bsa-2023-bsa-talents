@@ -18,6 +18,7 @@ type Properties<T extends FieldValues> = {
     minRows: number;
     maxRows: number;
     placeholder?: string;
+    className?: string;
 };
 
 const Textarea = <T extends FieldValues>({
@@ -25,6 +26,7 @@ const Textarea = <T extends FieldValues>({
     errors,
     name,
     placeholder = '',
+    className,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -40,7 +42,7 @@ const Textarea = <T extends FieldValues>({
     return (
         <TextareaAutosize
             {...field}
-            className={textareaStyles}
+            className={getValidClassNames(textareaStyles, className)}
             placeholder={placeholder}
             {...props}
         />
