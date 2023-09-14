@@ -1,9 +1,10 @@
-import { FileApiPath } from 'shared/build/index.js';
-
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import { HttpApiBase } from '~/framework/api/http-api-base.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
+
+import { FileApiPath } from './enums/enums.js';
+import { type FileUploadResponse } from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -30,7 +31,7 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const parsed = await response.json();
+        const parsed = await response.json<FileUploadResponse>();
         return parsed.id;
     }
 
@@ -48,7 +49,7 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const parsed = await response.json();
+        const parsed = await response.json<FileUploadResponse>();
         return parsed.id;
     }
 }
