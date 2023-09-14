@@ -1,7 +1,5 @@
 import './styles.scss';
 
-import { type ValueOf } from 'shared/build/index.js';
-
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -9,6 +7,7 @@ import {
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import {
