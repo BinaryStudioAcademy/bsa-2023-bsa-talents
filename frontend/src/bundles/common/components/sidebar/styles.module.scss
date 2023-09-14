@@ -14,6 +14,8 @@
 }
 
 .logo {
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
@@ -28,7 +30,7 @@
     list-style: none;
 }
 
-.link {
+a {
     display: flex;
     flex-direction: column;
     align-items: center;
