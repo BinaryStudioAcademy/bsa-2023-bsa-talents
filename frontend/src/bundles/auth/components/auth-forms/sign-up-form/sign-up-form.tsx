@@ -59,11 +59,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            if (selectedRole === UserRole.EMPLOYER) {
-                void handleSubmit(onSubmit)(event_);
-            } else if (isTermsAccepted) {
-                void handleSubmit(onSubmit)(event_);
-            } else {
+            if (selectedRole === UserRole.TALENT && !isTermsAccepted) {
                 const termsErrorMessage =
                     'Please accept BSA Talents Terms to continue';
                 void dispatch(
@@ -72,7 +68,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         message: termsErrorMessage,
                     }),
                 );
+                return;
             }
+            void handleSubmit(onSubmit)(event_);
         },
         [dispatch, handleSubmit, isTermsAccepted, onSubmit, selectedRole],
     );
@@ -81,11 +79,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         (event: React.ChangeEvent<HTMLInputElement>) => {
             switch (event.target.value) {
                 case UserRole.TALENT: {
-                    setSelectedRole(UserRole.TALENT);
+                    setSelectedRole(event.target.value);
                     break;
                 }
                 case UserRole.EMPLOYER: {
-                    setSelectedRole(UserRole.EMPLOYER);
+                    setSelectedRole(event.target.value);
                     break;
                 }
                 default: {
