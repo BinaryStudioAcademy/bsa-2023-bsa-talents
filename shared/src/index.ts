@@ -71,6 +71,7 @@ export {
     type HttpMethod,
     type HttpOptions,
 } from './framework/http/http.js';
+export { SocketEvent, SocketNamespace } from './framework/socket/socket.js';
 export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
