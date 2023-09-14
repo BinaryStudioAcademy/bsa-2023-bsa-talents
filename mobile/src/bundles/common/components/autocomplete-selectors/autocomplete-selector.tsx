@@ -5,10 +5,7 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import { TextInput } from 'react-native';
-import Animated, {
-    useAnimatedStyle,
-    withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -21,11 +18,12 @@ import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
+    useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { SELECTOR_STYLE } from './constants/constants';
+import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
@@ -35,8 +33,6 @@ type Properties<T extends FieldValues> = {
     items: string[];
     placeholder?: string;
 };
-
-const { ICON_SIZE, MARGIN_BOTTOM } = SELECTOR_STYLE;
 
 const AutocompleteSelector = <T extends FieldValues>({
     control,
@@ -68,17 +64,14 @@ const AutocompleteSelector = <T extends FieldValues>({
         );
     }, [value, items]);
 
-    const iconAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            marginBottom: MARGIN_BOTTOM,
-            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
-        };
-    });
+    const isContentVisible = isVisible && filteredItems.length > 0;
+    const { heightAnimatedStyle, iconAnimatedStyle } =
+        useSelectorAnimations(isContentVisible);
 
     return (
         <>
             <View style={styles.container}>
-                <View>
+                <View style={globalStyles.justifyContentCenter}>
                     <TextInput
                         placeholder={placeholder}
                         onBlur={onBlur}
@@ -111,34 +104,33 @@ const AutocompleteSelector = <T extends FieldValues>({
                         </Animated.View>
                     </TouchableOpacity>
                 </View>
-                {isVisible && filteredItems.length > 0 && (
-                    <View
-                        style={[
-                            globalStyles.pl20,
-                            globalStyles.pb5,
-                            globalStyles.width100,
-                            styles.dropdown,
-                        ]}
-                    >
-                        <ScrollView nestedScrollEnabled>
-                            {filteredItems.map((item: string) => (
-                                <TouchableOpacity
-                                    key={item}
-                                    onPress={(): void => {
-                                        handleItemSelect(item);
-                                    }}
+                <Animated.View
+                    style={[
+                        globalStyles.pl20,
+                        globalStyles.pb5,
+                        globalStyles.width100,
+                        heightAnimatedStyle,
+                        styles.dropdown,
+                    ]}
+                >
+                    <ScrollView nestedScrollEnabled>
+                        {filteredItems.map((item: string) => (
+                            <TouchableOpacity
+                                key={item}
+                                onPress={(): void => {
+                                    handleItemSelect(item);
+                                }}
+                            >
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={globalStyles.pv5}
                                 >
-                                    <Text
-                                        category={TextCategory.LABEL}
-                                        style={globalStyles.pv5}
-                                    >
-                                        {item}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
-                        </ScrollView>
-                    </View>
-                )}
+                                    {item}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </Animated.View>
             </View>
         </>
     );

@@ -42,7 +42,11 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
                 .valid(
                     ...Object.values(SkillsStepValidationRule.NOT_CONSIDERED),
                 ),
-        ),
+        )
+        .messages({
+            'array.includes':
+                SkillsStepValidationMessage.NOT_CONSIDERED_DIDNT_MATCH_ALLOWED_TYPES,
+        }),
 
     preferredLanguages: joi
         .array()

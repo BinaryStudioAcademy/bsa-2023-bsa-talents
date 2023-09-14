@@ -117,7 +117,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             </FormField>
             <FormField
                 errorMessage={errors.experienceYears?.message}
-                label="Experience Level"
+                label="Experience"
                 name="experienceYears"
                 required
                 containerStyle={globalStyles.pb25}
