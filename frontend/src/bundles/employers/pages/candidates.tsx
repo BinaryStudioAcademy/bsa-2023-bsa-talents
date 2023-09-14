@@ -4,6 +4,7 @@ import {
     Input,
     Loader,
     RadioGroup,
+    Select,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
@@ -20,6 +21,7 @@ import {
 
 import { EmployeeFilters } from '../components/components.js';
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
+import { SortingOptions } from '../enums/enums.js';
 import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
@@ -42,7 +44,14 @@ const FIELDS: [
     'userLocation',
     'levelOfEnglish',
     'employmentType',
+    'sortingOptions',
 ];
+
+const sortingOptions = Object.values(SortingOptions).map((type) => ({
+    value: type,
+    label: type,
+}));
+
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
     const { watch, control, getValues, reset } =
@@ -107,18 +116,28 @@ const Candidates: React.FC = () => {
                         label={'Filters'}
                     />
                 </Grid>
-                <RadioGroup
-                    name={'searchType'}
-                    control={control}
-                    row={true}
-                    options={[
-                        { value: 'Basic search', label: 'Basic search' },
-                        {
-                            value: 'Full-text search',
-                            label: 'Full-text search',
-                        },
-                    ]}
-                />
+                <Grid className={styles.optionsWrapper}>
+                    <RadioGroup
+                        name={'searchType'}
+                        control={control}
+                        row={true}
+                        options={[
+                            { value: 'Basic search', label: 'Basic search' },
+                            {
+                                value: 'Full-text search',
+                                label: 'Full-text search',
+                            },
+                        ]}
+                    />
+                    <Select
+                        control={control}
+                        errors={{}}
+                        name="sortingOptions"
+                        options={sortingOptions}
+                        placeholder="Sort results"
+                    />
+                </Grid>
+
                 {dataStatus == DataStatus.PENDING ? (
                     <Loader />
                 ) : (

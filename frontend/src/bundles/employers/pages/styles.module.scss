@@ -61,6 +61,18 @@
     }
 }
 
+.optionsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    :global(.MuiFormControl-root) {
+        width: 220px;
+        background-color: var(--white);
+    }
+}
+
 @media screen and (width <=800px) {
     .searchPageWrapper {
         display: flex;
@@ -88,5 +100,9 @@
 
     .filtersButton {
         display: flex;
+    }
+
+    .optionsWrapper {
+        flex-direction: column;
     }
 }
