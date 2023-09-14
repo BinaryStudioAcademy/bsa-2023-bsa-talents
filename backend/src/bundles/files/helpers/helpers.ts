@@ -1,1 +1,1 @@
-export { getUniqueName } from './get-unique-name.helper.js';
+export { generateRandomId } from './generate-random-id.helper.js';
