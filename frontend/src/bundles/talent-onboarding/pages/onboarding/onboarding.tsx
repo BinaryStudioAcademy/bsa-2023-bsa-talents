@@ -5,6 +5,8 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useLocation,
@@ -23,8 +25,10 @@ import {
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { FormSubmitProvider } from '../../context/context.js';
+import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {

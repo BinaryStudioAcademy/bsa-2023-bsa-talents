@@ -12,7 +12,7 @@ import { FileGroups } from '~/common/plugins/file-upload/enums/file-group.enum.j
 import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { type FileService } from './file.service.js';
-import { getUniqueName } from './helpers/get-unique-name.helper.js';
+import { generateRandomId } from './helpers/generate-random-id.helper.js';
 
 /**
  * @swagger
@@ -100,12 +100,12 @@ class FileController extends ControllerBase {
         const { originalname, buffer } = options.body.file;
         const file = await this.fileService.create({
             file: buffer as Buffer,
-            newFileName: getUniqueName(originalname),
+            newFileName: generateRandomId(originalname),
         });
 
         return {
             status: HttpCode.OK,
-            payload: JSON.stringify(file.id),
+            payload: file,
         };
     }
 }

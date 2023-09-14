@@ -30,7 +30,8 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        return await response.json<string>();
+        const parsed = await response.json();
+        return parsed.id;
     }
 
     public async uploadImage(payload: { photo: File }): Promise<string> {
@@ -47,7 +48,8 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        return await response.json<string>();
+        const parsed = await response.json();
+        return parsed.id;
     }
 }
 

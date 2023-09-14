@@ -19,9 +19,9 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/update-talent-details`, (updatePayload, { extra }) => {
+>(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi, fileUploadApi } = extra;
-    const { cv, photo, ...restPayload } = registerPayload;
+    const { cv, photo, ...restPayload } = updatePayload;
     let cvId: string, photoId: string;
 
     if (cv) {
@@ -39,7 +39,7 @@ const updateTalentDetails = createAsyncThunk<
         return updatePayload;
     }
 
-    return talentOnBoardingApi.updateUserDetails(updatePayload);
+    return talentOnBoardingApi.updateUserDetails(restPayload);
 });
 
 const saveTalentDetails = createAsyncThunk<
