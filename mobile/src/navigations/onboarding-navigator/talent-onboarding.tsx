@@ -43,7 +43,9 @@ const TalentOnboardingNavigator: React.FC = () => {
             if (stepNumber === activeStepNumber) {
                 return TalentOnboardingStepState.FOCUSED;
             }
-            return TalentOnboardingStepState.FOCUSED;
+            return stepNumber > activeStepNumber
+                ? TalentOnboardingStepState.DISABLED
+                : TalentOnboardingStepState.COMPLETED;
         },
         [activeStepNumber],
     );
