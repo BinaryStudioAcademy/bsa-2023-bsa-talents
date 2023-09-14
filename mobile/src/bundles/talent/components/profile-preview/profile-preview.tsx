@@ -43,7 +43,7 @@ const ProfilePreview: React.FC = () => {
                     category={TextCategory.H3}
                     style={[globalStyles.pv10, globalStyles.pl25]}
                 >
-                    $ {onboardingData?.salaryExpectation} / mo
+                    $ {onboardingData.salaryExpectation} / mo
                 </Text>
                 <View
                     style={[
@@ -67,7 +67,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {onboardingData?.location}
+                            {onboardingData.location}
                         </Text>
                     </View>
                     <View
@@ -85,7 +85,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {onboardingData?.experienceYears} year of experience
+                            {onboardingData.experienceYears} year of experience
                         </Text>
                     </View>
                     <View
@@ -103,11 +103,11 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            English: {onboardingData?.englishLevel}
+                            English: {onboardingData.englishLevel}
                         </Text>
                     </View>
                     <View>
-                        {onboardingData?.employmentType?.map((type) => {
+                        {onboardingData.employmentType?.map((type) => {
                             return (
                                 <View
                                     key={type}
@@ -147,7 +147,7 @@ const ProfilePreview: React.FC = () => {
                             style={globalStyles.pl10}
                         >
                             Does’t consider:{' '}
-                            {onboardingData?.notConsidered?.join(' ')}
+                            {onboardingData.notConsidered?.join(' ')}
                         </Text>
                     </View>
                 </View>
@@ -157,10 +157,10 @@ const ProfilePreview: React.FC = () => {
                 {mockUser.PUBLISHED}
             </Text>
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
-                {onboardingData?.description}
+                {onboardingData.description}
             </Text>
             <PreviewTabs
-                badges={onboardingData?.badges as BadgeName[]}
+                badges={onboardingData.badges as BadgeName[]}
                 hardSkills={onboardingData.hardSkills}
                 personalType={mockUser.PERSONAL_TYPE}
                 HRBadges={mockUser.HR_BADGES}
