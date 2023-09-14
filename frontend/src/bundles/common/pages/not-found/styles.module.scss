@@ -36,13 +36,13 @@
     }
 }
 
-.link {
+.linkWrapper {
     justify-content: center;
     align-items: center;
     height: fit-content;
     padding: 0 0 53px;
 
-    & a {
+    & .link {
         display: block;
         width: fit-content;
         height: fit-content;
@@ -54,7 +54,7 @@
         text-decoration-line: underline;
     }
 
-    & a:hover {
+    & .link:hover {
         opacity: 0.7;
     }
 }
@@ -82,10 +82,10 @@
         }
     }
 
-    .link {
+    .linkWrapper {
         justify-content: center;
 
-        & a {
+        & .link {
             font-size: var(--font-size-h3);
         }
     }
@@ -96,7 +96,7 @@
         padding: 15px 0;
     }
 
-    .link {
+    .linkWrapper {
         padding: 0 0 15px;
     }
 }

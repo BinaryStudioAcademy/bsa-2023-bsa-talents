@@ -22,6 +22,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from './enums/enums.js';
 
@@ -60,7 +61,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'photoId': string | null;
 
-    public 'fullName': string;
+    public 'fullName': string | null;
 
     public 'phone': string | null;
 
@@ -79,6 +80,8 @@ class UserDetailsModel extends AbstractModel {
     public 'talentHardSkills': HardSkillsModel[];
 
     public 'talentBadges': TalentBadgeModel[];
+
+    public 'completedStep': ValueOf<typeof OnboardingSteps>;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;

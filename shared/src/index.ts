@@ -1,5 +1,13 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type ContactCandidateDto,
+    ContactCandidateValidationMessage,
+    ContactCandidateValidationRule,
+    ContactCandidateValidationSchema,
+    type MessageTemplateDto,
+} from './bundles/candidate/candidate.js';
+export { FileApiPath } from './bundles/file/file.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
@@ -24,10 +32,12 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
@@ -72,10 +82,13 @@ export {
 export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
-    createNumberRangeArray,
     getAvatarInitials,
+    getItemsWithSelected,
+    getNestedProperty,
+    getSearchedItems,
 } from './helpers/helpers.js';
 export {
+    type ChatListItemType,
     type ServerCommonErrorResponse,
     type ServerErrorDetail,
     type ServerErrorResponse,

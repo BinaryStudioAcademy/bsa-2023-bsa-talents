@@ -1,4 +1,4 @@
-import { type ValueOf } from '~/types/value-of.type';
+import { type ValueOf } from '~/types/value-of.type.js';
 
 import {
     type CountryList,
@@ -6,6 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from '../user-details.js';
 
@@ -28,7 +29,7 @@ type UserDetailsResponseDto = {
     preferredLanguages: ValueOf<typeof PreferredLanguages>[] | null;
     projectLinks: string[] | null;
     photoId: string | null;
-    fullName: string;
+    fullName: string | null;
     phone: string | null;
     linkedinLink: string | null;
     companyName: string | null;
@@ -36,6 +37,7 @@ type UserDetailsResponseDto = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
+    completedStep: ValueOf<typeof OnboardingSteps> | null;
 };
 
 export { type UserDetailsResponseDto };
