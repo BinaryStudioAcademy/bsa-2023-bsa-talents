@@ -25,6 +25,15 @@ const signUp = createAsyncThunk<
     return data;
 });
 
+const signOut = createAsyncThunk<unknown, undefined, AsyncThunkConfig>(
+    `${sliceName}/sign-out`,
+    (_, { extra }) => {
+        const { storage } = extra;
+
+        void storage.drop(StorageKey.TOKEN);
+    },
+);
+
 const loadUser = createAsyncThunk<
     UserFindResponseDto,
     undefined,
@@ -46,4 +55,4 @@ const signIn = createAsyncThunk<
     return data;
 });
 
-export { loadUser, signIn, signUp };
+export { loadUser, signIn, signOut, signUp };
