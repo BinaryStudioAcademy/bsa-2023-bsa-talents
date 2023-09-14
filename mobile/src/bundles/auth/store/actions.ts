@@ -8,6 +8,8 @@ import {
 } from '~/bundles/auth/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
+import { clearTalentStore } from '~/bundles/talent/store/actions';
+import { clearAll } from '~/bundles/users/store/actions';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { AuthApiPath } from '../enums/enums';
@@ -59,9 +61,11 @@ const signIn = createAsyncThunk<
 
 const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
     `${sliceName}/logout`,
-    async (_, { extra }) => {
+    async (_, { extra, dispatch }) => {
         const { storage, notifications } = extra;
         try {
+            dispatch(clearAll());
+            dispatch(clearTalentStore());
             await storage.drop('token');
             return null;
         } catch (error) {

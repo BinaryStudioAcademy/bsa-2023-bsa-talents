@@ -26,7 +26,7 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(logout.fulfilled, (state) => {
             state.dataStatus = DataStatus.IDLE;
             state.isSignedIn = false;
-            state.userData = null;
+            state.currentUserData = null;
         });
         builder.addMatcher(
             isAnyOf(

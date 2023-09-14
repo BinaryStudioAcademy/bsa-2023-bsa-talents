@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { type UserGetAllResponseDto } from '~/bundles/users/users';
@@ -15,4 +15,6 @@ const loadAll = createAsyncThunk<
     return userApi.getAll();
 });
 
-export { loadAll };
+const clearAll = createAction(`${sliceName}/clearAll`);
+
+export { clearAll, loadAll };
