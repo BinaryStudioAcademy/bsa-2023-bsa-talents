@@ -13,7 +13,11 @@ import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants
 import { fromUrlLinks } from '../helpers/helpers.js';
 import { mockBadges } from '../mock-data/mock-data.js';
 import { type UserDetailsGeneralCustom } from '../types/types.js';
-import { getTalentDetails, updateTalentDetails } from './actions.js';
+import {
+    getTalentDetails,
+    saveTalentDetails,
+    updateTalentDetails,
+} from './actions.js';
 
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
@@ -25,6 +29,7 @@ const initialState: UserDetailsGeneralCustom = {
     projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     dataStatus: DataStatus.IDLE,
+    completedStep: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -37,33 +42,39 @@ const { reducer, actions, name } = createSlice({
 
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] =
-                    typedKey === 'englishLevel' &&
-                    action.payload[typedKey] === null
-                        ? ' '
-                        : action.payload[typedKey];
+                state[typedKey] = action.payload[typedKey];
             }
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsFindRequestDto;
-
-                state[typedKey] =
-                    typedKey === 'englishLevel' &&
-                    action.payload[typedKey] === null
-                        ? ' '
-                        : action.payload[typedKey];
+                state[typedKey] = action.payload[typedKey];
+            }
+        });
+        builder.addCase(saveTalentDetails.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            for (const key in action.payload) {
+                const typedKey = key as keyof UserDetailsUpdateRequestDto;
+                state[typedKey] = action.payload[typedKey];
             }
         });
         builder.addMatcher(
-            isAnyOf(getTalentDetails.pending, updateTalentDetails.pending),
+            isAnyOf(
+                getTalentDetails.pending,
+                updateTalentDetails.pending,
+                saveTalentDetails.pending,
+            ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
             },
         );
         builder.addMatcher(
-            isAnyOf(getTalentDetails.rejected, updateTalentDetails.rejected),
+            isAnyOf(
+                updateTalentDetails.rejected,
+                saveTalentDetails.rejected,
+                getTalentDetails.rejected,
+            ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
             },

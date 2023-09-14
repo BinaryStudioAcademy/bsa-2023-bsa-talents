@@ -26,13 +26,18 @@ import {
 import {
     EnglishLevel,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { useFormSubmit } from '../../context/context.js';
-import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
+import {
+    fromUrlLinks,
+    setEnglishLevelValue,
+    toUrlLinks,
+} from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsAutocomplete } from './components/skills-autocomplete.js';
@@ -68,7 +73,7 @@ const SkillsStep: React.FC = () => {
         defaultValues: useMemo(
             () => ({
                 hardSkills,
-                englishLevel,
+                englishLevel: setEnglishLevelValue(englishLevel),
                 notConsidered,
                 preferredLanguages,
                 projectLinks: toUrlLinks(projectLinks),
@@ -87,7 +92,7 @@ const SkillsStep: React.FC = () => {
     useEffect(() => {
         reset({
             hardSkills,
-            englishLevel,
+            englishLevel: setEnglishLevelValue(englishLevel),
             notConsidered,
             preferredLanguages,
             projectLinks: toUrlLinks(projectLinks),
@@ -116,6 +121,7 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
+                    completedStep: OnboardingSteps.STEP_03,
                 }),
             );
             return true;

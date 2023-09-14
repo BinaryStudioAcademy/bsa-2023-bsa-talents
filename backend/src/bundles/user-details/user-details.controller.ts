@@ -10,7 +10,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
-    type UserDetailsFindRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
@@ -136,7 +136,7 @@ class UserDetailsController extends ControllerBase {
             handler: (options) => {
                 return this.findByUserId(
                     options as ApiHandlerOptions<{
-                        params: { userId: string };
+                        params: UserDetailsFindByUserIdRequestDto;
                     }>,
                 );
             },
@@ -399,16 +399,14 @@ class UserDetailsController extends ControllerBase {
 
     private async findByUserId(
         options: ApiHandlerOptions<{
-            params: Partial<UserDetailsFindRequestDto>;
+            params: UserDetailsFindByUserIdRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         const { userId } = options.params;
 
         return {
             status: HttpCode.OK,
-            payload: userId
-                ? await this.userDetailsService.findByUserId(userId)
-                : null,
+            payload: await this.userDetailsService.findByUserId(userId),
         };
     }
 }

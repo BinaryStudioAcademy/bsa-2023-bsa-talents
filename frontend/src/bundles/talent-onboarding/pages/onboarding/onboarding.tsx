@@ -32,11 +32,15 @@ const Onboarding: React.FC = () => {
     const location = useLocation();
     const [currentStep, setCurrentStep] = useState<number>(() => {
         const slugs = Object.keys(STEP_NUMBER_FROM_ROUTE);
+
         const slug =
             slugs.find((slug) => location.pathname.endsWith(slug)) ??
             slugs[FIRST_ELEMENT];
         return STEP_NUMBER_FROM_ROUTE[slug];
     });
+
+    const dispatch = useAppDispatch();
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + STEP_ONE);
@@ -70,6 +74,14 @@ const Onboarding: React.FC = () => {
         };
         updateStepFromLocation();
     }, [location.pathname]);
+
+    useEffect(() => {
+        void dispatch(
+            actions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
     return (
         <PageLayout avatarUrl="" isOnline={false}>
             <FormSubmitProvider>

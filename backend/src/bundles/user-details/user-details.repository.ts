@@ -55,6 +55,7 @@ class UserDetailsRepository implements Repository {
             companyWebsite: details.companyWebsite ?? '',
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
+            completedStep: details.completedStep,
         });
     }
 
@@ -100,6 +101,7 @@ class UserDetailsRepository implements Repository {
             companyWebsite: details.companyWebsite ?? '',
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
+            completedStep: details.completedStep,
         });
     }
 
@@ -139,6 +141,7 @@ class UserDetailsRepository implements Repository {
             companyWebsite: details.companyWebsite ?? '',
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
+            completedStep: details.completedStep,
         });
     }
 

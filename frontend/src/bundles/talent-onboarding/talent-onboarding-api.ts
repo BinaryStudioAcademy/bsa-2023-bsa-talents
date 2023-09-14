@@ -2,8 +2,7 @@ import {
     ApiPath,
     ContentType,
     UserDetailsApiPath,
-} from 'shared/build/index.js';
-
+} from '~/bundles/common/enums/enums.js';
 import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
@@ -34,7 +33,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 
     public async createUserDetails(
@@ -49,7 +48,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 
     public async updateUserDetails(
@@ -64,7 +63,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralCustom>();
+        return response.json<UserDetailsGeneralCustom>();
     }
 }
 

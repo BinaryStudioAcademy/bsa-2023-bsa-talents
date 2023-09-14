@@ -11,4 +11,5 @@ export {
     ContentType,
     HttpCode,
     ServerErrorType,
+    UserDetailsApiPath,
 } from 'shared/build/index.js';
