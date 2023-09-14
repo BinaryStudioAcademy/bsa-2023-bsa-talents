@@ -10,4 +10,5 @@ export {
     AppEnvironment,
     ContentType,
     ServerErrorType,
+    UserDetailsApiPath,
 } from 'shared/build/index.js';

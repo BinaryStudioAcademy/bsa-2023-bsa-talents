@@ -37,6 +37,7 @@ export {
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,

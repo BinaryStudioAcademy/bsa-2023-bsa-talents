@@ -23,6 +23,7 @@ type Properties<T extends FieldValues> = {
 
 const Textarea = <T extends FieldValues>({
     control,
+    errors,
     name,
     placeholder = '',
     className,
@@ -30,10 +31,18 @@ const Textarea = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
+    const error = errors[name]?.message;
+    const hasError = Boolean(error);
+
+    const textareaStyles = getValidClassNames(
+        styles.textarea,
+        hasError && styles.hasError,
+    );
+
     return (
         <TextareaAutosize
             {...field}
-            className={getValidClassNames(styles.textarea, className)}
+            className={getValidClassNames(textareaStyles, className)}
             placeholder={placeholder}
             {...props}
         />
