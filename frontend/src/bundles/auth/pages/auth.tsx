@@ -20,6 +20,7 @@ import {
     SignInForm,
     SignUpForm,
 } from '../components/components.js';
+import { UserRole } from '../enums/enums.js';
 import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
@@ -37,8 +38,18 @@ const Auth: React.FC = () => {
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
-            void dispatch(authActions.signUp(payload));
-            navigate(getStepRoute(StepsRoute.STEP_01));
+            switch (payload.role) {
+                case UserRole.TALENT: {
+                    void dispatch(authActions.signUp(payload));
+                    navigate(getStepRoute(StepsRoute.STEP_01));
+                    break;
+                }
+                case UserRole.EMPLOYER: {
+                    void dispatch(authActions.signUp(payload));
+                    navigate(AppRoute.EMPLOYER_ONBOARDING);
+                    break;
+                }
+            }
         },
         [dispatch, navigate],
     );

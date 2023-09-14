@@ -1,10 +1,10 @@
-import { ApiPath } from '~/bundles/common/enums/enums';
-// import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
-// import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
+import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
+import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
-    type BadgeStepDto,
-    type ProfileStepDto,
-    type SkillsStepDto,
+    type UserDetailsCreateRequestDto,
+    type UserDetailsFindRequestDto,
+    type UserDetailsResponseDto,
+    type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -16,55 +16,92 @@ type Constructor = {
     storage: Storage;
 };
 
-//TODO update when UserDetailsApiPath is ready
 class TalentApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.AUTH, baseUrl, http, storage });
-    }
-    public completeProfileStep(payload: ProfileStepDto): ProfileStepDto {
-        return payload;
+        super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public completeBadgesStep(payload: BadgeStepDto): BadgeStepDto {
-        return payload;
+    public async completeTalentDetails(
+        payload: UserDetailsCreateRequestDto,
+    ): Promise<UserDetailsResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserDetailsResponseDto>();
     }
-    public completeSkillsStep(payload: SkillsStepDto): SkillsStepDto {
-        return payload;
+
+    public async completeOnboardingStep(
+        payload: UserDetailsUpdateRequestDto,
+    ): Promise<UserDetailsResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
+            {
+                method: 'PATCH',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserDetailsResponseDto>();
     }
 
-    // public constructor({ baseUrl, http, storage }: Constructor) {
-    //     super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
-    // }
+    // public async getTalentDetailsById(
+    //     payload: UserDetailsFindByUserIdRequestDto,
+    // ): Promise<UserDetailsResponseDto | null> {
+    //     const { userId = '' } = payload;
+    // const response = await this.load(
+    //     this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
+    //     {
+    //         method: 'GET',
+    //         contentType: ContentType.JSON,
+    //         hasAuth: true,
+    //     },
+    // );
+    // return await response.json<UserDetailsResponseDto>();
 
-    // public async completeProfileStep(
-    //     payload: ProfileStepDto,
-    // ): Promise<ProfileStepDto> {
-    //     const response = await this.load(
-    //         this.getFullEndpoint(UserDetailsApiPath.UPDATE, {}),
-    //         {
-    //             method: 'PATCH',
-    //             contentType: ContentType.JSON,
-    //             payload: JSON.stringify(payload),
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return await response.json<ProfileStepDto>();
-    // }
+    //TODO delete when backend is ready
+    public getTalentDetailsById(
+        payload: UserDetailsFindRequestDto,
+    ): UserDetailsResponseDto | null {
+        const { userId = '' } = payload;
+        const fakeTalentDetailsData: UserDetailsResponseDto = {
+            id: '329d3d03-30af-4ca7-87f2-c253d47449f9',
+            userId: userId,
+            isApproved: false,
+            deniedReason: null,
+            isHired: false,
+            profileName: 'Fake Profile name',
+            salaryExpectation: 9999,
+            hiredSalary: null,
+            jobTitle: '.NET Developer',
+            location: 'Algeria',
+            experienceYears: 3,
+            employmentType: ['Remotely'],
+            description: 'Fake Description',
+            englishLevel: null,
+            notConsidered: null,
+            preferredLanguages: null,
+            projectLinks: null,
+            photoId: null,
+            fullName: 'Fake Full name',
+            phone: null,
+            linkedinLink: null,
+            companyName: null,
+            companyLogoId: null,
+            companyWebsite: null,
+            employerPosition: null,
+            cvId: null,
+            completedStep: null,
+        };
 
-    //
-
-    // public async completeTalentedStep<T>(payload: T): Promise<T> {
-    //     const response = await this.load(
-    //         this.getFullEndpoint(UserDetailsApiPath.UPDATE, {}),
-    //         {
-    //             method: 'PATCH',
-    //             contentType: ContentType.JSON,
-    //             payload: JSON.stringify(payload),
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return await response.json<T>();
-    // }
+        return fakeTalentDetailsData;
+    }
 }
 
 export { TalentApi };
