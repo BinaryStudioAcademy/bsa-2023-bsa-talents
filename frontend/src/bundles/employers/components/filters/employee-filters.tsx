@@ -137,12 +137,8 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             className={styles['MuiGrid-item']}
                         >
                             <Checkbox
-                                {...{
-                                    onChange: field.onChange,
-                                    onBlur: field.onBlur,
-                                    name: field.name,
-                                    value: fieldValue,
-                                }}
+                                onBlur={field.onBlur}
+                                name={field.name}
                                 key={option.value}
                                 label={option.label}
                                 value={option.value}
