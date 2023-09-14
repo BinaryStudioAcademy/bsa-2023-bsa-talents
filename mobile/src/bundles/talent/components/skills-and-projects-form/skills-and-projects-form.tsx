@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     AutocompleteMultiSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     Pressable,
@@ -18,10 +19,7 @@ import {
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    CheckboxGroup,
-    OnboardingBackButton,
-} from '~/bundles/talent/components/components';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
