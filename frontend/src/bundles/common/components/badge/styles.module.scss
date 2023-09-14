@@ -27,7 +27,7 @@
 }
 
 .iconDefaultStyle {
-    fill: #ffffff;
+    fill: var(--white);
     width: 20px;
     height: 20px;
 }
@@ -65,4 +65,50 @@
 .content .description.descriptionSmall {
     font-size: 10px;
     line-height: 12px;
+}
+
+.roundedIconBadge {
+    align-self: auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.roundedIconBadgeWrapper {
+    width: 146px;
+    height: 77px;
+    padding-top: 15px;
+    padding-left: 10px;
+    background-color: var(--white-lilac);
+}
+
+.roundedIconBadgeContent {
+    align-self: flex-start;
+    width: 20px;
+    padding-bottom: 40px;
+}
+
+.middleHeadphones {
+    width: 23px;
+    height: 23px;
+    color: var(--white);
+}
+
+.middleBadge {
+    width: 176px;
+    height: 81px;
+    padding-block: 0;
+    padding-right: 5px;
+    padding-left: 10px;
+}
+
+.bigIconBackground {
+    width: 100px;
+    height: 55px;
+    border-radius: 6px;
+}
+
+.bigHeadphones {
+    width: 30px;
+    height: 30px;
 }

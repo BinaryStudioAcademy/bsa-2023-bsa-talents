@@ -23,11 +23,13 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     CountryList,
     EmploymentType,
     JobTitle,
+    OnboardingSteps,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -66,8 +68,34 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors } = useAppForm<ProfileStepDto>({
-        defaultValues: {
+    const { control, handleSubmit, errors, reset } = useAppForm<ProfileStepDto>(
+        {
+            defaultValues: useMemo(
+                () => ({
+                    profileName,
+                    salaryExpectation,
+                    jobTitle,
+                    location,
+                    experienceYears,
+                    employmentType,
+                    description,
+                }),
+                [
+                    profileName,
+                    salaryExpectation,
+                    jobTitle,
+                    location,
+                    experienceYears,
+                    employmentType,
+                    description,
+                ],
+            ),
+            validationSchema: ProfileStepValidationSchema,
+        },
+    );
+
+    useEffect(() => {
+        reset({
             profileName,
             salaryExpectation,
             jobTitle,
@@ -75,20 +103,36 @@ const ProfileStep: React.FC = () => {
             experienceYears,
             employmentType,
             description,
-        },
-        validationSchema: ProfileStepValidationSchema,
-    });
+        });
+    }, [
+        description,
+        employmentType,
+        experienceYears,
+        jobTitle,
+        location,
+        profileName,
+        reset,
+        salaryExpectation,
+    ]);
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.saveTalentDetails({
+                    ...data,
+                    userId: currentUser?.id,
+                    completedStep: OnboardingSteps.STEP_01,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {
@@ -223,6 +267,7 @@ const ProfileStep: React.FC = () => {
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'jobTitle'}
                     options={jobTitleOptions}
                     placeholder="Option"
@@ -250,10 +295,11 @@ const ProfileStep: React.FC = () => {
             </FormControl>
             <FormControl className={styles.formControl}>
                 <FormLabel className={styles.formLabel} required>
-                    <Typography variant={'label'}>Current location</Typography>
+                    <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'location'}
                     options={locationOptions}
                     placeholder="Option"
@@ -290,6 +336,7 @@ const ProfileStep: React.FC = () => {
                 <Textarea
                     placeholder="Tell us a little bit about yourself"
                     control={control}
+                    errors={errors}
                     name={'description'}
                     minRows={7}
                     maxRows={9}
