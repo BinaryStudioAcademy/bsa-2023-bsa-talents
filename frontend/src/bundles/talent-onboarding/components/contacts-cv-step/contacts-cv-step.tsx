@@ -24,9 +24,9 @@ import {
 } from '~/bundles/common/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
-import { validateFileSize } from '../../helpers/validate-file-size.js';
+import { validateFileSize } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
