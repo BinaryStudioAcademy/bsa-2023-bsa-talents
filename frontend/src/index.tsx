@@ -97,11 +97,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     {
                                         path: AppRoute.CHATS,
                                         element: (
-                                            // <ProtectedRoute>
-                                            <PageLayout avatarUrl="" isOnline>
-                                                <ChatsPage />
-                                            </PageLayout>
-                                            // </ProtectedRoute>
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <ChatsPage />
+                                                </PageLayout>
+                                            </ProtectedRoute>
                                         ),
                                     },
                                     {
