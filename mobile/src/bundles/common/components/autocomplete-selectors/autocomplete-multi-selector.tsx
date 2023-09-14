@@ -5,6 +5,7 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import { TextInput } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import {
     ScrollView,
@@ -17,6 +18,7 @@ import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
+    useSelectorAnimations,
     useState,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
@@ -48,6 +50,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const { value, onBlur, onChange } = field;
     const [search, setSearch] = useState('');
     const { isVisible, toggleVisibility } = useVisibility(false);
+    const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
 
     const handleSearch = (text: string): void => {
         setSearch(text);
@@ -96,34 +99,34 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                     placeholderTextColor={Color.TEXT2}
                 />
-                {isVisible && (
-                    <View
-                        style={[
-                            globalStyles.pl20,
-                            globalStyles.pb5,
-                            globalStyles.width100,
-                            styles.dropdown,
-                        ]}
-                    >
-                        <ScrollView nestedScrollEnabled>
-                            {filteredItems.map((item: Options) => (
-                                <TouchableOpacity
-                                    key={item.value}
-                                    onPress={(): void => {
-                                        handleItemSelect(item);
-                                    }}
+
+                <Animated.View
+                    style={[
+                        globalStyles.pl20,
+                        globalStyles.pb5,
+                        globalStyles.width100,
+                        heightAnimatedStyle,
+                        styles.dropdown,
+                    ]}
+                >
+                    <ScrollView nestedScrollEnabled>
+                        {filteredItems.map((item: Options) => (
+                            <TouchableOpacity
+                                key={item.value}
+                                onPress={(): void => {
+                                    handleItemSelect(item);
+                                }}
+                            >
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={globalStyles.pv5}
                                 >
-                                    <Text
-                                        category={TextCategory.LABEL}
-                                        style={globalStyles.pv5}
-                                    >
-                                        {item.label}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
-                        </ScrollView>
-                    </View>
-                )}
+                                    {item.label}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </Animated.View>
             </View>
             <View
                 style={[

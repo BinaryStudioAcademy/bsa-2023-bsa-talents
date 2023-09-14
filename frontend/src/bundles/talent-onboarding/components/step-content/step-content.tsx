@@ -48,7 +48,7 @@ const StepContent: React.FC<Properties> = ({
                 </Typography>
             </Grid>
             <Grid className={styles.stepBody}>
-                <Grid>{<RouterOutlet />}</Grid>
+                <Grid className={styles.stepOutlet}>{<RouterOutlet />}</Grid>
                 <Grid
                     className={getValidClassNames(
                         currentStep === STEPS_NUMBER

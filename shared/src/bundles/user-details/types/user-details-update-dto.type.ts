@@ -6,6 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from '../user-details.js';
 
@@ -42,6 +43,7 @@ type UserDetailsUpdateDto = {
     companyWebsite?: string;
     employerPosition?: string;
     cvId?: string;
+    completedStep?: ValueOf<typeof OnboardingSteps>;
 };
 
 export { type UserDetailsUpdateDto };

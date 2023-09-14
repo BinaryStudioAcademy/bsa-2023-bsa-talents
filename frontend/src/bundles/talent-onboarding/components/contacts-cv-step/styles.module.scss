@@ -7,13 +7,14 @@
 }
 
 .photo {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
 .photoWrapper {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     background-color: var(--background-secondary);
     background-repeat: no-repeat;
     background-position: center;
@@ -46,10 +47,6 @@
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     line-height: var(--line-height-main);
-}
-
-.labelError {
-    color: var(--error-primary);
 }
 
 .labelText {
