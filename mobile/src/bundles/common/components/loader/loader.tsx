@@ -8,9 +8,9 @@ import { Color } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 type LoaderProperties = {
-    size: 'small' | 'large';
+    size?: 'small' | 'large';
 };
-const Loader: React.FC<LoaderProperties> = ({ size }) => {
+const Loader: React.FC<LoaderProperties> = ({ size = 'large' }) => {
     return (
         <View
             style={[

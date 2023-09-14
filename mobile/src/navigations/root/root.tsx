@@ -58,7 +58,7 @@ const Root: React.FC = () => {
     // }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
-        return <Loader size="large" />;
+        return <Loader />;
     }
 
     const navigators = {
