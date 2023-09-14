@@ -11,6 +11,7 @@ import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
+import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
@@ -25,7 +26,8 @@ import { errorHandler } from './middlewares/middlewares.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
-    employer: ReturnType<typeof employerOnboardingReducer>;
+    employer: ReturnType<typeof employerReducer>;
+    employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
@@ -58,8 +60,9 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
                 lms: lmsReducer,
-                employer: employerOnboardingReducer,
+                employerOnBoarding: employerOnboardingReducer,
                 talentOnBoarding: talentOnBoardingReducer,
+                employer: employerReducer,
                 app: appReducer,
                 candidate: candidateReducer,
             },

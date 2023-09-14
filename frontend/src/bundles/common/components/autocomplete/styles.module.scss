@@ -1,20 +1,8 @@
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-    max-width: var(--step-width);
-    padding: 10px;
-}
-
 .formFilter {
     display: flex;
     flex-direction: column;
     max-width: 100%;
     padding: 0;
-}
-
-.chips {
-    margin-top: 13px;
 }
 
 .label {
@@ -32,9 +20,18 @@
     }
 }
 
+.hasError {
+    margin-left: 0;
+    color: var(--error-primary);
+}
+
+.chips {
+    margin-top: 13px;
+}
+
 .input {
     width: 100%;
-    height: 16px;
+    height: 18px;
     padding: 10px 5px;
     color: var(--text-primary-dark);
     font-size: var(--font-size-base);
@@ -42,25 +39,26 @@
 
     &::placeholder {
         color: var(--text-primary);
+        font-size: var(--font-size-base);
         -webkit-text-fill-color: var(--text-primary);
     }
 }
 
 .inputRoot {
     width: 100%;
-    height: 36px;
+    height: 38px;
     font-size: var(--font-size-base);
     background: var(--white);
     border: none;
 
-    & :global(.MuiOutlinedInput-notchedOutline) {
+    & fieldset {
         border: none;
     }
 }
 
 .inputWrapper {
     width: 100%;
-    min-height: 36px;
+    min-height: 38px;
     padding-left: 0;
     overflow: hidden;
     border: 1px solid var(--botticelli);
@@ -72,51 +70,4 @@
     &:focus-within {
         border-color: var(--st-tropaz);
     }
-}
-
-.labelMargin {
-    margin-top: 9px;
-}
-
-.label:not(.Mui-focused) {
-    color: var(--text-primary-dark);
-}
-
-.labelEnglish {
-    margin-top: 12px;
-    margin-bottom: 5px;
-}
-
-.hasError {
-    margin-left: 0;
-    color: var(--error-primary);
-}
-
-.checkboxContainer {
-    margin-top: 1px;
-
-    .MuiGrid-item {
-        padding-top: 0;
-    }
-}
-
-.checkboxTitle {
-    font-size: var(--font-size-base);
-}
-
-.projectLinks {
-    margin-bottom: 16px;
-}
-
-.buttonAddLink {
-    align-items: center;
-    width: 44%;
-    color: var(--background-secondary);
-    font-weight: var(--font-weight-semi-bold);
-    font-size: var(--font-size-base);
-    text-transform: none;
-}
-
-.buttonAddLink:hover {
-    background-color: transparent;
 }
