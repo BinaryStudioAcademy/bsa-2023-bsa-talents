@@ -7,20 +7,17 @@ import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types
 import {
     createTalentDetails,
     getTalentDetails,
-    setCompletedStep,
     updateOnboardingData,
 } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsGeneralResponseDto | null;
-    completedStep: string | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
-    completedStep: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -28,9 +25,6 @@ const { reducer, actions, name } = createSlice({
     name: 'talents',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(setCompletedStep, (state, action) => {
-            state.completedStep = action.payload;
-        });
         builder.addMatcher(
             (action) =>
                 [

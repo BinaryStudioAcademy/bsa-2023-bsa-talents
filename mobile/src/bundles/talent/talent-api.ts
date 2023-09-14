@@ -97,6 +97,7 @@ class TalentApi extends HttpApiBase {
             companyWebsite: null,
             employerPosition: null,
             cvId: null,
+            completedStep: null,
         };
 
         return fakeTalentDetailsData;

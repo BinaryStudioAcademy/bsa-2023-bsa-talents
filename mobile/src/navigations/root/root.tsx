@@ -6,9 +6,9 @@ import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import {
+    CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
-    TalentOnboardingScreenName,
 } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -34,13 +34,14 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const { completedStep } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
     const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
     const isPendingAuth = dataStatus === DataStatus.PENDING;
     const isProfileComplete =
-        completedStep === TalentOnboardingScreenName.PREVIEW;
+        completedStep === CompletedTalentOnboardingStep.Preview;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());

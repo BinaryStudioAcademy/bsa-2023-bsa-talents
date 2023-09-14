@@ -48,10 +48,6 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             onSubmit({
                 ...data,
                 salaryExpectation: +data.salaryExpectation,
-                //TODO add when it created in DB
-                //completedStep: CompletedStep.STEP_1,
-                //TODO delete when it fixes in DB
-                experienceYears: Math.round(data.experienceYears),
             });
         })();
     }, [handleSubmit, onSubmit]);

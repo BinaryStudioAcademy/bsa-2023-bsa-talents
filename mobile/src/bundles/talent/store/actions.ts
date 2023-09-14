@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
@@ -56,8 +56,6 @@ const updateOnboardingData = createAsyncThunk<
     }
 });
 
-const setCompletedStep = createAction<string>(`${sliceName}/setCompletedStep`);
-
 const getTalentDetails = createAsyncThunk<
     UserDetailsResponseDto | null,
     UserDetailsFindRequestDto,
@@ -73,9 +71,4 @@ const getTalentDetails = createAsyncThunk<
     }
 });
 
-export {
-    createTalentDetails,
-    getTalentDetails,
-    setCompletedStep,
-    updateOnboardingData,
-};
+export { createTalentDetails, getTalentDetails, updateOnboardingData };

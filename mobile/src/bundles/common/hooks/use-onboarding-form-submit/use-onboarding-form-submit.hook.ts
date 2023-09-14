@@ -1,6 +1,7 @@
 import { type NavigationProp } from '@react-navigation/native';
 
 import {
+    CompletedTalentOnboardingStep,
     type TalentOnboardingScreenName,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
@@ -49,6 +50,8 @@ const useOnboardingFormSubmit = ({
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const userId = currentUserData?.id ?? '';
 
+    const completedOnboardingStep = CompletedTalentOnboardingStep[stepTitle];
+
     const { navigate } =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
@@ -62,6 +65,7 @@ const useOnboardingFormSubmit = ({
                 projectLinks: urlObjectsToStrings(
                     (payload as SkillsStepDto).projectLinks,
                 ),
+                completedStep: completedOnboardingStep,
             };
 
             const createPayload = {
@@ -78,11 +82,8 @@ const useOnboardingFormSubmit = ({
                   );
 
             if (result.payload) {
-                const setStepResult = dispatch(
-                    talentActions.setCompletedStep(stepTitle),
-                );
                 const nextStepTitle = getNextStepTitle(stepNumber);
-                if (setStepResult.payload && nextStepTitle) {
+                if (nextStepTitle) {
                     navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
@@ -94,8 +95,8 @@ const useOnboardingFormSubmit = ({
             navigate,
             userId,
             stepNumber,
-            stepTitle,
             isNewTalentOnboardingData,
+            completedOnboardingStep,
         ],
     );
 };
