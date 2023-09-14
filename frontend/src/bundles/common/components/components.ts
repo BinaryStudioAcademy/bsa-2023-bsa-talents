@@ -5,6 +5,7 @@ export { Badge } from './badge/badge.js';
 export { Button, type ButtonProperties } from './button/button.js';
 export { Checkbox } from './checkbox/checkbox.js';
 export { Chip } from './chip/chip.js';
+export { Dropdown, Menu, MenuButton, MenuItem } from './dropdown/components.js';
 export { FileUpload } from './file-upload/file-upload.js';
 export { FormControl } from './form-control/form-control.js';
 export { FormControlLabel } from './form-control-label/form-control-label.js';

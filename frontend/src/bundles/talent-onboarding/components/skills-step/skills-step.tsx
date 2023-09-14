@@ -23,17 +23,23 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     EnglishLevel,
     NotConsidered,
+    OnboardingSteps,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { useFormSubmit } from '../../context/context.js';
-import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
+import {
+    fromUrlLinks,
+    setEnglishLevelValue,
+    toUrlLinks,
+} from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/skills-project-links.js';
@@ -64,32 +70,64 @@ const SkillsStep: React.FC = () => {
         projectLinks,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors } = useAppForm<SkillsStepDto>({
-        defaultValues: {
-            hardSkills,
-            englishLevel,
-            notConsidered,
-            preferredLanguages,
-            projectLinks: toUrlLinks(projectLinks),
-        },
+    const { control, handleSubmit, errors, reset } = useAppForm<SkillsStepDto>({
+        defaultValues: useMemo(
+            () => ({
+                hardSkills,
+                englishLevel: setEnglishLevelValue(englishLevel),
+                notConsidered,
+                preferredLanguages,
+                projectLinks: toUrlLinks(projectLinks),
+            }),
+            [
+                englishLevel,
+                hardSkills,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+            ],
+        ),
         validationSchema: SkillsStepValidationSchema,
     });
 
+    useEffect(() => {
+        reset({
+            hardSkills,
+            englishLevel: setEnglishLevelValue(englishLevel),
+            notConsidered,
+            preferredLanguages,
+            projectLinks: toUrlLinks(projectLinks),
+        });
+    }, [
+        hardSkills,
+        englishLevel,
+        notConsidered,
+        preferredLanguages,
+        reset,
+        projectLinks,
+    ]);
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
+            const { englishLevel, notConsidered, preferredLanguages } = data;
             await dispatch(
                 actions.updateTalentDetails({
-                    ...data,
+                    englishLevel,
+                    notConsidered,
+                    preferredLanguages,
+                    userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
+                    completedStep: OnboardingSteps.STEP_03,
                 }),
             );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {

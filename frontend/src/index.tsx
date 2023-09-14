@@ -24,6 +24,7 @@ import { Candidates } from './bundles/employers/pages/candidates.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
+import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -45,6 +46,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     StepsRoute.STEP_01,
                                                 )}
                                             />
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.CANDIDATE,
+                                        element: (
+                                            <PageLayout avatarUrl="" isOnline>
+                                                <CandidatePage />
+                                            </PageLayout>
                                         ),
                                     },
                                     {
