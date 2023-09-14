@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, TextField, type TextFieldProps } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -27,7 +27,7 @@ type Properties<T extends FieldValues> = {
     className?: string;
     inputClassNames?: string;
     inputRef?: RefCallBack;
-};
+} & TextFieldProps;
 
 const Input = <T extends FieldValues>({
     control,
@@ -41,6 +41,7 @@ const Input = <T extends FieldValues>({
     className = '',
     inputClassNames,
     inputRef,
+    ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -108,6 +109,7 @@ const Input = <T extends FieldValues>({
                 className: htmlInputStyles,
             }}
             FormHelperTextProps={{ className: helperTextStyles }}
+            {...props}
         />
     );
 };

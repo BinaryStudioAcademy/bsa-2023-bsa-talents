@@ -9,6 +9,9 @@ import { Auth } from '~/bundles/auth/pages/auth.js';
 import {
     App,
     Navigate,
+    PageLayout,
+    ProtectedRoute,
+    PublicRoute,
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components.js';
@@ -18,8 +21,9 @@ import { store } from '~/framework/store/store.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
-import { STEP_ROUTES } from './bundles/talent-onboarding/constants/constants.js';
+import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
+import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -38,46 +42,90 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: (
                                             <Navigate
                                                 to={getStepRoute(
-                                                    STEP_ROUTES.STEP_01,
+                                                    StepsRoute.STEP_01,
                                                 )}
                                             />
                                         ),
                                     },
                                     {
-                                        path: AppRoute.TALENT,
-                                        element: <Onboarding />,
+                                        path: AppRoute.CANDIDATE,
+                                        element: (
+                                            <PageLayout avatarUrl="" isOnline>
+                                                <CandidatePage />
+                                            </PageLayout>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_IN,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.SIGN_UP,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.RESET_PASSWORD,
+                                        element: (
+                                            <PublicRoute>
+                                                <Auth />
+                                            </PublicRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.TALENT_STEP,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <Onboarding />
+                                            </ProtectedRoute>
+                                        ),
                                         children: [
                                             {
-                                                path: AppRoute.TALENT,
-                                                element: (
-                                                    <Navigate
-                                                        to={getStepRoute(
-                                                            STEP_ROUTES.STEP_01,
-                                                        )}
-                                                    />
-                                                ),
-                                            },
-                                            {
-                                                path: AppRoute.TALENT_STEP,
+                                                path: '',
                                                 element: <StepNavigation />,
                                             },
                                         ],
                                     },
+                                    {
+                                        path: AppRoute.CHATS,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <div></div>
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.CANDIDATES,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <div></div>
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
                                 ],
                             },
-                            {
-                                path: AppRoute.SIGN_IN,
-                                element: <Auth />,
-                            },
-                            {
-                                path: AppRoute.SIGN_UP,
-                                element: <Auth />,
-                            },
-                            {
-                                path: AppRoute.RESET_PASSWORD,
-                                element: <Auth />,
-                            },
 
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFoundPage />,
+                            },
                             {
                                 path: AppRoute.OTHER,
                                 element: <NotFoundPage />,

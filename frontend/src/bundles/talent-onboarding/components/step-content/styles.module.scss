@@ -88,7 +88,7 @@
 .wideStepButtons {
     display: flex;
 
-    button {
+    .button {
         width: 181px;
         height: 36px;
         margin: 7px;
@@ -97,29 +97,37 @@
     }
 }
 
+.stepOutlet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media screen and (width <= 660px) {
     .stepName {
-        font-size: 10px;
+        font-size: 15px;
     }
 
     .stepNumber {
-        font-size: 8px;
+        font-size: 12px;
     }
 
     .stepButtons {
         display: flex;
 
-        button {
+        .button {
             width: 60px;
         }
     }
 
     .wideStepButtons {
-        flex-direction: column;
-
-        button {
-            width: 100px;
+        .button {
+            width: 120px;
             height: 50px;
         }
+    }
+
+    .stepBody {
+        padding: 0;
     }
 }

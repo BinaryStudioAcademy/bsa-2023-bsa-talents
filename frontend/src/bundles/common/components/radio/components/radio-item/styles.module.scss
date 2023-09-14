@@ -19,15 +19,6 @@
     outline-offset: 2px;
 }
 
-.radioIcon input:hover {
-    background-color: var(--background-primary);
-}
-
-.radioIcon input:disabled {
-    background: var(--nepal);
-    box-shadow: none;
-}
-
 .radioIconChecked {
     background-color: var(--background-secondary);
     background-image: linear-gradient(
@@ -47,8 +38,4 @@
         transparent 32%
     );
     content: "";
-}
-
-.radioIconChecked input:hover {
-    background-color: var(--background-secondary);
 }

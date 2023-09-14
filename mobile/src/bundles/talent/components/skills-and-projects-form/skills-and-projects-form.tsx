@@ -109,7 +109,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.notConsidered?.message}
                 label="I do not consider"
                 name="notConsidered"
-                required
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
