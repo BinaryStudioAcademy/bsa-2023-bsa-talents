@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
     },
-    inputBorder: {
+    noLeftBorder: {
         borderLeftWidth: 0,
     },
 });
