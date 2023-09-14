@@ -20,7 +20,10 @@ const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => auth);
-    const isPendingAuth = dataStatus === DataStatus.PENDING;
+    const isPendingAuth =
+        dataStatus === DataStatus.PENDING ||
+        dataStatus === DataStatus.CHECK_TOKEN;
+
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload));
