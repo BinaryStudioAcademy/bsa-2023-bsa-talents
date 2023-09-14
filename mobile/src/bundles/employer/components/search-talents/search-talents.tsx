@@ -1,13 +1,13 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
-    Input,
     Pressable,
     Text,
+    TextInput,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -21,12 +21,6 @@ const SearchTalents: React.FC<Properties> = ({
     searchQuery,
     setSearchQuery,
 }) => {
-    const { control } = useAppForm({
-        defaultValues: {
-            searchTalents: '',
-        },
-    });
-
     return (
         <View
             style={[
@@ -37,16 +31,40 @@ const SearchTalents: React.FC<Properties> = ({
                 globalStyles.alignItemsCenter,
             ]}
         >
-            <View style={styles.search}>
-                <Input
-                    name="searchTalents"
-                    control={control}
-                    placeholder="Search candidates"
-                    iconName={IconName.MAGNIFY}
-                    value={searchQuery}
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentCenter,
+                    globalStyles.alignItemsStretch,
+                    styles.search,
+                ]}
+            >
+                <View
+                    style={[
+                        globalStyles.alignSelfCenter,
+                        globalStyles.pl5,
+                        styles.iconContainer,
+                    ]}
+                >
+                    <Icon
+                        name={IconName.MAGNIFY}
+                        size={25}
+                        color={Color.PRIMARY}
+                    />
+                </View>
+
+                <TextInput
                     onChangeText={(text): void => {
                         setSearchQuery(text);
                     }}
+                    value={searchQuery}
+                    placeholder="Search candidates"
+                    placeholderTextColor={Color.TEXT2}
+                    style={[
+                        globalStyles.flex1,
+                        globalStyles.Input,
+                        styles.input,
+                    ]}
                 />
             </View>
             <Pressable

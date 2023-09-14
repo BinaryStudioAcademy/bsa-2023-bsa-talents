@@ -30,6 +30,7 @@ export {
     Modal as RNModal,
     ScrollView,
     StatusBar,
+    TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
