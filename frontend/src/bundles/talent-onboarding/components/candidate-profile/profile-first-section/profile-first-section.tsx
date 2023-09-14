@@ -1,4 +1,5 @@
 import mockedProjectPicture from '~/assets/img/mocked-project-picture.png';
+import { mockedHRComments } from '~/assets/mock-data/mock-data.js';
 import {
     Badge,
     Button,
@@ -6,76 +7,35 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
+import { BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
 import styles from './styles.module.scss';
 
-const mockedAcademyBadges = [
-    {
-        primaryText: '4.2',
-        description: 'Averag project score',
-        color: BadgeColors.DARK_BLUE,
-    },
-    {
-        primaryText: '4.2',
-        description: 'Average projec score',
-        color: BadgeColors.RED,
-    },
-    {
-        primaryText: '4.2',
-        description: 'Average project scor',
-        color: BadgeColors.YELLOW,
-    },
-    {
-        primaryText: '4.2',
-        description: 'Average project score',
-        color: BadgeColors.PURPLE,
-    },
-    {
-        primaryText: '4.2',
-        description: 'Average project score',
-        color: BadgeColors.GREEN,
-    },
-];
-
-const mockedSkills = ['Java Script', 'Node.js', 'React', 'GitHub'];
-const preferredLanguage = ['Українська', 'English'];
-
-const mockedHRComments = [
-    {
-        score: '60%',
-        description: 'punctuality',
-    },
-    {
-        score: '60%',
-        description: 'ownership ',
-    },
-    {
-        score: '70%',
-        description: 'initiative',
-    },
-    {
-        score: '70%',
-        description: 'teamwork',
-    },
-    {
-        score: '70%',
-        description: 'communication',
-    },
-];
-
 type Properties = {
+    candidateParameters: FirstSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
 };
 
 const ProfileFirstSection: React.FC<Properties> = ({
+    candidateParameters,
     isProfileOpen,
     isFifthStep,
     isProfileCard,
 }) => {
+    const handleLinkClick = useCallback((): void => {
+        window.open(
+            candidateParameters.projectLinks
+                ? candidateParameters.projectLinks[0]
+                : '',
+            '_blank',
+        );
+    }, [candidateParameters.projectLinks]);
+
     return (
         <Grid
             className={getValidClassNames(
@@ -86,10 +46,10 @@ const ProfileFirstSection: React.FC<Properties> = ({
         >
             <Grid>
                 <Typography variant="h5" className={styles.candidatePosition}>
-                    Middle Python Developer
+                    {candidateParameters.profileName}
                     {isProfileCard && (
                         <Typography variant="input" className={styles.salary}>
-                            $1500
+                            ${candidateParameters.salaryExpectation}
                         </Typography>
                     )}
                 </Typography>
@@ -98,8 +58,10 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         variant="caption"
                         className={styles.candidateParameters}
                     >
-                        Ukraine | Lviv |2.5 years of experience |
-                        Upper-Intermediate | Publish today
+                        {candidateParameters.location} |{' '}
+                        {candidateParameters.experienceYears} years of
+                        experience |{candidateParameters.englishLevel} | Publish
+                        today
                     </Typography>
                 )}
             </Grid>
@@ -115,13 +77,15 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         isFifthStep ? styles.bigBadgeList : '',
                     )}
                 >
-                    {mockedAcademyBadges.map((badge, index) => (
+                    {candidateParameters.badges.map((badge, index) => (
                         <li key={index}>
                             <Badge
                                 isSmall
                                 isFifthStep={isFifthStep}
                                 color={badge.color}
-                                primaryText={badge.primaryText}
+                                primaryText={
+                                    (badge.maxScore ?? badge.level) as string
+                                }
                                 description={badge.description}
                                 secondText={' / 5'}
                             />
@@ -134,7 +98,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     Skills
                 </Typography>
                 <ul className={styles.skills}>
-                    {mockedSkills.map((skill) => (
+                    {candidateParameters.hardSkills.map((skill) => (
                         <li key={skill}>
                             <Chip label={skill} />
                         </li>
@@ -146,11 +110,13 @@ const ProfileFirstSection: React.FC<Properties> = ({
                             Preferred language
                         </Typography>
                         <ul className={styles.preferredLanguage}>
-                            {preferredLanguage.map((language) => (
-                                <li key={language}>
-                                    <Chip label={language} />
-                                </li>
-                            ))}
+                            {candidateParameters.preferredLanguages.map(
+                                (language) => (
+                                    <li key={language}>
+                                        <Chip label={language} />
+                                    </li>
+                                ),
+                            )}
                         </ul>
                     </>
                 )}
@@ -188,12 +154,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         isProfileCard ? styles.cardCoverLetterText : '',
                     )}
                 >
-                    Hi! Throughout my time as a Python developer, I&apos;ve
-                    developed a strong foundation in Python programming,
-                    enabling me to create efficient, modular, and maintainable
-                    code. I&apos;ve become adept at leveraging the
-                    language&apos;s versatile libraries and frameworks to tackle
-                    complex tasks and deliver robust solutions.
+                    {candidateParameters.description}
                 </Typography>
                 <Button
                     label="Read more"
@@ -220,7 +181,8 @@ const ProfileFirstSection: React.FC<Properties> = ({
                                 label="Repository link"
                                 variant="outlined"
                                 className={styles.projectButton}
-                            />
+                                onClick={handleLinkClick}
+                            ></Button>
                         )}
                     </Typography>
                     <img
@@ -233,6 +195,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                             label="Repository link"
                             variant="outlined"
                             className={styles.projectButton}
+                            onClick={handleLinkClick}
                         />
                     )}
                 </Grid>
