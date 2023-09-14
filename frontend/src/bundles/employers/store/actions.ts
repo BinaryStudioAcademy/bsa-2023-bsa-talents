@@ -15,4 +15,12 @@ const searchCandidates = createAsyncThunk<
     return filters;
 });
 
-export { searchCandidates };
+const setFilters = createAsyncThunk<
+    EmployeesFiltersDto,
+    EmployeesFiltersDto,
+    AsyncThunkConfig
+>(`${sliceName}/set-filters`, (filters) => {
+    return filters;
+});
+
+export { searchCandidates, setFilters };

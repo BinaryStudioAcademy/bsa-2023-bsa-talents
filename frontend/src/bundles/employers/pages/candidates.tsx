@@ -72,9 +72,10 @@ const Candidates: React.FC = () => {
     useEffect(() => {
         const editedValues: EmployeesFiltersDto = getValues();
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
+            void dispatch(employerActions.setFilters(editedValues));
             debouncedDispatch(editedValues, (filters) => filters);
         }
-    }, [debouncedDispatch, filters, getValues, watchedValues]);
+    }, [debouncedDispatch, dispatch, filters, getValues, watchedValues]);
 
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
