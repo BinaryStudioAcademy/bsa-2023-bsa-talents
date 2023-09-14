@@ -5,10 +5,11 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { StepLabels } from '~/bundles/talent-onboarding/enums/enums.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
 import { useFormSubmit } from '../../context/context.js';
+import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -37,11 +38,11 @@ const StepContent: React.FC<Properties> = ({
         <Grid item className={styles.stepContent}>
             <Grid className={styles.stepTitle}>
                 <Typography variant="body1" className={styles.stepName}>
-                    {
-                        StepLabels[
-                            `STEP_0${currentStep}` as keyof typeof StepLabels
-                        ]
-                    }
+                    {formatStepLabels(
+                        StepsRoute[
+                            `STEP_0${currentStep}` as keyof typeof StepsRoute
+                        ],
+                    )}
                 </Typography>
                 <Typography variant="caption" className={styles.stepNumber}>
                     Step 0{currentStep}
