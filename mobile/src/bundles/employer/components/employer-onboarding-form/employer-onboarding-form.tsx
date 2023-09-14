@@ -7,8 +7,10 @@ import {
     FormField,
     Input,
     ScrollView,
+    Text,
     View,
 } from '~/bundles/common/components/components';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CountryList } from '~/bundles/talent/enums/enums';
@@ -28,6 +30,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
     });
 
     const handleFormSubmit = useCallback(() => {
+        //TODO add some logic
         void handleSubmit(() => {
             onSubmit();
         })();
@@ -37,36 +40,63 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
         >
-            <FormField
-                errorMessage={
-                    errors.profilePhoto && 'Profile photo is required'
-                }
-                name="profilePhoto"
-                containerStyle={globalStyles.alignItemsCenter}
+            <Text
+                category={TextCategory.H4}
+                style={[globalStyles.mb15, styles.title]}
             >
-                <AvatarPicker
-                    isSingleAvatarView
-                    control={control}
-                    name="profilePhoto"
-                />
-            </FormField>
-            <FormField
-                errorMessage={errors.companyLogo && 'Company logo is required'}
-                name="companyLogo"
-                containerStyle={globalStyles.alignItemsCenter}
+                Create a profile to find a perfect match to your company
+            </Text>
+            <Text category={TextCategory.H6} style={globalStyles.mb10}>
+                Please, fill out all the fields below, so we could verify your
+                company
+            </Text>
+            <View
+                style={[
+                    globalStyles.width100,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceAround,
+                    globalStyles.mb25,
+                ]}
             >
-                <AvatarPicker
-                    isSingleAvatarView
-                    control={control}
-                    name="companyLogo"
-                />
-            </FormField>
+                <View>
+                    <FormField
+                        errorMessage={
+                            errors.profilePhoto && 'Profile photo is required'
+                        }
+                        name="profilePhoto"
+                        containerStyle={globalStyles.alignItemsCenter}
+                    >
+                        <AvatarPicker
+                            isSingleAvatarView
+                            control={control}
+                            name="profilePhoto"
+                        />
+                    </FormField>
+                    <Text category={TextCategory.H6}>Profile photo</Text>
+                </View>
+                <View>
+                    <FormField
+                        errorMessage={
+                            errors.companyLogo && 'Company logo is required'
+                        }
+                        name="companyLogo"
+                        containerStyle={globalStyles.alignItemsCenter}
+                    >
+                        <AvatarPicker
+                            isSingleAvatarView
+                            control={control}
+                            name="companyLogo"
+                        />
+                    </FormField>
+                    <Text category={TextCategory.H6}>Company logo</Text>
+                </View>
+            </View>
             <FormField
                 errorMessage={errors.fullName?.message}
                 label="Full name"
                 name="fullName"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
@@ -79,7 +109,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Your position"
                 name="position"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
@@ -92,7 +122,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Linkedin profile"
                 name="linkedinLink"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
@@ -106,7 +136,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Company name"
                 name="companyName"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
@@ -119,7 +149,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 label="Company website"
                 name="companyWebsite"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
@@ -130,10 +160,10 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
             </FormField>
             <FormField
                 errorMessage={errors.location?.message}
-                label="Current location"
+                label="Location"
                 name="location"
                 required
-                containerStyle={globalStyles.pb25}
+                containerStyle={globalStyles.pb15}
             >
                 <AutocompleteSelector
                     control={control}
@@ -157,13 +187,11 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                     multiline={true}
                 />
             </FormField>
-
-            <View>
-                <Button
-                    label="Submit for verification"
-                    onPress={handleFormSubmit}
-                />
-            </View>
+            <Button
+                label="Submit for verification"
+                onPress={handleFormSubmit}
+                style={globalStyles.mt25}
+            />
         </ScrollView>
     );
 };

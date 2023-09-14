@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
+    title: {
+        fontWeight: '700',
+        textAlign: 'center',
+    },
 });
 
 export { styles };
