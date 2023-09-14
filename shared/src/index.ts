@@ -6,6 +6,11 @@ export {
     ContactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
+export {
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
+    type ChatMessageGetAllResponseDto,
+} from './bundles/chat/chat.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
