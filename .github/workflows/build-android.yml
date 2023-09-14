@@ -47,6 +47,7 @@ jobs:
 
             - name: Notify success in Slack channel
               if: ${{ success() }}
+              continue-on-error: true
               uses: adrey/slack-file-upload-action@1.0.5
               with:
                   token: ${{ secrets.SLACK_APP_TOKEN }}
