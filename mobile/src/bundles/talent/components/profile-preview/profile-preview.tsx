@@ -10,7 +10,7 @@ import { type BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { PreviewTabs } from '../preview-tabs/preview-tabs';
 import { styles } from './styles';
 
-// This is data for demonstration purposes.
+// Toto change to real data.
 const mockUser = {
     PUBLISHED: 'Published today',
     PERSONAL_TYPE: ['Thinker'],
