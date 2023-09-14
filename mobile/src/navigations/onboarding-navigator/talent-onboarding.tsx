@@ -7,6 +7,7 @@ import React from 'react';
 import {
     TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
+    TalentOnboardingScreenNumberByStep,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
 import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
@@ -27,10 +28,12 @@ import { Header, Steps } from './components/components';
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
 const TalentOnboardingNavigator: React.FC = () => {
-    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const { completedStep } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+
     const stepToActiveScreen = 1;
     const activeStepNumber = completedStep
-        ? TalentOnboardingScreenNumber[completedStep] + stepToActiveScreen
+        ? TalentOnboardingScreenNumberByStep[completedStep] + stepToActiveScreen
         : stepToActiveScreen;
     const getStepStatus = useCallback(
         (

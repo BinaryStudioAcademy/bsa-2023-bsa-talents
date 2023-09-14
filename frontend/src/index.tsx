@@ -20,11 +20,12 @@ import { store } from '~/framework/store/store.js';
 
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
+import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
-import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
+import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -83,7 +84,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.TALENT_STEP,
                                         element: (
                                             <ProtectedRoute>
-                                                <Onboarding />
+                                                <TalentOnboarding />
                                             </ProtectedRoute>
                                         ),
                                         children: [
@@ -92,6 +93,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                 element: <StepNavigation />,
                                             },
                                         ],
+                                    },
+                                    {
+                                        path: AppRoute.EMPLOYER_ONBOARDING,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <EmployerOnboarding />
+                                            </ProtectedRoute>
+                                        ),
                                     },
                                     {
                                         path: AppRoute.CHATS,
