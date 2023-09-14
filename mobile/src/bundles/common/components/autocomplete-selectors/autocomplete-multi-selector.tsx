@@ -14,7 +14,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -97,6 +97,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                         styles.input,
                         hasError && styles.error,
                     ]}
+                    placeholderTextColor={Color.TEXT2}
                 />
 
                 <Animated.View

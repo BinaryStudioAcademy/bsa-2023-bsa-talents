@@ -1,4 +1,3 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -12,25 +11,20 @@ import {
     Selector,
     View,
 } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    Color,
-    IconName,
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
+import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
     useFieldArray,
-    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import {
+    CheckboxGroup,
+    OnboardingBackButton,
+} from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
     HARD_SKILLS,
@@ -44,11 +38,13 @@ import { styles } from './styles';
 type Properties = {
     skillsStepData: SkillsStepDto | null;
     onSubmit: (payload: SkillsStepDto) => void;
+    currentStep: number;
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({
     onSubmit,
     skillsStepData,
+    currentStep,
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
@@ -58,19 +54,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         name: 'projectLinks',
         control,
     });
-    const { navigate } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
 
-    const handleFormSubmit = useCallback(() => {
-        void handleSubmit((data: SkillsStepDto) => {
-            onSubmit(data);
-            navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-                stepState: TalentOnboardingStepState.FOCUSED,
-            });
-        })();
-    }, [handleSubmit, navigate, onSubmit]);
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView
@@ -183,19 +170,15 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     buttonType={ButtonType.GHOST}
                     iconName={IconName.PLUS}
                     iconSize={20}
-                    style={globalStyles.alignSelfFlexStart}
+                    style={[globalStyles.alignSelfFlexStart, globalStyles.mb25]}
                     onPress={(): void => {
                         append({ url: '' });
                     }}
                 />
             )}
 
-            <View style={[globalStyles.flexDirectionRow, globalStyles.pt25]}>
-                <Button
-                    label="Back"
-                    style={globalStyles.mr10}
-                    buttonType={ButtonType.OUTLINE}
-                />
+            <View style={globalStyles.flexDirectionRow}>
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>
