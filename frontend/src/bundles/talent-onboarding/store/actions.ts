@@ -23,7 +23,7 @@ const updateTalentDetails = createAsyncThunk<
     const { talentOnBoardingApi } = extra;
 
     //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-    if ('badges' in updatePayload) {
+    if ('badges' in updatePayload || 'hardSkills' in updatePayload) {
         return updatePayload;
     }
 
