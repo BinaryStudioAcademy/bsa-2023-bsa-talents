@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     AutocompleteSelector,
+    AvatarPicker,
     Button,
     FormField,
     Input,
@@ -10,7 +11,6 @@ import {
 } from '~/bundles/common/components/components';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { AvatarPicker } from '~/bundles/talent/components/components';
 import { CountryList } from '~/bundles/talent/enums/enums';
 
 import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
@@ -44,14 +44,22 @@ const EmployerOnboardingForm: React.FC<Properties> = ({ onSubmit }) => {
                 name="profilePhoto"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker control={control} name="profilePhoto" />
+                <AvatarPicker
+                    isSingleAvatarView
+                    control={control}
+                    name="profilePhoto"
+                />
             </FormField>
             <FormField
                 errorMessage={errors.companyLogo && 'Company logo is required'}
                 name="companyLogo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker control={control} name="companyLogo" />
+                <AvatarPicker
+                    isSingleAvatarView
+                    control={control}
+                    name="companyLogo"
+                />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}

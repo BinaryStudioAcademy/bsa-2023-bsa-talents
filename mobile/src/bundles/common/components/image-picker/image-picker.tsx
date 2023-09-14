@@ -19,7 +19,9 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 type ImagePickerProperties = {
-    label: string;
+    isSingleAvatarView?: boolean;
+    toggleImagePickerVisibility?: () => void;
+    label?: string;
     onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
     containerStyle?: StyleProp<ViewStyle>;
 };
@@ -28,17 +30,20 @@ import { notifications } from '~/framework/notifications/notifications';
 import { styles } from './styles';
 
 const ImagePicker: React.FC<ImagePickerProperties> = ({
+    isSingleAvatarView = false,
+    toggleImagePickerVisibility,
     label,
     onImageLoad,
     containerStyle,
 }) => {
-    const [isPopUpActive, setIsPopUpActive] = useState(false);
+    const [isPopUpActive, setIsPopUpActive] = useState(isSingleAvatarView);
 
     const getImageFromLibrary = useCallback((): void => {
+        toggleImagePickerVisibility?.();
         setIsPopUpActive(false);
         const result = launchImageLibrary({ mediaType: 'photo' });
         onImageLoad(result);
-    }, [onImageLoad]);
+    }, [onImageLoad, toggleImagePickerVisibility]);
 
     const getImageFromCamera = useCallback(async (): Promise<void> => {
         try {
@@ -59,13 +64,14 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                 });
             }
             setIsPopUpActive(false);
+            toggleImagePickerVisibility?.();
         } catch (error) {
             if (error instanceof Error) {
                 notifications.showError({ title: error.message });
             }
             notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
         }
-    }, [onImageLoad]);
+    }, [onImageLoad, toggleImagePickerVisibility]);
 
     const imageCameraHandler = useCallback((): void => {
         void getImageFromCamera();
@@ -77,6 +83,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
 
     const onPopUpClose = (): void => {
         setIsPopUpActive(false);
+        toggleImagePickerVisibility?.();
     };
 
     return (
@@ -99,12 +106,14 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                     />
                 </View>
             </Modal>
-            <Button
-                buttonType={ButtonType.OUTLINE}
-                label={label}
-                onPress={onPickerPress}
-                style={containerStyle}
-            />
+            {!isSingleAvatarView && (
+                <Button
+                    buttonType={ButtonType.OUTLINE}
+                    label={label ?? 'Button'}
+                    onPress={onPickerPress}
+                    style={containerStyle}
+                />
+            )}
         </>
     );
 };

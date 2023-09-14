@@ -94,7 +94,7 @@ const Selector = <T extends FieldValues>({
                 ]}
                 onPress={toggleVisibility}
             >
-                <Text category={TextCategory.LABEL} style={placeHolderStyle}>
+                <Text category={TextCategory.INPUT} style={placeHolderStyle}>
                     {selectedOptions.length > NO_SELECTED
                         ? selectedOptions.join(', ')
                         : placeholder}
@@ -125,7 +125,7 @@ const Selector = <T extends FieldValues>({
                             }}
                         >
                             <Text
-                                category={TextCategory.LABEL}
+                                category={TextCategory.INPUT}
                                 style={globalStyles.pv5}
                             >
                                 {item}

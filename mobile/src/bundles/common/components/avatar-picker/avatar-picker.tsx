@@ -4,6 +4,7 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { type ImagePickerResponse } from 'react-native-image-picker';
 
 import {
@@ -12,12 +13,13 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { AvatarType, TextCategory } from '~/bundles/common/enums/enums';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import {
     useCallback,
     useFormController,
     useState,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type AvatarProperties } from '~/bundles/common/types/types';
@@ -33,6 +35,7 @@ type AvatarPickerProperties<T extends FieldValues> = {
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
+    isSingleAvatarView?: boolean;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -41,12 +44,14 @@ const AvatarPicker = <T extends FieldValues>({
     buttonStyle,
     containerStyle,
     uri,
+    isSingleAvatarView,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
 
     const [avatar, setAvatar] = useState<undefined | string>(uri ?? value?.uri);
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
@@ -96,15 +101,37 @@ const AvatarPicker = <T extends FieldValues>({
 
     return (
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
-            <Avatar {...props} uri={avatar ?? uri} />
-            <Text style={globalStyles.mv10} category={TextCategory.H6}>
-                Upload a new photo
-            </Text>
-            <ImagePicker
-                onImageLoad={imageLoadHandler}
-                label="Choose photo"
-                containerStyle={buttonStyle}
-            />
+            {isSingleAvatarView ? (
+                <>
+                    <TouchableWithoutFeedback onPress={toggleVisibility}>
+                        <Avatar
+                            {...props}
+                            uri={avatar ?? uri}
+                            avatarSize={AvatarType.LARGE}
+                        />
+                    </TouchableWithoutFeedback>
+                    {isVisible && (
+                        <ImagePicker
+                            onImageLoad={imageLoadHandler}
+                            isSingleAvatarView={isSingleAvatarView}
+                            toggleImagePickerVisibility={toggleVisibility}
+                            containerStyle={buttonStyle}
+                        />
+                    )}
+                </>
+            ) : (
+                <>
+                    <Avatar {...props} uri={avatar ?? uri} />
+                    <Text style={globalStyles.mv10} category={TextCategory.H6}>
+                        Upload a new photo
+                    </Text>
+                    <ImagePicker
+                        onImageLoad={imageLoadHandler}
+                        label="Choose photo"
+                        containerStyle={buttonStyle}
+                    />
+                </>
+            )}
         </View>
     );
 };

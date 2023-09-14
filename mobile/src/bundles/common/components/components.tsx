@@ -1,6 +1,7 @@
 export { AutocompleteMultiSelector } from './autocomplete-selectors/autocomplete-multi-selector';
 export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-selector';
 export { Avatar } from './avatar/avatar';
+export { AvatarPicker } from './avatar-picker/avatar-picker';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
 export { CheckboxGroup } from './checkbox-group/checkbox-group';
