@@ -152,7 +152,7 @@ const ProfilePreview: React.FC = () => {
                     </View>
                 </View>
             </View>
-            <Text category={TextCategory.INPUT} style={globalStyles.pt5}>
+            <Text category={TextCategory.CAPTION} style={globalStyles.pt5}>
                 {/* todo replace with real data */}
                 {mockUser.PUBLISHED}
             </Text>

@@ -75,7 +75,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                     control={control}
                     name="phone"
                     placeholder="+38000 000 00 00"
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                 />
             </FormField>
             <FormField
