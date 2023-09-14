@@ -1,3 +1,4 @@
+export { formatStepLabels } from './format-step-labels/format-step-labels.js';
 export { getRandomBadgeColor } from './get-random-badge-color/get-random-badge-color.js';
 export { getStepRoute } from './get-step-route/get-step-route.js';
 export {
@@ -9,4 +10,5 @@ export {
     fromUrlLinks,
     toUrlLinks,
 } from './map-project-links/map-project-links.js';
+export { setEnglishLevelValue } from './set-english-level-value/set-english-level-value.js';
 export { validateFileSize } from './validate-file-size.js';

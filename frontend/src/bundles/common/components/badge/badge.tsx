@@ -13,8 +13,11 @@ type Properties = {
     description: string;
     secondText?: string;
     color?: ValueOf<typeof BadgeColors>;
-    small?: boolean | undefined;
+    isSmall?: boolean;
     icon?: ReactElement;
+    iconClass?: string;
+    isRoundedIcon?: boolean;
+    isFifthStep?: boolean;
 };
 
 const Badge: React.FC<Properties> = ({
@@ -22,11 +25,33 @@ const Badge: React.FC<Properties> = ({
     description,
     secondText,
     color = BadgeColors.BLUE,
-    small = false,
+    isSmall = false,
     icon,
+    isRoundedIcon,
+    isFifthStep,
 }) => {
-    const setClass = (classStandart: string, classSmall: string): string =>
-        getValidClassNames(classStandart, small ? classSmall : '');
+    const setClass = (classStandard: string, classSmall: string): string =>
+        getValidClassNames(classStandard, isSmall ? classSmall : '');
+
+    let finalBadgeClass;
+    if (isRoundedIcon) {
+        finalBadgeClass = styles.roundedIconBadge;
+    } else {
+        finalBadgeClass = isFifthStep ? styles.bigIconBackground : styles.icon;
+    }
+
+    const badgeClass = setClass(finalBadgeClass, styles.iconSmall);
+
+    let finalBadgeWrapperClass;
+    if (isRoundedIcon) {
+        finalBadgeWrapperClass = styles.roundedIconBadgeWrapper;
+    } else {
+        finalBadgeWrapperClass = isFifthStep
+            ? styles.middleBadge
+            : styles.badgeSmall;
+    }
+
+    const badgeWrapperClass = setClass(styles.badge, finalBadgeWrapperClass);
 
     return (
         <Grid
@@ -35,7 +60,7 @@ const Badge: React.FC<Properties> = ({
             alignItems="center"
             flexWrap="nowrap"
             gap="10px"
-            className={setClass(styles.badge, styles.badgeSmall)}
+            className={badgeWrapperClass}
             component="article"
         >
             <Grid
@@ -43,16 +68,18 @@ const Badge: React.FC<Properties> = ({
                 justifyContent="center"
                 alignItems="center"
                 alignContent="center"
-                alignSelf={small ? 'flex-start' : 'auto'}
-                className={setClass(styles.icon, styles.iconSmall)}
+                alignSelf={isSmall && !isFifthStep ? 'flex-start' : 'auto'}
+                className={badgeClass}
                 style={{ backgroundColor: color }}
             >
                 <BadgeIcon
+                    isFifthStep={isFifthStep}
                     icon={icon}
                     iconClass={setClass(
                         styles.iconDefaultStyle,
                         styles.iconDefaultStyleSmall,
                     )}
+                    isRoundedIcon={isRoundedIcon}
                 />
             </Grid>
             <Grid
@@ -61,7 +88,10 @@ const Badge: React.FC<Properties> = ({
                 flexDirection="column"
                 justifyContent="space-between"
                 flexWrap="nowrap"
-                className={styles.content}
+                className={getValidClassNames(
+                    styles.content,
+                    isRoundedIcon ? styles.roundedIconBadgeContent : '',
+                )}
             >
                 <div className={setClass(styles.title, styles.titleSmall)}>
                     <span>{primaryText}</span>
