@@ -1,4 +1,8 @@
-import { Avatar, Grid } from '~/bundles/common/components/components.js';
+import {
+    Avatar,
+    Grid,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
@@ -27,14 +31,15 @@ const ChatHeader: React.FC<Properties> = ({
                 <Avatar isSmall={true} src={avatarUrl} alt={title} />
             </Grid>
             <Grid className={styles.info}>
-                <p
+                <Typography
+                    variant="h5"
                     className={getValidClassNames(
-                        styles.title,
                         styles.truncate,
+                        styles.title,
                     )}
                 >
                     {title}
-                </p>
+                </Typography>
                 <Grid className={styles.status}>
                     <Grid className={onlineIconClasses} />
                     <p className={styles.textStatus}>

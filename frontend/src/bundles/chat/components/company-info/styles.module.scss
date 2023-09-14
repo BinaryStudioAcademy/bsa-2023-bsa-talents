@@ -38,8 +38,12 @@
 .contentWrapper {
     height: 100%;
     min-height: 100px;
+    padding: 0 24px 50px;
     padding-bottom: 50px;
-    overflow: hidden auto;
+    overflow: hidden scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
 }
 
 .content {
@@ -47,7 +51,8 @@
     flex-direction: column;
     align-items: start;
     width: 82%;
-    padding: 23px 0 41px 24px;
+    padding-top: 23px;
+    padding-bottom: 41px;
 }
 
 .contentHeading {
@@ -89,11 +94,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 24px;
+    padding-right: 24px;
 }
 
 .mainBtn {
-    width: 292px;
+    width: 100%;
+    max-width: 292px;
     margin-bottom: 24px;
     padding: 15px 0;
     font-size: 15px;

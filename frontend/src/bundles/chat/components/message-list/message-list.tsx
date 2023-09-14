@@ -1,8 +1,6 @@
-import { useRef } from 'react';
-
 import { Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useEffect } from '~/bundles/common/hooks/hooks.js';
+import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';

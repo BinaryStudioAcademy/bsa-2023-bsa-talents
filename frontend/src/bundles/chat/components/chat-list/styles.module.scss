@@ -14,8 +14,11 @@
     min-height: 100px;
     margin: 0;
     padding: 0 16px;
-    overflow: hidden auto;
+    overflow: hidden scroll;
+    overflow-y: scroll;
     list-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
 }
 
 .nothingWasFound {

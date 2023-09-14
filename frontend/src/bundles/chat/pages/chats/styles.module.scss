@@ -8,14 +8,18 @@
         99vh - var(--header-height) - var(--page-title-height)
     );
     --chat-list-small-min-width: 250px;
+    --button-group-width: 135px;
+    --scroll-bar-color: var(--solitude);
+    --scroll-bar-thumb-color: var(--st-tropaz);
+    --scroll-bar-width: 2px;
 
     ::-webkit-scrollbar {
-        width: 2px;
-        background-color: var(--solitude);
+        width: var(--scroll-bar-width);
+        background-color: var(--scroll-bar-color);
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: var(--st-tropaz);
+        background-color: var(--scroll-bar-thumb-color);
         border-radius: 10px;
     }
 }
@@ -87,7 +91,9 @@
     position: absolute;
     right: 0;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
+    width: var(--button-group-width);
     height: var(--chat-header-height);
     padding: 0 calc(var(--chat-header-padding) - 8px);
 }
