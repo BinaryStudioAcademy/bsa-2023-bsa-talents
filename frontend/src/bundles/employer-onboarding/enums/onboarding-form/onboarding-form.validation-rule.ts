@@ -1,4 +1,4 @@
-const EmployerRegistrationValidationRule = {
+const EmployerOnboardingValidationRule = {
     MIN_FULL_NAME_LENGTH: 3,
     MAX_FULL_NAME_LENGTH: 50,
     MIN_LINKEDIN_LINK_LENGTH: 30,
@@ -14,4 +14,4 @@ const EmployerRegistrationValidationRule = {
     MAX_FILE_SIZE: 5_242_880,
 };
 
-export { EmployerRegistrationValidationRule };
+export { EmployerOnboardingValidationRule };

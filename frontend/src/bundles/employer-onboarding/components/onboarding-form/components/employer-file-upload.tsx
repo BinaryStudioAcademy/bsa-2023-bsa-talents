@@ -17,14 +17,14 @@ import {
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { type EmployerRegistrationDto } from '../../../types/types.js';
+import { type EmployerOnboardingDto } from '../../../types/types.js';
 import { ACCEPTED_PHOTO_TYPES } from '../constants/constants.js';
 import styles from '../styles.module.scss';
 
 type Properties = {
     label: string;
-    control: Control<EmployerRegistrationDto>;
-    name: FieldPath<EmployerRegistrationDto>;
+    control: Control<EmployerOnboardingDto>;
+    name: FieldPath<EmployerOnboardingDto>;
 };
 
 const EmployerFileUpload: React.FC<Properties> = ({ label, name, control }) => {
@@ -34,7 +34,7 @@ const EmployerFileUpload: React.FC<Properties> = ({ label, name, control }) => {
     } = useFormController({ name, control });
 
     const handleFileChange = useCallback(
-        (field: ControllerRenderProps<EmployerRegistrationDto, typeof name>) =>
+        (field: ControllerRenderProps<EmployerOnboardingDto, typeof name>) =>
             (event: React.ChangeEvent<HTMLInputElement>): void => {
                 const file = event.target.files?.[0];
                 field.onChange(file);

@@ -1,4 +1,4 @@
-type EmployerRegistrationDto = {
+type EmployerOnboardingDto = {
     photo: File | null;
     fullName: string;
     position: string;
@@ -10,4 +10,4 @@ type EmployerRegistrationDto = {
     companyLogo: File | null;
 };
 
-export { type EmployerRegistrationDto };
+export { type EmployerOnboardingDto };

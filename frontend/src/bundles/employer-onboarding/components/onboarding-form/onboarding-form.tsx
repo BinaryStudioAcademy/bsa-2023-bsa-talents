@@ -19,9 +19,9 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { CountryList } from '../../enums/enums.js';
-import { actions } from '../../store/employer.js';
-import { type EmployerRegistrationDto } from '../../types/types.js';
-import { EmployerRegistrationValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { actions } from '../../store/employer-onboarding.js';
+import { type EmployerOnboardingDto } from '../../types/types.js';
+import { EmployerOnboardingValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { EmployerFileUpload } from './components/employer-file-upload.js';
 import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -31,18 +31,18 @@ const locationOptions = Object.values(CountryList).map((country) => ({
     label: country,
 }));
 
-const EmployerRegistrationForm: React.FC = () => {
+const OnboardingForm: React.FC = () => {
     const { control, handleSubmit, errors, watch } =
-        useAppForm<EmployerRegistrationDto>({
+        useAppForm<EmployerOnboardingDto>({
             defaultValues: DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
-            validationSchema: EmployerRegistrationValidationSchema,
+            validationSchema: EmployerOnboardingValidationSchema,
             mode: 'onChange',
         });
 
     const dispatch = useAppDispatch();
 
     const onSubmit = useCallback(
-        async (data: EmployerRegistrationDto): Promise<boolean> => {
+        async (data: EmployerOnboardingDto): Promise<boolean> => {
             await dispatch(actions.createEmployerDetails(data));
             return true;
         },
@@ -305,4 +305,4 @@ const EmployerRegistrationForm: React.FC = () => {
     );
 };
 
-export { EmployerRegistrationForm };
+export { OnboardingForm };

@@ -1,4 +1,4 @@
-const EmployerRegistrationValidationMessage = {
+const EmployerOnboardingValidationMessage = {
     PHOTO_MAX_SIZE: 'Please upload a photo smaller than 5 MB.',
     FULL_NAME_REQUIRED: 'Full name is required',
     FULL_NAME_MIN_LENGTH: 'Full name must be at least {{#limit}} characters',
@@ -46,4 +46,4 @@ const EmployerRegistrationValidationMessage = {
         'Company name must be at most {{#limit}} characters',
 };
 
-export { EmployerRegistrationValidationMessage };
+export { EmployerOnboardingValidationMessage };

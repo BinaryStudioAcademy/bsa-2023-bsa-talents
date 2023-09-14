@@ -1,8 +1,8 @@
-import { type EmployerRegistrationDto } from '~/bundles/employer/types/types.js';
+import { type EmployerOnboardingDto } from '~/bundles/employer-onboarding/types/types.js';
 
 const ACCEPTED_PHOTO_TYPES = ['.jpeg', '.png', '.jpg'];
 
-const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerRegistrationDto = {
+const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerOnboardingDto = {
     photo: null,
     fullName: '',
     position: '',

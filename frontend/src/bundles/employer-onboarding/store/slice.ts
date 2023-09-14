@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from '../components/registration-page/constants/constants.js';
-import { type EmployerRegistrationDto } from '../types/types.js';
+import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from '../components/onboarding-form/constants/constants.js';
+import { type EmployerOnboardingDto } from '../types/types.js';
 import { createEmployerDetails } from './actions.js';
 
-const initialState: EmployerRegistrationDto = {
+const initialState: EmployerOnboardingDto = {
     ...DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'employerRegistration',
+    name: 'employerOnboarding',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(createEmployerDetails.fulfilled, (state, action) => {
