@@ -3,8 +3,6 @@ const SkillsStepValidationMessage = {
         'Hard Skills must contain only letters, special chars, spaces.',
     HARD_SKILLS_REQUIRED: 'Hard Skills is required',
     ENGLISH_LEVEL_REQUIRED: 'English level is required',
-    NOT_CONSIDERED_REQUIRED:
-        'At least one not considered option must be selected',
     NOT_CONSIDERED_DIDNT_MATCH_ALLOWED_TYPES:
         'Not considered did not match allowed types',
     PREFERRED_LANGUAGES_WRONG_PATTERN: 'Preferred languages must be an array',
