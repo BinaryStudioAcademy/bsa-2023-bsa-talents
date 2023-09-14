@@ -4,7 +4,7 @@ import { type UserFindResponseDto } from '~/bundles/auth/types/types';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-import { loadCurrentUser, signIn, signUp } from './actions';
+import { loadCurrentUser, logout, signIn, signUp } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
@@ -23,6 +23,16 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(loadCurrentUser.pending, (state) => {
+            state.dataStatus = DataStatus.CHECK_TOKEN;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
+        builder.addCase(logout.fulfilled, (state) => {
+            state.dataStatus = DataStatus.IDLE;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
         builder.addMatcher(
             isAnyOf(
                 signUp.fulfilled,
@@ -40,14 +50,11 @@ const { reducer, actions, name } = createSlice({
                 state.isSignedIn = true;
             },
         );
-        builder.addMatcher(
-            isAnyOf(signUp.pending, loadCurrentUser.pending, signIn.pending),
-            (state) => {
-                state.dataStatus = DataStatus.PENDING;
-                state.isSignedIn = false;
-                state.currentUserData = null;
-            },
-        );
+        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
+            state.dataStatus = DataStatus.PENDING;
+            state.isSignedIn = false;
+            state.currentUserData = null;
+        });
         builder.addMatcher(
             isAnyOf(signUp.rejected, loadCurrentUser.rejected, signIn.rejected),
             (state) => {

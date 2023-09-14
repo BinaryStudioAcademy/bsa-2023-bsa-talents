@@ -1,4 +1,5 @@
 import {
+    clearTalentStore,
     createTalentDetails,
     getTalentDetails,
     updateOnboardingData,
@@ -8,6 +9,7 @@ import { actions } from './slice';
 const allActions = {
     ...actions,
     createTalentDetails,
+    clearTalentStore,
     getTalentDetails,
     updateOnboardingData,
 };

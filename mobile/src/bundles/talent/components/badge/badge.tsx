@@ -2,7 +2,11 @@ import { type StyleProp, type ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Text, View } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    BadgeSize,
+    IconName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -11,6 +15,7 @@ import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { styles } from './styles';
 
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
+type TBadgeSize = ValueOf<typeof BadgeSize>;
 
 type BadgeProperties = {
     style: StyleProp<ViewStyle>;
@@ -22,6 +27,7 @@ type Properties = {
     value?: string | number;
     badgeType: BadgeName;
     iconSize?: number;
+    size?: TBadgeSize;
 };
 
 const defaultIconSize = 40;
@@ -30,6 +36,7 @@ const Badge: React.FC<Properties> = ({
     badgeType,
     value,
     iconSize = defaultIconSize,
+    size = BadgeSize.LARGE,
 }) => {
     // TODO: replace with real data
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
@@ -70,13 +77,12 @@ const Badge: React.FC<Properties> = ({
     return (
         <View
             style={[
-                globalStyles.flex1,
-                globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
                 globalStyles.borderRadius9,
+                globalStyles.flexDirectionRow,
                 globalStyles.p10,
-                globalStyles.m5,
                 styles.wrapper,
+                size === BadgeSize.SMALL ? styles.small : globalStyles.flex1,
             ]}
         >
             <View
@@ -84,6 +90,7 @@ const Badge: React.FC<Properties> = ({
                     globalStyles.p5,
                     globalStyles.borderRadius9,
                     badges[badgeType].style,
+                    size === BadgeSize.SMALL && globalStyles.alignSelfFlexStart,
                 ]}
             >
                 <Icon name={IconName.HEADPHONES} size={iconSize} color="#FFF" />
