@@ -1,4 +1,10 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
+export {
+    ChatMessagesApiPath,
+    type ChatMessagesCreateRequestDto,
+    ChatMessagesCreateValidationSchema,
+    type ChatMessagesPatchDto,
+} from './bundles/chat-messages/chat-messages.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
