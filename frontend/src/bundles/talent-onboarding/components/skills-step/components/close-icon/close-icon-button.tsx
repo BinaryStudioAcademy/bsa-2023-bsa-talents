@@ -13,13 +13,7 @@ const CloseIconButton: React.FC<Properties> = ({ index, onClick }) => {
         onClick(index);
     }, [index, onClick]);
 
-    return (
-        <Close
-            color="error"
-            className={styles.closeIcon}
-            onClick={handleClick}
-        />
-    );
+    return <Close className={styles.closeIcon} onClick={handleClick} />;
 };
 
 export { CloseIconButton };

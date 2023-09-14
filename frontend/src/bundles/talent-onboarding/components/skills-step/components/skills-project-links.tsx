@@ -1,18 +1,10 @@
-import {
-    FormControl,
-    FormHelperText,
-    FormLabel,
-    Typography,
-} from '@mui/material';
-import { type Control, type FieldPath } from 'react-hook-form';
+import { FormControl, FormLabel, Typography } from '@mui/material';
+import { type Control, type FieldErrors } from 'react-hook-form';
 import { useFieldArray } from 'react-hook-form';
 
 import { Button, Grid, Input } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import {
-    useCallback,
-    useFormController,
-} from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useEffect } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../constants/constants.js';
@@ -21,15 +13,10 @@ import { CloseIconButton } from './close-icon/close-icon-button.js';
 
 type Properties = {
     control: Control<SkillsStepDto>;
-    name: FieldPath<SkillsStepDto>;
+    errors: FieldErrors<SkillsStepDto>;
 };
 
-const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
-    const {
-        field,
-        formState: { errors },
-    } = useFormController<SkillsStepDto>({ name, control });
-
+const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'projectLinks',
@@ -46,6 +33,12 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
         [remove],
     );
 
+    useEffect(() => {
+        if (fields.length === 0) {
+            appendLinks();
+        }
+    }, [appendLinks, fields.length]);
+
     return (
         <FormControl>
             <FormLabel
@@ -55,35 +48,21 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, name }) => {
             </FormLabel>
 
             {fields.map((item, index) => {
-                const { ref, name } = field;
-
-                const error = errors.projectLinks?.[index]?.url;
-                const message = error?.message;
-                const fieldPath =
-                    `${name}.${index}.url` as FieldPath<SkillsStepDto>;
-
                 return (
                     <Grid key={item.id} className={styles.projectLinks}>
                         <Input
-                            inputRef={ref}
                             type="text"
-                            errors={{}}
+                            errors={errors}
                             control={control}
                             adornmentText="www."
                             placeholder="link to BSA project"
-                            name={fieldPath}
+                            name={`projectLinks.${index}.url`}
                         />
                         {index !== 0 && (
                             <CloseIconButton
                                 index={index}
                                 onClick={removeLink}
                             />
-                        )}
-
-                        {Boolean(error) && (
-                            <FormHelperText className={styles.hasError}>
-                                {message}
-                            </FormHelperText>
                         )}
                     </Grid>
                 );

@@ -48,9 +48,9 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
+    const placeHolderStyle = value || styles.placeholder;
     const { heightAnimatedStyle, iconAnimatedStyle } =
         useSelectorAnimations(isVisible);
-    const placeHolderStyle = value ? {} : styles.placeholder;
 
     const handlePressItem = useCallback(
         (option: string): void => {
@@ -70,7 +70,7 @@ const Selector = <T extends FieldValues>({
     const selectedOptions = useMemo(
         () =>
             options
-                .filter((option) => value.includes(option))
+                .filter((option) => value?.includes(option))
                 .map((option) => option),
         [options, value],
     );

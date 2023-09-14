@@ -58,7 +58,15 @@ const userDetailsUpdate = joi
                 .valid(...Object.values(PreferredLanguages)),
         ),
 
-        projectLinks: joi.array().items(joi.string().trim().uri()),
+        projectLinks: joi.array().items(
+            joi
+                .string()
+                .trim()
+                .uri({
+                    scheme: ['http', 'https', 'ftp'],
+                    allowRelative: true,
+                }),
+        ),
         photoId: joi.string().trim(),
         fullName: joi.string().trim(),
         phone: joi.string().trim(),

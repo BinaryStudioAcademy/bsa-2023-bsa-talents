@@ -48,6 +48,10 @@
     border-color: var(--botticelli);
 }
 
+.input :global(.MuiSelect-select) {
+    padding: 4px;
+}
+
 .hasError {
     color: var(--error-primary);
     border-color: var(--error-primary);

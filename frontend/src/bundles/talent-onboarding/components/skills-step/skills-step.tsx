@@ -95,16 +95,16 @@ const SkillsStep: React.FC = () => {
             englishLevel: setEnglishLevelValue(englishLevel),
             notConsidered,
             preferredLanguages,
-            projectLinks: toUrlLinks(projectLinks),
         });
     }, [
         hardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
-        reset,
         projectLinks,
+        reset,
     ]);
+
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
@@ -114,6 +114,19 @@ const SkillsStep: React.FC = () => {
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
             const { englishLevel, notConsidered, preferredLanguages } = data;
+            if (!data.projectLinks[0].url) {
+                await dispatch(
+                    actions.updateTalentDetails({
+                        englishLevel,
+                        notConsidered,
+                        preferredLanguages,
+                        userId: currentUser?.id,
+                        completedStep: OnboardingSteps.STEP_03,
+                    }),
+                );
+                return true;
+            }
+
             await dispatch(
                 actions.updateTalentDetails({
                     englishLevel,
@@ -271,7 +284,7 @@ const SkillsStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <SkillsProjectLinks name={'projectLinks'} control={control} />
+            <SkillsProjectLinks errors={errors} control={control} />
         </FormControl>
     );
 };
