@@ -28,7 +28,7 @@
     font-size: var(--font-size-base);
 }
 
-.container .input > div {
+.container .input :global(.MuiInput-input) {
     padding: 0;
 }
 
