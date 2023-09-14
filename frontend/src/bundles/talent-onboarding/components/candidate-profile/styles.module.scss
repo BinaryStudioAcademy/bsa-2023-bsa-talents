@@ -1,0 +1,73 @@
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.profileWrapper {
+    display: flex;
+    max-width: 1280px;
+    margin: 30px 35px 25px 50px;
+    background-color: var(--white);
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+}
+
+.profileOpenWrapper {
+    max-width: 1280px;
+}
+
+.profileCardWrapper {
+    max-width: 833px;
+}
+
+.contactButton {
+    width: 324px;
+    height: 45px;
+    margin-bottom: 85px;
+    margin-left: 50px;
+    text-transform: none;
+    background-color: var(--background-secondary);
+}
+
+.accountReadyButton {
+    display: flex;
+    width: 325px;
+    height: 54px;
+    margin: 0 auto;
+    color: var(--text-primary-dark);
+    text-transform: none;
+    background-color: var(--solitude);
+    pointer-events: none;
+}
+
+@media screen and (width <= 1300px) {
+    .profileWrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-inline: 15px;
+    }
+}
+
+@media screen and (width <= 660px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profileWrapper {
+        margin-inline: 5px;
+        margin-block: 12px;
+    }
+
+    .contactButton {
+        width: 90%;
+        margin: 0;
+        margin-block: 10px;
+    }
+
+    .accountReadyButton {
+        width: 200px;
+        margin-block: 20px;
+    }
+}

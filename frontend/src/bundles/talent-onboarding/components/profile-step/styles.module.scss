@@ -11,12 +11,13 @@
 }
 
 .checkboxContainer {
-    padding: 10px 16px;
+    padding: 10px;
 }
 
 .formControlCheckbox {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    padding-left: 2px;
 }
 
 .formControlSlider {
