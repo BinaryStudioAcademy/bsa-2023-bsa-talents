@@ -144,9 +144,9 @@ const ProfilePreview: React.FC = () => {
                         />
                         <Text
                             category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
+                            style={[globalStyles.pl10, globalStyles.flex1]}
                         >
-                            Does’t consider: {notConsidered?.join(' ')}
+                            Does’t consider: {notConsidered?.join(', ')}
                         </Text>
                     </View>
                 </View>
