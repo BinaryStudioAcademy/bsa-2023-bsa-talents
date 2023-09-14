@@ -74,10 +74,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     role = UserRole.EMPLOYER;
                     break;
                 }
-                case UserRole.ADMIN: {
-                    role = UserRole.ADMIN;
-                    break;
-                }
                 default: {
                     break;
                 }
