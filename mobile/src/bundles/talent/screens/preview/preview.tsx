@@ -12,7 +12,7 @@ import {
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
 import { useAppRoute } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { NewAccountHeader } from '../../components/components';
 import { ProfilePreview } from '../../components/profile-preview/profile-preview';
@@ -33,7 +33,7 @@ const Preview: React.FC = () => {
                 ]}
             >
                 <ProfilePreview />
-
+                {/* todo: add logic comment */}
                 <View>
                     <Button
                         label="Save without publishing"

@@ -1,8 +1,9 @@
 import React from 'react';
 
+import projectImage from '~/assets/images/project.png';
 import { Image, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './style';
 
@@ -19,10 +20,7 @@ const ProjectContainer = (): JSX.Element => {
             >
                 6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
             </Text>
-            <Image
-                // eslint-disable-next-line unicorn/prefer-module
-                source={require('~/assets/images/project.png')}
-            />
+            <Image source={projectImage} />
         </View>
     );
 };

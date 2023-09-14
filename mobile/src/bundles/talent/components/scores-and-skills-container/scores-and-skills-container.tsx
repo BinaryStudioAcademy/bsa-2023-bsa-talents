@@ -1,33 +1,25 @@
 import React from 'react';
-import {
-    type BsaBadgeStepBadgesTitle,
-    type SkillsStepDto,
-    type ValueOf,
-} from 'shared/build/index';
+import { type BsaBadgeStepBadgesTitle, type ValueOf } from 'shared/build/index';
 
 import { Tag, Text, View } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { Badge } from '../components';
 import { styles } from './styles';
 
-type Badge = {
-    label: ValueOf<typeof BsaBadgeStepBadgesTitle>;
-    value: number;
-};
-
-type Properties = {
-    badges: BadgeName[];
-    skills?: SkillsStepDto['hardSkills'];
-};
-
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
-const ScoresAndSkillsContainer = ({
-    badges,
-    skills,
-}: Properties): JSX.Element => {
+const ScoresAndSkillsContainer: React.FC = () => {
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
+
+    if (!onboardingData) {
+        return null;
+    }
+
+    const { badges, hardSkills } = onboardingData;
+
     return (
         <View>
             <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
@@ -40,11 +32,11 @@ const ScoresAndSkillsContainer = ({
                     styles.badgesWrapper,
                 ]}
             >
-                {badges.map((badge) => {
+                {badges?.map((badge) => {
                     return (
                         <Badge
                             key={badge}
-                            badgeType={badge}
+                            badgeType={badge as BadgeName}
                             size={BadgeSize.SMALL}
                             iconSize={20}
                         />
@@ -63,7 +55,7 @@ const ScoresAndSkillsContainer = ({
                     styles.tagsWrapper,
                 ]}
             >
-                {skills?.map((skill) => {
+                {hardSkills?.map((skill) => {
                     return <Tag key={skill.label} value={skill.label} />;
                 })}
             </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { type SkillsStepDto, type ValueOf } from 'shared/build/index';
+import { type ValueOf } from 'shared/build/index';
 
 import {
     Text,
@@ -9,57 +9,35 @@ import {
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { ProfileTab } from '~/bundles/talent/enums/enums';
 
-import { FeedbacksContainer } from '../feedbacks-container/feedbacks-container';
-import { ProjectContainer } from '../project-container/project-container';
-import { ScoresAndSkillsContainer } from '../scores-and-skills-container/scores-and-skills-container';
+import {
+    FeedbacksContainer,
+    ProjectContainer,
+    ScoresAndSkillsContainer,
+} from '../components';
 import { styles } from './styles';
 
 const tabs = Object.values(ProfileTab);
 
 type Tab = ValueOf<typeof ProfileTab>;
-type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
-type Properties = {
-    badges: BadgeName[];
-    hardSkills?: SkillsStepDto['hardSkills'];
-    personalType?: string[];
-    HRBadges?: string[];
-};
-
-const PreviewTabs = ({
-    badges,
-    hardSkills,
-    personalType,
-    HRBadges,
-}: Properties): JSX.Element => {
+const PreviewTabs: React.FC = () => {
     const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
 
     const selectTab = useMemo(() => {
         switch (tab) {
             case ProfileTab.FEEDBACKS: {
-                return (
-                    <FeedbacksContainer
-                        personalityTypes={personalType}
-                        HRBadges={HRBadges}
-                    />
-                );
+                return <FeedbacksContainer />;
             }
             case ProfileTab.PROJECT: {
                 return <ProjectContainer />;
             }
             default: {
-                return (
-                    <ScoresAndSkillsContainer
-                        badges={badges}
-                        skills={hardSkills}
-                    />
-                );
+                return <ScoresAndSkillsContainer />;
             }
         }
-    }, [HRBadges, badges, hardSkills, personalType, tab]);
+    }, [tab]);
 
     return (
         <>

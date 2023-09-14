@@ -1,30 +1,19 @@
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { type ValueOf } from 'shared/build/index';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles';
 
-import { type BsaBadgeStepBadgesTitle } from '../../enums/enums';
 import { PreviewTabs } from '../preview-tabs/preview-tabs';
 import { styles } from './styles';
 
 // Toto change to real data.
 const mockUser = {
     PUBLISHED: 'Published today',
-    PERSONAL_TYPE: ['Thinker'],
-    HR_BADGES: [
-        'Communicative',
-        'Collaboration',
-        'Creative',
-        'Problem-solving',
-        'Leadership',
-    ],
 };
 
 const iconSize = 24;
-type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 const ProfilePreview: React.FC = () => {
     const { onboardingData } = useAppSelector(({ talents }) => talents);
@@ -33,17 +22,28 @@ const ProfilePreview: React.FC = () => {
         return null;
     }
 
+    const {
+        jobTitle,
+        salaryExpectation,
+        location,
+        experienceYears,
+        englishLevel,
+        employmentType,
+        notConsidered,
+        description,
+    } = onboardingData;
+
     return (
         <>
             <Text category={TextCategory.H5} style={globalStyles.pb10}>
-                {onboardingData.jobTitle}
+                {jobTitle}
             </Text>
             <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
                 <Text
                     category={TextCategory.H3}
                     style={[globalStyles.pv10, globalStyles.pl25]}
                 >
-                    $ {onboardingData.salaryExpectation} / mo
+                    $ {salaryExpectation} / mo
                 </Text>
                 <View
                     style={[
@@ -67,7 +67,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {onboardingData.location}
+                            {location}
                         </Text>
                     </View>
                     <View
@@ -85,7 +85,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {onboardingData.experienceYears} year of experience
+                            {experienceYears} year of experience
                         </Text>
                     </View>
                     <View
@@ -103,11 +103,11 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            English: {onboardingData.englishLevel}
+                            English: {englishLevel}
                         </Text>
                     </View>
                     <View>
-                        {onboardingData.employmentType?.map((type) => {
+                        {employmentType?.map((type) => {
                             return (
                                 <View
                                     key={type}
@@ -146,8 +146,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            Does’t consider:{' '}
-                            {onboardingData.notConsidered?.join(' ')}
+                            Does’t consider: {notConsidered?.join(' ')}
                         </Text>
                     </View>
                 </View>
@@ -157,14 +156,9 @@ const ProfilePreview: React.FC = () => {
                 {mockUser.PUBLISHED}
             </Text>
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
-                {onboardingData.description}
+                {description}
             </Text>
-            <PreviewTabs
-                badges={onboardingData.badges as BadgeName[]}
-                hardSkills={onboardingData.hardSkills}
-                personalType={mockUser.PERSONAL_TYPE}
-                HRBadges={mockUser.HR_BADGES}
-            />
+            <PreviewTabs />
         </>
     );
 };

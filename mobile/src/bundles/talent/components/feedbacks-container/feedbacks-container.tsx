@@ -6,15 +6,19 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type Properties = {
-    personalityTypes?: string[];
-    HRBadges?: string[];
+//todo replace with real data
+const mockUser = {
+    PERSONAL_TYPE: ['Thinker'],
+    HR_BADGES: [
+        'Communicative',
+        'Collaboration',
+        'Creative',
+        'Problem-solving',
+        'Leadership',
+    ],
 };
 
-const FeedbacksContainer = ({
-    personalityTypes,
-    HRBadges,
-}: Properties): JSX.Element => {
+const FeedbacksContainer = (): JSX.Element => {
     return (
         <>
             <Text category={TextCategory.BODY1}>Personality type</Text>
@@ -26,7 +30,7 @@ const FeedbacksContainer = ({
                     styles.personalityWrapper,
                 ]}
             >
-                {personalityTypes?.map((type) => {
+                {mockUser.PERSONAL_TYPE.map((type) => {
                     return <Tag key={type} value={type} />;
                 })}
             </View>
@@ -39,7 +43,7 @@ const FeedbacksContainer = ({
                     styles.personalityWrapper,
                 ]}
             >
-                {HRBadges?.map((badge) => {
+                {mockUser.HR_BADGES.map((badge) => {
                     return <Tag key={badge} value={badge} />;
                 })}
             </View>
