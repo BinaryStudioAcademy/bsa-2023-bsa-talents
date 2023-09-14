@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
@@ -71,4 +71,11 @@ const getTalentDetails = createAsyncThunk<
     }
 });
 
-export { createTalentDetails, getTalentDetails, updateOnboardingData };
+const clearTalentStore = createAction(`${sliceName}/clearTalentStore`);
+
+export {
+    clearTalentStore,
+    createTalentDetails,
+    getTalentDetails,
+    updateOnboardingData,
+};

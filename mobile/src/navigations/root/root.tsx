@@ -5,6 +5,7 @@ import {
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
     DataStatus,
@@ -40,13 +41,14 @@ const Root: React.FC = () => {
     const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
-    const isPendingAuth = dataStatus === DataStatus.PENDING;
     const isProfileComplete =
         completedStep === CompletedTalentOnboardingStep.Preview;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
+
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
     //TODO use when backend is ready
     // useEffect(() => {
@@ -57,7 +59,7 @@ const Root: React.FC = () => {
     // }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
-        return null;
+        return <Loader />;
     }
 
     const navigators = {

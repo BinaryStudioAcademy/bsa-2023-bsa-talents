@@ -1,4 +1,6 @@
 import { Grid } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
@@ -13,11 +15,21 @@ type Message = {
 
 type Properties = {
     messages: Message[];
+    className?: string;
 };
 
-const MessageList: React.FC<Properties> = ({ messages }) => {
+const MessageList: React.FC<Properties> = ({ messages, className }) => {
+    const autoScrollElement = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (messages.length > 0) {
+            autoScrollElement.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+            });
+        }
+    }, [messages.length]);
     return (
-        <Grid className={styles.messageList}>
+        <Grid className={getValidClassNames(styles.messageList, className)}>
             {messages.map((message) => (
                 <MessageItem
                     key={message.id}
@@ -28,6 +40,7 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                     {message.value}
                 </MessageItem>
             ))}
+            <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
     );
 };
