@@ -1,6 +1,7 @@
 import { type NavigationProp } from '@react-navigation/native';
 
 import {
+    CompletedTalentOnboardingStep,
     type TalentOnboardingScreenName,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
@@ -14,7 +15,6 @@ import {
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { CompletedTalentOnboardingStep } from '~/bundles/talent/enums/enums';
 import {
     getNextStepTitle,
     urlObjectsToStrings,

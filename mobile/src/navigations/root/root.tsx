@@ -6,9 +6,9 @@ import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import {
+    CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
-    TalentOnboardingScreenName,
 } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -41,7 +41,7 @@ const Root: React.FC = () => {
 
     const isPendingAuth = dataStatus === DataStatus.PENDING;
     const isProfileComplete =
-        completedStep === TalentOnboardingScreenName.PREVIEW;
+        completedStep === CompletedTalentOnboardingStep.Preview;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
