@@ -57,7 +57,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.phoneNumber?.message}
+                errorMessage={errors.phone?.message}
                 label="Phone number"
                 name="phoneNumber"
                 required
@@ -65,13 +65,13 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <Input
                     control={control}
-                    name="phoneNumber"
+                    name="phone"
                     placeholder="+38000 000 00 00"
                     keyboardType="numeric"
                 />
             </FormField>
             <FormField
-                errorMessage={errors.linkedInLink?.message}
+                errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
                 name="linkedInLink"
                 required
@@ -79,7 +79,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
             >
                 <Input
                     control={control}
-                    name="linkedInLink"
+                    name="linkedinLink"
                     placeholder="link to BSA project"
                     marker="www."
                 />
