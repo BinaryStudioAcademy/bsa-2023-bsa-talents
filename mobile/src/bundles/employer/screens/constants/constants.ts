@@ -4,5 +4,6 @@ export {
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
+    HARD_SKILLS,
     YEARS_EXPERIENCE,
 } from './mock-constants';

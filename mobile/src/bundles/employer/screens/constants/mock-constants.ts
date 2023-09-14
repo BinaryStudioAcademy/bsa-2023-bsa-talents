@@ -1,8 +1,20 @@
 // TODO: remove with real data
+type Options = {
+    label: string;
+    value: string;
+};
 const YEARS_EXPERIENCE = ['>1', 'from 1 to 2', '2+'];
-
 const BSA_CHARACTERISTICS = ['bad', 'good', 'great'];
-
+const HARD_SKILLS: Options[] = [
+    { value: 'React', label: 'React' },
+    { value: 'Node.js', label: 'Node.js' },
+    { value: 'JavaScript', label: 'JavaScript' },
+    { value: 'HTML', label: 'HTML' },
+    { value: 'CSS', label: 'CSS' },
+    { value: 'Python', label: 'Python' },
+    { value: 'Java', label: 'Java' },
+    { value: 'Ruby', label: 'Ruby' },
+];
 const BSA_BADGES = [
     'Project average score',
     'Lecture average score',
@@ -41,5 +53,6 @@ export {
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
+    HARD_SKILLS,
     YEARS_EXPERIENCE,
 };

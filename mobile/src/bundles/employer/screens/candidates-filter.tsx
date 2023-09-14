@@ -30,6 +30,7 @@ import {
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
+    HARD_SKILLS,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 
@@ -118,7 +119,7 @@ const CandidatesFilter: React.FC = () => {
             </FormField>
             <FormField label="Hard Skills" name="hardSkills">
                 <AutocompleteMultiSelector
-                    items={jobTitleOptions}
+                    items={HARD_SKILLS}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
