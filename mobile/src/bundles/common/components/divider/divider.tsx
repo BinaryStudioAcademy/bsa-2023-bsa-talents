@@ -9,6 +9,7 @@ import { styles } from './styles';
 type Properties = {
     containerStyle?: StyleProp<ViewStyle>;
 };
+
 const Divider: React.FC<Properties> = ({ containerStyle }) => {
     return (
         <View style={[globalStyles.width100, styles.line, containerStyle]} />

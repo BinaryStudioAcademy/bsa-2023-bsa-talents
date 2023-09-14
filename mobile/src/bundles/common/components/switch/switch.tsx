@@ -6,10 +6,10 @@ import {
 } from 'react-hook-form';
 import ToggleSwitch from 'toggle-switch-react-native';
 
-import { Color, TextCategory } from '../../enums/enums';
-import { useFormController } from '../../hooks/hooks';
-import { globalStyles } from '../../styles/styles';
-import { Text, View } from '../components';
+import { Text, View } from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
