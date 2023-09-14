@@ -42,7 +42,9 @@ const { reducer, actions, name } = createSlice({
 
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] = action.payload[typedKey];
+                if (action.payload[typedKey]) {
+                    state[typedKey] = action.payload[typedKey];
+                }
             }
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {

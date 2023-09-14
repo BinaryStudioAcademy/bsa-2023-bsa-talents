@@ -8,6 +8,7 @@ import {
 } from '~/bundles/talent-onboarding/components/components.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
+import { formatNumber } from '../../helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
@@ -23,7 +24,7 @@ type Properties = {
         email: string;
     };
 };
-const DIGIT_COUNT_DECIMAL = 1;
+
 const CandidateProfile: React.FC<Properties> = ({
     isProfileOpen,
     isFifthStep,
@@ -47,18 +48,14 @@ const CandidateProfile: React.FC<Properties> = ({
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         hardSkills: data.hardSkills?.map((skill) => skill.label) as string[],
-        experienceYears: Number(data.experienceYears).toFixed(
-            DIGIT_COUNT_DECIMAL,
-        ),
+        experienceYears: formatNumber(data.experienceYears as number),
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        experienceYears: Number(data.experienceYears ?? 0).toFixed(
-            DIGIT_COUNT_DECIMAL,
-        ),
+        experienceYears: formatNumber(data.experienceYears as number),
         jobTitle: data.jobTitle,
         fullName: data.fullName as string,
         email: data.email as string,
