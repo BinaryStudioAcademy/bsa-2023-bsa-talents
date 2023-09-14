@@ -1,15 +1,17 @@
 import {
-    completeBadgesStep,
-    completeProfileStep,
-    completeSkillsStep,
+    createTalentDetails,
+    getTalentDetails,
+    setCompletedStep,
+    updateOnboardingData,
 } from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
-    completeProfileStep,
-    completeBadgesStep,
-    completeSkillsStep,
+    createTalentDetails,
+    getTalentDetails,
+    setCompletedStep,
+    updateOnboardingData,
 };
 
 export { allActions as actions };
