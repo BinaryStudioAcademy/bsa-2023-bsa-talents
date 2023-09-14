@@ -4,7 +4,6 @@ import {
     Input,
     Loader,
     RadioGroup,
-    Select,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
@@ -19,9 +18,8 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { EmployeeFilters } from '../components/components.js';
+import { EmployeeFilters, SortingDropdown } from '../components/components.js';
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
-import { SortingOptions } from '../enums/enums.js';
 import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
@@ -46,11 +44,6 @@ const FIELDS: [
     'employmentType',
     'sortingOptions',
 ];
-
-const sortingOptions = Object.values(SortingOptions).map((type) => ({
-    value: type,
-    label: type,
-}));
 
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
@@ -129,11 +122,10 @@ const Candidates: React.FC = () => {
                             },
                         ]}
                     />
-                    <Select
+                    <SortingDropdown
                         control={control}
-                        errors={{}}
+                        reset={reset}
                         name="sortingOptions"
-                        options={sortingOptions}
                         placeholder="Sort results"
                     />
                 </Grid>
