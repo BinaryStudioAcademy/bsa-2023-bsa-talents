@@ -4,6 +4,7 @@ export {
     type ChatMessagesCreateRequestDto,
     ChatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
+    type ChatMessagesResponseDto,
 } from './bundles/chat-messages/chat-messages.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
