@@ -1,6 +1,5 @@
-import { UserRole, type ValueOf } from 'shared/build/index.js';
-
 import { actions as storeActions } from '~/app/store/app.js';
+import { UserRole } from '~/bundles/auth/enums/enums.js';
 import {
     Button,
     Checkbox,
@@ -10,6 +9,7 @@ import {
     Input,
     Link,
     RadioGroup,
+    Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -18,6 +18,7 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -103,7 +104,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 
     const checkboxLabel = (
-        <p className={styles.termsLabel}>
+        <Typography variant="body1" className={styles.termsLabel}>
             I agree to the
             <span className={styles.bsaTermsLinkWrapper}>
                 {/* TODO: replace with actual terms link */}
@@ -112,7 +113,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </Link>
             </span>
             *
-        </p>
+        </Typography>
     );
 
     return (
