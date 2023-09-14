@@ -9,6 +9,11 @@ import {
 } from '../components.js';
 import styles from './styles.module.scss';
 
+const CheckStates = {
+    YES: 'Yes',
+    NO: 'No',
+} as const;
+
 type Properties = {
     label: string;
     modalLabel: string;
@@ -17,18 +22,18 @@ type Properties = {
 
 const options = [
     {
-        value: 'Yes',
-        label: 'Yes',
+        value: CheckStates.YES,
+        label: CheckStates.YES,
     },
     {
-        value: 'No',
-        label: 'No',
+        value: CheckStates.NO,
+        label: CheckStates.NO,
     },
 ];
 
 const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
     const { control } = useAppForm<{ check: string }>({
-        defaultValues: { check: 'No' },
+        defaultValues: { check: CheckStates.NO },
     });
 
     const [isHired, setIsHired] = useState(false);
@@ -52,7 +57,7 @@ const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
             event_.preventDefault();
             const check = event_.target.check.value;
 
-            const isHired = check === 'Yes' ? true : false;
+            const isHired = check === CheckStates.YES ? true : false;
             setIsHired(isHired);
 
             handleToSubmitStep();
