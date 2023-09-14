@@ -16,12 +16,11 @@ const styles = StyleSheet.create({
     dropdown: {
         position: 'absolute',
         top: '95%',
-        maxHeight: 150,
-        borderWidth: 1,
         borderColor: Color.INPUT,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         backgroundColor: '#FFF',
+        borderTopWidth: 1,
         zIndex: 1,
     },
     tagContainer: {
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     },
     dropdownButton: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 10,
         right: 5,
         zIndex: 1,
     },

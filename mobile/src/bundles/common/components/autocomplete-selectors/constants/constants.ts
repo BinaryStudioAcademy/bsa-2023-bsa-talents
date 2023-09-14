@@ -1,6 +1,3 @@
-const SELECTOR_STYLE = {
-    ICON_SIZE: 24,
-    MARGIN_BOTTOM: 12,
-};
+const ICON_SIZE = 24;
 
-export { SELECTOR_STYLE };
+export { ICON_SIZE };

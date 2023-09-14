@@ -1,5 +1,5 @@
 import { Add as PlusIcon } from '@mui/icons-material';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     type ControllerFieldState,
     type ControllerRenderProps,
@@ -25,6 +25,7 @@ import {
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { OnboardingSteps } from '../../enums/enums.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
@@ -36,32 +37,59 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    const { photo, fullName, phone, linkedinLink, cv } = useAppSelector(
+    const { fullName, phone, linkedinLink } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
-    const { control, handleSubmit, errors, setError, watch, clearErrors } =
-        useAppForm<ContactsCVStepDto>({
-            defaultValues: {
-                photo,
+    const {
+        control,
+        handleSubmit,
+        errors,
+        setError,
+        watch,
+        reset,
+        clearErrors,
+    } = useAppForm<ContactsCVStepDto>({
+        defaultValues: useMemo(
+            () => ({
                 fullName,
                 phone,
                 linkedinLink,
-                cv,
-            },
-            validationSchema: ContactsCVStepValidationSchema,
+            }),
+            [fullName, linkedinLink, phone],
+        ),
+        validationSchema: ContactsCVStepValidationSchema,
+    });
+
+    useEffect(() => {
+        reset({
+            fullName,
+            phone,
+            linkedinLink,
         });
+    }, [fullName, phone, linkedinLink, reset]);
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            const { fullName, phone, linkedinLink } = data;
+            await dispatch(
+                actions.updateTalentDetails({
+                    fullName,
+                    phone,
+                    linkedinLink,
+                    userId: currentUser?.id,
+                    completedStep: OnboardingSteps.STEP_04,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {
