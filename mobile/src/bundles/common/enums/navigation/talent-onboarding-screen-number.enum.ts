@@ -19,9 +19,13 @@ const TalentOnboardingScreenNumberByStep: Record<
     number
 > = {
     [CompletedTalentOnboardingStep.Profile]: 1,
-    [CompletedTalentOnboardingStep['BSA Badges']]: 2,
-    [CompletedTalentOnboardingStep['Skills and projects']]: 3,
-    [CompletedTalentOnboardingStep['CV and contacts']]: 4,
+    [CompletedTalentOnboardingStep[TalentOnboardingScreenName.BSA_BADGES]]: 2,
+    [CompletedTalentOnboardingStep[
+        TalentOnboardingScreenName.SKILLS_AND_PROJECTS
+    ]]: 3,
+    [CompletedTalentOnboardingStep[
+        TalentOnboardingScreenName.CV_AND_CONTACTS
+    ]]: 4,
     [CompletedTalentOnboardingStep.Preview]: 5,
 };
 
