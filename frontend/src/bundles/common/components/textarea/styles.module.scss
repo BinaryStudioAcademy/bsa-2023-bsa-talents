@@ -22,3 +22,14 @@
 .textarea:hover {
     border-color: var(--st-tropaz);
 }
+
+.hasError {
+    color: var(--error-primary);
+    border-color: var(--error-primary);
+
+    &::placeholder {
+        color: var(--error-primary);
+        -webkit-text-fill-color: var(--error-primary);
+        opacity: 1;
+    }
+}

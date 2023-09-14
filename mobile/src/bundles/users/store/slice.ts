@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserGetAllItemResponseDto } from '~/bundles/users/users';
 
-import { loadAll } from './actions';
+import { clearAll, loadAll } from './actions';
 
 type State = {
     users: UserGetAllItemResponseDto[];
@@ -30,6 +30,10 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(loadAll.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(clearAll, (state) => {
+            state.dataStatus = DataStatus.IDLE;
+            state.users = [];
         });
     },
 });

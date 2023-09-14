@@ -10,6 +10,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
@@ -143,6 +144,18 @@ class UserDetailsController extends ControllerBase {
                         query: UserDetailsSearchUsersRequestDto;
                     }>,
                 ),
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.$ID,
+            method: 'GET',
+            handler: (options) => {
+                return this.findByUserId(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
         });
     }
 
@@ -496,6 +509,44 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: searchResult,
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/{userId}:
+     *    get:
+     *      tags: [User Details]
+     *      description: Returns user details by user ID
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch details for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/UserDetails'
+     */
+
+    private async findByUserId(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findByUserId(userId),
         };
     }
 }

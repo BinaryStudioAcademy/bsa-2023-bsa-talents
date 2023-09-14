@@ -1,7 +1,3 @@
-const SELECTOR_STYLE = {
-    INITIAL_DROPDOWN_HEIGHT: 0,
-    MAX_DROPDOWN_HEIGHT: 150,
-    ICON_SIZE: 24,
-};
+const ICON_SIZE = 24;
 
-export { SELECTOR_STYLE };
+export { ICON_SIZE };

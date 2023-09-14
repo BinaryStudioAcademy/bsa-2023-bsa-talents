@@ -11,6 +11,7 @@ export {
 } from './enums/enums.js';
 export {
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,

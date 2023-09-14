@@ -29,7 +29,7 @@ const CvAndContactsFormValidationSchema = joi.object<
                 CvAndContactsFormValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    phoneNumber: joi
+    phone: joi
         .string()
         .pattern(/^\+\d{12}$/)
         .required()
@@ -40,7 +40,7 @@ const CvAndContactsFormValidationSchema = joi.object<
                 CvAndContactsFormValidationMessage.PHONE_NUMBER_PATTERN,
         }),
 
-    linkedInLink: joi
+    linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
