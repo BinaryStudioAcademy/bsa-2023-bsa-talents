@@ -22,6 +22,7 @@ type Properties<T extends FieldValues> = RadioGroupProps & {
 const radioButtonsStyles = {
     color: Color.PRIMARY,
     borderColor: Color.INPUT,
+    labelStyle: styles.label,
 };
 
 const RadioButtons = <T extends FieldValues>({
