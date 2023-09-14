@@ -84,10 +84,12 @@ const ProfileFirstSection: React.FC<Properties> = ({
                                 isFifthStep={isFifthStep}
                                 color={badge.color}
                                 primaryText={
-                                    (badge.maxScore ?? badge.level) as string
+                                    (badge.score ?? badge.level) as string
                                 }
                                 description={badge.description}
-                                secondText={' / 5'}
+                                secondText={
+                                    badge.maxScore ? ` / ${badge.maxScore}` : ''
+                                }
                             />
                         </li>
                     ))}
