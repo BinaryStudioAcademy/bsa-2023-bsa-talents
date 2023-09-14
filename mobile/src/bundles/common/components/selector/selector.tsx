@@ -48,9 +48,9 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
-    const placeHolderStyle = value || styles.placeholder;
     const { heightAnimatedStyle, iconAnimatedStyle } =
         useSelectorAnimations(isVisible);
+    const NO_SELECTED = 0;
 
     const handlePressItem = useCallback(
         (option: string): void => {
@@ -67,6 +67,7 @@ const Selector = <T extends FieldValues>({
         },
         [toggleVisibility, multiSelect, value, onChange],
     );
+
     const selectedOptions = useMemo(
         () =>
             options
@@ -74,7 +75,10 @@ const Selector = <T extends FieldValues>({
                 .map((option) => option),
         [options, value],
     );
-    const NO_SELECTED = 0;
+
+    const placeHolderStyle =
+        (selectedOptions.length > NO_SELECTED && value) || styles.placeholder;
+
     return (
         <View style={styles.container}>
             <Pressable
