@@ -6,7 +6,7 @@ export {
     ContactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
-export { FileApiPath } from './bundles/file/file.js';
+export { FileApiPath, type FileUploadResponse } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
