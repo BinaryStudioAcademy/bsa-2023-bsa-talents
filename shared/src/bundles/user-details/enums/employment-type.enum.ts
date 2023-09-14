@@ -3,7 +3,7 @@ const EmploymentType = {
     PART_TIME: 'Part-time',
     REMOTE: 'Remotely',
     FREELANCE: 'Freelance (projects)',
-    RELOCATION: 'Relocation to another contry',
+    RELOCATION: 'Relocation to another country',
 } as const;
 
 export { EmploymentType };
