@@ -57,7 +57,7 @@ const ConfirmHire: React.FC<Properties> = ({ label, modalLabel, onSubmit }) => {
             event_.preventDefault();
             const check = event_.target.check.value;
 
-            const isHired = check === CheckStates.YES ? true : false;
+            const isHired = check === CheckStates.YES;
             setIsHired(isHired);
 
             handleToSubmitStep();
