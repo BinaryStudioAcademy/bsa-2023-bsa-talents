@@ -24,7 +24,7 @@ const ChatHeader: React.FC<Properties> = ({
     return (
         <Grid className={getValidClassNames(styles.wrapper, className)}>
             <Grid className={styles.logo}>
-                <Avatar isSmall={true} src={avatarUrl} />
+                <Avatar isSmall={true} src={avatarUrl} alt={title} />
             </Grid>
             <Grid className={styles.info}>
                 <p
@@ -37,7 +37,9 @@ const ChatHeader: React.FC<Properties> = ({
                 </p>
                 <Grid className={styles.status}>
                     <Grid className={onlineIconClasses} />
-                    <p>{isOnline ? 'Online' : 'Offline'}</p>
+                    <p className={styles.textStatus}>
+                        {isOnline ? 'Online' : 'Offline'}
+                    </p>
                 </Grid>
             </Grid>
         </Grid>

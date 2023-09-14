@@ -4,7 +4,7 @@
     background: var(--white);
     border: none;
 
-    & fieldset {
+    & :global(.MuiOutlinedInput-notchedOutline) {
         border: none;
     }
 }
@@ -45,6 +45,7 @@
     &::placeholder {
         color: var(--nepal);
         -webkit-text-fill-color: var(--nepal);
+        opacity: 1;
     }
 }
 
@@ -82,13 +83,13 @@
 }
 
 .MuiInputAdornment-root {
-    height: 36px;
-    max-height: 36px;
+    height: 38px;
+    max-height: 38px;
     margin-right: 0;
     font-size: var(--font-size-base);
 }
 
-.adornmentText p {
+.adornmentText :global(.MuiTypography-root) {
     display: flex;
     align-items: center;
     height: 100%;

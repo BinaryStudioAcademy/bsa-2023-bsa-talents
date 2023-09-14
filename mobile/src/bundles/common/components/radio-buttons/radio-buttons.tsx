@@ -12,6 +12,8 @@ import { View } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 
+import { styles } from './styles';
+
 type Properties<T extends FieldValues> = RadioGroupProps & {
     name: FieldPath<T>;
     control: Control<T, null>;
@@ -44,6 +46,7 @@ const RadioButtons = <T extends FieldValues>({
                 radioButtons={radioButtonsWithStyles}
                 onPress={onChange}
                 selectedId={value}
+                containerStyle={styles.container}
                 {...props}
             />
         </View>

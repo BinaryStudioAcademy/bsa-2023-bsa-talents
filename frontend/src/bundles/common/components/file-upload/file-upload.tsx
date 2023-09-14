@@ -6,7 +6,7 @@ import { Button, type ButtonProperties } from '../components.js';
 type Properties = {
     accept: string;
     buttonProps: Partial<ButtonProperties>;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => unknown;
 };
 
 const FileUpload: React.FC<Properties> = ({

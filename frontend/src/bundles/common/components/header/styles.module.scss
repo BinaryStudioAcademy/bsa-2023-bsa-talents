@@ -12,34 +12,5 @@
 }
 
 .avatar {
-    position: relative;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    & img {
-        width: 40px;
-        height: 40px;
-        border-radius: 200px;
-    }
-}
-
-.status {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    z-index: 1;
-    width: 10px;
-    height: 10px;
-    border: 2px solid var(--white);
-    border-radius: 5px;
-
-    &.online {
-        background-color: var(--mountain-meadow);
-    }
-
-    &.offline {
-        background-color: var(--nepal);
-    }
+    margin-right: 20px;
 }
