@@ -63,7 +63,10 @@ const CompanyInfo: React.FC<Properties> = ({
                         >
                             Company Website
                         </Typography>
-                        <p className={styles.linkWrapper}>
+                        <Typography
+                            variant="body1"
+                            className={styles.linkWrapper}
+                        >
                             <a
                                 href={companyWebsite}
                                 rel="noreferrer"
@@ -72,7 +75,7 @@ const CompanyInfo: React.FC<Properties> = ({
                             >
                                 {companyWebsite}
                             </a>
-                        </p>
+                        </Typography>
                     </>
                 )}
             </Grid>
