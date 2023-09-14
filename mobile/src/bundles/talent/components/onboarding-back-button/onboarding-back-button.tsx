@@ -2,7 +2,10 @@ import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import { Button } from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    TalentOnboardingScreenName,
+} from '~/bundles/common/enums/enums';
 import { useCallback, useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
@@ -19,13 +22,13 @@ const OnboardingBackButton: React.FC<Properties> = ({ currentStep }) => {
         >();
 
     const handlePreviousPress = useCallback((): void => {
-        const previousScreenName = getPreviousStepTitle(currentStep);
-        if (previousScreenName) {
-            reset({
-                index: 0,
-                routes: [{ name: previousScreenName }],
-            });
-        }
+        const previousScreenName =
+            getPreviousStepTitle(currentStep) ??
+            TalentOnboardingScreenName.PROFILE;
+        reset({
+            index: 0,
+            routes: [{ name: previousScreenName }],
+        });
     }, [reset, currentStep]);
 
     return (

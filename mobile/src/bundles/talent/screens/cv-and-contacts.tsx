@@ -25,7 +25,7 @@ const CVAndContacts: React.FC = () => {
     const cvAndContactsStepData: CvAndContactsFormDto | null = onboardingData
         ? {
               photo: onboardingData.photo ?? null,
-              fullName: onboardingData.fullName,
+              fullName: onboardingData.fullName ?? '',
               phone: onboardingData.phone ?? '',
               linkedinLink: onboardingData.linkedinLink ?? '',
               cv: onboardingData.cv ?? null,

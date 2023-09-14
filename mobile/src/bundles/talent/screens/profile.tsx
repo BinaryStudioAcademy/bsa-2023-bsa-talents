@@ -20,9 +20,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
-    const { completedStep, onboardingData } = useAppSelector(
-        ({ talents }) => talents,
-    );
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
 
     const {
         profileName,
@@ -51,7 +49,7 @@ const Profile: React.FC = () => {
     const handleSubmit = useOnboardingFormSubmit({
         stepTitle,
         stepNumber,
-        isNewTalentOnboardingData: !completedStep,
+        isNewTalentOnboardingData: !onboardingData?.completedStep,
     });
 
     const handleProfileSubmit = (payload: ProfileStepDto): void => {

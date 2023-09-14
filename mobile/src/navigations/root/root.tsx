@@ -34,7 +34,8 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const { completedStep } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
     const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
