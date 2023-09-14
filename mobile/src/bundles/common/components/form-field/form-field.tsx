@@ -43,11 +43,17 @@ const FormField = <T extends FieldValues>({
                 </Text>
             )}
 
-            {React.Children.map(children, (child) =>
-                React.cloneElement(child as React.ReactElement<Properties<T>>, {
-                    hasError,
-                }),
-            )}
+            {React.Children.map(children, (child) => {
+                if (!child) {
+                    return;
+                }
+                return React.cloneElement(
+                    child as React.ReactElement<Properties<T>>,
+                    {
+                        hasError,
+                    },
+                );
+            })}
 
             {hasError && <Text style={styles.errorText}>{errorMessage}</Text>}
         </View>

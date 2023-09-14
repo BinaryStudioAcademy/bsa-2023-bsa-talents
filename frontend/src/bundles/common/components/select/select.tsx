@@ -83,6 +83,7 @@ const Select = <T extends FieldValues>({
                 multiple={isMulti}
                 className={selectStyles}
                 renderValue={handleSelectChange}
+                value={field.value || []}
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
