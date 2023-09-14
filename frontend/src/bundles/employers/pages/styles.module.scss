@@ -67,6 +67,11 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        padding: 10px;
+    }
+
+    .mainContent {
+        padding: 0;
     }
 
     .filters {

@@ -60,3 +60,12 @@
         max-width: 280px;
     }
 }
+
+@media screen and (width <=800px) {
+    .filtersSidebar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: none;
+    }
+}
