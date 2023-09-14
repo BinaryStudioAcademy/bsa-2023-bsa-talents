@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
             <ul className={styles.list}>
                 {menuItems.map((item) => (
                     <li key={item.link} className={styles.listItem}>
-                        <Link to={item.link}>
+                        <Link className={styles.link} to={item.link}>
                             {item.icon}
                             <p className={styles.title}>{item.name}</p>
                         </Link>

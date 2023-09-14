@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { type TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
@@ -19,6 +20,7 @@ type State = {
     profileStepData: ProfileStepDto | null;
     badgesStepData: BadgeStepDto | null;
     skillsStepData: SkillsStepDto | null;
+    completedStep: ValueOf<typeof TalentOnboardingScreenName> | null;
 };
 
 const initialState: State = {
@@ -26,6 +28,7 @@ const initialState: State = {
     profileStepData: null,
     badgesStepData: null,
     skillsStepData: null,
+    completedStep: null,
 };
 
 const { reducer, actions, name } = createSlice({

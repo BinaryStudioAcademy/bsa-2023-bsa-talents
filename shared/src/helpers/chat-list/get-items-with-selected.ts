@@ -1,4 +1,4 @@
-import { type ChatListItemType } from '~/index';
+import { type ChatListItemType } from '~/index.js';
 
 const getItemsWithSelected = (
     items: ChatListItemType[],
