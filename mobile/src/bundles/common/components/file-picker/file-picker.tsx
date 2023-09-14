@@ -78,7 +78,7 @@ const FilePicker = <T extends FieldValues>({
                 label={label}
                 style={style}
                 buttonType={ButtonType.OUTLINE}
-                iconName={IconName.ADD}
+                iconName={IconName.PLUS}
                 onPress={fileLoadHandler}
             />
             <Text category={TextCategory.BODY1} style={globalStyles.pt5}>

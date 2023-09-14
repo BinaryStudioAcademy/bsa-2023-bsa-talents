@@ -5,7 +5,11 @@ import {
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
+import {
+    DataStatus,
+    RootScreenName,
+    TalentOnboardingScreenName,
+} from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
@@ -27,17 +31,28 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: React.FC = () => {
-    const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
-    const { isProfileComplete, role } = userData ?? {};
+    const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
+        ({ auth }) => auth,
+    );
+    const { completedStep } = useAppSelector(({ talents }) => talents);
+    const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
-    const { dataStatus } = useAppSelector(({ auth }) => auth);
-
     const isPendingAuth = dataStatus === DataStatus.PENDING;
+    const isProfileComplete =
+        completedStep === TalentOnboardingScreenName.PREVIEW;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
+
+    //TODO use when backend is ready
+    // useEffect(() => {
+    //     const payload: UserDetailsFindRequestDto = {
+    //         userId: currentUserData?.id,
+    //     };
+    //     void dispatch(talentActions.getTalentDetails(payload));
+    // }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return null;
@@ -74,6 +89,7 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
+            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;

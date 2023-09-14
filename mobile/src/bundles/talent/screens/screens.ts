@@ -1,4 +1,4 @@
-export { BsaBadges } from './bsa-badges/bsa-badges';
+export { BsaBadges } from './bsa-badges';
 export { CVAndContacts } from './cv-and-contacts';
 export { Mail } from './mail';
 export { Preview } from './preview/preview';
