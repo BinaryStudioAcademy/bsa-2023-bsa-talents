@@ -24,6 +24,8 @@ type Properties = {
     currentStep: number;
 };
 
+const options = Object.values(BsaBadgeStepBadgesTitle);
+
 const BsaBadgesForm: React.FC<Properties> = ({
     badgesStepData,
     onSubmit,
@@ -37,8 +39,6 @@ const BsaBadgesForm: React.FC<Properties> = ({
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
-
-    const options = Object.values(BsaBadgeStepBadgesTitle);
 
     return (
         <ScrollView style={[globalStyles.ph25, styles.container]}>
