@@ -3,7 +3,10 @@ import { type Repository } from '~/common/types/repository.type.js';
 
 import { TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeModel } from './talent-badge.model.js';
-import { type TalentBadgeCreate } from './types/types.js';
+import {
+    type TalentBadgeCreate,
+    type TalentBadgePatchAndFetch,
+} from './types/types.js';
 
 class TalentBadgeRepository implements Repository {
     private talentBadgeModel: typeof TalentBadgeModel;
@@ -43,12 +46,17 @@ class TalentBadgeRepository implements Repository {
         return badge ?? null;
     }
 
-    public async update(
-        badge: TalentBadgeModel & { id: string },
-    ): Promise<TalentBadgeEntity> {
+    public async update({
+        id,
+        isShown,
+        userDetailsId,
+    }: TalentBadgePatchAndFetch): Promise<TalentBadgeEntity> {
         const talentBadge = await this.talentBadgeModel
             .query()
-            .patchAndFetchById(badge.id, { isShown: !badge.isShown });
+            .patchAndFetchById(id, {
+                isShown: !isShown,
+                userDetailsId,
+            });
 
         return TalentBadgeEntity.initializeNew(talentBadge);
     }

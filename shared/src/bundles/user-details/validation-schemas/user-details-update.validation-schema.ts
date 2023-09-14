@@ -69,6 +69,7 @@ const userDetailsUpdate = joi
         employerPosition: joi.string().trim(),
         cvId: joi.string().trim(),
         talentBadges: joi.array().items(joi.string().trim()),
+        talentHardSkills: joi.array().items(joi.string().trim()),
     })
     .or('id', 'userId');
 

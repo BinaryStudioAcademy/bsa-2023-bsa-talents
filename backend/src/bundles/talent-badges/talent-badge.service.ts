@@ -3,7 +3,10 @@ import { type Service } from '~/common/types/types.js';
 
 import { type TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeRepository } from './talent-badge.repository.js';
-import { type TalentBadgeCreate } from './types/types.js';
+import {
+    type TalentBadgeCreate,
+    type TalentBadgeUpdate,
+} from './types/types.js';
 
 class TalentBadgeService implements Service {
     private talentBadgeRepository: TalentBadgeRepository;
@@ -25,16 +28,20 @@ class TalentBadgeService implements Service {
     }
 
     public async update({
+        userDetailsId,
         badgeId,
         userId,
-    }: TalentBadgeCreate): Promise<TalentBadgeEntity> {
+    }: TalentBadgeUpdate): Promise<TalentBadgeEntity> {
         const badge = await this.talentBadgeRepository.find({
             badgeId,
             userId,
         });
 
         return await (badge
-            ? this.talentBadgeRepository.update(badge)
+            ? this.talentBadgeRepository.update({
+                  ...badge,
+                  userDetailsId,
+              })
             : this.talentBadgeRepository.create({
                   badgeId,
                   userId,
