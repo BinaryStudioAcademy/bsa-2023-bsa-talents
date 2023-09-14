@@ -77,6 +77,7 @@ type Properties = {
     reset: UseFormReset<EmployeesFiltersDto>;
 };
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
+    const errors = {};
     const handleCheckboxOnChange = useCallback(
         <
             Field extends
@@ -202,6 +203,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={jobTitleOptions}
                             control={control}
+                            errors={errors}
                             name="jobTitles"
                             isMulti={true}
                             placeholder="Options"
@@ -226,6 +228,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={yearsOfExperience}
                             control={control}
+                            errors={errors}
                             name="userYearsOfExperience"
                             isMulti={true}
                             placeholder="Options"
@@ -238,6 +241,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={bsaCharacteristics}
                             control={control}
+                            errors={errors}
                             name="userBsaCharacteristics"
                             isMulti={true}
                             placeholder="Options"
@@ -250,6 +254,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={bsaBadges}
                             control={control}
+                            errors={errors}
                             name="userBsaBadges"
                             isMulti={true}
                             placeholder="Options"
@@ -262,6 +267,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={bsaProject}
                             control={control}
+                            errors={errors}
                             name="userBsaProject"
                             isMulti={true}
                             placeholder="Options"
@@ -274,6 +280,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         <Select
                             options={locationOptions}
                             control={control}
+                            errors={errors}
                             name="userLocation"
                             isMulti={true}
                             placeholder="Options"
