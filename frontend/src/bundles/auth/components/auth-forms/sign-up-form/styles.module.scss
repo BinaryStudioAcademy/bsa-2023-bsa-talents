@@ -26,7 +26,7 @@
 .checkboxWrapper {
     width: 100%;
 
-    label {
+    :global(.MuiFormControlLabel-root.MuiFormControlLabel-labelPlacementEnd) {
         margin-left: -9px;
     }
 }
@@ -36,27 +36,12 @@
     width: 100%;
     margin-left: 0;
 
-    span {
+    .bsaTermsLinkWrapper {
         margin: 0 5px;
     }
 
-    span a {
+    .bsaTermsLink {
         color: var(--azure);
         text-decoration: underline;
-    }
-}
-
-.termsErrorText {
-    position: absolute;
-    top: 30px;
-    display: none;
-    margin-top: 5px;
-    margin-bottom: 14px;
-    color: var(--error-primary);
-    font-size: var(--font-size-caption);
-    -webkit-text-fill-color: var(--error-primary);
-
-    &.rejected {
-        display: block;
     }
 }

@@ -105,9 +105,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const checkboxLabel = (
         <p className={styles.termsLabel}>
             I agree to the
-            <span>
+            <span className={styles.bsaTermsLinkWrapper}>
                 {/* TODO: replace with actual terms link */}
-                <Link to="/">BSA Talents Terms</Link>
+                <Link to="/" className={styles.bsaTermsLink}>
+                    BSA Talents Terms
+                </Link>
             </span>
             *
         </p>
