@@ -5,7 +5,9 @@ import {
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
+import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
+    Autocomplete,
     Checkbox,
     FormControl,
     FormHelperText,
@@ -40,7 +42,6 @@ import {
 } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { SkillsAutocomplete } from './components/skills-autocomplete.js';
 import { SkillsProjectLinks } from './components/skills-project-links.js';
 import styles from './styles.module.scss';
 
@@ -205,7 +206,13 @@ const SkillsStep: React.FC = () => {
 
     return (
         <FormControl className={styles.form}>
-            <SkillsAutocomplete name="hardSkills" control={control} />
+            <Autocomplete
+                name="hardSkills"
+                control={control}
+                options={mockHardSkills}
+                placeholder="Start typing and select skills"
+                label="Hard Skills"
+            />
 
             <FormControl>
                 <FormLabel className={styles.label}>
@@ -238,12 +245,6 @@ const SkillsStep: React.FC = () => {
                     name="notConsidered"
                     render={renderCheckboxes}
                 />
-
-                {errors.notConsidered && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.notConsidered.message}
-                    </FormHelperText>
-                )}
             </FormControl>
             <FormControl>
                 <FormLabel

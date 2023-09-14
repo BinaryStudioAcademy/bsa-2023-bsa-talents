@@ -113,7 +113,7 @@ const Selector = <T extends FieldValues>({
                     heightAnimatedStyle,
                 ]}
             >
-                <ScrollView nestedScrollEnabled>
+                <ScrollView nestedScrollEnabled persistentScrollbar>
                     {options.map((item) => (
                         <TouchableOpacity
                             key={item}
