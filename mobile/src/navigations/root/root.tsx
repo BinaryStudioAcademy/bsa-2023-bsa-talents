@@ -16,6 +16,7 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { EmployerOnboarding } from '~/bundles/employer/screens/employer-onboarding';
 import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
@@ -69,8 +70,11 @@ const Root: React.FC = () => {
         onboarding: (
             <RootStack.Screen
                 name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                component={TalentOnboardingNavigator}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentOnboardingNavigator
+                        : EmployerOnboarding
+                }
             />
         ),
         main: (
