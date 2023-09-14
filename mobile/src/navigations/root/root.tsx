@@ -5,7 +5,8 @@ import {
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { RootScreenName } from '~/bundles/common/enums/enums';
+import { Loader } from '~/bundles/common/components/components';
+import { DataStatus, RootScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
@@ -30,10 +31,17 @@ const Root: React.FC = () => {
     const { isSignedIn, userData } = useAppSelector(({ auth }) => auth);
     const { isProfileComplete, role } = userData ?? {};
     const dispatch = useAppDispatch();
+    const { dataStatus } = useAppSelector(({ auth }) => auth);
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
+
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
+
+    if (isPendingAuth) {
+        return <Loader size="large" />;
+    }
 
     const navigators = {
         auth: (

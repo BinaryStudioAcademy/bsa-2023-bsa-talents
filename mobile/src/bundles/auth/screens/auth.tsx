@@ -20,9 +20,7 @@ const Auth: React.FC = () => {
     const { name } = useAppRoute();
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => auth);
-    const isCurrentUserPending =
-        dataStatus === DataStatus.PENDING ||
-        dataStatus === DataStatus.CHECK_TOKEN;
+    const isPendingAuth = dataStatus === DataStatus.PENDING;
 
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
@@ -52,7 +50,7 @@ const Auth: React.FC = () => {
 
     return (
         <>
-            <Overlay isActive={isCurrentUserPending} />
+            <Overlay isActive={isPendingAuth} />
             <AuthWrapper>{getScreen(name)}</AuthWrapper>
         </>
     );
