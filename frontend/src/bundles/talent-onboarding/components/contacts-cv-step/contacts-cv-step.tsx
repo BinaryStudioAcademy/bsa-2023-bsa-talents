@@ -41,18 +41,25 @@ const ContactsCVStep: React.FC = () => {
         (state: RootReducer) => state.talentOnBoarding,
     );
 
-    const { control, handleSubmit, errors, setError, watch, reset } =
-        useAppForm<ContactsCVStepDto>({
-            defaultValues: useMemo(
-                () => ({
-                    fullName,
-                    phone,
-                    linkedinLink,
-                }),
-                [fullName, linkedinLink, phone],
-            ),
-            validationSchema: ContactsCVStepValidationSchema,
-        });
+    const {
+        control,
+        handleSubmit,
+        errors,
+        setError,
+        watch,
+        reset,
+        clearErrors,
+    } = useAppForm<ContactsCVStepDto>({
+        defaultValues: useMemo(
+            () => ({
+                fullName,
+                phone,
+                linkedinLink,
+            }),
+            [fullName, linkedinLink, phone],
+        ),
+        validationSchema: ContactsCVStepValidationSchema,
+    });
 
     useEffect(() => {
         reset({
@@ -113,17 +120,23 @@ const ContactsCVStep: React.FC = () => {
                 const [file] = event.target.files;
 
                 try {
-                    validateFileSize('photo', file, setError);
+                    validateFileSize({
+                        name: 'photo',
+                        file,
+                        setError,
+                        clearErrors,
+                    });
 
                     setPhotoURL(URL.createObjectURL(file));
 
                     field.onChange(file);
                     return true;
                 } catch {
+                    setPhotoURL('');
                     return false;
                 }
             },
-        [setError],
+        [clearErrors, setError],
     );
 
     const renderPhotoInput = useCallback(
@@ -162,15 +175,22 @@ const ContactsCVStep: React.FC = () => {
 
                 const [file] = event.target.files;
 
+                field.onChange(null);
+
                 try {
-                    validateFileSize('cv', file, setError);
+                    validateFileSize({
+                        name: 'cv',
+                        file,
+                        setError,
+                        clearErrors,
+                    });
                     field.onChange(file);
                     return true;
                 } catch {
                     return false;
                 }
             },
-        [setError],
+        [clearErrors, setError],
     );
 
     const renderCVInput = useCallback(
@@ -251,15 +271,16 @@ const ContactsCVStep: React.FC = () => {
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'} className={styles.labelText}>
+                <FormLabel className={styles.label}>
+                    <Typography variant="label" className={styles.labelText}>
                         Full name
                     </Typography>
+                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
                     control={control}
-                    placeholder="Name"
+                    placeholder="Name Name"
                     type="text"
                     errors={errors}
                     name={'fullName'}
@@ -267,10 +288,11 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'} className={styles.labelText}>
+                <FormLabel className={styles.label}>
+                    <Typography variant="label" className={styles.labelText}>
                         Phone number
                     </Typography>
+                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -283,10 +305,11 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label} required>
-                    <Typography variant={'label'} className={styles.labelText}>
+                <FormLabel className={styles.label}>
+                    <Typography variant="label" className={styles.labelText}>
                         LinkedIn profile
                     </Typography>
+                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -295,19 +318,20 @@ const ContactsCVStep: React.FC = () => {
                     type="text"
                     errors={errors}
                     name={'linkedinLink'}
-                    adornmentText="www"
+                    adornmentText="www."
                 />
             </FormControl>
 
             <div>
                 <FormControl className={styles.formControl}>
-                    <FormLabel className={styles.label} required>
+                    <FormLabel className={styles.label}>
                         <Typography
                             variant="label"
                             className={styles.labelText}
                         >
                             CV
                         </Typography>
+                        <span className={styles.requiredField}>*</span>
                     </FormLabel>
                     <Controller
                         control={control}

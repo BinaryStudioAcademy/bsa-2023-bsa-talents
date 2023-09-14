@@ -267,6 +267,7 @@ const ProfileStep: React.FC = () => {
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'jobTitle'}
                     options={jobTitleOptions}
                     placeholder="Option"
@@ -298,6 +299,7 @@ const ProfileStep: React.FC = () => {
                 </FormLabel>
                 <Select
                     control={control}
+                    errors={errors}
                     name={'location'}
                     options={locationOptions}
                     placeholder="Option"
@@ -334,6 +336,7 @@ const ProfileStep: React.FC = () => {
                 <Textarea
                     placeholder="Tell us a little bit about yourself"
                     control={control}
+                    errors={errors}
                     name={'description'}
                     minRows={7}
                     maxRows={9}

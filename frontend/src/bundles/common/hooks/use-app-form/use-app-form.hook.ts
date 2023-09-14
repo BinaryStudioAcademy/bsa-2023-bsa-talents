@@ -4,6 +4,7 @@ import {
     type DefaultValues,
     type FieldErrors,
     type FieldValues,
+    type UseFormClearErrors,
     type UseFormHandleSubmit,
     type UseFormReset,
     type UseFormSetError,
@@ -29,6 +30,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
     setValue: UseFormSetValue<T>;
     setError: UseFormSetError<T>;
     reset: UseFormReset<T>;
+    clearErrors: UseFormClearErrors<T>;
 };
 
 const useAppForm = <T extends FieldValues = FieldValues>({
@@ -44,6 +46,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         setError,
         reset,
         formState: { errors },
+        clearErrors,
     } = useForm<T>({
         mode,
         defaultValues,
@@ -58,6 +61,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         setValue,
         setError,
         reset,
+        clearErrors,
     };
 };
 
