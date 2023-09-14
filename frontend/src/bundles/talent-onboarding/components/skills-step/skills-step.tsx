@@ -184,6 +184,7 @@ const SkillsStep: React.FC = () => {
 
                 <Select
                     control={control}
+                    errors={errors}
                     options={englishLevelOptions}
                     name={'englishLevel'}
                     placeholder="Option"
@@ -228,6 +229,7 @@ const SkillsStep: React.FC = () => {
                 <Select
                     isMulti
                     control={control}
+                    errors={errors}
                     placeholder="Option"
                     name={'preferredLanguages'}
                     options={preferredLanguagesOptions}
