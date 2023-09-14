@@ -3,7 +3,6 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 50px;
     color: #000000;
     font-family: var(--font-family);
     font-style: normal;
@@ -34,6 +33,13 @@
     font-size: var(--font-size-caption);
     line-height: 150%;
     opacity: 0.6;
+}
+
+.contentWrapper {
+    height: 100%;
+    min-height: 100px;
+    padding-bottom: 50px;
+    overflow: hidden auto;
 }
 
 .content {
@@ -81,11 +87,13 @@
 .buttons {
     display: flex;
     flex-direction: column;
-    width: 82%;
-    padding-left: 24px;
+    align-items: center;
+    width: 100%;
+    padding: 0 24px;
 }
 
 .mainBtn {
+    width: 292px;
     margin-bottom: 24px;
     padding: 15px 0;
     font-size: 15px;

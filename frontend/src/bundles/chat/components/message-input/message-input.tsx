@@ -5,6 +5,7 @@ import { Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
+import { MAX_MESSAGE_LENGTH } from '../../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -28,7 +29,11 @@ const MessageInput: React.FC<Properties> = ({ onSend, className }) => {
         (
             event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         ): void => {
-            setMessage(event.target.value);
+            const text =
+                event.target.value.length > MAX_MESSAGE_LENGTH
+                    ? event.target.value.slice(0, MAX_MESSAGE_LENGTH)
+                    : event.target.value;
+            setMessage(text);
         },
         [],
     );

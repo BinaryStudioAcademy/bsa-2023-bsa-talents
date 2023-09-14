@@ -13,20 +13,6 @@
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--botticelli) transparent;
-
-    &::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-
-    &::-webkit-scrollbar {
-        width: 2px;
-        background-color: var(--solitude);
-    }
-
-    &:hover::-webkit-scrollbar-thumb {
-        background-color: var(--st-tropaz);
-        border-radius: 10px;
-    }
 }
 
 .autoScrollElement {

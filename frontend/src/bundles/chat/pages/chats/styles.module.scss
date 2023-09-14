@@ -8,6 +8,16 @@
         99vh - var(--header-height) - var(--page-title-height)
     );
     --chat-list-small-min-width: 250px;
+
+    ::-webkit-scrollbar {
+        width: 2px;
+        background-color: var(--solitude);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--st-tropaz);
+        border-radius: 10px;
+    }
 }
 
 .header {

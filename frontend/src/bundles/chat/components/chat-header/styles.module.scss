@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    width: 100%;
 
     p {
         margin: 0;
@@ -57,4 +58,12 @@
     &.offline {
         background-color: var(--nepal);
     }
+}
+
+.truncate {
+    width: 150px;
+    min-width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

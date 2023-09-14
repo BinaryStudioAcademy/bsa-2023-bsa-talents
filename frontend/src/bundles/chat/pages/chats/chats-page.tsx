@@ -66,6 +66,7 @@ const ChatsPage: React.FC = () => {
                 {
                     ...currentUser,
                     value: message,
+                    id: Date.now().toString(),
                 },
             ]);
         },

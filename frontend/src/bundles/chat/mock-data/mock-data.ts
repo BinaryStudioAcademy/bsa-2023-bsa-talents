@@ -2,7 +2,7 @@ const imageAvatar =
     'https://cdn.pixabay.com/photo/2023/07/27/13/37/cottage-8153413_1280.jpg';
 
 const currentUser = {
-    id: '3',
+    id: '9',
     userId: 'id',
     value: 'initial',
     avatarUrl:
