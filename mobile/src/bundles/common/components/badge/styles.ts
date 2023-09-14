@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Color.INPUT,
     },
-    small: {
-        width: 170,
-    },
     maxScore: {
         color: Color.TEXT2,
     },
@@ -35,6 +32,9 @@ const styles = StyleSheet.create({
     },
     punctuality: {
         backgroundColor: '#FF951A',
+    },
+    small: {
+        width: '48%',
     },
 });
 

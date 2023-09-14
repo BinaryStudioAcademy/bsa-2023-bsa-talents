@@ -18,6 +18,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
@@ -111,7 +112,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <div></div>
+                                                    <ChatsPage />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),

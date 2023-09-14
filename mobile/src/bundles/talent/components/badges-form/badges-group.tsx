@@ -12,6 +12,8 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
+import { styles } from './styles';
+
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
     control: Control<T, null>;
@@ -39,7 +41,7 @@ const BadgesGroup = <T extends FieldValues>({
     );
 
     return (
-        <>
+        <View style={styles.groupWrapper}>
             {options.map((badge) => (
                 <View
                     key={badge}
@@ -58,7 +60,7 @@ const BadgesGroup = <T extends FieldValues>({
                     <Badge badgeType={badge} />
                 </View>
             ))}
-        </>
+        </View>
     );
 };
 
