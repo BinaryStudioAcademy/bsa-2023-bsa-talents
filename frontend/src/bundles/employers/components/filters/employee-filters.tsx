@@ -16,11 +16,13 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import {
     BsaBadges,
     BsaCharacteristics,
     BsaProject,
+    CheckboxesFields,
     CountryList,
     EmploymentType,
     EnglishLevel,
@@ -79,56 +81,48 @@ type Properties = {
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
     const handleCheckboxOnChange = useCallback(
-        <
-            Field extends
-                | 'employmentType'
-                | 'levelOfEnglish'
-                | 'activeSearchingOnly',
-        >(
+        <Field extends ValueOf<typeof CheckboxesFields>>(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
             selectedValue?: string,
         ) =>
             (): void => {
-                if (field.name === 'activeSearchingOnly') {
+                if (field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY) {
                     field.onChange(!field.value);
-                } else if (
-                    field.name === 'levelOfEnglish' ||
-                    field.name === 'employmentType'
-                ) {
-                    if (Array.isArray(field.value)) {
-                        const updatedValue = field.value.includes(
-                            selectedValue as string,
-                        )
-                            ? field.value.filter(
-                                  (item) => item !== selectedValue,
-                              )
-                            : [...field.value, selectedValue];
-                        field.onChange(updatedValue);
-                    } else {
-                        return;
-                    }
+                    return;
                 }
+
+                if (
+                    ![
+                        CheckboxesFields.EMPLOYMENT_TYPE,
+                        CheckboxesFields.ENGLISH_LEVEL,
+                    ].includes(field.name) ||
+                    !Array.isArray(field.value)
+                ) {
+                    return;
+                }
+
+                const updatedValue = field.value.includes(
+                    selectedValue as string,
+                )
+                    ? field.value.filter((item) => item !== selectedValue)
+                    : [...field.value, selectedValue];
+                field.onChange(updatedValue);
             },
         [],
     );
 
     const renderCheckboxes = useCallback(
-        <
-            Field extends
-                | 'employmentType'
-                | 'levelOfEnglish'
-                | 'activeSearchingOnly',
-        >({
+        <Field extends ValueOf<typeof CheckboxesFields>>({
             field,
         }: {
             field: ControllerRenderProps<EmployeesFiltersDto, Field>;
         }): React.ReactElement => {
             const fieldValue = field.value;
             const optionsToRender =
-                field.name === 'employmentType'
+                field.name === CheckboxesFields.EMPLOYMENT_TYPE
                     ? employmentTypeOptions
                     : englishLevelOptions;
-            return field.name === 'activeSearchingOnly' ? (
+            return field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY ? (
                 <Checkbox
                     onChange={handleCheckboxOnChange(field)}
                     isChecked={fieldValue as boolean}
@@ -143,12 +137,8 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             className={styles['MuiGrid-item']}
                         >
                             <Checkbox
-                                {...{
-                                    onChange: field.onChange,
-                                    onBlur: field.onBlur,
-                                    name: field.name,
-                                    value: fieldValue,
-                                }}
+                                onBlur={field.onBlur}
+                                name={field.name}
                                 key={option.value}
                                 label={option.label}
                                 value={option.value}
