@@ -1,6 +1,7 @@
 :root {
     --search-bar-height: 48px;
     --chat-list-item-min-width: 200px;
+    --chat-list-items-gap: 8px;
 }
 
 .chatListContainer {
@@ -10,10 +11,11 @@
 }
 
 .chatList {
+    gap: var(--chat-list-items-gap);
     height: calc(100% - var(--search-bar-height));
     min-height: 100px;
     margin: 0;
-    padding: 0 16px;
+    padding: 0 16px var(--chat-list-items-gap);
     overflow: hidden scroll;
     overflow-y: scroll;
     list-style: none;
