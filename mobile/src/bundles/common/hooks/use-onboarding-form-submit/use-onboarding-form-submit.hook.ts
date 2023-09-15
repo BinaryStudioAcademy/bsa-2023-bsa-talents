@@ -53,7 +53,7 @@ const useOnboardingFormSubmit = ({
 
     const completedOnboardingStep = CompletedTalentOnboardingStep[stepTitle];
 
-    const { navigate } =
+    const navigation =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
@@ -89,16 +89,17 @@ const useOnboardingFormSubmit = ({
             if (result.payload) {
                 const nextStepTitle = getNextStepTitle(stepNumber);
                 if (nextStepTitle) {
-                    navigate(nextStepTitle, {
+                    navigation.setParams({ stepState: 'completed' });
+                    navigation.navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
                 }
             }
         },
         [
+            navigation,
             onboardingData,
             dispatch,
-            navigate,
             userId,
             stepNumber,
             isNewTalentOnboardingData,
