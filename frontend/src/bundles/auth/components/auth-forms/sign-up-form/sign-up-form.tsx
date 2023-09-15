@@ -77,19 +77,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleRadioChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            switch (event.target.value) {
-                case UserRole.TALENT: {
-                    setSelectedRole(event.target.value);
-                    break;
-                }
-                case UserRole.EMPLOYER: {
-                    setSelectedRole(event.target.value);
-                    break;
-                }
-                default: {
-                    break;
-                }
-            }
+            setSelectedRole(
+                event.target.value === 'talent'
+                    ? UserRole.TALENT
+                    : UserRole.EMPLOYER,
+            );
         },
         [],
     );
