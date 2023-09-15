@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
+    submitButton: {
+        marginLeft: 100,
+    },
 });
 
 export { styles };
