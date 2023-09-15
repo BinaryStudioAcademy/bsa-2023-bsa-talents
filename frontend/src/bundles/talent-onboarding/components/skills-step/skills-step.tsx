@@ -116,7 +116,12 @@ const SkillsStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
-            const { englishLevel, notConsidered, preferredLanguages } = data;
+            const {
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                hardSkills,
+            } = data;
             if (!data.projectLinks[0].url) {
                 await dispatch(
                     actions.updateTalentDetails({
@@ -138,6 +143,7 @@ const SkillsStep: React.FC = () => {
                     userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
                     completedStep: OnboardingSteps.STEP_03,
+                    hardSkills,
                 }),
             );
             return true;
@@ -252,7 +258,6 @@ const SkillsStep: React.FC = () => {
             <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Controller

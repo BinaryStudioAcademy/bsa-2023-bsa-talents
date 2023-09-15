@@ -100,7 +100,9 @@
         padding-top: 0;
     }
 
-    .MuiGrid-item > label > span {
+    .MuiGrid-item
+        > :global(.MuiFormControlLabel-root)
+        > :global(.MuiCheckbox-root) {
         padding: 6px;
     }
 }
@@ -127,6 +129,6 @@
     background-color: transparent;
 }
 
-.inputWithButton input {
+.inputWithButton :global(.MuiInputBase-input) {
     padding-right: 30px;
 }

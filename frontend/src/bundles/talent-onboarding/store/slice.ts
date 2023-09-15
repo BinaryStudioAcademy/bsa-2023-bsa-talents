@@ -42,8 +42,14 @@ const { reducer, actions, name } = createSlice({
 
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] = action.payload[typedKey];
+                state[typedKey] = state[typedKey]
+                    ? action.payload[typedKey]
+                    : [];
             }
+            state.hardSkills = [
+                { value: 'JavaScript', label: 'JavaScript' },
+                { value: 'HTML', label: 'HTML' },
+            ];
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;

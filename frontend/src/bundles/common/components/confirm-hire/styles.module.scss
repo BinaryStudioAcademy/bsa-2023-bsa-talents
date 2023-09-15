@@ -1,0 +1,41 @@
+.modal {
+    padding: clamp(10px, 5vh, 40px) clamp(10px, 10vw, 120px);
+}
+
+.modalContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0;
+    background: #f7f9fc;
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+}
+
+.radioGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonWrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.button {
+    min-width: 100px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+}
