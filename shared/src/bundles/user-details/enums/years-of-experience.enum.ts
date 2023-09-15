@@ -1,5 +1,5 @@
 const YearsOfExperience = {
-    ANY: 'Any work expirience',
+    ANY: 'Any work experience',
     LESS_THAN_1: 'Less than 1 year',
     FROM_1_TO_2: '1-2 years',
     FROM_2_TO_3: '2-3 years',

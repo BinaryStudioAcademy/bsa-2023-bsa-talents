@@ -399,6 +399,11 @@ class UserDetailsController extends ControllerBase {
      *        - bearerAuth: []
      *      parameters:
      *        - in: query
+     *          name: sortBy
+     *          schema:
+     *            type: string
+     *          description: Search query to sort users (optional)
+     *        - in: query
      *          name: searchValue
      *          schema:
      *            type: string

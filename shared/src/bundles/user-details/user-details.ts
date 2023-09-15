@@ -8,6 +8,7 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    UserSortCriteria,
     YearsOfExperience,
 } from './enums/enums.js';
 export {

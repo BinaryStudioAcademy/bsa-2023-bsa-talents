@@ -3,6 +3,7 @@ import { ErrorMessages } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
 import { searchUserByRelativeTable } from './helpers/search-user-by-relative-table.js';
@@ -156,6 +157,13 @@ class UserDetailsRepository implements Repository {
             // TODO add BSA characteristics
             // TODO add BSA project name
         });
+
+        const sortingParameters = createSortingUsersParameters(payload.sortBy);
+
+        await query.orderBy(
+            sortingParameters.column,
+            sortingParameters.direction,
+        );
 
         const searchResults = await query;
 

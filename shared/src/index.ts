@@ -45,6 +45,7 @@ export {
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
+    UserSortCriteria,
     YearsOfExperience,
 } from './bundles/user-details/user-details.js';
 export {

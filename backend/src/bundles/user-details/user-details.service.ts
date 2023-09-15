@@ -50,6 +50,7 @@ class UserDetailsService implements Service {
     ): Promise<UserDetailsEntity[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
+            'sortBy',
         ]);
 
         return this.userDetailsRepository.searchUsers(preparedData);

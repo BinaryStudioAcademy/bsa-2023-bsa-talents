@@ -1,5 +1,6 @@
 import { type ValueOf } from '~/types/value-of.type.js';
 
+import { type UserSortCriteria } from '../enums/users-sort-criteria.enum.js';
 import {
     type CountryList,
     type EmploymentType,
@@ -9,6 +10,7 @@ import {
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
+    sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['label'];
     isBaseSearch?: boolean;
     searchValue: string;
     searchActiveCandidatesOnly: boolean;

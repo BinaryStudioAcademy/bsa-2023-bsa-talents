@@ -5,11 +5,20 @@ import {
     EmploymentType,
     EnglishLevel,
     JobTitle,
+    UserSortCriteria,
     YearsOfExperience,
 } from '../enums/enums.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 
 const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
+    sortBy: joi
+        .string()
+        .valid(
+            ...Object.values(UserSortCriteria).map(
+                (criteria) => criteria.label,
+            ),
+        ),
+
     isBaseSearch: joi.boolean(),
 
     searchValue: joi.string().trim(),
