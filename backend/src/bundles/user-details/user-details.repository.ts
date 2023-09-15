@@ -3,7 +3,7 @@ import { ErrorMessages } from 'shared/build/index.js';
 import { type Repository } from '~/common/types/types.js';
 
 import {
-    type UserDetailsCreateRequestDto,
+    type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
     type UserDetailsUpdateDto,
 } from './types/types.js';
@@ -64,7 +64,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public async create(
-        payload: UserDetailsCreateRequestDto,
+        payload: UserDetailsCreateDto,
     ): Promise<UserDetailsEntity> {
         const details = await this.userDetailsModel
             .query()

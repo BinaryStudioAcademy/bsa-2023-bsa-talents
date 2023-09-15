@@ -1,3 +1,4 @@
+export { type UserDetailsCreateDto } from './user-details-create-dto.type.js';
 export { type UserDetailsCreateRequestDto } from './user-details-create-request-dto.type.js';
 export { type UserDetailsFindByUserIdRequestDto } from './user-details-find-by-userid-request-dto.type.js';
 export { type UserDetailsFindRequestDto } from './user-details-find-request-dto.type.js';

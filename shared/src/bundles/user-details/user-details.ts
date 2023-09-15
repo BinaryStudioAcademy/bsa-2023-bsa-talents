@@ -10,6 +10,7 @@ export {
     UserDetailsApiPath,
 } from './enums/enums.js';
 export {
+    type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,

@@ -9,11 +9,8 @@ import {
     type PreferredLanguages,
 } from '../user-details.js';
 
-type UserDetailsUpdateDto = {
-    id: string;
+type UserDetailsCreateDto = {
     userId: string;
-
-    isHired?: boolean;
 
     profileName?: string;
 
@@ -34,7 +31,7 @@ type UserDetailsUpdateDto = {
 
     projectLinks?: string[];
     photoId?: string;
-    fullName?: string;
+    fullName: string;
     phone?: string;
     linkedinLink?: string;
     companyName?: string;
@@ -44,4 +41,4 @@ type UserDetailsUpdateDto = {
     cvId?: string;
 };
 
-export { type UserDetailsUpdateDto };
+export { type UserDetailsCreateDto };
