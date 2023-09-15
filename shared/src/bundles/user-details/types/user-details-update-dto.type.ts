@@ -11,7 +11,7 @@ import {
 
 type UserDetailsUpdateDto = {
     id: string;
-    userId?: string;
+    userId: string;
 
     isHired?: boolean;
 

@@ -1,7 +1,6 @@
-import { type TalentHardSkill } from './types.js';
+type TalentHardSkillUpdate = {
+    userDetailsId: string;
+    talentHardSkills: string[];
+};
 
-type TalentHardSkillDelete = {
-    id: string;
-} & TalentHardSkill;
-
-export { type TalentHardSkillDelete };
+export { type TalentHardSkillUpdate };

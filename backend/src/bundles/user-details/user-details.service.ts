@@ -98,14 +98,10 @@ class UserDetailsService implements Service {
         }
 
         if (talentHardSkills) {
-            await Promise.all(
-                talentHardSkills.map((hardSkillId: string) =>
-                    this.talentHardSkillsService.update({
-                        hardSkillId,
-                        userDetailsId,
-                    }),
-                ),
-            );
+            await this.talentHardSkillsService.update({
+                talentHardSkills,
+                userDetailsId,
+            });
         }
 
         return this.userDetailsRepository.update({

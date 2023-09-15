@@ -5,7 +5,7 @@ import { TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
 import { type TalentHardSkillsModel } from './talent-hard-skills.model.js';
 import {
     type TalentHardSkill,
-    type TalentHardSkillDelete,
+    type TalentHardSkillUpdate,
 } from './types/types.js';
 
 class TalentHardSkillsRepository implements Repository {
@@ -43,23 +43,38 @@ class TalentHardSkillsRepository implements Repository {
         return skill ? TalentHardSkillsEntity.initialize(skill) : null;
     }
 
-    public update(): Promise<TalentHardSkillsEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
-    }
-
-    public async deleteById(
-        talentHardSkill: TalentHardSkillDelete,
-    ): Promise<boolean> {
-        const rowsDeleted = await this.talentHardSkillsModel
+    public async update({
+        userDetailsId,
+        talentHardSkills,
+    }: TalentHardSkillUpdate): Promise<void> {
+        const existingIds = await this.talentHardSkillsModel
             .query()
-            .delete()
-            .where({
-                id: talentHardSkill.id,
-                userDetailsId: talentHardSkill.userDetailsId,
-            })
-            .execute();
+            .where({ userDetailsId: userDetailsId })
+            .select('id');
 
-        return rowsDeleted > 0;
+        const existingIdsArray = existingIds.map((entry) => entry.id);
+
+        for (const existingId of existingIdsArray) {
+            if (!talentHardSkills.includes(existingId)) {
+                await this.talentHardSkillsModel
+                    .query()
+                    .delete()
+                    .where({ id: existingId })
+                    .execute();
+            }
+        }
+
+        for (const incomingId of talentHardSkills) {
+            if (!existingIdsArray.includes(incomingId)) {
+                await this.talentHardSkillsModel
+                    .query()
+                    .insert({
+                        hardSkillId: incomingId,
+                        userDetailsId: userDetailsId,
+                    })
+                    .execute();
+            }
+        }
     }
 
     public delete(): Promise<boolean> {

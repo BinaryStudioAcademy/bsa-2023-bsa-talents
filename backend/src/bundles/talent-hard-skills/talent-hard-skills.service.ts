@@ -3,7 +3,10 @@ import { type Service } from '~/common/types/types.js';
 
 import { type TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
 import { type TalentHardSkillsRepository } from './talent-hard-skills.repository.js';
-import { type TalentHardSkill } from './types/types.js';
+import {
+    type TalentHardSkill,
+    type TalentHardSkillUpdate,
+} from './types/types.js';
 
 class TalentHardSkillsService implements Service {
     private talentHardSkillsRepository: TalentHardSkillsRepository;
@@ -27,22 +30,9 @@ class TalentHardSkillsService implements Service {
     }
 
     public async update(
-        talentHardSkill: TalentHardSkill,
-    ): Promise<boolean | TalentHardSkillsEntity> {
-        const hardSkill = await this.talentHardSkillsRepository.find({
-            ...talentHardSkill,
-        });
-
-        const id = hardSkill?.toObject().id as string;
-
-        return await (hardSkill
-            ? this.talentHardSkillsRepository.deleteById({
-                  ...hardSkill,
-                  id,
-              })
-            : this.talentHardSkillsRepository.create({
-                  ...talentHardSkill,
-              }));
+        talentHardSkillUpdate: TalentHardSkillUpdate,
+    ): Promise<void> {
+        await this.talentHardSkillsRepository.update(talentHardSkillUpdate);
     }
 
     public delete(): Promise<boolean> {
