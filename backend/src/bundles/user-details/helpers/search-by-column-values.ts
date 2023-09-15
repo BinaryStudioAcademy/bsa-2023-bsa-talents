@@ -4,8 +4,8 @@ import { type UserDetailsModel } from '../user-details.model.js';
 
 const searchByColumnValues = (
     subquery: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
-    values: string[] | undefined,
     columnName: string,
+    values?: string[],
 ): void => {
     if (values) {
         void subquery.where((subquery) => {

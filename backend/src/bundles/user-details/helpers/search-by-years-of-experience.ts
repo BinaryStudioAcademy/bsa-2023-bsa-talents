@@ -12,7 +12,7 @@ const FIVE = 5;
 
 const searchByYearsOfExperience = (
     subquery: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
-    yearsOfExperience: ValueOf<typeof YearsOfExperience>[] | undefined,
+    yearsOfExperience?: ValueOf<typeof YearsOfExperience>[],
 ): void => {
     if (yearsOfExperience) {
         void subquery.where((subquery) => {

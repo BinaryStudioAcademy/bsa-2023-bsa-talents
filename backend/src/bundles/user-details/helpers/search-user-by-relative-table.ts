@@ -10,9 +10,9 @@ const searchUserByRelativeTable = ({
     alias,
 }: {
     builder: QueryBuilder<UserDetailsModel, UserDetailsModel[]>;
-    values: string[] | undefined;
     columnName: string;
     relativeTable: string;
+    values?: string[];
     alias?: string;
 }): void => {
     if (values) {

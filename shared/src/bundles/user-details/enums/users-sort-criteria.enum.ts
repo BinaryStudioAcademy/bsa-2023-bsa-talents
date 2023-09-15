@@ -5,7 +5,7 @@ const UserSortCriteria = {
         direction: 'asc',
     },
     SALARY_DESCENDING: {
-        label: 'Experience | Descending',
+        label: 'Salary | Descending',
         column: 'salary_expectation',
         direction: 'desc',
     },
@@ -15,7 +15,7 @@ const UserSortCriteria = {
         direction: 'asc',
     },
     EXPERIENCE_DESCENDING: {
-        label: 'Salary | Descending',
+        label: 'Experience | Descending',
         column: 'experience_years',
         direction: 'desc',
     },

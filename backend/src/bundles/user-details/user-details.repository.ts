@@ -92,8 +92,8 @@ class UserDetailsRepository implements Repository {
                 void builder.where((subquery) => {
                     searchByColumnValues(
                         subquery,
-                        payload.jobTitle,
                         'jobTitle',
+                        payload.jobTitle,
                     );
                 });
             }
@@ -130,8 +130,8 @@ class UserDetailsRepository implements Repository {
                 void builder.where((subquery) => {
                     searchByColumnValues(
                         subquery,
-                        payload.location,
                         'location',
+                        payload.location,
                     );
                 });
             }
@@ -140,8 +140,8 @@ class UserDetailsRepository implements Repository {
                 void builder.where((subquery) => {
                     searchByColumnValues(
                         subquery,
-                        payload.englishLevel,
                         'englishLevel',
+                        payload.englishLevel,
                     );
                 });
             }

@@ -1,19 +1,15 @@
+import { type ValueOf } from '~/common/types/types.js';
+
 import { UserSortCriteria } from '../enums/enums.js';
 
 const createSortingUsersParameters = (
-    value?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['label'],
+    value?: ValueOf<
+        (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['label']
+    >,
 ): { column: string; direction: 'asc' | 'desc' } => {
-    let selectedSorting:
-        | (typeof UserSortCriteria)[keyof typeof UserSortCriteria]
-        | undefined;
-
-    for (const key of Object.keys(UserSortCriteria)) {
-        const item = UserSortCriteria[key as keyof typeof UserSortCriteria];
-        if (item.label === value) {
-            selectedSorting = item;
-            break;
-        }
-    }
+    const selectedSorting = Object.values(UserSortCriteria).find(
+        (item) => item.label === value,
+    );
 
     return selectedSorting
         ? {
