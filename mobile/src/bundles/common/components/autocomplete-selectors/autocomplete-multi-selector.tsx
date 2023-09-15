@@ -14,7 +14,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -26,11 +26,16 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
+type Options = {
+    label: string;
+    value: string;
+};
+
 type Properties<T extends FieldValues> = {
     control?: Control<T, null>;
     name: FieldPath<T>;
     hasError?: boolean;
-    items: string[];
+    items: Options[];
     placeholder?: string;
 };
 
@@ -51,23 +56,24 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         setSearch(text);
     };
 
-    const handleItemSelect = (item: string): void => {
-        if (value.includes(item)) {
+    const handleItemSelect = (item: Options): void => {
+        if (value.includes(item.value)) {
             return;
         }
-        value.push(item);
         toggleVisibility();
+        value.push(item);
+        onChange(value);
     };
 
     const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: string) => item !== itemName));
+        onChange(value.filter((item: Options) => item.value !== itemName));
     };
 
     const filteredItems = useMemo(() => {
         return items.filter(
             (item) =>
-                item.toLowerCase().includes(search.toLowerCase()) &&
-                !value.includes(item),
+                item.value.toLowerCase().includes(search.toLowerCase()) &&
+                !value.some((v: Options) => v.value === item.value),
         );
     }, [search, value, items]);
 
@@ -91,21 +97,21 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                         styles.input,
                         hasError && styles.error,
                     ]}
+                    placeholderTextColor={Color.TEXT2}
                 />
 
                 <Animated.View
                     style={[
                         globalStyles.pl20,
-                        globalStyles.pb5,
                         globalStyles.width100,
                         heightAnimatedStyle,
                         styles.dropdown,
                     ]}
                 >
-                    <ScrollView nestedScrollEnabled>
-                        {filteredItems.map((item: string) => (
+                    <ScrollView nestedScrollEnabled persistentScrollbar>
+                        {filteredItems.map((item: Options) => (
                             <TouchableOpacity
-                                key={item}
+                                key={item.value}
                                 onPress={(): void => {
                                     handleItemSelect(item);
                                 }}
@@ -114,7 +120,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                                     category={TextCategory.LABEL}
                                     style={globalStyles.pv5}
                                 >
-                                    {item}
+                                    {item.label}
                                 </Text>
                             </TouchableOpacity>
                         ))}
@@ -128,10 +134,10 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map((item: string) => (
+                {value.map((item: Options) => (
                     <Tag
-                        key={item}
-                        value={item}
+                        key={item.value}
+                        value={item.label}
                         onPress={handleItemDelete}
                         iconName={IconName.CLOSE}
                         iconSize={15}

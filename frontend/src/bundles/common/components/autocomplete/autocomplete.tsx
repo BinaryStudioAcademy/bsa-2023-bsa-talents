@@ -7,40 +7,42 @@ import {
     Typography,
 } from '@mui/material';
 import { type SyntheticEvent } from 'react';
-import { type Control, type FieldPath } from 'react-hook-form';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
 
 import { Chip } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
-import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import styles from '../styles.module.scss';
-
-type Properties = {
-    control: Control<SkillsStepDto>;
-    name: FieldPath<SkillsStepDto>;
-};
+import styles from './styles.module.scss';
 
 type Option = {
     label: string;
     value: string;
 };
 
-//TODO: mock data, will get this from db
-const hardSkillsOptions: Option[] = [
-    { value: 'React', label: 'React' },
-    { value: 'Node.js', label: 'Node.js' },
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'HTML', label: 'HTML' },
-    { value: 'CSS', label: 'CSS' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'Ruby', label: 'Ruby' },
-];
+type Properties<T extends FieldValues> = {
+    control: Control<T, null>;
+    name: FieldPath<T>;
+    options: Option[];
+    isFilter?: boolean;
+    placeholder?: string;
+    label?: string;
+};
 
-const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
+const CustomAutocomplete = <T extends FieldValues>({
+    name,
+    control,
+    options,
+    isFilter = false,
+    placeholder,
+    label,
+}: Properties<T>): JSX.Element => {
     const {
         field,
         formState: { errors },
@@ -55,7 +57,7 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 <TextField
                     {...fieldPassProperties}
                     className={styles.inputRoot}
-                    placeholder="Start typing and select skills"
+                    placeholder={placeholder}
                     inputProps={{
                         ...inputProps,
                         className: styles.input,
@@ -67,7 +69,7 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                 />
             );
         },
-        [fieldPassProperties],
+        [fieldPassProperties, placeholder],
     );
 
     const hideDefaultTags = useCallback(() => null, []);
@@ -88,28 +90,29 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
     );
 
     const handleDelete = useCallback(
-        (deletedSkill: Option) => () => {
-            const updatedSkills = (value as Option[]).filter(
-                (skill) => skill.value !== deletedSkill.value,
+        (deletedOption: Option) => () => {
+            const updatedOptions = (value as Option[]).filter(
+                (option) => option.value !== deletedOption.value,
             );
-            onChange(updatedSkills);
+            onChange(updatedOptions);
         },
         [value, onChange],
     );
 
     return (
-        <FormControl>
-            <FormLabel className={styles.label}>
-                <Typography variant={'label'}>Hard Skills</Typography>
-                <span className={styles.requiredField}>*</span>
-            </FormLabel>
+        <FormControl className={isFilter ? styles.formFilter : ''}>
+            {!isFilter && (
+                <FormLabel className={styles.label}>
+                    <Typography variant={'label'}>{label}</Typography>
+                    <span className={styles.requiredField}>*</span>
+                </FormLabel>
+            )}
 
             <Autocomplete<Option, true>
                 multiple
-                className={styles.autocomplete}
                 value={value as Option[]}
                 renderInput={renderInput}
-                options={hardSkillsOptions}
+                options={options}
                 renderTags={hideDefaultTags}
                 popupIcon={null}
                 clearIcon={null}
@@ -126,13 +129,13 @@ const SkillsAutocomplete: React.FC<Properties> = ({ name, control }) => {
                     />
                 ))}
             </div>
-            {errors.hardSkills && (
+            {errors[name] && !isFilter && (
                 <FormHelperText className={styles.hasError}>
-                    {errors.hardSkills.message}
+                    {errors[name]?.message as string}
                 </FormHelperText>
             )}
         </FormControl>
     );
 };
 
-export { SkillsAutocomplete };
+export { CustomAutocomplete };

@@ -107,13 +107,12 @@ const AutocompleteSelector = <T extends FieldValues>({
                 <Animated.View
                     style={[
                         globalStyles.pl20,
-                        globalStyles.pb5,
                         globalStyles.width100,
                         heightAnimatedStyle,
                         styles.dropdown,
                     ]}
                 >
-                    <ScrollView nestedScrollEnabled>
+                    <ScrollView nestedScrollEnabled persistentScrollbar>
                         {filteredItems.map((item: string) => (
                             <TouchableOpacity
                                 key={item}

@@ -7,7 +7,13 @@ import React from 'react';
 import Animated, { interpolate } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable, Text, View } from '~/bundles/common/components/components';
+import { logout } from '~/bundles/auth/store/actions';
+import {
+    Button,
+    Pressable,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import {
     Color,
     IconName,
@@ -15,7 +21,7 @@ import {
     TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAnimatedStyle } from '~/bundles/common/hooks/hooks';
+import { useAnimatedStyle, useAppDispatch } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type TalentOnboardingRouteProperties,
@@ -38,6 +44,11 @@ const {
 const Steps: React.FC<DrawerContentComponentProps> = (props) => {
     const { navigation, state } = props;
     const progress = useDrawerProgress();
+    const dispatch = useAppDispatch();
+
+    const handleLogout = (): void => {
+        void dispatch(logout());
+    };
 
     const textAnimatedStyle = useAnimatedStyle(() => {
         const translateY = interpolate(
@@ -113,6 +124,13 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                         />
                     );
                 })}
+            </Animated.View>
+            <Animated.View style={iconAnimatedStyle}>
+                <Button
+                    label="Logout"
+                    style={styles.logout}
+                    onPress={handleLogout}
+                />
             </Animated.View>
         </DrawerContentScrollView>
     );

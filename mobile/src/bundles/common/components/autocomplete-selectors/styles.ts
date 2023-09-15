@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         backgroundColor: '#FFF',
-        borderTopWidth: 1,
         zIndex: 1,
     },
     tagContainer: {

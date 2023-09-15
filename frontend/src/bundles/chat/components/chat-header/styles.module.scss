@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 656px;
     height: 80px;
     padding: 24px;
     overflow: hidden;
@@ -18,8 +17,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    width: 100%;
 
     .title {
+        min-width: calc(
+            100% - var(--button-group-width)
+        ); /* related to .truncate */
+
         margin: 0;
         overflow: hidden;
         color: var(--text-primary-dark);
@@ -58,4 +62,12 @@
     &.offline {
         background-color: var(--nepal);
     }
+}
+
+.truncate {
+    width: 120px;
+    min-width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
