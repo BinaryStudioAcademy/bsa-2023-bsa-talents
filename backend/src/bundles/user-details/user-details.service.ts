@@ -104,7 +104,7 @@ class UserDetailsService implements Service {
                 talentBadges.map((badgeId: string) =>
                     this.talentBadgeService.update({
                         badgeId,
-                        userId,
+                        userId: userId as string,
                         userDetailsId,
                     }),
                 ),
