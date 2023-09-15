@@ -1,8 +1,9 @@
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { Steps as StepsEnum } from '~/bundles/talent-onboarding/enums/enums.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEP_ONE } from '../../constants/constants.js';
+import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -26,7 +27,7 @@ const Steps: React.FC<Properties> = ({ currentStep }) => {
     return (
         <Grid item className={styles.stepsWrapper}>
             <ul className={styles.steps}>
-                {Object.entries(StepsEnum).map(([step, stepName], index) => (
+                {Object.entries(StepsRoute).map(([step, stepName], index) => (
                     <li
                         key={step}
                         className={getClassNameForStep({
@@ -49,7 +50,7 @@ const Steps: React.FC<Properties> = ({ currentStep }) => {
                                 activeClass: styles.currentStepDescription,
                             })}
                         >
-                            {stepName}
+                            {formatStepLabels(stepName)}
                         </Typography>
                     </li>
                 ))}

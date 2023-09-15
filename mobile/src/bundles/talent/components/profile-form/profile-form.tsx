@@ -1,9 +1,9 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 
 import {
     AutocompleteSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     ScrollView,
@@ -11,17 +11,8 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import {
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useNavigation,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
 import {
     CountryList,
     EmploymentType,
@@ -31,7 +22,6 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxGroup } from '../components';
 import {
     EXPERIENCE_YEARS,
     TALENT_PROFILE_DEFAULT_VALUES,
@@ -53,20 +43,14 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
         validationSchema: ProfileStepValidationSchema,
     });
 
-    const { navigate } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
-
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
-            onSubmit({ ...data, salaryExpectation: +data.salaryExpectation });
-
-            navigate(TalentOnboardingScreenName.BSA_BADGES, {
-                stepState: TalentOnboardingStepState.FOCUSED,
+            onSubmit({
+                ...data,
+                salaryExpectation: +data.salaryExpectation,
             });
         })();
-    }, [handleSubmit, onSubmit, navigate]);
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView
@@ -98,6 +82,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
+                    defaultValue={profileStepData?.salaryExpectation.toString()}
                     value={undefined}
                 />
             </FormField>
@@ -117,7 +102,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             </FormField>
             <FormField
                 errorMessage={errors.experienceYears?.message}
-                label="Experience Level"
+                label="Experience"
                 name="experienceYears"
                 required
                 containerStyle={globalStyles.pb25}
@@ -152,7 +137,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             <FormField
                 errorMessage={errors.employmentType?.message}
                 label="Employment type"
-                name="employmentTypes"
+                name="employmentType"
                 required
                 containerStyle={globalStyles.pb25}
             >

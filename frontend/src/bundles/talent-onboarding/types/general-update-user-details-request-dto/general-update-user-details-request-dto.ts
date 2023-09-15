@@ -1,4 +1,9 @@
-import { type UserDetailsUpdateRequestDto } from 'shared/build/index.js';
+import {
+    type UserDetailsUpdateRequestDto,
+    type ValueOf,
+} from 'shared/build/index.js';
+
+import { type DataStatus } from '~/bundles/common/enums/enums.js';
 
 type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     hardSkills?: {
@@ -8,6 +13,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     badges?: string[];
     photo?: File | null;
     cv?: File | null;
+    dataStatus?: ValueOf<typeof DataStatus>;
 };
 
 export { type UserDetailsGeneralCustom };

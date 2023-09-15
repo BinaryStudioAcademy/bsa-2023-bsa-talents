@@ -5,9 +5,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
-    employmentTypeContainer: {
-        gap: 5,
-    },
 });
 
 export { styles };

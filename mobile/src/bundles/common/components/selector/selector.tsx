@@ -4,10 +4,7 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
-import Animated, {
-    useAnimatedStyle,
-    withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -22,28 +19,28 @@ import {
     useCallback,
     useFormController,
     useMemo,
+    useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { SELECTOR_STYLE } from './constants/constants';
+import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
+    hasError?: boolean;
     options: string[];
     placeholder?: string;
     multiSelect?: boolean;
     onSelect?: (item: string) => void;
 };
 
-const { INITIAL_DROPDOWN_HEIGHT, MAX_DROPDOWN_HEIGHT, ICON_SIZE } =
-    SELECTOR_STYLE;
-
 const Selector = <T extends FieldValues>({
     name,
     control,
+    hasError,
     options,
     multiSelect = false,
     placeholder,
@@ -51,21 +48,9 @@ const Selector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
     const { isVisible, toggleVisibility } = useVisibility(false);
-
-    const iconAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            transform: [{ rotate: withTiming(isVisible ? '180deg' : '0deg') }],
-        };
-    });
-
-    const heightAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            maxHeight: withTiming(
-                isVisible ? MAX_DROPDOWN_HEIGHT : INITIAL_DROPDOWN_HEIGHT,
-                { duration: 400 },
-            ),
-        };
-    });
+    const { heightAnimatedStyle, iconAnimatedStyle } =
+        useSelectorAnimations(isVisible);
+    const NO_SELECTED = 0;
 
     const handlePressItem = useCallback(
         (option: string): void => {
@@ -85,27 +70,31 @@ const Selector = <T extends FieldValues>({
     const selectedOptions = useMemo(
         () =>
             options
-                .filter((option) => value.includes(option))
+                .filter((option) => value?.includes(option))
                 .map((option) => option),
         [options, value],
     );
-    const NO_SELECTED = 0;
+
+    const placeHolderStyle =
+        (selectedOptions.length > NO_SELECTED && value) || styles.placeholder;
+
     return (
         <View style={styles.container}>
             <Pressable
                 style={[
                     globalStyles.pv10,
-                    globalStyles.pl15,
+                    globalStyles.pl10,
                     globalStyles.pr5,
                     globalStyles.borderRadius5,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
                     styles.dropdownButton,
+                    hasError && styles.error,
                 ]}
                 onPress={toggleVisibility}
             >
-                <Text category={TextCategory.LABEL}>
+                <Text category={TextCategory.LABEL} style={placeHolderStyle}>
                     {selectedOptions.length > NO_SELECTED
                         ? selectedOptions.join(', ')
                         : placeholder}
@@ -122,13 +111,12 @@ const Selector = <T extends FieldValues>({
                 style={[
                     globalStyles.pl20,
                     globalStyles.width100,
-                    isVisible && globalStyles.pb5,
+                    styles.dropdown,
                     styles.dropdownButton,
-                    !isVisible && styles.dropdownClosed,
                     heightAnimatedStyle,
                 ]}
             >
-                <ScrollView nestedScrollEnabled>
+                <ScrollView nestedScrollEnabled persistentScrollbar>
                     {options.map((item) => (
                         <TouchableOpacity
                             key={item}

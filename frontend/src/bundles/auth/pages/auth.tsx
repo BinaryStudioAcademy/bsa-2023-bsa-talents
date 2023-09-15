@@ -5,7 +5,11 @@ import {
     useAppDispatch,
     useCallback,
     useLocation,
+    useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
+import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
@@ -17,40 +21,66 @@ import {
     SignInForm,
     SignUpForm,
 } from '../components/components.js';
+import { UserRole } from '../enums/enums.js';
 import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
 
+    const navigate = useNavigate();
+
+    const navigateUser = useCallback(
+        ({ role }: { role: ValueOf<typeof UserRole> }): void => {
+            switch (role) {
+                case UserRole.TALENT: {
+                    navigate(getStepRoute(StepsRoute.STEP_01));
+                    break;
+                }
+                case UserRole.EMPLOYER: {
+                    navigate(AppRoute.EMPLOYER_ONBOARDING);
+                    break;
+                }
+            }
+        },
+        [navigate],
+    );
+
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signIn(payload));
+            void dispatch(authActions.signIn(payload))
+                .unwrap()
+                .then(navigateUser);
         },
-        [dispatch],
+        [dispatch, navigateUser],
     );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
             void dispatch(authActions.signUp(payload));
+            navigateUser(payload);
         },
-        [dispatch],
+        [dispatch, navigateUser],
     );
 
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AppRoute.SIGN_IN: {
                 return (
-                    <AuthLayout>
-                        <SignInForm onSubmit={handleSignInSubmit} />
-                    </AuthLayout>
+                    <>
+                        <AuthLayout>
+                            <SignInForm onSubmit={handleSignInSubmit} />
+                        </AuthLayout>
+                    </>
                 );
             }
             case AppRoute.SIGN_UP: {
                 return (
-                    <AuthLayout>
-                        <SignUpForm onSubmit={handleSignUpSubmit} />
-                    </AuthLayout>
+                    <>
+                        <AuthLayout>
+                            <SignUpForm onSubmit={handleSignUpSubmit} />
+                        </AuthLayout>
+                    </>
                 );
             }
             case AppRoute.RESET_PASSWORD: {

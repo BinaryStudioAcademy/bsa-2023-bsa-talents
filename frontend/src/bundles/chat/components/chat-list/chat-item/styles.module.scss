@@ -1,0 +1,40 @@
+.chatListItem {
+    min-width: var(--chat-list-item-min-width);
+    min-height: 72px;
+    max-height: 72px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.chatListItem:hover {
+    background-color: var(--solitude);
+    cursor: pointer;
+}
+
+.chatListItem.chatListItemSelected {
+    background-color: var(--solitude);
+}
+
+.headerText {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.date {
+    opacity: 0.3;
+}
+
+.message {
+    color: var(--slate-gray);
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.truncate {
+    width: 90px;
+    min-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

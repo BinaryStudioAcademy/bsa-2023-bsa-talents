@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
     dropdown: {
         position: 'absolute',
         top: '95%',
-        maxHeight: 150,
-        borderWidth: 1,
         borderColor: Color.INPUT,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
@@ -27,6 +25,12 @@ const styles = StyleSheet.create({
     tagContainer: {
         gap: 5,
         flexWrap: 'wrap',
+    },
+    dropdownButton: {
+        position: 'absolute',
+        bottom: 10,
+        right: 5,
+        zIndex: 1,
     },
 });
 

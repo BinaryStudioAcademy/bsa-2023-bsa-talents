@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { mockBadges } from '../../talent-onboarding/mock-data/mock-data.js';
+import { mockBadges } from '~/assets/mock-data/mock-data.js';
+
 import { type bsaBadge } from '../types/types.js';
 
 type State = {

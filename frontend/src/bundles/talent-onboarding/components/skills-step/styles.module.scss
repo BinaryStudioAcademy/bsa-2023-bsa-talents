@@ -6,6 +6,13 @@
     padding: 10px;
 }
 
+.formFilter {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0;
+}
+
 .chips {
     margin-top: 13px;
 }
@@ -46,7 +53,7 @@
     background: var(--white);
     border: none;
 
-    & fieldset {
+    & :global(.MuiOutlinedInput-notchedOutline) {
         border: none;
     }
 }

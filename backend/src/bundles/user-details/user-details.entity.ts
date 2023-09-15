@@ -6,6 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
+    type OnboardingSteps,
     type PreferredLanguages,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
@@ -47,7 +48,7 @@ class UserDetailsEntity implements Entity {
 
     private 'photoId': string | null;
 
-    private 'fullName': string;
+    private 'fullName': string | null;
 
     private 'phone': string | null;
 
@@ -62,6 +63,8 @@ class UserDetailsEntity implements Entity {
     private 'employerPosition': string | null;
 
     private 'cvId': string | null;
+
+    private 'completedStep': ValueOf<typeof OnboardingSteps> | null;
 
     private constructor({
         id,
@@ -90,6 +93,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
+        completedStep,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -117,6 +121,7 @@ class UserDetailsEntity implements Entity {
         this.companyWebsite = companyWebsite;
         this.employerPosition = employerPosition;
         this.cvId = cvId;
+        this.completedStep = completedStep;
     }
 
     public static initialize({
@@ -146,6 +151,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
+        completedStep,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -174,6 +180,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite,
             employerPosition,
             cvId,
+            completedStep,
         });
     }
 
@@ -203,6 +210,7 @@ class UserDetailsEntity implements Entity {
         companyWebsite,
         employerPosition,
         cvId,
+        completedStep,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -231,6 +239,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite,
             employerPosition,
             cvId,
+            completedStep,
         });
     }
 
@@ -262,6 +271,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite: this.companyWebsite,
             employerPosition: this.employerPosition,
             cvId: this.cvId,
+            completedStep: this.completedStep,
         };
     }
 
@@ -293,6 +303,7 @@ class UserDetailsEntity implements Entity {
             companyWebsite: this.companyWebsite,
             employerPosition: this.employerPosition,
             cvId: this.cvId,
+            completedStep: this.completedStep,
         };
     }
 }

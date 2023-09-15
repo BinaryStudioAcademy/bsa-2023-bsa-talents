@@ -3,20 +3,20 @@
     flex-direction: column;
     align-items: center;
     width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    max-width: var(--sidebar-width);
     min-height: 100vh;
     padding-top: 15px;
     background-color: var(--text-primary-dark);
+    transition: all 0.2s ease-in;
+}
+
+.visible {
+    left: 0;
 }
 
 .logo {
-    display: block;
-    width: 44px;
-    height: 44px;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
-    background: #ffd231;
-    border-radius: 7px;
 }
 
 .list {
@@ -46,5 +46,133 @@ a {
 
     &[aria-current="page"] {
         color: var(--white);
+    }
+}
+
+// BURGER
+.burgerBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    height: var(--header-height);
+    background-color: var(--white);
+    content: "";
+}
+
+.burgerWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    display: none;
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    height: var(--header-height);
+}
+
+.burgerButton {
+    --size: 20px;
+    --color: var(--text-primary-dark);
+    --linear-gradient-box: linear-gradient(
+            var(--color) 20%,
+            #00000000 0 80%,
+            var(--color) 0
+        )
+        no-repeat content-box border-box;
+    --radial-gradient-box: radial-gradient(
+            circle closest-side at 50% 12.5%,
+            var(--color) 95%,
+            #00000000
+        )
+        repeat-y content-box border-box;
+
+    position: relative;
+    box-sizing: content-box;
+    height: var(--size);
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    background:
+        var(--radial-gradient-box) left var(--position, 0) top,
+        var(--linear-gradient-box) left
+            calc(var(--size) / 10 + var(--position, 0px)) top,
+        var(--radial-gradient-box) right var(--position, 0) top,
+        var(--linear-gradient-box) right
+            calc(var(--size) / 10 + var(--position, 0px)) top;
+    background-size:
+        20% 80%,
+        40% 100%;
+    border: none;
+    outline: inherit;
+    cursor: pointer;
+    transition:
+        background-position 0.2s var(--seconds, 0.2s),
+        clip-path 0s var(--seconds, 0.3s);
+    aspect-ratio: 1;
+    border-inline: calc(var(--size) / 2) solid #00000000;
+    clip-path: inset(0 25%);
+    mask: linear-gradient(90deg, #00000000, #000000 25% 75%, #00000000);
+    appearance: none;
+}
+
+.burgerButton::before,
+.burgerButton::after {
+    position: absolute;
+    inset: 40% 0;
+    background: var(--color);
+    border-radius: var(--size);
+    transition: transform 0.3s calc(0.3s - var(--seconds, 0.3s));
+    content: "";
+}
+
+.checked {
+    --color: #ffd231;
+    --position: calc(-1 * var(--size));
+    --seconds: 0s;
+
+    clip-path: inset(0);
+}
+
+.checked::before {
+    transform: rotate(45deg);
+}
+
+.checked::after {
+    transform: rotate(-45deg);
+}
+
+.checked:focus-visible {
+    clip-path: none;
+    mask: none;
+    border: none;
+    outline: 2px solid var(--color);
+    outline-offset: 5px;
+}
+
+@media screen and (width <= 660px) {
+    .wrapper {
+        position: fixed;
+        z-index: 20;
+        padding-top: calc(15px + var(--header-height));
+    }
+
+    .hidden {
+        left: -100%;
+    }
+
+    .burgerBackground {
+        display: block;
+    }
+
+    .burgerWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

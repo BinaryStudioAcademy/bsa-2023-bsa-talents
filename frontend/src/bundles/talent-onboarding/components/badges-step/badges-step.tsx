@@ -21,7 +21,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { useFormSubmit } from '../../context/context.js';
-import { getRandomBadgeColor } from '../../helpers/helpers.js';
+import { OnboardingSteps } from '../../enums/enums.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
@@ -33,10 +33,6 @@ const BadgesStep: React.FC = () => {
         bsaBadges: state.lms.bsaBadges,
     }));
 
-    const bsaBadgesWithColors = bsaBadges.map((badge) => ({
-        ...badge,
-        color: getRandomBadgeColor(),
-    }));
     const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
         defaultValues: { badges },
         validationSchema: BsaBadgesStepValidationSchema,
@@ -48,7 +44,12 @@ const BadgesStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(actions.updateTalentDetails(data));
+            await dispatch(
+                actions.updateTalentDetails({
+                    ...data,
+                    completedStep: OnboardingSteps.STEP_02,
+                }),
+            );
             return true;
         },
         [dispatch],
@@ -95,7 +96,7 @@ const BadgesStep: React.FC = () => {
         }): React.ReactElement => {
             return (
                 <>
-                    {bsaBadgesWithColors.map((badge) => {
+                    {bsaBadges.map((badge) => {
                         const primaryText =
                             badge.level ?? String(badge.score) + ' ';
                         const secondText = badge.level
@@ -128,7 +129,7 @@ const BadgesStep: React.FC = () => {
                 </>
             );
         },
-        [bsaBadgesWithColors, handleCheckboxOnChange],
+        [bsaBadges, handleCheckboxOnChange],
     );
 
     return (

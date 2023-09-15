@@ -10,9 +10,9 @@ const ProfileStepValidationMessage = {
     SALARY_EXPECTATION_NOT_NUMBER: 'Salary expectations must be a number',
     SALARY_EXPECTATION_REQUIRED: 'Salary expectations is required',
     SALARY_EXPECTATION_MIN_VALUE:
-        'Salary expectations must be  at least {{#limit}} ',
+        'Salary expectations must be at least {{#limit}} ',
     SALARY_EXPECTATION_MAX_VALUE:
-        'Salary expectations must be  at most {{#limit}} ',
+        'Salary expectations must be at most {{#limit}} ',
     SALARY_EXPECTATIONS_WRONG_PATTERN:
         'Salary expectations must contain only numeric values',
     JOB_TITLE_NOT_STRING: 'Job title must be a string',
