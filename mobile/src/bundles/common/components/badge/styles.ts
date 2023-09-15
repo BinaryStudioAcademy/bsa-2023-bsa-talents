@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
     punctuality: {
         backgroundColor: '#FF951A',
     },
+    small: {
+        width: '48%',
+    },
 });
 
 export { styles };

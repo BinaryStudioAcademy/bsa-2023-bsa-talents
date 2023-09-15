@@ -6,7 +6,7 @@ ul {
 .profileWrapper {
     display: flex;
     max-width: 1280px;
-    margin: 30px 35px 25px 50px;
+    margin: 30px 0 25px;
     background-color: var(--white);
     border: 1px solid var(--botticelli);
     border-radius: 8px;
@@ -14,10 +14,6 @@ ul {
 
 .profileOpenWrapper {
     max-width: 1280px;
-}
-
-.profileCardWrapper {
-    max-width: 833px;
 }
 
 .contactButton {
@@ -40,11 +36,12 @@ ul {
     pointer-events: none;
 }
 
-@media screen and (width <= 1300px) {
+@media screen and (width <= 1000px) {
     .profileWrapper {
         flex-direction: column-reverse;
         align-items: center;
         margin-inline: 15px;
+        margin: 0;
     }
 }
 
@@ -58,6 +55,7 @@ ul {
     .profileWrapper {
         margin-inline: 5px;
         margin-block: 12px;
+        margin: 0;
     }
 
     .contactButton {

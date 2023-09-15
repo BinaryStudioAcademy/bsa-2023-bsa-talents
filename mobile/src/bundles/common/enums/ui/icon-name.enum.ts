@@ -12,7 +12,12 @@ const IconName = {
     MENU: 'menu',
     HEADPHONES: 'headphones',
     PLUS: 'plus',
+    MAGNIFY: 'magnify',
     WIFI_OFF: 'wifi-off',
+    LANGUAGE: 'language',
+    EXPERIENCE: 'integration-instructions',
+    FORUM: 'forum',
+    NOT_CONSIDER: 'do-not-disturb-on',
 } as const;
 
 export { IconName };

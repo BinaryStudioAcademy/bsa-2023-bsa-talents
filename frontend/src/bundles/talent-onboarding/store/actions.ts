@@ -37,8 +37,13 @@ const updateTalentDetails = createAsyncThunk<
     if ('badges' in updatePayload) {
         return updatePayload;
     }
+    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+    const { hardSkills, ...otherDetails } = updatePayload;
 
-    return talentOnBoardingApi.updateUserDetails(restPayload);
+    return {
+        ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
+        hardSkills,
+    };
 });
 
 const saveTalentDetails = createAsyncThunk<

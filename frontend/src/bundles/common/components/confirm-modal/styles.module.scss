@@ -1,0 +1,24 @@
+.modal {
+    padding: clamp(10px, 5vh, 40px) clamp(10px, 10vw, 120px);
+}
+
+.modalContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.buttonWrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.button {
+    min-width: 100px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+}

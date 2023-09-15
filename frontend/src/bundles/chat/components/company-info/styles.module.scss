@@ -3,7 +3,6 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 50px;
     color: #000000;
     font-family: var(--font-family);
     font-style: normal;
@@ -13,7 +12,9 @@
 .header {
     display: flex;
     align-items: center;
+    height: var(--chat-header-height);
     padding: 19px 24px 20px;
+    border-bottom: 1px solid var(--botticelli);
 }
 
 .headerInfo {
@@ -34,10 +35,15 @@
     opacity: 0.6;
 }
 
-.divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--botticelli);
+.contentWrapper {
+    height: 100%;
+    min-height: 100px;
+    padding: 0 24px 50px;
+    padding-bottom: 50px;
+    overflow: hidden scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
 }
 
 .content {
@@ -45,7 +51,8 @@
     flex-direction: column;
     align-items: start;
     width: 82%;
-    padding: 23px 0 41px 24px;
+    padding-top: 23px;
+    padding-bottom: 41px;
 }
 
 .contentHeading {
@@ -85,11 +92,14 @@
 .buttons {
     display: flex;
     flex-direction: column;
-    width: 82%;
-    padding-left: 24px;
+    align-items: center;
+    width: 100%;
+    padding-right: 24px;
 }
 
 .mainBtn {
+    width: 100%;
+    max-width: 292px;
     margin-bottom: 24px;
     padding: 15px 0;
     font-size: 15px;
