@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/common/components/badge/constants/constants';
 import {
     Button,
     FormField,
@@ -9,7 +10,6 @@ import {
 } from '~/bundles/common/components/components';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/talent/components/badge/constants/constants';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';

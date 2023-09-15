@@ -1,28 +1,20 @@
 import { StyleSheet } from 'react-native';
 
-import { Color } from '~/bundles/common/enums/enums';
+import { Color, FontFamily } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
-    marker: {
-        backgroundColor: Color.INPUT,
-        borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5,
+    container: {
+        gap: 10,
+    },
+    search: {
+        width: '75%',
     },
     input: {
         borderWidth: 1,
+        borderLeftWidth: 0,
         borderColor: Color.INPUT,
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
-    },
-    multiline: {
-        textAlignVertical: 'top',
-    },
-    error: {
-        borderColor: Color.ERROR,
-    },
-    disabled: {
-        backgroundColor: Color.INPUT,
-        opacity: 0.5,
     },
     iconContainer: {
         borderWidth: 1,
@@ -30,9 +22,14 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
+        paddingVertical: 12,
     },
-    noLeftBorder: {
-        borderLeftWidth: 0,
+    filtersBtn: {
+        backgroundColor: '#fff',
+    },
+    filtersText: {
+        color: Color.PRIMARY,
+        fontFamily: FontFamily.INTER_SEMIBOLD,
     },
 });
 
