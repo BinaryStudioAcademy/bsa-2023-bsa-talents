@@ -1,1 +1,4 @@
-export { type FileUploadResponse } from 'shared/build/index.js';
+export {
+    type FileUploadResponse,
+    type UploadedFile,
+} from 'shared/build/index.js';

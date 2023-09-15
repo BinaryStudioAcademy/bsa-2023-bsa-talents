@@ -12,18 +12,30 @@ import { FileGroups } from '~/common/plugins/file-upload/enums/file-group.enum.j
 import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { type FileService } from './file.service.js';
-import { generateRandomId } from './helpers/generate-random-id.helper.js';
 
 /**
  * @swagger
  * components:
  *    schemas:
- *      File:
+ *      FileUploadResponse:
  *        type: object
  *        properties:
- *          id:
- *            type: string
- *            format: uuid
+ *          document:
+ *            type: object
+ *            properties:
+ *               id:
+ *                  type: string
+ *                  format: uuid
+ *               url:
+ *                  type: string
+ *          image:
+ *            type: object
+ *            properties:
+ *               id:
+ *                  type: string
+ *                  format: uuid
+ *               url:
+ *                  type: string
  * */
 class FileController extends ControllerBase {
     private fileService: FileService;
@@ -34,29 +46,20 @@ class FileController extends ControllerBase {
         this.fileService = fileService;
 
         this.addRoute({
-            path: FileApiPath.DOCUMENT,
-            preHandler: uploadFile.single(FileGroups.DOCUMENT),
+            path: FileApiPath.UPLOAD,
+            preHandler: uploadFile.fields([
+                { name: FileGroups.DOCUMENT, maxCount: 1 },
+                { name: FileGroups.IMAGE, maxCount: 1 },
+            ]),
             method: 'POST',
             handler: (options) => {
                 return this.upload(
                     options as ApiHandlerOptions<{
                         body: {
-                            file: MulterFile;
-                        };
-                    }>,
-                );
-            },
-        });
-
-        this.addRoute({
-            path: FileApiPath.IMAGE,
-            preHandler: uploadFile.single(FileGroups.IMAGE),
-            method: 'POST',
-            handler: (options) => {
-                return this.upload(
-                    options as ApiHandlerOptions<{
-                        body: {
-                            file: MulterFile;
+                            files: {
+                                document: MulterFile[];
+                                image: MulterFile[];
+                            };
                         };
                     }>,
                 );
@@ -76,31 +79,40 @@ class FileController extends ControllerBase {
      *        description: Request body with file
      *        required: true
      *        content:
-     *          application/json:
+     *          multipart/form-data:
      *            schema:
      *              type: object
      *              properties:
-     *                file:
-     *                  type: buffer
+     *                document:
+     *                  type: string
+     *                  format: binary
+     *                image:
+     *                  type: string
+     *                  format: binary
      *      responses:
      *        200:
      *          description: Successful operation
      *          content:
      *            application/json:
      *              schema:
-     *                $ref: '#/components/schemas/File'
+     *                $ref: '#/components/schemas/FileUploadResponse'
      */
     private async upload(
         options: ApiHandlerOptions<{
             body: {
-                file: MulterFile;
+                files: {
+                    document: MulterFile[];
+                    image: MulterFile[];
+                };
             };
         }>,
     ): Promise<ApiHandlerResponse> {
-        const { originalname, buffer } = options.body.file;
-        const file = await this.fileService.create({
-            file: buffer as Buffer,
-            newFileName: generateRandomId(originalname),
+        const { document, image } = options.body.files;
+        const INDEX_ZERO = 0;
+
+        const file = await this.fileService.upload({
+            document: document[INDEX_ZERO],
+            image: image[INDEX_ZERO],
         });
 
         return {

@@ -51,13 +51,13 @@ class ControllerBase implements Controller {
     private mapRequest(
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
-        const requestWithFile = request as FastifyRequest & {
-            file?: MulterFile;
+        const requestWithFiles = request as FastifyRequest & {
+            files?: MulterFile[];
         };
-        const { body, query, params, headers, file } = requestWithFile;
-        if (file) {
+        const { body, query, params, headers, files } = requestWithFiles;
+        if (files) {
             return {
-                body: { ...(body as object), file },
+                body: { ...(body as object), files },
                 query,
                 params,
                 headers,

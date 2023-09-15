@@ -1,12 +1,15 @@
 import { type S3 } from 'aws-sdk';
+import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
 
 type UploadParameters = {
-    file: Buffer;
-    newFileNameKey: string;
+    document: MulterFile;
+    image: MulterFile;
 };
 
 type FileStorage = {
-    upload(parameters: UploadParameters): Promise<S3.ManagedUpload.SendData>;
+    uploadFiles(
+        parameters: UploadParameters,
+    ): Promise<S3.ManagedUpload.SendData[]>;
 };
 
 export { type FileStorage };

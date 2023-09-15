@@ -1,9 +1,16 @@
+import { type S3 } from 'aws-sdk';
+
 import { ErrorMessages } from '~/common/enums/enums.js';
-import { type FileStorage } from '~/common/packages/file-storage/types/types.js';
+import {
+    type FileStorage,
+    type MulterFile,
+} from '~/common/packages/file-storage/types/types.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 import { FileEntity } from './file.entity.js';
 import { type FileModel } from './file.model.js';
+import { getFileType } from './helpers/get-file-type.helper.js';
+import { type FileUploadResponse, type UploadedFile } from './types/types.js';
 
 class FileRepository implements Repository {
     private fileModel: typeof FileModel;
@@ -22,26 +29,36 @@ class FileRepository implements Repository {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create(payload: {
-        file: Buffer;
-        newFileName: string;
-    }): Promise<FileEntity> {
-        const response = await this.fileStorage.upload({
-            file: payload.file,
-            newFileNameKey: payload.newFileName,
-        });
-
-        const file = await this.fileModel
+    public async create(file: S3.ManagedUpload.SendData): Promise<FileModel> {
+        return this.fileModel
             .query()
             .insert({
-                url: response.Location,
-                fileName: response.Key,
-                etag: response.ETag,
+                url: file.Location,
+                fileName: file.Key,
+                etag: file.ETag,
             })
             .returning('*')
             .execute();
+    }
 
-        return FileEntity.initialize(file);
+    public async upload(payload: {
+        document: MulterFile;
+        image: MulterFile;
+    }): Promise<FileUploadResponse> {
+        const response = await this.fileStorage.uploadFiles({ ...payload });
+        const uploadedFiles: Record<string, UploadedFile> = {};
+
+        for (const file of response) {
+            const data = await this.create(file);
+            const type = getFileType(file.Key);
+            const entity = FileEntity.initialize(data).toObject();
+            uploadedFiles[type as keyof typeof uploadedFiles] = {
+                id: entity.id,
+                url: entity.url,
+            };
+        }
+
+        return uploadedFiles as FileUploadResponse;
     }
 
     public update(): Promise<unknown> {

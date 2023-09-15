@@ -1,7 +1,13 @@
 import AWS from 'aws-sdk';
-import { type PutObjectRequest } from 'aws-sdk/clients/s3.js';
 
-import { type FileStorage } from './types/types.js';
+import { generateRandomId } from '~/bundles/files/helpers/generate-random-id.helper.js';
+
+import { ErrorMessages } from './enums/enums.js';
+import {
+    type FileStorage,
+    type MulterFile,
+    type PutObjectRequest,
+} from './types/types.js';
 
 type ConstructorParameters = {
     accessKeyId: string;
@@ -27,23 +33,43 @@ class FileStorageBase implements FileStorage {
         this.bucketName = bucketName;
     }
 
-    public async upload({
-        file,
-        newFileNameKey,
-    }: {
-        file: Buffer;
-        newFileNameKey: string;
-    }): Promise<AWS.S3.ManagedUpload.SendData> {
-        try {
-            const parameters: PutObjectRequest = {
-                Bucket: this.bucketName,
-                Key: newFileNameKey,
-                Body: file,
-            };
+    public async uploadFiles(payload: {
+        document: MulterFile;
+        image: MulterFile;
+    }): Promise<AWS.S3.ManagedUpload.SendData[]> {
+        const uploadPromises = [];
 
+        for (const file in payload) {
+            const { originalname, buffer } =
+                payload[file as keyof typeof payload];
+            uploadPromises.push(
+                this.upload({
+                    fileName: originalname,
+                    file: buffer as Buffer,
+                }),
+            );
+        }
+
+        return Promise.all(uploadPromises);
+    }
+
+    public async upload({
+        fileName,
+        file,
+    }: {
+        fileName: string;
+        file: Buffer;
+    }): Promise<AWS.S3.ManagedUpload.SendData> {
+        const parameters: PutObjectRequest = {
+            Bucket: this.bucketName,
+            Key: generateRandomId(fileName),
+            Body: file,
+        };
+
+        try {
             return this.s3.upload(parameters).promise();
-        } catch (error) {
-            throw new Error((error as Error).message);
+        } catch {
+            throw new Error(ErrorMessages.FILE_UPLOAD_ERROR);
         }
     }
 }
