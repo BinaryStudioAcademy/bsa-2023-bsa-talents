@@ -17,12 +17,16 @@ class FileUploadApi extends HttpApiBase {
         super({ path: ApiPath.FILES, baseUrl, http, storage });
     }
 
-    public async uploadDocument(payload: { cv: File }): Promise<string> {
+    public async upload(payload: {
+        cv: File;
+        image: File;
+    }): Promise<FileUploadResponse> {
         const formData = new FormData();
         formData.append('document', payload.cv);
+        formData.append('image', payload.image);
 
         const response = await this.load(
-            this.getFullEndpoint(FileApiPath.DOCUMENT, {}),
+            this.getFullEndpoint(FileApiPath.UPLOAD, {}),
             {
                 method: 'POST',
                 contentType: ContentType.MULTI_PART_FORM,
@@ -31,26 +35,7 @@ class FileUploadApi extends HttpApiBase {
             },
         );
 
-        const parsed = await response.json<FileUploadResponse>();
-        return parsed.id;
-    }
-
-    public async uploadImage(payload: { photo: File }): Promise<string> {
-        const formData = new FormData();
-        formData.append('image', payload.photo);
-
-        const response = await this.load(
-            this.getFullEndpoint(FileApiPath.IMAGE, {}),
-            {
-                method: 'POST',
-                contentType: ContentType.MULTI_PART_FORM,
-                payload: formData,
-                hasAuth: true,
-            },
-        );
-
-        const parsed = await response.json<FileUploadResponse>();
-        return parsed.id;
+        return response.json<FileUploadResponse>();
     }
 }
 

@@ -22,16 +22,15 @@ const updateTalentDetails = createAsyncThunk<
 >(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi, fileUploadApi } = extra;
     const { cv, photo, ...restPayload } = updatePayload;
-    let cvId: string, photoId: string;
 
-    if (cv) {
-        cvId = await fileUploadApi.uploadDocument({ cv });
-        restPayload.cvId = cvId;
-    }
+    if (cv && photo) {
+        const { document, image } = await fileUploadApi.upload({
+            cv,
+            image: photo,
+        });
 
-    if (photo) {
-        photoId = await fileUploadApi.uploadImage({ photo });
-        restPayload.photoId = photoId;
+        restPayload.photoId = image.id;
+        restPayload.cvId = document.id;
     }
 
     //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
