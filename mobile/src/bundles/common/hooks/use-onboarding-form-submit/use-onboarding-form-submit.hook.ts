@@ -89,7 +89,9 @@ const useOnboardingFormSubmit = ({
             if (result.payload) {
                 const nextStepTitle = getNextStepTitle(stepNumber);
                 if (nextStepTitle) {
-                    navigation.setParams({ stepState: 'completed' });
+                    navigation.setParams({
+                        stepState: TalentOnboardingStepState.COMPLETED,
+                    });
                     navigation.navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
