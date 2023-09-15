@@ -29,7 +29,7 @@ const SortingDropdown: React.FC<Properties> = ({ control }) => {
         <Select
             control={control}
             errors={{}}
-            name="sortingOptions"
+            name="sortBy"
             options={sortingOptions}
             placeholder="options"
             startAdornment={

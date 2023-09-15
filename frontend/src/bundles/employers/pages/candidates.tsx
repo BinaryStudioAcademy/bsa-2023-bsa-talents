@@ -44,7 +44,7 @@ const FIELDS: [
     'userLocation',
     'levelOfEnglish',
     'employmentType',
-    'sortingOptions',
+    'sortBy',
 ];
 
 const SEND_DELAY = 2000;
@@ -127,7 +127,7 @@ const Candidates: React.FC = () => {
                     <SortingDropdown
                         control={control}
                         reset={reset}
-                        name="sortingOptions"
+                        name="sortBy"
                         placeholder="Sort results"
                     />
                 </Grid>
