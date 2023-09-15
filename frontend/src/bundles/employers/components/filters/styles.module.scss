@@ -1,6 +1,5 @@
 .filtersSidebar {
     max-width: 429px;
-    height: 100%;
     background-color: var(--white);
 }
 
@@ -61,7 +60,7 @@
     }
 }
 
-@media screen and (width <=800px) {
+@media screen and (width <=1000px) {
     .filtersSidebar {
         display: flex;
         justify-content: center;
