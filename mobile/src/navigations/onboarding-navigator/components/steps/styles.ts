@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
         top: 140,
         left: 39,
     },
+    logout: {
+        width: '50%',
+        margin: 30,
+    },
 });
 
 export { styles };

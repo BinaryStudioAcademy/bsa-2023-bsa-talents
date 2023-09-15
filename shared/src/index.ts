@@ -1,5 +1,12 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type ContactCandidateDto,
+    ContactCandidateValidationMessage,
+    ContactCandidateValidationRule,
+    ContactCandidateValidationSchema,
+    type MessageTemplateDto,
+} from './bundles/candidate/candidate.js';
+export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
     ChatMessagesCreateValidationSchema,
@@ -36,6 +43,7 @@ export {
     UserDetailsApiPath,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
@@ -82,6 +90,7 @@ export {
     configureString,
     getAvatarInitials,
     getItemsWithSelected,
+    getNestedProperty,
     getSearchedItems,
 } from './helpers/helpers.js';
 export {

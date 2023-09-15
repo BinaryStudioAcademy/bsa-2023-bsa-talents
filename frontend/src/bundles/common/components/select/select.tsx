@@ -1,6 +1,7 @@
 import { MenuItem, Select as MuiSelect } from '@mui/material';
 import {
     type Control,
+    type FieldErrors,
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
@@ -10,6 +11,7 @@ import {
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { getValidClassNames } from '../../helpers/helpers.js';
 import { FormControl, FormLabel } from '../components.js';
 import styles from './styles.module.scss';
 
@@ -20,26 +22,34 @@ type SelectOption<T> = {
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
+    errors: FieldErrors<T>;
     name: FieldPath<T>;
     options: SelectOption<string | number>[];
     placeholder?: string;
     label?: string;
     isMulti?: boolean;
-    hasError?: boolean;
     isDisabled?: boolean;
 };
 
 const Select = <T extends FieldValues>({
     control,
+    errors,
     name,
     options,
     label,
     isMulti,
-    hasError,
     isDisabled,
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
+
+    const error = errors[name]?.message;
+    const hasError = Boolean(error);
+
+    const selectStyles = getValidClassNames(
+        styles.input,
+        hasError && styles.hasError,
+    );
 
     const handleSelectChange = useCallback(
         (selected: string | number | (string | number)[]) => {
@@ -65,18 +75,15 @@ const Select = <T extends FieldValues>({
     );
 
     return (
-        <FormControl
-            className={styles.container}
-            hasError={hasError}
-            isDisabled={isDisabled}
-        >
+        <FormControl className={styles.container} isDisabled={isDisabled}>
             {label && <FormLabel>{label}</FormLabel>}
             <MuiSelect
                 {...field}
                 displayEmpty
                 multiple={isMulti}
-                className={styles.input}
+                className={selectStyles}
                 renderValue={handleSelectChange}
+                value={field.value || []}
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>

@@ -1,6 +1,7 @@
 export { type UserDetailsProperties } from './user-details-properties.type.js';
 export {
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,

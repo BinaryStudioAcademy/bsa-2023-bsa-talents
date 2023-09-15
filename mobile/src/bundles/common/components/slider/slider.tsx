@@ -52,7 +52,9 @@ const Slider = <T extends FieldValues>({
     const { width } = useWindowDimensions();
     const offset = (thumbTitleValueWidth / maximumValue) * value;
     const leftValue = (value * width) / maximumValue - offset;
-    const title = sliderOptions.find((option) => option.value === value);
+    const title = sliderOptions.find(
+        (option) => option.value === Number.parseFloat(value),
+    );
 
     return (
         <View style={[globalStyles.pv5, containerStyle]}>
@@ -73,7 +75,7 @@ const Slider = <T extends FieldValues>({
                 thumbTintColor={Color.PRIMARY}
                 step={0.5}
                 onValueChange={onChange}
-                value={value}
+                value={Number(value)}
                 {...props}
             />
         </View>

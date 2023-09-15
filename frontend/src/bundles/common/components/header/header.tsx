@@ -1,5 +1,8 @@
+import { HeaderAvatar } from '~/bundles/common/components/avatar/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
+import { Dropdown, MenuButton } from '../components.js';
+import { HeaderUserMenu } from './components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -9,16 +12,18 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ avatarUrl, isOnline, className }) => {
-    const statusCLasses = getValidClassNames(
-        styles.status,
-        isOnline ? styles.online : styles.offline,
-    );
     return (
         <header className={getValidClassNames(styles.header, className)}>
-            <div className={styles.avatar}>
-                <img src={avatarUrl} alt="User Avatar" />
-                <div className={statusCLasses} />
-            </div>
+            <Dropdown>
+                <MenuButton>
+                    <HeaderAvatar
+                        src={avatarUrl}
+                        isOnline={isOnline}
+                        className={styles.avatar}
+                    />
+                </MenuButton>
+                <HeaderUserMenu />
+            </Dropdown>
         </header>
     );
 };

@@ -3,15 +3,15 @@
     font-size: var(--font-size-base);
     font-family: var(--font-family);
 
-    & svg {
+    & :global(.MuiSvgIcon-root) {
         margin-right: 7px;
         color: var(--st-tropaz);
     }
 }
 
-.container .input {
+.input {
     height: 38px;
-    padding: 10px 7px 12px 14px;
+    padding: 10px 7px 10px 14px;
     color: var(--steel-gray);
     font-weight: var(--font-weight-regular);
     border: 1px solid var(--botticelli);
@@ -30,19 +30,33 @@
     font-weight: var(--font-weight-regular);
 }
 
-.container .container div[aria-expanded="true"] ~ .icon {
-    transform: rotate(180deg);
-}
-
 .container .input::before,
 .container .input::after {
     display: none;
 }
 
-.container div:focus {
+.container :global(.MuiSelect-select):focus {
     background-color: transparent;
 }
 
 .container .input:hover {
     border-color: var(--botticelli);
+}
+
+.input :global(.MuiSelect-select) {
+    padding: 4px;
+}
+
+.hasError {
+    color: var(--error-primary);
+    border-color: var(--error-primary);
+
+    .container .input {
+        color: var(--error-primary);
+    }
+
+    .placeholder {
+        color: var(--error-primary);
+        -webkit-text-fill-color: var(--error-primary);
+    }
 }

@@ -1,10 +1,10 @@
-import { type NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
     AutocompleteMultiSelector,
     Button,
+    CheckboxGroup,
     FormField,
     Input,
     Pressable,
@@ -12,28 +12,21 @@ import {
     Selector,
     View,
 } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    Color,
-    IconName,
-    TalentOnboardingScreenName,
-    TalentOnboardingStepState,
-} from '~/bundles/common/enums/enums';
+import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
     useFieldArray,
-    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type TalentOnboardingNavigationParameterList } from '~/bundles/common/types/types';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CheckboxGroup } from '../components';
 import {
     ENGLISH_LEVEL,
-    JOB_TITLES,
+    HARD_SKILLS,
+    MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
@@ -43,11 +36,13 @@ import { styles } from './styles';
 type Properties = {
     skillsStepData: SkillsStepDto | null;
     onSubmit: (payload: SkillsStepDto) => void;
+    currentStep: number;
 };
 
 const SkillsAndProjectsForm: React.FC<Properties> = ({
     onSubmit,
     skillsStepData,
+    currentStep,
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
@@ -57,19 +52,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         name: 'projectLinks',
         control,
     });
-    const { navigate } =
-        useNavigation<
-            NavigationProp<TalentOnboardingNavigationParameterList>
-        >();
 
-    const handleFormSubmit = useCallback(() => {
-        void handleSubmit((data) => {
-            onSubmit(data);
-            navigate(TalentOnboardingScreenName.CV_AND_CONTACTS, {
-                stepState: TalentOnboardingStepState.FOCUSED,
-            });
-        })();
-    }, [handleSubmit, navigate, onSubmit]);
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
+    }, [handleSubmit, onSubmit]);
 
     return (
         <ScrollView
@@ -82,7 +68,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={JOB_TITLES}
+                    items={HARD_SKILLS}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
@@ -100,6 +86,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     options={ENGLISH_LEVEL}
                     control={control}
                     name="englishLevel"
+                    placeholder="Option"
                 />
             </FormField>
 
@@ -107,7 +94,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.notConsidered?.message}
                 label="I do not consider"
                 name="notConsidered"
-                required
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
@@ -129,6 +115,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     control={control}
                     name="preferredLanguages"
                     multiSelect={true}
+                    placeholder="Option"
                 />
             </FormField>
 
@@ -136,53 +123,60 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.projectLinks?.message}
                 label="Project links"
                 name="projectLinks"
-                containerStyle={globalStyles.pb25}
             >
                 <View style={styles.links}>
                     {fields.map((field, index) => {
+                        const error = errors.projectLinks?.[index]?.url;
                         return (
-                            <View key={field.id}>
+                            <FormField
+                                key={field.id}
+                                name={`projectLinks.${index}.url`}
+                                errorMessage={error?.message}
+                            >
                                 <Input
                                     control={control}
                                     name={`projectLinks.${index}.url`}
-                                    placeholder="link to your project"
+                                    placeholder={
+                                        index === 0
+                                            ? 'link to BSA project'
+                                            : 'link to your project'
+                                    }
                                     marker="www."
-                                    value={undefined}
                                 />
-                                <Pressable
-                                    style={styles.linksBtn}
-                                    onPress={(): void => {
-                                        remove(index);
-                                    }}
-                                >
-                                    <Icon
-                                        name={IconName.CLOSE}
-                                        size={20}
-                                        color={Color.ERROR}
-                                    />
-                                </Pressable>
-                            </View>
+                                {index !== 0 && (
+                                    <Pressable
+                                        style={styles.linksBtn}
+                                        onPress={(): void => {
+                                            remove(index);
+                                        }}
+                                    >
+                                        <Icon
+                                            name={IconName.CLOSE}
+                                            size={20}
+                                            color={Color.ERROR}
+                                        />
+                                    </Pressable>
+                                )}
+                            </FormField>
                         );
                     })}
                 </View>
+            </FormField>
+            {fields.length < MAX_LINKS && (
                 <Button
                     label="Add more links"
                     buttonType={ButtonType.GHOST}
                     iconName={IconName.PLUS}
                     iconSize={20}
-                    style={globalStyles.alignSelfFlexStart}
+                    style={[globalStyles.alignSelfFlexStart, globalStyles.mb25]}
                     onPress={(): void => {
                         append({ url: '' });
                     }}
                 />
-            </FormField>
+            )}
 
             <View style={globalStyles.flexDirectionRow}>
-                <Button
-                    label="Back"
-                    style={globalStyles.mr10}
-                    buttonType={ButtonType.OUTLINE}
-                />
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>

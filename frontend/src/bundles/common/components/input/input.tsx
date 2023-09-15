@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, TextField, type TextFieldProps } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -8,7 +8,10 @@ import {
     type RefCallBack,
 } from 'react-hook-form';
 
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import {
+    getNestedProperty,
+    getValidClassNames,
+} from '~/bundles/common/helpers/helpers.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -26,8 +29,9 @@ type Properties<T extends FieldValues> = {
     adornmentText?: string;
     className?: string;
     inputClassNames?: string;
+    defaultValue?: string;
     inputRef?: RefCallBack;
-};
+} & TextFieldProps;
 
 const Input = <T extends FieldValues>({
     control,
@@ -40,11 +44,13 @@ const Input = <T extends FieldValues>({
     adornmentText = '',
     className = '',
     inputClassNames,
+    defaultValue,
     inputRef,
+    ...properties
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
-    const error = errors[name]?.message;
+    const error = getNestedProperty<T>(errors, name)?.message;
     const hasError = Boolean(error);
 
     let adornment = null;
@@ -95,7 +101,7 @@ const Input = <T extends FieldValues>({
             type={type}
             placeholder={placeholder}
             error={hasError}
-            helperText={(error as string) || ''}
+            helperText={error ?? ''}
             className={textFieldRootStyles}
             required={isRequired}
             InputProps={{
@@ -108,6 +114,8 @@ const Input = <T extends FieldValues>({
                 className: htmlInputStyles,
             }}
             FormHelperTextProps={{ className: helperTextStyles }}
+            defaultValue={defaultValue}
+            {...properties}
         />
     );
 };
