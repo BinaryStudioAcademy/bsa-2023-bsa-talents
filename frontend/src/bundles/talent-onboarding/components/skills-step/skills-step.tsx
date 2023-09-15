@@ -1,4 +1,6 @@
+import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
+    Autocomplete,
     Checkbox,
     Controller,
     FormControl,
@@ -39,10 +41,7 @@ import {
 } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import {
-    SkillsAutocomplete,
-    SkillsProjectLinks,
-} from './components/components.js';
+import { SkillsProjectLinks } from './components/skills-project-links.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -114,7 +113,12 @@ const SkillsStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
-            const { englishLevel, notConsidered, preferredLanguages } = data;
+            const {
+                englishLevel,
+                notConsidered,
+                preferredLanguages,
+                hardSkills,
+            } = data;
             await dispatch(
                 actions.updateTalentDetails({
                     englishLevel,
@@ -123,6 +127,7 @@ const SkillsStep: React.FC = () => {
                     userId: currentUser?.id,
                     projectLinks: fromUrlLinks(data.projectLinks),
                     completedStep: OnboardingSteps.STEP_03,
+                    hardSkills,
                 }),
             );
             return true;
@@ -206,7 +211,13 @@ const SkillsStep: React.FC = () => {
 
     return (
         <FormControl className={styles.form}>
-            <SkillsAutocomplete name="hardSkills" control={control} />
+            <Autocomplete
+                name="hardSkills"
+                control={control}
+                options={mockHardSkills}
+                placeholder="Start typing and select skills"
+                label="Hard Skills"
+            />
 
             <FormControl>
                 <FormLabel className={styles.label}>
@@ -231,7 +242,6 @@ const SkillsStep: React.FC = () => {
             <FormControl>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Controller
@@ -239,12 +249,6 @@ const SkillsStep: React.FC = () => {
                     name="notConsidered"
                     render={renderCheckboxes}
                 />
-
-                {errors.notConsidered && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.notConsidered.message}
-                    </FormHelperText>
-                )}
             </FormControl>
             <FormControl>
                 <FormLabel
@@ -272,7 +276,7 @@ const SkillsStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <SkillsProjectLinks name={'projectLinks'} control={control} />
+            <SkillsProjectLinks control={control} errors={errors} />
         </FormControl>
     );
 };

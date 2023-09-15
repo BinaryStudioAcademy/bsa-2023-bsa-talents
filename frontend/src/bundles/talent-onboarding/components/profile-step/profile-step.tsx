@@ -258,7 +258,6 @@ const ProfileStep: React.FC = () => {
                     errors={errors}
                     name={'salaryExpectation'}
                     adornmentText="$"
-                    value={undefined}
                 />
             </FormControl>
             <FormControl className={styles.formControl}>
@@ -295,7 +294,7 @@ const ProfileStep: React.FC = () => {
             </FormControl>
             <FormControl className={styles.formControl}>
                 <FormLabel className={styles.formLabel} required>
-                    <Typography variant={'label'}>Current location</Typography>
+                    <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
                 <Select
                     control={control}

@@ -7,7 +7,7 @@ import { useCallback, useRef } from '~/bundles/common/hooks/hooks.js';
 type Properties = {
     accept: string;
     buttonProps: Partial<ButtonProperties>;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => unknown;
 };
 
 const FileUpload: React.FC<Properties> = ({

@@ -22,13 +22,16 @@ import {
     SignInPage,
     SignUpPage,
 } from './bundles/auth/pages/pages.js';
+import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
+import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
+import { Candidates } from './bundles/employers/pages/candidates.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
-import { Onboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
+import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -87,7 +90,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.TALENT_STEP,
                                         element: (
                                             <ProtectedRoute>
-                                                <Onboarding />
+                                                <TalentOnboarding />
                                             </ProtectedRoute>
                                         ),
                                         children: [
@@ -98,6 +101,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                     {
+                                        path: AppRoute.EMPLOYER_ONBOARDING,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <EmployerOnboarding />
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
                                         path: AppRoute.CHATS,
                                         element: (
                                             <ProtectedRoute>
@@ -105,7 +116,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <div></div>
+                                                    <ChatsPage />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),
@@ -118,14 +129,13 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <div></div>
+                                                    <Candidates />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),
                                     },
                                 ],
                             },
-
                             {
                                 path: AppRoute.NOT_FOUND,
                                 element: <NotFoundPage />,

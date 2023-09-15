@@ -44,9 +44,9 @@ const AvatarPicker = <T extends FieldValues>({
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-    const { onChange } = field;
+    const { value, onChange } = field;
 
-    const [avatar, setAvatar] = useState<undefined | string>();
+    const [avatar, setAvatar] = useState<undefined | string>(uri ?? value?.uri);
 
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {

@@ -19,12 +19,14 @@ const PageLayout: React.FC<Properties> = ({
 }) => (
     <Grid container className={styles.pageContainer}>
         <Sidebar />
+
+        <Header
+            avatarUrl={avatarUrl}
+            isOnline={isOnline}
+            className={styles.mainHeader}
+        />
+
         <Grid item className={styles.mainContainer}>
-            <Header
-                avatarUrl={avatarUrl}
-                isOnline={isOnline}
-                className={styles.mainHeader}
-            />
             <Grid item className={styles.mainContent}>
                 {children}
             </Grid>

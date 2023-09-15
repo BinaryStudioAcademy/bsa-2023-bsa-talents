@@ -50,7 +50,7 @@ const Selector = <T extends FieldValues>({
     const { isVisible, toggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle, iconAnimatedStyle } =
         useSelectorAnimations(isVisible);
-    const placeHolderStyle = value ? {} : styles.placeholder;
+    const NO_SELECTED = 0;
 
     const handlePressItem = useCallback(
         (option: string): void => {
@@ -70,11 +70,14 @@ const Selector = <T extends FieldValues>({
     const selectedOptions = useMemo(
         () =>
             options
-                .filter((option) => value.includes(option))
+                .filter((option) => value?.includes(option))
                 .map((option) => option),
         [options, value],
     );
-    const NO_SELECTED = 0;
+
+    const placeHolderStyle =
+        (selectedOptions.length > NO_SELECTED && value) || styles.placeholder;
+
     return (
         <View style={styles.container}>
             <Pressable
@@ -113,7 +116,7 @@ const Selector = <T extends FieldValues>({
                     heightAnimatedStyle,
                 ]}
             >
-                <ScrollView nestedScrollEnabled>
+                <ScrollView nestedScrollEnabled persistentScrollbar>
                     {options.map((item) => (
                         <TouchableOpacity
                             key={item}

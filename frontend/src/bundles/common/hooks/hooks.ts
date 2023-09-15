@@ -9,10 +9,7 @@ export {
     useRef,
     useState,
 } from 'react';
-export {
-    useFieldArray,
-    useController as useFormController,
-} from 'react-hook-form';
+export { useController as useFormController } from 'react-hook-form';
 export {
     useLocation,
     useNavigate,

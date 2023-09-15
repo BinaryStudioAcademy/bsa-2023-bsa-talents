@@ -13,18 +13,26 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
+import { OnboardingBackButton } from '~/bundles/talent/components/components';
+import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    onSubmit: () => void;
+    cvAndContactsStepData: CvAndContactsFormDto | null;
+    onSubmit: (payload: CvAndContactsFormDto) => void;
+    currentStep: number;
 };
 
-const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
+const CVAndContactsForm: React.FC<Properties> = ({
+    cvAndContactsStepData,
+    onSubmit,
+    currentStep,
+}) => {
     const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: CV_AND_CONTACTS_DEFAULT_VALUES,
+        defaultValues: cvAndContactsStepData ?? CV_AND_CONTACTS_DEFAULT_VALUES,
         validationSchema: CvAndContactsFormValidationSchema,
     });
 
@@ -57,30 +65,30 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 />
             </FormField>
             <FormField
-                errorMessage={errors.phoneNumber?.message}
+                errorMessage={errors.phone?.message}
                 label="Phone number"
-                name="phoneNumber"
+                name="phone"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="phoneNumber"
+                    name="phone"
                     placeholder="+38000 000 00 00"
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                 />
             </FormField>
             <FormField
-                errorMessage={errors.linkedInLink?.message}
+                errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
-                name="linkedInLink"
+                name="linkedinLink"
                 required
                 containerStyle={globalStyles.pb25}
             >
                 <Input
                     control={control}
-                    name="linkedInLink"
-                    placeholder="link to BSA project"
+                    name="linkedinLink"
+                    placeholder="Link to linkedin profile"
                     marker="www."
                 />
             </FormField>
@@ -112,11 +120,7 @@ const CVAndContactsForm: React.FC<Properties> = ({ onSubmit }) => {
                 </Text>
             </View>
             <View style={globalStyles.flexDirectionRow}>
-                <Button
-                    label="Back"
-                    buttonType="Outline"
-                    style={globalStyles.mr10}
-                />
+                <OnboardingBackButton currentStep={currentStep} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>
