@@ -71,7 +71,7 @@ const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
         try {
             dispatch(clearAll());
             dispatch(clearTalentStore());
-            await storage.drop('token');
+            await storage.drop(StorageKey.TOKEN);
             return null;
         } catch (error) {
             const errorMessage = getErrorMessage(error);
