@@ -11,8 +11,8 @@ import {
 } from '../user-details.js';
 
 type UserDetailsUpdateDto = {
-    id: string;
-    userId: string;
+    id?: string;
+    userId?: string;
 
     isHired?: boolean;
 
