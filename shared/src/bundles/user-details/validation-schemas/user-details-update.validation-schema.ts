@@ -70,6 +70,7 @@ const userDetailsUpdate = joi
         cvId: joi.string().trim(),
         talentBadges: joi.array().items(joi.string().trim()),
         talentHardSkills: joi.array().items(joi.string().trim()),
+        completedStep: joi.string().trim(),
     })
     .or('id', 'userId');
 
