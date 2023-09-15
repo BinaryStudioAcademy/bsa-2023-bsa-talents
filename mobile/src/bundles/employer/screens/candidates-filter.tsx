@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     AutocompleteMultiSelector,
+    AutocompleteSelector,
     Button,
     CheckboxGroup,
     Divider,
@@ -166,11 +167,11 @@ const CandidatesFilter: React.FC = () => {
                 name="location"
                 containerStyle={globalStyles.pb25}
             >
-                <Selector
-                    placeholder="Option"
+                <AutocompleteSelector
                     control={control}
                     name="location"
-                    options={locationOptions}
+                    items={locationOptions}
+                    placeholder="Option"
                 />
             </FormField>
             <FormField
