@@ -1,5 +1,3 @@
-import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
-
 import {
     Button,
     FormControl,
@@ -243,14 +241,10 @@ const OnboardingForm: React.FC = () => {
                             <Grid
                                 item
                                 className={styles.photoWrapper}
-                                style={renderFileUrl({ file: watch('photo') })}
-                            >
-                                {!watch('photo') && (
-                                    <AccountCircle
-                                        className={styles.photoIcon}
-                                    />
-                                )}
-                            </Grid>
+                                style={renderFileUrl({
+                                    file: errors.photo ? null : watch('photo'),
+                                })}
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a photo"
@@ -263,15 +257,11 @@ const OnboardingForm: React.FC = () => {
                                 item
                                 className={styles.photoWrapper}
                                 style={renderFileUrl({
-                                    file: watch('companyLogo'),
+                                    file: errors.companyLogo
+                                        ? null
+                                        : watch('companyLogo'),
                                 })}
-                            >
-                                {!watch('companyLogo') && (
-                                    <InsertPhotoOutlined
-                                        className={styles.photoWrapper}
-                                    />
-                                )}
-                            </Grid>
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a company logo"
