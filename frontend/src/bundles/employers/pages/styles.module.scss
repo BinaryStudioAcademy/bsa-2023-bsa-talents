@@ -1,4 +1,6 @@
-$sidebar-width: 429px;
+:root {
+    --filters-sidebar-width: 429px;
+}
 
 .searchPageWrapper {
     display: flex;
@@ -29,8 +31,8 @@ $sidebar-width: 429px;
 .filters {
     display: flex;
     flex-direction: column;
-    width: $sidebar-width;
-    min-width: $sidebar-width;
+    width: var(--filters-sidebar-width);
+    min-width: var(--filters-sidebar-width);
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: thin;
@@ -87,8 +89,9 @@ $sidebar-width: 429px;
 .searchResults {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     height: 100%;
+    padding: 0 0 15px;
     overflow: hidden scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--scroll-bar-color) transparent;
@@ -97,6 +100,7 @@ $sidebar-width: 429px;
 @media screen and (width <=1120px) {
     .optionsWrapper {
         flex-direction: column;
+        margin-bottom: 15px;
     }
 }
 
@@ -110,6 +114,7 @@ $sidebar-width: 429px;
     }
 
     .mainContent {
+        height: auto;
         padding: 0;
     }
 
@@ -119,6 +124,9 @@ $sidebar-width: 429px;
 
     .filtersActive {
         display: flex;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
     }
 
     .searchResultsHidden {
