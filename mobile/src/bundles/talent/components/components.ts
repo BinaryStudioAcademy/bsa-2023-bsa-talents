@@ -1,4 +1,3 @@
-export { Badge } from './badge/badge';
 export { BsaBadgesForm } from './badges-form/badges-form';
 export { CVAndContactsForm } from './cv-and-contacts-form/cv-and-contacts-form';
 export { FeedbacksContainer } from './feedbacks-container/feedbacks-container';

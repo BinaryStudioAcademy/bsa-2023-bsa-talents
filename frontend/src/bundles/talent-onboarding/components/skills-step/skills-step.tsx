@@ -237,7 +237,6 @@ const SkillsStep: React.FC = () => {
             <FormControl>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Controller

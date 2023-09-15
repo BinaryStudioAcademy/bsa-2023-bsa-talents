@@ -2,6 +2,7 @@ export { AutocompleteMultiSelector } from './autocomplete-selectors/autocomplete
 export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-selector';
 export { Avatar } from './avatar/avatar';
 export { AvatarPicker } from './avatar-picker/avatar-picker';
+export { Badge } from './badge/badge';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
 export { CheckboxGroup } from './checkbox-group/checkbox-group';
@@ -30,6 +31,7 @@ export {
     Modal as RNModal,
     ScrollView,
     StatusBar,
+    TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
