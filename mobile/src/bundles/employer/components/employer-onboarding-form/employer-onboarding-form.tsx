@@ -1,7 +1,7 @@
 import React from 'react';
 
-import employerComoanyLogo from '~/assets/images/company_logo.png';
-import employerProfilePhoto from '~/assets/images/employer_profile.png';
+import employerComoanyLogo from '~/assets/images/company-logo.png';
+import employerProfilePhoto from '~/assets/images/employer-profile.png';
 import {
     AutocompleteSelector,
     AvatarPicker,
