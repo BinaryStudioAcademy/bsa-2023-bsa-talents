@@ -271,27 +271,16 @@ const OnboardingForm: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        onClick={handleFormSubmit}
-                        label="Preview"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.previewButton,
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        onClick={handleFormSubmit}
-                        label="Submit for verification"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.submitButton,
-                        )}
-                    />
-                </Grid>
+
+                <Button
+                    type="submit"
+                    onClick={handleFormSubmit}
+                    label="Submit for verification"
+                    className={getValidClassNames(
+                        styles.buttonRegistration,
+                        styles.submitButton,
+                    )}
+                />
             </FormControl>
         </Grid>
     );

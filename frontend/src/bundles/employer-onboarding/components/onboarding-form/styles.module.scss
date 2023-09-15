@@ -173,17 +173,6 @@
     text-transform: none;
 }
 
-.previewButton {
-    margin-right: 10px;
-    color: var(--hover-primary);
-    border-color: var(--hover-primary);
-
-    &:disabled {
-        color: var(--aluminium);
-        background-color: var(--background-primary);
-    }
-}
-
 .submitButton {
     background-color: var(--background-secondary);
 
