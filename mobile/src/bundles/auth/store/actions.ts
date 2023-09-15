@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
     type UserSignInRequestDto,
@@ -9,12 +9,13 @@ import {
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { clearTalentStore } from '~/bundles/talent/store/actions';
-import { clearAll } from '~/bundles/users/store/actions';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { AuthApiPath } from '../enums/enums';
 import { type UserFindResponseDto } from '../types/types';
 import { name as sliceName } from './slice';
+
+const clearAll = createAction(`${sliceName}/clearAll`);
 
 const signUp = createAsyncThunk<
     UserSignUpResponseDto,

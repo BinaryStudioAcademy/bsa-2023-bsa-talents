@@ -24,4 +24,5 @@ export {
     ContentType,
     ErrorMessages,
     ServerErrorType,
+    UserRole,
 } from 'shared/build/index';
