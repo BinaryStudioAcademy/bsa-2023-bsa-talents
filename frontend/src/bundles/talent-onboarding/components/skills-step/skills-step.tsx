@@ -41,7 +41,7 @@ import {
 } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { SkillsProjectLinks } from './components/skills-project-links.js';
+import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
