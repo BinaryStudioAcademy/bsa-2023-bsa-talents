@@ -1,6 +1,11 @@
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Image, Text } from '~/bundles/common/components/components';
+import {
+    Image,
+    type ImageStyle,
+    type StyleProp,
+    Text,
+} from '~/bundles/common/components/components';
 import {
     AvatarType,
     IconName,
@@ -12,7 +17,12 @@ import { type AvatarProperties } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-const Avatar: React.FC<AvatarProperties> = ({
+type Properties = {
+    customAvatarStyle?: StyleProp<ImageStyle>;
+} & AvatarProperties;
+
+const Avatar: React.FC<Properties> = ({
+    customAvatarStyle,
     avatarSize = AvatarType.MEDIUM,
     fullName,
     uri,
@@ -45,7 +55,10 @@ const Avatar: React.FC<AvatarProperties> = ({
 
     if (uri) {
         return (
-            <Image style={[styles.img, avatarStyles.size]} source={{ uri }} />
+            <Image
+                style={[styles.img, avatarStyles.size, customAvatarStyle]}
+                source={{ uri }}
+            />
         );
     }
     if (fullName) {

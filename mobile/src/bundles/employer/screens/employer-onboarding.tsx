@@ -7,7 +7,7 @@ import { EmployerOnboardingForm } from '~/bundles/employer/components/components
 
 const EmployerOnboarding: React.FC = () => {
     const handleEmployerDataSubmit = useCallback(() => {
-        // TODO: handle sign in
+        // TODO: handle employer onboarding
     }, []);
 
     return (

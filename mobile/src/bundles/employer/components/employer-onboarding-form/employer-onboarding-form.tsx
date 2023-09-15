@@ -1,10 +1,13 @@
 import React from 'react';
 
+import employerComoanyLogo from '~/assets/images/company_logo.png';
+import employerProfilePhoto from '~/assets/images/employer_profile.png';
 import {
     AutocompleteSelector,
     AvatarPicker,
     Button,
     FormField,
+    Image,
     Input,
     ScrollView,
     Text,
@@ -21,6 +24,8 @@ import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 const locationOptions = Object.values(CountryList);
+const defaultProfilePhoto = Image.resolveAssetSource(employerProfilePhoto).uri;
+const defaultCompanyLogo = Image.resolveAssetSource(employerComoanyLogo).uri;
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
@@ -38,7 +43,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     });
 
     const handleFormSubmit = useCallback(() => {
-        //TODO add some logic
+        //TODO logic saving employer data
         void handleSubmit(() => {
             onSubmit();
         })();
@@ -77,6 +82,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         <AvatarPicker
                             isSingleAvatarView
                             control={control}
+                            uri={defaultProfilePhoto}
                             name="profilePhoto"
                         />
                     </FormField>
@@ -93,6 +99,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         <AvatarPicker
                             isSingleAvatarView
                             control={control}
+                            uri={defaultCompanyLogo}
+                            customAvatarStyle={styles.companyLogo}
                             name="companyLogo"
                         />
                     </FormField>

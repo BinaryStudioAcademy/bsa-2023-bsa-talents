@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
     },
+    companyLogo: {
+        borderRadius: 0,
+    },
 });
 
 export { styles };

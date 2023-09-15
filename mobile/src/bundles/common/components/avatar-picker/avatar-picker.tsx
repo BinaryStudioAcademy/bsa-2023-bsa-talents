@@ -9,6 +9,7 @@ import { type ImagePickerResponse } from 'react-native-image-picker';
 import {
     Avatar,
     ImagePicker,
+    type ImageStyle,
     Pressable,
     Text,
     View,
@@ -36,6 +37,7 @@ type AvatarPickerProperties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
     isSingleAvatarView?: boolean;
+    customAvatarStyle?: StyleProp<ImageStyle>;
 } & AvatarProperties;
 
 const AvatarPicker = <T extends FieldValues>({
@@ -45,6 +47,7 @@ const AvatarPicker = <T extends FieldValues>({
     containerStyle,
     uri,
     isSingleAvatarView,
+    customAvatarStyle,
     ...props
 }: AvatarPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -108,6 +111,7 @@ const AvatarPicker = <T extends FieldValues>({
                             {...props}
                             uri={avatar ?? uri}
                             avatarSize={AvatarType.LARGE}
+                            customAvatarStyle={customAvatarStyle}
                         />
                     </Pressable>
                     {isVisible && (
