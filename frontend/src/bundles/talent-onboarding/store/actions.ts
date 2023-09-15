@@ -38,10 +38,10 @@ const updateTalentDetails = createAsyncThunk<
         return updatePayload;
     }
     //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-    const { hardSkills, ...otherDetails } = updatePayload;
+    const { hardSkills, ...data } = restPayload;
 
     return {
-        ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
+        ...(await talentOnBoardingApi.updateUserDetails(data)),
         hardSkills,
     };
 });
