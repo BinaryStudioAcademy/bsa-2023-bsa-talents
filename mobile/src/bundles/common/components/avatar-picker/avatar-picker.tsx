@@ -4,12 +4,12 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 import { type StyleProp, type ViewStyle } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { type ImagePickerResponse } from 'react-native-image-picker';
 
 import {
     Avatar,
     ImagePicker,
+    Pressable,
     Text,
     View,
 } from '~/bundles/common/components/components';
@@ -103,13 +103,13 @@ const AvatarPicker = <T extends FieldValues>({
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
             {isSingleAvatarView ? (
                 <>
-                    <TouchableWithoutFeedback onPress={toggleVisibility}>
+                    <Pressable onPress={toggleVisibility}>
                         <Avatar
                             {...props}
                             uri={avatar ?? uri}
                             avatarSize={AvatarType.LARGE}
                         />
-                    </TouchableWithoutFeedback>
+                    </Pressable>
                     {isVisible && (
                         <ImagePicker
                             onImageLoad={imageLoadHandler}
