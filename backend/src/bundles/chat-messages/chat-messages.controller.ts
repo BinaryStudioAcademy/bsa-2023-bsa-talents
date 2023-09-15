@@ -106,7 +106,7 @@ class ChatMessagesController extends ControllerBase {
      * /chat-messages/:
      *   get:
      *     tags:
-     *       - "Chat Messages"
+     *       - "Chat Message"
      *     description: Retrieves all chat messages
      *     security:
      *       - bearerAuth: []
@@ -133,7 +133,7 @@ class ChatMessagesController extends ControllerBase {
      * /chat-messages/{chatId}:
      *   get:
      *     tags:
-     *       - "Chat Messages"
+     *       - "Chat Message"
      *     description: Retrieves all chat messages for a specific chat by chatId
      *     security:
      *       - bearerAuth: []
@@ -174,7 +174,7 @@ class ChatMessagesController extends ControllerBase {
      * /chat-messages/:
      *   post:
      *     tags:
-     *       - "Chat Messages"
+     *       - "Chat Message"
      *     description: Creates a new chat message
      *     security:
      *       - bearerAuth: []
@@ -230,7 +230,7 @@ class ChatMessagesController extends ControllerBase {
      * /chat-messages/{messageId}:
      *   patch:
      *     tags:
-     *       - "Chat Messages"
+     *       - "Chat Message"
      *     description: Marks a chat message as read by messageId
      *     security:
      *       - bearerAuth: []
