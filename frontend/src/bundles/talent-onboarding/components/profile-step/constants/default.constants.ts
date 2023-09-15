@@ -1,8 +1,12 @@
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-const DEFAULT_PAYLOAD_PROFILE_STEP: ProfileStepDto = {
+type ModifiedProfileStepDto = Omit<ProfileStepDto, 'salaryExpectation'> & {
+    salaryExpectation?: number;
+};
+
+const DEFAULT_PAYLOAD_PROFILE_STEP: ModifiedProfileStepDto = {
     profileName: '',
-    salaryExpectation: 0,
+    salaryExpectation: undefined,
     jobTitle: '',
     location: '',
     experienceYears: 0,
