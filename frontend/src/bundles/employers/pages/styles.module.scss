@@ -73,7 +73,15 @@
     }
 }
 
-@media screen and (width <=800px) {
+.searchResults {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 850px;
+    overflow: hidden scroll;
+}
+
+@media screen and (width <=1000px) {
     .searchPageWrapper {
         display: flex;
         flex-direction: column;

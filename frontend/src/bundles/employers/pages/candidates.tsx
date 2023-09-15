@@ -1,3 +1,4 @@
+import { mockCandidates } from '~/assets/mock-data/mock-data.js';
 import {
     Button,
     Grid,
@@ -17,6 +18,7 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
@@ -139,7 +141,13 @@ const Candidates: React.FC = () => {
                             isFilterOpened ? styles.searchResultsHidden : '',
                         )}
                     >
-                        Search results
+                        {mockCandidates.map((candidate) => (
+                            <CandidateProfile
+                                key={candidate.cvId}
+                                isProfileCard
+                                candidateData={candidate}
+                            />
+                        ))}
                     </Grid>
                 )}
             </Grid>
