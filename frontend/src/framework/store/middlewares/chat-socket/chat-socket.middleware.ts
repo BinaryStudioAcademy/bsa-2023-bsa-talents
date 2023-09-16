@@ -1,28 +1,53 @@
-// import { type Middleware } from '@reduxjs/toolkit';
+/* eslint-disable unicorn/prefer-regexp-test */
 
-// import {
-//     socket,
-//     SocketEvent,
-//     SocketNamespace,
-// } from '~/framework/socket/socket.js';
-// import { type store } from '~/framework/store/store.js';
+import { type Middleware } from '@reduxjs/toolkit';
 
-// type SocketMiddlewareParameters = {
-//     dispatch: typeof store.instance.dispatch;
-// };
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
+import { type ChatMessageGetAllItemResponseDto } from '~/bundles/chat/types/types.js';
+import {
+    socket,
+    SocketEvent,
+    SocketNamespace,
+} from '~/framework/socket/socket.js';
+import { type store } from '~/framework/store/store.js';
 
-// const chatSocketInstance = socket.getInstance(SocketNamespace.CHAT);
+type SocketMiddlewareParameters = {
+    dispatch: typeof store.instance.dispatch;
+};
 
-// const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParameters) => {
-//     chatSocketInstance.on(SocketEvent.CHAT_ADD_MESSAGE, (message) => {
-//         dispatch(chatActions.addMessage(message));
-//     });
+const chatSocketInstance = socket.getInstance(SocketNamespace.CHAT);
 
-//     return (next) => (action) => {
-//         return next(action);
-//     };
-// };
+const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParameters) => {
+    chatSocketInstance.on(
+        SocketEvent.CHAT_ADD_MESSAGE,
+        (message: ChatMessageGetAllItemResponseDto) => {
+            dispatch(chatActions.addMessage(message));
+        },
+    );
 
-const chatSocket = (n: number): number => n;
+    return (next) =>
+        (action): void => {
+            if (chatActions.joinRoom.match(action)) {
+                chatSocketInstance.emit(
+                    SocketEvent.CHAT_JOIN_ROOM,
+                    action.payload,
+                );
+            }
+            if (chatActions.leaveRoom.match(action)) {
+                chatSocketInstance.emit(
+                    SocketEvent.CHAT_LEAVE_ROOM,
+                    action.payload,
+                );
+            }
+
+            if (chatActions.createMessage.fulfilled.match(action)) {
+                chatSocketInstance.emit(
+                    SocketEvent.CHAT_CREATE_MESSAGE,
+                    action.payload,
+                );
+            }
+            return next(action);
+        };
+};
 
 export { chatSocket };
