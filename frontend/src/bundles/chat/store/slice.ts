@@ -7,31 +7,21 @@ import { type ChatMessageGetAllItemResponseDto } from '../types/types.js';
 import { createMessage } from './actions.js';
 
 type State = {
-    messages: ChatMessageGetAllItemResponseDto[];
+    currentChatMessages: ChatMessageGetAllItemResponseDto[];
     currentChatId: string | null;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
+    currentChatMessages: [],
     currentChatId: null,
     dataStatus: DataStatus.IDLE,
-    messages: [],
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'chat',
-    reducers: {
-        addMessage: (state, action) => {
-            state.messages.push(action.payload);
-        },
-        joinRoom: (state, action) => {
-            state.currentChatId = action.payload;
-        },
-        leaveRoom: (state) => {
-            state.currentChatId = null;
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addMatcher(isAnyOf(createMessage.pending), (state) => {

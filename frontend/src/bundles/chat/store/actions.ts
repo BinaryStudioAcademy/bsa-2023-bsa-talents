@@ -24,11 +24,18 @@ const createMessage = createAsyncThunk<
     ChatMessageCreateRequestDto,
     AsyncThunkConfig
 >('chat/create-message', () => {
+    //TODO: remove when actions will be created
     //{
     //     message: 'Hello',
     //     receiverId: 'nskndkaldn',
     //     chatId: 'ksdjlskfjl',
     // } = payload;
+    // const newMessage = await chatApi.createChatMessage({
+    //     message,
+    //     receiverId,
+    //     chatId,
+    //   });
+    //TODO: remove when actions will be created
     return {
         id: 'heas13',
         receiver: { id: 'dslkjdlk', email: 'emp1@test.com', role: 'employer' },
