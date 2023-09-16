@@ -20,13 +20,16 @@
 
     & .value {
         flex: 1 0 auto;
-        color: "#7c8798";
+        color: #7c8798;
         font-style: normal;
     }
 
     & .valueLink {
         width: fit-content;
-        color: "#274f8d";
+        color: #274f8d;
+        font-weight: 500;
+        font-size: 13px;
+        font-style: italic;
         text-decoration-line: underline;
     }
 }
