@@ -20,13 +20,13 @@
 
     & .value {
         flex: 1 0 auto;
-        color: #7c8798;
+        color: var(--slate-gray);
         font-style: normal;
     }
 
     & .valueLink {
         width: fit-content;
-        color: #274f8d;
+        color: var(--st-topaz);
         font-weight: 500;
         font-size: 13px;
         font-style: italic;
