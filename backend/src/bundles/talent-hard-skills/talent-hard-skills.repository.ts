@@ -33,47 +33,63 @@ class TalentHardSkillsRepository implements Repository {
         return TalentHardSkillsEntity.initializeNew(item);
     }
 
-    public async find(
-        payload: Record<string, unknown>,
-    ): Promise<TalentHardSkillsEntity | null> {
-        const skill = await this.talentHardSkillsModel
-            .query()
-            .findOne({ ...payload });
+    public find(): Promise<TalentHardSkillsEntity | null> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    }
 
-        return skill ? TalentHardSkillsEntity.initialize(skill) : null;
+    public async findHardSkillsIdsByUserDetailsId(
+        userDetailsId: string,
+    ): Promise<string[]> {
+        const existingTalentHardSkills = await this.talentHardSkillsModel
+            .query()
+            .where({ userDetailsId })
+            .select('hardSkillId');
+
+        return existingTalentHardSkills.map((entry) => entry.hardSkillId);
     }
 
     public async update({
         userDetailsId,
         talentHardSkills,
     }: TalentHardSkillUpdate): Promise<void> {
-        const existingIds = await this.talentHardSkillsModel
-            .query()
-            .where({ userDetailsId: userDetailsId })
-            .select('id');
+        const existingIds = await this.findHardSkillsIdsByUserDetailsId(
+            userDetailsId,
+        );
 
-        const existingIdsArray = existingIds.map((entry) => entry.id);
+        const idsToDelete = existingIds.filter(
+            (id) => !talentHardSkills.includes(id),
+        );
+        const idsToInsert = talentHardSkills.filter(
+            (id) => !existingIds.includes(id),
+        );
 
-        for (const existingId of existingIdsArray) {
-            if (!talentHardSkills.includes(existingId)) {
-                await this.talentHardSkillsModel
-                    .query()
-                    .delete()
-                    .where({ id: existingId })
-                    .execute();
-            }
+        if (idsToDelete.length > 0) {
+            await this.deleteUnusedHardSkills(userDetailsId, idsToDelete);
         }
 
-        for (const incomingId of talentHardSkills) {
-            if (!existingIdsArray.includes(incomingId)) {
-                await this.talentHardSkillsModel
-                    .query()
-                    .insert({
-                        hardSkillId: incomingId,
-                        userDetailsId: userDetailsId,
-                    })
-                    .execute();
-            }
+        if (idsToInsert.length > 0) {
+            const skillsToInsert = idsToInsert.map((id) => ({
+                hardSkillId: id,
+                userDetailsId,
+            }));
+            await this.talentHardSkillsModel
+                .query()
+                .insert(skillsToInsert)
+                .execute();
+        }
+    }
+
+    public async deleteUnusedHardSkills(
+        userDetailsId: string,
+        idsToDelete: string[],
+    ): Promise<void> {
+        if (idsToDelete.length > 0) {
+            await this.talentHardSkillsModel
+                .query()
+                .delete()
+                .whereIn('hardSkillId', idsToDelete)
+                .andWhere({ userDetailsId })
+                .execute();
         }
     }
 
