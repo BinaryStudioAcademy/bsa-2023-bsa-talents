@@ -26,6 +26,7 @@ export {
     ActivityIndicator,
     FlatList,
     Image,
+    PermissionsAndroid,
     Pressable,
     Modal as RNModal,
     ScrollView,
@@ -34,3 +35,5 @@ export {
     TouchableOpacity,
     View,
 } from 'react-native';
+export { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+export { default as Icon } from 'react-native-vector-icons/MaterialCommunityIcons';

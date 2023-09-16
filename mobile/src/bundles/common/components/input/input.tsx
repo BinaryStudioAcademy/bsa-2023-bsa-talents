@@ -1,17 +1,20 @@
 import React from 'react';
+
+import {
+    Icon,
+    Text,
+    TextInput,
+    View,
+} from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
-} from 'react-hook-form';
-import { type TextInputProps } from 'react-native';
-import { TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import { Text, View } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+    type TextInputProps,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

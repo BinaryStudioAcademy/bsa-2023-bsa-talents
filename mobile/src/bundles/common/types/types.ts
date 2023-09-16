@@ -1,4 +1,4 @@
-export { type AsyncThunkConfig } from './app/app';
+export { type AsyncThunkConfig } from './app/app.js';
 export {
     type AuthNavigationParameterList,
     type EmployerBottomTabNavigationParameterList,
@@ -7,11 +7,22 @@ export {
     type TalentBottomTabNavigationParameterList,
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
-} from './navigation/navigation';
-export { type AvatarProperties } from '~/bundles/users/types/types';
+} from './navigation/navigation.js';
+export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties.js';
+export {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from 'react-hook-form';
+export {
+    type StyleProp,
+    type TextInputProps,
+    type ViewStyle,
+} from 'react-native';
+export { type ImagePickerResponse } from 'react-native-image-picker';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,
     type ValueOf,
-} from 'shared/build/index';
+} from 'shared/build/index.js';
