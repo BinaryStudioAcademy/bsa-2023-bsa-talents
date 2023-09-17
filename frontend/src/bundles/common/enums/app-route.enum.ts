@@ -9,6 +9,7 @@ const AppRoute = {
     EMPLOYER_ONBOARDING: '/employer/onboarding',
     TALENT_STEP: '/talent/onboarding/step/:step',
     NOT_FOUND: 'not-found',
+    MY_PROFILE: '/my/:step',
     OTHER: '*',
 } as const;
 

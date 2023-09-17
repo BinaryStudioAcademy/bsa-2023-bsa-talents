@@ -1,0 +1,51 @@
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 0 50px 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 600px;
+    padding: 10px;
+}
+
+.headNavigation {
+    position: sticky;
+    top: -1px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+    background-color: var(--white-lilac);
+}
+
+.saveButton {
+    width: 104px;
+    height: 36px;
+    margin: 5px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+@media screen and (width <=1000px) {
+    .pageWrapper {
+        padding: 10px;
+    }
+
+    .headNavigation {
+        padding: 10px;
+    }
+}
