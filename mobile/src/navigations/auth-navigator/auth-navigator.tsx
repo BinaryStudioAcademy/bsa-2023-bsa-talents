@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Auth } from '~/bundles/auth/screens/auth';
+import { SignIn, SignUp } from '~/bundles/auth/screens/screens';
 import { createNativeStackNavigator } from '~/bundles/common/components/components';
 import { AuthScreenName } from '~/bundles/common/enums/enums';
 import {
@@ -17,8 +17,14 @@ const screenOptions: NativeStackNavigationOptions = {
 const AuthNavigator: React.FC = () => {
     return (
         <AuthStack.Navigator screenOptions={screenOptions}>
-            <AuthStack.Screen name={AuthScreenName.SIGN_IN} component={Auth} />
-            <AuthStack.Screen name={AuthScreenName.SIGN_UP} component={Auth} />
+            <AuthStack.Screen
+                name={AuthScreenName.SIGN_IN}
+                component={SignIn}
+            />
+            <AuthStack.Screen
+                name={AuthScreenName.SIGN_UP}
+                component={SignUp}
+            />
         </AuthStack.Navigator>
     );
 };

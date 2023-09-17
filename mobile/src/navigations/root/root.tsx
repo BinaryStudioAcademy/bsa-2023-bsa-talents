@@ -74,7 +74,12 @@ const Root: React.FC = () => {
             <RootStack.Screen
                 name={RootScreenName.ONBOARDING_ROOT_ROUTE}
                 // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                component={TalentOnboardingNavigator}
+                // component={TalentOnboardingNavigator}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentOnboardingNavigator
+                        : EmployerBottomTabNavigator
+                }
             />
         ),
         main: (
