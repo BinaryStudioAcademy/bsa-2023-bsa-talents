@@ -16,6 +16,7 @@ import {
     Input,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -24,7 +25,6 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/form-submit-provider.context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
 import { validateFileSize } from '../../helpers/validate-file-size.js';
 import { actions } from '../../store/talent-onboarding.js';

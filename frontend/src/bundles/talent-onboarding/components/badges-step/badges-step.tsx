@@ -12,6 +12,7 @@ import {
     FormHelperText,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -20,7 +21,6 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';

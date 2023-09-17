@@ -8,7 +8,7 @@ import {
     Tabs,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { FormSubmitProvider } from '~/bundles/talent-onboarding/context/context.js';
+import { FormSubmitProvider } from '~/bundles/common/context/context.js';
 
 import styles from './styles.module.scss';
 

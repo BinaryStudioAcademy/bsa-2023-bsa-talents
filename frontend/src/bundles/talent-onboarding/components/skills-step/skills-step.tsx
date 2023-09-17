@@ -16,6 +16,7 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -34,7 +35,6 @@ import {
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
 import {
     fromUrlLinks,
     setEnglishLevelValue,

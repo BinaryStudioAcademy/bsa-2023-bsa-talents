@@ -17,6 +17,7 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -39,7 +40,6 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/context.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';

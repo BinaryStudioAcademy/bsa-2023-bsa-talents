@@ -3,4 +3,4 @@ export {
     type FormSubmitContextType,
     FormSubmitProvider,
     useFormSubmit,
-} from './form-submit-provider.context.js';
+} from './form-submit-provider/form-submit-provider.context.js';
