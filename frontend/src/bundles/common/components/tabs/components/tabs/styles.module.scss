@@ -1,0 +1,11 @@
+.tabs :global(.MuiTabs-flexContainer) {
+    gap: 30px;
+}
+
+.tabs :global(.MuiTabs-indicator) {
+    background-color: var(--st-tropaz);
+}
+
+.tabs :global(.Mui-disabled) {
+    display: none;
+}

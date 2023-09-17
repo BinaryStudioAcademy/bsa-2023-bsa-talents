@@ -1,0 +1,8 @@
+.tab {
+    width: auto;
+    padding: 0;
+}
+
+.tab:global(.Mui-selected) {
+    color: var(--st-tropaz);
+}
