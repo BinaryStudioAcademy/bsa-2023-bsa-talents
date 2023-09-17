@@ -1,2 +1,2 @@
-export { UserRole } from 'shared/build/bundles/users/enums/enums';
-export { UsersApiPath } from 'shared/build/index';
+export { UserRole } from 'shared/build/bundles/users/enums/enums.js';
+export { UsersApiPath } from 'shared/build/index.js';

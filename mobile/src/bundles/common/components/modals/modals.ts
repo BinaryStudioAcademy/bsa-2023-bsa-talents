@@ -1,2 +1,2 @@
-export { ActiveModal } from './active-modal/active-modal.js';
-export { Modal } from './modal/modal.js';
+export { ActiveModal } from './active-modal/active-modal';
+export { Modal } from './modal/modal';

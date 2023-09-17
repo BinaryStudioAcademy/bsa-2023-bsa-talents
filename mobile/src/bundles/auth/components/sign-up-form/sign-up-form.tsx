@@ -1,6 +1,7 @@
 import React from 'react';
 import { type RadioButtonProps } from 'react-native-radio-buttons-group';
 
+import { UserRole } from '~/bundles/auth/enums/enums';
 import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
 import { userSignUpValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
@@ -15,7 +16,6 @@ import {
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { UserRole } from '~/bundles/users/enums/enums';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';

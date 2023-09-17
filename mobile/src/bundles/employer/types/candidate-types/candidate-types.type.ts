@@ -1,7 +1,7 @@
 import {
     type UserDetailsCreateRequestDto,
     type ValueOf,
-} from 'shared/build/index';
+} from 'shared/build/index.js';
 
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 

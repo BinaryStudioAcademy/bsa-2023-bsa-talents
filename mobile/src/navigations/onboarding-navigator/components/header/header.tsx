@@ -1,11 +1,17 @@
-import { type DrawerNavigationProp } from '@react-navigation/drawer';
-import { type ParamListBase } from '@react-navigation/native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Pressable, Text, View } from '~/bundles/common/components/components';
+import {
+    Icon,
+    Pressable,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type DrawerNavigationProp,
+    type ParamListBase,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

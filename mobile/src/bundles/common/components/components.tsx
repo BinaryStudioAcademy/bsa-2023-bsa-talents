@@ -1,9 +1,9 @@
 export {
     AutocompleteMultiSelector,
     AutocompleteSelector,
-} from './autocomplete-selectors/autocomplete-selectors.js';
+} from './autocomplete-selectors/autocomplete-selectors';
 export { Avatar } from './avatar/avatar';
-export { AvatarPicker } from './avatar-picker/avatar-picker.js';
+export { AvatarPicker } from './avatar-picker/avatar-picker';
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
@@ -16,7 +16,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { LostConnectionModal } from './lost-connection-modal/lost-connection-modal';
-export { ActiveModal, Modal } from './modals/modals.js';
+export { ActiveModal, Modal } from './modals/modals';
 export { Overlay } from './overlay/overlay';
 export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
@@ -24,6 +24,12 @@ export { Slider } from './slider/slider';
 export { Switch } from './switch/switch';
 export { Tag } from './tag/tag';
 export { Text } from './text/text';
+export { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+export {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+} from '@react-navigation/drawer';
+export { createNativeStackNavigator } from '@react-navigation/native-stack';
 export {
     ActivityIndicator,
     FlatList,
@@ -38,4 +44,5 @@ export {
     View,
 } from 'react-native';
 export { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+export { default as Animated, interpolate } from 'react-native-reanimated';
 export { default as Icon } from 'react-native-vector-icons/MaterialCommunityIcons';

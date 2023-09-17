@@ -1,1 +1,1 @@
-export { AuthApiPath } from 'shared/build/index';
+export { AuthApiPath, UserRole } from 'shared/build/index.js';

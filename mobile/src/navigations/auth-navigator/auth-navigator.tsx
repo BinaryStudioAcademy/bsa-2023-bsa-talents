@@ -1,12 +1,12 @@
-import {
-    createNativeStackNavigator,
-    type NativeStackNavigationOptions,
-} from '@react-navigation/native-stack';
 import React from 'react';
 
 import { Auth } from '~/bundles/auth/screens/auth';
+import { createNativeStackNavigator } from '~/bundles/common/components/components';
 import { AuthScreenName } from '~/bundles/common/enums/enums';
-import { type AuthNavigationParameterList } from '~/bundles/common/types/types';
+import {
+    type AuthNavigationParameterList,
+    type NativeStackNavigationOptions,
+} from '~/bundles/common/types/types';
 
 const AuthStack = createNativeStackNavigator<AuthNavigationParameterList>();
 

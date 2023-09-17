@@ -24,4 +24,4 @@ export {
     ContentType,
     ErrorMessages,
     ServerErrorType,
-} from 'shared/build/index';
+} from 'shared/build/index.js';

@@ -12,8 +12,8 @@ import {
     CandidateCard,
     CandidatesHeader,
     SearchTalents,
-} from '~/bundles/employer/components/components.js';
-import { type Candidate } from '~/bundles/employer/types/types.js';
+} from '~/bundles/employer/components/components';
+import { type Candidate } from '~/bundles/employer/types/types';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 // TODO replace with real users

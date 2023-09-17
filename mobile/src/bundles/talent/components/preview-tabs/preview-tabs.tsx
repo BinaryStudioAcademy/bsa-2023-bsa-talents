@@ -1,5 +1,5 @@
 import React from 'react';
-import { type ValueOf } from 'shared/build/index';
+import { type ValueOf } from 'shared/build/index.js';
 
 import {
     Text,

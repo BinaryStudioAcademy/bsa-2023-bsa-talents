@@ -1,14 +1,18 @@
-export { type AsyncThunkConfig } from './app/app.js';
+export { type AsyncThunkConfig } from './app/app';
 export {
     type AuthNavigationParameterList,
+    type DrawerContentComponentProps,
+    type DrawerNavigationProp,
     type EmployerBottomTabNavigationParameterList,
+    type NativeStackNavigationOptions,
     type NavigationScreenProperties,
+    type ParamListBase,
     type RootNavigationParameterList,
     type TalentBottomTabNavigationParameterList,
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
-} from './navigation/navigation.js';
-export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties.type.js';
+} from './navigation/navigation';
+export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties.type';
 export {
     type Control,
     type FieldPath,

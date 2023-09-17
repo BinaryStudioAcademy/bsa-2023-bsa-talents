@@ -1,9 +1,6 @@
-import {
-    createDrawerNavigator,
-    type DrawerContentComponentProps,
-} from '@react-navigation/drawer';
 import React from 'react';
 
+import { createDrawerNavigator } from '~/bundles/common/components/components';
 import {
     TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
@@ -12,6 +9,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
 import {
+    type DrawerContentComponentProps,
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';
@@ -22,8 +20,10 @@ import {
     Profile,
     SkillsAndProjects,
 } from '~/bundles/talent/screens/screens';
-
-import { Header, Steps } from '../components';
+import {
+    Header,
+    Steps,
+} from '~/navigations/onboarding-navigator/components/components';
 
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 

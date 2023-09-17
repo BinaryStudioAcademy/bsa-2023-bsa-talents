@@ -1,15 +1,12 @@
-import {
-    type DrawerContentComponentProps,
-    DrawerContentScrollView,
-    useDrawerProgress,
-} from '@react-navigation/drawer';
 import React from 'react';
-import Animated, { interpolate } from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { logout } from '~/bundles/auth/store/actions';
 import {
+    Animated,
     Button,
+    DrawerContentScrollView,
+    Icon,
+    interpolate,
     Pressable,
     Text,
     View,
@@ -21,14 +18,19 @@ import {
     TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAnimatedStyle, useAppDispatch } from '~/bundles/common/hooks/hooks';
+import {
+    useAnimatedStyle,
+    useAppDispatch,
+    useDrawerProgress,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
+    type DrawerContentComponentProps,
     type TalentOnboardingRouteProperties,
     type ValueOf,
 } from '~/bundles/common/types/types';
+import { Step } from '~/navigations/onboarding-navigator/components/step/step';
 
-import { Step } from '../components';
 import { ANIMATION_VALUES } from './constants/constants';
 import { styles } from './styles';
 

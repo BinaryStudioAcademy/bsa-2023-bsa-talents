@@ -1,4 +1,4 @@
-export { Candidates } from './candidates/candidates.js';
-export { CandidatesFilter } from './candidates-filter/candidates-filter.js';
-export { Chat } from './chat/chat.js';
-export { EmployerProfile } from './employer-profile/employer-profile.js';
+export { Candidates } from './candidates/candidates';
+export { CandidatesFilter } from './candidates-filter/candidates-filter';
+export { Chat } from './chat/chat';
+export { EmployerProfile } from './employer-profile/employer-profile';

@@ -32,7 +32,7 @@ import {
     ENGLISH_LEVEL,
     HARD_SKILLS,
     YEARS_EXPERIENCE,
-} from '../constants/constants.js';
+} from '../constants/constants';
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);

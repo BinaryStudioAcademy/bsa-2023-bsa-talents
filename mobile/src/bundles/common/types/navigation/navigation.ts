@@ -5,3 +5,9 @@ export { type RootNavigationParameterList } from './root-navigation-parameter-li
 export { type TalentBottomTabNavigationParameterList } from './talent-bottom-tab-navigation-parameter-list.type';
 export { type TalentOnboardingNavigationParameterList } from './talent-onboarding-navigation-parameter-list-type';
 export { type TalentOnboardingRouteProperties } from './talent-onboarding-navigation-properties.type';
+export {
+    type DrawerContentComponentProps,
+    type DrawerNavigationProp,
+} from '@react-navigation/drawer';
+export { type ParamListBase } from '@react-navigation/native';
+export { type NativeStackNavigationOptions } from '@react-navigation/native-stack';

@@ -2,7 +2,7 @@ import {
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
-} from 'shared/build/index';
+} from 'shared/build/index.js';
 
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 

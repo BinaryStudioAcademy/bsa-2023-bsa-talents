@@ -1,10 +1,4 @@
 import React from 'react';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
-import { type StyleProp, type ViewStyle } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
 import { Button, Text } from '~/bundles/common/components/components';
@@ -16,11 +10,18 @@ import {
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { checkIfFileSizeValid } from '~/bundles/talent/helpers/check-if-file-size-valid';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 import {
     ERROR_MESSAGE,
     MAX_FILE_SIZE,
 } from '~/bundles/talent/helpers/constants/constants';
+import { checkIfFileSizeValid } from '~/bundles/talent/helpers/helpers';
 import { notifications } from '~/framework/notifications/notifications';
 
 import { ACCEPTED_DOCUMENT_TYPES } from './constants/constants';

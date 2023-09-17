@@ -1,7 +1,9 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {
+    createBottomTabNavigator,
+    Icon,
+} from '~/bundles/common/components/components';
 import {
     IconName,
     TalentBottomTabScreenName,
@@ -9,7 +11,7 @@ import {
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
 
-import { bottomTabStyles } from './styles';
+import { bottomTabStyles } from '../styles';
 
 const BottomTab =
     createBottomTabNavigator<TalentBottomTabNavigationParameterList>();

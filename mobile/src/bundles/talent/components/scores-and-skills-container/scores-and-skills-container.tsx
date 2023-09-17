@@ -1,5 +1,8 @@
 import React from 'react';
-import { type BsaBadgeStepBadgesTitle, type ValueOf } from 'shared/build/index';
+import {
+    type BsaBadgeStepBadgesTitle,
+    type ValueOf,
+} from 'shared/build/index.js';
 
 import { Badge, Tag, Text, View } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';

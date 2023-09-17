@@ -3,10 +3,10 @@ export { useAppForm } from './use-app-form/use-app-form.hook';
 export { useAppRoute } from './use-app-route/use-app-route.hook';
 export { useAppSelector } from './use-app-selector/use-app-selector.hook';
 export { useOnboardingFormSubmit } from './use-onboarding-form-submit/use-onboarding-form-submit.hook';
-export { useSelectorAnimations } from './use-selector-animations/use-selector-animations.hook.js';
-export { useVisibility } from './use-visibility/use.visibility.hook.js';
-export { useLinkTo } from '@react-navigation/native';
-export { useNavigation } from '@react-navigation/native';
+export { useSelectorAnimations } from './use-selector-animations/use-selector-animations.hook';
+export { useVisibility } from './use-visibility/use.visibility.hook';
+export { useDrawerProgress } from '@react-navigation/drawer';
+export { useLinkTo, useNavigation } from '@react-navigation/native';
 export { useCallback, useEffect, useMemo, useState } from 'react';
 export {
     useFieldArray,

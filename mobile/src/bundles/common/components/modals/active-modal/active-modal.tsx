@@ -10,7 +10,7 @@ import {
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from '../styles.js';
+import { styles } from '../styles';
 
 type Properties = {
     title: string;

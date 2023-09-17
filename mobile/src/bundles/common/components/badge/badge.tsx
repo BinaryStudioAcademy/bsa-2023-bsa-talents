@@ -1,15 +1,16 @@
-import { type StyleProp, type ViewStyle } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import { Text, View } from '~/bundles/common/components/components';
+import { Icon, Text, View } from '~/bundles/common/components/components';
 import {
     BadgeSize,
     IconName,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type StyleProp,
+    type ValueOf,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';

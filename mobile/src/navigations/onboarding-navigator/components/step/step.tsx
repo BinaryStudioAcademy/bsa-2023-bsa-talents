@@ -1,7 +1,11 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable, Text, View } from '~/bundles/common/components/components';
+import {
+    Icon,
+    Pressable,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import {
     Color,
     IconName,
