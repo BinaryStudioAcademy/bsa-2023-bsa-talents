@@ -93,6 +93,44 @@ import {
  *            type: string
  *          cvId:
  *            type: string
+ *          talentBadges:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                score:
+ *                  type: number
+ *                level:
+ *                  type: string
+ *                isShown:
+ *                  type: boolean
+ *                badgeId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userDetailsId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *          talentHardSkills:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                hardSkillId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userDetailsId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -234,6 +272,14 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          cvId:
      *            type: string
+     *          talentBadges:
+     *            type: array
+     *            items:
+     *              type: string
+     *          talentHardSkills:
+     *            type: array
+     *            items:
+     *              type: string
      */
     private async create(
         options: ApiHandlerOptions<{
@@ -360,6 +406,14 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          cvId:
      *            type: string
+     *          talentBadges:
+     *            type: array
+     *            items:
+     *              type: string
+     *          talentHardSkills:
+     *            type: array
+     *            items:
+     *              type: string
      */
     private async update(
         options: ApiHandlerOptions<{
