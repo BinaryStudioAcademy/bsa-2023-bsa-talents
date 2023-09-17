@@ -20,10 +20,8 @@ import {
     Profile,
     SkillsAndProjects,
 } from '~/bundles/talent/screens/screens';
-import {
-    Header,
-    Steps,
-} from '~/navigations/onboarding-navigator/components/components';
+
+import { Header, Steps } from './components/components';
 
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 

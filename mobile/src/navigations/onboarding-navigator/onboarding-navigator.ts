@@ -1,1 +1,1 @@
-export { TalentOnboardingNavigator } from './components/components';
+export { TalentOnboardingNavigator } from './talent-onboarding-navigator/talent-onboarding-navigator';

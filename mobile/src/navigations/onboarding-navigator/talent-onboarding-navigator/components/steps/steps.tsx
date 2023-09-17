@@ -29,8 +29,8 @@ import {
     type TalentOnboardingRouteProperties,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { Step } from '~/navigations/onboarding-navigator/components/step/step';
 
+import { Step } from '../step/step';
 import { ANIMATION_VALUES } from './constants/constants';
 import { styles } from './styles';
 

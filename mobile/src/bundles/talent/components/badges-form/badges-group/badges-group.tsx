@@ -1,15 +1,15 @@
 import React from 'react';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
 
 import { DEFAULT_VALUE_IS_DISABLED } from '~/bundles/common/components/badge/constants/constants';
 import { Badge, Checkbox, View } from '~/bundles/common/components/components';
 import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from '../styles';

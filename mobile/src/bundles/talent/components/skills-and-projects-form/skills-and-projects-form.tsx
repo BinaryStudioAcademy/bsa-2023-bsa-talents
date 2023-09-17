@@ -1,11 +1,11 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
     AutocompleteMultiSelector,
     Button,
     CheckboxGroup,
     FormField,
+    Icon,
     Input,
     Pressable,
     ScrollView,

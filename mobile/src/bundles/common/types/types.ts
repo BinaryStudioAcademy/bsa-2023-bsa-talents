@@ -5,6 +5,7 @@ export {
     type DrawerNavigationProp,
     type EmployerBottomTabNavigationParameterList,
     type NativeStackNavigationOptions,
+    type NavigationProp,
     type NavigationScreenProperties,
     type ParamListBase,
     type RootNavigationParameterList,
@@ -25,6 +26,7 @@ export {
 } from 'react-native';
 export { type ImagePickerResponse } from 'react-native-image-picker';
 export {
+    type BsaBadgeStepBadgesTitle,
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,

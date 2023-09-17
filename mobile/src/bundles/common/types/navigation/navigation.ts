@@ -9,5 +9,8 @@ export {
     type DrawerContentComponentProps,
     type DrawerNavigationProp,
 } from '@react-navigation/drawer';
-export { type ParamListBase } from '@react-navigation/native';
+export {
+    type NavigationProp,
+    type ParamListBase,
+} from '@react-navigation/native';
 export { type NativeStackNavigationOptions } from '@react-navigation/native-stack';
