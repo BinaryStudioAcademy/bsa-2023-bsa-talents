@@ -3,8 +3,8 @@ import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
-import { type UserGetAllResponseDto } from '../auth/types/types';
 import { UsersApiPath } from './enums/enums';
+import { type UserGetAllResponseDto } from './users';
 
 type Constructor = {
     baseUrl: string;
