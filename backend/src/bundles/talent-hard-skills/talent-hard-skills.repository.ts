@@ -5,6 +5,7 @@ import { TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
 import { type TalentHardSkillsModel } from './talent-hard-skills.model.js';
 import {
     type TalentHardSkill,
+    type TalentHardSkillFind,
     type TalentHardSkillUpdate,
 } from './types/types.js';
 
@@ -48,10 +49,22 @@ class TalentHardSkillsRepository implements Repository {
         return existingTalentHardSkills.map((entry) => entry.hardSkillId);
     }
 
+    public async findByUserDetailsId(
+        userDetailsId: string,
+    ): Promise<TalentHardSkillFind[]> {
+        const skills = await this.talentHardSkillsModel
+            .query()
+            .where({ userDetailsId });
+
+        return skills.map((it) =>
+            TalentHardSkillsEntity.initialize(it).toObject(),
+        );
+    }
+
     public async update({
         userDetailsId,
         talentHardSkills,
-    }: TalentHardSkillUpdate): Promise<void> {
+    }: TalentHardSkillUpdate): Promise<TalentHardSkillFind[]> {
         const existingIds = await this.findHardSkillsIdsByUserDetailsId(
             userDetailsId,
         );
@@ -77,6 +90,8 @@ class TalentHardSkillsRepository implements Repository {
                 .insert(skillsToInsert)
                 .execute();
         }
+
+        return this.findByUserDetailsId(userDetailsId);
     }
 
     public async deleteUnusedHardSkills(

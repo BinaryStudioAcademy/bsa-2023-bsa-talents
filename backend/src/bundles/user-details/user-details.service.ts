@@ -61,31 +61,46 @@ class UserDetailsService implements Service {
             userDetails,
         );
 
+        const userDetailsId = newUserDetails.toObject().id as string;
+
+        // let badgesResult, hardSkillsResult;
+
         if (talentBadges) {
+            // badgesResult =
             await Promise.all(
                 talentBadges.map((talentBadge) =>
                     this.talentBadgeService.create({
                         badgeId: talentBadge,
                         userId: userDetails.userId,
+                        userDetailsId,
                     }),
                 ),
             );
         }
 
         if (talentHardSkills) {
+            // hardSkillsResult =
             await Promise.all(
                 talentHardSkills.map((hardSkillId) =>
-                    this.talentHardSkillsService.create({ hardSkillId }),
+                    this.talentHardSkillsService.create({
+                        hardSkillId,
+                        userDetailsId,
+                    }),
                 ),
             );
         }
 
         return newUserDetails.toObject();
+        // {
+        // ...newUserDetails.toObject(),
+        // talentBadges: badgesResult,
+        // talentHardSkills: hardSkillsResult,
+        // };
     }
 
     public async update(
         payload: UserDetailsUpdateRequestDto,
-    ): Promise<UserDetailsEntity> {
+    ): Promise<UserDetailsResponseDto> {
         const { userId, talentBadges, talentHardSkills, ...rest } = payload;
 
         const userDetails = await this.userDetailsRepository.find({ userId });
@@ -99,9 +114,11 @@ class UserDetailsService implements Service {
 
         const userDetailsId = userDetails.toObject().id as string;
 
+        let badgesResult, hardSkillsResult;
+
         if (talentBadges) {
-            await Promise.all(
-                talentBadges.map((badgeId: string) =>
+            badgesResult = await Promise.all(
+                talentBadges.map((badgeId) =>
                     this.talentBadgeService.update({
                         badgeId,
                         userId: userId as string,
@@ -112,16 +129,22 @@ class UserDetailsService implements Service {
         }
 
         if (talentHardSkills) {
-            await this.talentHardSkillsService.update({
+            hardSkillsResult = await this.talentHardSkillsService.update({
                 talentHardSkills,
                 userDetailsId,
             });
         }
 
-        return this.userDetailsRepository.update({
+        const updatedUserDetails = await this.userDetailsRepository.update({
             ...rest,
             id: userDetailsId,
         });
+
+        return {
+            ...updatedUserDetails.toObject(),
+            talentHardSkills: hardSkillsResult,
+            talentBadges: badgesResult,
+        };
     }
 
     public delete(): Promise<boolean> {

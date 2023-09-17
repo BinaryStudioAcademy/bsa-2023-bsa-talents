@@ -1,9 +1,9 @@
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/types.js';
 
-import { type TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeRepository } from './talent-badge.repository.js';
 import {
+    type TalentBadge,
     type TalentBadgeCreate,
     type TalentBadgeUpdate,
 } from './types/types.js';
@@ -23,21 +23,21 @@ class TalentBadgeService implements Service {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create(badge: TalentBadgeCreate): Promise<TalentBadgeEntity> {
-        return await this.talentBadgeRepository.create(badge);
+    public async create(badge: TalentBadgeCreate): Promise<TalentBadge> {
+        return this.talentBadgeRepository.create(badge);
     }
 
     public async update({
         userDetailsId,
         badgeId,
         userId,
-    }: TalentBadgeUpdate): Promise<TalentBadgeEntity> {
+    }: TalentBadgeUpdate): Promise<TalentBadge> {
         const badge = await this.talentBadgeRepository.find({
             badgeId,
             userId,
         });
 
-        return await (badge
+        return badge
             ? this.talentBadgeRepository.update({
                   ...badge,
                   userDetailsId,
@@ -45,7 +45,8 @@ class TalentBadgeService implements Service {
             : this.talentBadgeRepository.create({
                   badgeId,
                   userId,
-              }));
+                  userDetailsId,
+              });
     }
 
     public delete(): Promise<boolean> {

@@ -1,11 +1,5 @@
-type TalentBadgePatchAndFetch = {
-    id: string;
-    userId: string;
-    badgeId: string;
-    isShown?: boolean;
-    userDetailsId: string | null;
-};
+import { type TalentBadgePatchAndFetch } from './types.js';
 
 type TalentBadgeUpdate = Omit<TalentBadgePatchAndFetch, 'id'>;
 
-export { type TalentBadgePatchAndFetch, type TalentBadgeUpdate };
+export { type TalentBadgeUpdate };

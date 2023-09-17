@@ -37,6 +37,20 @@ type UserDetailsResponseDto = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
+    talentBadges?: {
+        id: string | null;
+        userId: string;
+        score: number | null;
+        level: string | null;
+        badgeId: string;
+        isShown: boolean;
+        userDetailsId: string | null;
+    }[];
+    talentHardSkills?: {
+        id: string | null;
+        hardSkillId: string;
+        userDetailsId: string | null;
+    }[];
     completedStep: ValueOf<typeof OnboardingSteps> | null;
 };
 

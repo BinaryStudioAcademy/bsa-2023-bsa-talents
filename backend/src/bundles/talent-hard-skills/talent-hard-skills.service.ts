@@ -5,6 +5,7 @@ import { type TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
 import { type TalentHardSkillsRepository } from './talent-hard-skills.repository.js';
 import {
     type TalentHardSkill,
+    type TalentHardSkillFind,
     type TalentHardSkillUpdate,
 } from './types/types.js';
 
@@ -26,13 +27,13 @@ class TalentHardSkillsService implements Service {
     public async create(
         talentHardSkill: TalentHardSkill,
     ): Promise<TalentHardSkillsEntity> {
-        return await this.talentHardSkillsRepository.create(talentHardSkill);
+        return this.talentHardSkillsRepository.create(talentHardSkill);
     }
 
     public async update(
         talentHardSkillUpdate: TalentHardSkillUpdate,
-    ): Promise<void> {
-        await this.talentHardSkillsRepository.update(talentHardSkillUpdate);
+    ): Promise<TalentHardSkillFind[]> {
+        return this.talentHardSkillsRepository.update(talentHardSkillUpdate);
     }
 
     public delete(): Promise<boolean> {

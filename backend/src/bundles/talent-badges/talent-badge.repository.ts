@@ -4,6 +4,7 @@ import { type Repository } from '~/common/types/repository.type.js';
 import { TalentBadgeEntity } from './talent-badge.entity.js';
 import { type TalentBadgeModel } from './talent-badge.model.js';
 import {
+    type TalentBadge,
     type TalentBadgeCreate,
     type TalentBadgePatchAndFetch,
 } from './types/types.js';
@@ -19,46 +20,42 @@ class TalentBadgeRepository implements Repository {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create({
-        badgeId,
-        userId,
-    }: TalentBadgeCreate): Promise<TalentBadgeEntity> {
+    public async create(badge: TalentBadgeCreate): Promise<TalentBadge> {
         const item = await this.talentBadgeModel
             .query()
             .insert({
-                badgeId,
+                ...badge,
                 isShown: true,
-                userId,
             })
             .returning('*')
             .execute();
 
-        return TalentBadgeEntity.initializeNew(item);
+        return TalentBadgeEntity.initialize(item).toObject();
     }
 
     public async find(
         payload: Record<string, unknown>,
-    ): Promise<TalentBadgeModel | null> {
+    ): Promise<TalentBadge | null> {
         const badge = await this.talentBadgeModel
             .query()
             .findOne({ ...payload });
 
-        return badge ?? null;
+        return badge ? TalentBadgeEntity.initialize(badge).toObject() : null;
     }
 
     public async update({
         id,
         isShown,
         userDetailsId,
-    }: TalentBadgePatchAndFetch): Promise<TalentBadgeEntity> {
+    }: TalentBadgePatchAndFetch): Promise<TalentBadge> {
         const talentBadge = await this.talentBadgeModel
             .query()
-            .patchAndFetchById(id, {
+            .patchAndFetchById(id as string, {
                 isShown: !isShown,
                 userDetailsId,
             });
 
-        return TalentBadgeEntity.initializeNew(talentBadge);
+        return TalentBadgeEntity.initialize(talentBadge).toObject();
     }
 
     public delete(): Promise<boolean> {
