@@ -77,9 +77,9 @@ const Badge: React.FC<Properties> = ({
     return (
         <View
             style={[
+                globalStyles.flexDirectionRow,
                 globalStyles.alignItemsCenter,
                 globalStyles.borderRadius9,
-                globalStyles.flexDirectionRow,
                 globalStyles.p10,
                 styles.wrapper,
                 size === BadgeSize.SMALL ? styles.small : globalStyles.flex1,

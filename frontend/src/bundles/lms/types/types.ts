@@ -1,3 +1,4 @@
+import { type BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 const bsaBadgeType = {
@@ -12,6 +13,7 @@ type bsaBadge = {
     level?: string;
     description: string;
     type: ValueOf<typeof bsaBadgeType>;
+    color: ValueOf<typeof BadgeColors>;
 };
 
 export { type bsaBadge };

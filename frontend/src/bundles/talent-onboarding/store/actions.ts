@@ -19,15 +19,18 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/update-talent-details`, (updatePayload, { extra }) => {
+>(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi } = extra;
-
-    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
     if ('badges' in updatePayload) {
         return updatePayload;
     }
+    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+    const { hardSkills, ...otherDetails } = updatePayload;
 
-    return talentOnBoardingApi.updateUserDetails(updatePayload);
+    return {
+        ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
+        hardSkills,
+    };
 });
 
 const saveTalentDetails = createAsyncThunk<
