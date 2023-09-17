@@ -13,8 +13,8 @@ import {
     CandidatesHeader,
     SearchTalents,
 } from '~/bundles/employer/components/components';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/employer/enums/enums';
 import { type Candidate } from '~/bundles/employer/types/types';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 // TODO replace with real users
 const mockUsers = [

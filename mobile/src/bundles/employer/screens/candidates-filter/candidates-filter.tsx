@@ -1,5 +1,4 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     AutocompleteMultiSelector,
@@ -7,6 +6,7 @@ import {
     CheckboxGroup,
     Divider,
     FormField,
+    Icon,
     Pressable,
     ScrollView,
     Selector,
@@ -14,16 +14,9 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
-import { TextCategory } from '~/bundles/common/enums/styles/styles';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '~/bundles/employer/enums/enums';
-
 import {
     BSA_BADGES,
     BSA_CHARACTERISTICS,
@@ -32,7 +25,12 @@ import {
     ENGLISH_LEVEL,
     HARD_SKILLS,
     YEARS_EXPERIENCE,
-} from '../constants/constants';
+} from '~/bundles/employer/constants/constants';
+import {
+    CountryList,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/employer/enums/enums';
 
 const jobTitleOptions = Object.values(JobTitle);
 const locationOptions = Object.values(CountryList);
