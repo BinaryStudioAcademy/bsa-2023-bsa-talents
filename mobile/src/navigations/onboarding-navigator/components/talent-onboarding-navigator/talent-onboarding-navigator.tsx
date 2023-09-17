@@ -23,7 +23,7 @@ import {
     SkillsAndProjects,
 } from '~/bundles/talent/screens/screens';
 
-import { Header, Steps } from './components/components';
+import { Header, Steps } from '../components';
 
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 

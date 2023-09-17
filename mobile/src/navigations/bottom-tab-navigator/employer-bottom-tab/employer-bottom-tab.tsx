@@ -13,7 +13,7 @@ import {
     EmployerProfile,
 } from '~/bundles/employer/screens/screens';
 
-import { bottomTabStyles } from './styles';
+import { bottomTabStyles } from '../styles.js';
 
 const BottomTab =
     createBottomTabNavigator<EmployerBottomTabNavigationParameterList>();
