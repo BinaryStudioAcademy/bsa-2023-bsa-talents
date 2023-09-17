@@ -1,5 +1,6 @@
 import { type Entity } from '~/common/types/types.js';
 
+import { type UserDetailsModel } from '../user-details/user-details.model.js';
 import { type ChatMessageProperties } from './types/types.js';
 
 class ChatMessageEntity implements Entity {
@@ -9,6 +10,7 @@ class ChatMessageEntity implements Entity {
     private 'chatId': string;
     private 'message': string;
     private 'isRead': boolean;
+    private 'sender': UserDetailsModel;
 
     private constructor({
         id,
@@ -17,6 +19,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        sender,
     }: ChatMessageProperties) {
         this.id = id;
         this.senderId = senderId;
@@ -24,6 +27,7 @@ class ChatMessageEntity implements Entity {
         this.chatId = chatId;
         this.message = message;
         this.isRead = isRead;
+        this.sender = sender;
     }
 
     public static initialize({
@@ -33,6 +37,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        sender,
     }: { id: string } & Omit<ChatMessageProperties, 'id'>): ChatMessageEntity {
         return new ChatMessageEntity({
             id,
@@ -41,6 +46,7 @@ class ChatMessageEntity implements Entity {
             chatId,
             message,
             isRead,
+            sender,
         });
     }
 
@@ -50,6 +56,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        sender,
     }: Omit<ChatMessageProperties, 'id'>): ChatMessageEntity {
         return new ChatMessageEntity({
             id: null,
@@ -58,6 +65,7 @@ class ChatMessageEntity implements Entity {
             chatId,
             message,
             isRead,
+            sender,
         });
     }
 
@@ -69,6 +77,7 @@ class ChatMessageEntity implements Entity {
             chatId: this.chatId,
             message: this.message,
             isRead: this.isRead,
+            sender: this.sender,
         };
     }
 
@@ -79,6 +88,7 @@ class ChatMessageEntity implements Entity {
             chatId: this.chatId,
             message: this.message,
             isRead: this.isRead,
+            sender: this.sender,
         };
     }
 }

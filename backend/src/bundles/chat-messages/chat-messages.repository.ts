@@ -21,7 +21,12 @@ class ChatMessagesRepository implements Repository {
     }
 
     public async findAll(): Promise<ChatMessageEntity[]> {
-        const chatMessages = await this.chatMessageModel.query().select('*');
+        const chatMessages = await this.chatMessageModel
+            .query()
+            .select('*')
+            .withGraphFetched({
+                sender: true,
+            });
 
         return chatMessages.map((chatMessage) =>
             ChatMessageEntity.initialize(chatMessage),
@@ -32,7 +37,10 @@ class ChatMessagesRepository implements Repository {
         const chatMessages = await this.chatMessageModel
             .query()
             .select('*')
-            .where('chatId', chatId);
+            .where('chatId', chatId)
+            .withGraphFetched({
+                sender: { fullName: true },
+            });
         return chatMessages.map((chatMessage) =>
             ChatMessageEntity.initialize(chatMessage),
         );

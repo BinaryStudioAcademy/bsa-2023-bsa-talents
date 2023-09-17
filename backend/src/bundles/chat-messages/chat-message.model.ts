@@ -8,7 +8,6 @@ import {
 } from '~/common/packages/database/database.js';
 
 import { UserDetailsModel } from '../user-details/user-details.model.js';
-import { UserModel } from '../users/user.model.js';
 
 class ChatMessageModel extends AbstractModel {
     public 'senderId': string;
@@ -16,6 +15,7 @@ class ChatMessageModel extends AbstractModel {
     public 'chatId': string;
     public 'message': string;
     public 'isRead': boolean;
+    public 'sender': UserDetailsModel;
 
     public static override get tableName(): string {
         return DatabaseTableName.CHAT_MESSAGES;
@@ -37,10 +37,17 @@ class ChatMessageModel extends AbstractModel {
         return {
             sender: {
                 relation: Model.BelongsToOneRelation,
-                modelClass: UserModel,
+                modelClass: UserDetailsModel,
+                filter: (query) =>
+                    query.select(
+                        'id',
+                        'fullName',
+                        'companyName',
+                        'companyLogoId',
+                    ),
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.SENDER_ID}`,
-                    to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
+                    to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
                 },
             },
 
@@ -49,7 +56,7 @@ class ChatMessageModel extends AbstractModel {
                 modelClass: UserDetailsModel,
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.RECEIVER_ID}`,
-                    to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,
+                    to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
                 },
             },
         };

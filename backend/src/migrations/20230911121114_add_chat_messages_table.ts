@@ -5,10 +5,12 @@ const constraintName = 'chat_messages_pkey';
 
 const TableName = {
     CHAT_MESSAGES: 'chat_messages',
-    USERS: 'users',
+    USER_DETAILS: 'user_details',
 };
 
 const ColumnName = {
+    USER_ID: 'user_id',
+
     ID: 'id',
     SENDER_ID: 'sender_id',
     RECEIVER_ID: 'receiver_id',
@@ -38,16 +40,16 @@ async function up(knex: Knex): Promise<void> {
         table
             .uuid(ColumnName.SENDER_ID)
             .notNullable()
-            .references(ColumnName.ID)
-            .inTable(TableName.USERS)
+            .references(ColumnName.USER_ID)
+            .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.SET_NULL);
 
         table
             .uuid(ColumnName.RECEIVER_ID)
             .notNullable()
-            .references(ColumnName.ID)
-            .inTable(TableName.USERS)
+            .references(ColumnName.USER_ID)
+            .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.SET_NULL);
 
