@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    Icon,
+    CommunityIcon,
     Pressable,
     Text,
     View,
@@ -70,7 +70,7 @@ const Step: React.FC<Properties> = ({
                 styles.singleStep,
             ]}
         >
-            <Icon
+            <CommunityIcon
                 name={stepIcon.name}
                 color={stepIcon.color}
                 size={30}

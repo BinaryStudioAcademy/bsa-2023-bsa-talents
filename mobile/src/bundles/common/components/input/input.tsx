@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    Icon,
+    CommunityIcon,
     Text,
     TextInput,
     View,
@@ -72,7 +72,7 @@ const Input = <T extends FieldValues>({
                         styles.iconContainer,
                     ]}
                 >
-                    <Icon
+                    <CommunityIcon
                         name={iconName}
                         size={iconSize}
                         color={Color.PRIMARY}

@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Icon, Pressable, Text } from '~/bundles/common/components/components';
+import {
+    CommunityIcon,
+    Pressable,
+    Text,
+} from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -35,7 +39,9 @@ const Tag: React.FC<Properties> = ({
             }}
         >
             <Text category={TextCategory.LABEL}>{value}</Text>
-            {iconName && <Icon name={iconName} size={iconSize} color="#000" />}
+            {iconName && (
+                <CommunityIcon name={iconName} size={iconSize} color="#000" />
+            )}
         </Pressable>
     );
 };

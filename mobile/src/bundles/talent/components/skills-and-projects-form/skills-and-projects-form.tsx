@@ -4,8 +4,8 @@ import {
     AutocompleteMultiSelector,
     Button,
     CheckboxGroup,
+    CommunityIcon,
     FormField,
-    Icon,
     Input,
     Pressable,
     ScrollView,
@@ -150,7 +150,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                             remove(index);
                                         }}
                                     >
-                                        <Icon
+                                        <CommunityIcon
                                             name={IconName.CLOSE}
                                             size={20}
                                             color={Color.ERROR}

@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Icon, Pressable, Text } from '~/bundles/common/components/components';
+import {
+    CommunityIcon,
+    Pressable,
+    Text,
+} from '~/bundles/common/components/components';
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -87,7 +91,7 @@ const Button: React.FC<Properties> = ({
             {({ pressed }): JSX.Element => (
                 <>
                     {iconName && (
-                        <Icon
+                        <CommunityIcon
                             name={iconName}
                             size={iconSize}
                             style={[

@@ -4,8 +4,8 @@ import { logout } from '~/bundles/auth/store/actions';
 import {
     Animated,
     Button,
+    CommunityIcon,
     DrawerContentScrollView,
-    Icon,
     interpolate,
     Pressable,
     Text,
@@ -86,7 +86,11 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
                 style={styles.button}
             >
                 <Animated.View style={iconAnimatedStyle}>
-                    <Icon name={IconName.CLOSE} size={40} color={Color.INPUT} />
+                    <CommunityIcon
+                        name={IconName.CLOSE}
+                        size={40}
+                        color={Color.INPUT}
+                    />
                 </Animated.View>
             </Pressable>
             <Animated.View style={textAnimatedStyle}>
