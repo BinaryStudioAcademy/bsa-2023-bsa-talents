@@ -9,6 +9,7 @@ import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
+import { chatApi } from '~/bundles/chat/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
@@ -37,6 +38,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    chatApi: typeof chatApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
@@ -81,6 +83,7 @@ class Store {
         return {
             authApi,
             userApi,
+            chatApi,
             talentOnBoardingApi,
             notification,
             storage,
