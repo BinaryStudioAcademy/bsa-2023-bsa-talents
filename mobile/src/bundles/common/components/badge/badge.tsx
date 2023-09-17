@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Icon, Text, View } from '~/bundles/common/components/components';
 import {
     BadgeSize,

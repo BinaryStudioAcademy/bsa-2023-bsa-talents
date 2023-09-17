@@ -24,6 +24,8 @@ export { Slider } from './slider/slider';
 export { Switch } from './switch/switch';
 export { Tag } from './tag/tag';
 export { Text } from './text/text';
+export { default as CheckBox } from '@react-native-community/checkbox';
+export { default as CommunitySlider } from '@react-native-community/slider';
 export { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 export {
     createDrawerNavigator,
@@ -34,15 +36,20 @@ export {
     ActivityIndicator,
     FlatList,
     Image,
+    Switch as NativeSwitch,
     PermissionsAndroid,
     Pressable,
     Modal as RNModal,
+    Text as RNText,
     ScrollView,
     StatusBar,
     TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
+export { default as DocumentPicker } from 'react-native-document-picker';
 export { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+export { default as RadioGroup } from 'react-native-radio-buttons-group';
 export { default as Animated, interpolate } from 'react-native-reanimated';
-export { default as Icon } from 'react-native-vector-icons/MaterialCommunityIcons';
+export { default as CommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
+export { default as Icon } from 'react-native-vector-icons/MaterialIcons';

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Color } from '../../enums/enums';
+import { Color } from '~/bundles/common/enums/enums';
 
 const styles = StyleSheet.create({
     button: {

@@ -1,16 +1,16 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+
+import { Icon, Pressable, Text } from '~/bundles/common/components/components';
+import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
+import { useMemo } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type PressableProps,
     type StyleProp,
     type TextStyle,
+    type ValueOf,
     type ViewStyle,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import { Pressable, Text } from '~/bundles/common/components/components';
-import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

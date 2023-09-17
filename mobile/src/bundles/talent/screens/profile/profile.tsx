@@ -5,17 +5,14 @@ import {
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
-import {
-    useAppRoute,
-    useAppSelector,
-    useOnboardingFormSubmit,
-} from '~/bundles/common/hooks/hooks';
+import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
     ProfileForm,
 } from '~/bundles/talent/components/components';
+import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const Profile: React.FC = () => {

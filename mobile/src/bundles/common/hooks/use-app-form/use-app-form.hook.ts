@@ -1,4 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+
+import { useForm } from '~/bundles/common/hooks/hooks';
 import {
     type Control,
     type DefaultValues,
@@ -10,10 +12,8 @@ import {
     type UseFormSetError,
     type UseFormSetValue,
     type ValidationMode,
-} from 'react-hook-form';
-import { useForm } from 'react-hook-form';
-
-import { type ValidationSchema } from '~/bundles/common/types/types';
+    type ValidationSchema,
+} from '~/bundles/common/types/types';
 
 type Arguments<T extends FieldValues = FieldValues> = {
     defaultValues: DefaultValues<T>;

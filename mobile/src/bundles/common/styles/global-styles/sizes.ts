@@ -1,4 +1,4 @@
-import { type ViewStyle } from 'react-native';
+import { type ViewStyle } from '~/bundles/common/types/types';
 
 const SIZES = {
     width100: {

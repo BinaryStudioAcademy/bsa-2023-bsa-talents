@@ -1,4 +1,4 @@
-import { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { useAnimatedStyle, withTiming } from '~/bundles/common/hooks/hooks';
 
 import {
     INITIAL_DROPDOWN_HEIGHT,

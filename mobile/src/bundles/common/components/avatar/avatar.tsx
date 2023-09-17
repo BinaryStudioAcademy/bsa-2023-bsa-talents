@@ -1,6 +1,6 @@
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
 
-import { Image, Text } from '~/bundles/common/components/components';
+import { Icon, Image, Text } from '~/bundles/common/components/components';
 import {
     AvatarType,
     IconName,

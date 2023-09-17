@@ -1,10 +1,9 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Pressable, Text } from '~/bundles/common/components/components';
+import { Icon, Pressable, Text } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { globalStyles } from '../../styles/styles';
 import { styles } from './styles';
 
 type Properties = {

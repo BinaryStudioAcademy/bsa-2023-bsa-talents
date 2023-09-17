@@ -1,7 +1,10 @@
 import React from 'react';
-import DocumentPicker from 'react-native-document-picker';
 
-import { Button, Text } from '~/bundles/common/components/components';
+import {
+    Button,
+    DocumentPicker,
+    Text,
+} from '~/bundles/common/components/components';
 import {
     ButtonType,
     IconName,

@@ -1,6 +1,8 @@
-import { type FlexAlignType, type FlexStyle } from 'react-native';
-
 import { AlignmentValue } from '~/bundles/common/enums/enums';
+import {
+    type FlexAlignType,
+    type FlexStyle,
+} from '~/bundles/common/types/types';
 
 const FLEX = {
     flex1: {

@@ -1,6 +1,5 @@
-import { type ValueOf } from 'shared/build/types/value-of.type.js';
-
-import { type AvatarType } from '~/bundles/common/enums/ui/avatar-type.enum';
+import { type AvatarType } from '~/bundles/common/enums/ui/ui';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 type AvatarProperties = {
     avatarSize?: ValueOf<typeof AvatarType>;

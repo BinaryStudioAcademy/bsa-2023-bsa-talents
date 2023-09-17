@@ -1,5 +1,3 @@
-import { type NavigationProp } from '@react-navigation/native';
-
 import {
     CompletedTalentOnboardingStep,
     type TalentOnboardingScreenName,
@@ -12,6 +10,7 @@ import {
     useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import {
+    type NavigationProp,
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
 } from '~/bundles/common/types/types';

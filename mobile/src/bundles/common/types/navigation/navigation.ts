@@ -12,5 +12,6 @@ export {
 export {
     type NavigationProp,
     type ParamListBase,
+    type RouteProp,
 } from '@react-navigation/native';
 export { type NativeStackNavigationOptions } from '@react-navigation/native-stack';
