@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from '~/bundles/common/components/components';
 
 const styles = StyleSheet.create({
     backdrop: {

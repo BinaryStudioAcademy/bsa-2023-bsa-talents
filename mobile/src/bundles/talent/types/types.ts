@@ -1,11 +1,11 @@
-export { type CvAndContactsFormDto } from './cv-and-contacts-form/cv-and-contacts-form-dto.type.js';
+export { type CvAndContactsFormDto } from './cv-and-contacts-form/cv-and-contacts-form-dto.type';
 export {
     type CVDto,
     type HardSkillsDto,
     type PhotoDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
-} from './user-details-general/user-details-general-dto.type.js';
+} from './user-details-general/user-details-general-dto.type';
 export {
     type BadgeStepDto,
     type BsaBadgesStepDto,

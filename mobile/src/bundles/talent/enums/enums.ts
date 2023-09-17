@@ -1,12 +1,15 @@
-export { CvAndContactsFormValidationMessage } from './contacts-cv-step/cv-and-contacts-form-validation-message.enum';
-export { CvAndContactsFormValidationRule } from './contacts-cv-step/cv-and-contacts-form-validation-rule.enum';
-export { ProfileTab } from './profile-tab/profile-tab.enum';
-export { AuthApiPath, UserDetailsApiPath } from 'shared/build/index';
 export {
+    CvAndContactsFormValidationMessage,
+    CvAndContactsFormValidationRule,
+} from './contacts-cv-step/contacts-cv-step';
+export { ProfileTab } from './profile-tab/profile-tab.enum';
+export {
+    AuthApiPath,
     BsaBadgeStepBadgesTitle,
     CountryList,
     EmploymentType,
     JobTitle,
     ProfileStepValidationRule,
     SkillsStepValidationRule,
+    UserDetailsApiPath,
 } from 'shared/build/index.js';

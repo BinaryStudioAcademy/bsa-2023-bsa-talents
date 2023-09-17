@@ -1,5 +1,9 @@
-import { types } from 'react-native-document-picker';
+import { DocumentPickerTypes } from '~/bundles/common/components/components';
 
-const ACCEPTED_DOCUMENT_TYPES = [types.doc, types.docx, types.pdf];
+const ACCEPTED_DOCUMENT_TYPES = [
+    DocumentPickerTypes.doc,
+    DocumentPickerTypes.docx,
+    DocumentPickerTypes.pdf,
+];
 
 export { ACCEPTED_DOCUMENT_TYPES };

@@ -43,7 +43,10 @@ export {
     type ViewStyle,
 } from 'react-native';
 export { type ImagePickerResponse } from 'react-native-image-picker';
-export { type RadioGroupProps } from 'react-native-radio-buttons-group';
+export {
+    type RadioButtonProps,
+    type RadioGroupProps,
+} from 'react-native-radio-buttons-group';
 export {
     type BsaBadgeStepBadgesTitle,
     type ServerErrorDetail,

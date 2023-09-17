@@ -31,6 +31,7 @@ export {
     createDrawerNavigator,
     DrawerContentScrollView,
 } from '@react-navigation/drawer';
+export { NavigationContainer } from '@react-navigation/native';
 export { createNativeStackNavigator } from '@react-navigation/native-stack';
 export {
     ActivityIndicator,
@@ -43,13 +44,20 @@ export {
     Text as RNText,
     ScrollView,
     StatusBar,
+    StyleSheet,
     TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
-export { default as DocumentPicker } from 'react-native-document-picker';
+export {
+    default as DocumentPicker,
+    types as DocumentPickerTypes,
+} from 'react-native-document-picker';
+export { GestureHandlerRootView } from 'react-native-gesture-handler';
 export { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 export { default as RadioGroup } from 'react-native-radio-buttons-group';
 export { default as Animated, interpolate } from 'react-native-reanimated';
+export { default as SplashScreen } from 'react-native-splash-screen';
+export { default as Toast } from 'react-native-toast-message';
 export { default as CommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 export { default as Icon } from 'react-native-vector-icons/MaterialIcons';

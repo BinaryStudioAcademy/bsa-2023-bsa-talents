@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { AuthApiPath } from '~/bundles/auth/enums/enums';
 import {
+    type UserFindResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -12,8 +14,6 @@ import { clearTalentStore } from '~/bundles/talent/store/actions';
 import { clearAll } from '~/bundles/users/store/actions';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
-import { AuthApiPath } from '../enums/enums';
-import { type UserFindResponseDto } from '../types/types';
 import { name as sliceName } from './slice';
 
 const signUp = createAsyncThunk<

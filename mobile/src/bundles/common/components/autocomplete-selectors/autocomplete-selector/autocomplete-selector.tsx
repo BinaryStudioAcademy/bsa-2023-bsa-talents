@@ -23,8 +23,8 @@ import {
     type FieldValues,
 } from '~/bundles/common/types/types';
 
-import { ICON_SIZE } from '../constants/constants';
 import { styles } from '../styles';
+import { ICON_SIZE } from './constants/constants';
 
 type Properties<T extends FieldValues> = {
     control?: Control<T, null>;
