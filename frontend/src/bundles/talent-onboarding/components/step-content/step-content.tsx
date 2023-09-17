@@ -7,7 +7,14 @@ import {
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
+import {
+    STEP_FIVE,
+    STEP_FOUR,
+    STEP_ONE,
+    STEP_THREE,
+    STEP_TWO,
+    STEPS_NUMBER,
+} from '../../constants/constants.js';
 import { useFormSubmit } from '../../context/context.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
@@ -36,7 +43,16 @@ const StepContent: React.FC<Properties> = ({
 
     return (
         <Grid item className={styles.stepContent}>
-            <Grid className={styles.stepTitle}>
+            <Grid
+                className={getValidClassNames(
+                    styles.stepTitle,
+                    currentStep === STEP_ONE && styles.step1,
+                    currentStep === STEP_TWO && styles.step2,
+                    currentStep === STEP_THREE && styles.step3,
+                    currentStep === STEP_FOUR && styles.step4,
+                    currentStep === STEP_FIVE && styles.step5,
+                )}
+            >
                 <Typography variant="body1" className={styles.stepName}>
                     {formatStepLabels(
                         StepsRoute[
