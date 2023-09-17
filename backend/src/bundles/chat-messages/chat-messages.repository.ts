@@ -39,7 +39,7 @@ class ChatMessagesRepository implements Repository {
             .select('*')
             .where('chatId', chatId)
             .withGraphFetched({
-                sender: { fullName: true },
+                sender: true,
             });
         return chatMessages.map((chatMessage) =>
             ChatMessageEntity.initialize(chatMessage),
