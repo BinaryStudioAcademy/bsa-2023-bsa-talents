@@ -1,7 +1,7 @@
-export { BsaBadges } from './bsa-badges';
-export { CVAndContacts } from './cv-and-contacts';
-export { Mail } from './mail';
-export { Preview } from './preview/preview';
-export { Profile } from './profile';
-export { SkillsAndProjects } from './skills-and-projects';
-export { TalentProfile } from './talent-profile';
+export { BsaBadges } from './bsa-badges/bsa-badges.js';
+export { CVAndContacts } from './cv-and-contacts/cv-and-contacts.js';
+export { Mail } from './mail/mail.js';
+export { Preview } from './preview/preview.js';
+export { Profile } from './profile/profile.js';
+export { SkillsAndProjects } from './skills-and-projects/skills-and-projects.js';
+export { TalentProfile } from './talent-profile/talent-profile.js';

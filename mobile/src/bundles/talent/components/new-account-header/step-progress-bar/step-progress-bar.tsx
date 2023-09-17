@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from './styles';
+import { styles } from '../styles.js';
 
 type Properties = {
     currentStep: number;

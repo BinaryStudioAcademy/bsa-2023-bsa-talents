@@ -8,8 +8,8 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-import { StepProgressBar } from './step-progress-bar';
-import { StepTrack } from './step-track';
+import { StepProgressBar } from './step-progress-bar/step-progress-bar.js';
+import { StepTrack } from './step-track/step-track.js';
 import { styles } from './styles';
 
 type Properties = {

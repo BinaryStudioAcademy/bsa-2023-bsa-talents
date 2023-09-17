@@ -1,4 +1,4 @@
-import { ACCEPTED_PHOTO_TYPES } from './constants/constants';
+import { ACCEPTED_PHOTO_TYPES } from '../constants/constants';
 
 const lastIndex = 1;
 

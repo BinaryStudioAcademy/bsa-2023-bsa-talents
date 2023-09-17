@@ -15,7 +15,7 @@ import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { BadgesGroup } from './badges-group';
+import { BadgesGroup } from './badges-group/badges-group.js';
 import { styles } from './styles';
 
 type Properties = {

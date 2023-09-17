@@ -3,6 +3,7 @@ export {
     AutocompleteSelector,
 } from './autocomplete-selectors/autocomplete-selectors.js';
 export { Avatar } from './avatar/avatar';
+export { AvatarPicker } from './avatar-picker/avatar-picker.js';
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';

@@ -4,7 +4,7 @@ import { Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from './styles';
+import { styles } from '../styles.js';
 
 type Properties = {
     currentStep: number;
