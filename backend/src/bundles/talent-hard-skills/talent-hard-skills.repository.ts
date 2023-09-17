@@ -22,7 +22,7 @@ class TalentHardSkillsRepository implements Repository {
 
     public async create(
         talentHardSkill: TalentHardSkill,
-    ): Promise<TalentHardSkillsEntity> {
+    ): Promise<TalentHardSkillFind> {
         const item = await this.talentHardSkillsModel
             .query()
             .insert({
@@ -31,22 +31,11 @@ class TalentHardSkillsRepository implements Repository {
             .returning('*')
             .execute();
 
-        return TalentHardSkillsEntity.initializeNew(item);
+        return TalentHardSkillsEntity.initialize(item).toObject();
     }
 
     public find(): Promise<TalentHardSkillsEntity | null> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
-    }
-
-    public async findHardSkillsIdsByUserDetailsId(
-        userDetailsId: string,
-    ): Promise<string[]> {
-        const existingTalentHardSkills = await this.talentHardSkillsModel
-            .query()
-            .where({ userDetailsId })
-            .select('hardSkillId');
-
-        return existingTalentHardSkills.map((entry) => entry.hardSkillId);
     }
 
     public async findByUserDetailsId(
@@ -65,8 +54,12 @@ class TalentHardSkillsRepository implements Repository {
         userDetailsId,
         talentHardSkills,
     }: TalentHardSkillUpdate): Promise<TalentHardSkillFind[]> {
-        const existingIds = await this.findHardSkillsIdsByUserDetailsId(
+        const existingTalentHardSkills = await this.findByUserDetailsId(
             userDetailsId,
+        );
+
+        const existingIds = existingTalentHardSkills.map(
+            (entry) => entry.hardSkillId,
         );
 
         const idsToDelete = existingIds.filter(

@@ -63,11 +63,10 @@ class UserDetailsService implements Service {
 
         const userDetailsId = newUserDetails.toObject().id as string;
 
-        // let badgesResult, hardSkillsResult;
+        let badgesResult, hardSkillsResult;
 
         if (talentBadges) {
-            // badgesResult =
-            await Promise.all(
+            badgesResult = await Promise.all(
                 talentBadges.map((talentBadge) =>
                     this.talentBadgeService.create({
                         badgeId: talentBadge,
@@ -79,8 +78,7 @@ class UserDetailsService implements Service {
         }
 
         if (talentHardSkills) {
-            // hardSkillsResult =
-            await Promise.all(
+            hardSkillsResult = await Promise.all(
                 talentHardSkills.map((hardSkillId) =>
                     this.talentHardSkillsService.create({
                         hardSkillId,
@@ -90,12 +88,11 @@ class UserDetailsService implements Service {
             );
         }
 
-        return newUserDetails.toObject();
-        // {
-        // ...newUserDetails.toObject(),
-        // talentBadges: badgesResult,
-        // talentHardSkills: hardSkillsResult,
-        // };
+        return {
+            ...newUserDetails.toObject(),
+            talentBadges: badgesResult,
+            talentHardSkills: hardSkillsResult,
+        };
     }
 
     public async update(

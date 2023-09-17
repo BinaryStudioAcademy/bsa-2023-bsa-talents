@@ -26,7 +26,7 @@ class TalentHardSkillsService implements Service {
 
     public async create(
         talentHardSkill: TalentHardSkill,
-    ): Promise<TalentHardSkillsEntity> {
+    ): Promise<TalentHardSkillFind> {
         return this.talentHardSkillsRepository.create(talentHardSkill);
     }
 
