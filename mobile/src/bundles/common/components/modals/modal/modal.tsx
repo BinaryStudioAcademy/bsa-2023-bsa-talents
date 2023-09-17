@@ -7,7 +7,7 @@ import {
 } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 type Properties = {
     visible: boolean;

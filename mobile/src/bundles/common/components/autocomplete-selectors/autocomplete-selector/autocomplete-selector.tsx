@@ -23,8 +23,8 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { ICON_SIZE } from './constants/constants';
-import { styles } from './styles';
+import { ICON_SIZE } from '../constants/constants.js';
+import { styles } from '../styles.js';
 
 type Properties<T extends FieldValues> = {
     control?: Control<T, null>;

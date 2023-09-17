@@ -24,7 +24,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 type Options = {
     label: string;

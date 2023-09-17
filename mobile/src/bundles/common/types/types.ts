@@ -8,7 +8,7 @@ export {
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation.js';
-export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties.js';
+export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties.type.js';
 export {
     type Control,
     type FieldPath,

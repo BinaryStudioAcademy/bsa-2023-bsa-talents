@@ -1,5 +1,7 @@
-export { AutocompleteMultiSelector } from './autocomplete-selectors/autocomplete-multi-selector';
-export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-selector';
+export {
+    AutocompleteMultiSelector,
+    AutocompleteSelector,
+} from './autocomplete-selectors/autocomplete-selectors.js';
 export { Avatar } from './avatar/avatar';
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
@@ -13,8 +15,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
 export { LostConnectionModal } from './lost-connection-modal/lost-connection-modal';
-export { ActiveModal } from './modals/active-modal';
-export { Modal } from './modals/modal';
+export { ActiveModal, Modal } from './modals/modals.js';
 export { Overlay } from './overlay/overlay';
 export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
