@@ -8,14 +8,13 @@ import {
 import { Color } from '~/bundles/common/enums/enums';
 import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
-
 import {
     CandidateCard,
     CandidatesHeader,
     SearchTalents,
-} from '../components/components';
-import { type Candidate } from '../types/types';
+} from '~/bundles/employer/components/components.js';
+import { type Candidate } from '~/bundles/employer/types/types.js';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 // TODO replace with real users
 const mockUsers = [
