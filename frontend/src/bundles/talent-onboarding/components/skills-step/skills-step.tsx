@@ -211,7 +211,7 @@ const SkillsStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
+        <>
             <Autocomplete
                 name="hardSkills"
                 control={control}
@@ -278,7 +278,7 @@ const SkillsStep: React.FC = () => {
                 )}
             </FormControl>
             <SkillsProjectLinks control={control} errors={errors} />
-        </FormControl>
+        </>
     );
 };
 

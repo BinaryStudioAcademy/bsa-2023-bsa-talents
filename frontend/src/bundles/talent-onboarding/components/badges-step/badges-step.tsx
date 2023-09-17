@@ -133,7 +133,7 @@ const BadgesStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.formControl}>
+        <>
             <Typography className={styles.formLabel} variant={'h6'}>
                 Choose BSA badges you want to show in your profile
             </Typography>
@@ -149,7 +149,7 @@ const BadgesStep: React.FC = () => {
                     {errors.badges.message}
                 </FormHelperText>
             )}
-        </FormControl>
+        </>
     );
 };
 

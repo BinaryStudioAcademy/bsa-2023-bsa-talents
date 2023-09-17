@@ -232,8 +232,8 @@ const ProfileStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
-            <FormControl className={styles.formControl}>
+        <>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Profile name</Typography>
                 </FormLabel>
@@ -245,7 +245,7 @@ const ProfileStep: React.FC = () => {
                     name={'profileName'}
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Salary expectations
@@ -260,7 +260,7 @@ const ProfileStep: React.FC = () => {
                     adornmentText="$"
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Job title</Typography>
                 </FormLabel>
@@ -277,7 +277,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl className={styles.formControlSlider}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Experience</Typography>
                 </FormLabel>
@@ -292,7 +292,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
@@ -309,7 +309,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <Grid className={styles.checkboxContainer}>
+            <Grid>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Employment type</Typography>
                 </FormLabel>
@@ -326,7 +326,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </Grid>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Briefly tell employers about your experience
@@ -346,7 +346,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-        </FormControl>
+        </>
     );
 };
 

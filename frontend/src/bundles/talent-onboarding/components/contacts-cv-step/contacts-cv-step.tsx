@@ -227,7 +227,7 @@ const ContactsCVStep: React.FC = () => {
     }, [photoURL]);
 
     return (
-        <FormControl className={styles.form}>
+        <>
             <Grid container className={styles.photo}>
                 <Grid
                     item
@@ -354,7 +354,7 @@ const ContactsCVStep: React.FC = () => {
                 Job search is anonymous. This information will be seen only in
                 case you share it.
             </Typography>
-        </FormControl>
+        </>
     );
 };
 
