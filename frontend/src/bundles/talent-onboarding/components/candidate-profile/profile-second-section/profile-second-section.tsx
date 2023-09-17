@@ -10,12 +10,12 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
+import { type SecondSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-    //TODO: replace with real data type
-    candidateParameters: Record<string, string | number | string[]>;
+    candidateParameters: SecondSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
 };
@@ -35,20 +35,18 @@ const ProfileSecondSection: React.FC<Properties> = ({
             label: 'No',
         },
     ];
-    // TODO: fill with real data
     const { control } = useAppForm<{ hire: 'Yes' }>({
         defaultValues: { hire: 'Yes' },
     });
 
     return (
-        // TODO: replace with real data
         <Grid className={styles.profileSecondSection}>
             <Grid className={styles.candidateInfo}>
                 {isProfileOpen ? (
                     <Typography variant="h4" className={styles.name}>
-                        {candidateParameters.photo ? (
+                        {candidateParameters.photoId ? (
                             <img
-                                src={candidateParameters.photo as string}
+                                src={candidateParameters.photoId}
                                 alt="candidate"
                             />
                         ) : (
@@ -86,14 +84,6 @@ const ProfileSecondSection: React.FC<Properties> = ({
                             </CandidateParameter>
 
                             <CandidateParameter
-                                text={candidateParameters.telegram}
-                            >
-                                <CandidateIcons.TELEGRAM
-                                    className={styles.icon}
-                                />
-                            </CandidateParameter>
-
-                            <CandidateParameter
                                 text={candidateParameters.phone}
                             >
                                 <CandidateIcons.PHONE className={styles.icon} />
@@ -114,7 +104,7 @@ const ProfileSecondSection: React.FC<Properties> = ({
                         <CandidateIcons.ENGLISH className={styles.icon} />
                     </CandidateParameter>
 
-                    {(candidateParameters.employmentType as string[]).map(
+                    {candidateParameters.employmentType.map(
                         (employment: string) => (
                             <CandidateParameter
                                 key={employment}
@@ -127,25 +117,19 @@ const ProfileSecondSection: React.FC<Properties> = ({
                         ),
                     )}
 
-                    <CandidateParameter text={candidateParameters.workSchedule}>
-                        <CandidateIcons.EMPLOYMENT className={styles.icon} />
-                    </CandidateParameter>
-
-                    {(candidateParameters.notConsidered as string[]).map(
-                        (notConsidered) => (
-                            <CandidateParameter
-                                key={notConsidered}
-                                text={notConsidered}
-                            >
-                                <CandidateIcons.NOT_CONSIDERED
-                                    className={getValidClassNames(
-                                        styles.icon,
-                                        styles.redIcon,
-                                    )}
-                                />
-                            </CandidateParameter>
-                        ),
-                    )}
+                    {candidateParameters.notConsidered.map((notConsidered) => (
+                        <CandidateParameter
+                            key={notConsidered}
+                            text={notConsidered}
+                        >
+                            <CandidateIcons.NOT_CONSIDERED
+                                className={getValidClassNames(
+                                    styles.icon,
+                                    styles.redIcon,
+                                )}
+                            />
+                        </CandidateParameter>
+                    ))}
                 </ul>
             </Grid>
             {!isProfileOpen && (

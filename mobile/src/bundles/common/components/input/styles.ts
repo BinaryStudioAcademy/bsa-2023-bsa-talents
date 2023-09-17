@@ -24,6 +24,16 @@ const styles = StyleSheet.create({
         backgroundColor: Color.INPUT,
         opacity: 0.5,
     },
+    iconContainer: {
+        borderWidth: 1,
+        borderRightWidth: 0,
+        borderColor: Color.INPUT,
+        borderTopLeftRadius: 5,
+        borderBottomLeftRadius: 5,
+    },
+    noLeftBorder: {
+        borderLeftWidth: 0,
+    },
 });
 
 export { styles };
