@@ -53,6 +53,9 @@ class ChatMessagesRepository implements Repository {
             .query()
             .insertAndFetch({
                 ...payload,
+            })
+            .withGraphFetched({
+                sender: true,
             });
 
         return ChatMessageEntity.initialize(newChatMessage);
@@ -64,7 +67,10 @@ class ChatMessagesRepository implements Repository {
         const { id, ...rest } = payload;
         const patchedChatMessage = await this.chatMessageModel
             .query()
-            .patchAndFetchById(id, { ...rest });
+            .patchAndFetchById(id, { ...rest })
+            .withGraphFetched({
+                sender: true,
+            });
 
         return ChatMessageEntity.initialize(patchedChatMessage);
     }

@@ -46,6 +46,22 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *          isRead:
  *            type: boolean
  *            description: Indicates whether the message has been read (true) or not (false).
+ *          sender:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: string
+ *                format: uuid
+ *                example: "fdbde779-70ee-4e92-831d-4b05ce2799ae"
+ *              fullName:
+ *                type: string
+ *                example: full name
+ *              companyName:
+ *                type: string
+ *                example: company name
+ *              companyLogoId:
+ *                type: string
+ *                format: uuid
  */
 class ChatMessagesController extends ControllerBase {
     private chatMessagesService: ChatMessagesService;
