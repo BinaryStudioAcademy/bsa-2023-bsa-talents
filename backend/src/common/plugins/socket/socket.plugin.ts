@@ -2,6 +2,7 @@ import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
 import { Server } from 'socket.io';
 
 import { SocketEvent } from './enums/enums.js';
+import { type ChatMessageGetAllItemResponseDto } from './types/types.js';
 
 const socket: FastifyPluginCallback = (
     fastify: FastifyInstance,
@@ -16,19 +17,24 @@ const socket: FastifyPluginCallback = (
     });
 
     io.on(SocketEvent.CONNECTION, (socket) => {
-        socket.on(SocketEvent.CHAT_JOIN_ROOM, (roomId) => {
-            return socket.join(roomId);
+        socket.on(SocketEvent.CHAT_JOIN_ROOM, (chatId: string) => {
+            return socket.join(chatId);
         });
 
-        socket.on(SocketEvent.CHAT_LEAVE_ROOM, (roomId) => {
-            return socket.leave(roomId);
+        socket.on(SocketEvent.CHAT_LEAVE_ROOM, (chatId: string) => {
+            return socket.leave(chatId);
         });
 
-        socket.on(SocketEvent.CHAT_CREATE_MESSAGE, (message, roomId) => {
-            if (socket.rooms.has(roomId)) {
-                socket.to(roomId).emit(SocketEvent.CHAT_ADD_MESSAGE, message);
-            }
-        });
+        socket.on(
+            SocketEvent.CHAT_CREATE_MESSAGE,
+            (payload: ChatMessageGetAllItemResponseDto) => {
+                if (socket.rooms.has(payload.chatId)) {
+                    socket
+                        .to(payload.chatId)
+                        .emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
+                }
+            },
+        );
     });
 
     done();
