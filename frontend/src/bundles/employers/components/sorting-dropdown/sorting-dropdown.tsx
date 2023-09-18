@@ -4,9 +4,9 @@ import {
     type FieldPath,
     type UseFormReset,
 } from 'react-hook-form';
+import { UserSortCriteria } from 'shared/build/index.js';
 
 import { Select } from '~/bundles/common/components/components.js';
-import { SortingOptions } from '~/bundles/employers/enums/enums.js';
 
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 
@@ -19,7 +19,7 @@ type Properties = {
     isDisabled?: boolean;
 };
 
-const sortingOptions = Object.values(SortingOptions).map((type) => ({
+const sortingOptions = Object.values(UserSortCriteria).map((type) => ({
     value: type.value,
     label: type.label,
 }));

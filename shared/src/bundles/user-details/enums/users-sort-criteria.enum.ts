@@ -1,28 +1,40 @@
 const UserSortCriteria = {
     SALARY_ASCENDING: {
-        label: 'Salary | Ascending',
+        label: 'salary ↑',
+        value: 'salary_asc',
         column: 'salary_expectation',
         direction: 'asc',
     },
     SALARY_DESCENDING: {
-        label: 'Salary | Descending',
+        label: 'salary ↓',
+        value: 'salary_desc',
         column: 'salary_expectation',
         direction: 'desc',
     },
     EXPERIENCE_ASCENDING: {
-        label: 'Experience | Ascending',
+        label: 'experience ↑',
+        value: 'experience_asc',
         column: 'experience_years',
         direction: 'asc',
     },
     EXPERIENCE_DESCENDING: {
-        label: 'Experience | Descending',
+        label: 'experience ↓',
+        value: 'experience_desc',
         column: 'experience_years',
         direction: 'desc',
     },
-    NEWEST: { label: 'Newest', column: 'created_at', direction: 'asc' },
-    OLDEST: { label: 'Oldest', column: 'created_at', direction: 'desc' },
+    NEWEST: {
+        label: 'newest',
+        value: 'newest',
+        column: 'created_at',
+        direction: 'asc',
+    },
+    OLDEST: {
+        label: 'oldest',
+        value: 'newest',
+        column: 'created_at',
+        direction: 'desc',
+    },
 } as const;
-
-//TODO change labels according to UI requirements
 
 export { UserSortCriteria };
