@@ -4,7 +4,7 @@ import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserDetailsCreateRequestDto,
-    type UserDetailsFindRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
@@ -57,13 +57,17 @@ const updateOnboardingData = createAsyncThunk<
 });
 
 const getTalentDetails = createAsyncThunk<
-    UserDetailsResponseDto | null,
-    UserDetailsFindRequestDto,
+    UserDetailsGeneralResponseDto | null,
+    UserDetailsFindByUserIdRequestDto,
     AsyncThunkConfig
->(`${sliceName}/getTalentDetails`, (detailsPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
+>(`${sliceName}/getTalentDetails`, async (payload, { extra }) => {
+    const { notifications, authApi } = extra;
     try {
-        return talentApi.getTalentDetailsById(detailsPayload);
+        const userDetails = await authApi.getUserDetailsByUserId({
+            userId: payload.userId,
+        });
+
+        return userDetails ?? null;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

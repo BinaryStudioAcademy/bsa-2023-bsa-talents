@@ -3,6 +3,7 @@ import {
     type NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
 import React from 'react';
+import { type UserDetailsFindByUserIdRequestDto } from 'shared/build/index';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import { Loader } from '~/bundles/common/components/components';
@@ -18,6 +19,7 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
+import { getTalentDetails } from '~/bundles/talent/store/actions';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -50,12 +52,15 @@ const Root: React.FC = () => {
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
     //TODO use when backend is ready
-    // useEffect(() => {
-    //     const payload: UserDetailsFindRequestDto = {
-    //         userId: currentUserData?.id,
-    //     };
-    //     void dispatch(talentActions.getTalentDetails(payload));
-    // }, [currentUserData?.id, dispatch]);
+    useEffect(() => {
+        if (!currentUserData?.id) {
+            return;
+        }
+        const payload: UserDetailsFindByUserIdRequestDto = {
+            userId: currentUserData.id,
+        };
+        void dispatch(getTalentDetails(payload));
+    }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return <Loader />;

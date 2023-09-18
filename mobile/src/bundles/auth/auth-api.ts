@@ -1,4 +1,7 @@
 import {
+    type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsResponseDto,
+    type UserFindResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -9,8 +12,8 @@ import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
+import { UserDetailsApiPath } from '../talent/enums/enums';
 import { AuthApiPath } from './enums/enums';
-import { type UserFindResponseDto } from './types/types';
 
 type Constructor = {
     baseUrl: string;
@@ -65,6 +68,21 @@ class AuthApi extends HttpApiBase {
         );
 
         return await response.json<UserSignInResponseDto>();
+    }
+
+    public async getUserDetailsByUserId(
+        payload: UserDetailsFindByUserIdRequestDto,
+    ): Promise<UserDetailsResponseDto | null> {
+        const { userId = '' } = payload;
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<UserDetailsResponseDto>();
     }
 }
 
