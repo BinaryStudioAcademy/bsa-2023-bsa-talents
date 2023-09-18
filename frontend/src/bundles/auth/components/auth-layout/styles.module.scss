@@ -153,8 +153,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: calc(min(10vh, 228px));
-    margin-bottom: calc(min(10vh, 228px));
+    margin: calc(min(10vh, 228px)) 0;
 }
 
 :global(.header) {
@@ -190,8 +189,7 @@
 :global(.btn) {
     width: 100%;
     max-width: 420px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 0;
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-body);
     font-family: var(--font-family);
