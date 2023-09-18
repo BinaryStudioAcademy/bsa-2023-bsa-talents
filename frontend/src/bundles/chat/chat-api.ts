@@ -37,12 +37,10 @@ class ChatApi extends HttpApiBase {
     }
 
     public async getAllMessagesByChatId(
-        payload: Partial<ChatMessagesResponseDto>,
+        payload: string,
     ): Promise<ChatMessagesResponseDto[]> {
-        const { chatId = '' } = payload;
-
         const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.$CHAT_ID, chatId, {}),
+            this.getFullEndpoint(ChatMessagesApiPath.$CHAT_ID, payload, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,

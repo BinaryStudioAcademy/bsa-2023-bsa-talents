@@ -31,13 +31,17 @@ const getAllMessages = createAsyncThunk<
 });
 
 const getAllMessagesByChatId = createAsyncThunk<
-    ChatMessagesResponseDto[],
-    Partial<ChatMessagesResponseDto>,
+    {
+        chatId: string;
+        messages: ChatMessagesResponseDto[];
+    },
+    string,
     AsyncThunkConfig
 >(`${sliceName}/get-messages-by-chat-id`, async (chatId, { extra }) => {
     const { chatApi } = extra;
+    const messages = await chatApi.getAllMessagesByChatId(chatId);
 
-    return await chatApi.getAllMessagesByChatId(chatId);
+    return { chatId, messages };
 });
 
 const createMessage = createAsyncThunk<

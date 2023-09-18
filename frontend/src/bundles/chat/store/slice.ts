@@ -4,17 +4,27 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { type ChatMessagesResponseDto } from '../types/types.js';
-import { createMessage } from './actions.js';
+import {
+    createMessage,
+    getAllMessages,
+    getAllMessagesByChatId,
+} from './actions.js';
 
 type State = {
-    currentChatMessages: ChatMessagesResponseDto[];
-    currentChatId: string | null;
+    messages: ChatMessagesResponseDto[];
+    current: {
+        chatId: string | null;
+        messages: ChatMessagesResponseDto[];
+    };
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-    currentChatMessages: [],
-    currentChatId: null,
+    messages: [],
+    current: {
+        chatId: null,
+        messages: [],
+    },
     dataStatus: DataStatus.IDLE,
 };
 
@@ -24,15 +34,43 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addMatcher(isAnyOf(createMessage.pending), (state) => {
-                state.dataStatus = DataStatus.PENDING;
-            })
-            .addMatcher(isAnyOf(createMessage.rejected), (state) => {
-                state.dataStatus = DataStatus.REJECTED;
-            })
-            .addMatcher(isAnyOf(createMessage.fulfilled), (state) => {
+            .addCase(getAllMessages.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
-            });
+                state.messages = action.payload;
+            })
+            .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
+                state.dataStatus = DataStatus.FULFILLED;
+                state.current.chatId = action.payload.chatId;
+                state.current.messages = action.payload.messages;
+            })
+            .addCase(createMessage.fulfilled, (state, action) => {
+                state.dataStatus = DataStatus.FULFILLED;
+                state.messages = [...state.messages, action.payload];
+                state.current.messages = [
+                    ...state.current.messages,
+                    action.payload,
+                ];
+            })
+            .addMatcher(
+                isAnyOf(
+                    getAllMessages.pending,
+                    getAllMessagesByChatId.pending,
+                    createMessage.pending,
+                ),
+                (state) => {
+                    state.dataStatus = DataStatus.PENDING;
+                },
+            )
+            .addMatcher(
+                isAnyOf(
+                    getAllMessages.rejected,
+                    getAllMessagesByChatId.rejected,
+                    createMessage.rejected,
+                ),
+                (state) => {
+                    state.dataStatus = DataStatus.REJECTED;
+                },
+            );
     },
 });
 
