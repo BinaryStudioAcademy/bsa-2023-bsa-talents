@@ -36,7 +36,7 @@ const TalentOnboardingNavigator: React.FC = () => {
 
     const { completedStep } = onboardingData ?? {};
 
-    const isPendingAuth = dataStatus === DataStatus.PENDING;
+    const isStepDataPending = dataStatus === DataStatus.PENDING;
 
     const stepToActiveScreen = 1;
     const activeStepNumber = completedStep
@@ -59,7 +59,7 @@ const TalentOnboardingNavigator: React.FC = () => {
 
     return (
         <>
-            <Overlay isActive={isPendingAuth} />
+            <Overlay isActive={isStepDataPending} />
             <Drawer.Navigator
                 screenOptions={{
                     headerShown: true,
