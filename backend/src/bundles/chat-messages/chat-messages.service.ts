@@ -1,4 +1,5 @@
 import { ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type ChatMessagesRepository } from './chat-messages.repository.js';
@@ -38,12 +39,35 @@ class ChatMessagesService implements Service {
         };
     }
 
+    public async findAllChatsByUserId(userId: string): Promise<unknown[]> {
+        return this.chatMessagesRepository.findAllChatsByUserId(userId);
+    }
+
     public async create(
         payload: ChatMessagesCreateRequestDto,
     ): Promise<ChatMessageProperties> {
+        const isFirstMessage = !payload.chatId;
+
+        if (isFirstMessage) {
+            const chats =
+                await this.chatMessagesRepository.findAllChatsByUserId(
+                    payload.senderId,
+                );
+
+            for (const chat of chats) {
+                if (chat.receiver?.userId === payload.receiverId) {
+                    throw new HttpError({
+                        message: 'You already have this conversation.',
+                        status: HttpCode.CONFLICT,
+                    });
+                }
+            }
+        }
+
         const newChatMessage = await this.chatMessagesRepository.create(
             payload,
         );
+
         return newChatMessage.toObject();
     }
 

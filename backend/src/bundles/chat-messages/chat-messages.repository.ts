@@ -41,9 +41,56 @@ class ChatMessagesRepository implements Repository {
             .withGraphFetched({
                 sender: true,
             });
+
         return chatMessages.map((chatMessage) =>
             ChatMessageEntity.initialize(chatMessage),
         );
+    }
+
+    public async findAllChatsByUserId(
+        userId: string,
+    ): Promise<ChatMessageEntity[]> {
+        const chats = await this.chatMessageModel
+            .query()
+            .alias('cm')
+            .select([
+                'cm.chat_id',
+                this.chatMessageModel
+                    .raw('cm.created_at')
+                    .as('last_message_created_at'),
+                this.chatMessageModel.raw('cm.message').as('last_message'),
+            ])
+            .join(
+                this.chatMessageModel
+                    .query()
+                    .select([
+                        'chat_id',
+                        this.chatMessageModel.fn
+                            .max(
+                                this.chatMessageModel.raw(
+                                    'created_at::timestamp',
+                                ),
+                            )
+                            .as('max_created_at'),
+                    ])
+                    .groupBy('chat_id')
+                    .as('max_dates'),
+                function () {
+                    this.on('cm.chat_id', '=', 'max_dates.chat_id').andOn(
+                        'cm.created_at',
+                        '=',
+                        'max_dates.max_created_at',
+                    );
+                },
+            )
+            .withGraphFetched({
+                sender: { photo: true },
+                receiver: { photo: true },
+            })
+            .where('senderId', userId)
+            .orWhere('receiverId', userId);
+
+        return chats.map((chat) => ChatMessageEntity.initialize(chat));
     }
 
     public async create(
@@ -53,9 +100,6 @@ class ChatMessagesRepository implements Repository {
             .query()
             .insertAndFetch({
                 ...payload,
-            })
-            .withGraphFetched({
-                sender: true,
             });
 
         return ChatMessageEntity.initialize(newChatMessage);

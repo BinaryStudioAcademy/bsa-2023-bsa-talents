@@ -15,7 +15,11 @@ class ChatMessageModel extends AbstractModel {
     public 'chatId': string;
     public 'message': string;
     public 'isRead': boolean;
-    public 'sender': UserDetailsModel;
+
+    public 'lastMessageCreatedAt'?: string;
+    public 'lastMessage'?: string;
+    public 'sender'?: UserDetailsModel;
+    public 'receiver'?: UserDetailsModel;
 
     public static override get tableName(): string {
         return DatabaseTableName.CHAT_MESSAGES;
@@ -23,7 +27,7 @@ class ChatMessageModel extends AbstractModel {
 
     public static jsonSchema: JSONSchema = {
         type: 'object',
-        required: ['senderId', 'receiverId', 'chatId', 'message'],
+        required: ['senderId', 'receiverId', 'message'],
         properties: {
             senderId: { type: 'string', format: 'uuid' },
             receiverId: { type: 'string', format: 'uuid' },
@@ -40,10 +44,13 @@ class ChatMessageModel extends AbstractModel {
                 modelClass: UserDetailsModel,
                 filter: (query) =>
                     query.select(
-                        'id',
+                        'userId',
                         'fullName',
                         'companyName',
                         'companyLogoId',
+                        'companyWebsite',
+                        'description',
+                        'linkedinLink',
                     ),
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.SENDER_ID}`,
@@ -54,6 +61,16 @@ class ChatMessageModel extends AbstractModel {
             receiver: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: UserDetailsModel,
+                filter: (query) =>
+                    query.select(
+                        'userId',
+                        'fullName',
+                        'companyName',
+                        'companyLogoId',
+                        'companyWebsite',
+                        'description',
+                        'linkedinLink',
+                    ),
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.RECEIVER_ID}`,
                     to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,

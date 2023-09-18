@@ -7,7 +7,11 @@ type ChatMessageProperties = {
     chatId: string;
     message: string;
     isRead: boolean;
-    sender: UserDetailsModel;
+
+    lastMessageCreatedAt?: string;
+    lastMessage?: string;
+    sender?: UserDetailsModel;
+    receiver?: UserDetailsModel;
 };
 
 export { type ChatMessageProperties };

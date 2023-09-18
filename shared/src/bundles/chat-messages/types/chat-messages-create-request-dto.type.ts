@@ -1,7 +1,7 @@
 type ChatMessagesCreateRequestDto = {
     senderId: string;
     receiverId: string;
-    chatId: string;
+    chatId?: string;
     message: string;
 };
 

@@ -92,6 +92,17 @@ class ChatMessagesController extends ControllerBase {
         });
 
         this.addRoute({
+            path: '/chats/:userId',
+            method: 'GET',
+            handler: (options) =>
+                this.getAllChatsByUserId(
+                    options as ApiHandlerOptions<{
+                        params: { userId: string };
+                    }>,
+                ),
+        });
+
+        this.addRoute({
             path: ChatMessagesApiPath.ROOT,
             method: 'POST',
             validation: {
@@ -181,6 +192,19 @@ class ChatMessagesController extends ControllerBase {
             status: HttpCode.OK,
             payload: await this.chatMessagesService.findAllByChatId(
                 options.params.chatId,
+            ),
+        };
+    }
+
+    private async getAllChatsByUserId(
+        options: ApiHandlerOptions<{
+            params: { userId: string };
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.chatMessagesService.findAllChatsByUserId(
+                options.params.userId,
             ),
         };
     }
