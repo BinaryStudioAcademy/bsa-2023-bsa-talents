@@ -8,7 +8,12 @@ const socket: FastifyPluginCallback = (
     _options,
     done,
 ) => {
-    const io = new Server(fastify.server);
+    const io = new Server(fastify.server, {
+        cors: {
+            origin: '*',
+            credentials: true,
+        },
+    });
 
     io.on(SocketEvent.CONNECTION, (socket) => {
         socket.on(SocketEvent.CHAT_JOIN_ROOM, (roomId) => {
