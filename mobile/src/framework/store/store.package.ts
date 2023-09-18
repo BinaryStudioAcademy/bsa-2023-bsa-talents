@@ -9,6 +9,8 @@ import flipper from 'redux-flipper';
 import { authApi } from '~/bundles/auth/auth';
 import { reducer as authReducer } from '~/bundles/auth/store/slice';
 import { AppEnvironment } from '~/bundles/common/enums/enums';
+import { gatherSelectedDataApi } from '~/bundles/gather-selected-data/gather-selected-data';
+import { reducer as gatherSelectedDataReducer } from '~/bundles/gather-selected-data/store';
 import { reducer as talentsReducer } from '~/bundles/talent/store';
 import { talentApi } from '~/bundles/talent/talent';
 import { type Config } from '~/framework/config/config';
@@ -18,6 +20,7 @@ import { storage } from '~/framework/storage/storage';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     talents: ReturnType<typeof talentsReducer>;
+    gatherSelectedData: ReturnType<typeof gatherSelectedDataReducer>;
 };
 
 type ExtraArguments = {
@@ -25,6 +28,7 @@ type ExtraArguments = {
     notifications: typeof notifications;
     talentApi: typeof talentApi;
     storage: typeof storage;
+    gatherSelectedDataApi: typeof gatherSelectedDataApi;
 };
 
 class Store {
@@ -44,6 +48,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 talents: talentsReducer,
+                gatherSelectedData: gatherSelectedDataReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 const middleware = getDefaultMiddleware({
@@ -67,6 +72,7 @@ class Store {
             talentApi,
             notifications,
             storage,
+            gatherSelectedDataApi,
         };
     }
 }

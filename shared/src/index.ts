@@ -8,6 +8,10 @@ export {
 } from './bundles/candidate/candidate.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
+    type BadgesResponseDto,
+    type HardSkillsResponseDto,
+} from './bundles/gather-selected-data/gather-selected-data.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
