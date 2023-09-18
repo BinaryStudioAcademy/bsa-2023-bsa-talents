@@ -78,7 +78,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         name="password"
                         placeholder="Enter your password"
-                        secureTextEntry={isPasswordVisible}
+                        secureTextEntry={!isPasswordVisible}
                     />
                     <PasswordVisibilityToggle
                         isPasswordVisible={isPasswordVisible}

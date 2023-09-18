@@ -17,9 +17,15 @@ import {
     TextCategory,
     UserRole,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
+import { PasswordVisibilityToggle } from '../components';
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
@@ -49,6 +55,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         ],
         [],
     );
+
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     return (
         <View
@@ -91,7 +99,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         name="password"
                         placeholder="Enter your password"
-                        secureTextEntry
+                        secureTextEntry={!isPasswordVisible}
+                    />
+                    <PasswordVisibilityToggle
+                        isPasswordVisible={isPasswordVisible}
+                        setIsPasswordVisible={setIsPasswordVisible}
                     />
                 </FormField>
                 <Button
