@@ -39,8 +39,15 @@ class ChatMessagesService implements Service {
         };
     }
 
-    public async findAllChatsByUserId(userId: string): Promise<unknown[]> {
-        return this.chatMessagesRepository.findAllChatsByUserId(userId);
+    public async findAllChatsByUserId(userId: string): Promise<{
+        items: ChatMessageProperties[];
+    }> {
+        const chats = await this.chatMessagesRepository.findAllChatsByUserId(
+            userId,
+        );
+        return {
+            items: chats.map((chat) => chat.toObject()),
+        };
     }
 
     public async create(

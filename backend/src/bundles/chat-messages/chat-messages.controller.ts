@@ -92,7 +92,7 @@ class ChatMessagesController extends ControllerBase {
         });
 
         this.addRoute({
-            path: '/chats/:userId',
+            path: ChatMessagesApiPath.CHATS_$USER_ID,
             method: 'GET',
             handler: (options) =>
                 this.getAllChatsByUserId(
@@ -196,6 +196,95 @@ class ChatMessagesController extends ControllerBase {
         };
     }
 
+    /**
+     * @swagger
+     * /chat-messages/chats/{userId}:
+     *   get:
+     *     tags:
+     *       - "Chat Message"
+     *     description: Retrieves all chats for a specific user by userId
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - name: userId
+     *         in: path
+     *         description: The ID of the user to retrieve chats for.
+     *         required: true
+     *         schema:
+     *           format: uuid # Example: '7c16e786-e801-4538-b2b1-fe6fd8faeba1'
+     *           type: string
+     *     responses:
+     *       200:
+     *         description: Successful retrieval of user's chats
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   chatId:
+     *                     format: uuid # Example: '8b6deae3-33a7-4154-95a7-ebb2ad01522c'
+     *                     type: string
+     *                     description: The ID of the chat.
+     *                   lastMessageCreatedAt:
+     *                     type: string
+     *                     format: date-time # Example: '2023-09-18T19:19:02.121Z'
+     *                     description: The timestamp of the last message in the chat.
+     *                   lastMessage:
+     *                     type: string
+     *                     description: The content of the last message in the chat.
+     *                   sender:
+     *                     type: object
+     *                     properties:
+     *                       userId:
+     *                         format: uuid # Example: '7c16e786-e801-4538-b2b1-fe6fd8faeba1'
+     *                         type: string
+     *                         description: The ID of the sender.
+     *                       description:
+     *                         type: string
+     *                         description: The description of the sender.
+     *                       fullName:
+     *                         type: string
+     *                         description: The full name of the sender.
+     *                       linkedinLink:
+     *                         type: string
+     *                         description: The LinkedIn profile link of the sender.
+     *                       companyName:
+     *                         type: string
+     *                         description: The company name of the sender.
+     *                       companyWebsite:
+     *                         type: string
+     *                         description: The company website of the sender.
+     *                       photo:
+     *                         type: string
+     *                         description: The photo of the sender.
+     *                   receiver:
+     *                     type: object
+     *                     properties:
+     *                       userId:
+     *                         format: uuid # Example: 'e5e738b7-91bd-49f4-b6ca-34b2b45339f0'
+     *                         type: string
+     *                         description: The ID of the receiver.
+     *                       description:
+     *                         type: string
+     *                         description: The description of the receiver.
+     *                       fullName:
+     *                         type: string
+     *                         description: The full name of the receiver.
+     *                       linkedinLink:
+     *                         type: string
+     *                         description: The LinkedIn profile link of the receiver.
+     *                       companyName:
+     *                         type: string
+     *                         description: The company name of the receiver.
+     *                       companyWebsite:
+     *                         type: string
+     *                         description: The company website of the receiver.
+     *                       photo:
+     *                         type: string
+     *                         description: The photo of the receiver.
+     */
     private async getAllChatsByUserId(
         options: ApiHandlerOptions<{
             params: { userId: string };
