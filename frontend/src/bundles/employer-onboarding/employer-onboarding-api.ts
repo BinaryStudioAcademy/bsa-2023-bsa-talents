@@ -22,22 +22,6 @@ class EmployerOnBoardingApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    // public async getUserDetailsByUserId(
-    //     payload: Partial<UserDetailsGeneralCustom>,
-    // ): Promise<UserDetailsGeneralCustom | null> {
-    //     const { userId = '' } = payload;
-
-    //     const response = await this.load(
-    //         this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
-    //         {
-    //             method: 'GET',
-    //             contentType: ContentType.JSON,
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return response.json<UserDetailsGeneralCustom>();
-    // }
-
     public async createUserDetails(
         payload: UserDetailsGeneralCustom,
     ): Promise<UserDetailsGeneralCustom> {
@@ -53,20 +37,20 @@ class EmployerOnBoardingApi extends HttpApiBase {
         return response.json<UserDetailsGeneralCustom>();
     }
 
-    // public async updateUserDetails(
-    //     payload: UserDetailsGeneralCustom,
-    // ): Promise<UserDetailsGeneralCustom> {
-    //     const response = await this.load(
-    //         this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
-    //         {
-    //             method: 'PATCH',
-    //             contentType: ContentType.JSON,
-    //             payload: JSON.stringify(payload),
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return response.json<UserDetailsGeneralCustom>();
-    // }
+    public async updateUserDetails(
+        payload: UserDetailsGeneralCustom,
+    ): Promise<UserDetailsGeneralCustom> {
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
+            {
+                method: 'PATCH',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+        return response.json<UserDetailsGeneralCustom>();
+    }
 }
 
 export { EmployerOnBoardingApi };
