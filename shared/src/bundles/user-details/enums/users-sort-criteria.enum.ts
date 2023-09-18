@@ -31,7 +31,7 @@ const UserSortCriteria = {
     },
     OLDEST: {
         label: 'oldest',
-        value: 'newest',
+        value: 'oldest',
         column: 'created_at',
         direction: 'desc',
     },
