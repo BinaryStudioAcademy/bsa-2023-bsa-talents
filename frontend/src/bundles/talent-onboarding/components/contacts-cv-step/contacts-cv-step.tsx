@@ -345,9 +345,9 @@ const ContactsCVStep: React.FC = () => {
                     />
 
                     <FormHelperText className={styles.fileError}>
-                        {errors.cv?.type === 'fileSize' ||
-                            (errors.cv?.type === 'fileType' &&
-                                errors.cv.message)}
+                        {(errors.cv?.type === 'fileSize' ||
+                            errors.cv?.type === 'fileType') &&
+                            errors.cv.message}
                     </FormHelperText>
                 </FormControl>
 
