@@ -6,6 +6,7 @@ import {
 import { Controller } from 'react-hook-form';
 
 import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
+import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Autocomplete,
     Checkbox,
@@ -32,7 +33,10 @@ import {
     OnboardingSteps,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import {
+    type SkillsStepDto,
+    type UserDetailsGeneralCustom,
+} from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import {
@@ -61,9 +65,13 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
     label: option,
 }));
 
+const getAuthState = (state: RootReducer): State => state.auth;
+const getTalentOnBoardingState = (
+    state: RootReducer,
+): UserDetailsGeneralCustom => state.talentOnBoarding;
 const SkillsStep: React.FC = () => {
-    const { talentOnBoarding, auth } = useAppSelector(
-        (state: RootReducer) => state,
+    const currentUser = useAppSelector(
+        (rootState) => getAuthState(rootState).currentUser,
     );
     const {
         hardSkills,
@@ -71,8 +79,7 @@ const SkillsStep: React.FC = () => {
         notConsidered,
         preferredLanguages,
         projectLinks,
-    } = talentOnBoarding;
-    const { currentUser } = auth;
+    } = useAppSelector((rootState) => getTalentOnBoardingState(rootState));
 
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<SkillsStepDto>({
@@ -98,7 +105,7 @@ const SkillsStep: React.FC = () => {
     useEffect(() => {
         reset({
             hardSkills,
-            englishLevel: setEnglishLevelValue(englishLevel),
+            englishLevel,
             notConsidered,
             preferredLanguages,
             projectLinks: toUrlLinks(projectLinks),
@@ -274,7 +281,6 @@ const SkillsStep: React.FC = () => {
                     name={'englishLevel'}
                     placeholder="Option"
                 />
-
                 {errors.englishLevel && (
                     <FormHelperText className={styles.hasError}>
                         {String(errors.englishLevel.message)}
