@@ -2,18 +2,20 @@ import React from 'react';
 
 import {
     Button,
-    launchCamera,
-    launchImageLibrary,
     Modal,
-    PermissionsAndroid,
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { PermissionsAndroid } from '~/bundles/common/constants/constants';
 import {
     ButtonType,
     ErrorMessages,
     TextCategory,
 } from '~/bundles/common/enums/enums';
+import {
+    launchCamera,
+    launchImageLibrary,
+} from '~/bundles/common/helpers/helpers';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {

@@ -1,4 +1,4 @@
-import { StyleSheet } from '~/bundles/common/components/components';
+import { StyleSheet } from '~/bundles/common/styles/styles';
 
 const styles = StyleSheet.create({
     wrapper: {

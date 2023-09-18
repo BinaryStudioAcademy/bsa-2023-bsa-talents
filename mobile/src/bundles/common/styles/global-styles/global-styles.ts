@@ -1,4 +1,4 @@
-import { StyleSheet } from '~/bundles/common/components/components';
+import { StyleSheet } from '~/bundles/common/styles/styles';
 
 import { FLEX } from './flex';
 import { FONTS } from './fonts';

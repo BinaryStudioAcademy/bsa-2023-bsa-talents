@@ -2,6 +2,7 @@ import React from 'react';
 
 import { DEFAULT_VALUE_IS_DISABLED } from '~/bundles/common/components/badge/constants/constants';
 import { Badge, Checkbox, View } from '~/bundles/common/components/components';
+import { type BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
 import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
@@ -10,7 +11,6 @@ import {
     type FieldValues,
     type ValueOf,
 } from '~/bundles/common/types/types';
-import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from '../styles';
 

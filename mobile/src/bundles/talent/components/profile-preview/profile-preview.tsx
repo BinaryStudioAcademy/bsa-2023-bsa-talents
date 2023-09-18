@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Icon, Text, View } from '~/bundles/common/components/components';
+import {
+    MaterialIcon,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -58,7 +62,7 @@ const ProfilePreview: React.FC = () => {
                             globalStyles.pb15,
                         ]}
                     >
-                        <Icon
+                        <MaterialIcon
                             name={IconName.LANGUAGE}
                             size={iconSize}
                             color={Color.PRIMARY}
@@ -76,7 +80,7 @@ const ProfilePreview: React.FC = () => {
                             globalStyles.pb15,
                         ]}
                     >
-                        <Icon
+                        <MaterialIcon
                             name={IconName.EXPERIENCE}
                             size={iconSize}
                             color={Color.PRIMARY}
@@ -94,7 +98,7 @@ const ProfilePreview: React.FC = () => {
                             globalStyles.pb15,
                         ]}
                     >
-                        <Icon
+                        <MaterialIcon
                             name={IconName.FORUM}
                             size={iconSize}
                             color={Color.PRIMARY}
@@ -116,7 +120,7 @@ const ProfilePreview: React.FC = () => {
                                         globalStyles.pb15,
                                     ]}
                                 >
-                                    <Icon
+                                    <MaterialIcon
                                         name={IconName.CHECK_CIRCLE}
                                         size={iconSize}
                                         color={Color.PRIMARY}
@@ -137,7 +141,7 @@ const ProfilePreview: React.FC = () => {
                             globalStyles.pb15,
                         ]}
                     >
-                        <Icon
+                        <MaterialIcon
                             name={IconName.NOT_CONSIDER}
                             size={iconSize}
                             color={Color.ERROR}

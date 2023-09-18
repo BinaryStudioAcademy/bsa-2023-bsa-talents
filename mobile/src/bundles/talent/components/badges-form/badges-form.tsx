@@ -8,10 +8,10 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 

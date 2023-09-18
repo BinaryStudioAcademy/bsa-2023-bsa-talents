@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {
-    Animated,
-    Icon,
+    MaterialIcon,
     ScrollView,
     Text,
     TextInput,
@@ -16,7 +15,7 @@ import {
     useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+import { Animated, globalStyles } from '~/bundles/common/styles/styles';
 import {
     type Control,
     type FieldPath,
@@ -96,7 +95,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                         <Animated.View
                             style={[iconAnimatedStyle, styles.dropdownButton]}
                         >
-                            <Icon
+                            <MaterialIcon
                                 name={IconName.ARROW_DROP_DOWN}
                                 size={ICON_SIZE}
                                 color={Color.PRIMARY}

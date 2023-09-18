@@ -49,7 +49,6 @@ export {
     type RadioGroupProps,
 } from 'react-native-radio-buttons-group';
 export {
-    type BsaBadgeStepBadgesTitle,
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,

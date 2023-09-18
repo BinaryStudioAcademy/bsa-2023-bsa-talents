@@ -5,10 +5,6 @@ export {
 export { ProfileTab } from './profile-tab/profile-tab.enum';
 export {
     AuthApiPath,
-    BsaBadgeStepBadgesTitle,
-    CountryList,
-    EmploymentType,
-    JobTitle,
     ProfileStepValidationRule,
     SkillsStepValidationRule,
     UserDetailsApiPath,

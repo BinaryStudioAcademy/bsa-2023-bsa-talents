@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { SignIn, SignUp } from '~/bundles/auth/screens/screens';
-import { createNativeStackNavigator } from '~/bundles/common/components/components';
 import { AuthScreenName } from '~/bundles/common/enums/enums';
+import { createNativeStackNavigator } from '~/bundles/common/helpers/helpers';
 import {
     type AuthNavigationParameterList,
     type NativeStackNavigationOptions,

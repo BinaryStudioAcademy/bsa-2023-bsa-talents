@@ -1,13 +1,11 @@
 import React from 'react';
 
-import {
-    createBottomTabNavigator,
-    Icon,
-} from '~/bundles/common/components/components';
+import { MaterialIcon } from '~/bundles/common/components/components';
 import {
     IconName,
     TalentBottomTabScreenName,
 } from '~/bundles/common/enums/enums';
+import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
 
@@ -26,7 +24,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 component={Mail}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon
+                        <MaterialIcon
                             name={IconName.MAIL}
                             size={iconSize}
                             color={color}
@@ -39,7 +37,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 component={TalentProfile}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon
+                        <MaterialIcon
                             name={IconName.PERSON}
                             size={iconSize}
                             color={color}

@@ -21,9 +21,13 @@ export {
 export {
     ApiPath,
     AppEnvironment,
+    BsaBadgeStepBadgesTitle,
     ContentType,
+    CountryList,
+    EmploymentType,
     EnglishLevel,
     ErrorMessages,
+    JobTitle,
     NotConsidered,
     PreferredLanguages,
     ServerErrorType,

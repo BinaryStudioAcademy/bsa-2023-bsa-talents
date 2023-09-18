@@ -1,16 +1,14 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import {
-    createNativeStackNavigator,
-    Loader,
-} from '~/bundles/common/components/components';
+import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
     UserRole,
 } from '~/bundles/common/enums/enums';
+import { createNativeStackNavigator } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppSelector,

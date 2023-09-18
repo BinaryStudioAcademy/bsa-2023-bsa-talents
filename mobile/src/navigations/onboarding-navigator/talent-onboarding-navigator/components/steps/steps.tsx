@@ -2,11 +2,9 @@ import React from 'react';
 
 import { logout } from '~/bundles/auth/store/actions';
 import {
-    Animated,
     Button,
     CommunityIcon,
     DrawerContentScrollView,
-    interpolate,
     Pressable,
     Text,
     View,
@@ -23,7 +21,11 @@ import {
     useAppDispatch,
     useDrawerProgress,
 } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    Animated,
+    globalStyles,
+    interpolate,
+} from '~/bundles/common/styles/styles';
 import {
     type DrawerContentComponentProps,
     type TalentOnboardingRouteProperties,

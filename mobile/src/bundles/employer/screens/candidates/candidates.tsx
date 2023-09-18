@@ -5,7 +5,7 @@ import {
     StatusBar,
     View,
 } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
+import { BsaBadgeStepBadgesTitle, Color } from '~/bundles/common/enums/enums';
 import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
@@ -13,7 +13,6 @@ import {
     CandidatesHeader,
     SearchTalents,
 } from '~/bundles/employer/components/components';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/employer/enums/enums';
 import { type Candidate } from '~/bundles/employer/types/types';
 
 // TODO replace with real users

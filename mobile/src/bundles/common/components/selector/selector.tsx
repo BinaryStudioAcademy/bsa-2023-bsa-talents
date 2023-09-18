@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {
-    Animated,
-    Icon,
+    MaterialIcon,
     Pressable,
     ScrollView,
     Text,
@@ -17,7 +16,7 @@ import {
     useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+import { Animated, globalStyles } from '~/bundles/common/styles/styles';
 import {
     type Control,
     type FieldPath,
@@ -100,7 +99,7 @@ const Selector = <T extends FieldValues>({
                         : placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>
-                    <Icon
+                    <MaterialIcon
                         name={IconName.ARROW_DROP_DOWN}
                         size={ICON_SIZE}
                         color={Color.PRIMARY}

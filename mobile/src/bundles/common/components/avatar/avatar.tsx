@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Icon, Image, Text } from '~/bundles/common/components/components';
+import {
+    Image,
+    MaterialIcon,
+    Text,
+} from '~/bundles/common/components/components';
 import {
     AvatarType,
     IconName,
@@ -59,7 +63,7 @@ const Avatar: React.FC<AvatarProperties> = ({
         );
     }
     return (
-        <Icon
+        <MaterialIcon
             size={avatarStyles.iconSize}
             style={[styles.icon, avatarStyles.size]}
             name={IconName.PERSON}

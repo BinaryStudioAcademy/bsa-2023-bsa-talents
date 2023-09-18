@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { createDrawerNavigator } from '~/bundles/common/components/components';
 import {
     TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
     TalentOnboardingScreenNumberByStep,
     TalentOnboardingStepState,
 } from '~/bundles/common/enums/enums';
+import { createDrawerNavigator } from '~/bundles/common/helpers/helpers';
 import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type DrawerContentComponentProps,

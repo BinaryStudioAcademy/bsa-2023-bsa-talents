@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    Animated,
     ScrollView,
     Tag,
     Text,
@@ -17,7 +16,7 @@ import {
     useState,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+import { Animated, globalStyles } from '~/bundles/common/styles/styles';
 import {
     type Control,
     type FieldPath,

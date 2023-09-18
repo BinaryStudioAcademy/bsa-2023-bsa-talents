@@ -1,5 +1,5 @@
-import { StyleSheet } from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
+import { StyleSheet } from '~/bundles/common/styles/styles';
 
 const styles = StyleSheet.create({
     tag: {

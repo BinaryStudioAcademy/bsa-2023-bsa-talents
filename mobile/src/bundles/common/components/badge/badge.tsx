@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Icon, Text, View } from '~/bundles/common/components/components';
+import {
+    MaterialIcon,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import {
     BadgeSize,
+    BsaBadgeStepBadgesTitle,
     IconName,
     TextCategory,
 } from '~/bundles/common/enums/enums';
@@ -13,7 +18,6 @@ import {
     type ValueOf,
     type ViewStyle,
 } from '~/bundles/common/types/types';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 
@@ -96,7 +100,11 @@ const Badge: React.FC<Properties> = ({
                     size === BadgeSize.SMALL && globalStyles.alignSelfFlexStart,
                 ]}
             >
-                <Icon name={IconName.HEADPHONES} size={iconSize} color="#FFF" />
+                <MaterialIcon
+                    name={IconName.HEADPHONES}
+                    size={iconSize}
+                    color="#FFF"
+                />
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>

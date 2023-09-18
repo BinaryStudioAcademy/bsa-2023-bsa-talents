@@ -1,4 +1,4 @@
-import { type EmployeesFilterOption } from './employees-filters-option';
+import { type EmployeesFilterOption } from './employees-filters-option.type';
 
 // TODO: Change with real data
 type EmployeesFiltersDto = {

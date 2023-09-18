@@ -1,13 +1,11 @@
 import React from 'react';
 
-import {
-    createBottomTabNavigator,
-    Icon,
-} from '~/bundles/common/components/components';
+import { MaterialIcon } from '~/bundles/common/components/components';
 import {
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
+import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { type EmployerBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import {
     Candidates,
@@ -30,7 +28,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 component={Candidates}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon
+                        <MaterialIcon
                             name={IconName.FOLDER_SHARED}
                             size={iconSize}
                             color={color}
@@ -43,7 +41,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 component={Chat}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon
+                        <MaterialIcon
                             name={IconName.MAIL}
                             size={iconSize}
                             color={color}
@@ -56,7 +54,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 component={EmployerProfile}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon
+                        <MaterialIcon
                             name={IconName.PERSON}
                             size={iconSize}
                             color={color}

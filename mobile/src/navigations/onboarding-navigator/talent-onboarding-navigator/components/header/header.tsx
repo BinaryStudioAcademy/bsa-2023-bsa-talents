@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    Icon,
+    MaterialIcon,
     Pressable,
     Text,
     View,
@@ -30,7 +30,7 @@ const Header: React.FC<Properties> = ({ navigation: { openDrawer } }) => {
             ]}
         >
             <Pressable style={styles.icon} onPress={openDrawer}>
-                <Icon name="menu" size={30} color="#fff" />
+                <MaterialIcon name="menu" size={30} color="#fff" />
             </Pressable>
             <Text category={TextCategory.H5} style={styles.title}>
                 Create an account
