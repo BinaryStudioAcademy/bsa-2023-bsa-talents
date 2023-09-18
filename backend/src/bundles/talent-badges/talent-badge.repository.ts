@@ -51,7 +51,7 @@ class TalentBadgeRepository implements Repository {
         const talentBadge = await this.talentBadgeModel
             .query()
             .patchAndFetchById(id as string, {
-                isShown: !isShown,
+                isShown,
                 userDetailsId,
             });
 

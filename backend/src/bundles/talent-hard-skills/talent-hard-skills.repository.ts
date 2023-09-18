@@ -5,7 +5,7 @@ import { TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
 import { type TalentHardSkillsModel } from './talent-hard-skills.model.js';
 import {
     type TalentHardSkill,
-    type TalentHardSkillFind,
+    type TalentHardSkillNew,
     type TalentHardSkillUpdate,
 } from './types/types.js';
 
@@ -21,8 +21,8 @@ class TalentHardSkillsRepository implements Repository {
     }
 
     public async create(
-        talentHardSkill: TalentHardSkill,
-    ): Promise<TalentHardSkillFind> {
+        talentHardSkill: TalentHardSkillNew,
+    ): Promise<TalentHardSkill> {
         const item = await this.talentHardSkillsModel
             .query()
             .insert({
@@ -40,7 +40,7 @@ class TalentHardSkillsRepository implements Repository {
 
     public async findByUserDetailsId(
         userDetailsId: string,
-    ): Promise<TalentHardSkillFind[]> {
+    ): Promise<TalentHardSkill[]> {
         const skills = await this.talentHardSkillsModel
             .query()
             .where({ userDetailsId });
@@ -53,7 +53,7 @@ class TalentHardSkillsRepository implements Repository {
     public async update({
         userDetailsId,
         talentHardSkills,
-    }: TalentHardSkillUpdate): Promise<TalentHardSkillFind[]> {
+    }: TalentHardSkillUpdate): Promise<TalentHardSkill[]> {
         const existingTalentHardSkills = await this.findByUserDetailsId(
             userDetailsId,
         );
@@ -70,7 +70,7 @@ class TalentHardSkillsRepository implements Repository {
         );
 
         if (idsToDelete.length > 0) {
-            await this.deleteUnusedHardSkills(userDetailsId, idsToDelete);
+            await this.deleteByIds(userDetailsId, idsToDelete);
         }
 
         if (idsToInsert.length > 0) {
@@ -87,7 +87,7 @@ class TalentHardSkillsRepository implements Repository {
         return this.findByUserDetailsId(userDetailsId);
     }
 
-    public async deleteUnusedHardSkills(
+    public async deleteByIds(
         userDetailsId: string,
         idsToDelete: string[],
     ): Promise<void> {

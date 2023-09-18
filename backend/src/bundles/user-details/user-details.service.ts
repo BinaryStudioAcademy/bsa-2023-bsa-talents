@@ -3,7 +3,9 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
+import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
+import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
@@ -63,7 +65,8 @@ class UserDetailsService implements Service {
 
         const userDetailsId = newUserDetails.toObject().id as string;
 
-        let badgesResult, hardSkillsResult;
+        let badgesResult: TalentBadge[] = [],
+            hardSkillsResult: TalentHardSkill[] = [];
 
         if (talentBadges) {
             badgesResult = await Promise.all(
@@ -111,7 +114,8 @@ class UserDetailsService implements Service {
 
         const userDetailsId = userDetails.toObject().id as string;
 
-        let badgesResult, hardSkillsResult;
+        let badgesResult: TalentBadge[] = [],
+            hardSkillsResult: TalentHardSkill[] = [];
 
         if (talentBadges) {
             badgesResult = await Promise.all(
@@ -139,8 +143,8 @@ class UserDetailsService implements Service {
 
         return {
             ...updatedUserDetails.toObject(),
-            talentHardSkills: hardSkillsResult,
             talentBadges: badgesResult,
+            talentHardSkills: hardSkillsResult,
         };
     }
 

@@ -12,7 +12,7 @@ import { HardSkillsModel } from '../hard-skills/hard-skills.js';
 class TalentHardSkillsModel extends AbstractModel {
     public 'hardSkillId': string;
 
-    public 'userDetailsId': string | null;
+    public 'userDetailsId': string;
 
     public static override get tableName(): string {
         return DatabaseTableName.TALENT_HARD_SKILLS;

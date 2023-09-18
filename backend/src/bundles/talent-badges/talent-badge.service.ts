@@ -40,6 +40,7 @@ class TalentBadgeService implements Service {
         return badge
             ? this.talentBadgeRepository.update({
                   ...badge,
+                  isShown: !badge.isShown,
                   userDetailsId,
               })
             : this.talentBadgeRepository.create({

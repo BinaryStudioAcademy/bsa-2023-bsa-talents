@@ -5,7 +5,7 @@ class TalentHardSkillsEntity implements Entity {
 
     private 'hardSkillId': string;
 
-    private 'userDetailsId': string | null;
+    private 'userDetailsId': string;
 
     private constructor({
         id,
@@ -14,7 +14,7 @@ class TalentHardSkillsEntity implements Entity {
     }: {
         id: string | null;
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }) {
         this.id = id;
         this.hardSkillId = hardSkillId;
@@ -28,7 +28,7 @@ class TalentHardSkillsEntity implements Entity {
     }: {
         id: string | null;
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }): TalentHardSkillsEntity {
         return new TalentHardSkillsEntity({
             id,
@@ -42,7 +42,7 @@ class TalentHardSkillsEntity implements Entity {
         userDetailsId,
     }: {
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }): TalentHardSkillsEntity {
         return new TalentHardSkillsEntity({
             id: null,
@@ -54,7 +54,7 @@ class TalentHardSkillsEntity implements Entity {
     public toObject(): {
         id: string | null;
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             id: this.id as string,
@@ -65,7 +65,7 @@ class TalentHardSkillsEntity implements Entity {
 
     public toNewObject(): {
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             hardSkillId: this.hardSkillId,
