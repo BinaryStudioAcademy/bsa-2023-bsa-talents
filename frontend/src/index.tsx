@@ -19,6 +19,7 @@ import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
+import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
@@ -101,13 +102,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.MY_PROFILE,
                                         element: (
                                             <ProtectedRoute>
-                                                <ProfileCabinet />
+                                                <FormSubmitProvider>
+                                                    <ProfileCabinet />
+                                                </FormSubmitProvider>
                                             </ProtectedRoute>
                                         ),
                                         children: [
                                             {
                                                 path: '',
-                                                element: <StepNavigation />,
+                                                element: (
+                                                    <ProtectedRoute>
+                                                        <StepNavigation />
+                                                    </ProtectedRoute>
+                                                ),
                                             },
                                         ],
                                     },
