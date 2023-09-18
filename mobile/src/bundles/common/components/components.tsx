@@ -42,10 +42,7 @@ export {
     TouchableOpacity,
     View,
 } from 'react-native';
-export {
-    default as DocumentPicker,
-    types as DocumentPickerTypes,
-} from 'react-native-document-picker';
+export { default as DocumentPicker } from 'react-native-document-picker';
 export { GestureHandlerRootView } from 'react-native-gesture-handler';
 export { default as RadioGroup } from 'react-native-radio-buttons-group';
 export { default as SplashScreen } from 'react-native-splash-screen';

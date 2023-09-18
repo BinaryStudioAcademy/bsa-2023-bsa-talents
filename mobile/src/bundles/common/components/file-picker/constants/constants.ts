@@ -1,4 +1,4 @@
-import { DocumentPickerTypes } from '~/bundles/common/components/components';
+import { DocumentPickerTypes } from '~/bundles/common/types/types';
 
 const ACCEPTED_DOCUMENT_TYPES = [
     DocumentPickerTypes.doc,

@@ -43,6 +43,7 @@ export {
     type TextStyle,
     type ViewStyle,
 } from 'react-native';
+export { types as DocumentPickerTypes } from 'react-native-document-picker';
 export { type ImagePickerResponse } from 'react-native-image-picker';
 export {
     type RadioButtonProps,
