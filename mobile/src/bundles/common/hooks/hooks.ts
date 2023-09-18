@@ -5,6 +5,7 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook';
 export { useOnboardingFormSubmit } from './use-onboarding-form-submit/use-onboarding-form-submit.hook';
 export { useSelectorAnimations } from './use-selector-animations/use-selector-animations';
 export { useVisibility } from './use-visibility/use-visibility';
+export { useBackHandler } from '@react-native-community/hooks';
 export { useLinkTo } from '@react-navigation/native';
 export { useNavigation } from '@react-navigation/native';
 export { useCallback, useEffect, useMemo, useState } from 'react';
