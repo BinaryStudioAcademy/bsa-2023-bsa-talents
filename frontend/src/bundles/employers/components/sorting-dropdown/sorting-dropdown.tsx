@@ -4,10 +4,10 @@ import {
     type FieldPath,
     type UseFormReset,
 } from 'react-hook-form';
-import { UserSortCriteria } from 'shared/build/index.js';
 
 import { Select } from '~/bundles/common/components/components.js';
 
+import { UserSortCriteria } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 
 type Properties = {

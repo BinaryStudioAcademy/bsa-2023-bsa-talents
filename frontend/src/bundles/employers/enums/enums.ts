@@ -3,6 +3,7 @@ export { BsaCharacteristics } from './bsa-characteristics.enum.js';
 export { BsaProject } from './bsa-project.enum.js';
 export { CheckboxesFields } from './checkboxes-fields-name.enum.js';
 export { ExperienceYears } from './experience-years.enum.js';
+export { UserSortCriteria } from 'shared/build/index.js';
 export {
     CountryList,
     EmploymentType,
