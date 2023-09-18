@@ -1,4 +1,8 @@
-import { Avatar } from '~/bundles/common/components/components.js';
+import {
+    Avatar,
+    Button,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
@@ -26,17 +30,20 @@ const VerificationListItem: React.FC<Properties> = ({
     return (
         <>
             <li>
-                <button
+                <Button
                     className={getValidClassNames(
                         styles.card,
                         styles.btnReset,
                         isSelected ? 'selected' : '',
                     )}
                     onClick={handleSelect}
+                    disableRipple={true}
                 >
                     <Avatar className={styles.avatar} src={imageSrc} />
-                    <span className={styles.name}>{name}</span>
-                </button>
+                    <Typography className={styles.name} variant="body1">
+                        {name}
+                    </Typography>
+                </Button>
             </li>
         </>
     );

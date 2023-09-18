@@ -1,16 +1,15 @@
 import { ManageSearch } from '@mui/icons-material';
-import { Grid } from '@mui/material';
-import { useCallback } from 'react';
-import { type ValueOf } from 'shared/build/index.js';
 
 import {
     Avatar,
     Button,
+    Grid,
+    IconButton,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { IconButton } from '~/bundles/common/components/icon-button/icon-button.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useCallback,
     useEffect,
     useMediaQuery,
     useState,
@@ -18,7 +17,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { PreviewTabs } from '../constants/constants.js';
-import { type FilterValues } from '../types/filter-values.types.js';
+import { type FilterValues, type ValueOf } from '../types/types.js';
 import { VerificationList } from './../components/components.js';
 import { employers, talents } from './../mock-data/mock-data.js';
 import styles from './styles.module.scss';
@@ -32,7 +31,7 @@ const Verification: React.FC = () => {
 
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
     const [selectedId, setSelectedId] = useState<string>(
-        items[FIRST_INDEX].userId,
+        items[FIRST_INDEX]?.userId,
     );
     const [selectedTab, setSelectedTab] = useState<TabValues>(
         PreviewTabs.PROFILE,
@@ -42,28 +41,28 @@ const Verification: React.FC = () => {
     const isTogglePreviewAllowed = !isScreenMoreMD && isFilterOpen;
 
     // TODO: Change mock data to data from DB.
-    const selected =
-        items.find((it) => it.userId === selectedId) ?? items[FIRST_INDEX];
+    const selected = items.find((it) => it.userId === selectedId);
 
     const handleSelectTab = useCallback(
         (_event: React.MouseEvent<HTMLSpanElement>): void => {
-            const span = _event.target as HTMLSpanElement;
-            setSelectedTab(span.textContent as TabValues);
+            const button = _event.target as HTMLSpanElement;
+            setSelectedTab(button.textContent as TabValues);
         },
         [],
     );
 
     const previewTabs = Object.values(PreviewTabs).map((tab) => (
-        <button
+        <Button
             key={tab}
             onClick={handleSelectTab}
             className={getValidClassNames(
                 styles.tab,
                 selectedTab === tab ? 'selected' : '',
             )}
+            disableRipple={true}
         >
             {tab}
-        </button>
+        </Button>
     ));
 
     const handleFilterShow = useCallback((): void => {
@@ -121,11 +120,11 @@ const Verification: React.FC = () => {
                         <Grid className={styles.previewHeader}>
                             <Avatar
                                 className={styles.avatar}
-                                src={selected.avatar}
+                                src={selected?.avatar}
                             />
-                            <span className={styles.name}>
-                                {selected.username}
-                            </span>
+                            <Typography variant="body1" className={styles.name}>
+                                {selected?.username ?? 'username'}
+                            </Typography>
                         </Grid>
                         <Grid className={styles.tabs}>{previewTabs}</Grid>
                         <Grid item className={styles.previewInfo}>

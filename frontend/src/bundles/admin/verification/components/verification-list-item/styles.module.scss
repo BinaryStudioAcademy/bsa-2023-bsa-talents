@@ -12,6 +12,10 @@
     cursor: pointer;
 }
 
+.card:hover {
+    background-color: var(--solitude);
+}
+
 .card:global(.selected) {
     background-color: var(--solitude);
 }

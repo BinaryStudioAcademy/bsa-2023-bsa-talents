@@ -2,7 +2,7 @@
     --page-title-height: 82px;
     --page-vertical-padding: 70px;
     --content-padding-mobile: 0px 15px 0px;
-    --content-padding-web: 20px 50px 50px 50px;
+    --content-padding-web: 20px 50px 0px 50px;
     --title-paddding-mobile: 26px 15px;
     --title-padding-web: 26px 50px;
     --preview-header-height: 92px;
@@ -10,7 +10,7 @@
     --preview-wrapper-max-height: calc(
         100vh - var(--header-height) - var(--page-title-height) - var(
                 --page-vertical-padding
-            ) - var(--preview-button-group-height)
+            ) - var(--preview-button-group-height) - 5px
     );
     --preview-tab-height: 72px;
 }
@@ -148,6 +148,12 @@
     line-height: var(--line-height-main);
     border-bottom: 2px solid var(--background-primary);
     cursor: pointer;
+}
+
+.tab:hover {
+    background-color: unset;
+    border-bottom: 2px solid var(--solitude);
+    box-shadow: unset;
 }
 
 .tab:global(.selected) {
