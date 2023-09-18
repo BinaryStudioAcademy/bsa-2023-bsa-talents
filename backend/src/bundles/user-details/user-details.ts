@@ -12,5 +12,5 @@ const userDetailsController = new UserDetailsController(
     userDetailsService,
 );
 
-export { userDetailsController, userDetailsService };
+export { userDetailsController, userDetailsRepository, userDetailsService };
 export { UserDetailsModel } from './user-details.model.js';

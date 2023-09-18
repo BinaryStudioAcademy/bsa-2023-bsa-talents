@@ -12,10 +12,13 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    AuthScreenName,
+    TextCategory,
+    UserRole,
+} from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { UserRole } from '~/bundles/users/enums/enums';
 
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
