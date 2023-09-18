@@ -4,6 +4,7 @@ import { type ColorProperty } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 type Properties = {
+    id?: string;
     component?: string;
     label: string;
     variant?: 'text' | 'outlined' | 'contained';
@@ -17,6 +18,7 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
+    id,
     variant = 'contained',
     label,
     type = 'button',
@@ -28,6 +30,7 @@ const Button: React.FC<Properties> = ({
     onClick,
 }) => (
     <MUIButton
+        id={id}
         type={type}
         variant={variant}
         disabled={disabled}

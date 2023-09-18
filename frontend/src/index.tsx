@@ -18,6 +18,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { Verification } from './bundles/admin/verification/pages/verification.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
@@ -126,6 +127,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     isOnline
                                                 >
                                                     <Candidates />
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.VERIFICATION,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <Verification />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),

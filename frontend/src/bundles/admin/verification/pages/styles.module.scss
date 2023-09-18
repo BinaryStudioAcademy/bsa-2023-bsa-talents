@@ -1,0 +1,126 @@
+:root {
+    --page-title-height: 82px;
+    --page-vertical-padding: 70px;
+    --content-padding-mobile: 0px 15px 0px;
+    --content-padding-web: 20px 50px 50px 50px;
+    --title-paddding-mobile: 26px 15px;
+    --title-padding-web: 26px 50px;
+}
+
+.pageWrapper {
+    flex-direction: column;
+    min-height: calc(100vh - var(--header-height));
+    background-color: var(--background-primary);
+}
+
+.pageTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--title-paddding-mobile);
+    border-bottom: 1px solid var(--outline);
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.headerText {
+    font-size: var(--font-size-h4);
+}
+
+.pageContent {
+    flex: 1;
+    flex-wrap: nowrap;
+    padding: var(--content-padding-mobile);
+    column-gap: 24px;
+}
+
+.previewWrapper {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(
+        100vh - var(--header-height) - var(--page-title-height) - var(
+                --page-vertical-padding
+            ) - 52px
+    );
+    margin-top: 52px;
+    overflow: hidden;
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+.previewWrapper:global(.hidden) {
+    display: none;
+}
+
+.previewInfo {
+    max-height: calc(100% - 70px);
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.filterWrapper {
+    --page-title-height: 82px;
+    --page-vertical-padding: 70px;
+
+    width: 100%;
+    max-height: calc(
+        100vh - var(--header-height) - var(--page-title-height) - var(
+                --page-vertical-padding
+            )
+    );
+    margin-top: 5px;
+}
+
+.filterWrapper:global(.hidden) {
+    display: none;
+}
+
+.buttonGroup {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    gap: 17px;
+    width: 100%;
+    padding: 15px 60px;
+    background-color: white;
+    border-top: 1px solid var(--outline);
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    font-size: var(--font-size-base);
+    text-transform: unset;
+}
+
+.denyButton {
+    max-width: 114px;
+    margin-left: auto;
+    color: var(--error-primary);
+    border: 1px solid var(--error-primary);
+}
+
+.approveButton {
+    max-width: 127px;
+}
+
+@media screen and (width >= 661px) {
+    .pageTitle {
+        padding: var(--title-padding-web);
+    }
+
+    .pageContent {
+        padding: var(--content-padding-web);
+    }
+}
+
+@media screen and (width >= 992px) {
+    .filterWrapper {
+        max-width: 358px;
+    }
+}

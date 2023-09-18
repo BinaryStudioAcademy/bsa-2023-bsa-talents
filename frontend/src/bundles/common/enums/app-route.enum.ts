@@ -1,4 +1,6 @@
 const AppRoute = {
+    ADMIN: '/admin',
+    VERIFICATION: '/admin/verification',
     ROOT: '/',
     CANDIDATES: '/candidates',
     CANDIDATE: '/candidates/:candidate',
