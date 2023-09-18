@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         width: 3,
         backgroundColor: Color.INPUT,
         position: 'absolute',
-        top: 140,
+        top: 150,
         bottom: 50,
         left: 39,
     },
