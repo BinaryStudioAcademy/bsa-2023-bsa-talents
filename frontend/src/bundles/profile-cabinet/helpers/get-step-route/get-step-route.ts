@@ -1,3 +1,4 @@
-const getStepRoute = (step: string): string => `/my/${step}`;
+const getStepRoute = (step: string, role: string): string =>
+    `/${role}/my/${step}`;
 
 export { getStepRoute };

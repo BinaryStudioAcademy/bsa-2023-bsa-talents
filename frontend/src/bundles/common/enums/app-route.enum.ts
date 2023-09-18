@@ -8,8 +8,9 @@ const AppRoute = {
     RESET_PASSWORD: '/reset-password',
     EMPLOYER_ONBOARDING: '/employer/onboarding',
     TALENT_STEP: '/talent/onboarding/step/:step',
-    NOT_FOUND: 'not-found',
-    MY_PROFILE: '/my/:step',
+    NOT_FOUND: '/not-found',
+    MY_PROFILE_TALENT: '/talent/my/:step',
+    MY_PROFILE_EMPLOYER: '/employer/my/profile',
     OTHER: '*',
 } as const;
 
