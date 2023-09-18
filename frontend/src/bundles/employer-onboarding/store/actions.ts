@@ -25,4 +25,24 @@ const createEmployerDetails = createAsyncThunk<
     },
 );
 
-export { createEmployerDetails };
+const updateEmployerDetails = createAsyncThunk<
+    UserDetailsGeneralCustom,
+    UserDetailsGeneralCustom,
+    AsyncThunkConfig
+>(
+    `${sliceName}/update-employer`,
+    (registerPayload, { extra, rejectWithValue }) => {
+        const { employerOnBoardingApi } = extra;
+
+        try {
+            return employerOnBoardingApi.updateUserDetails(registerPayload);
+        } catch {
+            return rejectWithValue({
+                _type: 'rejected',
+                error: 'Bad request',
+            });
+        }
+    },
+);
+
+export { createEmployerDetails, updateEmployerDetails };
