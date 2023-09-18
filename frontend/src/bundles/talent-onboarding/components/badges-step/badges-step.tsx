@@ -33,14 +33,24 @@ const BadgesStep: React.FC = () => {
         bsaBadges: state.lms.bsaBadges,
     }));
 
-    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
-        defaultValues: { badges },
-        validationSchema: BsaBadgesStepValidationSchema,
-    });
+    const { control, handleSubmit, errors, watch } =
+        useAppForm<BsaBadgesStepDto>({
+            defaultValues: { badges },
+            validationSchema: BsaBadgesStepValidationSchema,
+        });
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
+    const watchedBadges = watch('badges');
+
+    useEffect(() => {
+        if (JSON.stringify(watchedBadges) === JSON.stringify(badges)) {
+            dispatch(actions.setHasChangesInDetails(false));
+        } else {
+            dispatch(actions.setHasChangesInDetails(true));
+        }
+    }, [badges, dispatch, watchedBadges]);
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {

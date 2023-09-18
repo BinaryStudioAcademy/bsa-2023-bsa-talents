@@ -25,7 +25,12 @@ import styles from './styles.module.scss';
 const ProfileCabinet: React.FC = () => {
     const { submitForm } = useFormSubmit();
     const dispatch = useAppDispatch();
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    const { currentUser, hasChanges } = useAppSelector(
+        (state: RootReducer) => ({
+            currentUser: state.auth.currentUser,
+            hasChanges: state.talentOnBoarding.hasChangesInDetails,
+        }),
+    );
     useEffect(() => {
         void dispatch(
             actions.getTalentDetails({
@@ -81,6 +86,7 @@ const ProfileCabinet: React.FC = () => {
                             onClick={handleSaveClick}
                             label={'Save'}
                             variant={'contained'}
+                            disabled={!hasChanges}
                             className={styles.saveButton}
                         />
                     </FormControl>

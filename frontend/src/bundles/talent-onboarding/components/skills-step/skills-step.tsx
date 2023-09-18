@@ -62,33 +62,38 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
 }));
 
 const SkillsStep: React.FC = () => {
+    const { talentOnBoarding, auth } = useAppSelector(
+        (state: RootReducer) => state,
+    );
     const {
         hardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
         projectLinks,
-    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+    } = talentOnBoarding;
+    const { currentUser } = auth;
 
-    const { control, handleSubmit, errors, reset } = useAppForm<SkillsStepDto>({
-        defaultValues: useMemo(
-            () => ({
-                hardSkills,
-                englishLevel: setEnglishLevelValue(englishLevel),
-                notConsidered,
-                preferredLanguages,
-                projectLinks: toUrlLinks(projectLinks),
-            }),
-            [
-                englishLevel,
-                hardSkills,
-                notConsidered,
-                preferredLanguages,
-                projectLinks,
-            ],
-        ),
-        validationSchema: SkillsStepValidationSchema,
-    });
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<SkillsStepDto>({
+            defaultValues: useMemo(
+                () => ({
+                    hardSkills,
+                    englishLevel: setEnglishLevelValue(englishLevel),
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks: toUrlLinks(projectLinks),
+                }),
+                [
+                    englishLevel,
+                    hardSkills,
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks,
+                ],
+            ),
+            validationSchema: SkillsStepValidationSchema,
+        });
 
     useEffect(() => {
         reset({
@@ -110,7 +115,43 @@ const SkillsStep: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    const watchedValues = watch([
+        'hardSkills',
+        'englishLevel',
+        'notConsidered',
+        'preferredLanguages',
+        'projectLinks',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'hardSkills',
+            'englishLevel',
+            'notConsidered',
+            'preferredLanguages',
+            'projectLinks',
+        ]);
+        const initialValues = {
+            hardSkills,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        dispatch(actions.setHasChangesInDetails(hasChanges));
+    }, [
+        dispatch,
+        englishLevel,
+        getValues,
+        hardSkills,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        watchedValues,
+    ]);
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {

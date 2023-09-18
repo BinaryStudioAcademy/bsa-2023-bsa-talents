@@ -43,6 +43,7 @@ const ContactsCVStep: React.FC = () => {
 
     const {
         control,
+        getValues,
         handleSubmit,
         errors,
         setError,
@@ -74,6 +75,21 @@ const ContactsCVStep: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
+    const watchedValues = watch(['fullName', 'phone', 'linkedinLink']);
+
+    useEffect(() => {
+        const newValues = getValues(['fullName', 'phone', 'linkedinLink']);
+        const initialValues = {
+            fullName,
+            phone,
+            linkedinLink,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        dispatch(actions.setHasChangesInDetails(hasChanges));
+    }, [dispatch, fullName, getValues, linkedinLink, phone, watchedValues]);
 
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {

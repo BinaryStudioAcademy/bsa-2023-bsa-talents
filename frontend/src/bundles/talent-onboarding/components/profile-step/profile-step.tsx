@@ -68,8 +68,8 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors, reset } = useAppForm<ProfileStepDto>(
-        {
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<ProfileStepDto>({
             defaultValues: useMemo(
                 () => ({
                     profileName,
@@ -91,8 +91,59 @@ const ProfileStep: React.FC = () => {
                 ],
             ),
             validationSchema: ProfileStepValidationSchema,
-        },
-    );
+        });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
+    const watchedValues = watch([
+        'profileName',
+        'salaryExpectation',
+        'jobTitle',
+        'location',
+        'experienceYears',
+        'employmentType',
+        'description',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'profileName',
+            'salaryExpectation',
+            'jobTitle',
+            'location',
+            'experienceYears',
+            'employmentType',
+            'description',
+        ]);
+        const initialValues = {
+            profileName,
+            salaryExpectation,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        dispatch(actions.setHasChangesInDetails(hasChanges));
+    }, [
+        description,
+        dispatch,
+        employmentType,
+        experienceYears,
+        getValues,
+        jobTitle,
+        location,
+        profileName,
+        salaryExpectation,
+        watchedValues,
+    ]);
 
     useEffect(() => {
         reset({
@@ -114,12 +165,6 @@ const ProfileStep: React.FC = () => {
         reset,
         salaryExpectation,
     ]);
-
-    const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {

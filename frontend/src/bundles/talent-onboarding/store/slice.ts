@@ -30,12 +30,17 @@ const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     dataStatus: DataStatus.IDLE,
     completedStep: null,
+    hasChangesInDetails: false,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'talentOnBoarding',
-    reducers: {},
+    reducers: {
+        setHasChangesInDetails: (state, action) => {
+            state.hasChangesInDetails = action.payload;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
