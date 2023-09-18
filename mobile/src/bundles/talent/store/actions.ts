@@ -60,16 +60,13 @@ const getTalentDetails = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getTalentDetails`, async (payload, { extra }) => {
-    const { notifications, authApi } = extra;
+    const { notifications, talentApi } = extra;
     try {
-        const userDetails = await authApi.getUserDetailsByUserId({
+        const userDetails = await talentApi.getUserDetailsByUserId({
             userId: payload.userId,
         });
-
         return userDetails ?? null;
     } catch (error) {
-        // console.log('it error');
-
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
         throw error;

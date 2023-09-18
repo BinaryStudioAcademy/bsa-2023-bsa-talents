@@ -51,58 +51,20 @@ class TalentApi extends HttpApiBase {
         return await response.json<UserDetailsResponseDto>();
     }
 
-    // public async getTalentDetailsById(
-    //     payload: UserDetailsFindRequestDto,
-    // ): Promise<UserDetailsResponseDto | null> {
-    //     const { userId = '' } = payload;
-    //     const response = await this.load(
-    //         this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
-    //         {
-    //             method: 'GET',
-    //             contentType: ContentType.JSON,
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return await response.json<UserDetailsResponseDto>();
-    // }
-
-    //TODO delete when backend is ready
-    // public getTalentDetailsById(
-    //     payload: UserDetailsFindRequestDto,
-    // ): UserDetailsResponseDto | null {
-    //     const { userId = '' } = payload;
-    //     const fakeTalentDetailsData: UserDetailsResponseDto = {
-    //         id: '329d3d03-30af-4ca7-87f2-c253d47449f9',
-    //         userId: userId,
-    //         isApproved: false,
-    //         deniedReason: null,
-    //         isHired: false,
-    //         profileName: 'Fake Profile name',
-    //         salaryExpectation: 9999,
-    //         hiredSalary: null,
-    //         jobTitle: '.NET Developer',
-    //         location: 'Algeria',
-    //         experienceYears: 3,
-    //         employmentType: ['Remotely'],
-    //         description: 'Fake Description',
-    //         englishLevel: null,
-    //         notConsidered: null,
-    //         preferredLanguages: null,
-    //         projectLinks: null,
-    //         photoId: null,
-    //         fullName: 'Fake Full name',
-    //         phone: null,
-    //         linkedinLink: null,
-    //         companyName: null,
-    //         companyLogoId: null,
-    //         companyWebsite: null,
-    //         employerPosition: null,
-    //         cvId: null,
-    //         completedStep: null,
-    //     };
-
-    //     return fakeTalentDetailsData;
-    // }
+    public async getUserDetailsByUserId(
+        payload: Partial<UserDetailsUpdateRequestDto>,
+    ): Promise<UserDetailsUpdateRequestDto | null> {
+        const { userId = '' } = payload;
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<UserDetailsUpdateRequestDto>();
+    }
 }
 
 export { TalentApi };

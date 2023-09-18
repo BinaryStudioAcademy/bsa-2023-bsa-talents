@@ -50,10 +50,7 @@ const Root: React.FC = () => {
 
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
-    //TODO use when backend is ready
     useEffect(() => {
-        // console.log(currentUserData?.id);
-
         void dispatch(getTalentDetails({ userId: currentUserData?.id }));
     }, [currentUserData?.id, dispatch]);
 
