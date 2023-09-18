@@ -162,7 +162,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     multiline={true}
                 />
             </FormField>
-            <View style={[globalStyles.flexDirectionRow, styles.submitButton]}>
+            <View style={globalStyles.flexDirectionRow}>
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>
