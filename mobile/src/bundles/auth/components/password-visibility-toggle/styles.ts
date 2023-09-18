@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     icon: {
         position: 'absolute',
         right: 20,
-        top: 48,
+        bottom: 15,
     },
 });
 
