@@ -1,5 +1,5 @@
 const HardSkillsApiPath = {
-    ROOT: '/',
+    ROOT: '/hard-skills',
 } as const;
 
 export { HardSkillsApiPath };
