@@ -59,32 +59,31 @@ const ProfileCabinet: React.FC = () => {
                             Your Profile
                         </Typography>
                     </Grid>
-                    <Tabs>
-                        <Tab label="Profile" href="/my/profile" />
-                        <Tab label="BSA badges" href="/my/bsa-badges" />
-                        <Tab
-                            label="Skills and projects"
-                            href="/my/skills-and-projects"
-                        />
-                        <Tab
-                            label="CV and contacts"
-                            href="/my/cv-and-contacts"
-                        />
-                        <Tab label="Hirings" href="/my/hirings" />
-                    </Tabs>
+                    <Grid className={styles.tabNavigation}>
+                        <Tabs>
+                            <Tab label="Profile" href="/my/profile" />
+                            <Tab label="BSA badges" href="/my/bsa-badges" />
+                            <Tab
+                                label="Skills and projects"
+                                href="/my/skills-and-projects"
+                            />
+                            <Tab
+                                label="CV and contacts"
+                                href="/my/cv-and-contacts"
+                            />
+                        </Tabs>
+                    </Grid>
                 </Grid>
-                <Grid className={styles.stepBody}>
+                <Grid className={styles.stepContainer}>
                     <FormControl className={styles.form}>
                         {<RouterOutlet />}
-                    </FormControl>
-                    <Grid>
                         <Button
                             onClick={handleSaveClick}
                             label={'Save'}
                             variant={'contained'}
                             className={styles.saveButton}
                         />
-                    </Grid>
+                    </FormControl>
                 </Grid>
             </Grid>
         </PageLayout>
