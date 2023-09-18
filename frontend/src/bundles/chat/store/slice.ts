@@ -31,7 +31,24 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'chat',
-    reducers: {},
+    reducers: {
+        joinRoom: (state, action) => {
+            const chatId = action.payload;
+            state.current.chatId = chatId;
+            state.current.messages = [];
+        },
+        leaveRoom: (state) => {
+            state.current.chatId = null;
+            state.current.messages = [];
+        },
+        addMessage: (state, action) => {
+            state.messages = [...state.messages, action.payload];
+            state.current.messages = [
+                ...state.current.messages,
+                action.payload,
+            ];
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(getAllMessages.fulfilled, (state, action) => {
