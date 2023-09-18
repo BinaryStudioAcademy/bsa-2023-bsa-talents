@@ -29,6 +29,7 @@ const TalentOnboardingNavigator: React.FC = () => {
                 drawerStyle: {
                     width: 330,
                 },
+                drawerHideStatusBarOnOpen: true,
             }}
             drawerContent={(
                 props: DrawerContentComponentProps,
