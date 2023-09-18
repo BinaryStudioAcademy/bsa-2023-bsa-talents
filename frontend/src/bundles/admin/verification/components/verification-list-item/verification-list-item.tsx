@@ -23,30 +23,20 @@ const VerificationListItem: React.FC<Properties> = ({
         onSelect(id);
     }, [onSelect, id]);
 
-    const handleKeyBoardSelect = useCallback(
-        (_event: React.KeyboardEvent): void => {
-            if (_event.key === 'Enter' || _event.key === 'Space') {
-                onSelect(id);
-            }
-        },
-        [onSelect, id],
-    );
     return (
         <>
             <li>
-                <span
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={handleKeyBoardSelect}
+                <button
                     className={getValidClassNames(
                         styles.card,
+                        styles.btnReset,
                         isSelected ? 'selected' : '',
                     )}
                     onClick={handleSelect}
                 >
                     <Avatar className={styles.avatar} src={imageSrc} />
                     <span className={styles.name}>{name}</span>
-                </span>
+                </button>
             </li>
         </>
     );

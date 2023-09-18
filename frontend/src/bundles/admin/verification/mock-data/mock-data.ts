@@ -10,16 +10,11 @@ const talents = [
     {
         userId: 'talent_2',
         username: 'regular broccoli',
-        lastMessage: 'hello again, and again',
-        lastMessageDate: '2h',
         avatar: 'https://cdn.pixabay.com/photo/2023/09/10/09/50/squirrel-8244590_1280.jpg',
     },
     {
         userId: 'talent_3',
         username: 'Long name dates long name long name',
-        lastMessage:
-            'long message long message long message long message long message long message long message ',
-        lastMessageDate: '21m',
         avatar: 'https://pixabay.com/photos/corgi-dog-pet-canine-rain-animal-4415649/',
     },
     {

@@ -5,6 +5,14 @@
     --content-padding-web: 20px 50px 50px 50px;
     --title-paddding-mobile: 26px 15px;
     --title-padding-web: 26px 50px;
+    --preview-header-height: 92px;
+    --preview-button-group-height: 52px;
+    --preview-wrapper-max-height: calc(
+        100vh - var(--header-height) - var(--page-title-height) - var(
+                --page-vertical-padding
+            ) - var(--preview-button-group-height)
+    );
+    --preview-tab-height: 72px;
 }
 
 .pageWrapper {
@@ -42,11 +50,7 @@
     position: relative;
     flex-direction: column;
     width: 100%;
-    max-height: calc(
-        100vh - var(--header-height) - var(--page-title-height) - var(
-                --page-vertical-padding
-            ) - 52px
-    );
+    max-height: var(--preview-wrapper-max-height);
     margin-top: 52px;
     overflow: hidden;
     background-color: var(--white);
@@ -57,8 +61,21 @@
     display: none;
 }
 
+.previewHeader {
+    display: flex;
+    align-items: center;
+    padding: 21px 0;
+}
+
+.avatar {
+    margin: 0 12px 0 10px;
+    border-radius: 100%;
+}
+
 .previewInfo {
-    max-height: calc(100% - 70px);
+    max-height: calc(
+        100% - var(--preview-header-height) - var(--preview-tab-height)
+    );
     padding: 10px;
     overflow-y: scroll;
 }
@@ -107,6 +124,41 @@
 
 .approveButton {
     max-width: 127px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 10px;
+    background-color: var(--background-primary);
+    border-radius: 4px;
+}
+
+.tab {
+    all: unset;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 150px;
+    padding: 15px 5px;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-main);
+    border-bottom: 2px solid var(--background-primary);
+    cursor: pointer;
+}
+
+.tab:global(.selected) {
+    color: var(--st-tropaz);
+    border-bottom: 2px solid var(--st-tropaz);
+}
+
+@media screen and (width >= 429px) {
+    .tab {
+        font-size: var(--font-size-body);
+    }
 }
 
 @media screen and (width >= 661px) {

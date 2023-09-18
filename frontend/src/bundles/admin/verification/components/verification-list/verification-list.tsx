@@ -1,36 +1,42 @@
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
+import { type FilterValues, type MockData } from '../../types/types.js';
 import { VerificationListItem } from '../verification-list-item/verification-list-item.js';
 import { employers, talents } from './../../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
 type Properties = {
+    items: MockData[];
+    filter: string;
+    selectedId: string;
     isFilterOpen: boolean;
     isScreenMoreMd: boolean;
     setIsFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedId: React.Dispatch<React.SetStateAction<string>>;
+    setFilter: React.Dispatch<React.SetStateAction<FilterValues>>;
 };
 
-type FilterValues = 'talents' | 'employers';
-
 const VerificationList: React.FC<Properties> = ({
+    items,
+    filter,
+    setFilter,
+    selectedId,
     isFilterOpen,
-    setIsFilterOpen,
     isScreenMoreMd,
+    setSelectedId,
+    setIsFilterOpen,
 }) => {
-    const [selected, setSelected] = useState<string>('');
-    const [filter, setFilter] = useState<FilterValues>('talents');
-
     const handleListSelect = useCallback(
         (id: string): void => {
-            setSelected(id);
+            setSelectedId(id);
 
             if (!isScreenMoreMd && isFilterOpen) {
                 setIsFilterOpen(false);
             }
         },
-        [isFilterOpen, isScreenMoreMd, setIsFilterOpen],
+        [isFilterOpen, isScreenMoreMd, setIsFilterOpen, setSelectedId],
     );
 
     const handleFilterChange = useCallback(
@@ -38,15 +44,13 @@ const VerificationList: React.FC<Properties> = ({
             const button = _event.target as HTMLButtonElement;
             setFilter(button.id as FilterValues);
         },
-        [],
+        [setFilter],
     );
 
-    const items = filter === 'talents' ? talents : employers;
-
-    const lists = items.map((it) => (
+    const list = items.map((it) => (
         <VerificationListItem
             id={it.userId}
-            isSelected={it.userId === selected}
+            isSelected={it.userId === selectedId}
             onSelect={handleListSelect}
             key={it.userId}
             name={it.username}
@@ -80,7 +84,7 @@ const VerificationList: React.FC<Properties> = ({
                     />
                 </Grid>
                 <Grid className={styles.list}>
-                    <ul>{lists}</ul>
+                    <ul>{list}</ul>
                 </Grid>
             </Grid>
         </>
