@@ -10,6 +10,7 @@ import {
     CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
+    UserRole,
 } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
@@ -18,7 +19,6 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { type RootNavigationParameterList } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/employer-onboarding';
-import { UserRole } from '~/bundles/users/enums/enums';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
