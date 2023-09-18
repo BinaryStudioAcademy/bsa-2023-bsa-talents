@@ -11,6 +11,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
+import { actions as talentOnboardingActons } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import styles from './styles.module.scss';
@@ -23,6 +24,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
 
     const handleSignOut = useCallback((): void => {
         void dispatch(authActions.signOut());
+        void dispatch(talentOnboardingActons.resetState());
         void dispatch(
             storeActions.notify({
                 type: NotificationType.INFO,

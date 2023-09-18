@@ -35,7 +35,9 @@ const initialState: UserDetailsGeneralCustom = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'talentOnBoarding',
-    reducers: {},
+    reducers: {
+        resetState: () => initialState,
+    },
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
