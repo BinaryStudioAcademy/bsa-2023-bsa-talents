@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF951A',
     },
     small: {
-        width: '48.6%',
+        width: '48%',
     },
 });
 
