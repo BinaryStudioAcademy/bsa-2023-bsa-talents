@@ -49,7 +49,7 @@ type UserDetailsResponseDto = {
     talentHardSkills: {
         id: string | null;
         hardSkillId: string;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }[];
     completedStep: ValueOf<typeof OnboardingSteps> | null;
 };
