@@ -6,12 +6,17 @@ import { createEmployerDetails } from './actions.js';
 
 const initialState: EmployerOnboardingDto = {
     ...DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
+    hasChangesInDetails: false,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'employerOnboarding',
-    reducers: {},
+    reducers: {
+        setHasChangesInDetails: (state, action) => {
+            state.hasChangesInDetails = action.payload;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(createEmployerDetails.fulfilled, (state, action) => {
             const data = action.payload;

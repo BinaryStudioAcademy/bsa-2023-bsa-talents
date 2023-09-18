@@ -10,6 +10,7 @@ const createEmployerDetails = createAsyncThunk<
     EmployerOnboardingDto,
     AsyncThunkConfig
 >(`${sliceName}/create-employer`, (registerPayload) => {
+    //TODO: check if created , if no-create, if yes-update
     return registerPayload;
 });
 
