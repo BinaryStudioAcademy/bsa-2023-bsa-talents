@@ -8,7 +8,10 @@ export {
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
-export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties';
+export {
+    type CustomPhotoStyle,
+    type PhotoProperties,
+} from '~/bundles/common/types/components/components';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,

@@ -9,12 +9,15 @@ import { type ImagePickerResponse } from 'react-native-image-picker';
 import {
     Avatar,
     ImagePicker,
-    type ImageStyle,
     Pressable,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { AvatarType, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    type IconName,
+    PhotoType,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import {
     useCallback,
@@ -23,7 +26,11 @@ import {
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type AvatarProperties } from '~/bundles/common/types/types';
+import {
+    type CustomPhotoStyle,
+    type PhotoProperties,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
 import {
     checkIfFileSizeValid,
@@ -31,25 +38,27 @@ import {
 } from '~/bundles/talent/helpers/helpers';
 import { notifications } from '~/framework/notifications/notifications';
 
-type AvatarPickerProperties<T extends FieldValues> = {
+type PhotoPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
-    isSingleAvatarView?: boolean;
-    customAvatarStyle?: StyleProp<ImageStyle>;
-} & AvatarProperties;
+    shouldHideButton?: boolean;
+    defaultIcon?: ValueOf<typeof IconName>;
+    customPhotoStyle?: CustomPhotoStyle;
+} & PhotoProperties;
 
-const AvatarPicker = <T extends FieldValues>({
+const PhotoPicker = <T extends FieldValues>({
     control,
     name,
     buttonStyle,
     containerStyle,
     uri,
-    isSingleAvatarView,
-    customAvatarStyle,
+    shouldHideButton,
+    defaultIcon,
+    customPhotoStyle,
     ...props
-}: AvatarPickerProperties<T>): JSX.Element => {
+}: PhotoPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
 
@@ -104,20 +113,21 @@ const AvatarPicker = <T extends FieldValues>({
 
     return (
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
-            {isSingleAvatarView ? (
+            {shouldHideButton ? (
                 <>
                     <Pressable onPress={toggleVisibility}>
                         <Avatar
                             {...props}
-                            uri={avatar ?? uri}
-                            avatarSize={AvatarType.LARGE}
-                            customAvatarStyle={customAvatarStyle}
+                            uri={avatar}
+                            defaultIcon={defaultIcon}
+                            avatarSize={PhotoType.LARGE}
+                            customPhotoStyle={customPhotoStyle}
                         />
                     </Pressable>
                     {isVisible && (
                         <ImagePicker
                             onImageLoad={imageLoadHandler}
-                            isSingleAvatarView={isSingleAvatarView}
+                            shouldHideButton={shouldHideButton}
                             toggleImagePickerVisibility={toggleVisibility}
                             containerStyle={buttonStyle}
                         />
@@ -125,7 +135,7 @@ const AvatarPicker = <T extends FieldValues>({
                 </>
             ) : (
                 <>
-                    <Avatar {...props} uri={avatar ?? uri} />
+                    <Avatar {...props} uri={avatar} />
                     <Text style={globalStyles.mv10} category={TextCategory.H6}>
                         Upload a new photo
                     </Text>
@@ -140,4 +150,4 @@ const AvatarPicker = <T extends FieldValues>({
     );
 };
 
-export { AvatarPicker };
+export { PhotoPicker };

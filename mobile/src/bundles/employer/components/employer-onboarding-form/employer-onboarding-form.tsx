@@ -1,19 +1,16 @@
 import React from 'react';
 
-import employerComoanyLogo from '~/assets/images/company-logo.png';
-import employerProfilePhoto from '~/assets/images/employer-profile.png';
 import {
     AutocompleteSelector,
-    AvatarPicker,
     Button,
     FormField,
-    Image,
     Input,
+    PhotoPicker,
     ScrollView,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CountryList } from '~/bundles/employer/enums/enums';
@@ -24,8 +21,6 @@ import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 const locationOptions = Object.values(CountryList);
-const defaultProfilePhoto = Image.resolveAssetSource(employerProfilePhoto).uri;
-const defaultCompanyLogo = Image.resolveAssetSource(employerComoanyLogo).uri;
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
@@ -79,11 +74,21 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
-                        <AvatarPicker
-                            isSingleAvatarView
+                        <PhotoPicker
                             control={control}
-                            uri={defaultProfilePhoto}
                             name="profilePhoto"
+                            shouldHideButton
+                            defaultIcon={IconName.PERSON}
+                            customPhotoStyle={{
+                                defaultPhotoContainer: [
+                                    styles.defaultContainer,
+                                    styles.employerProfileContainer,
+                                ],
+                                defaultPhoto: [
+                                    styles.defaultPhoto,
+                                    styles.employerPhoto,
+                                ],
+                            }}
                         />
                     </FormField>
                     <Text category={TextCategory.H6}>Profile photo</Text>
@@ -96,12 +101,22 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         name="companyLogo"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
-                        <AvatarPicker
-                            isSingleAvatarView
+                        <PhotoPicker
                             control={control}
-                            uri={defaultCompanyLogo}
-                            customAvatarStyle={styles.companyLogo}
                             name="companyLogo"
+                            shouldHideButton
+                            defaultIcon={IconName.AUTO_GRAPH}
+                            customPhotoStyle={{
+                                defaultPhotoContainer: [
+                                    styles.defaultContainer,
+                                    styles.companyLogoContainer,
+                                ],
+                                defaultPhoto: [
+                                    styles.defaultPhoto,
+                                    styles.companyLogo,
+                                ],
+                                photoShape: styles.photoShape,
+                            }}
                         />
                     </FormField>
                     <Text category={TextCategory.H6}>Company logo</Text>

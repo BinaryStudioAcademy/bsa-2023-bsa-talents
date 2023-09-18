@@ -19,7 +19,7 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 type ImagePickerProperties = {
-    isSingleAvatarView?: boolean;
+    shouldHideButton?: boolean;
     toggleImagePickerVisibility?: () => void;
     label?: string;
     onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
@@ -30,13 +30,13 @@ import { notifications } from '~/framework/notifications/notifications';
 import { styles } from './styles';
 
 const ImagePicker: React.FC<ImagePickerProperties> = ({
-    isSingleAvatarView = false,
+    shouldHideButton = false,
     toggleImagePickerVisibility,
     label,
     onImageLoad,
     containerStyle,
 }) => {
-    const [isPopUpActive, setIsPopUpActive] = useState(isSingleAvatarView);
+    const [isPopUpActive, setIsPopUpActive] = useState(shouldHideButton);
 
     const getImageFromLibrary = useCallback((): void => {
         toggleImagePickerVisibility?.();
@@ -106,7 +106,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                     />
                 </View>
             </Modal>
-            {!isSingleAvatarView && (
+            {!shouldHideButton && (
                 <Button
                     buttonType={ButtonType.OUTLINE}
                     label={label ?? 'Button'}

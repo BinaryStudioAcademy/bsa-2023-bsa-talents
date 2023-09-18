@@ -1,7 +1,6 @@
 export { AutocompleteMultiSelector } from './autocomplete-selectors/autocomplete-multi-selector';
 export { AutocompleteSelector } from './autocomplete-selectors/autocomplete-selector';
 export { Avatar } from './avatar/avatar';
-export { AvatarPicker } from './avatar-picker/avatar-picker';
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
@@ -17,6 +16,7 @@ export { LostConnectionModal } from './lost-connection-modal/lost-connection-mod
 export { ActiveModal } from './modals/active-modal';
 export { Modal } from './modals/modal';
 export { Overlay } from './overlay/overlay';
+export { PhotoPicker } from './photo-picker/photo-picker';
 export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
