@@ -33,7 +33,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 
 import { Step } from '../components';
-import { ANIMATION_VALUES } from './constants/constants';
+import { ANIMATION_VALUES, STEP_TO_ACTIVE_SCREEN } from './constants/constants';
 import { styles } from './styles';
 
 const {
@@ -52,10 +52,10 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
 
     const progress = useDrawerProgress();
     const dispatch = useAppDispatch();
-    const stepToActiveScreen = 1;
     const activeStepNumber = completedStep
-        ? TalentOnboardingScreenNumberByStep[completedStep] + stepToActiveScreen
-        : stepToActiveScreen;
+        ? TalentOnboardingScreenNumberByStep[completedStep] +
+          STEP_TO_ACTIVE_SCREEN
+        : STEP_TO_ACTIVE_SCREEN;
 
     const getStepState = useCallback(
         (
