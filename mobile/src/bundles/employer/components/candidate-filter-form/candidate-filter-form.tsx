@@ -57,9 +57,9 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
         defaultValues: DEFAULT_VALUES,
     });
 
-    const handleClearFilters = useCallback(() => {
+    const handleClearFilters = (): void => {
         reset();
-    }, [reset]);
+    };
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
