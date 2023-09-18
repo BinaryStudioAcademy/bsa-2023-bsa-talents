@@ -1,7 +1,7 @@
 import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
 import { Server } from 'socket.io';
 
-import { SocketEvent } from './enums/enums.js';
+import { SocketEvent, SocketNamespace } from './enums/enums.js';
 import { type ChatMessageGetAllItemResponseDto } from './types/types.js';
 
 const socket: FastifyPluginCallback = (
@@ -16,7 +16,7 @@ const socket: FastifyPluginCallback = (
         },
     });
 
-    io.on(SocketEvent.CONNECTION, (socket) => {
+    io.of(SocketNamespace.CHAT).on(SocketEvent.CONNECTION, (socket) => {
         socket.on(SocketEvent.CHAT_JOIN_ROOM, (chatId: string) => {
             return socket.join(chatId);
         });

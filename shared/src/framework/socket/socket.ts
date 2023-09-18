@@ -1,1 +1,1 @@
-export { SocketEvent } from './enums/enums.js';
+export { SocketEvent, SocketNamespace } from './enums/enums.js';
