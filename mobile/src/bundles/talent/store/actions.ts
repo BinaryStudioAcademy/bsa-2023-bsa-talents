@@ -4,7 +4,6 @@ import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserDetailsCreateRequestDto,
-    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
@@ -57,8 +56,8 @@ const updateOnboardingData = createAsyncThunk<
 });
 
 const getTalentDetails = createAsyncThunk<
-    UserDetailsGeneralResponseDto | null,
-    UserDetailsFindByUserIdRequestDto,
+    UserDetailsGeneralRequestDto | null,
+    UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getTalentDetails`, async (payload, { extra }) => {
     const { notifications, authApi } = extra;
@@ -69,6 +68,8 @@ const getTalentDetails = createAsyncThunk<
 
         return userDetails ?? null;
     } catch (error) {
+        // console.log('it error');
+
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
         throw error;

@@ -1,6 +1,4 @@
 import {
-    type UserDetailsFindByUserIdRequestDto,
-    type UserDetailsResponseDto,
     type UserFindResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
@@ -13,6 +11,7 @@ import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
 import { UserDetailsApiPath } from '../talent/enums/enums';
+import { type UserDetailsUpdateRequestDto } from '../talent/types/types';
 import { AuthApiPath } from './enums/enums';
 
 type Constructor = {
@@ -71,8 +70,8 @@ class AuthApi extends HttpApiBase {
     }
 
     public async getUserDetailsByUserId(
-        payload: UserDetailsFindByUserIdRequestDto,
-    ): Promise<UserDetailsResponseDto | null> {
+        payload: Partial<UserDetailsUpdateRequestDto>,
+    ): Promise<UserDetailsUpdateRequestDto | null> {
         const { userId = '' } = payload;
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
@@ -82,7 +81,7 @@ class AuthApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsResponseDto>();
+        return await response.json<UserDetailsUpdateRequestDto>();
     }
 }
 

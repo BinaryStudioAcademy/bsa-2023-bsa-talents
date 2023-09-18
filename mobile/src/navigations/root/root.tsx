@@ -3,7 +3,6 @@ import {
     type NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import { type UserDetailsFindByUserIdRequestDto } from 'shared/build/index';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import { Loader } from '~/bundles/common/components/components';
@@ -53,13 +52,9 @@ const Root: React.FC = () => {
 
     //TODO use when backend is ready
     useEffect(() => {
-        if (!currentUserData?.id) {
-            return;
-        }
-        const payload: UserDetailsFindByUserIdRequestDto = {
-            userId: currentUserData.id,
-        };
-        void dispatch(getTalentDetails(payload));
+        // console.log(currentUserData?.id);
+
+        void dispatch(getTalentDetails({ userId: currentUserData?.id }));
     }, [currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
