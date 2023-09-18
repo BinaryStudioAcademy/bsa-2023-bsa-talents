@@ -16,15 +16,21 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(createEmployerDetails.fulfilled, (state, action) => {
             const data = action.payload;
 
-            state.photo = data.photo;
-            state.fullName = data.fullName;
-            state.position = data.position;
-            state.companyName = data.companyName;
-            state.companyWebsite = data.companyWebsite;
-            state.location = data.location;
-            state.description = data.description;
-            state.companyLogo = data.companyLogo;
-            state.linkedInLink = data.linkedInLink;
+            // for (const key in data) {
+            //     const typedKey = key as keyof EmployerOnboardingDto;
+            //     state[typedKey] = data[typedKey];
+            // }
+
+            // TODO: change this to above one
+            // state.photo = data.photo;
+            // state.companyLogo = data.companyLogo;
+
+            state.fullName = data.fullName as string;
+            state.employerPosition = data.employerPosition as string;
+            state.companyName = data.companyName as string;
+            state.companyWebsite = data.companyWebsite as string;
+            state.location = data.location as string;
+            state.description = data.description as string;
         });
     },
 });
