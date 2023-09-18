@@ -97,14 +97,35 @@ const Badge: React.FC<Properties> = ({
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
-                    <Text category={TextCategory.H4}>
+                    <Text
+                        category={
+                            size === BadgeSize.SMALL
+                                ? TextCategory.H5
+                                : TextCategory.H4
+                        }
+                    >
                         {value ?? badges[badgeType].defaultValue}
                     </Text>
-                    <Text category={TextCategory.H4} style={styles.maxScore}>
+                    <Text
+                        category={
+                            size === BadgeSize.SMALL
+                                ? TextCategory.H5
+                                : TextCategory.H4
+                        }
+                        style={styles.maxScore}
+                    >
                         {badges[badgeType].ending}
                     </Text>
                 </View>
-                <Text category={TextCategory.LABEL}>{badgeType}</Text>
+                <Text
+                    category={
+                        size === BadgeSize.SMALL
+                            ? TextCategory.BADGE
+                            : TextCategory.LABEL
+                    }
+                >
+                    {badgeType}
+                </Text>
             </View>
         </View>
     );
