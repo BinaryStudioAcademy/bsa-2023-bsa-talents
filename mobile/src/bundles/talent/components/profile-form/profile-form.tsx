@@ -163,7 +163,6 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 />
             </FormField>
             <View style={globalStyles.flexDirectionRow}>
-                <Button label="Back" disabled style={globalStyles.mr10} />
                 <Button label="Next" onPress={handleFormSubmit} />
             </View>
         </ScrollView>
