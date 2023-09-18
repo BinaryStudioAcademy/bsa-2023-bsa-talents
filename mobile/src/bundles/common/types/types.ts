@@ -1,5 +1,9 @@
 export { type AsyncThunkConfig } from './app/app';
 export {
+    type AutocompleteMultiSelectorValue,
+    type AvatarProperties,
+} from './components/components';
+export {
     type AuthNavigationParameterList,
     type EmployerBottomTabNavigationParameterList,
     type NavigationScreenProperties,
@@ -8,8 +12,8 @@ export {
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
-export { type AvatarProperties } from '~/bundles/common/types/components/avatar-properties';
 export {
+    type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,

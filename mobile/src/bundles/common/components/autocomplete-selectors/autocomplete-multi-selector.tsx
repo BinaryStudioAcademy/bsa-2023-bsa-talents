@@ -8,13 +8,19 @@ import { TextInput } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import {
+    Loader,
     ScrollView,
     Tag,
     Text,
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    LoaderSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -23,20 +29,17 @@ import {
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-type Options = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
-    items: Options[];
+    items: AutocompleteMultiSelectorValue[];
     placeholder?: string;
+    control?: Control<T, null>;
+    isValuesLoading?: boolean;
+    hasError?: boolean;
 };
 
 const AutocompleteMultiSelector = <T extends FieldValues>({
@@ -45,6 +48,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     hasError,
     items,
     placeholder,
+    isValuesLoading,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
@@ -56,7 +60,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         setSearch(text);
     };
 
-    const handleItemSelect = (item: Options): void => {
+    const handleItemSelect = (item: AutocompleteMultiSelectorValue): void => {
         if (value.includes(item.value)) {
             return;
         }
@@ -66,14 +70,22 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     };
 
     const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: Options) => item.value !== itemName));
+        onChange(
+            value.filter(
+                (item: AutocompleteMultiSelectorValue) =>
+                    item.value !== itemName,
+            ),
+        );
     };
 
     const filteredItems = useMemo(() => {
         return items.filter(
             (item) =>
                 item.value.toLowerCase().includes(search.toLowerCase()) &&
-                !value.some((v: Options) => v.value === item.value),
+                !value.some(
+                    (v: AutocompleteMultiSelectorValue) =>
+                        v.value === item.value,
+                ),
         );
     }, [search, value, items]);
 
@@ -109,21 +121,27 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled persistentScrollbar>
-                        {filteredItems.map((item: Options) => (
-                            <TouchableOpacity
-                                key={item.value}
-                                onPress={(): void => {
-                                    handleItemSelect(item);
-                                }}
-                            >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={globalStyles.pv5}
-                                >
-                                    {item.label}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
+                        {isValuesLoading ? (
+                            <Loader size={LoaderSize.SMALL} />
+                        ) : (
+                            filteredItems.map(
+                                (item: AutocompleteMultiSelectorValue) => (
+                                    <TouchableOpacity
+                                        key={item.value}
+                                        onPress={(): void => {
+                                            handleItemSelect(item);
+                                        }}
+                                    >
+                                        <Text
+                                            category={TextCategory.LABEL}
+                                            style={globalStyles.pv5}
+                                        >
+                                            {item.label}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ),
+                            )
+                        )}
                     </ScrollView>
                 </Animated.View>
             </View>
@@ -134,7 +152,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map((item: Options) => (
+                {value.map((item: AutocompleteMultiSelectorValue) => (
                     <Tag
                         key={item.value}
                         value={item.label}

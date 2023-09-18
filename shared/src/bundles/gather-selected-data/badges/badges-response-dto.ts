@@ -1,8 +1,7 @@
+import { type BadgesItem } from './badges-item.js';
+
 type BadgesResponseDto = {
-    id: string;
-    type: string;
-    name: string;
-    maxScore: number;
-}[];
+    items: BadgesItem[];
+};
 
 export { type BadgesResponseDto };

@@ -14,15 +14,23 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
+import { Color, DataStatus, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { transformHardSkillsDto } from '~/bundles/common/helpers/helpers';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     CountryList,
     EmploymentType,
     JobTitle,
 } from '~/bundles/employer/enums/enums';
+import { getHardSkillsData } from '~/bundles/gather-selected-data/store/actions';
 
 import {
     BSA_BADGES,
@@ -30,7 +38,6 @@ import {
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
-    HARD_SKILLS,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 
@@ -42,6 +49,10 @@ const CandidatesFilter: React.FC = () => {
     const { control } = useAppForm({
         defaultValues: DEFAULT_VALUES,
     });
+    const dispatch = useAppDispatch();
+    const { hardSkillsData, dataStatus } = useAppSelector(
+        ({ gatherSelectedData }) => gatherSelectedData,
+    );
     const handleFormSubmit = useCallback((): void => {
         // TODO: handle submit
     }, []);
@@ -49,6 +60,11 @@ const CandidatesFilter: React.FC = () => {
     const onFilterClose = useCallback((): void => {
         // TODO: navigate to Candidates page
     }, []);
+
+    const isHardSkillLoading = dataStatus === DataStatus.PENDING;
+    useEffect(() => {
+        void dispatch(getHardSkillsData());
+    }, [dispatch]);
 
     return (
         <ScrollView
@@ -119,10 +135,11 @@ const CandidatesFilter: React.FC = () => {
             </FormField>
             <FormField label="Hard Skills" name="hardSkills">
                 <AutocompleteMultiSelector
-                    items={HARD_SKILLS}
+                    items={transformHardSkillsDto(hardSkillsData)}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
+                    isValuesLoading={isHardSkillLoading}
                 />
             </FormField>
             <FormField

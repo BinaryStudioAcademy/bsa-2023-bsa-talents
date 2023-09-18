@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ApiPath } from 'shared/build/index';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
@@ -13,10 +14,10 @@ const getHardSkillsData = createAsyncThunk<
     HardSkillsResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}/get-skills`, (_, { extra }) => {
+>(`${sliceName}${ApiPath.HARD_SKILLS}`, async (_, { extra }) => {
     const { gatherSelectedDataApi, notifications } = extra;
     try {
-        return gatherSelectedDataApi.getHardSkillsData();
+        return await gatherSelectedDataApi.getHardSkillsData();
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -28,10 +29,10 @@ const getBadgesData = createAsyncThunk<
     BadgesResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}/get-badges`, (_, { extra }) => {
+>(`${sliceName}${ApiPath.BSA_BADGES}`, async (_, { extra }) => {
     const { gatherSelectedDataApi, notifications } = extra;
     try {
-        return gatherSelectedDataApi.getBadgesData();
+        return await gatherSelectedDataApi.getBadgesData();
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

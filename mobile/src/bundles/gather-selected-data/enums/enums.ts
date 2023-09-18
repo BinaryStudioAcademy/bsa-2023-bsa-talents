@@ -1,1 +1,1 @@
-export { BSABadgeApiPath, HardSkillsApiPath } from 'shared/build/index';
+export { ApiEndChar } from './api-end-char';

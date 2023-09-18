@@ -11,14 +11,14 @@ import { getBadgesData, getHardSkillsData } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    badgesData: BadgesResponseDto | [];
-    hardSkillsData: HardSkillsResponseDto | [];
+    badgesData: BadgesResponseDto | null;
+    hardSkillsData: HardSkillsResponseDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    badgesData: [],
-    hardSkillsData: [],
+    badgesData: null,
+    hardSkillsData: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -28,7 +28,7 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(getBadgesData.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
-            state.badgesData = [];
+            state.badgesData = null;
         });
         builder.addCase(getBadgesData.fulfilled, (state, { payload }) => {
             state.dataStatus = DataStatus.FULFILLED;
@@ -36,11 +36,11 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(getBadgesData.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
-            state.badgesData = [];
+            state.badgesData = null;
         });
         builder.addCase(getHardSkillsData.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
-            state.hardSkillsData = [];
+            state.hardSkillsData = null;
         });
         builder.addCase(getHardSkillsData.fulfilled, (state, { payload }) => {
             state.dataStatus = DataStatus.FULFILLED;
@@ -48,7 +48,7 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(getHardSkillsData.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
-            state.hardSkillsData = [];
+            state.hardSkillsData = null;
         });
     },
 });

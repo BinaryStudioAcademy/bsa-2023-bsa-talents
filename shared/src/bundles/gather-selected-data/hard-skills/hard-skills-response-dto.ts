@@ -1,6 +1,7 @@
+import { type HardSkillsItem } from './hard-skills-item.js';
+
 type HardSkillsResponseDto = {
-    id: string;
-    name: string;
-}[];
+    items: HardSkillsItem[];
+};
 
 export { type HardSkillsResponseDto };
