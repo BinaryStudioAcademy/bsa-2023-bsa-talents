@@ -12,11 +12,11 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     verticalLine: {
-        height: 380,
         width: 3,
         backgroundColor: Color.INPUT,
         position: 'absolute',
         top: 140,
+        bottom: 50,
         left: 39,
     },
     logout: {
