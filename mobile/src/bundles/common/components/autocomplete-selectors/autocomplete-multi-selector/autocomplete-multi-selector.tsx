@@ -51,7 +51,6 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const [search, setSearch] = useState('');
     const { isVisible, toggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
-
     const handleSearch = (text: string): void => {
         setSearch(text);
     };
@@ -66,7 +65,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     };
 
     const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: Options) => item.value !== itemName));
+        onChange(value.filter((item: Options) => item.label !== itemName));
     };
 
     const filteredItems = useMemo(() => {

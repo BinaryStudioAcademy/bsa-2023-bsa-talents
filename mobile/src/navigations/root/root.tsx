@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { UserRole } from '~/bundles/auth/enums/enums';
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import {
     createNativeStackNavigator,
@@ -10,6 +9,7 @@ import {
     CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
+    UserRole,
 } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,

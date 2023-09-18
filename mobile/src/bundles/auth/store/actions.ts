@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { AuthApiPath } from '~/bundles/auth/enums/enums';
 import {
@@ -11,10 +11,11 @@ import {
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import { clearTalentStore } from '~/bundles/talent/store/actions';
-import { clearAll } from '~/bundles/users/store/actions';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
+
+const clearAll = createAction(`${sliceName}/clearAll`);
 
 const signUp = createAsyncThunk<
     UserSignUpResponseDto,
@@ -71,7 +72,7 @@ const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
         try {
             dispatch(clearAll());
             dispatch(clearTalentStore());
-            await storage.drop('token');
+            await storage.drop(StorageKey.TOKEN);
             return null;
         } catch (error) {
             const errorMessage = getErrorMessage(error);

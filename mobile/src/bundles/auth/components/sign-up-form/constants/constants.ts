@@ -1,5 +1,5 @@
-import { UserRole } from '~/bundles/auth/enums/enums';
 import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
+import { UserRole } from '~/bundles/common/enums/enums';
 
 const USER_SIGN_UP_DEFAULT_VALUES: UserSignUpRequestDto = {
     email: '',

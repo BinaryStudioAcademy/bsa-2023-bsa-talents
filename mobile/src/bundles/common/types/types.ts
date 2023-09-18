@@ -27,6 +27,7 @@ export {
     type FieldValues,
     type UseFormGetValues,
     type UseFormHandleSubmit,
+    type UseFormReset,
     type UseFormResetField,
     type UseFormSetError,
     type UseFormSetValue,
