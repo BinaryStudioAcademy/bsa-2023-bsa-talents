@@ -55,6 +55,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
+            showsVerticalScrollIndicator={false}
         >
             <FormField
                 errorMessage={errors.profileName?.message}

@@ -60,6 +60,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
+            showsVerticalScrollIndicator={false}
         >
             <FormField
                 errorMessage={errors.hardSkills?.message}
