@@ -101,6 +101,7 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
         <DrawerContentScrollView
             {...props}
             style={[globalStyles.m25, globalStyles.flex1]}
+            showsVerticalScrollIndicator={false}
         >
             <Pressable
                 onPress={(): void => {
