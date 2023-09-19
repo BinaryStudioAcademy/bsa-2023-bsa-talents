@@ -1,13 +1,15 @@
 import 'fast-text-encoding';
 
-import { NavigationContainer } from '@react-navigation/native';
 import React, { type FC } from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SplashScreen from 'react-native-splash-screen';
-import Toast from 'react-native-toast-message';
 import { Provider as StoreProvider } from 'react-redux';
 
-import { LostConnectionModal } from '~/bundles/common/components/components';
+import {
+    GestureHandlerRootView,
+    LostConnectionModal,
+    NavigationContainer,
+    SplashScreen,
+    Toast,
+} from '~/bundles/common/components/components';
 import { useEffect } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { store } from '~/framework/store/store';

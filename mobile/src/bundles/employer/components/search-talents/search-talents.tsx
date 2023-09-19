@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
+    CommunityIcon,
     Pressable,
     Text,
     TextInput,
@@ -46,7 +46,7 @@ const SearchTalents: React.FC<Properties> = ({
                         styles.iconContainer,
                     ]}
                 >
-                    <Icon
+                    <CommunityIcon
                         name={IconName.MAGNIFY}
                         size={25}
                         color={Color.PRIMARY}
