@@ -17,7 +17,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { Verification } from './bundles/admin/verification/pages/verification.js';
+import { Verification } from './bundles/admin-panel/pages/admin-panel.js';
 import {
     ResetPasswordPage,
     SignInPage,

@@ -2,9 +2,9 @@ import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
+import { VerificationListItem } from '../../../admin/verification/components/verification-list-item/verification-list-item.js';
+import { employers, talents } from '../../mock-data/mock-data.js';
 import { type FilterValues, type MockData } from '../../types/types.js';
-import { VerificationListItem } from '../verification-list-item/verification-list-item.js';
-import { employers, talents } from './../../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
 type Properties = {

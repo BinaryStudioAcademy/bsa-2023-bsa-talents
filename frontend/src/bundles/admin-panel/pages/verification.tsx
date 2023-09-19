@@ -16,10 +16,10 @@ import {
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { VerificationList } from '../components/components.js';
 import { PreviewTabs } from '../constants/constants.js';
+import { employers, talents } from '../mock-data/mock-data.js';
 import { type FilterValues, type ValueOf } from '../types/types.js';
-import { VerificationList } from './../components/components.js';
-import { employers, talents } from './../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
 const Verification: React.FC = () => {
