@@ -1,4 +1,4 @@
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 
 // TODO: refactor when there'll be real data

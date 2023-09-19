@@ -1,16 +1,23 @@
-import { type StyleProp, type ViewStyle } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
 
-import { Text, View } from '~/bundles/common/components/components';
+import {
+    MaterialIcon,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import {
     BadgeSize,
+    BsaBadgeStepBadgesTitle,
     IconName,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
-import { type ValueOf } from '~/bundles/common/types/types';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type StyleProp,
+    type ValueOf,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
@@ -93,7 +100,11 @@ const Badge: React.FC<Properties> = ({
                     size === BadgeSize.SMALL && globalStyles.alignSelfFlexStart,
                 ]}
             >
-                <Icon name={IconName.HEADPHONES} size={iconSize} color="#FFF" />
+                <MaterialIcon
+                    name={IconName.HEADPHONES}
+                    size={iconSize}
+                    color="#FFF"
+                />
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
