@@ -74,7 +74,6 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
                 container
                 component="ul"
                 direction="column"
-                gap="8px"
                 wrap="nowrap"
                 className={styles.chatList}
             >

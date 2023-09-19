@@ -9,8 +9,8 @@ import {
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type Candidate } from '~/bundles/employer/types/types';
 
-import { type Candidate } from '../../types/types';
 import { styles } from './styles';
 
 const maxSkills = 4;

@@ -1,20 +1,29 @@
-import { UserRole } from 'shared/build/index.js';
-
+import { actions as storeActions } from '~/app/store/app.js';
 import {
     Button,
+    Checkbox,
     FormControl,
     FormLabel,
     Grid,
     Input,
     Link,
     RadioGroup,
+    Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
+    useAppDispatch,
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    UserRole,
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -35,6 +44,13 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    const dispatch = useAppDispatch();
+
+    const [selectedRole, setSelectedRole] = useState<ValueOf<typeof UserRole>>(
+        UserRole.TALENT,
+    );
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
@@ -42,9 +58,52 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            if (selectedRole === UserRole.TALENT && !isTermsAccepted) {
+                const termsErrorMessage =
+                    'Please accept BSA Talents Terms to continue';
+                void dispatch(
+                    storeActions.notify({
+                        type: NotificationType.ERROR,
+                        message: termsErrorMessage,
+                    }),
+                );
+                return;
+            }
             void handleSubmit(onSubmit)(event_);
         },
-        [handleSubmit, onSubmit],
+        [dispatch, handleSubmit, isTermsAccepted, onSubmit, selectedRole],
+    );
+
+    const handleRadioChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setSelectedRole(
+                event.target.value === 'talent'
+                    ? UserRole.TALENT
+                    : UserRole.EMPLOYER,
+            );
+        },
+        [],
+    );
+
+    const handleCheckboxChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setIsTermsAccepted(event.target.checked);
+        },
+        [],
+    );
+
+    const checkboxLabel = (
+        <Typography variant="body1" className={styles.termsLabel}>
+            I agree to the
+            <span className={styles.bsaTermsLinkWrapper}>
+                {/* TODO: replace with actual terms link */}
+                <Link to="/" className={styles.bsaTermsLink}>
+                    BSA Talents Terms
+                </Link>
+            </span>
+            *
+        </Typography>
     );
 
     return (
@@ -92,8 +151,20 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         options={options}
                         name={'role'}
+                        value={selectedRole}
+                        onChange={handleRadioChange}
                     />
                 </FormControl>
+                {selectedRole === UserRole.TALENT && (
+                    <FormControl className={styles.checkboxWrapper} required>
+                        <Checkbox
+                            label={checkboxLabel}
+                            isChecked={isTermsAccepted}
+                            onChange={handleCheckboxChange}
+                        />
+                    </FormControl>
+                )}
+
                 <Button
                     label="Continue"
                     className={getValidClassNames('btn', styles.btnLogin)}
@@ -104,6 +175,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Link className="cta" to={'/sign-in'}>
                     I already have an account
                 </Link>
+                {/* TODO: replace with actual privacy policy link */}
                 <Link to={'/'} className="span">
                     Privacy Policy
                 </Link>

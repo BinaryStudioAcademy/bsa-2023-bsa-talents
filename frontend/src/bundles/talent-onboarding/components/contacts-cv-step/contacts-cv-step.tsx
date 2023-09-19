@@ -1,13 +1,8 @@
 import { Add as PlusIcon } from '@mui/icons-material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
 
 import {
+    Controller,
     FileUpload,
     FormControl,
     FormHelperText,
@@ -22,9 +17,14 @@ import {
     useAppForm,
     useAppSelector,
 } from '~/bundles/common/hooks/hooks.js';
+import {
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from '~/bundles/common/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
 import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
