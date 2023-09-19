@@ -16,7 +16,12 @@ const socket: FastifyPluginCallback = (
         },
     });
 
+    const connectedUsers = new Map();
+
     io.of(SocketNamespace.CHAT).on(SocketEvent.CONNECTION, (socket) => {
+        const userId = socket.handshake.query.userId;
+        connectedUsers.set(userId, socket.id);
+
         socket.on(SocketEvent.CHAT_JOIN_ROOM, (chatId: string) => {
             return socket.join(chatId);
         });
@@ -28,13 +33,21 @@ const socket: FastifyPluginCallback = (
         socket.on(
             SocketEvent.CHAT_CREATE_MESSAGE,
             (payload: ChatMessageGetAllItemResponseDto) => {
-                if (socket.rooms.has(payload.chatId)) {
+                const receiverId = connectedUsers.get(payload.receiver.id);
+                if (receiverId) {
                     socket
-                        .to(payload.chatId)
+                        .to(receiverId)
                         .emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
                 }
             },
         );
+
+        socket.on('disconnect', () => {
+            const userId = [...connectedUsers.values()].find(
+                (it) => it === socket.id,
+            );
+            connectedUsers.delete(userId);
+        });
     });
 
     done();
