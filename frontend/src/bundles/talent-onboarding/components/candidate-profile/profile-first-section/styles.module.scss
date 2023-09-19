@@ -57,28 +57,6 @@
     display: flex;
 }
 
-.coverLetterText {
-    margin-block: 10px;
-    color: var(--text-primary);
-    white-space: pre;
-}
-
-.cardCoverLetterText {
-    margin-inline: -35px;
-    padding-inline: 35px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid var(--botticelli);
-}
-
-.readMoreButton {
-    margin-top: 7px;
-    padding: 0;
-    color: var(--st-tropaz);
-    font-size: var(--font-size-body);
-    font-style: italic;
-    text-transform: none;
-}
-
 .project {
     margin-top: 30px;
 }
@@ -116,16 +94,6 @@
 .salary {
     font-weight: var(--font-weight-semi-bold);
     font-size: 22px;
-}
-
-.profileCardReadMoreButton {
-    float: right;
-    width: 127px;
-    height: 36px;
-    margin-top: 10px;
-    font-size: var(--font-size-base);
-    text-transform: none;
-    background-color: var(--background-secondary);
 }
 
 @media screen and (width <= 1300px) {

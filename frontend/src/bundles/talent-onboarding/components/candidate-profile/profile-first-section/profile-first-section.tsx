@@ -9,9 +9,10 @@ import {
 } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
+import { SummaryPreview } from '../summary-preview/summary-preview.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -35,6 +36,12 @@ const ProfileFirstSection: React.FC<Properties> = ({
             '_blank',
         );
     }, [candidateParameters.projectLinks]);
+
+    const [isExpanded, setIsExpanded] = useState(true);
+
+    const handleSummaryClick = useCallback((): void => {
+        setIsExpanded(!isExpanded);
+    }, [isExpanded]);
 
     return (
         <Grid
@@ -143,31 +150,12 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     </ul>
                 </Grid>
             )}
-            <Grid className={styles.coverLetter}>
-                {!isProfileCard && (
-                    <Typography variant="input" className={styles.title}>
-                        Cover letter
-                    </Typography>
-                )}
-                <Typography
-                    variant="body1"
-                    className={getValidClassNames(
-                        styles.coverLetterText,
-                        isProfileCard ? styles.cardCoverLetterText : '',
-                    )}
-                >
-                    {candidateParameters.description}
-                </Typography>
-                <Button
-                    label="Read more"
-                    variant={isProfileCard ? 'contained' : 'text'}
-                    className={
-                        isProfileCard
-                            ? styles.profileCardReadMoreButton
-                            : styles.readMoreButton
-                    }
-                />
-            </Grid>
+            <SummaryPreview
+                description={candidateParameters.description}
+                isExpanded={isExpanded}
+                handleSummaryClick={handleSummaryClick}
+                isProfileCard={isProfileCard}
+            />
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
