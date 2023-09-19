@@ -11,7 +11,6 @@ const TABLE_NAME = 'bsa_badges';
 const ColumnName = {
     NAME: 'name',
     TYPE: 'type',
-    MAX_SCORE: 'max_score',
 };
 
 const BadgesTypes = {
