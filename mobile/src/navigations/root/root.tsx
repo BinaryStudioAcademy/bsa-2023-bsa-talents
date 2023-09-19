@@ -51,8 +51,11 @@ const Root: React.FC = () => {
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
     useEffect(() => {
-        void dispatch(getTalentDetails({ userId: currentUserData?.id }));
-    }, [currentUserData?.id, dispatch]);
+        if (!currentUserData) {
+            return;
+        }
+        void dispatch(getTalentDetails({ userId: currentUserData.id }));
+    }, [currentUserData, currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return <Loader />;
