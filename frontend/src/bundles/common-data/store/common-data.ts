@@ -1,9 +1,8 @@
-import { getBsaBadgesData, getHardSkillsData } from './actions.js';
+import { getHardSkillsData } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    getBsaBadgesData,
     getHardSkillsData,
 };
 
