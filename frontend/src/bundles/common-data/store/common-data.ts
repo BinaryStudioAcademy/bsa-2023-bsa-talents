@@ -1,10 +1,10 @@
-import { getBsaBadges, getHardSkills } from './actions.js';
+import { getBsaBadgesData, getHardSkillsData } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    getBsaBadges,
-    getHardSkills,
+    getBsaBadgesData,
+    getHardSkillsData,
 };
 
 export { allActions as actions };
