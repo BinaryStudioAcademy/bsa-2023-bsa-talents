@@ -80,27 +80,33 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *                type: string
  *                description: The profile name of the chat partner (nullable).
  *                example: 'lee_swagger'
+ *                nullable: true
  *              fullName:
  *                type: string
  *                description: The full name of the chat partner (nullable).
  *                example: 'Lee Swagger'
+ *                nullable: true
  *              linkedinLink:
  *                type: string
  *                description: The LinkedIn profile link of the chat partner (nullable).
  *                example: 'https://www.linkedin.com/in/leeswagger'
+ *                nullable: true
  *              companyName:
  *                type: string
  *                description: The company name of the chat partner (nullable).
  *                example: 'Lee Corp'
+ *                nullable: true
  *              companyLogoId:
  *                format: uuid
  *                type: string
  *                description: The company logo ID of the chat partner (nullable).
  *                example: '550e8400-e29b-41d4-a716-446655440000'
+ *                nullable: true
  *              companyWebsite:
  *                type: string
  *                description: The company website of the chat partner (nullable).
  *                example: 'https://www.lee-studio.com'
+ *                nullable: true
  *              avatar:
  *                type: object
  *                properties:
