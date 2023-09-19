@@ -16,13 +16,13 @@ import {
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { VerificationList } from '../components/components.js';
-import { PreviewTabs } from '../constants/constants.js';
-import { employers, talents } from '../mock-data/mock-data.js';
-import { type FilterValues, type ValueOf } from '../types/types.js';
+import { VerificationList } from './components/components.js';
+import { PreviewTabs } from './constants/constants.js';
+import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
+import { type FilterValues, type ValueOf } from './types/types.js';
 
-const Verification: React.FC = () => {
+const AdminPanel: React.FC = () => {
     const [filter, setFilter] = useState<FilterValues>('talents');
     type TabValues = ValueOf<typeof PreviewTabs>;
     const items = filter === 'talents' ? talents : employers;
@@ -414,4 +414,4 @@ const Verification: React.FC = () => {
     );
 };
 
-export { Verification };
+export { AdminPanel };
