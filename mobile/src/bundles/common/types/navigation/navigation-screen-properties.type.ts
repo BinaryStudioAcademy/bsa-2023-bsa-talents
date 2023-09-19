@@ -2,7 +2,7 @@ import {
     type NavigationProp,
     type ParamListBase,
     type RouteProp,
-} from '@react-navigation/native';
+} from '~/bundles/common/types/types';
 
 type NavigationScreenProperties = {
     navigation: NavigationProp<ParamListBase>;

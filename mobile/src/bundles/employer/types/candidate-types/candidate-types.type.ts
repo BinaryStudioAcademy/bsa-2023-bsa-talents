@@ -1,9 +1,6 @@
-import {
-    type UserDetailsCreateRequestDto,
-    type ValueOf,
-} from 'shared/build/index';
-
-import { type BsaBadgeStepBadgesTitle } from '~/bundles/talent/enums/enums';
+import { type BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
+import { type ValueOf } from '~/bundles/common/types/types';
+import { type UserDetailsCreateRequestDto } from '~/bundles/employer/types/types';
 
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
