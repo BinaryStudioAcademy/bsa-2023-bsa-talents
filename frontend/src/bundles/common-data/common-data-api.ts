@@ -13,12 +13,13 @@ type Constructor = {
 
 class CommonDataApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.HARD_SKILLS, baseUrl, http, storage });
+        super({ path: '', baseUrl, http, storage });
     }
 
     public async getAllHardSkills(): Promise<HardSkillsResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(ApiPath.HARD_SKILLS, {}),
+            // TODO: delete / after api path will be fixed
+            this.getFullEndpoint(`${ApiPath.HARD_SKILLS}/`, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
