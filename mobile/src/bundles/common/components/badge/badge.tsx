@@ -81,6 +81,9 @@ const Badge: React.FC<Properties> = ({
         };
     }, []);
 
+    const valueFontSize =
+        size === BadgeSize.SMALL ? TextCategory.H5 : TextCategory.H4;
+
     return (
         <View
             style={[
@@ -108,14 +111,23 @@ const Badge: React.FC<Properties> = ({
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
-                    <Text category={TextCategory.H4}>
+                    <Text category={valueFontSize}>
                         {value ?? badges[badgeType].defaultValue}
                     </Text>
-                    <Text category={TextCategory.H4} style={styles.maxScore}>
+                    <Text category={valueFontSize} style={styles.maxScore}>
                         {badges[badgeType].ending}
                     </Text>
                 </View>
-                <Text category={TextCategory.LABEL}>{badgeType}</Text>
+                <Text
+                    maxFontSizeMultiplier={1}
+                    category={
+                        size === BadgeSize.SMALL
+                            ? TextCategory.BADGE
+                            : TextCategory.LABEL
+                    }
+                >
+                    {badgeType}
+                </Text>
             </View>
         </View>
     );
