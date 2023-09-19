@@ -39,6 +39,7 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
     type UserDetailsFindByUserIdRequestDto,

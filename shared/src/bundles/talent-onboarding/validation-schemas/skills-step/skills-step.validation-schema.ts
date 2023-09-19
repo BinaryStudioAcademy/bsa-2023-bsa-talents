@@ -82,7 +82,10 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
                 url: joi
                     .string()
                     .empty('')
-                    .uri()
+                    .uri({
+                        scheme: ['http', 'https', 'ftp'],
+                        allowRelative: true,
+                    })
                     .min(SkillsStepValidationRule.PROJECT_LINKS_MIN_LENGTH)
                     .max(SkillsStepValidationRule.PROJECT_LINKS_MAX_LENGTH),
             }),
@@ -92,7 +95,8 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
             'array.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LINKS,
             'array.includes':
                 SkillsStepValidationMessage.PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES,
-            'string.uri': SkillsStepValidationMessage.PROJECT_LINKS_INVALID_URL,
+            'string.uriCustomScheme':
+                SkillsStepValidationMessage.PROJECT_LINKS_INVALID_URL,
             'string.min': SkillsStepValidationMessage.PROJECT_LINKS_MIN_LENGTH,
             'string.max': SkillsStepValidationMessage.PROJECT_LINKS_MAX_LENGTH,
         }),

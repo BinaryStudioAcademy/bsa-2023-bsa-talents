@@ -38,6 +38,7 @@ const Step: React.FC<Properties> = ({
                 return {
                     name: IconName.CHECK_CIRCLE,
                     color: Color.PRIMARY,
+                    style: styles.activeIcon,
                 };
             }
             case TalentOnboardingStepState.FOCUSED: {

@@ -16,8 +16,9 @@ export {
 } from './navigation/navigation';
 export {
     type AutocompleteMultiSelectorValue,
-    type AvatarProperties,
     type CheckBoxProps,
+    type CustomPhotoStyle,
+    type PhotoProperties,
     type SliderProps,
 } from '~/bundles/common/types/components/components';
 export {
@@ -37,6 +38,7 @@ export {
 export {
     type FlexAlignType,
     type FlexStyle,
+    type ImageStyle,
     type PressableProps,
     type StyleProp,
     type TextInputProps,

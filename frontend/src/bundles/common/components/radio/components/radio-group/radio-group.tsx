@@ -8,10 +8,11 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import { FormControlLabel } from '~/bundles/common/components/components.js';
+import {
+    FormControlLabel,
+    Radio,
+} from '~/bundles/common/components/components.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
-
-import { Radio } from '../radio-item/radio-item.js';
 
 type Option = {
     value: string;
@@ -23,6 +24,7 @@ type Properties<T extends FieldValues> = RadioGroupProps & {
     name: FieldPath<T>;
     options?: Option[];
     className?: string;
+    value?: string;
 };
 
 const RadioGroup = <T extends FieldValues>({
@@ -30,6 +32,7 @@ const RadioGroup = <T extends FieldValues>({
     name,
     options,
     className = '',
+    value = 'talent',
     ...props
 }: Properties<T>): JSX.Element => {
     const radioGroupClasses = className;
@@ -39,7 +42,12 @@ const RadioGroup = <T extends FieldValues>({
     });
 
     return (
-        <MuiRadioGroup {...field} className={radioGroupClasses} {...props}>
+        <MuiRadioGroup
+            {...field}
+            className={radioGroupClasses}
+            value={value}
+            {...props}
+        >
             {options?.map((option) => (
                 <FormControlLabel
                     key={option.value}
@@ -48,7 +56,7 @@ const RadioGroup = <T extends FieldValues>({
                     control={
                         <Radio
                             value={option.value}
-                            checked={field.value === option.value}
+                            checked={value === option.value}
                         />
                     }
                 />

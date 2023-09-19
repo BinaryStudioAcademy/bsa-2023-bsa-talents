@@ -4,33 +4,48 @@ import {
     Image,
     MaterialIcon,
     Text,
+    View,
 } from '~/bundles/common/components/components';
 import {
-    AvatarType,
     IconName,
+    PhotoType,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { type AvatarProperties } from '~/bundles/common/types/types';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type CustomPhotoStyle,
+    type PhotoProperties,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
-const Avatar: React.FC<AvatarProperties> = ({
-    avatarSize = AvatarType.MEDIUM,
+type Properties = {
+    customPhotoStyle?: CustomPhotoStyle;
+    defaultIcon?: ValueOf<typeof IconName>;
+} & PhotoProperties;
+
+const Avatar: React.FC<Properties> = ({
+    customPhotoStyle,
+    avatarSize = PhotoType.MEDIUM,
     fullName,
     uri,
+    defaultIcon = IconName.PERSON,
 }) => {
+    const { defaultPhotoContainer, defaultPhoto, photoShape } =
+        customPhotoStyle ?? {};
     const avatarStyles = useMemo(() => {
         switch (avatarSize) {
-            case AvatarType.SMALL: {
+            case PhotoType.SMALL: {
                 return {
                     size: styles.small,
                     font: TextCategory.H6,
                     iconSize: 40,
                 };
             }
-            case AvatarType.LARGE: {
+            case PhotoType.LARGE: {
                 return {
                     size: styles.large,
                     font: TextCategory.H1,
@@ -49,7 +64,10 @@ const Avatar: React.FC<AvatarProperties> = ({
 
     if (uri) {
         return (
-            <Image style={[styles.img, avatarStyles.size]} source={{ uri }} />
+            <Image
+                style={[styles.img, avatarStyles.size, photoShape]}
+                source={{ uri }}
+            />
         );
     }
     if (fullName) {
@@ -63,11 +81,19 @@ const Avatar: React.FC<AvatarProperties> = ({
         );
     }
     return (
-        <MaterialIcon
-            size={avatarStyles.iconSize}
-            style={[styles.icon, avatarStyles.size]}
-            name={IconName.PERSON}
-        />
+        <View
+            style={[
+                defaultPhotoContainer,
+                globalStyles.justifyContentCenter,
+                globalStyles.alignItemsCenter,
+            ]}
+        >
+            <MaterialIcon
+                size={avatarStyles.iconSize}
+                style={[styles.icon, avatarStyles.size, defaultPhoto]}
+                name={defaultIcon}
+            />
+        </View>
     );
 };
 

@@ -39,6 +39,7 @@ const Preview: React.FC = () => {
                     globalStyles.defaultScreenPadding,
                     styles.screenWrapper,
                 ]}
+                showsVerticalScrollIndicator={false}
             >
                 <ProfilePreview />
                 {/* todo: add logic */}

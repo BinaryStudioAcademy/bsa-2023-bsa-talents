@@ -3,24 +3,32 @@ import React from 'react';
 import {
     Avatar,
     ImagePicker,
+    Pressable,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import {
+    type IconName,
+    PhotoType,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import {
     useCallback,
     useFormController,
     useState,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
-    type AvatarProperties,
     type Control,
+    type CustomPhotoStyle,
     type FieldPath,
     type FieldValues,
     type ImagePickerResponse,
+    type PhotoProperties,
     type StyleProp,
+    type ValueOf,
     type ViewStyle,
 } from '~/bundles/common/types/types';
 import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
@@ -30,25 +38,32 @@ import {
 } from '~/bundles/talent/helpers/helpers';
 import { notifications } from '~/framework/notifications/notifications';
 
-type AvatarPickerProperties<T extends FieldValues> = {
+type PhotoPickerProperties<T extends FieldValues> = {
     buttonStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
     control: Control<T, null>;
     name: FieldPath<T>;
-} & AvatarProperties;
+    shouldHideButton?: boolean;
+    defaultIcon?: ValueOf<typeof IconName>;
+    customPhotoStyle?: CustomPhotoStyle;
+} & PhotoProperties;
 
-const AvatarPicker = <T extends FieldValues>({
+const PhotoPicker = <T extends FieldValues>({
     control,
     name,
     buttonStyle,
     containerStyle,
     uri,
+    shouldHideButton,
+    defaultIcon,
+    customPhotoStyle,
     ...props
-}: AvatarPickerProperties<T>): JSX.Element => {
+}: PhotoPickerProperties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
 
     const [avatar, setAvatar] = useState<undefined | string>(uri ?? value?.uri);
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
@@ -98,17 +113,41 @@ const AvatarPicker = <T extends FieldValues>({
 
     return (
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
-            <Avatar {...props} uri={avatar ?? uri} />
-            <Text style={globalStyles.mv10} category={TextCategory.H6}>
-                Upload a new photo
-            </Text>
-            <ImagePicker
-                onImageLoad={imageLoadHandler}
-                label="Choose photo"
-                containerStyle={buttonStyle}
-            />
+            {shouldHideButton ? (
+                <>
+                    <Pressable onPress={toggleVisibility}>
+                        <Avatar
+                            {...props}
+                            uri={avatar}
+                            defaultIcon={defaultIcon}
+                            avatarSize={PhotoType.LARGE}
+                            customPhotoStyle={customPhotoStyle}
+                        />
+                    </Pressable>
+                    {isVisible && (
+                        <ImagePicker
+                            onImageLoad={imageLoadHandler}
+                            shouldHideButton={shouldHideButton}
+                            toggleImagePickerVisibility={toggleVisibility}
+                            containerStyle={buttonStyle}
+                        />
+                    )}
+                </>
+            ) : (
+                <>
+                    <Avatar {...props} uri={avatar} />
+                    <Text style={globalStyles.mv10} category={TextCategory.H6}>
+                        Upload a new photo
+                    </Text>
+                    <ImagePicker
+                        onImageLoad={imageLoadHandler}
+                        label="Choose photo"
+                        containerStyle={buttonStyle}
+                    />
+                </>
+            )}
         </View>
     );
 };
 
-export { AvatarPicker };
+export { PhotoPicker };
