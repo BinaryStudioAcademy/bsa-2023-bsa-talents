@@ -1,1 +1,1 @@
-export { type Storage } from 'shared/build/index';
+export { type Storage } from 'shared/build/index.js';

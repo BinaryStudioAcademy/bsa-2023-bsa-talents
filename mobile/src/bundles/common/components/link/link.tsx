@@ -1,9 +1,9 @@
 import React from 'react';
-import { type TextProps, type TextStyle } from 'react-native';
 
-import { TextCategory } from '../../enums/enums';
-import { useLinkTo } from '../../hooks/hooks';
-import { Text, TouchableOpacity } from '../components';
+import { Text, TouchableOpacity } from '~/bundles/common/components/components';
+import { TextCategory } from '~/bundles/common/enums/enums';
+import { useLinkTo } from '~/bundles/common/hooks/hooks';
+import { type TextProps, type TextStyle } from '~/bundles/common/types/types';
 
 type Properties = TextProps & {
     label: string;
