@@ -86,6 +86,7 @@ const Chat: React.FC = () => {
                 <Search
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
+                    containerStyle={styles.search}
                 />
                 <FlatList
                     style={[

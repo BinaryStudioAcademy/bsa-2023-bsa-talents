@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
     activeMessage: {
         backgroundColor: '#DDE5FF',
     },
+    search: {
+        borderRadius: 12,
+        backgroundColor: Color.BACKGROUND,
+        padding: 15,
+    },
 });
 
 export { styles };
