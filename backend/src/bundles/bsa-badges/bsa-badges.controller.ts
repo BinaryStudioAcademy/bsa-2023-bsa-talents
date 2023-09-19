@@ -46,7 +46,7 @@ class BSABadgesController extends ControllerBase {
 
     /**
      * @swagger
-     * /bsa-badges/:
+     * /bsa-badges:
      *    get:
      *      tags: [BSA Badges]
      *      description: Returns an array of BSA Badges
