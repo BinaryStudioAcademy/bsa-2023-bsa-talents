@@ -6,6 +6,7 @@
     font-family: Inter, sans-serif;
     border: 1px solid var(--botticelli);
     border-radius: 4px;
+    transition: border 200ms;
 
     &::placeholder {
         color: var(--nepal);

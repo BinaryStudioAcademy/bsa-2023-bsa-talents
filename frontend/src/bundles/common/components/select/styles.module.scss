@@ -16,9 +16,16 @@
     font-weight: var(--font-weight-regular);
     border: 1px solid var(--botticelli);
     border-radius: 4px;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    transition: border 200ms;
+
+    &:hover {
+        border-color: var(--st-tropaz);
+    }
+
+    &:focus-within {
+        border-color: var(--st-tropaz);
+    }
 }
 
 .placeholder {
@@ -39,9 +46,9 @@
     background-color: transparent;
 }
 
-.container .input:hover {
-    border-color: var(--botticelli);
-}
+// .container .input:hover {
+//     border-color: var(--st-tropaz);
+// }
 
 .input :global(.MuiSelect-select) {
     padding: 4px;
