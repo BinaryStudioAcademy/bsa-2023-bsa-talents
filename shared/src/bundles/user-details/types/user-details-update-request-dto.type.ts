@@ -14,6 +14,7 @@ type UserDetailsUpdateRequestDto = {
     id?: string;
     userId?: string;
 
+    isApproved?: boolean;
     isHired?: boolean;
 
     profileName?: string;
