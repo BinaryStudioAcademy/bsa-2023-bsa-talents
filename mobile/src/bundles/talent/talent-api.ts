@@ -3,7 +3,6 @@ import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsGeneralRequestDto,
-    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
@@ -54,7 +53,7 @@ class TalentApi extends HttpApiBase {
 
     public async getUserDetailsByUserId(
         payload: Partial<UserDetailsGeneralRequestDto>,
-    ): Promise<UserDetailsGeneralResponseDto | null> {
+    ): Promise<UserDetailsGeneralRequestDto | null> {
         const { userId = '' } = payload;
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
@@ -64,7 +63,7 @@ class TalentApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsGeneralResponseDto>();
+        return response.json<UserDetailsGeneralRequestDto>();
     }
 }
 
