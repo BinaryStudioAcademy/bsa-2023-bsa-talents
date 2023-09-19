@@ -8,7 +8,6 @@ import {
 } from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/types/types.js';
 import { ControllerBase } from '~/common/packages/packages.js';
-import { FileGroups } from '~/common/plugins/file-upload/enums/file-group.enum.js';
 import { uploadFile } from '~/common/plugins/plugins.js';
 
 import { type FileService } from './file.service.js';
@@ -47,18 +46,14 @@ class FileController extends ControllerBase {
 
         this.addRoute({
             path: FileApiPath.UPLOAD,
-            preHandler: uploadFile.fields([
-                { name: FileGroups.DOCUMENT, maxCount: 1 },
-                { name: FileGroups.IMAGE, maxCount: 1 },
-            ]),
+            preHandler: uploadFile.fields([{ name: 'files' }]),
             method: 'POST',
             handler: (options) => {
                 return this.upload(
                     options as ApiHandlerOptions<{
                         body: {
                             files: {
-                                document: MulterFile[];
-                                image: MulterFile[];
+                                files: MulterFile[];
                             };
                         };
                     }>,
@@ -101,23 +96,20 @@ class FileController extends ControllerBase {
         options: ApiHandlerOptions<{
             body: {
                 files: {
-                    document: MulterFile[];
-                    image: MulterFile[];
+                    files: MulterFile[];
                 };
             };
         }>,
     ): Promise<ApiHandlerResponse> {
-        const { document, image } = options.body.files;
-        const INDEX_ZERO = 0;
+        const { files } = options.body.files;
 
-        const file = await this.fileService.upload({
-            document: document[INDEX_ZERO],
-            image: image[INDEX_ZERO],
+        const uploadRespone = await this.fileService.upload({
+            files,
         });
 
         return {
             status: HttpCode.OK,
-            payload: file,
+            payload: uploadRespone,
         };
     }
 }

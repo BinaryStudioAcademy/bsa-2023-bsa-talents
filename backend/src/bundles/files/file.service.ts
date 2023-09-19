@@ -26,8 +26,7 @@ class FileService implements Service {
     }
 
     public async upload(payload: {
-        document: MulterFile;
-        image: MulterFile;
+        files: MulterFile[];
     }): Promise<FileUploadResponse> {
         return this.fileRepository.upload({ ...payload });
     }

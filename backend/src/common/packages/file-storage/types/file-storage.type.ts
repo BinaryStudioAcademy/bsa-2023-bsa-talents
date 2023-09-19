@@ -2,8 +2,7 @@ import { type S3 } from 'aws-sdk';
 import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
 
 type UploadParameters = {
-    document: MulterFile;
-    image: MulterFile;
+    files: MulterFile[];
 };
 
 type FileStorage = {

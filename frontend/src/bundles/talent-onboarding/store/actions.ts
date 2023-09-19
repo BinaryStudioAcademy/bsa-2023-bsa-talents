@@ -25,8 +25,7 @@ const updateTalentDetails = createAsyncThunk<
 
     if (cv && photo) {
         const { document, image } = await fileUploadApi.upload({
-            cv,
-            image: photo,
+            files: [cv, photo],
         });
 
         restPayload.photoId = image.id;

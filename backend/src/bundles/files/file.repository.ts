@@ -10,7 +10,7 @@ import { type Repository } from '~/common/types/repository.type.js';
 import { FileEntity } from './file.entity.js';
 import { type FileModel } from './file.model.js';
 import { getFileType } from './helpers/get-file-type.helper.js';
-import { type FileUploadResponse, type UploadedFile } from './types/types.js';
+import { type FileUploadResponse } from './types/types.js';
 
 class FileRepository implements Repository {
     private fileModel: typeof FileModel;
@@ -42,11 +42,10 @@ class FileRepository implements Repository {
     }
 
     public async upload(payload: {
-        document: MulterFile;
-        image: MulterFile;
+        files: MulterFile[];
     }): Promise<FileUploadResponse> {
         const response = await this.fileStorage.uploadFiles({ ...payload });
-        const uploadedFiles: Record<string, UploadedFile> = {};
+        const uploadedFiles: FileUploadResponse = {};
 
         for (const file of response) {
             const data = await this.create(file);
@@ -58,7 +57,7 @@ class FileRepository implements Repository {
             };
         }
 
-        return uploadedFiles as FileUploadResponse;
+        return uploadedFiles;
     }
 
     public update(): Promise<unknown> {

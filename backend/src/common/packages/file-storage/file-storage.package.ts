@@ -34,21 +34,19 @@ class FileStorageBase implements FileStorage {
     }
 
     public async uploadFiles(payload: {
-        document: MulterFile;
-        image: MulterFile;
+        files: MulterFile[];
     }): Promise<AWS.S3.ManagedUpload.SendData[]> {
-        const uploadPromises = [];
+        const uploadPromises: Promise<AWS.S3.ManagedUpload.SendData>[] = [];
 
-        for (const file in payload) {
-            const { originalname, buffer } =
-                payload[file as keyof typeof payload];
+        payload.files.map((file) => {
+            const { originalname, buffer } = file;
             uploadPromises.push(
                 this.upload({
                     fileName: originalname,
                     file: buffer as Buffer,
                 }),
             );
-        }
+        });
 
         return Promise.all(uploadPromises);
     }

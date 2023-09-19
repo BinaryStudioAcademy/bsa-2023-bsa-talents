@@ -18,12 +18,12 @@ class FileUploadApi extends HttpApiBase {
     }
 
     public async upload(payload: {
-        cv: File;
-        image: File;
+        files: File[];
     }): Promise<FileUploadResponse> {
         const formData = new FormData();
-        formData.append('document', payload.cv);
-        formData.append('image', payload.image);
+        for (const file of payload.files) {
+            formData.append('files', file);
+        }
 
         const response = await this.load(
             this.getFullEndpoint(FileApiPath.UPLOAD, {}),
