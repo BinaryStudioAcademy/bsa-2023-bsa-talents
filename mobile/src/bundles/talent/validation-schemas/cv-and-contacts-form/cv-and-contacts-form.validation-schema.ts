@@ -4,7 +4,7 @@ import {
     CvAndContactsFormValidationMessage,
     CvAndContactsFormValidationRule,
 } from '~/bundles/talent/enums/enums';
-import { type CvAndContactsFormDto } from '~/bundles/talent/types/types.js';
+import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 
 const CvAndContactsFormValidationSchema = joi.object<
     CvAndContactsFormDto,

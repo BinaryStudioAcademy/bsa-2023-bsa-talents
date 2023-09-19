@@ -1,10 +1,10 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
     AutocompleteMultiSelector,
     Button,
     CheckboxGroup,
+    CommunityIcon,
     FormField,
     Input,
     Pressable,
@@ -169,7 +169,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                                             remove(index);
                                         }}
                                     >
-                                        <Icon
+                                        <CommunityIcon
                                             name={IconName.CLOSE}
                                             size={20}
                                             color={Color.ERROR}

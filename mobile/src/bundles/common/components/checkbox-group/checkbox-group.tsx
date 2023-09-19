@@ -1,14 +1,14 @@
 import React from 'react';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
 
 import { Checkbox, View } from '~/bundles/common/components/components';
 import { splitArrayInHalf } from '~/bundles/common/helpers/helpers';
 import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

@@ -1,10 +1,14 @@
 import React from 'react';
-import { type BsaBadgeStepBadgesTitle, type ValueOf } from 'shared/build/index';
 
 import { Badge, Tag, Text, View } from '~/bundles/common/components/components';
-import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    BadgeSize,
+    type BsaBadgeStepBadgesTitle,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

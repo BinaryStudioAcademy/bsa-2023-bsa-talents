@@ -1,4 +1,4 @@
-import { HttpError as LibraryHttpError } from 'shared/build/index';
+import { HttpError as LibraryHttpError } from 'shared/build/index.js';
 
 import { type ServerErrorType } from '~/bundles/common/enums/enums';
 import {

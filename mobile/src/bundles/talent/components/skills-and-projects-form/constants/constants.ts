@@ -2,8 +2,7 @@ import {
     EnglishLevel,
     NotConsidered,
     PreferredLanguages,
-} from 'shared/build/index';
-
+} from '~/bundles/common/enums/enums';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
 const SKILLS_AND_PROJECTS_DEFAULT_VALUES: SkillsStepDto = {
