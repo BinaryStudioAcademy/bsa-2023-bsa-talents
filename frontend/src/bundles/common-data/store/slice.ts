@@ -18,7 +18,7 @@ const initialState: State = {
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'common',
+    name: 'common-data',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(getHardSkillsData.fulfilled, (state, action) => {
