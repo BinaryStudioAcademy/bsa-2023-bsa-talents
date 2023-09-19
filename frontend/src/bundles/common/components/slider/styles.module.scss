@@ -4,10 +4,6 @@
 }
 
 .slider .markLabel {
-    transform: translateX(0%);
-}
-
-.slider .markLabel:nth-of-type(n + 5) {
     display: none;
 }
 
