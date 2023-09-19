@@ -221,7 +221,7 @@ class UserDetailsRepository implements Repository {
 
         const details = await this.userDetailsModel
             .query()
-            .patchAndFetchById(id , rest);
+            .patchAndFetchById(id, rest);
 
         return UserDetailsEntity.initialize({
             id: details.id,
