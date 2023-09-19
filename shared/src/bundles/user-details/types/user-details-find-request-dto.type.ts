@@ -15,7 +15,6 @@ type UserDetailsFindRequestDto = {
     userId?: string;
 
     isHired?: boolean;
-    isApproved?: boolean;
 
     profileName?: string;
 
