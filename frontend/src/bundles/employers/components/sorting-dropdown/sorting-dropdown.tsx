@@ -1,4 +1,3 @@
-import { InputAdornment } from '@mui/material';
 import {
     type Control,
     type FieldPath,
@@ -32,9 +31,7 @@ const SortingDropdown: React.FC<Properties> = ({ control }) => {
             name="sortBy"
             options={sortingOptions}
             placeholder="options"
-            startAdornment={
-                <InputAdornment position="start">{'Sort by:'}</InputAdornment>
-            }
+            startAdornmentText="Sort by:"
         />
     );
 };

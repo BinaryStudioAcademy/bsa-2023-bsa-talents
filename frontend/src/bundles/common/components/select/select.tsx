@@ -1,5 +1,4 @@
-import { MenuItem, Select as MuiSelect } from '@mui/material';
-import { type ReactNode } from 'react';
+import { InputAdornment, MenuItem, Select as MuiSelect } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -30,7 +29,7 @@ type Properties<T extends FieldValues> = {
     label?: string;
     isMulti?: boolean;
     isDisabled?: boolean;
-    startAdornment?: ReactNode;
+    startAdornmentText?: string;
 };
 
 const Select = <T extends FieldValues>({
@@ -42,7 +41,7 @@ const Select = <T extends FieldValues>({
     isMulti,
     isDisabled,
     placeholder = 'Placeholder',
-    startAdornment,
+    startAdornmentText,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -87,7 +86,13 @@ const Select = <T extends FieldValues>({
                 className={selectStyles}
                 renderValue={handleSelectChange}
                 value={field.value || []}
-                startAdornment={startAdornment}
+                startAdornment={
+                    startAdornmentText && (
+                        <InputAdornment position="start">
+                            {startAdornmentText}
+                        </InputAdornment>
+                    )
+                }
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
