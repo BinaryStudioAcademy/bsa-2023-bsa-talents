@@ -28,11 +28,13 @@ const createMessage = createAsyncThunk<
     //{
     //     message: 'Hello',
     //     receiverId: 'nskndkaldn',
+    //     senderId: 'nskndkaldn',
     //     chatId: 'ksdjlskfjl',
     // } = payload;
     // const newMessage = await chatApi.createChatMessage({
     //     message,
     //     receiverId,
+    //     senderId,
     //     chatId,
     //   });
     //TODO: remove when actions will be created
