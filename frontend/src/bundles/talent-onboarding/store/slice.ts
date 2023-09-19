@@ -22,6 +22,7 @@ import {
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
     ...DEFAULT_PAYLOAD_BSA_BADGES_STEP,
+    isApproved: false,
     badges: mockBadges
         .filter((badge) => badge.type === 'service')
         .map((badge) => badge.id),
