@@ -1,8 +1,8 @@
 import React from 'react';
-import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { View } from '~/bundles/common/components/components';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type StyleProp, type ViewStyle } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

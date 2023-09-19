@@ -1,4 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
+
+import { useForm } from '~/bundles/common/hooks/hooks';
 import {
     type Control,
     type DefaultValues,
@@ -6,14 +8,13 @@ import {
     type FieldValues,
     type UseFormGetValues,
     type UseFormHandleSubmit,
+    type UseFormReset,
     type UseFormResetField,
     type UseFormSetError,
     type UseFormSetValue,
     type ValidationMode,
-} from 'react-hook-form';
-import { useForm } from 'react-hook-form';
-
-import { type ValidationSchema } from '~/bundles/common/types/types';
+    type ValidationSchema,
+} from '~/bundles/common/types/types';
 
 type Arguments<T extends FieldValues = FieldValues> = {
     defaultValues: DefaultValues<T>;
@@ -29,6 +30,7 @@ type Results<T extends FieldValues = FieldValues> = {
     getValues: UseFormGetValues<T>;
     resetField: UseFormResetField<T>;
     setError: UseFormSetError<T>;
+    reset: UseFormReset<T>;
 };
 
 const useAppForm = <T extends FieldValues = FieldValues>({
@@ -43,6 +45,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         getValues,
         resetField,
         formState: { errors },
+        reset,
         setError,
     } = useForm<T>({
         defaultValues,
@@ -54,6 +57,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
         control,
         handleSubmit,
         errors,
+        reset,
         setValue,
         getValues,
         resetField,
