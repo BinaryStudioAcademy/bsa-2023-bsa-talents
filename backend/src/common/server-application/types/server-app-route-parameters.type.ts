@@ -17,6 +17,7 @@ type ServerAppRouteParameters = {
     ) => Promise<void> | void;
     validation?: {
         body?: ValidationSchema;
+        query?: ValidationSchema;
     };
 };
 

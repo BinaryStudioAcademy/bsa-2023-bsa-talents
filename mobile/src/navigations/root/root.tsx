@@ -1,7 +1,3 @@
-import {
-    createNativeStackNavigator,
-    type NativeStackNavigationOptions,
-} from '@react-navigation/native-stack';
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
@@ -10,14 +6,18 @@ import {
     CompletedTalentOnboardingStep,
     DataStatus,
     RootScreenName,
+    UserRole,
 } from '~/bundles/common/enums/enums';
+import { createNativeStackNavigator } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
-import { type RootNavigationParameterList } from '~/bundles/common/types/types';
-import { UserRole } from '~/bundles/users/enums/enums';
+import {
+    type NativeStackNavigationOptions,
+    type RootNavigationParameterList,
+} from '~/bundles/common/types/types';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,

@@ -21,7 +21,15 @@ export {
 export {
     ApiPath,
     AppEnvironment,
+    BsaBadgeStepBadgesTitle,
     ContentType,
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
     ErrorMessages,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
     ServerErrorType,
-} from 'shared/build/index';
+    UserRole,
+} from 'shared/build/index.js';
