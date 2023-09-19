@@ -1,8 +1,8 @@
 type ChatMessageCreateRequestDto = {
+    senderId: string;
+    receiverId: string;
     chatId: string;
     message: string;
-    receiverId: string;
-    senderId: string;
 };
 
 export { type ChatMessageCreateRequestDto };

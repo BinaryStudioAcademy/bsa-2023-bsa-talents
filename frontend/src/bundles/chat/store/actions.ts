@@ -40,10 +40,10 @@ const createMessage = createAsyncThunk<
     //TODO: remove when actions will be created
     return {
         id: 'heas13',
-        receiver: { id: 'dslkjdlk', email: 'emp1@test.com', role: 'employer' },
-        sender: { id: 'dslkjdlk', email: 'user1@test.com', role: 'talent' },
+        senderId: 'fgdh1234',
+        receiverId: '1133fgdh4',
         message: 'hello',
-        createdAt: '2023-09-15',
+        isRead: false,
         chatId: 'jdldsj12',
     };
 });
