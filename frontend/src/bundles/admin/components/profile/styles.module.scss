@@ -1,0 +1,57 @@
+.container {
+    flex-flow: row nowrap;
+    gap: 42px;
+    padding: 35px 50px;
+}
+
+.textInfo {
+    gap: 25px;
+}
+
+.row {
+    flex-direction: row;
+    gap: 20px;
+
+    & .name {
+        flex: 1 0 auto;
+        max-width: 130px;
+        max-height: fit-content;
+    }
+
+    & .value {
+        flex: 1 0 auto;
+        color: var(--slate-gray);
+        font-style: normal;
+    }
+
+    & .valueLink {
+        width: fit-content;
+        color: var(--st-topaz);
+        font-weight: 500;
+        font-size: 13px;
+        font-style: italic;
+        text-decoration-line: underline;
+    }
+}
+
+.labelsInfo {
+    align-items: center;
+    gap: 29px;
+}
+
+.bsaBadges {
+    gap: 15px 9px;
+}
+
+.hardSkills {
+    flex: 0 0 auto;
+    gap: 12px 4px;
+
+    & .chip {
+        margin: 0;
+    }
+}
+
+.title {
+    width: 100%;
+}
