@@ -11,6 +11,7 @@ import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
@@ -153,6 +154,18 @@ class UserDetailsController extends ControllerBase {
                 return this.findByUserId(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.SHORT,
+            method: 'GET',
+            handler: (options) => {
+                return this.findShort(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsFindShortByRoleRequestDto;
                     }>,
                 );
             },
@@ -552,6 +565,19 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    private async findShort(
+        options: ApiHandlerOptions<{
+            query: UserDetailsFindShortByRoleRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userType } = options.query;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findShortByRole(userType),
         };
     }
 }

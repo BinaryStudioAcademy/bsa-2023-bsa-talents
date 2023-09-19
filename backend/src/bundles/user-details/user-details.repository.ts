@@ -64,6 +64,18 @@ class UserDetailsRepository implements Repository {
         });
     }
 
+    public async findUnconfirmedByRole(
+        role: 'talent' | 'employer',
+    ): Promise<UserDetailsModel[]> {
+        return await this.userDetailsModel
+            .query()
+            .joinRelated('user')
+            .leftOuterJoinRelated('photo')
+            .where('user.role', role)
+            .andWhere('isApproved', false)
+            .select('user_id', 'photo.url as photoUrl', 'full_name');
+    }
+
     public findAll(): ReturnType<Repository['findAll']> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
