@@ -1,0 +1,22 @@
+.container {
+    flex-flow: row nowrap;
+    max-width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    border: 1px solid red;
+}
+
+.link {
+    all: unset;
+}
+
+.preview {
+    width: 100%;
+    border: 1px solid gold;
+}
+
+.docViewer {
+    border: 1px solid red;
+}
