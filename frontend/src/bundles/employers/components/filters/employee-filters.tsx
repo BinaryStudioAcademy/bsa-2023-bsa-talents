@@ -5,7 +5,6 @@ import {
     type UseFormReset,
 } from 'react-hook-form';
 
-import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Button,
@@ -15,8 +14,16 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useEffect,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import { convertHardSkillsApiResponseIntoAutoselectOptions } from '~/bundles/common-data/helpers/convert-hard-skills-response-into-select-options.js';
+import { actions } from '~/bundles/common-data/store/common-data.js';
 
 import {
     BsaBadges,
@@ -80,6 +87,22 @@ type Properties = {
 };
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
+
+    const dispatch = useAppDispatch();
+    const { hardSkillsData } = useAppSelector((state) => state.commonData);
+
+    useEffect(() => {
+        if (!hardSkillsData) {
+            void dispatch(actions.getHardSkillsData());
+        }
+    }, [dispatch, hardSkillsData]);
+
+    const hardSkillsOptions = useMemo(() => {
+        return convertHardSkillsApiResponseIntoAutoselectOptions(
+            hardSkillsData,
+        );
+    }, [hardSkillsData]);
+
     const handleCheckboxOnChange = useCallback(
         <Field extends ValueOf<typeof CheckboxesFields>>(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
@@ -207,7 +230,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             isFilter={true}
                             name="hardSkills"
                             control={control}
-                            options={mockHardSkills}
+                            options={hardSkillsOptions}
                             placeholder="Start typing and select skills"
                         />
                     </FormLabel>

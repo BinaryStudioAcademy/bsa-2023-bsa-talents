@@ -1,6 +1,8 @@
 type HardSkillsResponseDto = {
-    value: string;
-    label: string;
-}[];
+    items: {
+        id: string;
+        name: string;
+    }[];
+};
 
 export { type HardSkillsResponseDto };

@@ -1,2 +1,2 @@
-export { type BsaBadgesResponseDto } from './bsa-badges.type.js';
+export { type AutoselectOptions } from './autoselect-options.js';
 export { type HardSkillsResponseDto } from './hard-skills.type.js';

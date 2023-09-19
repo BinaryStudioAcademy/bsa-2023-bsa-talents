@@ -8,12 +8,12 @@ import { getHardSkillsData } from './actions.js';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    hardSkillsData: HardSkillsResponseDto;
+    hardSkillsData: HardSkillsResponseDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    hardSkillsData: [],
+    hardSkillsData: null,
 };
 
 const { reducer, actions, name } = createSlice({

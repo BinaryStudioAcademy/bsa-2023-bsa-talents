@@ -5,7 +5,6 @@ import {
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
-import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Checkbox,
@@ -25,6 +24,8 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { convertHardSkillsApiResponseIntoAutoselectOptions } from '~/bundles/common-data/helpers/convert-hard-skills-response-into-select-options.js';
+import { actions as commonActions } from '~/bundles/common-data/store/common-data.js';
 import {
     EnglishLevel,
     NotConsidered,
@@ -111,6 +112,19 @@ const SkillsStep: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    const { hardSkillsData } = useAppSelector((state) => state.commonData);
+
+    useEffect(() => {
+        if (!hardSkillsData) {
+            void dispatch(commonActions.getHardSkillsData());
+        }
+    }, [dispatch, hardSkillsData]);
+
+    const hardSkillsOptions = useMemo(() => {
+        return convertHardSkillsApiResponseIntoAutoselectOptions(
+            hardSkillsData,
+        );
+    }, [hardSkillsData]);
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
@@ -215,7 +229,7 @@ const SkillsStep: React.FC = () => {
             <Autocomplete
                 name="hardSkills"
                 control={control}
-                options={mockHardSkills}
+                options={hardSkillsOptions}
                 placeholder="Start typing and select skills"
                 label="Hard Skills"
             />
