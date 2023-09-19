@@ -5,6 +5,7 @@ import {
     FilePicker,
     FormField,
     Input,
+    PhotoPicker,
     ScrollView,
     Text,
     View,
@@ -12,7 +13,6 @@ import {
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { AvatarPicker } from '~/bundles/talent/components/avatar-picker/avatar-picker';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -49,7 +49,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker control={control} name="photo" />
+                <PhotoPicker control={control} name="photo" />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}

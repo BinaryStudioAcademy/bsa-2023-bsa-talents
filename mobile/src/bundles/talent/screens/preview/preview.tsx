@@ -1,18 +1,18 @@
 import React from 'react';
-import { type ValueOf } from 'shared/build/index';
 
 import {
     Button,
     ScrollView,
     View,
 } from '~/bundles/common/components/components';
-import { type TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import {
     ButtonType,
+    type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
 import { useAppRoute } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
     ProfilePreview,

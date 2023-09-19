@@ -1,14 +1,14 @@
 import React from 'react';
-import {
-    type StyleProp,
-    Text as RNText,
-    type TextProps,
-    type TextStyle,
-} from 'react-native';
 
+import { RNText } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    type StyleProp,
+    type TextProps,
+    type TextStyle,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 
 type Properties = TextProps & {
     children: React.ReactNode;

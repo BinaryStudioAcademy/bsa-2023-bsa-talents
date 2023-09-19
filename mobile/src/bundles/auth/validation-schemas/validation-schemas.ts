@@ -1,4 +1,4 @@
 export {
     userSignInValidationSchema,
     userSignUpValidationSchema,
-} from 'shared/build/index';
+} from 'shared/build/index.js';
