@@ -1,4 +1,5 @@
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
+export { type HardSkills } from './hard-skills.type.js';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,
