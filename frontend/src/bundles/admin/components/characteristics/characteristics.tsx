@@ -7,6 +7,7 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -38,12 +39,7 @@ const Characteristics: React.FC = () => {
                 <Grid
                     container
                     item
-                    className={styles.body}
-                    style={{
-                        borderRadius: '8px',
-                        border: '1px solid #DCE5FF',
-                        padding: '20px',
-                    }}
+                    className={getValidClassNames(styles.body, styles.feedback)}
                 >
                     <MultiRead rows={mockFeedback}></MultiRead>
                 </Grid>
