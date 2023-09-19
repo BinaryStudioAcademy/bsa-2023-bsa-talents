@@ -9,10 +9,7 @@ const ColumnName = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.dropUnique(
-            [ColumnName.TYPE],
-            `${TABLE_NAME}_${ColumnName.TYPE}_unique`,
-        );
+        table.dropUnique([], `${TABLE_NAME}_${ColumnName.TYPE}_unique`);
         table.integer(ColumnName.MAX_SCORE).nullable().alter();
     });
 }
