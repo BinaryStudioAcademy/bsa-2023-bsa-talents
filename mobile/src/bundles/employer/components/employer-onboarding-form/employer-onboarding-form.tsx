@@ -1,4 +1,5 @@
 import React from 'react';
+import { type ValueOf } from 'shared/build/index';
 
 import {
     AutocompleteSelector,
@@ -16,6 +17,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
@@ -27,11 +29,13 @@ const locationOptions = Object.values(CountryList);
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
     onSubmit: () => void;
+    labelForSubmitButton: ValueOf<typeof LabelForButtonEmployerProfile>;
 };
 
 const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
+    labelForSubmitButton,
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues:
@@ -208,7 +212,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 />
             </FormField>
             <Button
-                label="Submit for verification"
+                label={labelForSubmitButton}
                 onPress={handleFormSubmit}
                 style={globalStyles.mt25}
             />

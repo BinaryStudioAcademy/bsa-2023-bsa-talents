@@ -6,6 +6,7 @@ import { useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
 
+import { LabelForButtonEmployerProfile } from '../../enums/enums';
 import { styles } from './styles';
 
 const EmployerOnboarding: React.FC = () => {
@@ -31,6 +32,9 @@ const EmployerOnboarding: React.FC = () => {
                 company
             </Text>
             <EmployerOnboardingForm
+                labelForSubmitButton={
+                    LabelForButtonEmployerProfile.SUBMIT_VERIFICATION
+                }
                 employerOnboardingData={null}
                 onSubmit={handleEmployerDataSubmit}
             />

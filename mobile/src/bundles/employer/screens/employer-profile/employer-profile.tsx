@@ -5,6 +5,7 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
+import { LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
 
 import { styles } from './styles';
 
@@ -24,6 +25,7 @@ const EmployerProfile: React.FC = () => {
                 My profile
             </Text>
             <EmployerOnboardingForm
+                labelForSubmitButton={LabelForButtonEmployerProfile.SAVE}
                 employerOnboardingData={null}
                 onSubmit={handleEmployerDataSubmit}
             />
