@@ -1,7 +1,8 @@
-import { useRef } from 'react';
-
-import { useCallback } from '../../hooks/hooks.js';
-import { Button, type ButtonProperties } from '../components.js';
+import {
+    Button,
+    type ButtonProperties,
+} from '~/bundles/common/components/components.js';
+import { useCallback, useRef } from '~/bundles/common/hooks/hooks.js';
 
 type Properties = {
     accept: string;
