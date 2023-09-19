@@ -11,14 +11,14 @@ import {
     Slider,
     View,
 } from '~/bundles/common/components/components';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     CountryList,
     EmploymentType,
     JobTitle,
-    ProfileStepValidationRule,
-} from '~/bundles/talent/enums/enums';
+} from '~/bundles/common/enums/enums';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
@@ -55,6 +55,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
+            showsVerticalScrollIndicator={false}
         >
             <FormField
                 errorMessage={errors.profileName?.message}

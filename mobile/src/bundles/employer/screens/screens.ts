@@ -1,4 +1,5 @@
-export { Candidates } from './candidates';
-export { CandidatesFilter } from './candidates-filter';
+export { Candidates } from './candidates/candidates';
+export { CandidatesFilter } from './candidates-filter/candidates-filter';
 export { Chat } from './chat/chat';
-export { EmployerProfile } from './employer-profile';
+export { EmployerOnboarding } from './employer-onboarding/employer-onboarding';
+export { EmployerProfile } from './employer-profile/employer-profile';

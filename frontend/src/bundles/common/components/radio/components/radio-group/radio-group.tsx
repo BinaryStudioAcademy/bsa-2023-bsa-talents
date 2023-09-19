@@ -23,6 +23,7 @@ type Properties<T extends FieldValues> = RadioGroupProps & {
     name: FieldPath<T>;
     options?: Option[];
     className?: string;
+    value?: string;
 };
 
 const RadioGroup = <T extends FieldValues>({
@@ -30,6 +31,7 @@ const RadioGroup = <T extends FieldValues>({
     name,
     options,
     className = '',
+    value = 'talent',
     ...props
 }: Properties<T>): JSX.Element => {
     const radioGroupClasses = className;
@@ -39,7 +41,12 @@ const RadioGroup = <T extends FieldValues>({
     });
 
     return (
-        <MuiRadioGroup {...field} className={radioGroupClasses} {...props}>
+        <MuiRadioGroup
+            {...field}
+            className={radioGroupClasses}
+            value={value}
+            {...props}
+        >
             {options?.map((option) => (
                 <FormControlLabel
                     key={option.value}
@@ -48,7 +55,7 @@ const RadioGroup = <T extends FieldValues>({
                     control={
                         <Radio
                             value={option.value}
-                            checked={field.value === option.value}
+                            checked={value === option.value}
                         />
                     }
                 />
