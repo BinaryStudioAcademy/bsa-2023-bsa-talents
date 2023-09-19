@@ -2,8 +2,10 @@ import { ErrorMessages } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { type ChatEntity } from './chat.entity.js';
 import { ChatMessageEntity } from './chat-message.entity.js';
 import { type ChatMessageModel } from './chat-message.model.js';
+import { type MessageEntity } from './message.entity.js';
 import {
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
@@ -16,40 +18,32 @@ class ChatMessagesRepository implements Repository {
         this.chatMessageModel = chatMessageModel;
     }
 
-    public find(): Promise<ChatMessageEntity | null> {
+    public find(): Promise<unknown | null> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async findAll(): Promise<ChatMessageEntity[]> {
-        const chatMessages = await this.chatMessageModel
-            .query()
-            .select('*')
-            .withGraphFetched({
-                sender: true,
-            });
+    public async findAll(): Promise<MessageEntity[]> {
+        const chatMessages = await this.chatMessageModel.query().select('*');
 
         return chatMessages.map((chatMessage) =>
-            ChatMessageEntity.initialize(chatMessage),
+            ChatMessageEntity.initialize(chatMessage).toMessageEntity(),
         );
     }
 
-    public async findAllByChatId(chatId: string): Promise<ChatMessageEntity[]> {
+    public async findAllMessagesByChatId(
+        chatId: string,
+    ): Promise<MessageEntity[]> {
         const chatMessages = await this.chatMessageModel
             .query()
             .select('*')
-            .where('chatId', chatId)
-            .withGraphFetched({
-                sender: true,
-            });
+            .where('chatId', chatId);
 
         return chatMessages.map((chatMessage) =>
-            ChatMessageEntity.initialize(chatMessage),
+            ChatMessageEntity.initialize(chatMessage).toMessageEntity(),
         );
     }
 
-    public async findAllChatsByUserId(
-        userId: string,
-    ): Promise<ChatMessageEntity[]> {
+    public async findAllChatsByUserId(userId: string): Promise<ChatEntity[]> {
         const chats = await this.chatMessageModel
             .query()
             .alias('cm')
@@ -90,36 +84,35 @@ class ChatMessagesRepository implements Repository {
             .where('senderId', userId)
             .orWhere('receiverId', userId);
 
-        return chats.map((chat) => ChatMessageEntity.initialize(chat));
+        return chats.map((chat) =>
+            ChatMessageEntity.initialize(chat).toChatEntity(),
+        );
     }
 
     public async create(
         payload: ChatMessagesCreateRequestDto,
-    ): Promise<ChatMessageEntity> {
+    ): Promise<MessageEntity> {
         const newChatMessage = await this.chatMessageModel
             .query()
             .insertAndFetch({
                 ...payload,
             });
 
-        return ChatMessageEntity.initialize(newChatMessage);
+        return ChatMessageEntity.initialize(newChatMessage).toMessageEntity();
     }
 
-    public async patch(
-        payload: ChatMessagesPatchDto,
-    ): Promise<ChatMessageEntity> {
+    public async patch(payload: ChatMessagesPatchDto): Promise<MessageEntity> {
         const { id, ...rest } = payload;
         const patchedChatMessage = await this.chatMessageModel
             .query()
-            .patchAndFetchById(id, { ...rest })
-            .withGraphFetched({
-                sender: true,
-            });
+            .patchAndFetchById(id, { ...rest });
 
-        return ChatMessageEntity.initialize(patchedChatMessage);
+        return ChatMessageEntity.initialize(
+            patchedChatMessage,
+        ).toMessageEntity();
     }
 
-    public update(): Promise<ChatMessageEntity> {
+    public update(): Promise<unknown> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 

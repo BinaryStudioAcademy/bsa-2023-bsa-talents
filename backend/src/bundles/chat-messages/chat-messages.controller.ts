@@ -21,7 +21,7 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *        scheme: bearer
  *        bearerFormat: JWT
  *    schemas:
- *      ChatMessage:
+ *      Message:
  *        type: object
  *        properties:
  *          id:
@@ -46,22 +46,6 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *          isRead:
  *            type: boolean
  *            description: Indicates whether the message has been read (true) or not (false).
- *          sender:
- *            type: object
- *            properties:
- *              id:
- *                type: string
- *                format: uuid
- *                example: "fdbde779-70ee-4e92-831d-4b05ce2799ae"
- *              fullName:
- *                type: string
- *                example: full name
- *              companyName:
- *                type: string
- *                example: company name
- *              companyLogoId:
- *                type: string
- *                format: uuid
  */
 class ChatMessagesController extends ControllerBase {
     private chatMessagesService: ChatMessagesService;
@@ -84,7 +68,7 @@ class ChatMessagesController extends ControllerBase {
             path: ChatMessagesApiPath.$CHAT_ID,
             method: 'GET',
             handler: (options) =>
-                this.getAllByChatId(
+                this.getAllMessagesByChatId(
                     options as ApiHandlerOptions<{
                         params: { chatId: string };
                     }>,
@@ -183,14 +167,14 @@ class ChatMessagesController extends ControllerBase {
      *                 type: object
      *                 $ref: '#/components/schemas/ChatMessage'
      */
-    private async getAllByChatId(
+    private async getAllMessagesByChatId(
         options: ApiHandlerOptions<{
             params: { chatId: string };
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.chatMessagesService.findAllByChatId(
+            payload: await this.chatMessagesService.findAllMessagesByChatId(
                 options.params.chatId,
             ),
         };

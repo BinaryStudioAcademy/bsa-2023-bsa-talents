@@ -3,8 +3,11 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type ChatMessagesRepository } from './chat-messages.repository.js';
-import { type ChatMessageProperties } from './types/chat-message-properties.type.js';
-import { type ChatMessagesCreateRequestDto } from './types/types.js';
+import {
+    type ChatMessagesCreateRequestDto,
+    type ChatResponseDto,
+    type MessageResponseDto,
+} from './types/types.js';
 
 class ChatMessagesService implements Service {
     private chatMessagesRepository: ChatMessagesRepository;
@@ -13,46 +16,97 @@ class ChatMessagesService implements Service {
         this.chatMessagesRepository = chatMessagesRepository;
     }
 
-    public find(): Promise<string | null> {
+    public find(): Promise<unknown | null> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public async findAll(): Promise<{
-        items: ChatMessageProperties[];
+        items: MessageResponseDto[];
     }> {
-        const chatMessages = await this.chatMessagesRepository.findAll();
+        const messages = await this.chatMessagesRepository.findAll();
 
         return {
-            items: chatMessages.map((chatMessage) => chatMessage.toObject()),
+            items: messages.map((message) => message.toObject()),
         };
     }
 
-    public async findAllByChatId(chatId: string): Promise<{
-        items: ChatMessageProperties[];
+    public async findAllMessagesByChatId(chatId: string): Promise<{
+        items: MessageResponseDto[];
     }> {
-        const chatMessages = await this.chatMessagesRepository.findAllByChatId(
-            chatId,
-        );
+        const messages =
+            await this.chatMessagesRepository.findAllMessagesByChatId(chatId);
 
         return {
-            items: chatMessages.map((chatMessage) => chatMessage.toObject()),
+            items: messages.map((message) => message.toObject()),
         };
     }
 
     public async findAllChatsByUserId(userId: string): Promise<{
-        items: ChatMessageProperties[];
+        items: ChatResponseDto[];
     }> {
         const chats = await this.chatMessagesRepository.findAllChatsByUserId(
             userId,
         );
+
+        const parsedChats = chats.map((chat) => {
+            const chatObject = chat.toObject();
+            const {
+                chatId,
+                lastMessageCreatedAt,
+                lastMessage,
+                sender,
+                receiver,
+            } = chatObject;
+
+            const conversationPartner =
+                userId === sender.userId ? receiver : sender;
+
+            // Get necessary fields from user details model
+            const {
+                userId: id,
+                profileName,
+                fullName,
+                linkedinLink,
+                companyName,
+                companyLogoId,
+                companyWebsite,
+                photo,
+            } = conversationPartner;
+
+            // Get necessary fields from file model
+            const photoData = photo
+                ? {
+                      url: photo.url,
+                      fileName: photo.fileName,
+                      etag: photo.etag,
+                  }
+                : null;
+
+            return {
+                chatId,
+                lastMessageCreatedAt,
+                lastMessage,
+                partner: {
+                    id,
+                    profileName,
+                    fullName,
+                    linkedinLink,
+                    companyName,
+                    companyLogoId,
+                    companyWebsite,
+                    avatar: photoData, // TODO: change photo url logic after testing file uploading
+                },
+            };
+        });
+
         return {
-            items: chats.map((chat) => chat.toObject()),
+            items: parsedChats,
         };
     }
 
     public async create(
         payload: ChatMessagesCreateRequestDto,
-    ): Promise<ChatMessageProperties> {
+    ): Promise<MessageResponseDto> {
         const isFirstMessage = !payload.chatId;
 
         if (isFirstMessage) {
@@ -62,7 +116,7 @@ class ChatMessagesService implements Service {
                 );
 
             for (const chat of chats) {
-                if (chat.receiver?.userId === payload.receiverId) {
+                if (chat.receiver.userId === payload.receiverId) {
                     throw new HttpError({
                         message: 'You already have this conversation.',
                         status: HttpCode.CONFLICT,
@@ -71,19 +125,17 @@ class ChatMessagesService implements Service {
             }
         }
 
-        const newChatMessage = await this.chatMessagesRepository.create(
-            payload,
-        );
+        const newMessage = await this.chatMessagesRepository.create(payload);
 
-        return newChatMessage.toObject();
+        return newMessage.toObject();
     }
 
-    public async read(messageId: string): Promise<ChatMessageProperties> {
-        const patchedChatMessage = await this.chatMessagesRepository.patch({
+    public async read(messageId: string): Promise<MessageResponseDto> {
+        const patchedMessage = await this.chatMessagesRepository.patch({
             id: messageId,
             isRead: true,
         });
-        return patchedChatMessage.toObject();
+        return patchedMessage.toObject();
     }
 
     public update(): Promise<unknown> {

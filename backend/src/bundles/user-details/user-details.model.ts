@@ -83,6 +83,8 @@ class UserDetailsModel extends AbstractModel {
 
     public 'completedStep': ValueOf<typeof OnboardingSteps>;
 
+    public 'photo'?: FileModel;
+
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;
     }

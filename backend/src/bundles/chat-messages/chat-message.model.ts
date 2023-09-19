@@ -16,8 +16,6 @@ class ChatMessageModel extends AbstractModel {
     public 'message': string;
     public 'isRead': boolean;
 
-    public 'lastMessageCreatedAt'?: string;
-    public 'lastMessage'?: string;
     public 'sender'?: UserDetailsModel;
     public 'receiver'?: UserDetailsModel;
 
@@ -42,15 +40,6 @@ class ChatMessageModel extends AbstractModel {
             sender: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: UserDetailsModel,
-                filter: (query) =>
-                    query.select(
-                        'userId',
-                        'fullName',
-                        'companyName',
-                        'companyWebsite',
-                        'description',
-                        'linkedinLink',
-                    ),
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.SENDER_ID}`,
                     to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
@@ -60,15 +49,6 @@ class ChatMessageModel extends AbstractModel {
             receiver: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: UserDetailsModel,
-                filter: (query) =>
-                    query.select(
-                        'userId',
-                        'fullName',
-                        'companyName',
-                        'companyWebsite',
-                        'description',
-                        'linkedinLink',
-                    ),
                 join: {
                     from: `${DatabaseTableName.CHAT_MESSAGES}.${ChatMessagesTableColumn.RECEIVER_ID}`,
                     to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.USER_ID}`,
