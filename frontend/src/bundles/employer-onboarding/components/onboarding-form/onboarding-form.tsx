@@ -142,13 +142,17 @@ const OnboardingForm: React.FC = () => {
     useEffect(() => {
         setSubmitForm(() => {
             return async () => {
-                let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
-                })();
-                return result;
+                const resultPromise = new Promise<boolean>((resolve) => {
+                    void handleSubmit(async (formData) => {
+                        const result = await onSubmit(formData);
+                        resolve(result);
+                    })();
+                });
+
+                return await resultPromise;
             };
         });
+
         return () => {
             setSubmitForm(null);
         };
