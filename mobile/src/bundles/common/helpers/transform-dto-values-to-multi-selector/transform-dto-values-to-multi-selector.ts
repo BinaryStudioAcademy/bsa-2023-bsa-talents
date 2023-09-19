@@ -3,15 +3,15 @@ import {
     type HardSkillsResponseDto,
 } from '~/bundles/common/types/types';
 
-const transformHardSkillsDto = (
+const transformDtoValuesToMultiSelector = (
     payload: HardSkillsResponseDto | null,
 ): AutocompleteMultiSelectorValue[] => {
     return payload
         ? payload.items.map((skills) => ({
               label: skills.name,
-              value: skills.name,
+              value: skills.id,
           }))
         : [];
 };
 
-export { transformHardSkillsDto };
+export { transformDtoValuesToMultiSelector };

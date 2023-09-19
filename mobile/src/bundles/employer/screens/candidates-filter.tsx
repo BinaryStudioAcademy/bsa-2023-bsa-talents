@@ -16,7 +16,7 @@ import {
 } from '~/bundles/common/components/components';
 import { Color, DataStatus, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { transformHardSkillsDto } from '~/bundles/common/helpers/helpers';
+import { transformDtoValuesToMultiSelector } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
@@ -30,10 +30,12 @@ import {
     EmploymentType,
     JobTitle,
 } from '~/bundles/employer/enums/enums';
-import { getHardSkillsData } from '~/bundles/gather-selected-data/store/actions';
+import {
+    getBadgesData,
+    getHardSkillsData,
+} from '~/bundles/gather-selected-data/store/actions';
 
 import {
-    BSA_BADGES,
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
@@ -50,7 +52,7 @@ const CandidatesFilter: React.FC = () => {
         defaultValues: DEFAULT_VALUES,
     });
     const dispatch = useAppDispatch();
-    const { hardSkillsData, dataStatus } = useAppSelector(
+    const { hardSkillsData, dataStatus, badgesData } = useAppSelector(
         ({ gatherSelectedData }) => gatherSelectedData,
     );
     const handleFormSubmit = useCallback((): void => {
@@ -61,10 +63,12 @@ const CandidatesFilter: React.FC = () => {
         // TODO: navigate to Candidates page
     }, []);
 
-    const isHardSkillLoading = dataStatus === DataStatus.PENDING;
     useEffect(() => {
         void dispatch(getHardSkillsData());
+        void dispatch(getBadgesData());
     }, [dispatch]);
+
+    const isSelectorValuesLoading = dataStatus === DataStatus.PENDING;
 
     return (
         <ScrollView
@@ -135,11 +139,11 @@ const CandidatesFilter: React.FC = () => {
             </FormField>
             <FormField label="Hard Skills" name="hardSkills">
                 <AutocompleteMultiSelector
-                    items={transformHardSkillsDto(hardSkillsData)}
+                    items={transformDtoValuesToMultiSelector(hardSkillsData)}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
-                    isValuesLoading={isHardSkillLoading}
+                    isValuesLoading={isSelectorValuesLoading}
                 />
             </FormField>
             <FormField
@@ -159,11 +163,12 @@ const CandidatesFilter: React.FC = () => {
                 name="BSABadges"
                 containerStyle={globalStyles.pb25}
             >
-                <Selector
-                    placeholder="Option"
+                <AutocompleteMultiSelector
+                    items={transformDtoValuesToMultiSelector(badgesData)}
                     control={control}
                     name="BSABadges"
-                    options={BSA_BADGES}
+                    placeholder="Start typing and select skills"
+                    isValuesLoading={isSelectorValuesLoading}
                 />
             </FormField>
             <FormField

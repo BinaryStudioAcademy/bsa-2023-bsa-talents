@@ -17,12 +17,13 @@ type Constructor = {
 
 class GatherSelectedDataApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: '', baseUrl, http, storage });
+        super({ path: ApiPath.EMPTY, baseUrl, http, storage });
     }
 
     public async getBadgesData(): Promise<BadgesResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(ApiPath.BSA_BADGES + ApiEndChar.END_CHAR, {}),
+            // TODO: Remove ApiEndChar after backend will fixed
+            this.getFullEndpoint(ApiPath.BSA_BADGES, ApiEndChar.END_CHAR, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
@@ -34,7 +35,8 @@ class GatherSelectedDataApi extends HttpApiBase {
 
     public async getHardSkillsData(): Promise<HardSkillsResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(ApiPath.HARD_SKILLS + ApiEndChar.END_CHAR, {}),
+            // TODO: Remove ApiEndChar after backend will fixed
+            this.getFullEndpoint(ApiPath.HARD_SKILLS, ApiEndChar.END_CHAR, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,

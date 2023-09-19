@@ -73,7 +73,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         onChange(
             value.filter(
                 (item: AutocompleteMultiSelectorValue) =>
-                    item.value !== itemName,
+                    item.label !== itemName,
             ),
         );
     };
