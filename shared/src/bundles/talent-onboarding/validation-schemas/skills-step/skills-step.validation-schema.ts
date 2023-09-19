@@ -12,7 +12,7 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
         .items(
             joi.object({
                 label: joi.string().pattern(/^[ '.A-Za-z-]+$/),
-                value: joi.string().pattern(/^[ '.A-Za-z-]+$/),
+                value: joi.string(),
             }),
         )
         .min(SkillsStepValidationRule.HARD_SKILLS_MIN_LENGTH)

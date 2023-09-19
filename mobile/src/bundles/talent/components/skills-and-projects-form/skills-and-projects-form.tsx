@@ -18,7 +18,7 @@ import {
     DataStatus,
     IconName,
 } from '~/bundles/common/enums/enums';
-import { transformHardSkillsDto } from '~/bundles/common/helpers/helpers';
+import { transformDtoValuesToMultiSelector } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
@@ -86,7 +86,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={transformHardSkillsDto(hardSkillsData)}
+                    items={transformDtoValuesToMultiSelector(hardSkillsData)}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
