@@ -94,9 +94,16 @@
 
 .checkboxContainer {
     margin-top: 1px;
+    padding-left: 6px;
 
     .MuiGrid-item {
         padding-top: 0;
+    }
+
+    .MuiGrid-item
+        > :global(.MuiFormControlLabel-root)
+        > :global(.MuiCheckbox-root) {
+        padding: 6px;
     }
 }
 
@@ -105,7 +112,8 @@
 }
 
 .projectLinks {
-    margin-bottom: 16px;
+    position: relative;
+    margin-bottom: 2px;
 }
 
 .buttonAddLink {
@@ -119,4 +127,8 @@
 
 .buttonAddLink:hover {
     background-color: transparent;
+}
+
+.inputWithButton :global(.MuiInputBase-input) {
+    padding-right: 30px;
 }
