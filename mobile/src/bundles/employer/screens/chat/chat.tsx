@@ -1,74 +1,49 @@
 import React from 'react';
 
-import {
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    View,
-} from '~/bundles/common/components/components';
+import { FlatList, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { useMemo, useState } from '~/bundles/common/hooks/hooks';
+import { useCallback, useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { ChatListItem, Search } from '~/bundles/employer/components/components';
+import { type ChatListItemType } from '~/bundles/employer/types/types';
 
-import { Search } from '../../components/components';
-import { type MessageData, messages } from './constants/constants';
+import { listItems } from './constants/constants';
 import { styles } from './styles';
 
 const Chat: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
     const filteredChats = useMemo(() => {
-        return messages.filter((message) =>
-            message.lastMessage
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()),
+        return listItems.filter(
+            ({ lastMessage }) =>
+                lastMessage
+                    ?.trim()
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase()),
         );
     }, [searchQuery]);
 
-    const renderChatCard = ({
+    const renderListItem = ({
         item,
     }: {
-        item: MessageData;
+        item: ChatListItemType;
     }): React.ReactElement => {
         return (
-            <Pressable
-                onPress={(): void => {
-                    null;
-                }}
-            >
-                <View key={item.userId} style={styles.messageContainer}>
-                    {item.avatar ? (
-                        <Image
-                            source={item.avatar}
-                            style={styles.messageImage}
-                        />
-                    ) : (
-                        <View style={styles.messageImage} />
-                    )}
-                    <View style={styles.messageInfo}>
-                        <Text
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                            style={styles.userName}
-                        >
-                            {item.userName}
-                        </Text>
-                        <Text
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                            style={styles.messageText}
-                        >
-                            {item.lastMessage}
-                        </Text>
-                    </View>
-                    <Text style={styles.messageTimeDelivery}>
-                        {item.lastMessageDate}
-                    </Text>
-                </View>
-            </Pressable>
+            <ChatListItem
+                item={item}
+                isSelected={item.userId === selectedItemId}
+                onSelect={handleChatSelect}
+            />
         );
     };
+
+    const handleChatSelect = useCallback(
+        (userId: string): void => {
+            setSelectedItemId(userId);
+        },
+        [setSelectedItemId],
+    );
 
     return (
         <View style={globalStyles.flex1}>
@@ -95,8 +70,9 @@ const Chat: React.FC = () => {
                         styles.chatList,
                     ]}
                     data={filteredChats}
-                    renderItem={renderChatCard}
+                    renderItem={renderListItem}
                     keyExtractor={(item): string => item.userId}
+                    showsVerticalScrollIndicator={false}
                 />
             </View>
         </View>

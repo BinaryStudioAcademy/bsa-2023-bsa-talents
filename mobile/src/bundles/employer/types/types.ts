@@ -4,4 +4,7 @@ export {
     type EmployeesFiltersDto,
     type EmployerOnboardingFormDto,
 } from './employer-types/employer-types';
-export { type UserDetailsCreateRequestDto } from 'shared/build/index.js';
+export {
+    type ChatListItemType,
+    type UserDetailsCreateRequestDto,
+} from 'shared/build/index.js';
