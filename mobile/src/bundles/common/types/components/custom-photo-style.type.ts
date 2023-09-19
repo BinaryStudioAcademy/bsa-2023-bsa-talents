@@ -2,7 +2,7 @@ import {
     type ImageStyle,
     type StyleProp,
     type ViewStyle,
-} from '~/bundles/common/components/components';
+} from '~/bundles/common/types/types';
 
 type CustomPhotoStyle = StyleProp<ViewStyle> &
     Partial<{

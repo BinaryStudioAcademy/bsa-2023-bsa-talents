@@ -1,16 +1,14 @@
 import React from 'react';
+
+import { RadioGroup, View } from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
-} from 'react-hook-form';
-import RadioGroup, {
     type RadioGroupProps,
-} from 'react-native-radio-buttons-group';
-
-import { View } from '~/bundles/common/components/components';
-import { Color } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

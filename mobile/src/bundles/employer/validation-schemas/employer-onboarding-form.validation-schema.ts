@@ -1,7 +1,7 @@
 import joi from 'joi';
 
+import { CountryList } from '~/bundles/common/enums/enums';
 import {
-    CountryList,
     EmployerOnboardingFormValidationMessage,
     EmployerOnboardingFormValidationRule,
 } from '~/bundles/employer/enums/enums';

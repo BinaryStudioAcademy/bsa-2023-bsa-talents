@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
-import Animated from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
+    MaterialIcon,
     Pressable,
     ScrollView,
     Text,
@@ -22,7 +16,12 @@ import {
     useSelectorAnimations,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+import { Animated, globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+} from '~/bundles/common/types/types';
 
 import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
@@ -100,7 +99,7 @@ const Selector = <T extends FieldValues>({
                         : placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>
-                    <Icon
+                    <MaterialIcon
                         name={IconName.ARROW_DROP_DOWN}
                         size={ICON_SIZE}
                         color={Color.PRIMARY}

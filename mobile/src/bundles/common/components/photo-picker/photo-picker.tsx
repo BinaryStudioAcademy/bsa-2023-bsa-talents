@@ -1,10 +1,4 @@
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
-import { type StyleProp, type ViewStyle } from 'react-native';
-import { type ImagePickerResponse } from 'react-native-image-picker';
+import React from 'react';
 
 import {
     Avatar,
@@ -27,9 +21,15 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
+    type Control,
     type CustomPhotoStyle,
+    type FieldPath,
+    type FieldValues,
+    type ImagePickerResponse,
     type PhotoProperties,
+    type StyleProp,
     type ValueOf,
+    type ViewStyle,
 } from '~/bundles/common/types/types';
 import { ERROR_MESSAGE } from '~/bundles/talent/helpers/constants/constants';
 import {

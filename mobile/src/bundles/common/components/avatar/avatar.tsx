@@ -1,6 +1,11 @@
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
 
-import { Image, Text, View } from '~/bundles/common/components/components';
+import {
+    Image,
+    MaterialIcon,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import {
     IconName,
     PhotoType,
@@ -83,7 +88,7 @@ const Avatar: React.FC<Properties> = ({
                 globalStyles.alignItemsCenter,
             ]}
         >
-            <Icon
+            <MaterialIcon
                 size={avatarStyles.iconSize}
                 style={[styles.icon, avatarStyles.size, defaultPhoto]}
                 name={defaultIcon}

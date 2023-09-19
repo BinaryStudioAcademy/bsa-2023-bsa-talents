@@ -10,10 +10,13 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    CountryList,
+    IconName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { CountryList } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 

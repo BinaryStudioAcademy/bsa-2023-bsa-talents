@@ -1,8 +1,4 @@
 import React from 'react';
-import { PermissionsAndroid } from 'react-native';
-import { type StyleProp, type ViewStyle } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { type ImagePickerResponse } from 'react-native-image-picker';
 
 import {
     Button,
@@ -10,13 +6,26 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { PermissionsAndroid } from '~/bundles/common/constants/constants';
 import {
     ButtonType,
     ErrorMessages,
     TextCategory,
 } from '~/bundles/common/enums/enums';
+import {
+    launchCamera,
+    launchImageLibrary,
+} from '~/bundles/common/helpers/helpers';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type ImagePickerResponse,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
+import { notifications } from '~/framework/notifications/notifications';
+
+import { styles } from './styles';
 
 type ImagePickerProperties = {
     shouldHideButton?: boolean;
@@ -25,9 +34,6 @@ type ImagePickerProperties = {
     onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
     containerStyle?: StyleProp<ViewStyle>;
 };
-import { notifications } from '~/framework/notifications/notifications';
-
-import { styles } from './styles';
 
 const ImagePicker: React.FC<ImagePickerProperties> = ({
     shouldHideButton = false,
