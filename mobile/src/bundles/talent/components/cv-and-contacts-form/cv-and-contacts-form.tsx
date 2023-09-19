@@ -43,6 +43,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
+            showsVerticalScrollIndicator={false}
         >
             <FormField
                 errorMessage={errors.photo && 'Photo is required'}
