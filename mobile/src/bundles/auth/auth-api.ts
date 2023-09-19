@@ -1,4 +1,5 @@
 import {
+    type UserFindResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -10,7 +11,6 @@ import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
 import { AuthApiPath } from './enums/enums';
-import { type UserFindResponseDto } from './types/types';
 
 type Constructor = {
     baseUrl: string;

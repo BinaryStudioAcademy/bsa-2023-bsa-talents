@@ -5,7 +5,7 @@
     --chat-header-padding: 24px;
     --chat-input-height: 90px;
     --chat-wrapper-height: calc(
-        99vh - var(--header-height) - var(--page-title-height)
+        100vh - var(--header-height) - var(--page-title-height)
     );
     --chat-list-small-min-width: 250px;
     --button-group-width: 135px;
@@ -35,6 +35,7 @@
 .chatWrapper {
     position: relative;
     height: var(--chat-wrapper-height);
+    overflow: hidden;
     background-color: var(--white);
 }
 

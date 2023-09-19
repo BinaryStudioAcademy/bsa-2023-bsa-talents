@@ -1,4 +1,4 @@
-import { TalentOnboardingScreenName } from '~/bundles/common/enums/navigation/talent-onboarding-screen-name.enum';
+import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
 const CompletedTalentOnboardingStep: Record<
