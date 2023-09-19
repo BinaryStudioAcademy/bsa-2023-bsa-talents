@@ -4,11 +4,13 @@ import styles from './styles.module.scss';
 type Properties = {
     avatarUrl: string;
     isOnline: boolean;
+    isWaitingForApproval?: boolean;
     children: React.ReactNode;
 };
 
 const PageLayout: React.FC<Properties> = ({
     avatarUrl,
+    isWaitingForApproval,
     isOnline,
     children,
 }) => (
@@ -17,6 +19,7 @@ const PageLayout: React.FC<Properties> = ({
 
         <Header
             avatarUrl={avatarUrl}
+            isWaitingForApproval={isWaitingForApproval}
             isOnline={isOnline}
             className={styles.mainHeader}
         />
