@@ -11,11 +11,13 @@ import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
 import {
     userDetailsCreateValidationSchema,
+    userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
 } from './validation-schemas/validation-schemas.js';
 
@@ -126,6 +128,20 @@ class UserDetailsController extends ControllerBase {
                 this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.ROOT,
+            method: 'GET',
+            validation: {
+                query: userDetailsSearchValidationSchema,
+            },
+            handler: (options) =>
+                this.searchUsers(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsSearchUsersRequestDto;
                     }>,
                 ),
         });
@@ -369,6 +385,135 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.update(options.body),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/:
+     *    get:
+     *      tags:
+     *        - User Details
+     *      description: Search for user details based on criteria
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: sortBy
+     *          schema:
+     *            type: string
+     *          description: Search query to sort users (optional)
+     *        - in: query
+     *          name: searchValue
+     *          schema:
+     *            type: string
+     *          description: Search query to filter by user's full name (optional)
+     *        - in: query
+     *          name: isBaseSearch
+     *          schema:
+     *            type: boolean
+     *          description: Determines whether search type is base or extended
+     *        - in: query
+     *          name: searchActiveCandidatesOnly
+     *          schema:
+     *            type: boolean
+     *          description: Filter by active status (optional)
+     *        - in: query
+     *          name: jobTitle
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by job title (optional)
+     *        - in: query
+     *          name: yearsOfExperience
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by years of experience (optional)
+     *        - in: query
+     *          name: hardSkills
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by hard skills (optional)
+     *        - in: query
+     *          name: BSABadges
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by BSA badges (optional)
+     *        - in: query
+     *          name: location
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by location (optional)
+     *        - in: query
+     *          name: englishLevel
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          description: Filter by English level (optional)
+     *        - in: query
+     *          name: employmentType
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by employment type (optional)
+     *        - in: query
+     *          name: userBsaCharacteristics
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by userBsaCharacteristics (optional)
+     *        - in: query
+     *          name: userBsaProject
+     *          schema:
+     *            type: array
+     *            items:
+     *              type: string
+     *          style: form
+     *          explode: true
+     *          description: Filter by userBsaProject (optional)
+     *      responses:
+     *         200:
+     *           description: Successful operation
+     *           content:
+     *             application/json:
+     *               schema:
+     *                 type: array
+     *                 items:
+     *                   $ref: '#/components/schemas/UserDetails'
+     */
+
+    private async searchUsers(
+        options: ApiHandlerOptions<{
+            query: UserDetailsSearchUsersRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const searchResult = await this.userDetailsService.searchUsers(
+            options.query,
+        );
+
+        return {
+            status: HttpCode.OK,
+            payload: searchResult,
         };
     }
 

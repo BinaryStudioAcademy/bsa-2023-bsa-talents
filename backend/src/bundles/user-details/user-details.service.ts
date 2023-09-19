@@ -1,3 +1,5 @@
+import { mapQueryValuesToArrays } from 'shared/build/index.js';
+
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
@@ -6,6 +8,7 @@ import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
@@ -40,6 +43,17 @@ class UserDetailsService implements Service {
 
     public findAll(): Promise<{ items: unknown[] }> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    }
+
+    public searchUsers(
+        searchData: UserDetailsSearchUsersRequestDto,
+    ): Promise<UserDetailsEntity[]> {
+        const preparedData = mapQueryValuesToArrays(searchData, [
+            'searchValue',
+            'sortBy',
+        ]);
+
+        return this.userDetailsRepository.searchUsers(preparedData);
     }
 
     public async create(
