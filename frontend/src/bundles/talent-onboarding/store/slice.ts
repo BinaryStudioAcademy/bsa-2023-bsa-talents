@@ -1,11 +1,11 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-    type UserDetailsFindRequestDto,
-    type UserDetailsUpdateRequestDto,
-} from 'shared/build/index.js';
 
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
+import {
+    type UserDetailsFindRequestDto,
+    type UserDetailsUpdateRequestDto,
+} from '~/bundles/common/types/types.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
 import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step/constants/constants.js';

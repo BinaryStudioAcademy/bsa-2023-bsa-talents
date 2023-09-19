@@ -1,6 +1,5 @@
 import { type MenuItemProps } from '@mui/base/MenuItem';
 import { Logout } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 
 import { actions as storeActions } from '~/app/store/app.js';
 import { actions as authActions } from '~/bundles/auth/store/auth.js';
@@ -10,7 +9,11 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
-import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useNavigate,
+} from '~/bundles/common/hooks/hooks.js';
 import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import styles from './styles.module.scss';

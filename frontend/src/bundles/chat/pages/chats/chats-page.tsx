@@ -1,6 +1,3 @@
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-
 import {
     ChatHeader,
     ChatList,
@@ -13,7 +10,9 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
     useEffect,
+    useMediaQuery,
     useState,
+    useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 
 import {

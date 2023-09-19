@@ -1,8 +1,7 @@
-import { useCallback } from 'react';
-
 import RoundedArrow from '~/assets/img/rounded-arrow.svg';
 import { Link } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 

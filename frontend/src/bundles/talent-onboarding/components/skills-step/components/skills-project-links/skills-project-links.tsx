@@ -1,10 +1,9 @@
 import { FormControl, FormLabel, Typography } from '@mui/material';
 import { type Control, type FieldErrors } from 'react-hook-form';
-import { useFieldArray } from 'react-hook-form';
 
 import { Button, Grid, Input } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useFieldArray } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../../constants/constants.js';

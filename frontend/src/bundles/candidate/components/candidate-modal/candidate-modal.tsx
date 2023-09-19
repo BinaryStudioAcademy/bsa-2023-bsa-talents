@@ -2,12 +2,7 @@ import {
     Add as AddIcon,
     DeleteOutline as DeleteIcon,
 } from '@mui/icons-material';
-import {
-    Controller,
-    type ControllerRenderProps,
-    type SubmitHandler,
-    useFieldArray,
-} from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import {
     Button,
@@ -27,8 +22,13 @@ import {
     useAppForm,
     useAppSelector,
     useCallback,
+    useFieldArray,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import {
+    type ControllerRenderProps,
+    type SubmitHandler,
+} from '~/bundles/common/types/types.js';
 
 import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';

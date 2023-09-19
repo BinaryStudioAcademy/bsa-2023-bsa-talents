@@ -1,6 +1,6 @@
-import { Grid } from '@mui/material';
 import { type ReactElement } from 'react';
 
+import { Grid } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
