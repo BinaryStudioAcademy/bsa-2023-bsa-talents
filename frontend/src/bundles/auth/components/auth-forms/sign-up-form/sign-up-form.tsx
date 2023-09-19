@@ -1,5 +1,4 @@
 import { actions as storeActions } from '~/app/store/app.js';
-import { UserRole } from '~/bundles/auth/enums/enums.js';
 import {
     Button,
     Checkbox,
@@ -20,6 +19,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import {
+    UserRole,
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';

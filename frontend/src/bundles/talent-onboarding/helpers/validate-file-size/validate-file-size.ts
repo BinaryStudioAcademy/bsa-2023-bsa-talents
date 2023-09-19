@@ -1,3 +1,5 @@
+// FIX: create separate folder for each helper
+
 import {
     type FieldPath,
     type FieldValues,
@@ -5,7 +7,7 @@ import {
     type UseFormSetError,
 } from 'react-hook-form';
 
-import { MAX_FILE_SIZE } from '../components/contacts-cv-step/constants/constants.js';
+import { MAX_FILE_SIZE } from '../../components/contacts-cv-step/constants/constants.js';
 
 const validateFileSize = <T extends FieldValues>({
     name,
