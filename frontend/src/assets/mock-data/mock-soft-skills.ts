@@ -10,7 +10,6 @@ const mockSoftSkills: Option[] = [
     { value: 'Leadership', label: 'Leadership' },
     { value: 'Creative', label: 'Creative' },
     { value: 'Proactive', label: 'Proactive' },
-    { value: 'Flexibility', label: 'Flexibility' },
 ];
 
 export { mockSoftSkills };

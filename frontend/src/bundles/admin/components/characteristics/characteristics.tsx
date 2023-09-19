@@ -13,10 +13,9 @@ import styles from './styles.module.scss';
 
 // Mock data
 const personalityTypeOptions = Object.values({
-    VALUE1: 'value1',
-    VALUE2: 'value2',
-    VALUE3: 'value3',
-    VALUE4: 'value4',
+    DOER: 'Doer',
+    CONNECTOR: 'Connector',
+    THINKER: 'Thinker',
 }).map((type) => ({
     value: type,
     label: type,
@@ -79,7 +78,7 @@ const Characteristics: React.FC = () => {
                             name="softSkills"
                             control={control}
                             options={mockSoftSkills}
-                            placeholder="Start typing and select skills"
+                            placeholder="Option"
                         />
                     </FormControl>
                 </Grid>
