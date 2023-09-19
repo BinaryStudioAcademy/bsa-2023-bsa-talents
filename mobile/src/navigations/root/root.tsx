@@ -18,6 +18,7 @@ import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
+import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -71,8 +72,11 @@ const Root: React.FC = () => {
         onboarding: (
             <RootStack.Screen
                 name={RootScreenName.ONBOARDING_ROOT_ROUTE}
-                // TODO: create EmployerOnboardingNavigator for role == 'employer'
-                component={TalentOnboardingNavigator}
+                component={
+                    role === UserRole.TALENT
+                        ? TalentOnboardingNavigator
+                        : EmployerOnboarding
+                }
             />
         ),
         main: (

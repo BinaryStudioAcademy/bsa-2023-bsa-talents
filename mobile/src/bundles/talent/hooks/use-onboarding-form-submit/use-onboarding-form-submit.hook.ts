@@ -47,51 +47,60 @@ const useOnboardingFormSubmit = ({
 }: Properties): SubmitOnboardingData => {
     const dispatch = useAppDispatch();
     const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { onboardingData } = useAppSelector(({ talents }) => talents);
     const userId = currentUserData?.id ?? '';
 
     const completedOnboardingStep = CompletedTalentOnboardingStep[stepTitle];
 
-    const { navigate } =
+    const navigation =
         useNavigation<
             NavigationProp<TalentOnboardingNavigationParameterList>
         >();
 
     return useCallback(
         async (payload: OnboardingFormData): Promise<void> => {
-            const updatePayload = {
+            const isProjectLinksExist = 'projectLinks' in payload;
+
+            const updatedProjectLinks = isProjectLinksExist
+                ? urlObjectsToStrings(payload.projectLinks)
+                : onboardingData?.projectLinks;
+
+            const updatedPayload = {
                 ...payload,
                 userId,
-                projectLinks: urlObjectsToStrings(
-                    (payload as SkillsStepDto).projectLinks,
-                ),
+                projectLinks: updatedProjectLinks ?? [],
                 completedStep: completedOnboardingStep,
             };
 
-            const createPayload = {
-                ...updatePayload,
+            const createdPayload = {
+                ...updatedPayload,
                 fullName: (payload as ProfileStepDto).profileName,
             };
 
             const result = isNewTalentOnboardingData
                 ? await dispatch(
-                      talentActions.createTalentDetails(createPayload),
+                      talentActions.createTalentDetails(createdPayload),
                   )
                 : await dispatch(
-                      talentActions.updateOnboardingData(updatePayload),
+                      talentActions.updateOnboardingData(updatedPayload),
                   );
 
             if (result.payload) {
                 const nextStepTitle = getNextStepTitle(stepNumber);
                 if (nextStepTitle) {
-                    navigate(nextStepTitle, {
+                    navigation.setParams({
+                        stepState: TalentOnboardingStepState.COMPLETED,
+                    });
+                    navigation.navigate(nextStepTitle, {
                         stepState: TalentOnboardingStepState.FOCUSED,
                     });
                 }
             }
         },
         [
+            navigation,
+            onboardingData,
             dispatch,
-            navigate,
             userId,
             stepNumber,
             isNewTalentOnboardingData,

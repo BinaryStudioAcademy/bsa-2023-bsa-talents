@@ -1,7 +1,7 @@
-const AvatarType = {
+const PhotoType = {
     LARGE: 'large',
     MEDIUM: 'medium',
     SMALL: 'small',
 } as const;
 
-export { AvatarType };
+export { PhotoType };
