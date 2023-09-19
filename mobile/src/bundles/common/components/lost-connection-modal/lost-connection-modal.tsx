@@ -1,9 +1,12 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Text, View } from '~/bundles/common/components/components';
+import {
+    CommunityIcon,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { IconName, TextCategory } from '~/bundles/common/enums/enums';
+import { useNetInfo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -37,7 +40,7 @@ const LostConnectionModal: React.FC = () => {
                     globalStyles.borderRadius10,
                 ]}
             >
-                <Icon
+                <CommunityIcon
                     style={globalStyles.mr10}
                     name={IconName.WIFI_OFF}
                     size={25}
