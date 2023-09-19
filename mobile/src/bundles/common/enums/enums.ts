@@ -11,17 +11,25 @@ export {
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export {
-    AvatarType,
     BadgeSize,
     ButtonType,
     Color,
     IconName,
     LoaderSize,
+    PhotoType,
 } from './ui/ui';
 export {
     ApiPath,
     AppEnvironment,
+    BsaBadgeStepBadgesTitle,
     ContentType,
+    CountryList,
+    EmploymentType,
+    EnglishLevel,
     ErrorMessages,
+    JobTitle,
+    NotConsidered,
+    PreferredLanguages,
     ServerErrorType,
-} from 'shared/build/index';
+    UserRole,
+} from 'shared/build/index.js';

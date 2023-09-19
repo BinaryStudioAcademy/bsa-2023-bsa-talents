@@ -96,6 +96,8 @@ class TalentApi extends HttpApiBase {
             companyLogoId: null,
             companyWebsite: null,
             employerPosition: null,
+            talentBadges: [],
+            talentHardSkills: [],
             cvId: null,
             completedStep: null,
         };

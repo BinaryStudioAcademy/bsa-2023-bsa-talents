@@ -35,14 +35,19 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsSearchUsersRequestDto,
+    userDetailsSearchValidationSchema,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
+    UserSortCriteria,
+    YearsOfExperience,
 } from './bundles/user-details/user-details.js';
 export {
     type UserCreateResponseDto,
@@ -86,6 +91,7 @@ export {
     getItemsWithSelected,
     getNestedProperty,
     getSearchedItems,
+    mapQueryValuesToArrays,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

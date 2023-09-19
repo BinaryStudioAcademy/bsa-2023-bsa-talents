@@ -12,6 +12,7 @@
 .header {
     display: flex;
     align-items: flex-start;
+    width: fit-content;
     height: fit-content;
     padding: 61px 0 0;
 }
@@ -67,10 +68,12 @@
     .header {
         justify-content: center;
         align-items: center;
+        width: 100%;
         padding: 30px 0;
     }
 
     .logo {
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 10px;

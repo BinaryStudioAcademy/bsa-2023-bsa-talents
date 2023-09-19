@@ -22,3 +22,26 @@
         justify-content: center;
     }
 }
+
+.checkboxWrapper {
+    width: 100%;
+
+    :global(.MuiFormControlLabel-root.MuiFormControlLabel-labelPlacementEnd) {
+        margin-left: -9px;
+    }
+}
+
+.termsLabel {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+
+    .bsaTermsLinkWrapper {
+        margin: 0 5px;
+    }
+
+    .bsaTermsLink {
+        color: var(--azure);
+        text-decoration: underline;
+    }
+}
