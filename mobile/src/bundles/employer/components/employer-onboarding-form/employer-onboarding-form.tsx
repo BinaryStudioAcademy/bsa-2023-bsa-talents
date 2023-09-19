@@ -68,9 +68,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         Profile photo
                     </Text>
                     <FormField
-                        errorMessage={
-                            errors.profilePhoto && 'Profile photo is required'
-                        }
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
@@ -100,9 +97,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         Company logo
                     </Text>
                     <FormField
-                        errorMessage={
-                            errors.companyLogo && 'Company logo is required'
-                        }
                         name="companyLogo"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
