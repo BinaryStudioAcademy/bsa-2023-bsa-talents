@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/prefer-regexp-test */
-
 import { type Middleware } from '@reduxjs/toolkit';
 
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
