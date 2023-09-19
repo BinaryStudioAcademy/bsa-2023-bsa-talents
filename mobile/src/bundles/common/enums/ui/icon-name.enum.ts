@@ -6,6 +6,7 @@ const IconName = {
     CIRCLE: 'circle',
     CHECK_CIRCLE: 'check-circle',
     PERSON: 'person',
+    AUTO_GRAPH: 'auto-graph',
     ADD: 'add',
     FOLDER_SHARED: 'folder-shared',
     MAIL: 'mail',

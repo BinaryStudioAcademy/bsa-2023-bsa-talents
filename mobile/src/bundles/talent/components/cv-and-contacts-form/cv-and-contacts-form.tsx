@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {
-    AvatarPicker,
     Button,
     FilePicker,
     FormField,
     Input,
+    PhotoPicker,
     ScrollView,
     Text,
     View,
@@ -49,7 +49,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <AvatarPicker control={control} name="photo" />
+                <PhotoPicker control={control} name="photo" />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}
