@@ -10,7 +10,7 @@ import {
 import { BSABadgesModel } from '../bsa-badges/bsa-badges.model.js';
 
 class TalentBadgeModel extends AbstractModel {
-    public 'userEmail': string;
+    public 'userId': string;
 
     public 'score': number | null;
 

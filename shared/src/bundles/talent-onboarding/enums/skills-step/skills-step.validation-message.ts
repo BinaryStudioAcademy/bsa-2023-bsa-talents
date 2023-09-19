@@ -8,7 +8,7 @@ const SkillsStepValidationMessage = {
     PREFERRED_LANGUAGES_WRONG_PATTERN: 'Preferred languages must be an array',
     PREFERRED_LANGUAGES_DIDNT_MATCH_ALLOWED_TYPES:
         'Preferred languages did not match allowed languages',
-    PREFERRED_LANGUAGES_REQUIRED: 'Preferred languages is required',
+    PREFERRED_LANGUAGES_REQUIRED: 'Preferred language is required',
     PROJECT_LINKS_DIDNT_MATCH_ALLOWED_TYPES:
         'Project links must be a valid URL, between 5 and 50 characters',
     PROJECT_LINKS_MAX_LINKS:
