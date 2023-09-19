@@ -57,8 +57,8 @@ const updateOnboardingData = createAsyncThunk<
 });
 
 const getTalentDetails = createAsyncThunk<
-    UserDetailsGeneralRequestDto | null,
-    UserDetailsGeneralRequestDto,
+    UserDetailsGeneralResponseDto | null,
+    UserDetailsGeneralResponseDto,
     AsyncThunkConfig
 >(`${sliceName}/getTalentDetails`, async (payload, { extra }) => {
     const { notifications, talentApi } = extra;
