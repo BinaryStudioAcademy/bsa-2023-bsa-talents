@@ -72,6 +72,11 @@ const FONTS = {
         fontSize: 13,
         color: Color.TEXT2,
     },
+    [TextCategory.BADGE]: {
+        fontFamily: FontFamily.INTER_REGULAR,
+        fontSize: 10,
+        color: Color.TEXT,
+    },
 };
 
 export { FONTS };

@@ -1,14 +1,7 @@
 import { type ValueOf } from '~/types/value-of.type.js';
 
-import {
-    type CountryList,
-    type EmploymentType,
-    type EnglishLevel,
-    type JobTitle,
-    type NotConsidered,
-    type OnboardingSteps,
-    type PreferredLanguages,
-} from '../user-details.js';
+import { type OnboardingSteps } from '../user-details.js';
+import { type UserDetailsUpdateDto } from './types.js';
 
 type UserDetailsUpdateRequestDto = {
     id?: string;
@@ -44,7 +37,11 @@ type UserDetailsUpdateRequestDto = {
     companyWebsite?: string;
     employerPosition?: string;
     cvId?: string;
+    
+    talentBadges?: string[];
+    talentHardSkills?: string[];
+
     completedStep?: ValueOf<typeof OnboardingSteps>;
-};
+} & UserDetailsUpdateDto;
 
 export { type UserDetailsUpdateRequestDto };
