@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { globalStyles } from '~/bundles/common/styles/styles';
-
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FFFFFF',
@@ -14,8 +12,6 @@ const styles = StyleSheet.create({
     defaultContainer: {
         width: 100,
         height: 100,
-        ...globalStyles.justifyContentCenter,
-        ...globalStyles.alignItemsCenter,
     },
     employerProfileContainer: {
         borderRadius: 50,

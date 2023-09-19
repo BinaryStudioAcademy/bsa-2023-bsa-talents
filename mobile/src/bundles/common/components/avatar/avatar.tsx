@@ -8,6 +8,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type CustomPhotoStyle,
     type PhotoProperties,
@@ -75,7 +76,13 @@ const Avatar: React.FC<Properties> = ({
         );
     }
     return (
-        <View style={defaultPhotoContainer}>
+        <View
+            style={[
+                defaultPhotoContainer,
+                globalStyles.justifyContentCenter,
+                globalStyles.alignItemsCenter,
+            ]}
+        >
             <Icon
                 size={avatarStyles.iconSize}
                 style={[styles.icon, avatarStyles.size, defaultPhoto]}
