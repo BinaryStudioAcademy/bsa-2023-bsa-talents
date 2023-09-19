@@ -4,6 +4,10 @@ import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
+import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
+import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
+import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
+import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
@@ -16,9 +20,17 @@ import { type UserDetailsRepository } from './user-details.repository.js';
 
 class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
+    private talentBadgeService: TalentBadgeService;
+    private talentHardSkillsService: TalentHardSkillsService;
 
-    public constructor(userDetailsRepository: UserDetailsRepository) {
+    public constructor(
+        userDetailsRepository: UserDetailsRepository,
+        talentBadgeService: TalentBadgeService,
+        talentHardSkillsService: TalentHardSkillsService,
+    ) {
         this.userDetailsRepository = userDetailsRepository;
+        this.talentBadgeService = talentBadgeService;
+        this.talentHardSkillsService = talentHardSkillsService;
     }
 
     public async find(
@@ -59,14 +71,52 @@ class UserDetailsService implements Service {
     public async create(
         payload: UserDetailsCreateRequestDto,
     ): Promise<UserDetailsResponseDto> {
-        const newUserDetails = await this.userDetailsRepository.create(payload);
-        return newUserDetails.toObject();
+        const { talentBadges, talentHardSkills, ...userDetails } = payload;
+
+        const newUserDetails = await this.userDetailsRepository.create(
+            userDetails,
+        );
+
+        const userDetailsId = newUserDetails.toObject().id as string;
+
+        let badgesResult: TalentBadge[] = [],
+            hardSkillsResult: TalentHardSkill[] = [];
+
+        if (talentBadges) {
+            badgesResult = await Promise.all(
+                talentBadges.map((talentBadge) =>
+                    this.talentBadgeService.create({
+                        badgeId: talentBadge,
+                        userId: userDetails.userId,
+                        userDetailsId,
+                    }),
+                ),
+            );
+        }
+
+        if (talentHardSkills) {
+            hardSkillsResult = await Promise.all(
+                talentHardSkills.map((hardSkillId) =>
+                    this.talentHardSkillsService.create({
+                        hardSkillId,
+                        userDetailsId,
+                    }),
+                ),
+            );
+        }
+
+        return {
+            ...newUserDetails.toObject(),
+            talentBadges: badgesResult,
+            talentHardSkills: hardSkillsResult,
+        };
     }
 
     public async update(
         payload: UserDetailsUpdateRequestDto,
-    ): Promise<UserDetailsEntity> {
-        const { userId, ...rest } = payload;
+    ): Promise<UserDetailsResponseDto> {
+        const { userId, talentBadges, talentHardSkills, ...rest } = payload;
+
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -78,10 +128,38 @@ class UserDetailsService implements Service {
 
         const userDetailsId = userDetails.toObject().id as string;
 
-        return this.userDetailsRepository.update({
-            id: userDetailsId,
+        let badgesResult: TalentBadge[] = [],
+            hardSkillsResult: TalentHardSkill[] = [];
+
+        if (talentBadges) {
+            badgesResult = await Promise.all(
+                talentBadges.map((badgeId) =>
+                    this.talentBadgeService.update({
+                        badgeId,
+                        userId: userId as string,
+                        userDetailsId,
+                    }),
+                ),
+            );
+        }
+
+        if (talentHardSkills) {
+            hardSkillsResult = await this.talentHardSkillsService.update({
+                talentHardSkills,
+                userDetailsId,
+            });
+        }
+
+        const updatedUserDetails = await this.userDetailsRepository.update({
             ...rest,
+            id: userDetailsId,
         });
+
+        return {
+            ...updatedUserDetails.toObject(),
+            talentBadges: badgesResult,
+            talentHardSkills: hardSkillsResult,
+        };
     }
 
     public delete(): Promise<boolean> {
