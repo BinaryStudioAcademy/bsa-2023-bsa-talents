@@ -21,31 +21,102 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *        scheme: bearer
  *        bearerFormat: JWT
  *    schemas:
- *      Message:
+ *      MessageResponseDto:
  *        type: object
  *        properties:
  *          id:
- *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            format: uuid
  *            type: string
  *            description: The unique identifier for the chat message.
+ *            example: '550e8400-e29b-41d4-a716-446655440000'
  *          senderId:
- *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            format: uuid
  *            type: string
  *            description: The ID of the message sender.
+ *            example: '550e8400-e29b-41d4-a716-446655440000'
  *          receiverId:
- *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            format: uuid
  *            type: string
  *            description: The ID of the message receiver.
+ *            example: '550e8400-e29b-41d4-a716-446655440000'
  *          chatId:
- *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            format: uuid
  *            type: string
  *            description: The ID of the chat to which the message belongs.
+ *            example: '550e8400-e29b-41d4-a716-446655440000'
  *          message:
  *            type: string
  *            description: The content of the chat message.
+ *            example: 'Hello, how are you?'
  *          isRead:
  *            type: boolean
  *            description: Indicates whether the message has been read (true) or not (false).
+ *            example: true
+ *      ChatResponseDto:
+ *        type: object
+ *        properties:
+ *          chatId:
+ *            format: uuid
+ *            type: string
+ *            description: The unique identifier for the chat.
+ *            example: '550e8400-e29b-41d4-a716-446655440000'
+ *          lastMessageCreatedAt:
+ *            type: string
+ *            description: The timestamp of the last message in the chat.
+ *            example: '2023-09-19T12:34:56Z'
+ *          lastMessage:
+ *            type: string
+ *            description: The content of the last message in the chat.
+ *            example: 'This is the last message in the chat.'
+ *          partner:
+ *            type: object
+ *            properties:
+ *              id:
+ *                format: uuid
+ *                type: string
+ *                description: The ID of the chat partner.
+ *                example: '550e8400-e29b-41d4-a716-446655440000'
+ *              profileName:
+ *                type: string
+ *                description: The profile name of the chat partner (nullable).
+ *                example: 'lee_swagger'
+ *              fullName:
+ *                type: string
+ *                description: The full name of the chat partner (nullable).
+ *                example: 'Lee Swagger'
+ *              linkedinLink:
+ *                type: string
+ *                description: The LinkedIn profile link of the chat partner (nullable).
+ *                example: 'https://www.linkedin.com/in/leeswagger'
+ *              companyName:
+ *                type: string
+ *                description: The company name of the chat partner (nullable).
+ *                example: 'Lee Corp'
+ *              companyLogoId:
+ *                format: uuid
+ *                type: string
+ *                description: The company logo ID of the chat partner (nullable).
+ *                example: '550e8400-e29b-41d4-a716-446655440000'
+ *              companyWebsite:
+ *                type: string
+ *                description: The company website of the chat partner (nullable).
+ *                example: 'https://www.lee-studio.com'
+ *              avatar:
+ *                type: object
+ *                properties:
+ *                  url:
+ *                    type: string
+ *                    description: The URL of the avatar image.
+ *                    example: 'https://www.awss3.com/avatar/avatar.jpg'
+ *                  fileName:
+ *                    type: string
+ *                    description: The filename of the avatar image.
+ *                    example: 'avatar.jpg'
+ *                  etag:
+ *                    type: string
+ *                    description: The ETag of the avatar image.
+ *                    example: '12345'
+ *                nullable: true
  */
 class ChatMessagesController extends ControllerBase {
     private chatMessagesService: ChatMessagesService;
@@ -118,6 +189,7 @@ class ChatMessagesController extends ControllerBase {
      *   get:
      *     tags:
      *       - "Chat Message"
+     *     summary: Retrieve all chat messages
      *     description: Retrieves all chat messages
      *     security:
      *       - bearerAuth: []
@@ -130,7 +202,7 @@ class ChatMessagesController extends ControllerBase {
      *               type: array
      *               items:
      *                 type: object
-     *                 $ref: '#/components/schemas/ChatMessage'
+     *                 $ref: '#/components/schemas/MessageResponseDto'
      */
     private async getAll(): Promise<ApiHandlerResponse> {
         return {
@@ -145,6 +217,7 @@ class ChatMessagesController extends ControllerBase {
      *   get:
      *     tags:
      *       - "Chat Message"
+     *     summary: Retrieves all chat messages for a specific chat by chatId
      *     description: Retrieves all chat messages for a specific chat by chatId
      *     security:
      *       - bearerAuth: []
@@ -154,8 +227,9 @@ class ChatMessagesController extends ControllerBase {
      *         description: The ID of the chat to retrieve messages for.
      *         required: true
      *         schema:
-     *           format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *           format: uuid
      *           type: string
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *     responses:
      *       200:
      *         description: Successful retrieval of chat messages
@@ -165,7 +239,7 @@ class ChatMessagesController extends ControllerBase {
      *               type: array
      *               items:
      *                 type: object
-     *                 $ref: '#/components/schemas/ChatMessage'
+     *                 $ref: '#/components/schemas/MessageResponseDto'
      */
     private async getAllMessagesByChatId(
         options: ApiHandlerOptions<{
@@ -186,6 +260,7 @@ class ChatMessagesController extends ControllerBase {
      *   get:
      *     tags:
      *       - "Chat Message"
+     *     summary: Retrieves all chats for a specific user by userId
      *     description: Retrieves all chats for a specific user by userId
      *     security:
      *       - bearerAuth: []
@@ -195,79 +270,19 @@ class ChatMessagesController extends ControllerBase {
      *         description: The ID of the user to retrieve chats for.
      *         required: true
      *         schema:
-     *           format: uuid # Example: '7c16e786-e801-4538-b2b1-fe6fd8faeba1'
+     *           format: uuid
      *           type: string
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *     responses:
      *       200:
-     *         description: Successful retrieval of user's chats
+     *         description: Successful retrieval of chats
      *         content:
      *           application/json:
      *             schema:
      *               type: array
      *               items:
      *                 type: object
-     *                 properties:
-     *                   chatId:
-     *                     format: uuid # Example: '8b6deae3-33a7-4154-95a7-ebb2ad01522c'
-     *                     type: string
-     *                     description: The ID of the chat.
-     *                   lastMessageCreatedAt:
-     *                     type: string
-     *                     format: date-time # Example: '2023-09-18T19:19:02.121Z'
-     *                     description: The timestamp of the last message in the chat.
-     *                   lastMessage:
-     *                     type: string
-     *                     description: The content of the last message in the chat.
-     *                   sender:
-     *                     type: object
-     *                     properties:
-     *                       userId:
-     *                         format: uuid # Example: '7c16e786-e801-4538-b2b1-fe6fd8faeba1'
-     *                         type: string
-     *                         description: The ID of the sender.
-     *                       description:
-     *                         type: string
-     *                         description: The description of the sender.
-     *                       fullName:
-     *                         type: string
-     *                         description: The full name of the sender.
-     *                       linkedinLink:
-     *                         type: string
-     *                         description: The LinkedIn profile link of the sender.
-     *                       companyName:
-     *                         type: string
-     *                         description: The company name of the sender.
-     *                       companyWebsite:
-     *                         type: string
-     *                         description: The company website of the sender.
-     *                       photo:
-     *                         type: string
-     *                         description: The photo of the sender.
-     *                   receiver:
-     *                     type: object
-     *                     properties:
-     *                       userId:
-     *                         format: uuid # Example: 'e5e738b7-91bd-49f4-b6ca-34b2b45339f0'
-     *                         type: string
-     *                         description: The ID of the receiver.
-     *                       description:
-     *                         type: string
-     *                         description: The description of the receiver.
-     *                       fullName:
-     *                         type: string
-     *                         description: The full name of the receiver.
-     *                       linkedinLink:
-     *                         type: string
-     *                         description: The LinkedIn profile link of the receiver.
-     *                       companyName:
-     *                         type: string
-     *                         description: The company name of the receiver.
-     *                       companyWebsite:
-     *                         type: string
-     *                         description: The company website of the receiver.
-     *                       photo:
-     *                         type: string
-     *                         description: The photo of the receiver.
+     *                 $ref: '#/components/schemas/ChatResponseDto'
      */
     private async getAllChatsByUserId(
         options: ApiHandlerOptions<{
@@ -288,6 +303,7 @@ class ChatMessagesController extends ControllerBase {
      *   post:
      *     tags:
      *       - "Chat Message"
+     *     summary: Creates a new chat message
      *     description: Creates a new chat message
      *     security:
      *       - bearerAuth: []
@@ -304,28 +320,51 @@ class ChatMessagesController extends ControllerBase {
      *         content:
      *           application/json:
      *             schema:
-     *               $ref: '#/components/schemas/ChatMessage'
+     *               $ref: '#/components/schemas/MessageResponseDto'
+     *       409:
+     *         description: Conflict - You already have this conversation
+     *         content:
+     *           application/json:
+     *             example:
+     *               errorType: COMMON
+     *               message: You already have this conversation.
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 errorType:
+     *                   type: string
+     *                   description: The type of error.
+     *                 message:
+     *                   type: string
+     *                   description: The error message.
      * components:
      *   schemas:
      *     ChatMessagesCreateRequestDto:
      *       type: object
      *       properties:
      *         senderId:
-     *           format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *           format: uuid
      *           type: string
-     *           description: The ID of the sender.
+     *           description: The ID of the message sender.
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *         receiverId:
-     *           format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *           format: uuid
      *           type: string
-     *           description: The ID of the receiver.
+     *           description: The ID of the message receiver.
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *         chatId:
-     *           format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *           format: uuid
      *           type: string
-     *           description: The ID of the chat.
+     *           description: (Optional) The ID of the chat to which the message belongs.
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *         message:
      *           type: string
-     *           description: The message content.
-     *
+     *           description: The content of the chat message.
+     *           example: 'Hello, how are you?'
+     *       required:
+     *         - senderId
+     *         - receiverId
+     *         - message
      */
     private async create(
         options: ApiHandlerOptions<{
@@ -340,11 +379,12 @@ class ChatMessagesController extends ControllerBase {
 
     /**
      * @swagger
-     * /chat-messages/{messageId}:
+     * /chat-messages/read/{messageId}:
      *   patch:
      *     tags:
      *       - "Chat Message"
-     *     description: Marks a chat message as read by messageId
+     *     summary: Marks a chat message as read by messageId
+     *     description: Marks a chat message as read by specifying its unique messageId.
      *     security:
      *       - bearerAuth: []
      *     parameters:
@@ -353,15 +393,16 @@ class ChatMessagesController extends ControllerBase {
      *         description: The ID of the chat message to mark as read.
      *         required: true
      *         schema:
-     *           format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *           format: uuid
      *           type: string
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
      *     responses:
      *       200:
      *         description: Successful marking of a chat message as read
      *         content:
      *           application/json:
      *             schema:
-     *               $ref: '#/components/schemas/ChatMessage'
+     *               $ref: '#/components/schemas/MessageResponseDto'
      */
     private async read(
         options: ApiHandlerOptions<{
