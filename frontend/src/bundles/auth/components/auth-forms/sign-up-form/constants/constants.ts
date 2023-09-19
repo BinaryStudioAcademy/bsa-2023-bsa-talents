@@ -1,4 +1,4 @@
-import { UserRole,type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import { UserRole, type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
 const DEFAULT_SIGN_UP_PAYLOAD: UserSignUpRequestDto = {
     email: '',
