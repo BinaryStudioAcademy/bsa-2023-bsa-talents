@@ -6,7 +6,6 @@ import {
     FormField,
     Input,
     PhotoPicker,
-    ScrollView,
     Text,
     View,
 } from '~/bundles/common/components/components';
@@ -48,19 +47,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     }, [handleSubmit, onSubmit]);
 
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-        >
-            <Text
-                category={TextCategory.H4}
-                style={[globalStyles.mb15, styles.title]}
-            >
-                Create a profile to find a perfect match to your company
-            </Text>
-            <Text category={TextCategory.H6} style={globalStyles.mb10}>
-                Please, fill out all the fields below, so we could verify your
-                company
-            </Text>
+        <>
             <View
                 style={[
                     globalStyles.width100,
@@ -208,7 +195,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell about your companyand its values"
+                label="Briefly tell about your company and its values"
                 name="description"
                 containerStyle={globalStyles.pb25}
             >
@@ -225,7 +212,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 onPress={handleFormSubmit}
                 style={globalStyles.mt25}
             />
-        </ScrollView>
+        </>
     );
 };
 
