@@ -2,6 +2,7 @@ import { config } from '~/framework/config/config.js';
 import { http } from '~/framework/http/http.js';
 import { storage } from '~/framework/storage/storage.js';
 
+import { BsaBadgesApi } from './bsa-badges-api.js';
 import { HardSkillsApi } from './hard-skills-api.js';
 
 const hardSkillsApi = new HardSkillsApi({
@@ -10,4 +11,10 @@ const hardSkillsApi = new HardSkillsApi({
     storage,
 });
 
-export { hardSkillsApi };
+const bsaBadgesApi = new BsaBadgesApi({
+    baseUrl: config.ENV.API.ORIGIN_URL,
+    http,
+    storage,
+});
+
+export { bsaBadgesApi, hardSkillsApi };

@@ -1,8 +1,9 @@
-import { getHardSkills } from './actions.js';
+import { getBsaBadges, getHardSkills } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
+    getBsaBadges,
     getHardSkills,
 };
 

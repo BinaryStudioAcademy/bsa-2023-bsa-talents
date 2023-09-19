@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { ApiPath } from '../enums/enums.js';
-import { type HardSkills } from '../types/hard-skills.type.js';
+import { type BsaBadges, type HardSkills } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const getHardSkills = createAsyncThunk<HardSkills, undefined, AsyncThunkConfig>(
@@ -15,4 +15,13 @@ const getHardSkills = createAsyncThunk<HardSkills, undefined, AsyncThunkConfig>(
     },
 );
 
-export { getHardSkills };
+const getBsaBadges = createAsyncThunk<BsaBadges, undefined, AsyncThunkConfig>(
+    `${sliceName}${ApiPath.BSA_BADGES}`,
+    async (_, { extra }) => {
+        const { bsaBadgesApi } = extra;
+
+        return await bsaBadgesApi.getAllBSABadges();
+    },
+);
+
+export { getBsaBadges, getHardSkills };
