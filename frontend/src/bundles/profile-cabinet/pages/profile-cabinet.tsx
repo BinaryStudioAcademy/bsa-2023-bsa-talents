@@ -58,12 +58,7 @@ const ProfileCabinet: React.FC = () => {
             break;
         }
         case UserRole.EMPLOYER: {
-            tabNavigation = (
-                <Tabs>
-                    <Tab label="Profile" href={`/${role}/my/profile`} />
-                    <Tab label="Hirings" href={`/${role}/my/hirings`} />
-                </Tabs>
-            );
+            tabNavigation = <></>;
             break;
         }
         default: {
