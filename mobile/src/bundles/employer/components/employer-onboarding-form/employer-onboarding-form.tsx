@@ -61,6 +61,12 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 ]}
             >
                 <View>
+                    <Text
+                        category={TextCategory.LABEL}
+                        style={globalStyles.p10}
+                    >
+                        Profile photo
+                    </Text>
                     <FormField
                         errorMessage={
                             errors.profilePhoto && 'Profile photo is required'
@@ -85,9 +91,14 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Profile photo</Text>
                 </View>
                 <View>
+                    <Text
+                        category={TextCategory.LABEL}
+                        style={globalStyles.p10}
+                    >
+                        Company logo
+                    </Text>
                     <FormField
                         errorMessage={
                             errors.companyLogo && 'Company logo is required'
@@ -113,7 +124,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Company logo</Text>
                 </View>
             </View>
             <FormField
@@ -146,7 +156,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
                 name="linkedinLink"
-                required
                 containerStyle={globalStyles.pb15}
             >
                 <Input

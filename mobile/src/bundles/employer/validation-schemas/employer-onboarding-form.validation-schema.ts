@@ -11,8 +11,8 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     EmployerOnboardingFormDto,
     true
 >({
-    profilePhoto: joi.object().required(),
-    companyLogo: joi.object().required(),
+    profilePhoto: joi.object().allow(null),
+    companyLogo: joi.object().allow(null),
     fullName: joi
         .string()
         .trim()
@@ -70,13 +70,11 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     linkedinLink: joi
         .string()
         .trim()
+        .allow('')
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
         .min(EmployerOnboardingFormValidationRule.MIN_LINKEDIN_LINK_LENGTH)
         .max(EmployerOnboardingFormValidationRule.MAX_LINKEDIN_LINK_LENGTH)
-        .required()
         .messages({
-            'string.empty':
-                EmployerOnboardingFormValidationMessage.LINKEDIN_LINK_REQUIRED,
             'string.min':
                 EmployerOnboardingFormValidationMessage.LINKEDIN_LINK_MIN_LENGTH,
             'string.max':

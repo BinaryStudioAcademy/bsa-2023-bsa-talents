@@ -3,8 +3,6 @@ const EmployerOnboardingFormValidationMessage = {
     FULL_NAME_MIN_LENGTH: 'Full name must be at least {{#limit}} characters',
     FULL_NAME_MAX_LENGTH: 'Full name must be at most {{#limit}} characters',
     FULL_NAME_WRONG_PATTERN: 'Full name must contain only letters',
-
-    LINKEDIN_LINK_REQUIRED: 'LinkedIn is required',
     LINKEDIN_LINK_LENGTH:
         'LinkedIn must be between {{#limit.min}} and {{#limit.max}} characters',
     LINKEDIN_LINK_WRONG_PATTERN: 'Invalid LinkedIn URL format',
