@@ -8,6 +8,7 @@ import {
 } from '~/bundles/common/components/components';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useRealTimeElapsed } from '~/bundles/employer/hooks/hooks';
 import { type ChatListItemType } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
@@ -20,6 +21,8 @@ type Properties = {
 
 const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
     const { userId, username, avatar, lastMessage, lastMessageDate } = item;
+
+    const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageDate ?? '');
 
     const itemAvatar = avatar ? (
         <Image source={{ uri: avatar }} style={styles.defaultAvatar} />
@@ -43,7 +46,7 @@ const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
     );
 
     const timeDelivery = (
-        <Text style={styles.timeDelivery}>{lastMessageDate}</Text>
+        <Text style={styles.timeDelivery}>{lastMessageTimeDelivery}</Text>
     );
 
     const handleListItemSelect = useCallback((): void => {
@@ -55,7 +58,6 @@ const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.mb5,
                     globalStyles.p10,
                     isSelected && styles.selectedItem,
                 ]}

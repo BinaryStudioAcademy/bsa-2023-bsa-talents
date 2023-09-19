@@ -9,20 +9,20 @@ const listItems: ChatListItemType[] = [
         username: 'User1',
         avatar: imageAvatar,
         lastMessage: 'Message from u1',
-        lastMessageDate: '2023-09-18 14:34:40.546+03',
+        lastMessageDate: '2023-09-19 20:17:00.284+03',
     },
     {
         userId: 'u2',
         username: 'User2long long longu2 long long long User2long',
         avatar: imageAvatar,
         lastMessage: 'Message from u2 Message from u2 Message from u2',
-        lastMessageDate: '2023-09-18T22:21:20.357Z',
+        lastMessageDate: '2023-09-19 20:12:00.357Z',
     },
     {
         userId: 'u3',
         username: 'User3',
         lastMessage: 'Message from u3',
-        lastMessageDate: '2023-09-15 14:15:40.546+03',
+        lastMessageDate: '2023-09-19 19:44:00.284',
     },
     {
         userId: 'u4',
