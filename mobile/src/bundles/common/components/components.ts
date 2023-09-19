@@ -3,7 +3,6 @@ export {
     AutocompleteSelector,
 } from './autocomplete-selectors/autocomplete-selectors';
 export { Avatar } from './avatar/avatar';
-export { AvatarPicker } from './avatar-picker/avatar-picker';
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
@@ -18,6 +17,7 @@ export { Loader } from './loader/loader';
 export { LostConnectionModal } from './lost-connection-modal/lost-connection-modal';
 export { ActiveModal, Modal } from './modals/modals';
 export { Overlay } from './overlay/overlay';
+export { PhotoPicker } from './photo-picker/photo-picker';
 export { RadioButtons } from './radio-buttons/radio-buttons';
 export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
@@ -38,9 +38,11 @@ export {
     Text as RNText,
     ScrollView,
     StatusBar,
+    type StyleProp,
     TextInput,
     TouchableOpacity,
     View,
+    type ViewStyle,
 } from 'react-native';
 export { default as DocumentPicker } from 'react-native-document-picker';
 export { GestureHandlerRootView } from 'react-native-gesture-handler';

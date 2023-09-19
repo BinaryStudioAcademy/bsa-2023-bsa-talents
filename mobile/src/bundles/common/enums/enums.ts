@@ -11,12 +11,12 @@ export {
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export {
-    AvatarType,
     BadgeSize,
     ButtonType,
     Color,
     IconName,
     LoaderSize,
+    PhotoType,
 } from './ui/ui';
 export {
     ApiPath,
