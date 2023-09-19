@@ -57,6 +57,7 @@ const Profile: React.FC = () => {
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             <ProfileForm
+                key={profileStepData?.profileName}
                 profileStepData={profileStepData}
                 onSubmit={handleProfileSubmit}
             />
