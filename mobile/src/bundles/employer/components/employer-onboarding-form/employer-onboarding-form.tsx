@@ -68,6 +68,9 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         Profile photo
                     </Text>
                     <FormField
+                        errorMessage={
+                            errors.profilePhoto && 'Profile photo is required'
+                        }
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
@@ -151,6 +154,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 label="Linkedin profile"
                 name="linkedinLink"
                 containerStyle={globalStyles.pb15}
+                required
             >
                 <Input
                     control={control}
