@@ -19,7 +19,7 @@ import {
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
-import { getTalentDetails } from '~/bundles/talent/store/actions';
+import { getUserDetails } from '~/bundles/talent/store/actions';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -55,7 +55,7 @@ const Root: React.FC = () => {
         if (!currentUserData) {
             return;
         }
-        void dispatch(getTalentDetails({ userId: currentUserData.id }));
+        void dispatch(getUserDetails({ userId: currentUserData.id }));
     }, [currentUserData, currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {

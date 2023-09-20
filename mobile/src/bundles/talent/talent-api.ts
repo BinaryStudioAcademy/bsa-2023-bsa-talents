@@ -4,7 +4,6 @@ import {
     type UserDetailsCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
-    type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -37,8 +36,8 @@ class TalentApi extends HttpApiBase {
     }
 
     public async completeOnboardingStep(
-        payload: UserDetailsUpdateRequestDto,
-    ): Promise<UserDetailsResponseDto> {
+        payload: UserDetailsGeneralRequestDto,
+    ): Promise<UserDetailsGeneralRequestDto> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -48,7 +47,7 @@ class TalentApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsResponseDto>();
+        return await response.json<UserDetailsGeneralRequestDto>();
     }
 
     public async getUserDetailsByUserId(
