@@ -1,4 +1,8 @@
-import { mockFeedback, mockSoftSkills } from '~/assets/mock-data/mock-data.js';
+import {
+    mockFeedback,
+    mockPersonalityTypeOptions,
+    mockSoftSkills,
+} from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     FormControl,
@@ -11,16 +15,6 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
-
-// Mock data
-const personalityTypeOptions = Object.values({
-    DOER: 'Doer',
-    CONNECTOR: 'Connector',
-    THINKER: 'Thinker',
-}).map((type) => ({
-    value: type,
-    label: type,
-}));
 
 const Characteristics: React.FC = () => {
     const { control, errors } = useAppForm<{
@@ -56,7 +50,7 @@ const Characteristics: React.FC = () => {
                             control={control}
                             errors={errors}
                             name={'personalityType'}
-                            options={personalityTypeOptions}
+                            options={mockPersonalityTypeOptions}
                             placeholder="Option"
                         />
                     </FormControl>
