@@ -15,7 +15,7 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         .string()
         .valid(
             ...Object.values(UserSortCriteria).map(
-                (criteria) => criteria.label,
+                (criteria) => criteria.value,
             ),
         ),
 

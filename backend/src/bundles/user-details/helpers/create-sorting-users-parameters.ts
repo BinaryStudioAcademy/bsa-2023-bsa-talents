@@ -4,11 +4,11 @@ import { UserSortCriteria } from '../enums/enums.js';
 
 const createSortingUsersParameters = (
     value?: ValueOf<
-        (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['label']
+        (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value']
     >,
 ): { column: string; direction: 'asc' | 'desc' } => {
     const selectedSorting = Object.values(UserSortCriteria).find(
-        (item) => item.label === value,
+        (item) => item.value === value,
     );
 
     return selectedSorting
