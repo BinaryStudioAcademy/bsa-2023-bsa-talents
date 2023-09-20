@@ -64,16 +64,17 @@ class UserDetailsRepository implements Repository {
         });
     }
 
-    public async findUnconfirmedByRole(
+    public findUnconfirmedByRole(
         role: 'talent' | 'employer',
     ): Promise<UserDetailsModel[]> {
-        return await this.userDetailsModel
+        return this.userDetailsModel
             .query()
             .joinRelated('user')
             .leftOuterJoinRelated('photo')
             .where('user.role', role)
             .andWhere('isApproved', false)
-            .select('user_id', 'photo.url as photoUrl', 'full_name');
+            .select('user_id', 'photo.url as photoUrl', 'full_name')
+            .execute();
     }
 
     public findAll(): ReturnType<Repository['findAll']> {
