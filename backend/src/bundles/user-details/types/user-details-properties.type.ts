@@ -14,6 +14,7 @@ type UserDetailsProperties = {
     id: string | null;
     userId: string;
     isApproved: boolean;
+    isPublished: boolean;
     deniedReason: string | null;
     isHired: boolean;
     profileName: string | null;

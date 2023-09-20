@@ -2,6 +2,7 @@ const UserDetailsTableColumn = {
     ID: 'id',
     USER_ID: 'userId',
     IS_APPROVED: 'isApproved',
+    IS_PUBLISHED: 'isPublished',
     DENIED_REASON: 'deniedReason',
     IS_HIRED: 'isHired',
     PROFILE_NAME: 'profileName',
