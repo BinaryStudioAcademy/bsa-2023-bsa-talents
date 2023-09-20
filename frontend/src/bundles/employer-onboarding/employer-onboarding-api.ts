@@ -1,5 +1,3 @@
-// import { type UserDetailsCreateRequestDto } from 'shared/build/index.js';
-
 import {
     ApiPath,
     ContentType,
