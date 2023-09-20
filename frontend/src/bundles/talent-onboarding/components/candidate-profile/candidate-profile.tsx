@@ -79,7 +79,7 @@ const CandidateProfile: React.FC<Properties> = ({
             <Grid
                 className={getValidClassNames(
                     styles.profileWrapper,
-                    isProfileCard ? styles.profileCardWrapper : '',
+                    isProfileCard && styles.profileCardWrapper,
                 )}
             >
                 <ProfileFirstSection
