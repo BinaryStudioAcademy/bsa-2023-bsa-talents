@@ -27,6 +27,7 @@ const Tab: React.FC<LinkTabProperties> = (props) => {
             className={styles.tab}
             component="a"
             onClick={handleClick}
+            wrapped
             {...props}
         />
     );

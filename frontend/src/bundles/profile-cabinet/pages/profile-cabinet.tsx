@@ -57,13 +57,13 @@ const ProfileCabinet: React.FC = () => {
 
     return (
         <PageLayout avatarUrl="" isOnline>
+            <Grid className={styles.pageTitle}>
+                <Typography variant="h4" className={''}>
+                    Your Profile
+                </Typography>
+            </Grid>
             <Grid className={styles.pageWrapper}>
                 <Grid className={styles.headNavigation}>
-                    <Grid>
-                        <Typography variant="h4" className={''}>
-                            Your Profile
-                        </Typography>
-                    </Grid>
                     <Grid className={styles.tabNavigation}>
                         <Tabs>
                             <Tab label="Profile" href="/my/profile" />

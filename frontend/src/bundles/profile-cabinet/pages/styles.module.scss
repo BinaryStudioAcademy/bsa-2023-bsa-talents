@@ -2,9 +2,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 0 50px 20px;
+    margin: 10px;
+    background-color: var(--white);
+    border-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.pageTitle {
+    padding: 20px 50px;
+    border-bottom: 1px solid var(--solitude);
 }
 
 .form {
@@ -14,7 +20,6 @@
     max-width: 600px;
     padding: 40px;
     background-color: var(--white);
-    border: 1px solid var(--botticelli);
     border-radius: 8px;
 }
 
@@ -25,13 +30,16 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding: 20px 0;
-    background-color: var(--white-lilac);
+    margin: 0 10px;
+    padding: 10px 0;
+    background-color: var(--white);
 }
 
 .tabNavigation {
     display: flex;
     justify-content: center;
+    background-color: var(--white-lilac);
+    border-radius: 10px;
 }
 
 .saveButton {
@@ -52,18 +60,4 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
-}
-
-@media screen and (width <=1000px) {
-    .pageWrapper {
-        padding: 10px;
-    }
-
-    .headNavigation {
-        padding: 10px;
-    }
-
-    .tabNavigation {
-        justify-content: flex-start;
-    }
 }
