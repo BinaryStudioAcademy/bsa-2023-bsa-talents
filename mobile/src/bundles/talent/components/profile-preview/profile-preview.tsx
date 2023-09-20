@@ -37,6 +37,8 @@ const ProfilePreview: React.FC = () => {
         description,
     } = onboardingData;
 
+    const experienceYearsToDisplay = experienceYears && +experienceYears;
+
     return (
         <>
             <Text category={TextCategory.H5} style={globalStyles.pb10}>
@@ -89,7 +91,7 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {experienceYears} year of experience
+                            {experienceYearsToDisplay} year of experience
                         </Text>
                     </View>
                     <View
