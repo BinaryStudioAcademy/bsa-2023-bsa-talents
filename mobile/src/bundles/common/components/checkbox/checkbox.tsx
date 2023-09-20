@@ -1,10 +1,13 @@
-import CheckBox, { type CheckBoxProps } from '@react-native-community/checkbox';
 import React from 'react';
-import { type StyleProp, type ViewStyle } from 'react-native';
 
-import { Text, View } from '~/bundles/common/components/components';
+import { CheckBox, Text, View } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type CheckBoxProps,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 
 type Properties = CheckBoxProps & {
     label?: string;

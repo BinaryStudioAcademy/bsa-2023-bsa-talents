@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
-
 import { Color, FontFamily } from '~/bundles/common/enums/enums';
+import { StyleSheet } from '~/bundles/common/styles/styles';
 
 const styles = StyleSheet.create({
     container: {
