@@ -1,13 +1,10 @@
-import { type Entity } from '~/common/types/types.js';
+import { type UserDetailsModel } from '~/bundles/user-details/user-details.model.js';
 
-import { type UserDetailsModel } from '../user-details/user-details.model.js';
-import { type ChatProperties } from './types/types.js';
+import { type ChatMessageModel } from '../chat-message.model.js';
+import { type ChatProperties } from '../types/chat-properties.type.js';
 
-class ChatEntity implements Entity {
+class Chat {
     private 'chatId': string;
-
-    private 'senderId': string;
-    private 'receiverId': string;
 
     public 'lastMessageCreatedAt': string;
     public 'lastMessage': string;
@@ -34,13 +31,18 @@ class ChatEntity implements Entity {
         lastMessage,
         sender,
         receiver,
-    }: ChatProperties): ChatEntity {
-        return new ChatEntity({
+    }: ChatMessageModel & {
+        lastMessageCreatedAt?: string;
+        lastMessage?: string;
+        sender?: UserDetailsModel;
+        receiver?: UserDetailsModel;
+    }): Chat {
+        return new Chat({
             chatId,
-            lastMessageCreatedAt,
-            lastMessage,
-            sender,
-            receiver,
+            lastMessageCreatedAt: lastMessageCreatedAt as string,
+            lastMessage: lastMessage as string,
+            sender: sender as UserDetailsModel,
+            receiver: receiver as UserDetailsModel,
         });
     }
 
@@ -53,16 +55,6 @@ class ChatEntity implements Entity {
             receiver: this.receiver,
         };
     }
-
-    public toNewObject(): ChatProperties {
-        return {
-            chatId: '',
-            lastMessageCreatedAt: this.lastMessageCreatedAt,
-            lastMessage: this.lastMessage,
-            sender: this.sender,
-            receiver: this.receiver,
-        };
-    }
 }
 
-export { ChatEntity };
+export { Chat };
