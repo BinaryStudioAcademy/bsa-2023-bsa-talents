@@ -25,19 +25,6 @@ const createMessage = createAsyncThunk<
     AsyncThunkConfig
 >('chat/create-message', () => {
     //TODO: remove when actions will be created
-    //{
-    //     message: 'Hello',
-    //     receiverId: 'nskndkaldn',
-    //     senderId: 'nskndkaldn',
-    //     chatId: 'ksdjlskfjl',
-    // } = payload;
-    // const newMessage = await chatApi.createChatMessage({
-    //     message,
-    //     receiverId,
-    //     senderId,
-    //     chatId,
-    //   });
-    //TODO: remove when actions will be created
     return {
         id: 'heas13',
         senderId: 'fgdh1234',
