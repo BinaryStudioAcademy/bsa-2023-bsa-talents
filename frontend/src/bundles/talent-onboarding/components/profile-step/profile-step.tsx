@@ -329,11 +329,11 @@ const ProfileStep: React.FC = () => {
             <FormControl className={styles.formControl}>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
-                        Briefly tell employers about your experience
+                        Introduce yourself
                     </Typography>
                 </FormLabel>
                 <Textarea
-                    placeholder="Tell us a little bit about yourself"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer."
                     control={control}
                     errors={errors}
                     name={'description'}
