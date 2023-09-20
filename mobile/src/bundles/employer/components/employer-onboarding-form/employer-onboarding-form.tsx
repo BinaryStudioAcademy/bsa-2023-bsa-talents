@@ -6,14 +6,9 @@ import {
     FormField,
     Input,
     PhotoPicker,
-    Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    CountryList,
-    IconName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { CountryList, IconName } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -61,18 +56,13 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 ]}
             >
                 <View>
-                    <Text
-                        category={TextCategory.LABEL}
-                        style={globalStyles.p10}
-                    >
-                        Profile photo
-                    </Text>
                     <FormField
                         errorMessage={
                             errors.profilePhoto && 'Profile photo is required'
                         }
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
+                        label=" Profile photo"
                     >
                         <PhotoPicker
                             control={control}
@@ -93,14 +83,9 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     </FormField>
                 </View>
                 <View>
-                    <Text
-                        category={TextCategory.LABEL}
-                        style={globalStyles.p10}
-                    >
-                        Company logo
-                    </Text>
                     <FormField
                         name="companyLogo"
+                        label="Company logo"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
                         <PhotoPicker
