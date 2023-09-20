@@ -1,15 +1,18 @@
 import React from 'react';
+
+import {
+    NativeSwitch,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { useFormController } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type Control,
     type FieldPath,
     type FieldValues,
-} from 'react-hook-form';
-import { Switch as NativeSwitch } from 'react-native';
-
-import { Text, View } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
-import { useFormController } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
+} from '~/bundles/common/types/types';
 
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;

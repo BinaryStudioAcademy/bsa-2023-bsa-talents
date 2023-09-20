@@ -1,5 +1,4 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
     AutocompleteMultiSelector,
@@ -7,21 +6,23 @@ import {
     CheckboxGroup,
     Divider,
     FormField,
+    MaterialIcon,
     Pressable,
     Switch,
     Text,
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
-import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import {
+    Color,
     CountryList,
     EmploymentType,
+    IconName,
     JobTitle,
-} from '~/bundles/employer/enums/enums';
+    TextCategory,
+} from '~/bundles/common/enums/enums';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 import {
@@ -93,7 +94,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     </Text>
                 </TouchableOpacity>
                 <Pressable>
-                    <Icon
+                    <MaterialIcon
                         name={IconName.CLOSE}
                         size={25}
                         color={Color.PRIMARY}
