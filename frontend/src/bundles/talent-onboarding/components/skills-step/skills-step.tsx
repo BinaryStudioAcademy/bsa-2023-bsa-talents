@@ -23,8 +23,7 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
-import { convertHardSkillsApiResponseIntoAutoselectOptions } from '~/bundles/common-data/helpers/convert-hard-skills-response-into-select-options.js';
-import { actions as commonActions } from '~/bundles/common-data/store/common-data.js';
+import { useCommonData } from '~/bundles/common-data/hooks/use-common-data.hook.js';
 import {
     EnglishLevel,
     NotConsidered,
@@ -113,19 +112,7 @@ const SkillsStep: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-    const { hardSkillsData } = useAppSelector((state) => state.commonData);
-
-    useEffect(() => {
-        if (!hardSkillsData) {
-            void dispatch(commonActions.getHardSkillsData());
-        }
-    }, [dispatch, hardSkillsData]);
-
-    const hardSkillsOptions = useMemo(() => {
-        return convertHardSkillsApiResponseIntoAutoselectOptions(
-            hardSkillsData,
-        );
-    }, [hardSkillsData]);
+    const { hardSkillsOptions } = useCommonData();
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
