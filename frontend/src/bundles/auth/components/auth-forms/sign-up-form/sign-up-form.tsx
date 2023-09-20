@@ -17,7 +17,6 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
 import {
     UserRole,
     type UserSignUpRequestDto,
@@ -46,20 +45,18 @@ const options = [
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const dispatch = useAppDispatch();
 
-    const [selectedRole, setSelectedRole] = useState<ValueOf<typeof UserRole>>(
-        UserRole.TALENT,
-    );
     const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
-    const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-        validationSchema: userSignUpValidationSchema,
-    });
+    const { control, errors, watch, handleSubmit } =
+        useAppForm<UserSignUpRequestDto>({
+            defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+            validationSchema: userSignUpValidationSchema,
+        });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            if (selectedRole === UserRole.TALENT && !isTermsAccepted) {
+            if (watch('role') === UserRole.TALENT && !isTermsAccepted) {
                 const termsErrorMessage =
                     'Please accept BSA Talents Terms to continue';
                 void dispatch(
@@ -72,18 +69,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             }
             void handleSubmit(onSubmit)(event_);
         },
-        [dispatch, handleSubmit, isTermsAccepted, onSubmit, selectedRole],
-    );
-
-    const handleRadioChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setSelectedRole(
-                event.target.value === 'talent'
-                    ? UserRole.TALENT
-                    : UserRole.EMPLOYER,
-            );
-        },
-        [],
+        [dispatch, handleSubmit, isTermsAccepted, onSubmit, watch],
     );
 
     const handleCheckboxChange = useCallback(
@@ -151,11 +137,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         options={options}
                         name={'role'}
-                        value={selectedRole}
-                        onChange={handleRadioChange}
                     />
                 </FormControl>
-                {selectedRole === UserRole.TALENT && (
+                {watch('role') === UserRole.TALENT && (
                     <FormControl className={styles.checkboxWrapper} required>
                         <Checkbox
                             label={checkboxLabel}
