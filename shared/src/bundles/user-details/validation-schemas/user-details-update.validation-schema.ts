@@ -15,6 +15,7 @@ const userDetailsUpdate = joi
         id: joi.string().trim(),
         userId: joi.string().trim(),
 
+        isApproved: joi.boolean(),
         isHired: joi.boolean(),
 
         profileName: joi.string().trim().allow(null),
@@ -58,7 +59,15 @@ const userDetailsUpdate = joi
                 .valid(...Object.values(PreferredLanguages)),
         ),
 
-        projectLinks: joi.array().items(joi.string().trim().uri()),
+        projectLinks: joi.array().items(
+            joi
+                .string()
+                .trim()
+                .uri({
+                    scheme: ['http', 'https', 'ftp'],
+                    allowRelative: true,
+                }),
+        ),
         photoId: joi.string().trim(),
         fullName: joi.string().trim(),
         phone: joi.string().trim(),
@@ -68,6 +77,8 @@ const userDetailsUpdate = joi
         companyWebsite: joi.string().trim().uri(),
         employerPosition: joi.string().trim(),
         cvId: joi.string().trim(),
+        talentBadges: joi.array().items(joi.string().trim()),
+        talentHardSkills: joi.array().items(joi.string().trim()),
         completedStep: joi.string().trim(),
     })
     .or('id', 'userId');

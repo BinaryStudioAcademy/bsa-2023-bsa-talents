@@ -4,9 +4,9 @@ import {
     ActivityIndicator,
     View,
 } from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
+import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { Color } from '../../enums/enums';
-import { globalStyles } from '../../styles/global-styles';
 import { styles } from './styles';
 
 type OverlayProperties = {

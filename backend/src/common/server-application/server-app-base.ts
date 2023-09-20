@@ -15,7 +15,7 @@ import { type Config } from '~/common/packages/config/config.js';
 import { type Database } from '~/common/packages/database/database.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { token } from '~/common/packages/packages.js';
-import { authorization } from '~/common/plugins/plugins.js';
+import { authorization, socket } from '~/common/plugins/plugins.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
@@ -64,6 +64,7 @@ class ServerAppBase implements ServerApp {
             handler,
             schema: {
                 body: validation?.body,
+                querystring: validation?.query,
             },
         });
 
@@ -128,6 +129,7 @@ class ServerAppBase implements ServerApp {
                 tokenService: token,
             },
         });
+        await this.app.register(socket);
 
         this.logger.info('Plugins registered on application');
     }
