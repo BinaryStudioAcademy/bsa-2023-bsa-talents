@@ -1,8 +1,8 @@
+import { actions as storeActions } from '~/app/store/app.js';
 import {
     Button,
     Checkbox,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -12,16 +12,17 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
     useAppForm,
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
 import {
     UserRole,
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -42,59 +43,40 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const [selectedRole, setSelectedRole] = useState<ValueOf<typeof UserRole>>(
-        UserRole.TALENT,
-    );
-    const [isTermsAcceptedAfterSubmit, setIsTermsAcceptedAfterSubmit] =
-        useState({
-            isFormSubmitted: false,
-            isTermsAccepted: false,
-        });
+    const dispatch = useAppDispatch();
 
-    const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-        validationSchema: userSignUpValidationSchema,
-    });
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+
+    const { control, errors, watch, handleSubmit } =
+        useAppForm<UserSignUpRequestDto>({
+            defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+            validationSchema: userSignUpValidationSchema,
+        });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            isTermsAcceptedAfterSubmit.isFormSubmitted &&
-            isTermsAcceptedAfterSubmit.isTermsAccepted
-                ? void handleSubmit(onSubmit)(event_)
-                : setIsTermsAcceptedAfterSubmit({
-                      isFormSubmitted: true,
-                      isTermsAccepted:
-                          isTermsAcceptedAfterSubmit.isTermsAccepted,
-                  });
+            if (watch('role') === UserRole.TALENT && !isTermsAccepted) {
+                const termsErrorMessage =
+                    'Please accept BSA Talents Terms to continue';
+                void dispatch(
+                    storeActions.notify({
+                        type: NotificationType.ERROR,
+                        message: termsErrorMessage,
+                    }),
+                );
+                return;
+            }
+            void handleSubmit(onSubmit)(event_);
         },
-        [
-            handleSubmit,
-            onSubmit,
-            setIsTermsAcceptedAfterSubmit,
-            isTermsAcceptedAfterSubmit,
-        ],
-    );
-
-    const handleRadioChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setSelectedRole(
-                event.target.value === 'talent'
-                    ? UserRole.TALENT
-                    : UserRole.EMPLOYER,
-            );
-        },
-        [],
+        [dispatch, handleSubmit, isTermsAccepted, onSubmit, watch],
     );
 
     const handleCheckboxChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            setIsTermsAcceptedAfterSubmit({
-                isFormSubmitted: isTermsAcceptedAfterSubmit.isFormSubmitted,
-                isTermsAccepted: event.target.checked,
-            });
+            setIsTermsAccepted(event.target.checked);
         },
-        [isTermsAcceptedAfterSubmit],
+        [],
     );
 
     const checkboxLabel = (
@@ -106,7 +88,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     BSA Talents Terms
                 </Link>
             </span>
-            <span className={styles.required}>*</span>
+            *
         </Typography>
     );
 
@@ -121,10 +103,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.email ? '' : 'email',
                     )}
                 >
-                    <FormLabel className="label">
-                        Email
-                        <span className={styles.required}>*</span>
-                    </FormLabel>
+                    <FormLabel className="label">Email *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -138,10 +117,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className="label">
-                        Password
-                        <span className={styles.required}>*</span>
-                    </FormLabel>
+                    <FormLabel className="label">Password *</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -161,25 +137,15 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         options={options}
                         name={'role'}
-                        value={selectedRole}
-                        onChange={handleRadioChange}
                     />
                 </FormControl>
-                {selectedRole === UserRole.TALENT && (
+                {watch('role') === UserRole.TALENT && (
                     <FormControl className={styles.checkboxWrapper} required>
                         <Checkbox
                             label={checkboxLabel}
-                            isChecked={
-                                isTermsAcceptedAfterSubmit.isTermsAccepted
-                            }
+                            isChecked={isTermsAccepted}
                             onChange={handleCheckboxChange}
                         />
-                        {isTermsAcceptedAfterSubmit.isFormSubmitted &&
-                            !isTermsAcceptedAfterSubmit.isTermsAccepted && (
-                                <FormHelperText className={styles.hasError}>
-                                    Please accept BSA Talents Terms to continue
-                                </FormHelperText>
-                            )}
                     </FormControl>
                 )}
 
