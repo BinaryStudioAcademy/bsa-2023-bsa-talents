@@ -11,11 +11,10 @@ import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
+import { CardConstants } from './constants/constants';
 import { styles } from './styles';
 
-const maxSkills = 4;
-const maxBadges = 2;
-const maxCharCount = 150;
+const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
 
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
@@ -56,8 +55,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                         category={TextCategory.CAPTION}
                         style={styles.supportingText}
                     >
-                        {location} | Lviv | {experienceYears} year(s) of
-                        experience |
+                        {location} | {experienceYears} year(s) of experience |
                     </Text>
                     <Text
                         category={TextCategory.CAPTION}
@@ -76,23 +74,22 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                     styles.badgeContainer,
                 ]}
             >
-                {
-                    talentBadges
-                        .slice(0, maxBadges)
-                        .map(
-                            ({ level, score, badgeId, isShown }) =>
-                                isShown && (
-                                    <Badge
-                                        key={badgeId}
-                                        value={score}
-                                        badgeType={level}
-                                        size={BadgeSize.SMALL}
-                                        iconSize={20}
-                                    />
-                                ),
-                        )
-                    // TODO: Replace value with common data from store
-                }
+                {talentBadges
+                    // TODO: Replace value with common data from store and remove chain after fix backend
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    ?.slice(0, MAX_BADGES)
+                    .map(
+                        ({ level, score, badgeId, isShown }) =>
+                            isShown && (
+                                <Badge
+                                    key={badgeId}
+                                    value={score}
+                                    badgeType={level}
+                                    size={BadgeSize.SMALL}
+                                    iconSize={20}
+                                />
+                            ),
+                    )}
             </View>
             <View
                 style={[
@@ -110,18 +107,17 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                     Skills
                 </Text>
 
-                {
-                    talentHardSkills
-                        .slice(0, maxSkills)
-                        .map(({ hardSkillId }) => (
-                            <Tag key={hardSkillId} value={hardSkillId} />
-                        ))
-                    // TODO: Replace value with common data from store
-                }
+                {talentHardSkills
+                    // TODO: Replace value with common data from store and remove chain after fix backend
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    ?.slice(0, MAX_SKILLS)
+                    .map(({ hardSkillId }) => (
+                        <Tag key={hardSkillId} value={hardSkillId} />
+                    ))}
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
-                    {description?.slice(0, maxCharCount)}...
+                    {description?.slice(0, MAX_CHAR_COUNT)}...
                 </Text>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />

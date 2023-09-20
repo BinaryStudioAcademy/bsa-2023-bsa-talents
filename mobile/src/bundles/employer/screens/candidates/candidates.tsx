@@ -44,9 +44,12 @@ const Candidates: React.FC = () => {
         if (!talentsData) {
             return null;
         }
-        return talentsData.filter(({ jobTitle }) =>
-            jobTitle.toLowerCase().includes(searchQuery.toLowerCase()),
-        );
+
+        return searchQuery
+            ? talentsData.filter(({ jobTitle }) =>
+                  jobTitle.toLowerCase().includes(searchQuery.toLowerCase()),
+              )
+            : talentsData;
     }, [searchQuery, talentsData]);
 
     const isCandidatesLoading = dataStatus === DataStatus.PENDING;
@@ -69,12 +72,15 @@ const Candidates: React.FC = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
-                {isCandidatesLoading && <Loader />}
-                <FlatList
-                    data={filteredCandidates}
-                    renderItem={renderCandidateCard}
-                    keyExtractor={(item): string => item.userId}
-                />
+                {isCandidatesLoading ? (
+                    <Loader />
+                ) : (
+                    <FlatList
+                        data={filteredCandidates}
+                        renderItem={renderCandidateCard}
+                        keyExtractor={(item): string => item.userId}
+                    />
+                )}
             </View>
         </>
     );
