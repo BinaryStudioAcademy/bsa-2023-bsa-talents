@@ -1,3 +1,4 @@
+import { LMSDataService } from '~/bundles/lms-data/lms-data.service.js';
 import { encrypt, logger } from '~/common/packages/packages.js';
 
 import { UserController } from './user.controller.js';
@@ -7,7 +8,8 @@ import { UserService } from './user.service.js';
 
 const userRepository = new UserRepository(UserModel);
 const userService = new UserService(userRepository, encrypt);
-const userController = new UserController(logger, userService);
+const lmsDataService = new LMSDataService();
+const userController = new UserController(logger, userService, lmsDataService);
 
 export { userController, userService };
 export {

@@ -8,6 +8,11 @@ export {
 } from './bundles/candidate/candidate.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
+    type LMSDataGetAllItemResponseDto,
+    type LMSDataGetAllResponseDto,
+    type LMSDataGetByIdResponseDto,
+} from './bundles/lms-data/lms-data.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
@@ -70,6 +75,7 @@ export {
     ContentType,
     ErrorMessages,
     FileUploadErrorMessage,
+    LMSDataApiPath,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';

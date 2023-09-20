@@ -1,3 +1,4 @@
+import { type LMSDataService } from '~/bundles/lms-data/lms-data.service.js';
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
@@ -35,11 +36,17 @@ import { type UserGetLMSDataById } from './types/types.js';
  */
 class UserController extends ControllerBase {
     private userService: UserService;
+    private lmsDataService: LMSDataService;
 
-    public constructor(logger: Logger, userService: UserService) {
+    public constructor(
+        logger: Logger,
+        userService: UserService,
+        lmsDataService: LMSDataService,
+    ) {
         super(logger, ApiPath.USERS);
 
         this.userService = userService;
+        this.lmsDataService = lmsDataService;
 
         this.addRoute({
             path: UsersApiPath.ROOT,
@@ -94,7 +101,7 @@ class UserController extends ControllerBase {
 
         return {
             status: HttpCode.OK,
-            payload: await this.userService.findById(userId), // TODO: replace it with lsm-data service
+            payload: await this.lmsDataService.findByUserId(userId), // TODO: replace it with lsm-data service
         };
     }
 }
