@@ -1,5 +1,5 @@
 const HardSkillsApiPath = {
-    ROOT: '/',
+    ROOT: '',
 } as const;
 
 export { HardSkillsApiPath };

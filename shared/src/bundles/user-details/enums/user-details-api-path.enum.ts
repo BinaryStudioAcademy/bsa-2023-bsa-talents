@@ -1,5 +1,5 @@
 const UserDetailsApiPath = {
-    ROOT: '/',
+    ROOT: '',
     $ID: '/:userId',
 } as const;
 

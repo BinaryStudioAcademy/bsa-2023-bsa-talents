@@ -12,6 +12,7 @@ import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { commonDataApi } from '~/bundles/common-data/common-data.js';
 import { reducer as commonReducer } from '~/bundles/common-data/store/common-data.js';
+import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
@@ -41,6 +42,7 @@ type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
+    employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
     commonDataApi: typeof commonDataApi;
@@ -87,6 +89,7 @@ class Store {
             authApi,
             userApi,
             talentOnBoardingApi,
+            employerOnBoardingApi,
             notification,
             storage,
             commonDataApi,

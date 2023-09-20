@@ -199,7 +199,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    post:
      *      tags:
      *        - User Details
@@ -310,7 +310,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    patch:
      *      tags:
      *        - User Details
@@ -444,7 +444,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    get:
      *      tags:
      *        - User Details
