@@ -120,19 +120,14 @@ const SkillsStep: React.FC = () => {
                 notConsidered,
                 preferredLanguages,
                 hardSkills,
+                projectLinks,
             } = data;
-            if (!data.projectLinks[0].url) {
-                await dispatch(
-                    actions.updateTalentDetails({
-                        englishLevel,
-                        notConsidered,
-                        preferredLanguages,
-                        userId: currentUser?.id,
-                        completedStep: OnboardingSteps.STEP_03,
-                    }),
-                );
-                return true;
-            }
+
+            const enteredLinks = projectLinks.filter((link) =>
+                Boolean(link.url),
+            );
+            const preparedLinks =
+                enteredLinks.length > 0 ? fromUrlLinks(enteredLinks) : null;
 
             await dispatch(
                 actions.updateTalentDetails({
@@ -140,7 +135,7 @@ const SkillsStep: React.FC = () => {
                     notConsidered,
                     preferredLanguages,
                     userId: currentUser?.id,
-                    projectLinks: fromUrlLinks(data.projectLinks),
+                    projectLinks: preparedLinks,
                     completedStep: OnboardingSteps.STEP_03,
                     hardSkills,
                 }),
