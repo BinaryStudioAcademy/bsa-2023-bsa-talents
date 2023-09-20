@@ -1,15 +1,15 @@
-import { type EmployeesFilterOption } from './employees-filters-option.type';
-
 // TODO: Change with real data
+import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/types';
+
 type EmployeesFiltersDto = {
     activeTalentsOnly: boolean;
-    jobTitle: EmployeesFilterOption[];
-    hardSkills: EmployeesFilterOption[];
-    BSACharacteristics: EmployeesFilterOption[];
-    location: EmployeesFilterOption[];
-    BSAProjectName: EmployeesFilterOption[];
+    jobTitle: AutocompleteMultiSelectorValue[];
+    hardSkills: AutocompleteMultiSelectorValue[];
+    BSACharacteristics: AutocompleteMultiSelectorValue[];
+    location: AutocompleteMultiSelectorValue[];
+    BSAProjectName: AutocompleteMultiSelectorValue[];
     englishLevel: string[];
-    experienceYears: EmployeesFilterOption[];
+    experienceYears: AutocompleteMultiSelectorValue[];
     employmentTypes: string[];
 };
 

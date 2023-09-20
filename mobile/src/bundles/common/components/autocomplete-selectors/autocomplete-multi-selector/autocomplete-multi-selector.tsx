@@ -28,10 +28,10 @@ import { styles } from '../styles';
 
 type Properties<T extends FieldValues> = {
     name: FieldPath<T>;
-    items: AutocompleteMultiSelectorValue[];
     placeholder?: string;
     control?: Control<T, null>;
     hasError?: boolean;
+    items?: AutocompleteMultiSelectorValue[];
 };
 
 const AutocompleteMultiSelector = <T extends FieldValues>({
@@ -68,7 +68,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     };
 
     const filteredItems = useMemo(() => {
-        return items.filter(
+        return items?.filter(
             ({ id }) =>
                 id.includes(search) &&
                 !value.some((v: AutocompleteMultiSelectorValue) => v.id === id),
@@ -107,7 +107,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled persistentScrollbar>
-                        {filteredItems.map(
+                        {filteredItems?.map(
                             ({ id, name }: AutocompleteMultiSelectorValue) => (
                                 <TouchableOpacity
                                     key={id}
@@ -134,15 +134,18 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map(({ id, name }: AutocompleteMultiSelectorValue) => (
-                    <Tag
-                        key={id}
-                        value={name}
-                        onPress={handleItemDelete}
-                        iconName={IconName.CLOSE}
-                        iconSize={15}
-                    />
-                ))}
+                {value &&
+                    value.map(
+                        ({ id, name }: AutocompleteMultiSelectorValue) => (
+                            <Tag
+                                key={id}
+                                value={name}
+                                onPress={handleItemDelete}
+                                iconName={IconName.CLOSE}
+                                iconSize={15}
+                            />
+                        ),
+                    )}
             </View>
         </>
     );

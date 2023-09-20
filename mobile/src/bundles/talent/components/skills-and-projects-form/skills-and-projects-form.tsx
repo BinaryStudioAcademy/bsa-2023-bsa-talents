@@ -13,7 +13,6 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
-import { transformDtoValuesToMultiSelector } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
@@ -79,7 +78,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={transformDtoValuesToMultiSelector(hardSkillsData)}
+                    items={hardSkillsData?.items}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"

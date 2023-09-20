@@ -21,7 +21,6 @@ import {
     JobTitle,
 } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { transformDtoValuesToMultiSelector } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
@@ -42,14 +41,15 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-const jobTitleOptions = Object.entries(JobTitle).map(([value, label]) => ({
-    value,
-    label,
+const jobTitleOptions = Object.entries(JobTitle).map(([id, name]) => ({
+    id,
+    name,
 }));
-const locationOptions = Object.entries(CountryList).map(([value, label]) => ({
-    value,
-    label,
+const locationOptions = Object.entries(CountryList).map(([id, name]) => ({
+    id,
+    name,
 }));
+
 const employmentTypeOptions = Object.values(EmploymentType);
 
 type CandidatesFilterFormProperties = {
@@ -150,9 +150,13 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                 />
             </FormField>
-            <FormField label="Hard Skills" name="hardSkills">
+            <FormField
+                containerStyle={globalStyles.pb25}
+                label="Hard Skills"
+                name="hardSkills"
+            >
                 <AutocompleteMultiSelector
-                    items={transformDtoValuesToMultiSelector(hardSkillsData)}
+                    items={hardSkillsData?.items}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
