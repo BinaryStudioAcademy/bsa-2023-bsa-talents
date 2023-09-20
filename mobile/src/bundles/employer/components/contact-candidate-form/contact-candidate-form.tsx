@@ -22,24 +22,19 @@ import {
     useAppForm,
     useCallback,
     useFieldArray,
+    useWatch,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ContactCandidateValidationRule } from '~/bundles/employer/enums/enums';
 import { type ContactCandidateDto } from '~/bundles/employer/types/types';
 import { ContactCandidateValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
+import { DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type ContactCandidateFormProperties = {
     onSubmit: (dto: ContactCandidateDto) => void;
     onContactClose: () => void;
-};
-
-const DEFAULT_VALUES = {
-    isSaveTemplate: false,
-    templateName: 'Text',
-    message: 'Text',
-    links: [{ value: '' }],
 };
 
 const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
@@ -49,6 +44,12 @@ const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
     const { control, errors, handleSubmit } = useAppForm<ContactCandidateDto>({
         defaultValues: DEFAULT_VALUES,
         validationSchema: ContactCandidateValidationSchema,
+    });
+
+    const isSaveTemplate = useWatch({
+        control,
+        name: 'isSaveTemplate',
+        defaultValue: DEFAULT_VALUES.isSaveTemplate,
     });
 
     const { fields, append, remove } = useFieldArray({
@@ -164,13 +165,30 @@ const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
                     multiline={true}
                 />
             </FormField>
-            <FormField containerStyle={globalStyles.pb25} name="isSaveTemplate">
+            <FormField containerStyle={globalStyles.pb15} name="isSaveTemplate">
                 <Switch
                     name="isSaveTemplate"
                     control={control}
                     label="Save as template"
                 />
             </FormField>
+            {isSaveTemplate && (
+                <FormField
+                    errorMessage={errors.templateName?.message}
+                    label="Enter template name"
+                    name="templateName"
+                    required
+                    containerStyle={globalStyles.pb25}
+                >
+                    <Input
+                        control={control}
+                        name="templateName"
+                        placeholder="Name"
+                        numberOfLines={2}
+                        multiline={true}
+                    />
+                </FormField>
+            )}
             <Button
                 style={globalStyles.mb25}
                 label="Sent message"
