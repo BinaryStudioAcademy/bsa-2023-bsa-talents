@@ -14,19 +14,11 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
-import {
-    useAppDispatch,
-    useAppSelector,
-    useCallback,
-    useEffect,
-    useMemo,
-} from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { convertHardSkillsApiResponseIntoAutoselectOptions } from '~/bundles/common-data/helpers/convert-hard-skills-response-into-select-options.js';
-import { actions } from '~/bundles/common-data/store/common-data.js';
+import { useCommonData } from '~/bundles/common-data/hooks/use-common-data.hook.js';
 
 import {
-    BsaBadges,
     BsaCharacteristics,
     BsaProject,
     CheckboxesFields,
@@ -56,11 +48,6 @@ const bsaCharacteristics = Object.values(BsaCharacteristics).map(
     }),
 );
 
-const bsaBadges = Object.values(BsaBadges).map((characteristic) => ({
-    value: characteristic,
-    label: characteristic,
-}));
-
 const bsaProject = Object.values(BsaProject).map((project) => ({
     value: project,
     label: project,
@@ -88,20 +75,7 @@ type Properties = {
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
 
-    const dispatch = useAppDispatch();
-    const { hardSkillsData } = useAppSelector((state) => state.commonData);
-
-    useEffect(() => {
-        if (!hardSkillsData) {
-            void dispatch(actions.getHardSkillsData());
-        }
-    }, [dispatch, hardSkillsData]);
-
-    const hardSkillsOptions = useMemo(() => {
-        return convertHardSkillsApiResponseIntoAutoselectOptions(
-            hardSkillsData,
-        );
-    }, [hardSkillsData]);
+    const { bsaBadgesOptions, hardSkillsOptions } = useCommonData();
 
     const handleCheckboxOnChange = useCallback(
         <Field extends ValueOf<typeof CheckboxesFields>>(
@@ -265,7 +239,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     <FormLabel className={styles.labels}>
                         {'BSA Badges'}
                         <Select
-                            options={bsaBadges}
+                            options={bsaBadgesOptions}
                             control={control}
                             errors={errors}
                             name="userBsaBadges"
