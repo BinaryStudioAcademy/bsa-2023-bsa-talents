@@ -19,19 +19,22 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
-    const { talentOnBoardingApi } = extra;
-    if ('badges' in updatePayload) {
-        return updatePayload;
-    }
-    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-    const { hardSkills, ...otherDetails } = updatePayload;
-
-    return {
-        ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
-        hardSkills,
-    };
-});
+>(
+    `${sliceName}/update-talent-details`,
+    async (updatePayload, { extra, getState }) => {
+        const { talentOnBoardingApi } = extra;
+        if ('badges' in updatePayload) {
+            return updatePayload;
+        }
+        //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+        const { hardSkills, ...otherDetails } = updatePayload;
+        const { talentOnBoarding } = getState();
+        return {
+            ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
+            hardSkills: hardSkills ?? talentOnBoarding.hardSkills,
+        };
+    },
+);
 
 const saveTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,

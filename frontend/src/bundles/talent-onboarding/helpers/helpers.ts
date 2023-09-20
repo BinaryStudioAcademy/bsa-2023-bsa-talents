@@ -13,3 +13,4 @@ export {
 } from './map-project-links/map-project-links.js';
 export { setEnglishLevelValue } from './set-english-level-value/set-english-level-value.js';
 export { validateFileSize } from './validate-file-size/validate-file-size.js';
+export { validateFileType } from './validate-file-type/validate-file-type.js';

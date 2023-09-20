@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderColor: Color.INPUT,
+        color: Color.TEXT,
     },
     error: {
         borderColor: Color.ERROR,

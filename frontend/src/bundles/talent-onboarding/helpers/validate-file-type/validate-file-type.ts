@@ -5,9 +5,9 @@ import {
     type UseFormSetError,
 } from 'react-hook-form';
 
-import { MAX_FILE_SIZE } from '../../components/contacts-cv-step/constants/constants.js';
+import { ACCEPTED_CV_MIME_TYPES } from '../../components/contacts-cv-step/constants/constants.js';
 
-const validateFileSize = <T extends FieldValues>({
+const validateFileType = <T extends FieldValues>({
     name,
     file,
     setError,
@@ -18,16 +18,16 @@ const validateFileSize = <T extends FieldValues>({
     setError: UseFormSetError<T>;
     clearErrors: UseFormClearErrors<T>;
 }): void => {
-    if (file.size > MAX_FILE_SIZE.bytes) {
-        const errorMessage = `Please upload a ${name} smaller than ${MAX_FILE_SIZE.mb} MB.`;
+    if (ACCEPTED_CV_MIME_TYPES.includes(file.type)) {
+        clearErrors(name);
+    } else {
+        const errorMessage = `Please upload a ${name} .pdf, .doc or .docx type.`;
         setError(name, {
             message: errorMessage,
-            type: 'fileSize',
+            type: 'fileType',
         });
         throw new Error(errorMessage);
-    } else {
-        clearErrors(name);
     }
 };
 
-export { validateFileSize };
+export { validateFileType };
