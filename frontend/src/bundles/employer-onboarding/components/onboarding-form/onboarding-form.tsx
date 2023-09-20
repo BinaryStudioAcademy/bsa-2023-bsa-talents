@@ -19,10 +19,11 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { CountryList } from '../../enums/enums.js';
-import { actions } from '../../store/employer-onboarding.js';
+import { actions as employerActions } from '../../store/employer-onboarding.js';
 import {
     type EmployerOnboardingDto,
     type UserDetailsGeneralCustom,
@@ -54,7 +55,10 @@ const OnboardingForm: React.FC = () => {
         linkedinLink,
     } = useAppSelector((rootState) => getEmployerOnBoardingState(rootState));
 
-    const { control, getValues, handleSubmit, errors, watch } =
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, getValues, handleSubmit, errors, watch, reset } =
         useAppForm<EmployerOnboardingDto>({
             defaultValues: useMemo(
                 () => ({
@@ -83,48 +87,73 @@ const OnboardingForm: React.FC = () => {
             validationSchema: EmployerOnboardingValidationSchema,
             mode: 'onSubmit',
         });
-
-    const dispatch = useAppDispatch();
-
-    const watchedValues = watch([
-        //'photo',
-        'fullName',
-        'employerPosition',
-        'companyName',
-        'companyWebsite',
-        'location',
-        'description',
-        //'companyLogo',
-        'linkedinLink',
-    ]);
-
     useEffect(() => {
-        const newValues = getValues([
-            //'photo',
-            'fullName',
-            'employerPosition',
-            'companyName',
-            'companyWebsite',
-            'location',
-            'description',
-            //'companyLogo',
-            'linkedinLink',
-        ]);
-        const initialValues = {
-            // photo,
+        reset({
+            photo,
             fullName,
             employerPosition,
             companyName,
             companyWebsite,
             location,
             description,
-            // companyLogo,
+            companyLogo,
+            linkedinLink,
+        });
+    }, [
+        fullName,
+        linkedinLink,
+        photo,
+        employerPosition,
+        companyName,
+        companyWebsite,
+        location,
+        description,
+        companyLogo,
+        reset,
+    ]);
+    const dispatch = useAppDispatch();
+
+    const watchedValues = watch([
+        'photo',
+        'fullName',
+        'employerPosition',
+        'companyName',
+        'companyWebsite',
+        'location',
+        'description',
+        'companyLogo',
+        'linkedinLink',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'photo',
+            'fullName',
+            'employerPosition',
+            'companyName',
+            'companyWebsite',
+            'location',
+            'description',
+            'companyLogo',
+            'linkedinLink',
+        ]);
+        const initialValues = {
+            photo,
+            fullName,
+            employerPosition,
+            companyName,
+            companyWebsite,
+            location,
+            description,
+            companyLogo,
             linkedinLink,
         };
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(actions.setHasChangesInDetails(hasChanges));
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
     }, [
         companyName,
         companyWebsite,
@@ -136,6 +165,9 @@ const OnboardingForm: React.FC = () => {
         location,
         employerPosition,
         watchedValues,
+        hasChangesInDetails,
+        photo,
+        companyLogo,
     ]);
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
@@ -149,15 +181,17 @@ const OnboardingForm: React.FC = () => {
                 companyWebsite,
                 location,
                 description,
+                linkedinLink,
             } = data;
             await dispatch(
-                actions.createEmployerDetails({
+                employerActions.saveEmployerDetails({
                     fullName,
                     employerPosition,
                     companyName,
                     companyWebsite,
                     location,
                     description,
+                    linkedinLink,
                     userId: currentUser?.id,
                 }),
             );
@@ -167,17 +201,15 @@ const OnboardingForm: React.FC = () => {
     );
 
     useEffect(() => {
-        setSubmitForm(async () => {
-            const resultPromise = new Promise<boolean>((resolve) => {
-                void handleSubmit(async (formData) => {
-                    const result = await onSubmit(formData);
-                    resolve(result);
+        setSubmitForm(() => {
+            return async () => {
+                let result = false;
+                await handleSubmit(async (formData) => {
+                    result = await onSubmit(formData);
                 })();
-            });
-
-            return await resultPromise;
+                return result;
+            };
         });
-
         return () => {
             setSubmitForm(null);
         };

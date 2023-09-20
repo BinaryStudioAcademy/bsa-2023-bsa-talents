@@ -5,8 +5,17 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
+import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useEffect,
+    useNavigate,
+} from '~/bundles/common/hooks/hooks.js';
+import { actions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
 import { OnboardingForm } from '../../components/onboarding-form/onboarding-form.js';
 import styles from './styles.module.scss';
@@ -14,14 +23,31 @@ import styles from './styles.module.scss';
 const Onboarding: React.FC = () => {
     const { submitForm } = useFormSubmit();
 
-    const handleFormSubmit = useCallback(() => {
-        void (async (): Promise<void> => {
-            if (submitForm) {
-                await submitForm();
-            }
-        });
-    }, [submitForm]);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
+    useEffect(() => {
+        void dispatch(
+            actions.getEmployerDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
+
+    const handleFormSubmit = useCallback((): void => {
+        if (submitForm) {
+            submitForm()
+                .then((success) => {
+                    if (success) {
+                        navigate(AppRoute.MY_PROFILE_EMPLOYER);
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+        }
+    }, [navigate, submitForm]);
     return (
         <PageLayout avatarUrl="" isOnline>
             <Grid className={styles.careerWrapper}>
@@ -45,7 +71,7 @@ const Onboarding: React.FC = () => {
                             <Button
                                 type="submit"
                                 variant="outlined"
-                                onClick={handleFormSubmit}
+                                onClick={undefined}
                                 label="Preview"
                                 className={getValidClassNames(
                                     styles.buttonRegistration,
