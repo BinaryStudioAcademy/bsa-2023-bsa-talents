@@ -8,7 +8,7 @@ class Socket {
     public getInstance(
         namespace: ValueOf<typeof SocketNamespace>,
     ): SocketClient {
-        return io(namespace);
+        return io(`http://localhost:3001${namespace}`);
     }
 }
 
