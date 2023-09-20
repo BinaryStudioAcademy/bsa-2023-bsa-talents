@@ -1,14 +1,8 @@
-import {
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
-
 import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Checkbox,
+    Controller,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -26,6 +20,11 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from '~/bundles/common/types/types.js';
+import {
     EnglishLevel,
     NotConsidered,
     OnboardingSteps,
@@ -42,7 +41,7 @@ import {
 } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { SkillsProjectLinks } from './components/skills-project-links.js';
+import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({

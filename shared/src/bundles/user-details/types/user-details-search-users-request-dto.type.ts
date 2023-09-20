@@ -10,7 +10,7 @@ import {
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
-    sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['label'];
+    sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value'];
     isBaseSearch?: boolean;
     searchValue: string;
     searchActiveCandidatesOnly: boolean;

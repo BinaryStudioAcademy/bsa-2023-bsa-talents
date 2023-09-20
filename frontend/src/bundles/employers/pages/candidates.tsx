@@ -20,7 +20,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
-import { EmployeeFilters } from '../components/components.js';
+import { EmployeeFilters, SortingDropdown } from '../components/components.js';
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
@@ -44,7 +44,9 @@ const FIELDS: [
     'userLocation',
     'levelOfEnglish',
     'employmentType',
+    'sortBy',
 ];
+
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
     const { watch, control, getValues, reset } =
@@ -109,18 +111,27 @@ const Candidates: React.FC = () => {
                         label={'Filters'}
                     />
                 </Grid>
-                <RadioGroup
-                    name={'searchType'}
-                    control={control}
-                    row={true}
-                    options={[
-                        { value: 'Basic search', label: 'Basic search' },
-                        {
-                            value: 'Full-text search',
-                            label: 'Full-text search',
-                        },
-                    ]}
-                />
+                <Grid className={styles.optionsWrapper}>
+                    <RadioGroup
+                        name={'searchType'}
+                        control={control}
+                        row={true}
+                        options={[
+                            { value: 'Basic search', label: 'Basic search' },
+                            {
+                                value: 'Full-text search',
+                                label: 'Full-text search',
+                            },
+                        ]}
+                    />
+                    <SortingDropdown
+                        control={control}
+                        reset={reset}
+                        name="sortBy"
+                        placeholder="Sort results"
+                    />
+                </Grid>
+
                 {dataStatus == DataStatus.PENDING ? (
                     <Loader />
                 ) : (
