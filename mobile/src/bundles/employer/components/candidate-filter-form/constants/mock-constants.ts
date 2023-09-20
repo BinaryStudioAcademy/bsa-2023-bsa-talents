@@ -31,7 +31,6 @@ const DEFAULT_VALUES: EmployeesFiltersDto = {
     activeTalentsOnly: true,
     jobTitle: [],
     hardSkills: [],
-    BSABadges: [],
     BSACharacteristics: [],
     location: [],
     BSAProjectName: [],

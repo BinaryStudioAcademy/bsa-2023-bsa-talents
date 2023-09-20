@@ -5,7 +5,6 @@ type EmployeesFiltersDto = {
     activeTalentsOnly: boolean;
     jobTitle: EmployeesFilterOption[];
     hardSkills: EmployeesFilterOption[];
-    BSABadges: EmployeesFilterOption[];
     BSACharacteristics: EmployeesFilterOption[];
     location: EmployeesFilterOption[];
     BSAProjectName: EmployeesFilterOption[];

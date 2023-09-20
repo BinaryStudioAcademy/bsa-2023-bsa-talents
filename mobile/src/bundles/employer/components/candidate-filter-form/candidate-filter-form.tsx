@@ -32,10 +32,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
-import {
-    getBadgesData,
-    getHardSkillsData,
-} from '~/bundles/gather-selected-data/store/actions';
+import { getHardSkillsData } from '~/bundles/gather-selected-data/store/actions';
 
 import {
     BSA_CHARACTERISTICS,
@@ -68,7 +65,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
         defaultValues: DEFAULT_VALUES,
     });
     const dispatch = useAppDispatch();
-    const { hardSkillsData, dataStatus, badgesData } = useAppSelector(
+    const { hardSkillsData, dataStatus } = useAppSelector(
         ({ gatherSelectedData }) => gatherSelectedData,
     );
 
@@ -82,7 +79,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
 
     useEffect(() => {
         void dispatch(getHardSkillsData());
-        void dispatch(getBadgesData());
     }, [dispatch]);
 
     const isSelectorValuesLoading = dataStatus === DataStatus.PENDING;
@@ -180,7 +176,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                 />
             </FormField>
-            <FormField
+            {/* <FormField
                 label="BSA badges"
                 name="BSABadges"
                 containerStyle={globalStyles.pb25}
@@ -192,7 +188,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and select skills"
                     isValuesLoading={isSelectorValuesLoading}
                 />
-            </FormField>
+            </FormField> */}
             <FormField
                 label="BSA project name"
                 name="BSAProjectName"
