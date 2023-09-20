@@ -1,21 +1,24 @@
-import CommunitySlider, {
-    type SliderProps,
-} from '@react-native-community/slider';
 import React from 'react';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-} from 'react-hook-form';
-import { type StyleProp, type ViewStyle } from 'react-native';
 
-import { Text, View } from '~/bundles/common/components/components';
+import {
+    CommunitySlider,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { Color } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useWindowDimensions,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type Control,
+    type FieldPath,
+    type FieldValues,
+    type SliderProps,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

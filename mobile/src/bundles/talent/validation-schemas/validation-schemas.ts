@@ -3,4 +3,4 @@ export {
     BsaBadgesStepValidationSchema,
     ProfileStepValidationSchema,
     SkillsStepValidationSchema,
-} from 'shared/build/index';
+} from 'shared/build/index.js';

@@ -12,6 +12,7 @@ const TextCategory = {
     INPUT: 'Input',
     LABEL: 'Label',
     STEP: 'Step',
+    BADGE: 'Badge',
     PLACEHOLDER: 'PLACEHOLDER',
 } as const;
 
