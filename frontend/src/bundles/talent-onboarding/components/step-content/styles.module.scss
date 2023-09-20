@@ -16,33 +16,33 @@
     border-bottom: 3px solid var(--solitude);
 
     &::before {
-        content: "";
         position: absolute;
         bottom: -2.5px;
-        width: 20%;
+        left: 0;
         padding-bottom: 3px;
         background-color: var(--st-tropaz);
         transition: all 0.5s ease;
+        content: "";
     }
 
     &.step1::before {
-        left: 0;
+        width: 20%;
     }
 
     &.step2::before {
-        left: 20%;
+        width: 40%;
     }
 
     &.step3::before {
-        left: 40%;
+        width: 60%;
     }
 
     &.step4::before {
-        left: 60%;
+        width: 80%;
     }
 
     &.step5::before {
-        left: 80%;
+        width: 100%;
     }
 }
 
