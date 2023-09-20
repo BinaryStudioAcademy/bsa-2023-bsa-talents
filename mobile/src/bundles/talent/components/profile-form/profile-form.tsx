@@ -55,6 +55,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
+            showsVerticalScrollIndicator={false}
         >
             <FormField
                 errorMessage={errors.profileName?.message}
@@ -149,7 +150,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell employers about your experience"
+                label="Introduce yourself"
                 name="description"
                 required
                 containerStyle={globalStyles.pb25}
@@ -157,7 +158,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <Input
                     control={control}
                     name="description"
-                    placeholder="Text"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer"
                     numberOfLines={5}
                     multiline={true}
                 />

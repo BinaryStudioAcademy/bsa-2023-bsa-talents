@@ -8,7 +8,7 @@ import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
 import { searchUserByRelativeTable } from './helpers/search-user-by-relative-table.js';
 import {
-    type UserDetailsCreateRequestDto,
+    type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
     type UserDetailsUpdateDto,
 } from './types/types.js';
@@ -186,7 +186,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public async create(
-        payload: UserDetailsCreateRequestDto,
+        payload: UserDetailsCreateDto,
     ): Promise<UserDetailsEntity> {
         const details = await this.userDetailsModel
             .query()
@@ -234,7 +234,7 @@ class UserDetailsRepository implements Repository {
 
         const details = await this.userDetailsModel
             .query()
-            .patchAndFetchById(id, rest);
+            .patchAndFetchById(id as string, rest);
 
         return UserDetailsEntity.initialize({
             id: details.id,

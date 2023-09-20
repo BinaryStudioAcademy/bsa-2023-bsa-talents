@@ -41,7 +41,10 @@ const BsaBadgesForm: React.FC<Properties> = ({
     }, [handleSubmit, onSubmit]);
 
     return (
-        <ScrollView style={[globalStyles.ph25, styles.container]}>
+        <ScrollView
+            style={[globalStyles.ph25, styles.container]}
+            showsVerticalScrollIndicator={false}
+        >
             <Text style={[globalStyles.pv15, styles.description]}>
                 Choose BSA badges you want to show in your profile
             </Text>

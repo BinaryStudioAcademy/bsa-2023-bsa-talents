@@ -7,8 +7,8 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import { MAX_LINKS } from '../constants/constants.js';
-import styles from '../styles.module.scss';
+import { MAX_LINKS } from '../../constants/constants.js';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     control: Control<SkillsStepDto>;
