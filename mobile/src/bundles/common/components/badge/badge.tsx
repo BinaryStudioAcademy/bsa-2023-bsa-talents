@@ -30,9 +30,10 @@ type BadgeProperties = {
     defaultValue: number | string;
 };
 
+// TODO: replace type when badges will be ready
 type Properties = {
-    value?: string | number;
-    badgeType: BadgeName;
+    badgeType: BadgeName | string | null;
+    value?: string | number | null;
     iconSize?: number;
     size?: TBadgeSize;
 };
@@ -96,12 +97,16 @@ const Badge: React.FC<Properties> = ({
             ]}
         >
             <View
-                style={[
-                    globalStyles.p5,
-                    globalStyles.borderRadius9,
-                    badges[badgeType].style,
-                    size === BadgeSize.SMALL && globalStyles.alignSelfFlexStart,
-                ]}
+                style={
+                    [
+                        globalStyles.p5,
+                        globalStyles.borderRadius9,
+                        badges[BsaBadgeStepBadgesTitle.ENGLISH_LEVEL].style,
+                        size === BadgeSize.SMALL &&
+                            globalStyles.alignSelfFlexStart,
+                    ]
+                    // TODO: take badgeType from common store for all badges
+                }
             >
                 <MaterialIcon
                     name={IconName.HEADPHONES}
@@ -112,10 +117,12 @@ const Badge: React.FC<Properties> = ({
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
                     <Text category={valueFontSize}>
-                        {value ?? badges[badgeType].defaultValue}
+                        {value ??
+                            badges[BsaBadgeStepBadgesTitle.TEAM_SCORE]
+                                .defaultValue}
                     </Text>
                     <Text category={valueFontSize} style={styles.maxScore}>
-                        {badges[badgeType].ending}
+                        {badges[BsaBadgeStepBadgesTitle.TEAM_SCORE].ending}
                     </Text>
                 </View>
                 <Text

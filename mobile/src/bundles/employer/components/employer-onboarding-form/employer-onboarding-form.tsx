@@ -208,7 +208,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell about your companyand its values"
+                label="Briefly tell about your company and its values"
                 name="description"
                 containerStyle={globalStyles.pb25}
             >

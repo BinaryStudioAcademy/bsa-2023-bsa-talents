@@ -9,7 +9,7 @@ import {
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type Candidate } from '~/bundles/employer/types/types';
+import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
@@ -17,7 +17,7 @@ const maxSkills = 4;
 const maxBadges = 2;
 const maxCharCount = 150;
 
-const CandidateCard: React.FC<Candidate> = ({
+const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
     salaryExpectation,
     jobTitle,
@@ -25,9 +25,8 @@ const CandidateCard: React.FC<Candidate> = ({
     experienceYears,
     englishLevel,
     description,
-    published,
-    hardSkills,
-    badges,
+    talentBadges,
+    talentHardSkills,
 }) => {
     return (
         <View
@@ -64,7 +63,7 @@ const CandidateCard: React.FC<Candidate> = ({
                         category={TextCategory.CAPTION}
                         style={styles.supportingText}
                     >
-                        {englishLevel} | {published}
+                        {englishLevel}
                     </Text>
                 </View>
             </View>
@@ -77,15 +76,23 @@ const CandidateCard: React.FC<Candidate> = ({
                     styles.badgeContainer,
                 ]}
             >
-                {badges.slice(0, maxBadges).map((badge) => (
-                    <Badge
-                        key={badge.label}
-                        value={badge.value}
-                        badgeType={badge.label}
-                        size={BadgeSize.SMALL}
-                        iconSize={20}
-                    />
-                ))}
+                {
+                    talentBadges
+                        .slice(0, maxBadges)
+                        .map(
+                            ({ level, score, badgeId, isShown }) =>
+                                isShown && (
+                                    <Badge
+                                        key={badgeId}
+                                        value={score}
+                                        badgeType={level}
+                                        size={BadgeSize.SMALL}
+                                        iconSize={20}
+                                    />
+                                ),
+                        )
+                    // TODO: Replace value with common data from store
+                }
             </View>
             <View
                 style={[
@@ -102,9 +109,15 @@ const CandidateCard: React.FC<Candidate> = ({
                 >
                     Skills
                 </Text>
-                {hardSkills.slice(0, maxSkills).map((skill) => (
-                    <Tag key={skill} value={skill} />
-                ))}
+
+                {
+                    talentHardSkills
+                        .slice(0, maxSkills)
+                        .map(({ hardSkillId }) => (
+                            <Tag key={hardSkillId} value={hardSkillId} />
+                        ))
+                    // TODO: Replace value with common data from store
+                }
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
