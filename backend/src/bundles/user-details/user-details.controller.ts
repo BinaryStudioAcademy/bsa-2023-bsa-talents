@@ -9,6 +9,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
+    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsSearchUsersRequestDto,
@@ -16,6 +17,7 @@ import {
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
 import {
+    userDetailsApproveValidationSchema,
     userDetailsCreateValidationSchema,
     userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
@@ -166,6 +168,20 @@ class UserDetailsController extends ControllerBase {
                 this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.APPROVE,
+            method: 'PATCH',
+            validation: {
+                body: userDetailsApproveValidationSchema,
+            },
+            handler: (options) =>
+                this.approve(
+                    options as ApiHandlerOptions<{
+                        body: UserDetailsApproveRequestDto;
                     }>,
                 ),
         });
@@ -606,6 +622,61 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/approve/:
+     *    patch:
+     *      tags:
+     *        - User Details
+     *      description: Approves user's details
+     *      security:
+     *        - bearerAuth: []
+     *      requestBody:
+     *        description: User detail approve object
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              $ref: '#/components/schemas/UserDetailsApproveRequestDto'
+     *            examples:
+     *                default:
+     *                  id: '550e8400-e29b-41d4-a716-446655440000'
+     *                  isApproved: false
+     *                  deniedReason:'comments'
+     *      responses:
+     *         200:
+     *           description: Successful operation
+     *           content:
+     *             application/json:
+     *               schema:
+     *                 type: object
+     *                 $ref: '#/components/schemas/UserDetails'
+     * components:
+     *   schemas:
+     *      UserDetailsApproveRequestDto:
+     *        type: object
+     *        properties:
+     *          id:
+     *            format: uuid
+     *            type: string
+     *          isApproved:
+     *              type:boolean
+     *          deniedReason:
+     *              type: string
+     */
+
+    private async approve(
+        options: ApiHandlerOptions<{
+            body: UserDetailsApproveRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.approve(options.body),
         };
     }
 }

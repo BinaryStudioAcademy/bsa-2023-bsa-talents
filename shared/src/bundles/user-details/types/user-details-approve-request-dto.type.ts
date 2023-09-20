@@ -1,5 +1,5 @@
 type UserDetailsApproveRequestDto = {
-    id: string;
+    userId: string;
     isApproved: boolean;
     deniedReason?: string;
 };

@@ -9,6 +9,7 @@ import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
+    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
@@ -149,6 +150,35 @@ class UserDetailsService implements Service {
                 userDetailsId,
             });
         }
+
+        const updatedUserDetails = await this.userDetailsRepository.update({
+            ...rest,
+            id: userDetailsId,
+        });
+
+        return {
+            ...updatedUserDetails.toObject(),
+            talentBadges: badgesResult,
+            talentHardSkills: hardSkillsResult,
+        };
+    }
+
+    public async approve(
+        payload: UserDetailsApproveRequestDto,
+    ): Promise<UserDetailsResponseDto> {
+        const { userId, ...rest } = payload;
+        const badgesResult: TalentBadge[] = [],
+            hardSkillsResult: TalentHardSkill[] = [];
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+        const userDetailsId = userDetails.toObject().id as string;
 
         const updatedUserDetails = await this.userDetailsRepository.update({
             ...rest,
