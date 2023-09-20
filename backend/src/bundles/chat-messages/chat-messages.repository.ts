@@ -4,12 +4,12 @@ import { type Repository } from '~/common/types/types.js';
 
 import { ChatMessageEntity } from './chat-message.entity.js';
 import { type ChatMessageModel } from './chat-message.model.js';
+import { chatMessageModelToChatDto } from './helpers/utils.js';
 import {
     type ChatDto,
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
 } from './types/types.js';
-import { chatMessageModelToChatDto } from './utils/utils.js';
 
 class ChatMessagesRepository implements Repository {
     private chatMessageModel: typeof ChatMessageModel;
