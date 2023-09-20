@@ -21,7 +21,7 @@ import {
     useAppForm,
     useCallback,
     useMemo,
-    useState,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -56,7 +56,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         [],
     );
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     return (
         <View
@@ -99,11 +99,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         name="password"
                         placeholder="Enter your password"
-                        secureTextEntry={!isPasswordVisible}
+                        secureTextEntry={!isVisible}
                     />
                     <PasswordVisibilityToggle
-                        isPasswordVisible={isPasswordVisible}
-                        setIsPasswordVisible={setIsPasswordVisible}
+                        isPasswordVisible={isVisible}
+                        onChangeVisibility={toggleVisibility}
                     />
                 </FormField>
                 <Button

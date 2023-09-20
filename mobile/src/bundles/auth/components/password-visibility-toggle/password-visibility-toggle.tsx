@@ -8,20 +8,15 @@ import { styles } from './styles';
 
 type Properties = {
     isPasswordVisible: boolean;
-    setIsPasswordVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    onChangeVisibility: () => void;
 };
 
 const PasswordVisibilityToggle: React.FC<Properties> = ({
     isPasswordVisible,
-    setIsPasswordVisible,
+    onChangeVisibility,
 }) => {
     return (
-        <TouchableOpacity
-            style={styles.icon}
-            onPress={(): void => {
-                setIsPasswordVisible((previous) => !previous);
-            }}
-        >
+        <TouchableOpacity style={styles.icon} onPress={onChangeVisibility}>
             <Icon
                 name={
                     isPasswordVisible

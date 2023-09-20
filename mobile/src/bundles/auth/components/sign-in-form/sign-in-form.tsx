@@ -14,7 +14,7 @@ import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
-    useState,
+    useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -35,7 +35,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const { isVisible, toggleVisibility } = useVisibility(false);
 
     return (
         <View
@@ -78,11 +78,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         name="password"
                         placeholder="Enter your password"
-                        secureTextEntry={!isPasswordVisible}
+                        secureTextEntry={!isVisible}
                     />
                     <PasswordVisibilityToggle
-                        isPasswordVisible={isPasswordVisible}
-                        setIsPasswordVisible={setIsPasswordVisible}
+                        isPasswordVisible={isVisible}
+                        onChangeVisibility={toggleVisibility}
                     />
                 </FormField>
                 <Link
