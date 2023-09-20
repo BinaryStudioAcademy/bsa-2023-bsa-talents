@@ -1,6 +1,7 @@
 const UserDetailsApiPath = {
-    ROOT: '/',
+    ROOT: '',
     $ID: '/:userId',
+    SHORT: '/short',
 } as const;
 
 export { UserDetailsApiPath };

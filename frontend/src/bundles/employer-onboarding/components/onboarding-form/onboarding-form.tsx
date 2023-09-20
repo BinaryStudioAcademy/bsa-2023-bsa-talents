@@ -13,8 +13,10 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { CountryList } from '../../enums/enums.js';
 import { actions } from '../../store/employer-onboarding.js';
@@ -39,12 +41,32 @@ const OnboardingForm: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: EmployerOnboardingDto): Promise<boolean> => {
-            await dispatch(actions.createEmployerDetails(data));
+            const {
+                fullName,
+                employerPosition,
+                companyName,
+                companyWebsite,
+                location,
+                description,
+            } = data;
+            await dispatch(
+                actions.createEmployerDetails({
+                    fullName,
+                    employerPosition,
+                    companyName,
+                    companyWebsite,
+                    location,
+                    description,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [dispatch, currentUser?.id],
     );
 
     const handleFormSubmit = useCallback(
@@ -115,7 +137,7 @@ const OnboardingForm: React.FC = () => {
                                 </Typography>
                             </FormLabel>
                             <Input
-                                name="position"
+                                name="employerPosition"
                                 errors={errors}
                                 control={control}
                                 placeholder="Position"
@@ -139,7 +161,7 @@ const OnboardingForm: React.FC = () => {
                                 errors={errors}
                                 control={control}
                                 placeholder="Link"
-                                name="linkedInLink"
+                                name="linkedinLink"
                                 className={styles.formInput}
                             />
                         </FormControl>

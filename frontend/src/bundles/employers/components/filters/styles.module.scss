@@ -1,13 +1,13 @@
 .filtersSidebar {
-    max-width: 429px;
+    max-width: var(--filters-sidebar-width);
     background-color: var(--white);
 }
 
 .filtersWrapper {
     flex-direction: column;
     gap: 20px;
-    width: 429px;
-    min-width: 429px;
+    width: var(--filters-sidebar-width);
+    min-width: var(--filters-sidebar-width);
     padding: 0 50px;
     padding-bottom: 50px;
 }
@@ -51,7 +51,7 @@
 }
 
 .checkbox {
-    padding-left: 0;
+    margin-left: -9px;
 }
 
 .filtersMultiSelect {
@@ -66,5 +66,11 @@
         justify-content: center;
         align-items: center;
         max-width: none;
+    }
+
+    .filtersWrapper {
+        width: 100%;
+        min-width: 0;
+        padding: 0 15px;
     }
 }

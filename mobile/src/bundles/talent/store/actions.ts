@@ -36,7 +36,8 @@ const updateOnboardingData = createAsyncThunk<
     const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
 
     if (Object.keys(payload).length === 0) {
-        return stepPayload as UserDetailsGeneralResponseDto;
+        //TODO remove unknown
+        return stepPayload as unknown as UserDetailsGeneralResponseDto;
     }
     try {
         const response = await talentApi.completeOnboardingStep(payload);
