@@ -3,7 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiPath } from '~/bundles/common/enums/enums.js';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
-import { type HardSkillsResponseDto } from '../types/types.js';
+import {
+    type BsaBadgesResponseDto,
+    type HardSkillsResponseDto,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const getHardSkillsData = createAsyncThunk<
@@ -16,4 +19,14 @@ const getHardSkillsData = createAsyncThunk<
     return await commonDataApi.getAllHardSkills();
 });
 
-export { getHardSkillsData };
+const getBsaBadgesData = createAsyncThunk<
+    BsaBadgesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}${ApiPath.BSA_BADGES}`, async (_, { extra }) => {
+    const { commonDataApi } = extra;
+
+    return await commonDataApi.getAllBsaBadges();
+});
+
+export { getBsaBadgesData, getHardSkillsData };
