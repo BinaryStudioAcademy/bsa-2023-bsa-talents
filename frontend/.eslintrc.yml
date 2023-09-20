@@ -36,3 +36,8 @@ overrides:
               - off
           '@typescript-eslint/consistent-type-definitions':
               - off
+    - files:
+          - chat-socket.middleware.ts
+      rules:
+          unicorn/prefer-regexp-test:
+              - off
