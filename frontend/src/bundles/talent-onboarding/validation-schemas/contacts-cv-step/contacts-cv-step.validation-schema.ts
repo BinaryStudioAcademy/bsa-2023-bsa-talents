@@ -1,8 +1,8 @@
 import joi from 'joi';
 
 import {
-    ContactsCVStepValidationMessage,
-    ContactsCVStepValidationRule,
+    ContactsCVStepValidationMessages,
+    ContactsCVStepValidationRules,
 } from '../../enums/enums.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 
@@ -11,16 +11,16 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
     fullName: joi
         .string()
         .trim()
-        .min(ContactsCVStepValidationRule.MIN_FULL_NAME_LENGTH)
-        .max(ContactsCVStepValidationRule.MAX_FULL_NAME_LENGTH)
+        .min(ContactsCVStepValidationRules.MIN_FULL_NAME_LENGTH)
+        .max(ContactsCVStepValidationRules.MAX_FULL_NAME_LENGTH)
         .pattern(/^[ '.A-Za-z-]+$/)
         .required()
         .messages({
-            'string.empty': ContactsCVStepValidationMessage.FULL_NAME_REQUIRED,
-            'string.min': ContactsCVStepValidationMessage.FULL_NAME_MIN_LENGTH,
-            'string.max': ContactsCVStepValidationMessage.FULL_NAME_MAX_LENGTH,
+            'string.empty': ContactsCVStepValidationMessages.FULL_NAME_REQUIRED,
+            'string.min': ContactsCVStepValidationMessages.FULL_NAME_MIN_LENGTH,
+            'string.max': ContactsCVStepValidationMessages.FULL_NAME_MAX_LENGTH,
             'string.pattern.base':
-                ContactsCVStepValidationMessage.FULL_NAME_WRONG_PATTERN,
+                ContactsCVStepValidationMessages.FULL_NAME_WRONG_PATTERN,
         }),
 
     phone: joi
@@ -29,27 +29,27 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
         .required()
         .messages({
             'string.empty':
-                ContactsCVStepValidationMessage.PHONE_NUMBER_REQUIRED,
+                ContactsCVStepValidationMessages.PHONE_NUMBER_REQUIRED,
             'string.pattern.base':
-                ContactsCVStepValidationMessage.PHONE_NUMBER_PATTERN,
+                ContactsCVStepValidationMessages.PHONE_NUMBER_PATTERN,
         }),
 
     linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
-        .min(ContactsCVStepValidationRule.MIN_LINKEDIN_LINK_LENGTH)
-        .max(ContactsCVStepValidationRule.MAX_LINKEDIN_LINK_LENGTH)
+        .min(ContactsCVStepValidationRules.MIN_LINKEDIN_LINK_LENGTH)
+        .max(ContactsCVStepValidationRules.MAX_LINKEDIN_LINK_LENGTH)
         .required()
         .messages({
             'string.empty':
-                ContactsCVStepValidationMessage.LINKEDIN_LINK_REQUIRED,
+                ContactsCVStepValidationMessages.LINKEDIN_LINK_REQUIRED,
             'string.min':
-                ContactsCVStepValidationMessage.LINKEDIN_LINK_MIN_LENGTH,
+                ContactsCVStepValidationMessages.LINKEDIN_LINK_MIN_LENGTH,
             'string.max':
-                ContactsCVStepValidationMessage.LINKEDIN_LINK_MAX_LENGTH,
+                ContactsCVStepValidationMessages.LINKEDIN_LINK_MAX_LENGTH,
             'string.pattern.base':
-                ContactsCVStepValidationMessage.LINKEDIN_LINK_WRONG_PATTERN,
+                ContactsCVStepValidationMessages.LINKEDIN_LINK_WRONG_PATTERN,
         }),
     cv: joi.object().instance(File).required(),
 });

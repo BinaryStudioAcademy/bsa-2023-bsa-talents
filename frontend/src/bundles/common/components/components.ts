@@ -32,5 +32,6 @@ export { Slider } from './slider/slider.js';
 export { Textarea } from './textarea/textarea.js';
 export { Typography } from './typography/typography.js';
 export { VerificationLabel } from './verification-label/verification-label.js';
+export { Controller } from 'react-hook-form';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';
