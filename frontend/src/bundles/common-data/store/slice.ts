@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
@@ -30,16 +30,22 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
             state.hardSkillsData = action.payload;
         });
-        builder.addCase(getHardSkillsData.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
         builder.addCase(getBsaBadgesData.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             state.bsaBadgesData = action.payload;
         });
-        builder.addCase(getBsaBadgesData.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
+        builder.addMatcher(
+            isAnyOf(getHardSkillsData.pending, getBsaBadgesData.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(getHardSkillsData.rejected, getBsaBadgesData.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 
