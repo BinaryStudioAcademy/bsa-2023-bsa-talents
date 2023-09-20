@@ -24,6 +24,7 @@ export { Slider } from './slider/slider';
 export { Switch } from './switch/switch';
 export { Tag } from './tag/tag';
 export { Text } from './text/text';
+export { VerificationMessage } from './verification-message/verification-message';
 export { default as CheckBox } from '@react-native-community/checkbox';
 export { default as CommunitySlider } from '@react-native-community/slider';
 export { DrawerContentScrollView } from '@react-navigation/drawer';

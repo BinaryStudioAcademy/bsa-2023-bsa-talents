@@ -14,11 +14,13 @@ import {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsGeneralResponseDto | null;
+    isApproved: boolean; //todo when real data appear
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
+    isApproved: false, //todo when real data appear
 };
 
 const { reducer, actions, name } = createSlice({
