@@ -3,6 +3,7 @@ import React from 'react';
 import {
     ActiveModal,
     Button,
+    Divider,
     Image,
     Linking,
     RadioButtons,
@@ -13,7 +14,6 @@ import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
-    useMemo,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -21,6 +21,17 @@ import { type RadioButtonProps } from '~/bundles/common/types/types';
 import { type CompanyInfoDto } from '~/bundles/talent/types/types';
 
 import { styles } from './styles';
+
+const radioButtons: RadioButtonProps[] = [
+    {
+        id: 'Yes',
+        label: 'Yes',
+    },
+    {
+        id: 'No',
+        label: 'No',
+    },
+];
 
 type Properties = {
     companyInfo: CompanyInfoDto;
@@ -49,36 +60,21 @@ const CompanyInfo: React.FC<Properties> = ({
         void handleSubmit(toggleVisibility)();
     }, [handleSubmit, toggleVisibility]);
 
-    const radioButtons: RadioButtonProps[] = useMemo(
-        () => [
-            {
-                id: 'Yes',
-                label: 'Yes',
-            },
-            {
-                id: 'No',
-                label: 'No',
-            },
-        ],
-        [],
-    );
-
     const openUrl = (): void => {
         companyWebsite && void Linking.openURL(`https://www.${companyWebsite}`);
     };
 
     return (
-        <View style={[globalStyles.flex1]}>
+        <View style={globalStyles.flex1}>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.p25,
                     globalStyles.alignItemsCenter,
-                    styles.header,
                 ]}
             >
                 <Image source={{ uri: logoUrl }} style={styles.logo} />
-                <View>
+                <View style={globalStyles.ml10}>
                     <Text category={TextCategory.H3}>{companyName}</Text>
                     <Text
                         category={TextCategory.INPUT}
@@ -88,7 +84,7 @@ const CompanyInfo: React.FC<Properties> = ({
                     </Text>
                 </View>
             </View>
-            <View style={[styles.divider, globalStyles.width100]} />
+            <Divider />
             <View style={[globalStyles.p25]}>
                 <Text category={TextCategory.H5} style={globalStyles.pb10}>
                     About {companyName}
@@ -112,11 +108,11 @@ const CompanyInfo: React.FC<Properties> = ({
                     style={globalStyles.mv25}
                 />
             </View>
-            <View style={[globalStyles.alignItemsCenter, styles.hiredForm]}>
-                <Text category={TextCategory.H6}>
+            <View style={[globalStyles.alignItemsCenter]}>
+                <Text category={TextCategory.H6} style={globalStyles.mb10}>
                     Has the employer already hired you?
                 </Text>
-                <View>
+                <View style={globalStyles.mb10}>
                     <RadioButtons
                         radioButtons={radioButtons}
                         control={control}
