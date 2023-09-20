@@ -627,46 +627,50 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/approve/:
-     *    patch:
-     *      tags:
-     *        - User Details
-     *      description: Approves user's details
-     *      security:
-     *        - bearerAuth: []
-     *      requestBody:
-     *        description: User detail approve object
-     *        required: true
-     *        content:
-     *          application/json:
-     *            schema:
-     *              type: object
-     *              $ref: '#/components/schemas/UserDetailsApproveRequestDto'
-     *            examples:
-     *                default:
-     *                  id: '550e8400-e29b-41d4-a716-446655440000'
-     *                  isApproved: false
-     *                  deniedReason:'comments'
-     *      responses:
-     *         200:
-     *           description: Successful operation
-     *           content:
-     *             application/json:
-     *               schema:
-     *                 type: object
-     *                 $ref: '#/components/schemas/UserDetails'
+     * /user-details/approve:
+     *   patch:
+     *     tags:
+     *       - User Details
+     *     description: Approves user's details
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       description: User detail approve object
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/UserDetailsApproveRequestDto'
+     *           examples:
+     *             example1:
+     *               value:
+     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                 isApproved: false
+     *                 deniedReason: 'Write here reasons'
+     *             example2:
+     *               value:
+     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                 isApproved: true
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/UserDetails'
      * components:
      *   schemas:
-     *      UserDetailsApproveRequestDto:
-     *        type: object
-     *        properties:
-     *          id:
-     *            format: uuid
-     *            type: string
-     *          isApproved:
-     *              type:boolean
-     *          deniedReason:
-     *              type: string
+     *     UserDetailsApproveRequestDto:
+     *       type: object
+     *       properties:
+     *         userId:
+     *           type: string
+     *           format: uuid
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
+     *         isApproved:
+     *           type: boolean
+     *         deniedReason:
+     *           type: string
      */
 
     private async approve(
