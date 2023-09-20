@@ -1,6 +1,6 @@
 const LabelForButtonEmployerProfile = {
-    SUBMIT_VERIFICATION: 'Submit for verification',
     SAVE: 'Save',
+    SUBMIT_FOR_VERIFICATION: 'Submit for verification',
 } as const;
 
 export { LabelForButtonEmployerProfile };

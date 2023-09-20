@@ -8,11 +8,18 @@ import {
     PhotoPicker,
     View,
 } from '~/bundles/common/components/components';
-import { CountryList, IconName } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    CountryList,
+    EmployerBottomTabScreenName,
+    IconName,
+} from '~/bundles/common/enums/enums';
+import {
+    useAppForm,
+    useCallback,
+    useRoute,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
-import { type LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
+import { LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
@@ -24,13 +31,11 @@ const locationOptions = Object.values(CountryList);
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
     onSubmit: () => void;
-    labelForSubmitButton: ValueOf<typeof LabelForButtonEmployerProfile>;
 };
 
 const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
-    labelForSubmitButton,
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues:
@@ -38,12 +43,19 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
         validationSchema: EmployerOnboardingFormValidationSchema,
     });
 
+    const route = useRoute();
+
     const handleFormSubmit = useCallback(() => {
         //TODO logic saving employer data
         void handleSubmit(() => {
             onSubmit();
         })();
     }, [handleSubmit, onSubmit]);
+
+    const labelForSubmitButton =
+        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE
+            ? LabelForButtonEmployerProfile.SAVE
+            : LabelForButtonEmployerProfile.SUBMIT_FOR_VERIFICATION;
 
     return (
         <>
