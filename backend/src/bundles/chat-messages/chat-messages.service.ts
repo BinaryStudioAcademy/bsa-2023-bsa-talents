@@ -49,14 +49,13 @@ class ChatMessagesService implements Service {
         );
 
         const parsedChats = chats.map((chat) => {
-            const chatObject = chat.toObject();
             const {
                 chatId,
                 lastMessageCreatedAt,
                 lastMessage,
                 sender,
                 receiver,
-            } = chatObject;
+            } = chat;
 
             const conversationPartner =
                 userId === sender.userId ? receiver : sender;

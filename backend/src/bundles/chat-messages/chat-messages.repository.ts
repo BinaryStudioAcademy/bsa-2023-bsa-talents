@@ -4,11 +4,12 @@ import { type Repository } from '~/common/types/types.js';
 
 import { ChatMessageEntity } from './chat-message.entity.js';
 import { type ChatMessageModel } from './chat-message.model.js';
-import { Chat } from './classes/classes.js';
 import {
+    type ChatDto,
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
 } from './types/types.js';
+import { chatMessageModelToChatDto } from './utils/utils.js';
 
 class ChatMessagesRepository implements Repository {
     private chatMessageModel: typeof ChatMessageModel;
@@ -42,33 +43,7 @@ class ChatMessagesRepository implements Repository {
         );
     }
 
-    // public chatMessageModelToChatEntity(
-    //     chatMessageModel: ChatMessageModel & {
-    //         lastMessageCreatedAt?: string;
-    //         lastMessage?: string;
-    //         sender?: UserDetailsModel;
-    //         receiver?: UserDetailsModel;
-    //     },
-    // ): ChatEntity {
-    //     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
-    //         chatMessageModel as {
-    //             chatId: string;
-    //             lastMessageCreatedAt: string;
-    //             lastMessage: string;
-    //             sender: UserDetailsModel;
-    //             receiver: UserDetailsModel;
-    //         };
-
-    //     return ChatEntity.initialize({
-    //         chatId,
-    //         lastMessageCreatedAt,
-    //         lastMessage,
-    //         sender,
-    //         receiver,
-    //     });
-    // }
-
-    public async findAllChatsByUserId(userId: string): Promise<Chat[]> {
+    public async findAllChatsByUserId(userId: string): Promise<ChatDto[]> {
         const chats = await this.chatMessageModel
             .query()
             .alias('cm')
@@ -109,7 +84,7 @@ class ChatMessagesRepository implements Repository {
             .where('senderId', userId)
             .orWhere('receiverId', userId);
 
-        return chats.map((chat) => Chat.initialize(chat));
+        return chats.map((chat) => chatMessageModelToChatDto(chat));
     }
 
     public async create(
