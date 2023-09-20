@@ -13,6 +13,7 @@ export {
     useFieldArray,
     useForm,
     useController as useFormController,
+    useWatch,
 } from 'react-hook-form';
 export { useWindowDimensions } from 'react-native';
 export { useAnimatedStyle, withTiming } from 'react-native-reanimated';
