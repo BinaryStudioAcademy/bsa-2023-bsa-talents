@@ -7,8 +7,6 @@ import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
-import { ApiEndChar } from './enums/api-end-char';
-
 type Constructor = {
     baseUrl: string;
     http: Http;
@@ -22,8 +20,7 @@ class CommonDataApi extends HttpApiBase {
 
     public async getBadgesData(): Promise<BadgesResponseDto> {
         const response = await this.load(
-            // TODO: Remove ApiEndChar after backend will fixed
-            this.getFullEndpoint(ApiPath.BSA_BADGES, ApiEndChar.END_CHAR, {}),
+            this.getFullEndpoint(ApiPath.BSA_BADGES, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
@@ -35,8 +32,7 @@ class CommonDataApi extends HttpApiBase {
 
     public async getHardSkillsData(): Promise<HardSkillsResponseDto> {
         const response = await this.load(
-            // TODO: Remove ApiEndChar after backend will fixed
-            this.getFullEndpoint(ApiPath.HARD_SKILLS, ApiEndChar.END_CHAR, {}),
+            this.getFullEndpoint(ApiPath.HARD_SKILLS, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
