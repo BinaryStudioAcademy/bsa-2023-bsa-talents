@@ -1,5 +1,5 @@
+import { getElapsedTime } from '~/bundles/chat/helpers/helpers';
 import { useEffect, useState } from '~/bundles/common/hooks/hooks';
-import { getElapsedTime } from '~/bundles/employer/helpers/helpers';
 
 import { UPDATE_INTERVAL } from './constants/constants';
 

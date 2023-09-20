@@ -1,14 +1,14 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { type ChatDataRequestDto } from '~/bundles/chat/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
-import { type MessageData } from '~/bundles/employer/types/types';
 
 import { name as sliceName } from './slice';
 
 const sendMessage = createAsyncThunk<
-    MessageData,
-    MessageData,
+    ChatDataRequestDto,
+    ChatDataRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sendMessage`, (sendMessagePayload, { extra }) => {
     const { notifications } = extra;
@@ -21,19 +21,20 @@ const sendMessage = createAsyncThunk<
     }
 });
 
-const getMessage = createAsyncThunk<MessageData, MessageData, AsyncThunkConfig>(
-    `${sliceName}/getMessage`,
-    (getMessagePayload, { extra }) => {
-        const { notifications } = extra;
-        try {
-            return getMessagePayload;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
-    },
-);
+const getMessage = createAsyncThunk<
+    ChatDataRequestDto,
+    ChatDataRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/getMessage`, (getMessagePayload, { extra }) => {
+    const { notifications } = extra;
+    try {
+        return getMessagePayload;
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
+});
 
 const joinRoom = createAction(
     `${sliceName}/joinRoom`,
@@ -53,6 +54,6 @@ const leaveRoom = createAction(
     },
 );
 
-const clearEmployerStore = createAction(`${sliceName}/clearEmployerStore`);
+const clearChatStore = createAction(`${sliceName}/clearChatStore`);
 
-export { clearEmployerStore, getMessage, joinRoom, leaveRoom, sendMessage };
+export { clearChatStore, getMessage, joinRoom, leaveRoom, sendMessage };

@@ -3,7 +3,7 @@ import EnvConfig from 'react-native-config';
 import { type Middleware } from 'redux';
 import { io } from 'socket.io-client';
 
-import { actions as chatActions } from '~/bundles/employer/store';
+import { actions as chatActions } from '~/bundles/chat/store';
 import { SocketEvent } from '~/framework/storage/enums/enums';
 import { type store } from '~/framework/store/store';
 

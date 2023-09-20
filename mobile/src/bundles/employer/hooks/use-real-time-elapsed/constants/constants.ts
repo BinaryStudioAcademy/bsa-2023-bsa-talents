@@ -1,3 +1,0 @@
-const UPDATE_INTERVAL = 1;
-
-export { UPDATE_INTERVAL };
