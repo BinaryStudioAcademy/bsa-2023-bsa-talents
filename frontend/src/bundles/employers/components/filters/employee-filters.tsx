@@ -26,8 +26,8 @@ import {
     CountryList,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
     JobTitle,
+    YearsOfExperience,
 } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import styles from './styles.module.scss';
@@ -37,10 +37,12 @@ const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     label: title,
 }));
 
-const yearsOfExperience = Object.values(ExperienceYears).map((experience) => ({
-    value: experience,
-    label: String(experience),
-}));
+const yearsOfExperience = Object.values(YearsOfExperience).map(
+    (experience) => ({
+        value: experience,
+        label: String(experience),
+    }),
+);
 
 const bsaCharacteristics = Object.values(BsaCharacteristics).map(
     (characteristic) => ({
