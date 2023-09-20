@@ -1,15 +1,9 @@
-import {
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
-
 import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Autocomplete,
     Checkbox,
+    Controller,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -27,6 +21,11 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import {
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from '~/bundles/common/types/types.js';
 import {
     EnglishLevel,
     NotConsidered,
@@ -46,7 +45,7 @@ import {
 } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { SkillsProjectLinks } from './components/skills-project-links.js';
+import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -108,7 +107,6 @@ const SkillsStep: React.FC = () => {
             englishLevel,
             notConsidered,
             preferredLanguages,
-            projectLinks: toUrlLinks(projectLinks),
         });
     }, [
         hardSkills,
@@ -118,6 +116,7 @@ const SkillsStep: React.FC = () => {
         reset,
         projectLinks,
     ]);
+
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
@@ -168,6 +167,19 @@ const SkillsStep: React.FC = () => {
                 preferredLanguages,
                 hardSkills,
             } = data;
+            if (!data.projectLinks[0].url) {
+                await dispatch(
+                    actions.updateTalentDetails({
+                        englishLevel,
+                        notConsidered,
+                        preferredLanguages,
+                        userId: currentUser?.id,
+                        completedStep: OnboardingSteps.STEP_03,
+                    }),
+                );
+                return true;
+            }
+
             await dispatch(
                 actions.updateTalentDetails({
                     englishLevel,
@@ -287,7 +299,7 @@ const SkillsStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl>
+            <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
                 </FormLabel>

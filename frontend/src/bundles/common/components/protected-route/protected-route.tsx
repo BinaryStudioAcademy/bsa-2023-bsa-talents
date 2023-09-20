@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import { type State } from '~/bundles/auth/store/auth.js';
+import { Navigate } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
