@@ -42,15 +42,21 @@ const Sidebar: React.FC = () => {
             >
                 <Logo isCollapsed={true} className={styles.logo} withLink />
                 <ul className={styles.list}>
-                    {isApproved &&
-                        menuItems.map((item) => (
-                            <li key={item.link} className={styles.listItem}>
-                                <Link className={styles.link} to={item.link}>
-                                    {item.icon}
-                                    <p className={styles.title}>{item.name}</p>
-                                </Link>
-                            </li>
-                        ))}
+                    {menuItems.map((item) => (
+                        <li
+                            key={item.link}
+                            className={isApproved ? '' : styles.listItem}
+                        >
+                            <Link
+                                to={`${
+                                    isApproved ? item.link : AppRoute.SAME_PAGE
+                                }`}
+                            >
+                                {item.icon}
+                                <p className={styles.title}>{item.name}</p>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </Grid>
 
