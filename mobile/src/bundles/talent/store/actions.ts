@@ -58,7 +58,7 @@ const getUserDetails = createAsyncThunk<
     UserDetailsGeneralRequestDto | null,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
->(`${sliceName}/getTalentDetails`, async (payload, { extra }) => {
+>(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
     const { notifications, talentApi } = extra;
     try {
         const userDetails = await talentApi.getUserDetailsByUserId({
