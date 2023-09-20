@@ -47,10 +47,6 @@ const { reducer, actions, name } = createSlice({
                     ? action.payload[typedKey]
                     : [];
             }
-            state.hardSkills = [
-                { value: 'JavaScript', label: 'JavaScript' },
-                { value: 'HTML', label: 'HTML' },
-            ];
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
