@@ -7,4 +7,6 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    UserSortCriteria,
+    YearsOfExperience,
 } from 'shared/build/index.js';

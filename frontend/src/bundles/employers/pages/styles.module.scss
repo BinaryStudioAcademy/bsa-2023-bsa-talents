@@ -1,6 +1,11 @@
+:root {
+    --filters-sidebar-width: 429px;
+}
+
 .searchPageWrapper {
     display: flex;
     justify-content: space-between;
+    height: calc(100vh - var(--header-height));
 }
 
 .pageTitle {
@@ -13,7 +18,8 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    padding: 20px 50px;
+    height: 100%;
+    padding: 20px 50px 0;
 }
 
 .searchFilterWrapper {
@@ -25,6 +31,13 @@
 .filters {
     display: flex;
     flex-direction: column;
+    width: var(--filters-sidebar-width);
+    min-width: var(--filters-sidebar-width);
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
+    background-color: var(--white);
 }
 
 .filtersButton {
@@ -61,12 +74,34 @@
     }
 }
 
+.optionsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    :global(.MuiFormControl-root) {
+        width: 220px;
+        background-color: var(--white);
+    }
+}
+
 .searchResults {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    height: 850px;
+    gap: 15px;
+    height: 100%;
+    padding: 0 0 15px;
     overflow: hidden scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) transparent;
+}
+
+@media screen and (width <=1120px) {
+    .optionsWrapper {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
 }
 
 @media screen and (width <=1000px) {
@@ -79,6 +114,7 @@
     }
 
     .mainContent {
+        height: auto;
         padding: 0;
     }
 
@@ -88,6 +124,9 @@
 
     .filtersActive {
         display: flex;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
     }
 
     .searchResultsHidden {
@@ -96,5 +135,9 @@
 
     .filtersButton {
         display: flex;
+    }
+
+    .optionsWrapper {
+        flex-direction: column;
     }
 }

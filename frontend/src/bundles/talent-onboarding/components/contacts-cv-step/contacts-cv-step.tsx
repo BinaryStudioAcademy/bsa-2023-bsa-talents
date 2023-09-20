@@ -1,13 +1,8 @@
 import { Add as PlusIcon } from '@mui/icons-material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
 
 import {
+    Controller,
     FileUpload,
     FormControl,
     FormHelperText,
@@ -22,11 +17,16 @@ import {
     useAppForm,
     useAppSelector,
 } from '~/bundles/common/hooks/hooks.js';
+import {
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from '~/bundles/common/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { useFormSubmit } from '../../context/form-submit-provider.context.js';
+import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
-import { validateFileSize } from '../../helpers/validate-file-size.js';
+import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
@@ -178,6 +178,12 @@ const ContactsCVStep: React.FC = () => {
 
                 try {
                     validateFileSize({
+                        name: 'cv',
+                        file,
+                        setError,
+                        clearErrors,
+                    });
+                    validateFileType({
                         name: 'cv',
                         file,
                         setError,
@@ -339,7 +345,9 @@ const ContactsCVStep: React.FC = () => {
                     />
 
                     <FormHelperText className={styles.fileError}>
-                        {errors.cv?.type === 'fileSize' && errors.cv.message}
+                        {(errors.cv?.type === 'fileSize' ||
+                            errors.cv?.type === 'fileType') &&
+                            errors.cv.message}
                     </FormHelperText>
                 </FormControl>
 

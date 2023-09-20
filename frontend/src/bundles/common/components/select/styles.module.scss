@@ -14,10 +14,12 @@
     padding: 10px 7px 10px 14px;
     color: var(--steel-gray);
     font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-base);
     border: 1px solid var(--botticelli);
     border-radius: 4px;
-    transition: box-shadow 0.3s;
-    transition: border 200ms;
+    transition:
+        box-shadow 0.3s,
+        border 200ms;
 
     &:hover {
         border-color: var(--st-tropaz);
@@ -26,10 +28,21 @@
     &:focus-within {
         border-color: var(--st-tropaz);
     }
+
+    &:global(.MuiInputAdornment-positionStart .MuiTypography-body1) {
+        color: var(--text-primary-dark);
+        font-size: var(--font-size-base);
+    }
 }
 
 .placeholder {
+    padding: 0;
     color: var(--nepal);
+    font-size: var(--font-size-base);
+}
+
+.container .input :global(.MuiInput-input) {
+    padding: 0;
 }
 
 .option {

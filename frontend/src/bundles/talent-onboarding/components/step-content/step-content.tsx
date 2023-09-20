@@ -73,26 +73,28 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    <Button
-                        onClick={
-                            currentStep === STEPS_NUMBER
-                                ? undefined
-                                : onPreviousStep
-                        }
-                        label={
-                            currentStep === STEPS_NUMBER
-                                ? 'Save without publishing'
-                                : 'Back'
-                        }
-                        variant={
-                            currentStep === STEP_ONE ? 'contained' : 'outlined'
-                        }
-                        className={getValidClassNames(
-                            styles.button,
-                            styles.buttonBack,
-                        )}
-                        disabled={currentStep === STEP_ONE}
-                    />
+                    {currentStep !== STEP_ONE && (
+                        <Button
+                            onClick={
+                                currentStep === STEPS_NUMBER
+                                    ? undefined
+                                    : onPreviousStep
+                            }
+                            label={
+                                currentStep === STEPS_NUMBER
+                                    ? 'Save without publishing'
+                                    : 'Back'
+                            }
+                            variant="outlined"
+                            className={getValidClassNames(
+                                styles.button,
+                                styles.buttonBack,
+                            )}
+                        />
+                    )}
+                    {currentStep === STEP_ONE && (
+                        <Grid className={styles.buttonPlaceholder} />
+                    )}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER

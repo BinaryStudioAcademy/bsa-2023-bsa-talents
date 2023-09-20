@@ -7,6 +7,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
         VITE_APP_PROXY_SERVER_URL,
         VITE_APP_API_ORIGIN_URL,
         VITE_APP_DEVELOPMENT_PORT,
+        VITE_APP_SOCKET_PATH,
     } = loadEnv(mode, process.cwd());
 
     return defineConfig({
@@ -20,6 +21,10 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
                 [VITE_APP_API_ORIGIN_URL]: {
                     target: VITE_APP_PROXY_SERVER_URL,
                     changeOrigin: true,
+                },
+                [VITE_APP_SOCKET_PATH]: {
+                    target: VITE_APP_PROXY_SERVER_URL,
+                    ws: true,
                 },
             },
         },

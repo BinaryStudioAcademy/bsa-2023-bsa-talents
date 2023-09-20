@@ -1,10 +1,14 @@
 import React from 'react';
-import { type FieldPath, type FieldValues } from 'react-hook-form';
-import { type StyleProp, type ViewStyle } from 'react-native';
 
 import { Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { globalStyles } from '~/bundles/common/styles/global-styles';
+import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type FieldPath,
+    type FieldValues,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 

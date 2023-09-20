@@ -3,7 +3,8 @@ import {
     Slider as MUISlider,
     type SliderProps,
 } from '@mui/material';
-import { useCallback } from 'react';
+
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
