@@ -1,5 +1,4 @@
 import React from 'react';
-import { type ValueOf } from 'shared/build/index';
 
 import {
     AutocompleteSelector,
@@ -17,6 +16,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type ValueOf } from '~/bundles/common/types/types';
 import { type LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
