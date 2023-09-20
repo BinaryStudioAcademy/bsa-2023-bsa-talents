@@ -21,8 +21,7 @@ class CommonDataApi extends HttpApiBase {
 
     public async getAllHardSkills(): Promise<HardSkillsResponseDto> {
         const response = await this.load(
-            // TODO: delete / after api path will be fixed
-            this.getFullEndpoint(`${ApiPath.HARD_SKILLS}/`, {}),
+            this.getFullEndpoint(ApiPath.HARD_SKILLS, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
@@ -35,8 +34,7 @@ class CommonDataApi extends HttpApiBase {
 
     public async getAllBsaBadges(): Promise<BsaBadgesResponseDto> {
         const response = await this.load(
-            // TODO: delete / after api path will be fixed
-            this.getFullEndpoint(`${ApiPath.BSA_BADGES}/`, {}),
+            this.getFullEndpoint(ApiPath.BSA_BADGES, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
