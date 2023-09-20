@@ -28,11 +28,6 @@ const styles = StyleSheet.create({
     formWrapper: {
         gap: 25,
     },
-    icon: {
-        position: 'absolute',
-        right: 20,
-        top: 48,
-    },
 });
 
 export { styles };
