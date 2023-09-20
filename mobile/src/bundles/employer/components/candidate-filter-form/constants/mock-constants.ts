@@ -1,11 +1,9 @@
-import {
-    type EmployeesFilterOption,
-    type EmployeesFiltersDto,
-} from '~/bundles/employer/types/types';
+import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/components/autocomplete-multi-selector-value';
+import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 // TODO: remove with real data
 
-const YEARS_EXPERIENCE: EmployeesFilterOption[] = [
+const YEARS_EXPERIENCE: AutocompleteMultiSelectorValue[] = [
     { id: 'any', name: 'Any work experience' },
     { id: '>1', name: 'Less than 1 year' },
     { id: '1-2', name: '1-2 years' },
@@ -13,7 +11,7 @@ const YEARS_EXPERIENCE: EmployeesFilterOption[] = [
     { id: '3-5', name: '3-5 years' },
     { id: '5>', name: '5+ years' },
 ];
-const BSA_CHARACTERISTICS: EmployeesFilterOption[] = [
+const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
     { id: 'one', name: 'one' },
     { id: 'two', name: 'two' },
     { id: 'some', name: 'some' },
@@ -21,7 +19,7 @@ const BSA_CHARACTERISTICS: EmployeesFilterOption[] = [
 
 const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const BSA_PROJECT: EmployeesFilterOption[] = [
+const BSA_PROJECT: AutocompleteMultiSelectorValue[] = [
     { id: 'one', name: 'one' },
     { id: 'two', name: 'two' },
     { id: 'some', name: 'some' },
