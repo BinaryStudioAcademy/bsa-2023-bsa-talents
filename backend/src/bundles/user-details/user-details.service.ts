@@ -165,10 +165,8 @@ class UserDetailsService implements Service {
 
     public async approve(
         payload: UserDetailsApproveRequestDto,
-    ): Promise<UserDetailsResponseDto> {
+    ): Promise<boolean> {
         const { userId, ...rest } = payload;
-        const badgesResult: TalentBadge[] = [],
-            hardSkillsResult: TalentHardSkill[] = [];
 
         const userDetails = await this.userDetailsRepository.find({ userId });
 
@@ -178,18 +176,15 @@ class UserDetailsService implements Service {
                 status: HttpCode.NOT_FOUND,
             });
         }
+
         const userDetailsId = userDetails.toObject().id as string;
 
-        const updatedUserDetails = await this.userDetailsRepository.update({
+        await this.userDetailsRepository.update({
             ...rest,
             id: userDetailsId,
         });
 
-        return {
-            ...updatedUserDetails.toObject(),
-            talentBadges: badgesResult,
-            talentHardSkills: hardSkillsResult,
-        };
+        return true;
     }
 
     public delete(): Promise<boolean> {

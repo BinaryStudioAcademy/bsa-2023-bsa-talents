@@ -657,7 +657,7 @@ class UserDetailsController extends ControllerBase {
      *         content:
      *           application/json:
      *             schema:
-     *               $ref: '#/components/schemas/UserDetails'
+     *               type: boolean
      * components:
      *   schemas:
      *     UserDetailsApproveRequestDto:
