@@ -23,7 +23,10 @@ import { type RootReducer } from '~/framework/store/store.js';
 
 import { CountryList } from '../../enums/enums.js';
 import { actions } from '../../store/employer-onboarding.js';
-import { type EmployerOnboardingDto } from '../../types/types.js';
+import {
+    type EmployerOnboardingDto,
+    type UserDetailsGeneralCustom,
+} from '../../types/types.js';
 import { EmployerOnboardingValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { EmployerFileUpload } from './components/employer-file-upload.js';
 import styles from './styles.module.scss';
@@ -33,51 +36,55 @@ const locationOptions = Object.values(CountryList).map((country) => ({
     label: country,
 }));
 
+const getEmployerOnBoardingState = (
+    state: RootReducer,
+): UserDetailsGeneralCustom => state.employerOnBoarding;
+
 const OnboardingForm: React.FC = () => {
+    const { setSubmitForm } = useFormSubmit();
     const {
-        //photo,
+        photo,
         fullName,
         employerPosition,
         companyName,
         companyWebsite,
         location,
         description,
-        //companyLogo,
+        companyLogo,
         linkedinLink,
-    } = useAppSelector((state: RootReducer) => state.employerOnBoarding);
+    } = useAppSelector((rootState) => getEmployerOnBoardingState(rootState));
 
     const { control, getValues, handleSubmit, errors, watch } =
         useAppForm<EmployerOnboardingDto>({
             defaultValues: useMemo(
                 () => ({
-                    //photo,
+                    photo,
                     fullName,
                     employerPosition,
                     companyName,
                     companyWebsite,
                     location,
                     description,
-                    //companyLogo,
+                    companyLogo,
                     linkedinLink,
                 }),
                 [
-                    //photo,
-                    fullName,
-                    employerPosition,
+                    companyLogo,
                     companyName,
                     companyWebsite,
-                    location,
                     description,
-                    //companyLogo,
+                    employerPosition,
+                    fullName,
                     linkedinLink,
+                    location,
+                    photo,
                 ],
             ),
             validationSchema: EmployerOnboardingValidationSchema,
-            mode: 'onChange',
+            mode: 'onSubmit',
         });
 
     const dispatch = useAppDispatch();
-    const { setSubmitForm } = useFormSubmit();
 
     const watchedValues = watch([
         //'photo',
@@ -160,17 +167,15 @@ const OnboardingForm: React.FC = () => {
     );
 
     useEffect(() => {
-        setSubmitForm(() => {
-            return async () => {
-                const resultPromise = new Promise<boolean>((resolve) => {
-                    void handleSubmit(async (formData) => {
-                        const result = await onSubmit(formData);
-                        resolve(result);
-                    })();
-                });
+        setSubmitForm(async () => {
+            const resultPromise = new Promise<boolean>((resolve) => {
+                void handleSubmit(async (formData) => {
+                    const result = await onSubmit(formData);
+                    resolve(result);
+                })();
+            });
 
-                return await resultPromise;
-            };
+            return await resultPromise;
         });
 
         return () => {
