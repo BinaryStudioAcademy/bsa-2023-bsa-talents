@@ -11,7 +11,7 @@ const ContactCandidate: React.FC = () => {
     }, []);
 
     const handleContactClose = useCallback((): void => {
-        // TODO: navigate to Candidates page
+        // TODO: navigate to Candidate details page
     }, []);
 
     return (

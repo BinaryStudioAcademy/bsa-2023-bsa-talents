@@ -77,14 +77,12 @@ const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
                 >
                     Contact candidate
                 </Text>
-                <Pressable>
-                    <MaterialIcon
-                        name={IconName.CLOSE}
-                        size={25}
-                        color={Color.PRIMARY}
-                        onPress={onContactClose}
-                    />
-                </Pressable>
+                <MaterialIcon
+                    name={IconName.CLOSE}
+                    size={25}
+                    color={Color.PRIMARY}
+                    onPress={onContactClose}
+                />
             </View>
             <Divider containerStyle={globalStyles.mb25} />
             <Text
