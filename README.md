@@ -48,12 +48,12 @@ erDiagram
   user_details ||..|o files : company_logo_id
   user_details ||..|o files : cv_id
   user_details {
-      dateTime created_at
       varchar id PK
+      dateTime created_at
       dateTime updated_at
       varchar user_id FK
       boolean is_approved
-      text denied_reason
+      varchar denied_reason
       boolean is_hired
       varchar profile_name
       int salary_expectation
@@ -65,7 +65,7 @@ erDiagram
       text description
       varchar english_level
       text[] not_considered
-      text[] prefer_languages
+      text[] preferred_languages
       text[] project_links
       varchar photo_id FK
       varchar full_name
@@ -73,8 +73,8 @@ erDiagram
       varchar linkedin_link
       varchar company_name
       varchar company_logo_id FK
-      varchar employer_position
       varchar company_website
+      varchar employer_position
       varchar cv_id FK
       enum completed_step "profile bsa-badges skills-and-projects cv-and-contacts preview"
    }
@@ -115,8 +115,8 @@ erDiagram
   }
 
   talent_badges }|--|| users : user_id
-  talent_badges }|--|| bsa_badges : badge_id
   talent_badges }|--|o user_details : user_details_id
+  talent_badges }|--|| bsa_badges : badge_id
   talent_badges{
       varchar id PK
       dateTime created_at
