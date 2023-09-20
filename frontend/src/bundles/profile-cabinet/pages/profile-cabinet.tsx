@@ -21,8 +21,9 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
+import { actions as employerActions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { actions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
+import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
@@ -69,21 +70,34 @@ const ProfileCabinet: React.FC = () => {
     const dispatch = useAppDispatch();
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
         currentUser: state.auth.currentUser,
-        hasChanges:
-            role == UserRole.TALENT
-                ? state.talentOnBoarding.hasChangesInDetails
-                : state.employerOnBoarding.hasChangesInDetails,
+        hasChanges: state.cabinet.hasChangesInDetails,
     }));
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
     useEffect(() => {
-        void dispatch(
-            actions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
+        switch (role) {
+            case UserRole.TALENT: {
+                void dispatch(
+                    talentActions.getTalentDetails({
+                        userId: currentUser?.id,
+                    }),
+                );
+                break;
+            }
+            case UserRole.EMPLOYER: {
+                void dispatch(
+                    employerActions.getEmployerDetails({
+                        userId: currentUser?.id,
+                    }),
+                );
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }, [currentUser?.id, dispatch, role]);
 
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {

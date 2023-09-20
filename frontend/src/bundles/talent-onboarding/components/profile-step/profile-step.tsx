@@ -26,6 +26,7 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
     CountryList,
     EmploymentType,
@@ -40,7 +41,7 @@ import {
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
@@ -131,7 +132,7 @@ const ProfileStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(actions.setHasChangesInDetails(hasChanges));
+        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
     }, [
         description,
         dispatch,
@@ -169,7 +170,7 @@ const ProfileStep: React.FC = () => {
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
             await dispatch(
-                actions.saveTalentDetails({
+                talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
                     completedStep: OnboardingSteps.STEP_01,

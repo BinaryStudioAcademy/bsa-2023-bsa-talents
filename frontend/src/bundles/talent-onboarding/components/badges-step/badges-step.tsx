@@ -20,9 +20,10 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 
 import { OnboardingSteps } from '../../enums/enums.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
@@ -45,17 +46,15 @@ const BadgesStep: React.FC = () => {
     const watchedBadges = watch('badges');
 
     useEffect(() => {
-        if (JSON.stringify(watchedBadges) === JSON.stringify(badges)) {
-            dispatch(actions.setHasChangesInDetails(false));
-        } else {
-            dispatch(actions.setHasChangesInDetails(true));
-        }
+        const hasChanges =
+            JSON.stringify(watchedBadges) === JSON.stringify(badges);
+        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
     }, [badges, dispatch, watchedBadges]);
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {
             await dispatch(
-                actions.updateTalentDetails({
+                talentActions.updateTalentDetails({
                     ...data,
                     completedStep: OnboardingSteps.STEP_02,
                 }),

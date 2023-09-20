@@ -23,11 +23,12 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { OnboardingSteps } from '../../enums/enums.js';
 import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import {
@@ -88,14 +89,14 @@ const ContactsCVStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(actions.setHasChangesInDetails(hasChanges));
+        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
     }, [dispatch, fullName, getValues, linkedinLink, phone, watchedValues]);
 
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
             const { fullName, phone, linkedinLink } = data;
             await dispatch(
-                actions.updateTalentDetails({
+                talentActions.updateTalentDetails({
                     fullName,
                     phone,
                     linkedinLink,

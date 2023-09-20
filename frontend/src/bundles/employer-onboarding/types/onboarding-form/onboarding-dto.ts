@@ -8,7 +8,6 @@ type EmployerOnboardingDto = {
     location: string;
     description: string;
     linkedinLink: string;
-    hasChangesInDetails?: boolean;
 };
 
 export { type EmployerOnboardingDto };

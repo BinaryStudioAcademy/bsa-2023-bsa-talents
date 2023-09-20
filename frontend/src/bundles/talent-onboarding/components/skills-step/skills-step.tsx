@@ -26,6 +26,7 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
     EnglishLevel,
     NotConsidered,
@@ -43,7 +44,7 @@ import {
     setEnglishLevelValue,
     toUrlLinks,
 } from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
@@ -147,7 +148,7 @@ const SkillsStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(actions.setHasChangesInDetails(hasChanges));
+        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
     }, [
         dispatch,
         englishLevel,
@@ -169,7 +170,7 @@ const SkillsStep: React.FC = () => {
             } = data;
             if (!data.projectLinks[0].url) {
                 await dispatch(
-                    actions.updateTalentDetails({
+                    talentActions.updateTalentDetails({
                         englishLevel,
                         notConsidered,
                         preferredLanguages,
@@ -181,7 +182,7 @@ const SkillsStep: React.FC = () => {
             }
 
             await dispatch(
-                actions.updateTalentDetails({
+                talentActions.updateTalentDetails({
                     englishLevel,
                     notConsidered,
                     preferredLanguages,
