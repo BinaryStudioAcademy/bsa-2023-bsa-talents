@@ -33,7 +33,7 @@ const socket: FastifyPluginCallback = (
         socket.on(
             SocketEvent.CHAT_CREATE_MESSAGE,
             (payload: ChatMessageGetAllItemResponseDto) => {
-                const receiverId = connectedUsers.get(payload.receiver.id);
+                const receiverId = connectedUsers.get(payload.receiver?.id);
                 if (receiverId) {
                     socket
                         .to(receiverId)
@@ -42,7 +42,7 @@ const socket: FastifyPluginCallback = (
             },
         );
 
-        socket.on('disconnect', () => {
+        socket.on(SocketEvent.DISCONNECT, () => {
             const userId = [...connectedUsers.values()].find(
                 (it) => it === socket.id,
             );

@@ -4,6 +4,7 @@ const SocketEvent = {
     CHAT_CREATE_MESSAGE: 'chat-create-message',
     CHAT_ADD_MESSAGE: 'chat-add-message',
     CONNECTION: 'connection',
+    DISCONNECT: 'disconnect',
 } as const;
 
 export { SocketEvent };
