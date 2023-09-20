@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PasswordVisibilityToggle } from '~/bundles/auth/components/components';
 import { type UserSignInRequestDto } from '~/bundles/auth/types/types';
 import { userSignInValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
@@ -18,7 +19,6 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { PasswordVisibilityToggle } from '../components';
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 

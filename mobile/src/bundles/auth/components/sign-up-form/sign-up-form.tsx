@@ -1,6 +1,7 @@
 import React from 'react';
 import { type RadioButtonProps } from 'react-native-radio-buttons-group';
 
+import { PasswordVisibilityToggle } from '~/bundles/auth/components/components';
 import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
 import { userSignUpValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
@@ -25,7 +26,6 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
-import { PasswordVisibilityToggle } from '../components';
 import { USER_SIGN_UP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
