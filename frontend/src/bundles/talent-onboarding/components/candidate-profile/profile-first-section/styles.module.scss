@@ -72,10 +72,10 @@
 
 .projectButton {
     height: 36px;
+    margin-top: 10px;
     color: var(--st-tropaz);
     text-transform: none;
     border: 1px solid var(--st-tropaz);
-    margin-block: 10px;
 }
 
 .projectPicture {
@@ -94,6 +94,10 @@
 .salary {
     font-weight: var(--font-weight-semi-bold);
     font-size: 22px;
+}
+
+.tooltipWrapper {
+    display: inline-block;
 }
 
 @media screen and (width <= 1300px) {

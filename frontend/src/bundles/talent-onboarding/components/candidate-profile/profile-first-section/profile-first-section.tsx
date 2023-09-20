@@ -5,6 +5,7 @@ import {
     Button,
     Chip,
     Grid,
+    Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/enums.js';
@@ -28,6 +29,8 @@ const ProfileFirstSection: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
 }) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+
     const handleLinkClick = useCallback((): void => {
         window.open(
             candidateParameters.projectLinks
@@ -36,8 +39,6 @@ const ProfileFirstSection: React.FC<Properties> = ({
             '_blank',
         );
     }, [candidateParameters.projectLinks]);
-
-    const [isExpanded, setIsExpanded] = useState(true);
 
     const handleSummaryClick = useCallback((): void => {
         setIsExpanded(!isExpanded);
@@ -166,13 +167,20 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         className={styles.projectDescription}
                     >
                         6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
-                        {isProfileOpen && (
-                            <Button
-                                label="Repository link"
-                                variant="outlined"
-                                className={styles.projectButton}
-                                onClick={handleLinkClick}
-                            ></Button>
+                        {isProfileOpen && candidateParameters.projectLinks && (
+                            <Tooltip
+                                title={candidateParameters.projectLinks[0]}
+                                arrow
+                            >
+                                <div className={styles.tooltipWrapper}>
+                                    <Button
+                                        label="Repository link"
+                                        variant="outlined"
+                                        className={styles.projectButton}
+                                        onClick={handleLinkClick}
+                                    />
+                                </div>
+                            </Tooltip>
                         )}
                     </Typography>
                     <img
@@ -180,13 +188,20 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         className={styles.projectPicture}
                         alt="project"
                     />
-                    {isFifthStep && (
-                        <Button
-                            label="Repository link"
-                            variant="outlined"
-                            className={styles.projectButton}
-                            onClick={handleLinkClick}
-                        />
+                    {isFifthStep && candidateParameters.projectLinks && (
+                        <Tooltip
+                            title={candidateParameters.projectLinks[0]}
+                            arrow
+                        >
+                            <div className={styles.tooltipWrapper}>
+                                <Button
+                                    label="Repository link"
+                                    variant="outlined"
+                                    className={styles.projectButton}
+                                    onClick={handleLinkClick}
+                                />
+                            </div>
+                        </Tooltip>
                     )}
                 </Grid>
             )}
