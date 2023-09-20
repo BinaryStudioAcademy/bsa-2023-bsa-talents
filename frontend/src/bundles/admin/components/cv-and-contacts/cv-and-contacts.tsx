@@ -1,16 +1,29 @@
-// import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import { Article, LinkedIn } from '@mui/icons-material';
 
 import { Grid, Typography } from '~/bundles/common/components/components.js';
+import { useState } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 const CVAndContacts: React.FC = () => {
-    // const documents = [
-    //     {
-    //         uri: 'https://s3.console.aws.amazon.com/s3/object/bsa-2023-bucket?region=eu-central-1&prefix=file_67lr88hj3jl.pdf'
-    //     }
-    // ];
+    // TODO: Change with actual selected candidate's data:
+    const mockCandidate = {
+        phone: '+63-970-998-0196',
+        linkedInLink: 'https://www.linkedin.com/in/josuer-bague/',
+        // cvLink: "https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/josuer-bague-cv.pdf",
+        cvLink: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/file_0f89hzllhwlk.docx',
+    };
+
+    const browserUnsopportedFile =
+        'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/Unsupported.pdf';
+
+    const [cvUrl, setCvUrl] = useState<string>(mockCandidate.cvLink);
+    const [extension] = cvUrl.split('.').reverse();
+
+    if (extension !== 'pdf') {
+        setCvUrl(browserUnsopportedFile);
+    }
+
     return (
         <Grid container className={styles.container}>
             <Grid container item className={styles.data}>
@@ -37,7 +50,7 @@ const CVAndContacts: React.FC = () => {
                         <a
                             target="_blank"
                             className={styles.link}
-                            href="https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/file_67lr88hj3jl.pdf"
+                            href={cvUrl}
                             rel="noreferrer"
                         >
                             Curriculum Vitae
@@ -46,7 +59,11 @@ const CVAndContacts: React.FC = () => {
                 </Grid>
             </Grid>
             <Grid item className={styles.preview}>
-                {/* <DocViewer className={styles.docViewer}documents={docs} pluginRenderers={DocViewerRenderers}/> */}
+                <iframe
+                    title="Curriculum Vitae"
+                    className={styles.iframe}
+                    src={cvUrl}
+                ></iframe>
             </Grid>
         </Grid>
     );

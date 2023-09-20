@@ -5,18 +5,26 @@
     margin: 0 auto;
     padding: 20px;
     background-color: var(--white);
-    border: 1px solid red;
 }
 
 .link {
     all: unset;
 }
 
-.preview {
-    width: 100%;
-    border: 1px solid gold;
+.data {
+    border: 1px solid indigo;
 }
 
-.docViewer {
+.preview {
+    width: 100%;
     border: 1px solid red;
+}
+
+.iframe {
+    width: 100%;
+    padding: 1px;
+
+    // height: '100%',
+    border-radius: 5px;
+    aspect-ratio: 1/1;
 }

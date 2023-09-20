@@ -18,6 +18,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import { CVAndContacts } from './bundles/admin/components/cv-and-contacts/cv-and-contacts.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
@@ -126,6 +127,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     isOnline
                                                 >
                                                     <Candidates />
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: '/test',
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <CVAndContacts />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),
