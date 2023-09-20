@@ -1,28 +1,89 @@
 import React from 'react';
 
-import { FlatList, Text, View } from '~/bundles/common/components/components';
+import {
+    Button,
+    FlatList,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { useCallback, useMemo, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ChatListItem, Search } from '~/bundles/employer/components/components';
+import { actions as chatActions } from '~/bundles/employer/store';
 import { type ChatListItemType } from '~/bundles/employer/types/types';
 
-import { listItems } from './constants/constants';
 import { styles } from './styles';
 
 const Chat: React.FC = () => {
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { chatData } = useAppSelector(({ employers }) => employers);
+    const dispatch = useAppDispatch();
+
+    //TODO delete after testing
+    const handleSendMessage1 = useCallback(() => {
+        const newMessage = {
+            employerId: currentUserData?.id ?? '',
+            talentId: 'u1',
+            talentName: 'Talent Name 1',
+            message: 'New message text1',
+        };
+
+        void dispatch(chatActions.sendMessage(newMessage));
+    }, [dispatch, currentUserData?.id]);
+
+    const handleSendMessage2 = useCallback(() => {
+        const newMessage = {
+            employerId: currentUserData?.id ?? '',
+            talentId: 'u2',
+            talentName: 'Talent Name 2',
+            message: 'New message text2',
+        };
+
+        void dispatch(chatActions.sendMessage(newMessage));
+    }, [dispatch, currentUserData?.id]);
+
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
+    const transformedChatData = useMemo(() => {
+        return chatData?.map((chat) => ({
+            userId: chat.talentId,
+            username: chat.talentName,
+            avatar: chat.talentAvatar,
+            lastMessage: chat.data?.[0]?.message,
+            lastMessageDate: chat.data?.[0]?.createdAt,
+            isSelected: false,
+        }));
+    }, [chatData]);
+
     const filteredChats = useMemo(() => {
-        return listItems.filter(
+        return transformedChatData?.filter(
             ({ lastMessage }) =>
                 lastMessage
                     ?.trim()
                     .toLowerCase()
                     .includes(searchQuery.toLowerCase()),
         );
-    }, [searchQuery]);
+    }, [transformedChatData, searchQuery]);
+
+    const sortedChats = useMemo(() => {
+        if (!filteredChats) {
+            return [];
+        }
+
+        return [...filteredChats].sort((a, b) => {
+            const dateA = new Date(a.lastMessageDate ?? '').getTime();
+            const dateB = new Date(b.lastMessageDate ?? '').getTime();
+            return dateB - dateA;
+        });
+    }, [filteredChats]);
 
     const renderListItem = ({
         item,
@@ -31,6 +92,7 @@ const Chat: React.FC = () => {
     }): React.ReactElement => {
         return (
             <ChatListItem
+                key={item.lastMessageDate}
                 item={item}
                 isSelected={item.userId === selectedItemId}
                 onSelect={handleChatSelect}
@@ -47,8 +109,17 @@ const Chat: React.FC = () => {
 
     return (
         <View style={globalStyles.flex1}>
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.p25,
+                    styles.header,
+                ]}
+            >
                 <Text category={TextCategory.H3}>Chat</Text>
+                <Button label="Send 1" onPress={handleSendMessage1} />
+                <Button label="Send 2" onPress={handleSendMessage2} />
             </View>
             <View
                 style={[
@@ -69,7 +140,7 @@ const Chat: React.FC = () => {
                         globalStyles.mt10,
                         styles.chatList,
                     ]}
-                    data={filteredChats}
+                    data={sortedChats}
                     renderItem={renderListItem}
                     keyExtractor={(item): string => item.userId}
                     showsVerticalScrollIndicator={false}

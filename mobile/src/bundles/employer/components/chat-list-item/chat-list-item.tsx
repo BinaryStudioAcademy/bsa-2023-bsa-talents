@@ -21,7 +21,6 @@ type Properties = {
 
 const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
     const { userId, username, avatar, lastMessage, lastMessageDate } = item;
-
     const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageDate ?? '');
 
     const itemAvatar = avatar ? (
@@ -45,7 +44,7 @@ const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
         </View>
     );
 
-    const timeDelivery = (
+    const itemTimeDelivery = (
         <Text style={styles.timeDelivery}>{lastMessageTimeDelivery}</Text>
     );
 
@@ -64,7 +63,7 @@ const ChatListItem: React.FC<Properties> = ({ item, isSelected, onSelect }) => {
             >
                 {itemAvatar}
                 {itemContent}
-                {timeDelivery}
+                {itemTimeDelivery}
             </View>
         </Pressable>
     );
