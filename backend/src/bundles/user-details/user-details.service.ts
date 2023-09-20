@@ -13,6 +13,7 @@ import {
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
+    type UserDetailsShortResponseDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
@@ -51,6 +52,22 @@ class UserDetailsService implements Service {
             });
         }
         return userDetails;
+    }
+
+    public async findShortByRole(
+        role: 'talent' | 'employer',
+    ): Promise<UserDetailsShortResponseDto[]> {
+        const results = (await this.userDetailsRepository.findUnconfirmedByRole(
+            role,
+        )) as unknown as UserDetailsShortResponseDto[];
+
+        return results.map((it) => {
+            return {
+                userId: it.userId,
+                fullName: it.fullName,
+                photoUrl: it.photoUrl,
+            };
+        });
     }
 
     public findAll(): Promise<{ items: unknown[] }> {

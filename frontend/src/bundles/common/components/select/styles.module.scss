@@ -20,6 +20,11 @@
     transition:
         border-color 0.3s,
         box-shadow 0.3s;
+
+    & :global(.MuiInputAdornment-positionStart .MuiTypography-body1) {
+        color: var(--text-primary-dark);
+        font-size: var(--font-size-base);
+    }
 }
 
 .placeholder {

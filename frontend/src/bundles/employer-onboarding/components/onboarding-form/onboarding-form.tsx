@@ -37,13 +37,13 @@ const OnboardingForm: React.FC = () => {
     const {
         //photo,
         fullName,
-        position,
+        employerPosition,
         companyName,
         companyWebsite,
         location,
         description,
         //companyLogo,
-        linkedInLink,
+        linkedinLink,
     } = useAppSelector((state: RootReducer) => state.employerOnBoarding);
 
     const { control, getValues, handleSubmit, errors, watch } =
@@ -52,24 +52,24 @@ const OnboardingForm: React.FC = () => {
                 () => ({
                     //photo,
                     fullName,
-                    position,
+                    employerPosition,
                     companyName,
                     companyWebsite,
                     location,
                     description,
                     //companyLogo,
-                    linkedInLink,
+                    linkedinLink,
                 }),
                 [
                     //photo,
                     fullName,
-                    position,
+                    employerPosition,
                     companyName,
                     companyWebsite,
                     location,
                     description,
                     //companyLogo,
-                    linkedInLink,
+                    linkedinLink,
                 ],
             ),
             validationSchema: EmployerOnboardingValidationSchema,
@@ -82,37 +82,37 @@ const OnboardingForm: React.FC = () => {
     const watchedValues = watch([
         //'photo',
         'fullName',
-        'position',
+        'employerPosition',
         'companyName',
         'companyWebsite',
         'location',
         'description',
         //'companyLogo',
-        'linkedInLink',
+        'linkedinLink',
     ]);
 
     useEffect(() => {
         const newValues = getValues([
             //'photo',
             'fullName',
-            'position',
+            'employerPosition',
             'companyName',
             'companyWebsite',
             'location',
             'description',
             //'companyLogo',
-            'linkedInLink',
+            'linkedinLink',
         ]);
         const initialValues = {
             // photo,
             fullName,
-            position,
+            employerPosition,
             companyName,
             companyWebsite,
             location,
             description,
             // companyLogo,
-            linkedInLink,
+            linkedinLink,
         };
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
@@ -125,18 +125,38 @@ const OnboardingForm: React.FC = () => {
         dispatch,
         fullName,
         getValues,
-        linkedInLink,
+        linkedinLink,
         location,
-        position,
+        employerPosition,
         watchedValues,
     ]);
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: EmployerOnboardingDto): Promise<boolean> => {
-            await dispatch(actions.createEmployerDetails(data));
+            const {
+                fullName,
+                employerPosition,
+                companyName,
+                companyWebsite,
+                location,
+                description,
+            } = data;
+            await dispatch(
+                actions.createEmployerDetails({
+                    fullName,
+                    employerPosition,
+                    companyName,
+                    companyWebsite,
+                    location,
+                    description,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [dispatch, currentUser?.id],
     );
 
     useEffect(() => {
@@ -204,7 +224,7 @@ const OnboardingForm: React.FC = () => {
                             </Typography>
                         </FormLabel>
                         <Input
-                            name="position"
+                            name="employerPosition"
                             errors={errors}
                             control={control}
                             placeholder="Position"
@@ -226,11 +246,10 @@ const OnboardingForm: React.FC = () => {
                             errors={errors}
                             control={control}
                             placeholder="Link"
-                            name="linkedInLink"
+                            name="linkedinLink"
                             className={styles.formInput}
                         />
                     </FormControl>
-
                     <FormControl className={styles.formField}>
                         <FormLabel>
                             <Typography
