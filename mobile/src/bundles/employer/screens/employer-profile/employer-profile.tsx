@@ -1,7 +1,12 @@
 import React from 'react';
 
-import { ScrollView, Text } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import {
+    ScrollView,
+    StatusBar,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
@@ -15,21 +20,28 @@ const EmployerProfile: React.FC = () => {
     }, []);
 
     return (
-        <ScrollView
-            contentContainerStyle={[
-                globalStyles.defaultScreenPadding,
-                styles.container,
-            ]}
-        >
-            <Text category={TextCategory.H4} style={globalStyles.pb20}>
-                My profile
-            </Text>
-            <EmployerOnboardingForm
-                labelForSubmitButton={LabelForButtonEmployerProfile.SAVE}
-                employerOnboardingData={null}
-                onSubmit={handleEmployerDataSubmit}
+        <>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Color.BACKGROUND}
             />
-        </ScrollView>
+            <View style={[globalStyles.p25, styles.header]}>
+                <Text category={TextCategory.H3}>My profile</Text>
+            </View>
+
+            <ScrollView
+                contentContainerStyle={[
+                    styles.container,
+                    globalStyles.defaultScreenPadding,
+                ]}
+            >
+                <EmployerOnboardingForm
+                    labelForSubmitButton={LabelForButtonEmployerProfile.SAVE}
+                    employerOnboardingData={null}
+                    onSubmit={handleEmployerDataSubmit}
+                />
+            </ScrollView>
+        </>
     );
 };
 
