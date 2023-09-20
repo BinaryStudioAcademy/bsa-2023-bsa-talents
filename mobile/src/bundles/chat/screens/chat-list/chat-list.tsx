@@ -1,22 +1,11 @@
 import React from 'react';
 
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
-import {
-    newMessageForChat1,
-    newMessageForChat2,
-} from '~/bundles/chat/constants/constants';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
-import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatItem } from '~/bundles/chat/types/types';
-import {
-    Button,
-    FlatList,
-    Text,
-    View,
-} from '~/bundles/common/components/components';
+import { FlatList, Text, View } from '~/bundles/common/components/components';
 import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import {
-    useAppDispatch,
     useAppSelector,
     useCallback,
     useMemo,
@@ -34,28 +23,10 @@ import { styles } from './styles';
 
 const ChatList: React.FC = () => {
     const { chatData } = useAppSelector(({ chat }) => chat);
-    const dispatch = useAppDispatch();
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
 
     const [searchQuery, setSearchQuery] = useState('');
-
-    //TODO delete after testing
-    const handleSendMessage1 = useCallback(() => {
-        const payload = {
-            ...newMessageForChat1,
-            createdAt: new Date().toISOString(),
-        };
-        void dispatch(chatActions.sendMessage(payload));
-    }, [dispatch]);
-
-    const handleSendMessage2 = useCallback(() => {
-        const payload = {
-            ...newMessageForChat2,
-            createdAt: new Date().toISOString(),
-        };
-        void dispatch(chatActions.sendMessage(payload));
-    }, [dispatch]);
 
     const transformedChatData = useMemo(() => {
         return chatData
@@ -118,8 +89,6 @@ const ChatList: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Chat</Text>
-                <Button label="To Chat 1" onPress={handleSendMessage1} />
-                <Button label="To Chat 2" onPress={handleSendMessage2} />
             </View>
             <View
                 style={[
