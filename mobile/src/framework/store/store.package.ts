@@ -9,6 +9,8 @@ import flipper from 'redux-flipper';
 import { authApi } from '~/bundles/auth/auth';
 import { reducer as authReducer } from '~/bundles/auth/store/slice';
 import { AppEnvironment } from '~/bundles/common/enums/enums';
+import { employerApi } from '~/bundles/employer/employer';
+import { reducer as employeesReducer } from '~/bundles/employer/store';
 import { reducer as talentsReducer } from '~/bundles/talent/store';
 import { talentApi } from '~/bundles/talent/talent';
 import { type Config } from '~/framework/config/config';
@@ -18,12 +20,14 @@ import { storage } from '~/framework/storage/storage';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     talents: ReturnType<typeof talentsReducer>;
+    employees: ReturnType<typeof employeesReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
     notifications: typeof notifications;
     talentApi: typeof talentApi;
+    employerApi: typeof employerApi;
     storage: typeof storage;
 };
 
@@ -44,6 +48,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 talents: talentsReducer,
+                employees: employeesReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 const middleware = getDefaultMiddleware({
@@ -65,6 +70,7 @@ class Store {
         return {
             authApi,
             talentApi,
+            employerApi,
             notifications,
             storage,
         };
