@@ -11,6 +11,7 @@ import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
@@ -132,7 +133,16 @@ import {
  *                userDetailsId:
  *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *                  type: string
- *
+ *      ShortUserDetails:
+ *        type: object
+ *        properties:
+ *          userId:
+ *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            type: string
+ *          photoUrl:
+ *            type: string
+ *          fullName:
+ *            type: string
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -191,6 +201,18 @@ class UserDetailsController extends ControllerBase {
                 return this.findByUserId(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.SHORT,
+            method: 'GET',
+            handler: (options) => {
+                return this.findShort(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsFindShortByRoleRequestDto;
                     }>,
                 );
             },
@@ -568,6 +590,47 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: searchResult,
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/short:
+     *    get:
+     *      tags: [User Details]
+     *      description: Returns short users details by user role
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: userType
+     *          required: true
+     *          description: The role to filter users by.
+     *          schema:
+     *            type: string
+     *            enum:
+     *              - talent
+     *              - employer
+     *          example: talent
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                   $ref: '#/components/schemas/ShortUserDetails'
+     */
+
+    private async findShort(
+        options: ApiHandlerOptions<{
+            query: UserDetailsFindShortByRoleRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userType } = options.query;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findShortByRole(userType),
         };
     }
 
