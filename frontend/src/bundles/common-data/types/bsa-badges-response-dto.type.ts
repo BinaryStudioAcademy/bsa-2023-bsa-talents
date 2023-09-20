@@ -1,10 +1,12 @@
+type BsaBadgesItem = {
+    id: string;
+    type: string;
+    name: string;
+    maxScore: number;
+};
+
 type BsaBadgesResponseDto = {
-    items: {
-        id: string;
-        type: string;
-        name: string;
-        maxScore: number;
-    }[];
+    items: BsaBadgesItem[];
 };
 
 export { type BsaBadgesResponseDto };

@@ -29,7 +29,7 @@ class CommonDataApi extends HttpApiBase {
             },
         );
 
-        return await response.json<HardSkillsResponseDto>();
+        return response.json<HardSkillsResponseDto>();
     }
 
     public async getAllBsaBadges(): Promise<BsaBadgesResponseDto> {
@@ -42,7 +42,7 @@ class CommonDataApi extends HttpApiBase {
             },
         );
 
-        return await response.json<BsaBadgesResponseDto>();
+        return response.json<BsaBadgesResponseDto>();
     }
 }
 

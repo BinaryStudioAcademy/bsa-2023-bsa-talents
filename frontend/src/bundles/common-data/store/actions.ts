@@ -13,20 +13,20 @@ const getHardSkillsData = createAsyncThunk<
     HardSkillsResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}${ApiPath.HARD_SKILLS}`, async (_, { extra }) => {
+>(`${sliceName}${ApiPath.HARD_SKILLS}`, (_, { extra }) => {
     const { commonDataApi } = extra;
 
-    return await commonDataApi.getAllHardSkills();
+    return commonDataApi.getAllHardSkills();
 });
 
 const getBsaBadgesData = createAsyncThunk<
     BsaBadgesResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}${ApiPath.BSA_BADGES}`, async (_, { extra }) => {
+>(`${sliceName}${ApiPath.BSA_BADGES}`, (_, { extra }) => {
     const { commonDataApi } = extra;
 
-    return await commonDataApi.getAllBsaBadges();
+    return commonDataApi.getAllBsaBadges();
 });
 
 export { getBsaBadgesData, getHardSkillsData };
