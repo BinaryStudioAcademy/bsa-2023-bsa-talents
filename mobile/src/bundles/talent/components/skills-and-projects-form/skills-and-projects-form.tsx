@@ -12,12 +12,7 @@ import {
     Selector,
     View,
 } from '~/bundles/common/components/components';
-import {
-    ButtonType,
-    Color,
-    DataStatus,
-    IconName,
-} from '~/bundles/common/enums/enums';
+import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import { transformDtoValuesToMultiSelector } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
@@ -28,7 +23,7 @@ import {
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { getHardSkillsData } from '~/bundles/gather-selected-data/store/actions';
+import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -58,9 +53,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         validationSchema: SkillsStepValidationSchema,
     });
     const dispatch = useAppDispatch();
-    const { hardSkillsData, dataStatus } = useAppSelector(
-        ({ gatherSelectedData }) => gatherSelectedData,
-    );
+    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -74,7 +67,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         void dispatch(getHardSkillsData());
     }, [dispatch]);
 
-    const isHardSkillLoading = dataStatus === DataStatus.PENDING;
     return (
         <ScrollView
             contentContainerStyle={[globalStyles.p25, styles.container]}
@@ -91,7 +83,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
-                    isValuesLoading={isHardSkillLoading}
                 />
             </FormField>
 

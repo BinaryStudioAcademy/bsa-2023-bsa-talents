@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    Loader,
     ScrollView,
     Tag,
     Text,
@@ -9,12 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    IconName,
-    LoaderSize,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -37,7 +31,6 @@ type Properties<T extends FieldValues> = {
     items: AutocompleteMultiSelectorValue[];
     placeholder?: string;
     control?: Control<T, null>;
-    isValuesLoading?: boolean;
     hasError?: boolean;
 };
 
@@ -47,7 +40,6 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     hasError,
     items,
     placeholder,
-    isValuesLoading,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
@@ -119,26 +111,22 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled persistentScrollbar>
-                        {isValuesLoading ? (
-                            <Loader size={LoaderSize.SMALL} />
-                        ) : (
-                            filteredItems.map(
-                                (item: AutocompleteMultiSelectorValue) => (
-                                    <TouchableOpacity
-                                        key={item.value}
-                                        onPress={(): void => {
-                                            handleItemSelect(item);
-                                        }}
+                        {filteredItems.map(
+                            (item: AutocompleteMultiSelectorValue) => (
+                                <TouchableOpacity
+                                    key={item.value}
+                                    onPress={(): void => {
+                                        handleItemSelect(item);
+                                    }}
+                                >
+                                    <Text
+                                        category={TextCategory.LABEL}
+                                        style={globalStyles.pv5}
                                     >
-                                        <Text
-                                            category={TextCategory.LABEL}
-                                            style={globalStyles.pv5}
-                                        >
-                                            {item.label}
-                                        </Text>
-                                    </TouchableOpacity>
-                                ),
-                            )
+                                        {item.label}
+                                    </Text>
+                                </TouchableOpacity>
+                            ),
                         )}
                     </ScrollView>
                 </Animated.View>

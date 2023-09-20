@@ -5,7 +5,7 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
-} from '~/bundles/gather-selected-data/types/types';
+} from '~/bundles/common-data/types/types';
 
 import { getBadgesData, getHardSkillsData } from './actions';
 
@@ -23,7 +23,7 @@ const initialState: State = {
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'gather-selected-data',
+    name: 'common-data',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(getBadgesData.pending, (state) => {

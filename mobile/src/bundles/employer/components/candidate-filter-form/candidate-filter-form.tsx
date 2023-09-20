@@ -16,7 +16,6 @@ import {
 import {
     Color,
     CountryList,
-    DataStatus,
     EmploymentType,
     IconName,
     JobTitle,
@@ -31,8 +30,8 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
-import { getHardSkillsData } from '~/bundles/gather-selected-data/store/actions';
 
 import {
     BSA_CHARACTERISTICS,
@@ -65,9 +64,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
         defaultValues: DEFAULT_VALUES,
     });
     const dispatch = useAppDispatch();
-    const { hardSkillsData, dataStatus } = useAppSelector(
-        ({ gatherSelectedData }) => gatherSelectedData,
-    );
+    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
 
     const handleClearFilters = (): void => {
         reset();
@@ -80,8 +77,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     useEffect(() => {
         void dispatch(getHardSkillsData());
     }, [dispatch]);
-
-    const isSelectorValuesLoading = dataStatus === DataStatus.PENDING;
 
     return (
         <>
@@ -161,7 +156,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
-                    isValuesLoading={isSelectorValuesLoading}
                 />
             </FormField>
             <FormField

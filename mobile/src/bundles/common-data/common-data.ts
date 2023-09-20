@@ -2,12 +2,12 @@ import { config } from '~/framework/config/config';
 import { http } from '~/framework/http/http';
 import { storage } from '~/framework/storage/storage';
 
-import { GatherSelectedDataApi } from './gather-selected-data-api';
+import { CommonDataApi } from './common-data-api';
 
-const gatherSelectedDataApi = new GatherSelectedDataApi({
+const commonDataApi = new CommonDataApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
     storage,
     http,
 });
 
-export { gatherSelectedDataApi };
+export { commonDataApi };
