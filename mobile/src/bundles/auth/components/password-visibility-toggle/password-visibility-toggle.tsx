@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { TouchableOpacity } from '~/bundles/common/components/components';
 import { Color, IconName } from '~/bundles/common/enums/enums';
@@ -17,7 +17,7 @@ const PasswordVisibilityToggle: React.FC<Properties> = ({
 }) => {
     return (
         <TouchableOpacity style={styles.icon} onPress={onChangeVisibility}>
-            <Icon
+            <MaterialIcon
                 name={
                     isPasswordVisible
                         ? IconName.VISIBILITY_OFF
