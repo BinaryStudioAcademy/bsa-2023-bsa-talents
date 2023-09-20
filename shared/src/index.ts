@@ -54,6 +54,7 @@ export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,

@@ -1,11 +1,15 @@
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
-import { type ApiHandlerResponse } from '~/common/packages/controller/controller.js';
+import {
+    type ApiHandlerOptions,
+    type ApiHandlerResponse,
+} from '~/common/packages/controller/controller.js';
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UsersApiPath } from './enums/enums.js';
+import { type UserGetLMSDataById } from './types/types.js';
 
 /**
  * @swagger
@@ -42,6 +46,18 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        this.addRoute({
+            path: UsersApiPath.LMS_DATA_BY_$ID,
+            method: 'GET',
+            handler: (options) => {
+                return this.getLMSdataById(
+                    options as ApiHandlerOptions<{
+                        params: UserGetLMSDataById;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
@@ -66,6 +82,19 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    private async getLMSdataById(
+        options: ApiHandlerOptions<{
+            params: UserGetLMSDataById;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userService.findById(userId), // TODO: replace it with lsm-data service
         };
     }
 }
