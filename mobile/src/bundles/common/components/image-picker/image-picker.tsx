@@ -1,8 +1,4 @@
 import React from 'react';
-import { PermissionsAndroid } from 'react-native';
-import { type StyleProp, type ViewStyle } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { type ImagePickerResponse } from 'react-native-image-picker';
 
 import {
     Button,
@@ -10,35 +6,50 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { PermissionsAndroid } from '~/bundles/common/constants/constants';
 import {
     ButtonType,
     ErrorMessages,
     TextCategory,
 } from '~/bundles/common/enums/enums';
+import {
+    launchCamera,
+    launchImageLibrary,
+} from '~/bundles/common/helpers/helpers';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-
-type ImagePickerProperties = {
-    label: string;
-    onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
-    containerStyle?: StyleProp<ViewStyle>;
-};
+import {
+    type ImagePickerResponse,
+    type StyleProp,
+    type ViewStyle,
+} from '~/bundles/common/types/types';
 import { notifications } from '~/framework/notifications/notifications';
 
 import { styles } from './styles';
 
+type ImagePickerProperties = {
+    shouldHideButton?: boolean;
+    toggleImagePickerVisibility?: () => void;
+    label?: string;
+    onImageLoad: (payload: Promise<ImagePickerResponse>) => void;
+    containerStyle?: StyleProp<ViewStyle>;
+};
+
 const ImagePicker: React.FC<ImagePickerProperties> = ({
+    shouldHideButton = false,
+    toggleImagePickerVisibility,
     label,
     onImageLoad,
     containerStyle,
 }) => {
-    const [isPopUpActive, setIsPopUpActive] = useState(false);
+    const [isPopUpActive, setIsPopUpActive] = useState(shouldHideButton);
 
     const getImageFromLibrary = useCallback((): void => {
+        toggleImagePickerVisibility?.();
         setIsPopUpActive(false);
         const result = launchImageLibrary({ mediaType: 'photo' });
         onImageLoad(result);
-    }, [onImageLoad]);
+    }, [onImageLoad, toggleImagePickerVisibility]);
 
     const getImageFromCamera = useCallback(async (): Promise<void> => {
         try {
@@ -59,13 +70,14 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                 });
             }
             setIsPopUpActive(false);
+            toggleImagePickerVisibility?.();
         } catch (error) {
             if (error instanceof Error) {
                 notifications.showError({ title: error.message });
             }
             notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
         }
-    }, [onImageLoad]);
+    }, [onImageLoad, toggleImagePickerVisibility]);
 
     const imageCameraHandler = useCallback((): void => {
         void getImageFromCamera();
@@ -77,6 +89,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
 
     const onPopUpClose = (): void => {
         setIsPopUpActive(false);
+        toggleImagePickerVisibility?.();
     };
 
     return (
@@ -99,12 +112,14 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                     />
                 </View>
             </Modal>
-            <Button
-                buttonType={ButtonType.OUTLINE}
-                label={label}
-                onPress={onPickerPress}
-                style={containerStyle}
-            />
+            {!shouldHideButton && (
+                <Button
+                    buttonType={ButtonType.OUTLINE}
+                    label={label ?? 'Button'}
+                    onPress={onPickerPress}
+                    style={containerStyle}
+                />
+            )}
         </>
     );
 };

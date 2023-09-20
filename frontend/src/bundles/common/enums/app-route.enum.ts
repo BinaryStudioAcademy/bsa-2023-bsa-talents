@@ -1,4 +1,6 @@
 const AppRoute = {
+    ADMIN: '/admin',
+    ADMIN_PANEL: '/admin/verification-panel',
     ROOT: '/',
     CANDIDATES: '/candidates',
     CANDIDATE: '/candidates/:candidate',

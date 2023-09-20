@@ -5,7 +5,6 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Auth } from '~/bundles/auth/pages/auth.js';
 import {
     App,
     Navigate,
@@ -18,7 +17,12 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { CVAndContacts } from './bundles/admin/components/cv-and-contacts/cv-and-contacts.js';
+import { AdminPanel } from './bundles/admin-panel/admin-panel.js';
+import {
+    ResetPasswordPage,
+    SignInPage,
+    SignUpPage,
+} from './bundles/auth/pages/pages.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
@@ -63,7 +67,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.SIGN_IN,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <SignInPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -71,7 +75,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.SIGN_UP,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <SignUpPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -79,7 +83,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.RESET_PASSWORD,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <ResetPasswordPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -132,14 +136,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: '/test',
+                                        path: AppRoute.ADMIN_PANEL,
                                         element: (
                                             <ProtectedRoute>
                                                 <PageLayout
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <CVAndContacts />
+                                                    <AdminPanel />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),
