@@ -103,7 +103,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                     {
-                                        path: AppRoute.MY_PROFILE,
+                                        path: AppRoute.MY_PROFILE_TALENT,
                                         element: (
                                             <ProtectedRoute>
                                                 <FormSubmitProvider>
@@ -123,10 +123,22 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                     {
+                                        path: AppRoute.MY_PROFILE_EMPLOYER,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <FormSubmitProvider>
+                                                    <ProfileCabinet />
+                                                </FormSubmitProvider>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
                                         path: AppRoute.EMPLOYER_ONBOARDING,
                                         element: (
                                             <ProtectedRoute>
-                                                <EmployerOnboarding />
+                                                <FormSubmitProvider>
+                                                    <EmployerOnboarding />
+                                                </FormSubmitProvider>
                                             </ProtectedRoute>
                                         ),
                                     },

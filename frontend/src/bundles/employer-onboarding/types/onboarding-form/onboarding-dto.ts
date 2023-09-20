@@ -8,6 +8,7 @@ type EmployerOnboardingDto = {
     description: string;
     linkedInLink: string;
     companyLogo: File | null;
+    hasChangesInDetails?: boolean;
 };
 
 export { type EmployerOnboardingDto };

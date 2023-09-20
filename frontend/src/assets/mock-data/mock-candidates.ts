@@ -29,7 +29,7 @@ const mockCandidates = [
         salaryExpectation: 50,
         projectLinks: [],
         location: 'Ukraine',
-        englishLevel: 'B1 Intermidiate',
+        englishLevel: 'B1 Intermediate',
         badges: ['1', '2', '5', '4', '3'],
         preferredLanguages: ['English', 'French'],
         description:
@@ -45,7 +45,7 @@ const mockCandidates = [
         phone: '+380999999999',
         employmentType: [],
         notConsidered: ['gamedev', 'crypto'],
-        cvId: 'aaa111',
+        cvId: 'aaa222',
         email: 'b@gmail.com',
     },
     {
@@ -53,7 +53,7 @@ const mockCandidates = [
         salaryExpectation: 50,
         projectLinks: [],
         location: 'Ukraine',
-        englishLevel: 'B1 Intermidiate',
+        englishLevel: 'B1 Intermediate',
         badges: ['1', '2', '5', '4', '3'],
         preferredLanguages: ['English', 'French'],
         description:
@@ -65,7 +65,7 @@ const mockCandidates = [
         phone: '+380999999999',
         employmentType: [],
         notConsidered: ['gamedev', 'crypto'],
-        cvId: 'aaa111',
+        cvId: 'aaa333',
         email: 'c@gmail.com',
     },
 ];

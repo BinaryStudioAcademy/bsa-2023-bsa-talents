@@ -42,7 +42,6 @@ const Select = <T extends FieldValues>({
     placeholder = 'Placeholder',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
@@ -83,7 +82,7 @@ const Select = <T extends FieldValues>({
                 multiple={isMulti}
                 className={selectStyles}
                 renderValue={handleSelectChange}
-                value={field.value || []}
+                value={field.value || ''}
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>

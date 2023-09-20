@@ -10,7 +10,11 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
-import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 import { getStepRoute } from '~/bundles/profile-cabinet/helpers/helpers.js';
 import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
@@ -33,9 +37,11 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         navigate(AppRoute.SIGN_IN);
     }, [dispatch, navigate]);
 
+    const role = useAppSelector((state) => state.auth.currentUser?.role);
+
     const handleCheckProfile = useCallback((): void => {
-        navigate(getStepRoute('profile'));
-    }, [navigate]);
+        navigate(getStepRoute('profile', role));
+    }, [navigate, role]);
 
     return (
         <Menu>
