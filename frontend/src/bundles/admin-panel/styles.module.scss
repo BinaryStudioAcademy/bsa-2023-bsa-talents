@@ -48,7 +48,7 @@
 
 .previewWrapper {
     position: relative;
-    flex-direction: column;
+    flex-flow: column nowrap;
     width: 100%;
     max-height: var(--preview-wrapper-max-height);
     margin-top: 52px;
@@ -64,6 +64,7 @@
 .previewHeader {
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 21px 0;
 }
 
@@ -73,6 +74,11 @@
 }
 
 .previewInfo {
+    display: flex;
+    align-items: center;
+
+    // mobile
+    height: 100%;
     max-height: calc(
         100% - var(--preview-header-height) - var(--preview-tab-height)
     );

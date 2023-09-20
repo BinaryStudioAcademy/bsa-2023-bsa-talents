@@ -124,7 +124,7 @@ class ServerAppBase implements ServerApp {
 
     public async initPlugins(): Promise<void> {
         await this.app.register(FastifyCors, {
-            origin: 'https://s3.eu-central-1.amazonaws.com/bsa-2023-bucket',
+            origin: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com',
             methods: ['GET'],
             allowedHeaders: ['Authorization'],
         });

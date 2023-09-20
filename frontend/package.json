@@ -17,6 +17,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@cyntler/react-doc-viewer": "1.13.0",
         "@emotion/react": "11.11.1",
         "@emotion/styled": "11.11.0",
         "@hookform/resolvers": "3.2.0",
@@ -25,6 +26,7 @@
         "@reduxjs/toolkit": "1.9.5",
         "clsx": "2.0.0",
         "react": "18.2.0",
+        "react-doc-viewer": "0.1.5",
         "react-dom": "18.2.0",
         "react-hook-form": "7.45.4",
         "react-redux": "8.1.2",
