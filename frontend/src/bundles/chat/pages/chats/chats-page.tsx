@@ -53,11 +53,14 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, chatMessages } = useAppSelector(({ auth, chat }) => ({
-        user: auth.currentUser,
-        chats: chat.chats,
-        chatMessages: chat.current.messages,
-    }));
+    const { user, chats, chatMessages, currentChatId } = useAppSelector(
+        ({ auth, chat }) => ({
+            user: auth.currentUser,
+            chats: chat.chats,
+            chatMessages: chat.current.messages,
+            currentChatId: chat.current.chatId,
+        }),
+    );
 
     useEffect(() => {
         if (user) {
@@ -73,17 +76,23 @@ const ChatsPage: React.FC = () => {
     });
 
     // TODO: will be replaced by send message logic
-    const sendMessage = useCallback((message: string) => {
-        alert(message);
-        // setChatMessages([
-        //     ...chatMessages,
-        //     {
-        //         ...currentUser,
-        //         value: message,
-        //         id: Date.now().toString(),
-        //     },
-        // ]);
-    }, []);
+    const sendMessage = useCallback(
+        (message: string) => {
+            const recieverId = chats.find(
+                (chat) => chat.chatId === currentChatId,
+            )?.partner.id;
+
+            void dispatch(
+                chatActions.createMessage({
+                    message,
+                    chatId: currentChatId as string,
+                    senderId: user?.id as string,
+                    receiverId: recieverId as string,
+                }),
+            );
+        },
+        [dispatch, currentChatId, chats, user?.id],
+    );
 
     // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
