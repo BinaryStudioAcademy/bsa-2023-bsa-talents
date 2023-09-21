@@ -1,8 +1,12 @@
 import {
+    type UserForgotPasswordRequestDto,
+    type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 import {
+    userForgotPasswordValidationSchema,
+    userResetPasswordValidationSchema,
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
@@ -67,6 +71,34 @@ class AuthController extends ControllerBase {
             path: AuthApiPath.CURRENT_USER,
             method: 'GET',
             handler: (options) => this.getCurrentUser(options),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.FORGOT_PASSWORD,
+            method: 'POST',
+            validation: {
+                body: userForgotPasswordValidationSchema,
+            },
+            handler: (options) =>
+                this.forgotPassword(
+                    options as ApiHandlerOptions<{
+                        body: UserForgotPasswordRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.RESET_PASSWORD,
+            method: 'POST',
+            validation: {
+                body: userResetPasswordValidationSchema,
+            },
+            handler: (options) =>
+                this.resetPassword(
+                    options as ApiHandlerOptions<{
+                        body: UserResetPasswordRequestDto;
+                    }>,
+                ),
         });
     }
 
