@@ -10,6 +10,7 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
+import { reducer as chatReduser } from '~/bundles/chat/store/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
@@ -34,6 +35,7 @@ type RootReducer = {
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
+    chats: ReturnType<typeof chatReduser>;
     candidate: ReturnType<typeof candidateReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
 };
@@ -66,6 +68,7 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
                 lms: lmsReducer,
+                chats: chatReduser,
                 employerOnBoarding: employerOnboardingReducer,
                 talentOnBoarding: talentOnBoardingReducer,
                 employer: employerReducer,
