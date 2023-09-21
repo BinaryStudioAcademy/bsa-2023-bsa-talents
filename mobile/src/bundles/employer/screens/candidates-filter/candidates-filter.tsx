@@ -9,15 +9,17 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CandidatesFilterForm } from '~/bundles/employer/components/components';
+import { transformCandidateFilterFormToQuery } from '~/bundles/employer/helpers/helpers';
 import { getFilteredTalents } from '~/bundles/employer/store/actions';
-import { type UserDetailsSearchUsersRequestDto } from '~/bundles/employer/types/types';
+import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const CandidatesFilter: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const handleFormSubmit = useCallback(
-        (payload: UserDetailsSearchUsersRequestDto): void => {
-            void dispatch(getFilteredTalents(payload));
+        (payload: EmployeesFiltersForm): void => {
+            const queryString = transformCandidateFilterFormToQuery(payload);
+            void dispatch(getFilteredTalents(queryString));
         },
         [dispatch],
     );

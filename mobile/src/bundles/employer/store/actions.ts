@@ -2,10 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
-import {
-    type UserDetailsResponseDto,
-    type UserDetailsSearchUsersRequestDto,
-} from '~/bundles/employer/types/types';
+import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 import { name as sliceName } from './slice';
 
@@ -28,7 +25,7 @@ const getTalentsData = createAsyncThunk<
 
 const getFilteredTalents = createAsyncThunk<
     UserDetailsResponseDto[],
-    UserDetailsSearchUsersRequestDto,
+    string,
     AsyncThunkConfig
 >(`${sliceName}/getTalentsData`, async (payload, { extra }) => {
     const { employerApi, notifications } = extra;

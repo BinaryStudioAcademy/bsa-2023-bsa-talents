@@ -1,8 +1,5 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
-import {
-    type UserDetailsResponseDto,
-    type UserDetailsSearchUsersRequestDto,
-} from '~/bundles/employer/types/types';
+import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -32,14 +29,13 @@ class EmployerApi extends HttpApiBase {
     }
 
     public async getFilteredTalents(
-        payload: UserDetailsSearchUsersRequestDto,
+        payload: string,
     ): Promise<UserDetailsResponseDto[]> {
         const response = await this.load(
-            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, payload, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
                 hasAuth: true,
             },
         );

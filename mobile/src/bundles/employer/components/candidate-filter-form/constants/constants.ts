@@ -1,1 +1,5 @@
-export { DEFAULT_VALUES, HARD_SKILLS } from './mock-constants';
+export {
+    BSA_CHARACTERISTICS,
+    DEFAULT_VALUES,
+    USER_BSA_PROJECTS,
+} from './mock-constants';

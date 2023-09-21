@@ -13,17 +13,17 @@ const DEFAULT_VALUES: EmployeesFiltersForm = {
     employmentType: [],
 };
 
-// TODO: replace from common data, when backend will be ready
-
-const HARD_SKILLS: AutocompleteMultiSelectorValue[] = [
-    { name: 'React', id: 'React' },
-    { name: 'Node.js', id: 'Node.js' },
-    { name: 'JavaScript', id: 'JavaScript' },
-    { name: 'HTML', id: 'HTML' },
-    { name: 'CSS', id: 'CSS' },
-    { name: 'Python', id: 'Python' },
-    { name: 'Java', id: 'Java' },
-    { name: 'Ruby', id: 'Ruby' },
+// TODO: replace when backend will be ready
+const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
+    { name: 'FIRST', id: 'first' },
+    { name: 'SECOND', id: 'second' },
+    { name: 'THIRD', id: 'third' },
 ];
 
-export { DEFAULT_VALUES, HARD_SKILLS };
+const USER_BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
+    { name: 'FIRST', id: 'first' },
+    { name: 'SECOND', id: 'second' },
+    { name: 'THIRD', id: 'third' },
+];
+
+export { BSA_CHARACTERISTICS, DEFAULT_VALUES, USER_BSA_PROJECTS };

@@ -17,6 +17,7 @@ import {
     Color,
     CountryList,
     EmploymentType,
+    EnglishLevel,
     IconName,
     JobTitle,
 } from '~/bundles/common/enums/enums';
@@ -31,12 +32,13 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { ExperienceYears } from '~/bundles/employer/enums/enums';
-import {
-    type EmployeesFiltersForm,
-    type UserDetailsSearchUsersRequestDto,
-} from '~/bundles/employer/types/types';
+import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
-import { DEFAULT_VALUES } from './constants/constants';
+import {
+    BSA_CHARACTERISTICS,
+    DEFAULT_VALUES,
+    USER_BSA_PROJECTS,
+} from './constants/constants';
 import { styles } from './styles';
 
 const jobTitleOptions = Object.entries(JobTitle).map(([id, name]) => ({
@@ -48,6 +50,8 @@ const locationOptions = Object.entries(CountryList).map(([id, name]) => ({
     name,
 }));
 
+const englishLevels = Object.values(EnglishLevel);
+
 const employmentTypeOptions = Object.values(EmploymentType);
 
 const experienceYears = Object.entries(ExperienceYears).map(([id, name]) => ({
@@ -56,7 +60,7 @@ const experienceYears = Object.entries(ExperienceYears).map(([id, name]) => ({
 }));
 
 type CandidatesFilterFormProperties = {
-    onSubmit: (dto: UserDetailsSearchUsersRequestDto) => void;
+    onSubmit: (dto: EmployeesFiltersForm) => void;
     onFilterClose: () => void;
 };
 const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
@@ -186,7 +190,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                     control={control}
                     name="userBsaProject"
-                    items={BSA_PROJECT}
+                    items={USER_BSA_PROJECTS}
                 />
             </FormField>
             <FormField
@@ -209,7 +213,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={ENGLISH_LEVEL}
+                    options={englishLevels}
                 />
             </FormField>
             <FormField

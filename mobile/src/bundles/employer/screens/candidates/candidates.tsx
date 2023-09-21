@@ -40,6 +40,7 @@ const Candidates: React.FC = () => {
         item: UserDetailsResponseDto;
     }): React.ReactElement => <CandidateCard key={item.userId} {...item} />;
 
+    // TODO: replace if backend search will be finished
     const filteredCandidates = useMemo(() => {
         if (!talentsData) {
             return null;
