@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { Chat } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -19,6 +20,7 @@ import {
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
+import { getUserDetails } from '~/bundles/talent/store/actions';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -50,13 +52,12 @@ const Root: React.FC = () => {
 
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
-    //TODO use when backend is ready
-    // useEffect(() => {
-    //     const payload: UserDetailsFindRequestDto = {
-    //         userId: currentUserData?.id,
-    //     };
-    //     void dispatch(talentActions.getTalentDetails(payload));
-    // }, [currentUserData?.id, dispatch]);
+    useEffect(() => {
+        if (!currentUserData) {
+            return;
+        }
+        void dispatch(getUserDetails({ userId: currentUserData.id }));
+    }, [currentUserData, currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return <Loader />;
@@ -80,14 +81,17 @@ const Root: React.FC = () => {
             />
         ),
         main: (
-            <RootStack.Screen
-                name={RootScreenName.MAIN_ROOT_ROUTE}
-                component={
-                    role === UserRole.TALENT
-                        ? TalentBottomTabNavigator
-                        : EmployerBottomTabNavigator
-                }
-            />
+            <>
+                <RootStack.Screen
+                    name={RootScreenName.MAIN_ROOT_ROUTE}
+                    component={
+                        role === UserRole.TALENT
+                            ? TalentBottomTabNavigator
+                            : EmployerBottomTabNavigator
+                    }
+                />
+                <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+            </>
         ),
     };
 

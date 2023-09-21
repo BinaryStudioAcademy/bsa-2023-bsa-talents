@@ -1,7 +1,7 @@
 import {
     clearTalentStore,
     createTalentDetails,
-    getTalentDetails,
+    getUserDetails,
     updateOnboardingData,
 } from './actions';
 import { actions } from './slice';
@@ -10,7 +10,7 @@ const allActions = {
     ...actions,
     createTalentDetails,
     clearTalentStore,
-    getTalentDetails,
+    getUserDetails,
     updateOnboardingData,
 };
 

@@ -56,6 +56,9 @@ class DatabaseBase implements Database {
                 directory: 'src/migrations',
                 tableName: DatabaseTableName.MIGRATIONS,
             },
+            seeds: {
+                directory: 'src/seeds',
+            },
             debug: false,
             ...knexSnakeCaseMappers({
                 underscoreBetweenUppercaseLetters: true,

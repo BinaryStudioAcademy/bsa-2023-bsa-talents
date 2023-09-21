@@ -1,0 +1,18 @@
+.tabs :global(.MuiTabs-flexContainer) {
+    gap: 70px;
+    padding: 10px;
+}
+
+.tabs :global(.MuiTabs-indicator) {
+    background-color: var(--st-tropaz);
+}
+
+.tabs :global(.Mui-disabled) {
+    display: none;
+}
+
+@media screen and (width <=1000px) {
+    .tabs :global(.MuiTabs-flexContainer) {
+        gap: 20px;
+    }
+}

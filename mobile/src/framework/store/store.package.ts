@@ -8,16 +8,21 @@ import flipper from 'redux-flipper';
 
 import { authApi } from '~/bundles/auth/auth';
 import { reducer as authReducer } from '~/bundles/auth/store/slice';
+import { reducer as chatReducer } from '~/bundles/chat/store';
 import { AppEnvironment } from '~/bundles/common/enums/enums';
+import { commonDataApi } from '~/bundles/common-data/common-data';
+import { reducer as commonDataReducer } from '~/bundles/common-data/store';
 import { reducer as talentsReducer } from '~/bundles/talent/store';
 import { talentApi } from '~/bundles/talent/talent';
 import { type Config } from '~/framework/config/config';
 import { notifications } from '~/framework/notifications/notifications';
-import { storage } from '~/framework/storage/storage';
+import { socketMiddleware, storage } from '~/framework/storage/storage';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
+    chat: ReturnType<typeof chatReducer>;
     talents: ReturnType<typeof talentsReducer>;
+    commonData: ReturnType<typeof commonDataReducer>;
 };
 
 type ExtraArguments = {
@@ -25,6 +30,7 @@ type ExtraArguments = {
     notifications: typeof notifications;
     talentApi: typeof talentApi;
     storage: typeof storage;
+    commonDataApi: typeof commonDataApi;
 };
 
 class Store {
@@ -43,7 +49,9 @@ class Store {
             devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
             reducer: {
                 auth: authReducer,
+                chat: chatReducer,
                 talents: talentsReducer,
+                commonData: commonDataReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 const middleware = getDefaultMiddleware({
@@ -56,6 +64,8 @@ class Store {
                     middleware.push(flipper());
                 }
 
+                middleware.push(socketMiddleware);
+
                 return middleware;
             },
         });
@@ -67,6 +77,7 @@ class Store {
             talentApi,
             notifications,
             storage,
+            commonDataApi,
         };
     }
 }
