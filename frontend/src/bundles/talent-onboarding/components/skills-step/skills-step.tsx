@@ -113,6 +113,9 @@ const SkillsStep: React.FC = () => {
             englishLevel,
             notConsidered,
             preferredLanguages,
+            projectLinks: projectLinks?.length
+                ? toUrlLinks(projectLinks)
+                : [{ url: '' }],
         });
     }, [
         hardSkills,
