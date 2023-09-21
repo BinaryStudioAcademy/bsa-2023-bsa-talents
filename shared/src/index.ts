@@ -19,7 +19,11 @@ export {
     type ChatResponseDto,
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
-export { FileApiPath } from './bundles/file/file.js';
+export {
+    FileApiPath,
+    type FileUploadResponse,
+    type UploadedFile,
+} from './bundles/file/file.js';
 export {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
