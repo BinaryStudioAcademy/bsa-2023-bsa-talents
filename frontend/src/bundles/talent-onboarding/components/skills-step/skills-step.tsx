@@ -92,7 +92,9 @@ const SkillsStep: React.FC = () => {
                     englishLevel: setEnglishLevelValue(englishLevel),
                     notConsidered,
                     preferredLanguages,
-                    projectLinks: toUrlLinks(projectLinks),
+                    projectLinks: projectLinks?.length
+                        ? toUrlLinks(projectLinks)
+                        : [{ url: '' }],
                 }),
                 [
                     englishLevel,
@@ -111,6 +113,9 @@ const SkillsStep: React.FC = () => {
             englishLevel,
             notConsidered,
             preferredLanguages,
+            projectLinks: projectLinks?.length
+                ? toUrlLinks(projectLinks)
+                : [{ url: '' }],
         });
     }, [
         hardSkills,
@@ -174,19 +179,14 @@ const SkillsStep: React.FC = () => {
                 notConsidered,
                 preferredLanguages,
                 hardSkills,
+                projectLinks,
             } = data;
-            if (!data.projectLinks[0].url) {
-                await dispatch(
-                    talentActions.updateTalentDetails({
-                        englishLevel,
-                        notConsidered,
-                        preferredLanguages,
-                        userId: currentUser?.id,
-                        completedStep: OnboardingSteps.STEP_03,
-                    }),
-                );
-                return true;
-            }
+
+            const enteredLinks = projectLinks.filter((link) =>
+                Boolean(link.url),
+            );
+            const preparedLinks =
+                enteredLinks.length > 0 ? fromUrlLinks(enteredLinks) : null;
 
             await dispatch(
                 talentActions.updateTalentDetails({
@@ -194,7 +194,7 @@ const SkillsStep: React.FC = () => {
                     notConsidered,
                     preferredLanguages,
                     userId: currentUser?.id,
-                    projectLinks: fromUrlLinks(data.projectLinks),
+                    projectLinks: preparedLinks,
                     completedStep: OnboardingSteps.STEP_03,
                     hardSkills,
                 }),
