@@ -1,6 +1,7 @@
 export { type AsyncThunkConfig } from './app/app';
 export {
     type AuthNavigationParameterList,
+    type ChatNavigationProperties,
     type DrawerContentComponentProps,
     type DrawerNavigationProp,
     type EmployerBottomTabNavigationParameterList,
@@ -53,6 +54,7 @@ export {
     type RadioGroupProps,
 } from 'react-native-radio-buttons-group';
 export {
+    type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,

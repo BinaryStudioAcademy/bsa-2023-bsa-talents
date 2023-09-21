@@ -18,6 +18,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { Animated, globalStyles } from '~/bundles/common/styles/styles';
 import {
+    type AutocompleteMultiSelectorValue,
     type Control,
     type FieldPath,
     type FieldValues,
@@ -25,17 +26,12 @@ import {
 
 import { styles } from '../styles';
 
-type Options = {
-    label: string | number;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
-    items: Options[];
     placeholder?: string;
+    control?: Control<T, null>;
+    hasError?: boolean;
+    items?: AutocompleteMultiSelectorValue[];
 };
 
 const AutocompleteMultiSelector = <T extends FieldValues>({
@@ -54,8 +50,8 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         setSearch(text);
     };
 
-    const handleItemSelect = (item: Options): void => {
-        if (value.includes(item.value)) {
+    const handleItemSelect = (item: AutocompleteMultiSelectorValue): void => {
+        if (value.includes(item.id)) {
             return;
         }
         toggleVisibility();
@@ -63,15 +59,19 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         onChange(value);
     };
 
-    const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: Options) => item.label !== itemName));
+    const handleItemDelete = (itemName: string | number): void => {
+        onChange(
+            value.filter(
+                ({ name }: AutocompleteMultiSelectorValue) => name !== itemName,
+            ),
+        );
     };
 
     const filteredItems = useMemo(() => {
-        return items.filter(
-            (item) =>
-                item.value.toLowerCase().includes(search.toLowerCase()) &&
-                !value.some((v: Options) => v.value === item.value),
+        return items?.filter(
+            ({ id }) =>
+                id.includes(search) &&
+                !value.some((v: AutocompleteMultiSelectorValue) => v.id === id),
         );
     }, [search, value, items]);
 
@@ -107,21 +107,23 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled persistentScrollbar>
-                        {filteredItems.map((item: Options) => (
-                            <TouchableOpacity
-                                key={item.value}
-                                onPress={(): void => {
-                                    handleItemSelect(item);
-                                }}
-                            >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={globalStyles.pv5}
+                        {filteredItems?.map(
+                            ({ id, name }: AutocompleteMultiSelectorValue) => (
+                                <TouchableOpacity
+                                    key={id}
+                                    onPress={(): void => {
+                                        handleItemSelect({ id, name });
+                                    }}
                                 >
-                                    {item.label}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
+                                    <Text
+                                        category={TextCategory.LABEL}
+                                        style={globalStyles.pv5}
+                                    >
+                                        {name}
+                                    </Text>
+                                </TouchableOpacity>
+                            ),
+                        )}
                     </ScrollView>
                 </Animated.View>
             </View>
@@ -132,15 +134,18 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map((item: Options) => (
-                    <Tag
-                        key={item.value}
-                        value={item.label}
-                        onPress={handleItemDelete}
-                        iconName={IconName.CLOSE}
-                        iconSize={15}
-                    />
-                ))}
+                {value &&
+                    value.map(
+                        ({ id, name }: AutocompleteMultiSelectorValue) => (
+                            <Tag
+                                key={id}
+                                value={name}
+                                onPress={handleItemDelete}
+                                iconName={IconName.CLOSE}
+                                iconSize={15}
+                            />
+                        ),
+                    )}
             </View>
         </>
     );

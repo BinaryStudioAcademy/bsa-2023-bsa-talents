@@ -11,10 +11,10 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './styles';
 
 type Properties = {
-    value: string;
+    value: string | number;
     iconName?: string;
     iconSize?: number;
-    onPress?: (value: string) => void;
+    onPress?: (value: string | number) => void;
 };
 const iconDefaultSize = 12;
 

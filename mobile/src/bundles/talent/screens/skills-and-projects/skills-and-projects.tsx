@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { View } from '~/bundles/common/components/components';
+import { Overlay, View } from '~/bundles/common/components/components';
 import {
+    DataStatus,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
@@ -18,7 +19,12 @@ import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
 const SkillsAndProjects: React.FC = () => {
     const { name } = useAppRoute();
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData, dataStatus } = useAppSelector(
+        ({ talents }) => talents,
+    );
+    const commonDataStatus = useAppSelector(
+        ({ commonData }) => commonData.dataStatus,
+    );
 
     const skillsStepData: SkillsStepDto | null = onboardingData
         ? {
@@ -39,15 +45,22 @@ const SkillsAndProjects: React.FC = () => {
         void handleSubmit(payload);
     };
 
+    const isDataLoading =
+        dataStatus === DataStatus.PENDING ||
+        commonDataStatus === DataStatus.PENDING;
+
     return (
-        <View style={globalStyles.flex1}>
-            <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <SkillsAndProjectsForm
-                skillsStepData={skillsStepData}
-                onSubmit={handleSkillsSubmit}
-                currentStep={stepNumber}
-            />
-        </View>
+        <>
+            <Overlay isActive={isDataLoading} />
+            <View style={globalStyles.flex1}>
+                <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
+                <SkillsAndProjectsForm
+                    skillsStepData={skillsStepData}
+                    onSubmit={handleSkillsSubmit}
+                    currentStep={stepNumber}
+                />
+            </View>
+        </>
     );
 };
 
