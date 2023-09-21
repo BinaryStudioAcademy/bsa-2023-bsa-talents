@@ -1,16 +1,8 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 26px;
     max-width: var(--step-width);
-    padding: 10px;
-}
-
-.formControl {
-    padding: 10px;
-}
-
-.checkboxContainer {
     padding: 10px;
 }
 
@@ -18,11 +10,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding-left: 2px;
-}
-
-.formControlSlider {
-    margin: 0 5px;
-    padding: 0 10px;
 }
 
 .formLabel {

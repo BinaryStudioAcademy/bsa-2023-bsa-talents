@@ -13,6 +13,10 @@ export {
 } from './bundles/chat/chat.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
+    type BadgesResponseDto,
+    type HardSkillsResponseDto,
+} from './bundles/gather-selected-data/gather-selected-data.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
@@ -40,6 +44,8 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsApproveRequestDto,
+    userDetailsApproveValidationSchema,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,

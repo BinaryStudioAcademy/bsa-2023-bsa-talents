@@ -17,8 +17,8 @@ rules:
     selector-pseudo-class-no-unknown:
         - true
         - ignorePseudoClasses:
-            - global
-            - local
+              - global
+              - local
 
     order/order:
         - custom-properties

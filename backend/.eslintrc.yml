@@ -20,8 +20,8 @@ overrides:
           'unicorn/filename-case':
               - error
               - case: snakeCase
-    - files: 
+    - files:
           - src/*.d.ts
-      rules: 
+      rules:
           '@typescript-eslint/consistent-type-definitions':
               - off

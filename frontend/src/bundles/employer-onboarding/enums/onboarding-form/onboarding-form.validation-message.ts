@@ -31,8 +31,7 @@ const EmployerOnboardingValidationMessage = {
     COMPANY_WEBSITE_MAX_LENGTH:
         'Company website must be at most {{#limit}} characters',
     POSITION_REQUIRED: 'Position is required',
-    POSITION_WRONG_PATTERN:
-        'Position must contain only letters, special characters and spaces',
+    POSITION_WRONG_PATTERN: 'Position must contain only letters and spaces',
     POSITION_NOT_STRING: 'Position must be a string',
     POSITION_MIN_LENGTH: 'Position must be at least {{#limit}} characters',
     POSITION_MAX_LENGTH: 'Position must be at most {{#limit}} characters',
