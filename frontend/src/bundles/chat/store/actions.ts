@@ -3,8 +3,9 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import {
-    type ChatMessageCreateRequestDto,
-    type ChatMessageGetAllItemResponseDto,
+    type ChatMessagesCreateRequestDto,
+    type ChatResponseDto,
+    type MessageResponseDto,
 } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
@@ -21,19 +22,32 @@ const leaveRoom = createAction(`${sliceName}/leave-room`, (chatId: string) => {
 });
 
 const getAllMessages = createAsyncThunk<
-    ChatMessageGetAllItemResponseDto[],
+    MessageResponseDto[],
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/get-messages`, async (_, { extra }) => {
     const { chatApi } = extra;
 
-    return await chatApi.getAllMessages();
+    const messages = await chatApi.getAllMessages();
+
+    return messages.items;
+});
+
+const getAllChatsByUserId = createAsyncThunk<
+    ChatResponseDto[],
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/get-messages-by-chat-id`, async (userId, { extra }) => {
+    const { chatApi } = extra;
+    const chats = await chatApi.getAllChatsByUserId(userId);
+
+    return chats.items;
 });
 
 const getAllMessagesByChatId = createAsyncThunk<
     {
         chatId: string;
-        messages: ChatMessageGetAllItemResponseDto[];
+        messages: MessageResponseDto[];
     },
     string,
     AsyncThunkConfig
@@ -41,12 +55,12 @@ const getAllMessagesByChatId = createAsyncThunk<
     const { chatApi } = extra;
     const messages = await chatApi.getAllMessagesByChatId(chatId);
 
-    return { chatId, messages };
+    return { chatId, messages: messages.items };
 });
 
 const createMessage = createAsyncThunk<
-    ChatMessageGetAllItemResponseDto,
-    ChatMessageCreateRequestDto,
+    MessageResponseDto,
+    ChatMessagesCreateRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/create-message`, async (createPayload, { extra }) => {
     const { chatApi } = extra;
@@ -62,7 +76,7 @@ const createMessage = createAsyncThunk<
 
 const addMessage = createAction(
     `${sliceName}/add-message`,
-    (message: ChatMessageGetAllItemResponseDto) => {
+    (message: MessageResponseDto) => {
         return {
             payload: message,
         };
@@ -72,6 +86,7 @@ const addMessage = createAction(
 export {
     addMessage,
     createMessage,
+    getAllChatsByUserId,
     getAllMessages,
     getAllMessagesByChatId,
     joinRoom,

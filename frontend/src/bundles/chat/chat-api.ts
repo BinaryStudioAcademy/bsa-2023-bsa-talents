@@ -10,7 +10,8 @@ import { type Storage } from '~/framework/storage/storage.js';
 import {
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
-    type ChatMessagesResponseDto,
+    type ChatResponseDto,
+    type MessageResponseDto,
 } from './types/types.js';
 
 type Constructor = {
@@ -24,7 +25,9 @@ class ChatApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async getAllMessages(): Promise<ChatMessagesResponseDto[]> {
+    public async getAllMessages(): Promise<{
+        items: MessageResponseDto[];
+    }> {
         const response = await this.load(
             this.getFullEndpoint(ChatMessagesApiPath.ROOT, {}),
             {
@@ -33,12 +36,30 @@ class ChatApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<ChatMessagesResponseDto[]>();
+        return response.json<{
+            items: MessageResponseDto[];
+        }>();
     }
 
-    public async getAllMessagesByChatId(
-        payload: string,
-    ): Promise<ChatMessagesResponseDto[]> {
+    public async getAllChatsByUserId(payload: string): Promise<{
+        items: ChatResponseDto[];
+    }> {
+        const response = await this.load(
+            this.getFullEndpoint(ChatMessagesApiPath.ROOT, payload, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<{
+            items: ChatResponseDto[];
+        }>();
+    }
+
+    public async getAllMessagesByChatId(payload: string): Promise<{
+        items: MessageResponseDto[];
+    }> {
         const response = await this.load(
             this.getFullEndpoint(ChatMessagesApiPath.$CHAT_ID, payload, {}),
             {
@@ -47,12 +68,14 @@ class ChatApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<ChatMessagesResponseDto[]>();
+        return response.json<{
+            items: MessageResponseDto[];
+        }>();
     }
 
     public async createMessage(
         payload: ChatMessagesCreateRequestDto,
-    ): Promise<ChatMessagesResponseDto> {
+    ): Promise<MessageResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(ChatMessagesApiPath.ROOT, {}),
             {
@@ -62,12 +85,12 @@ class ChatApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<ChatMessagesResponseDto>();
+        return response.json<MessageResponseDto>();
     }
 
     public async readMessage(
         payload: ChatMessagesPatchDto,
-    ): Promise<ChatMessagesResponseDto> {
+    ): Promise<MessageResponseDto> {
         const { id = '' } = payload;
 
         const response = await this.load(
@@ -79,7 +102,7 @@ class ChatApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<ChatMessagesResponseDto>();
+        return response.json<MessageResponseDto>();
     }
 }
 

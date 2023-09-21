@@ -3,24 +3,28 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { type ChatMessagesResponseDto } from '../types/types.js';
+import {
+    type ChatResponseDto,
+    type MessageResponseDto,
+} from '../types/types.js';
 import {
     createMessage,
+    getAllChatsByUserId,
     getAllMessages,
     getAllMessagesByChatId,
 } from './actions.js';
 
 type State = {
-    messages: ChatMessagesResponseDto[];
+    chats: ChatResponseDto[];
     current: {
         chatId: string | null;
-        messages: ChatMessagesResponseDto[];
+        messages: MessageResponseDto[];
     };
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-    messages: [],
+    chats: [],
     current: {
         chatId: null,
         messages: [],
@@ -42,7 +46,20 @@ const { reducer, actions, name } = createSlice({
             state.current.messages = [];
         },
         addMessage: (state, action) => {
-            state.messages = [...state.messages, action.payload];
+            const chat = state.chats.find(
+                (chat) => chat.chatId === action.payload.chatId,
+            );
+            if (chat) {
+                chat.lastMessage = action.payload;
+            }
+
+            if (state.current.chatId === action.payload.chatId) {
+                state.current.messages = [
+                    ...state.current.messages,
+                    action.payload,
+                ];
+            }
+
             state.current.messages = [
                 ...state.current.messages,
                 action.payload,
@@ -51,9 +68,9 @@ const { reducer, actions, name } = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(getAllMessages.fulfilled, (state, action) => {
+            .addCase(getAllChatsByUserId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
-                state.messages = action.payload;
+                state.chats = action.payload;
             })
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -62,7 +79,10 @@ const { reducer, actions, name } = createSlice({
             })
             .addCase(createMessage.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
-                state.messages = [...state.messages, action.payload];
+                state.current.messages = [
+                    ...state.current.messages,
+                    action.payload,
+                ];
                 state.current.messages = [
                     ...state.current.messages,
                     action.payload,
@@ -71,6 +91,7 @@ const { reducer, actions, name } = createSlice({
             .addMatcher(
                 isAnyOf(
                     getAllMessages.pending,
+                    getAllChatsByUserId.pending,
                     getAllMessagesByChatId.pending,
                     createMessage.pending,
                 ),
@@ -81,6 +102,7 @@ const { reducer, actions, name } = createSlice({
             .addMatcher(
                 isAnyOf(
                     getAllMessages.rejected,
+                    getAllChatsByUserId.pending,
                     getAllMessagesByChatId.rejected,
                     createMessage.rejected,
                 ),
