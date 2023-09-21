@@ -5,13 +5,17 @@ import { type Service } from '~/common/types/types.js';
 import { type LMSDataGetByIdResponseDto } from './types/types.js';
 
 // remove
-
-const apiTestPath =
-    'https://api.nasa.gov/planetary/apod?api_key=kh4GZYsKSdeNeLTEJWjrm0129fpctvcrValmSbvk&date=2023-9-20';
+const apiTestPath = 'https://api.github.com/users/github';
 // remove
 
 class LMSDataService implements Service {
     public async findByUserId(
+        userId: string,
+    ): Promise<LMSDataGetByIdResponseDto | undefined> {
+        return await this.findByUserIdOnLMSServer(userId);
+    }
+
+    public async findByUserIdOnLMSServer(
         userId: string,
     ): Promise<LMSDataGetByIdResponseDto | undefined> {
         const response = await http.load(apiTestPath, {});

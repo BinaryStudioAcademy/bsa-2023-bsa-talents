@@ -10,6 +10,7 @@ export { FileApiPath } from './bundles/file/file.js';
 export {
     type LMSDataGetAllItemResponseDto,
     type LMSDataGetAllResponseDto,
+    type LMSDataGetByIdFromLMSServerResponseDto,
     type LMSDataGetByIdResponseDto,
 } from './bundles/lms-data/lms-data.js';
 export {

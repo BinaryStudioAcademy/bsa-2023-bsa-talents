@@ -101,7 +101,7 @@ class UserController extends ControllerBase {
 
         return {
             status: HttpCode.OK,
-            payload: await this.lmsDataService.findByUserId(userId), // TODO: replace it with lsm-data service
+            payload: await this.lmsDataService.findByUserId(userId),
         };
     }
 }
