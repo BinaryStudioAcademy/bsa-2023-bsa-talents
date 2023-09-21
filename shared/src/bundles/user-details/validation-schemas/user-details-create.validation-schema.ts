@@ -35,7 +35,7 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
             .valid(...Object.values(EmploymentType)),
     ),
 
-    description: joi.string(),
+    description: joi.string().empty(''),
 
     englishLevel: joi
         .string()
@@ -61,7 +61,9 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
     linkedinLink: joi.string().trim().uri(),
     companyName: joi.string().trim(),
     companyLogoId: joi.string().trim(),
-    companyWebsite: joi.string().trim().uri(),
+    companyWebsite: joi
+        .string()
+        .regex(/^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/),
     employerPosition: joi.string().trim(),
     cvId: joi.string().trim(),
     talentBadges: joi.array().items(joi.string().trim()),
