@@ -81,6 +81,9 @@ const SkillsStep: React.FC = () => {
         projectLinks,
     } = useAppSelector((rootState) => getTalentOnBoardingState(rootState));
 
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<SkillsStepDto>({
             defaultValues: useMemo(
@@ -148,12 +151,15 @@ const SkillsStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
     }, [
         dispatch,
         englishLevel,
         getValues,
         hardSkills,
+        hasChangesInDetails,
         notConsidered,
         preferredLanguages,
         projectLinks,

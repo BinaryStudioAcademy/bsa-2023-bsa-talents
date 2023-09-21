@@ -39,7 +39,7 @@ import {
     sliderToRealValue,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
@@ -69,6 +69,9 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<ProfileStepDto>({
             defaultValues: useMemo(
@@ -132,13 +135,16 @@ const ProfileStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
     }, [
         description,
         dispatch,
         employmentType,
         experienceYears,
         getValues,
+        hasChangesInDetails,
         jobTitle,
         location,
         profileName,

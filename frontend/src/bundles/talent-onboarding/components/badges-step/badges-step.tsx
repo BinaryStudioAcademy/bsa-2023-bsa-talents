@@ -21,6 +21,7 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
 import { OnboardingSteps } from '../../enums/enums.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
@@ -33,7 +34,9 @@ const BadgesStep: React.FC = () => {
         badges: state.talentOnBoarding.badges,
         bsaBadges: state.lms.bsaBadges,
     }));
-
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
     const { control, handleSubmit, errors, watch } =
         useAppForm<BsaBadgesStepDto>({
             defaultValues: { badges },
@@ -48,8 +51,10 @@ const BadgesStep: React.FC = () => {
     useEffect(() => {
         const hasChanges =
             JSON.stringify(watchedBadges) === JSON.stringify(badges);
-        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
-    }, [badges, dispatch, watchedBadges]);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [badges, dispatch, hasChangesInDetails, watchedBadges]);
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {

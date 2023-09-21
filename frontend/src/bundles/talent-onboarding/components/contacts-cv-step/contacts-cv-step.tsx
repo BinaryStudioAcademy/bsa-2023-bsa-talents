@@ -24,7 +24,7 @@ import {
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
 import { OnboardingSteps } from '../../enums/enums.js';
 import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
@@ -40,6 +40,9 @@ import styles from './styles.module.scss';
 const ContactsCVStep: React.FC = () => {
     const { fullName, phone, linkedinLink } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
+    );
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
 
     const {
@@ -89,8 +92,18 @@ const ContactsCVStep: React.FC = () => {
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
-        dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
-    }, [dispatch, fullName, getValues, linkedinLink, phone, watchedValues]);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        dispatch,
+        fullName,
+        getValues,
+        hasChangesInDetails,
+        linkedinLink,
+        phone,
+        watchedValues,
+    ]);
 
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
