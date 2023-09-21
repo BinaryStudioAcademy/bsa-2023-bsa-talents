@@ -1,5 +1,3 @@
-import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
-
 import {
     FormControl,
     FormHelperText,
@@ -372,20 +370,19 @@ const OnboardingForm: React.FC = () => {
                         )}
                     </FormControl>
                 </Grid>
+
                 <Grid className={styles.photoContainer}>
                     <Grid container className={styles.photo}>
                         <Grid
                             item
                             className={styles.photoWrapper}
-                            style={renderFileUrl({ file: watch('photo') })}
-                        >
-                            {!watch('photo') && (
-                                <AccountCircle className={styles.photoIcon} />
-                            )}
-                        </Grid>
+                            style={renderFileUrl({
+                                file: errors.photo ? null : watch('photo'),
+                            })}
+                        ></Grid>
 
                         <EmployerFileUpload
-                            label="Upload a photo"
+                            label="Uphoad a photo"
                             control={control}
                             name="photo"
                         />
@@ -395,16 +392,11 @@ const OnboardingForm: React.FC = () => {
                             item
                             className={styles.photoWrapper}
                             style={renderFileUrl({
-                                file: watch('companyLogo'),
+                                file: errors.companyLogo
+                                    ? null
+                                    : watch('companyLogo'),
                             })}
-                        >
-                            {!watch('companyLogo') && (
-                                <InsertPhotoOutlined
-                                    className={styles.photoWrapper}
-                                />
-                            )}
-                        </Grid>
-
+                        ></Grid>
                         <EmployerFileUpload
                             label="Upload a company logo"
                             control={control}
