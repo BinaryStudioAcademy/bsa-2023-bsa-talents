@@ -13,6 +13,7 @@ export {
     type ProfileStepDto,
     type SkillsStepDto,
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,

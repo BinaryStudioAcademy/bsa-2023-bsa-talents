@@ -7,7 +7,7 @@ import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types
 import {
     clearTalentStore,
     createTalentDetails,
-    getTalentDetails,
+    getUserDetails,
     updateOnboardingData,
 } from './actions';
 
@@ -35,7 +35,7 @@ const { reducer, actions, name } = createSlice({
                 [
                     createTalentDetails.fulfilled.type,
                     updateOnboardingData.fulfilled.type,
-                    getTalentDetails.fulfilled.type,
+                    getUserDetails.fulfilled.type,
                 ].includes(action.type),
             (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -49,7 +49,7 @@ const { reducer, actions, name } = createSlice({
             isAnyOf(
                 createTalentDetails.pending,
                 updateOnboardingData.pending,
-                getTalentDetails.pending,
+                getUserDetails.pending,
             ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
@@ -59,7 +59,7 @@ const { reducer, actions, name } = createSlice({
             isAnyOf(
                 createTalentDetails.rejected,
                 updateOnboardingData.rejected,
-                getTalentDetails.rejected,
+                getUserDetails.rejected,
             ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
