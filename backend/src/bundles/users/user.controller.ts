@@ -58,7 +58,7 @@ class UserController extends ControllerBase {
             path: UsersApiPath.LMS_DATA_BY_$ID,
             method: 'GET',
             handler: (options) => {
-                return this.getLMSdataById(
+                return this.getLMSDataById(
                     options as ApiHandlerOptions<{
                         params: UserGetLMSDataById;
                     }>,
@@ -92,7 +92,7 @@ class UserController extends ControllerBase {
         };
     }
 
-    private async getLMSdataById(
+    private async getLMSDataById(
         options: ApiHandlerOptions<{
             params: UserGetLMSDataById;
         }>,

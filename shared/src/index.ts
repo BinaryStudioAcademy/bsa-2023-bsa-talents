@@ -12,6 +12,7 @@ export {
     type LMSDataGetAllResponseDto,
     type LMSDataGetByIdFromLMSServerResponseDto,
     type LMSDataGetByIdResponseDto,
+    type LMSServerUserNotFoundDto,
 } from './bundles/lms-data/lms-data.js';
 export {
     type BadgeStepDto,

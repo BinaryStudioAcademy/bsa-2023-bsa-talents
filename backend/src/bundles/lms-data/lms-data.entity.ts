@@ -31,13 +31,6 @@ class LMSDataEntity implements Entity {
         });
     }
 
-    public static initializeNew({ data }: { data: string }): LMSDataEntity {
-        return new LMSDataEntity({
-            userId: null,
-            data,
-        });
-    }
-
     public toObject(): {
         userId: string;
         data: string;

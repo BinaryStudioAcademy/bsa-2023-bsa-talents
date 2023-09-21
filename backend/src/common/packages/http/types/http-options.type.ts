@@ -5,7 +5,7 @@ import { type HttpMethod } from './http-method.type.js';
 type HttpOptions = {
     method?: HttpMethod;
     payload?: BodyInit | null;
-    headers?: Headers;
+    headers?: { 'X-Token': string | undefined }; // TODO: fix, shoud be used all types of headers
 };
 
 export { type HttpOptions };
