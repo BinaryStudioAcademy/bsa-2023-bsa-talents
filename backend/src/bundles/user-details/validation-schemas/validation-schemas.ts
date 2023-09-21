@@ -1,4 +1,5 @@
 export {
+    userDetailsApproveValidationSchema,
     userDetailsCreateValidationSchema,
     userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
