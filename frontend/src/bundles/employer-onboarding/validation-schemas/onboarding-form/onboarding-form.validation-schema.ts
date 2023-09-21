@@ -44,7 +44,7 @@ const EmployerOnboardingValidationSchema = joi.object<
                 EmployerOnboardingValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    position: joi
+    employerPosition: joi
         .string()
         .trim()
         .min(EmployerOnboardingValidationRule.MIN_POSITION_LENGTH)
@@ -144,7 +144,7 @@ const EmployerOnboardingValidationSchema = joi.object<
                 EmployerOnboardingValidationMessage.DESCRIPTION_WRONG_PATTERN,
         }),
 
-    linkedInLink: joi
+    linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)

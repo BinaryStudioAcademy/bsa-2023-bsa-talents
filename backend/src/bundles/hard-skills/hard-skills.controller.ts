@@ -42,7 +42,7 @@ class HardSkillsController extends ControllerBase {
 
     /**
      * @swagger
-     * /hard-skills/:
+     * /hard-skills:
      *    get:
      *      tags: [Hard Skills]
      *      description: Returns an array of Hard Skills
