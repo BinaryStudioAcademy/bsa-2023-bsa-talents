@@ -1,4 +1,5 @@
 export { BsaBadgesForm } from './badges-form/badges-form';
+export { CompanyInfo } from './company-info/company-info';
 export { CVAndContactsForm } from './cv-and-contacts-form/cv-and-contacts-form';
 export { FeedbacksContainer } from './feedbacks-container/feedbacks-container';
 export { NewAccountHeader } from './new-account-header/new-account-header';

@@ -1,4 +1,5 @@
 const IconName = {
+    ARROW_LEFT_CIRCLE: 'arrow-left-circle',
     ARROW_DROP_UP: 'arrow-drop-up',
     ARROW_DROP_DOWN: 'arrow-drop-down',
     CLOSE: 'close',
@@ -19,6 +20,7 @@ const IconName = {
     EXPERIENCE: 'integration-instructions',
     FORUM: 'forum',
     NOT_CONSIDER: 'do-not-disturb-on',
+    SEND: 'send',
     VISIBILITY: 'visibility',
     VISIBILITY_OFF: 'visibility-off',
 } as const;

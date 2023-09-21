@@ -32,17 +32,16 @@ export {
     ActivityIndicator,
     FlatList,
     Image,
+    Linking,
     Switch as NativeSwitch,
     Pressable,
     Modal as RNModal,
     Text as RNText,
     ScrollView,
     StatusBar,
-    type StyleProp,
     TextInput,
     TouchableOpacity,
     View,
-    type ViewStyle,
 } from 'react-native';
 export { default as DocumentPicker } from 'react-native-document-picker';
 export { GestureHandlerRootView } from 'react-native-gesture-handler';
