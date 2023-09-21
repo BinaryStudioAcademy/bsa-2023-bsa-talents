@@ -197,20 +197,6 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
-            path: UserDetailsApiPath.APPROVE,
-            method: 'PATCH',
-            validation: {
-                body: userDetailsApproveValidationSchema,
-            },
-            handler: (options) =>
-                this.approve(
-                    options as ApiHandlerOptions<{
-                        body: UserDetailsApproveRequestDto;
-                    }>,
-                ),
-        });
-
-        this.addRoute({
             path: '',
             method: 'GET',
             validation: {
