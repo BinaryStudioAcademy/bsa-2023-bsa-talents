@@ -15,6 +15,7 @@ export {
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
 export {
+    type AutocompleteMultiSelectorValue,
     type CheckBoxProps,
     type CustomPhotoStyle,
     type PhotoProperties,

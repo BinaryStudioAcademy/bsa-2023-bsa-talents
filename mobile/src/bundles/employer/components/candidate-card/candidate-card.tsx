@@ -16,6 +16,7 @@ import { styles } from './styles';
 
 const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
 
+// TODO: add submitted at after fix backend
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
     salaryExpectation,

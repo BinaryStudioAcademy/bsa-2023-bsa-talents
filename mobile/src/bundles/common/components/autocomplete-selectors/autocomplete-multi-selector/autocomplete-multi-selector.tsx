@@ -26,7 +26,7 @@ import {
 import { styles } from '../styles';
 
 type Options = {
-    label: string;
+    label: string | number;
     value: string;
 };
 

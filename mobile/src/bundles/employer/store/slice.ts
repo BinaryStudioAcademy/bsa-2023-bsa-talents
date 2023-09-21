@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserDetailsResponseDto } from '~/bundles/talent/types/types';
 
-import { getTalentsData } from './actions';
+import { getFilteredTalents, getTalentsData } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
@@ -21,18 +21,27 @@ const { reducer, actions, name } = createSlice({
     name: 'employees',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getTalentsData.fulfilled, (state, { payload }) => {
-            state.dataStatus = DataStatus.FULFILLED;
-            state.talentsData = payload;
-        });
-        builder.addMatcher(isAnyOf(getTalentsData.pending), (state) => {
-            state.dataStatus = DataStatus.PENDING;
-            state.talentsData = null;
-        });
-        builder.addMatcher(isAnyOf(getTalentsData.rejected), (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-            state.talentsData = null;
-        });
+        builder.addMatcher(
+            isAnyOf(getTalentsData.fulfilled, getFilteredTalents.fulfilled),
+            (state, { payload }) => {
+                state.dataStatus = DataStatus.FULFILLED;
+                state.talentsData = payload;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(getTalentsData.pending, getFilteredTalents.pending),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+                state.talentsData = null;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(getTalentsData.rejected, getFilteredTalents.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+                state.talentsData = null;
+            },
+        );
     },
 });
 

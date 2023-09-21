@@ -10,10 +10,10 @@ import {
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
+    searchActiveCandidatesOnly: boolean;
     sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value'];
     isBaseSearch?: boolean;
-    searchValue: string;
-    searchActiveCandidatesOnly: boolean;
+    searchValue?: string;
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];

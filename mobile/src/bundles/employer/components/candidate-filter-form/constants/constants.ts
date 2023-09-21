@@ -1,9 +1,1 @@
-export {
-    BSA_BADGES,
-    BSA_CHARACTERISTICS,
-    BSA_PROJECT,
-    DEFAULT_VALUES,
-    ENGLISH_LEVEL,
-    HARD_SKILLS,
-    YEARS_EXPERIENCE,
-} from './mock-constants';
+export { DEFAULT_VALUES, HARD_SKILLS } from './mock-constants';
