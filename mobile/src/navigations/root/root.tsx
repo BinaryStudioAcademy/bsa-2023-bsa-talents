@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { Chat } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -80,14 +81,17 @@ const Root: React.FC = () => {
             />
         ),
         main: (
-            <RootStack.Screen
-                name={RootScreenName.MAIN_ROOT_ROUTE}
-                component={
-                    role === UserRole.TALENT
-                        ? TalentBottomTabNavigator
-                        : EmployerBottomTabNavigator
-                }
-            />
+            <>
+                <RootStack.Screen
+                    name={RootScreenName.MAIN_ROOT_ROUTE}
+                    component={
+                        role === UserRole.TALENT
+                            ? TalentBottomTabNavigator
+                            : EmployerBottomTabNavigator
+                    }
+                />
+                <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+            </>
         ),
     };
 
