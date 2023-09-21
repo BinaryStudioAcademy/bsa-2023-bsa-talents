@@ -32,6 +32,7 @@ export {
     ActivityIndicator,
     FlatList,
     Image,
+    Linking,
     Switch as NativeSwitch,
     Pressable,
     Modal as RNModal,
