@@ -86,7 +86,6 @@ class UserDetailsModel extends AbstractModel {
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));
     }
-
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;
     }
