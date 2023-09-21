@@ -83,10 +83,6 @@ const { reducer, actions, name } = createSlice({
                     ...state.current.messages,
                     action.payload,
                 ];
-                state.current.messages = [
-                    ...state.current.messages,
-                    action.payload,
-                ];
             })
             .addMatcher(
                 isAnyOf(
