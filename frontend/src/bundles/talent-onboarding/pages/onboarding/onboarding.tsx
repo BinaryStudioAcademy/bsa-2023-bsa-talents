@@ -20,8 +20,8 @@ import {
 import {
     FIRST_ELEMENT,
     STEP_NUMBER_FROM_ROUTE,
-    STEP_ONE,
     STEPS_NUMBER,
+    StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
@@ -47,22 +47,26 @@ const Onboarding: React.FC = () => {
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleNextStep = useCallback((): void => {
-        setCurrentStep(currentStep + STEP_ONE);
+        setCurrentStep(currentStep + StepsList.ONE);
 
         const nextStepPath =
             StepsRoute[
-                `STEP_0${currentStep + STEP_ONE}` as keyof typeof StepsRoute
+                `STEP_0${
+                    currentStep + StepsList.ONE
+                }` as keyof typeof StepsRoute
             ];
 
         navigate(getStepRoute(nextStepPath));
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
-        setCurrentStep(currentStep - STEP_ONE);
+        setCurrentStep(currentStep - StepsList.ONE);
 
         const previousStepPath =
             StepsRoute[
-                `STEP_0${currentStep - STEP_ONE}` as keyof typeof StepsRoute
+                `STEP_0${
+                    currentStep - StepsList.ONE
+                }` as keyof typeof StepsRoute
             ];
 
         navigate(getStepRoute(previousStepPath));

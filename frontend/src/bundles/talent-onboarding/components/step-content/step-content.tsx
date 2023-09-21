@@ -7,14 +7,7 @@ import {
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import {
-    STEP_FIVE,
-    STEP_FOUR,
-    STEP_ONE,
-    STEP_THREE,
-    STEP_TWO,
-    STEPS_NUMBER,
-} from '../../constants/constants.js';
+import { STEPS_NUMBER, StepsList } from '../../constants/constants.js';
 import { useFormSubmit } from '../../context/context.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
@@ -46,11 +39,11 @@ const StepContent: React.FC<Properties> = ({
             <Grid
                 className={getValidClassNames(
                     styles.stepTitle,
-                    currentStep === STEP_ONE && styles.step1,
-                    currentStep === STEP_TWO && styles.step2,
-                    currentStep === STEP_THREE && styles.step3,
-                    currentStep === STEP_FOUR && styles.step4,
-                    currentStep === STEP_FIVE && styles.step5,
+                    currentStep === StepsList.ONE && styles.step1,
+                    currentStep === StepsList.TWO && styles.step2,
+                    currentStep === StepsList.THREE && styles.step3,
+                    currentStep === StepsList.FOUR && styles.step4,
+                    currentStep === StepsList.FIVE && styles.step5,
                 )}
             >
                 <Typography variant="body1" className={styles.stepName}>
@@ -73,7 +66,7 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    {currentStep !== STEP_ONE && (
+                    {currentStep !== StepsList.ONE && (
                         <Button
                             onClick={
                                 currentStep === STEPS_NUMBER
@@ -92,7 +85,7 @@ const StepContent: React.FC<Properties> = ({
                             )}
                         />
                     )}
-                    {currentStep === STEP_ONE && (
+                    {currentStep === StepsList.ONE && (
                         <Grid className={styles.buttonPlaceholder} />
                     )}
                     <Button
