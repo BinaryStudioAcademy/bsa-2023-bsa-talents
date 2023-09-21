@@ -8,6 +8,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import {
     useEffect,
+    useNavigate,
     useParameters,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
@@ -18,16 +19,22 @@ import styles from './styles.module.scss';
 
 const CompanyPage: React.FC = () => {
     const { id } = useParameters();
-
+    const navigate = useNavigate();
     const [companyData, setCompanyData] = useState<EmployerDataDto>();
 
     useEffect(() => {
         async function fetchCompanyData(): Promise<void> {
-            const data = await employersApi.getEmployerDetails(id as string);
-            setCompanyData(data);
+            try {
+                const data = await employersApi.getEmployerDetails(
+                    id as string,
+                );
+                setCompanyData(data);
+            } catch {
+                navigate('/404');
+            }
         }
         void fetchCompanyData();
-    }, [id]);
+    }, [id, navigate]);
 
     return companyData ? (
         <Grid container className={styles.container}>

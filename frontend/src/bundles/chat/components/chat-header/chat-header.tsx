@@ -1,6 +1,7 @@
 import {
     Avatar,
     Grid,
+    Link,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -10,11 +11,13 @@ import styles from './styles.module.scss';
 type Properties = {
     avatarUrl?: string;
     className?: string;
+    companyId: string;
     isOnline: boolean;
     title: string;
 };
 
 const ChatHeader: React.FC<Properties> = ({
+    companyId,
     avatarUrl,
     className,
     isOnline,
@@ -28,7 +31,9 @@ const ChatHeader: React.FC<Properties> = ({
     return (
         <Grid className={getValidClassNames(styles.wrapper, className)}>
             <Grid className={styles.logo}>
-                <Avatar isSmall={true} src={avatarUrl} alt={title} />
+                <Link to={`/company/${companyId}` as '/company/:id'}>
+                    <Avatar isSmall={true} src={avatarUrl} alt={title} />
+                </Link>
             </Grid>
             <Grid className={styles.info}>
                 <Typography

@@ -55,6 +55,7 @@ const ChatsPage: React.FC = () => {
     const [currentChat, setCurrentChat] = useState({
         id: undefined,
         userName: 'unset',
+        userId: '',
         avatar: '',
     });
 
@@ -82,6 +83,7 @@ const ChatsPage: React.FC = () => {
                 setCurrentChat({
                     ...currentChat,
                     userName: participant.username,
+                    userId: participant.userId,
                     avatar: participant.avatar ?? '',
                 });
             }
@@ -140,6 +142,7 @@ const ChatsPage: React.FC = () => {
                         </div>
                     )}
                     <ChatHeader
+                        companyId={currentChat.userId}
                         title={currentChat.userName}
                         isOnline
                         className={styles.chatHeader}
