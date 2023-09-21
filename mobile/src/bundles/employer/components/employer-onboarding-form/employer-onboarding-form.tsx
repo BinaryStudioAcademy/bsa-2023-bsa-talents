@@ -75,6 +75,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
                         label=" Profile photo"
+                        required
                     >
                         <PhotoPicker
                             control={control}
