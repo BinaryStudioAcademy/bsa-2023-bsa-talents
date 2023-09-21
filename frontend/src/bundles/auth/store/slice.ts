@@ -19,11 +19,7 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'auth',
-    reducers: {
-        resetEntireStore: () => {
-            // this is empty on purpose. Comment is just for linter
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addCase(signOut.fulfilled, (state) => {

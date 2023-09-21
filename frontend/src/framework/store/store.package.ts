@@ -63,7 +63,7 @@ const combinedReducer = combineReducers({
 type RootState = ReturnType<typeof combinedReducer>;
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-    if (action.type === 'auth/resetEntireStore') {
+    if (action.type === 'app/resetStore') {
         state = {} as RootState;
     }
     return combinedReducer(state, action);
