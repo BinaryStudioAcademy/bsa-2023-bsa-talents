@@ -73,7 +73,7 @@ const ChatList: React.FC = () => {
 
     const handleChatSelect = useCallback(
         (payload: ChatNavigationProperties): void => {
-            navigation.navigate(RootScreenName.CHAT_ROOT_ROUTE, payload);
+            navigation.navigate(RootScreenName.CHAT, payload);
         },
         [navigation],
     );

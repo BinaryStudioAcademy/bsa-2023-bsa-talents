@@ -6,7 +6,7 @@ type RootNavigationParameterList = {
     [RootScreenName.AUTH_ROOT_ROUTE]: undefined;
     [RootScreenName.MAIN_ROOT_ROUTE]: undefined;
     [RootScreenName.ONBOARDING_ROOT_ROUTE]: undefined;
-    [RootScreenName.CHAT_ROOT_ROUTE]: ChatNavigationProperties;
+    [RootScreenName.CHAT]: ChatNavigationProperties;
 };
 
 export { type RootNavigationParameterList };

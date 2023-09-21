@@ -90,10 +90,7 @@ const Root: React.FC = () => {
                             : EmployerBottomTabNavigator
                     }
                 />
-                <RootStack.Screen
-                    name={RootScreenName.CHAT_ROOT_ROUTE}
-                    component={Chat}
-                />
+                <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
             </>
         ),
     };

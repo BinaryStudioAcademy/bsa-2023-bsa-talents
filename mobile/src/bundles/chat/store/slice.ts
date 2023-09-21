@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { chatListItems } from '~/bundles/chat/constants/constants';
+import { CHAT_LIST_ITEMS } from '~/bundles/chat/constants/constants';
 import { type ChatDataRequestDto } from '~/bundles/chat/types/types';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -15,7 +15,7 @@ type State = {
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     //TODO delete mock-data
-    chatData: chatListItems,
+    chatData: CHAT_LIST_ITEMS,
 };
 
 const { reducer, actions, name } = createSlice({
