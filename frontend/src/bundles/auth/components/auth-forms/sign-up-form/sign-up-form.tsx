@@ -103,7 +103,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     )}
                 >
                     <FormLabel className="label">
-                        Email <span className={styles.required}>*</span>
+                        Email
+                        <span className={styles.required}>*</span>
                     </FormLabel>
                     <Input
                         control={control}
@@ -119,7 +120,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     )}
                 >
                     <FormLabel className="label">
-                        Password <span className={styles.required}>*</span>
+                        Password
+                        <span className={styles.required}>*</span>
                     </FormLabel>
                     <Input
                         control={control}
