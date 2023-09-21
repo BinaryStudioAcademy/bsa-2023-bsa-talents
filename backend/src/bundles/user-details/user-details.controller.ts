@@ -535,15 +535,6 @@ class UserDetailsController extends ControllerBase {
      *          explode: true
      *          description: Filter by hard skills (optional)
      *        - in: query
-     *          name: BSABadges
-     *          schema:
-     *            type: array
-     *            items:
-     *              type: string
-     *          style: form
-     *          explode: true
-     *          description: Filter by BSA badges (optional)
-     *        - in: query
      *          name: location
      *          schema:
      *            type: array

@@ -17,7 +17,6 @@ type UserDetailsSearchUsersRequestDto = {
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];
-    BSABadges?: string[];
     location?: ValueOf<typeof CountryList>[];
     englishLevel?: ValueOf<typeof EnglishLevel>[];
     employmentType?: ValueOf<typeof EmploymentType>[];

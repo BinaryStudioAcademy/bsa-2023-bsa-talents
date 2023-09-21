@@ -8,7 +8,6 @@ const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
     yearsOfExperience: [],
     hardSkills: [],
     userBsaCharacteristics: [],
-    BSABadges: [],
     userBsaProject: [],
     location: [],
     englishLevel: [],

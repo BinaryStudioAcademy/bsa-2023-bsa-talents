@@ -38,7 +38,6 @@ const FIELDS: [
     'yearsOfExperience',
     'hardSkills',
     'userBsaCharacteristics',
-    'BSABadges',
     'userBsaProject',
     'location',
     'englishLevel',

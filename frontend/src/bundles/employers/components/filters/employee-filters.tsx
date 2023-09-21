@@ -19,7 +19,6 @@ import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import {
-    BsaBadges,
     BsaCharacteristics,
     BsaProject,
     CheckboxesFields,
@@ -50,11 +49,6 @@ const bsaCharacteristics = Object.values(BsaCharacteristics).map(
         label: characteristic,
     }),
 );
-
-const bsaBadges = Object.values(BsaBadges).map((characteristic) => ({
-    value: characteristic,
-    label: characteristic,
-}));
 
 const bsaProject = Object.values(BsaProject).map((project) => ({
     value: project,
@@ -235,19 +229,6 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             control={control}
                             errors={errors}
                             name="userBsaCharacteristics"
-                            isMulti={true}
-                            placeholder="Options"
-                        />
-                    </FormLabel>
-                </Grid>
-                <Grid className={styles.filtersMultiSelect}>
-                    <FormLabel className={styles.labels}>
-                        {'BSA Badges'}
-                        <Select
-                            options={bsaBadges}
-                            control={control}
-                            errors={errors}
-                            name="BSABadges"
                             isMulti={true}
                             placeholder="Options"
                         />

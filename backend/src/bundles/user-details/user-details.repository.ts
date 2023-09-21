@@ -130,15 +130,6 @@ class UserDetailsRepository implements Repository {
                 });
             }
 
-            if (payload.BSABadges && payload.BSABadges.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.BSABadges,
-                    columnName: 'badge_id',
-                    relativeTable: 'talentBadges',
-                });
-            }
-
             if (payload.location) {
                 void builder.where((subquery) => {
                     searchByColumnValues(
