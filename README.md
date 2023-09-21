@@ -27,6 +27,122 @@ This is the repository responsible for BSA Talents apps.
 -   [PostgreSQL](https://www.postgresql.org/) (15.2)
 -   run **`npx simple-git-hooks`** at the root of the project, before the start (it will set the [pre-commit hook](https://www.npmjs.com/package/simple-git-hooks) for any commits).
 
+### 💽 DB Schema
+
+```mermaid
+
+erDiagram
+
+  users {
+      varchar id PK
+      dateTime created_at
+      dateTime updated_at
+      citext email
+      enum role "talent employer admin"
+      text password_hash
+
+   }
+
+  user_details ||--|| users : user_id
+  user_details ||..|o files : photo_id
+  user_details ||..|o files : company_logo_id
+  user_details ||..|o files : cv_id
+  user_details {
+      varchar id PK
+      dateTime created_at
+      dateTime updated_at
+      varchar user_id FK
+      boolean is_approved
+      varchar denied_reason
+      boolean is_hired
+      varchar profile_name
+      int salary_expectation
+      int hired_salary
+      varchar job_title
+      varchar location
+      decimal experience_years
+      text[] employment_type
+      text description
+      varchar english_level
+      text[] not_considered
+      text[] preferred_languages
+      text[] project_links
+      varchar photo_id FK
+      varchar full_name
+      varchar phone
+      varchar linkedin_link
+      varchar company_name
+      varchar company_logo_id FK
+      varchar company_website
+      varchar employer_position
+      varchar cv_id FK
+      enum completed_step "profile bsa-badges skills-and-projects cv-and-contacts preview"
+   }
+
+  files {
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      varchar url
+      varchar etag
+      varchar file_name
+  }
+
+  hard_skills{
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      varchar name
+  }
+
+  talent_hard_skills }|..|o user_details : user_details_id
+  talent_hard_skills }|..|| hard_skills : hard_skill_id
+  talent_hard_skills{
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      varchar user_details_id FK
+      varchar hard_skill_id FK
+  }
+
+  bsa_badges{
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      varchar name
+      varchar type
+      int max_score
+  }
+
+  talent_badges }|--|| users : user_id
+  talent_badges }|--|o user_details : user_details_id
+  talent_badges }|--|| bsa_badges : badge_id
+  talent_badges{
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      int score
+      varchar level
+      boolean is_shown
+      varchar user_id FK
+      varchar user_details_id FK
+      varchar badge_id FK
+  }
+
+  chat_messages ||--|| user_details : user_id
+  chat_messages{
+      varchar id PK
+      dateTime created_at
+      dateTime update_at
+      text message
+      varchar sender_id FK
+      varchar receiver_id FK
+      varchar chat_id
+      boolean isRead
+  }
+
+```
+
 ## 🏃‍♂️ Simple Start
 
 1. **`npm install`** at the root

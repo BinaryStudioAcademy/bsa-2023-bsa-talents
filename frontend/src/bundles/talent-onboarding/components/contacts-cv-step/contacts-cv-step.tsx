@@ -26,7 +26,7 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
-import { validateFileSize } from '../../helpers/helpers.js';
+import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
 import { actions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
@@ -178,6 +178,12 @@ const ContactsCVStep: React.FC = () => {
 
                 try {
                     validateFileSize({
+                        name: 'cv',
+                        file,
+                        setError,
+                        clearErrors,
+                    });
+                    validateFileType({
                         name: 'cv',
                         file,
                         setError,
@@ -339,7 +345,9 @@ const ContactsCVStep: React.FC = () => {
                     />
 
                     <FormHelperText className={styles.fileError}>
-                        {errors.cv?.type === 'fileSize' && errors.cv.message}
+                        {(errors.cv?.type === 'fileSize' ||
+                            errors.cv?.type === 'fileType') &&
+                            errors.cv.message}
                     </FormHelperText>
                 </FormControl>
 

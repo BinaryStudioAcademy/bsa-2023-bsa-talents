@@ -12,6 +12,7 @@ const AppRoute = {
     TALENT_STEP: '/talent/onboarding/step/:step',
     NOT_FOUND: 'not-found',
     OTHER: '*',
+    SAME_PAGE: '#',
 } as const;
 
 export { AppRoute };

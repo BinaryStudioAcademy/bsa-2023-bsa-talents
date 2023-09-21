@@ -1,5 +1,3 @@
-import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
-
 import {
     Button,
     FormControl,
@@ -15,8 +13,10 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { CountryList } from '../../enums/enums.js';
 import { actions } from '../../store/employer-onboarding.js';
@@ -41,12 +41,32 @@ const OnboardingForm: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const onSubmit = useCallback(
         async (data: EmployerOnboardingDto): Promise<boolean> => {
-            await dispatch(actions.createEmployerDetails(data));
+            const {
+                fullName,
+                employerPosition,
+                companyName,
+                companyWebsite,
+                location,
+                description,
+            } = data;
+            await dispatch(
+                actions.createEmployerDetails({
+                    fullName,
+                    employerPosition,
+                    companyName,
+                    companyWebsite,
+                    location,
+                    description,
+                    userId: currentUser?.id,
+                }),
+            );
             return true;
         },
-        [dispatch],
+        [dispatch, currentUser?.id],
     );
 
     const handleFormSubmit = useCallback(
@@ -117,7 +137,7 @@ const OnboardingForm: React.FC = () => {
                                 </Typography>
                             </FormLabel>
                             <Input
-                                name="position"
+                                name="employerPosition"
                                 errors={errors}
                                 control={control}
                                 placeholder="Position"
@@ -141,7 +161,7 @@ const OnboardingForm: React.FC = () => {
                                 errors={errors}
                                 control={control}
                                 placeholder="Link"
-                                name="linkedInLink"
+                                name="linkedinLink"
                                 className={styles.formInput}
                             />
                         </FormControl>
@@ -243,14 +263,10 @@ const OnboardingForm: React.FC = () => {
                             <Grid
                                 item
                                 className={styles.photoWrapper}
-                                style={renderFileUrl({ file: watch('photo') })}
-                            >
-                                {!watch('photo') && (
-                                    <AccountCircle
-                                        className={styles.photoIcon}
-                                    />
-                                )}
-                            </Grid>
+                                style={renderFileUrl({
+                                    file: errors.photo ? null : watch('photo'),
+                                })}
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a photo"
@@ -263,15 +279,11 @@ const OnboardingForm: React.FC = () => {
                                 item
                                 className={styles.photoWrapper}
                                 style={renderFileUrl({
-                                    file: watch('companyLogo'),
+                                    file: errors.companyLogo
+                                        ? null
+                                        : watch('companyLogo'),
                                 })}
-                            >
-                                {!watch('companyLogo') && (
-                                    <InsertPhotoOutlined
-                                        className={styles.photoWrapper}
-                                    />
-                                )}
-                            </Grid>
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a company logo"
@@ -281,27 +293,16 @@ const OnboardingForm: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        onClick={handleFormSubmit}
-                        label="Preview"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.previewButton,
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        onClick={handleFormSubmit}
-                        label="Submit for verification"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.submitButton,
-                        )}
-                    />
-                </Grid>
+
+                <Button
+                    type="submit"
+                    onClick={handleFormSubmit}
+                    label="Submit for verification"
+                    className={getValidClassNames(
+                        styles.buttonRegistration,
+                        styles.submitButton,
+                    )}
+                />
             </FormControl>
         </Grid>
     );

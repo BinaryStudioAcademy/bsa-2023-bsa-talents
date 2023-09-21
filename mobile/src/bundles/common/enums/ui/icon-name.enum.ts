@@ -19,6 +19,8 @@ const IconName = {
     EXPERIENCE: 'integration-instructions',
     FORUM: 'forum',
     NOT_CONSIDER: 'do-not-disturb-on',
+    VISIBILITY: 'visibility',
+    VISIBILITY_OFF: 'visibility-off',
 } as const;
 
 export { IconName };

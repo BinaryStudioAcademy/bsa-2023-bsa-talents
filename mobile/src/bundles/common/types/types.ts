@@ -15,6 +15,7 @@ export {
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
 export {
+    type AutocompleteMultiSelectorValue,
     type CheckBoxProps,
     type CustomPhotoStyle,
     type PhotoProperties,
@@ -52,6 +53,7 @@ export {
     type RadioGroupProps,
 } from 'react-native-radio-buttons-group';
 export {
+    type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
     type ValidationSchema,

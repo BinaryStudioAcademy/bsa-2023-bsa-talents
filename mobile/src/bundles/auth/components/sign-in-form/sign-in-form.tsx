@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PasswordVisibilityToggle } from '~/bundles/auth/components/components';
 import { type UserSignInRequestDto } from '~/bundles/auth/types/types';
 import { userSignInValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
@@ -11,7 +12,11 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { AuthScreenName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useVisibility,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { USER_SIGN_IN_DEFAULT_VALUES } from './constants/constants';
@@ -29,6 +34,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
+
+    const { isVisible, toggleVisibility } = useVisibility(false);
+
     return (
         <View
             style={[
@@ -70,7 +78,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         control={control}
                         name="password"
                         placeholder="Enter your password"
-                        secureTextEntry
+                        secureTextEntry={!isVisible}
+                    />
+                    <PasswordVisibilityToggle
+                        isPasswordVisible={isVisible}
+                        onChangeVisibility={toggleVisibility}
                     />
                 </FormField>
                 <Link
