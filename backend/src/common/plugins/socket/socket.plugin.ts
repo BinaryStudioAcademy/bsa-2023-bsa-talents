@@ -1,8 +1,8 @@
 import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
+import { type MessageResponseDto } from 'shared/build/index.js';
 import { Server } from 'socket.io';
 
 import { SocketEvent, SocketNamespace } from './enums/enums.js';
-import { type ChatMessageGetAllItemResponseDto } from './types/types.js';
 
 const socket: FastifyPluginCallback = (
     fastify: FastifyInstance,
@@ -32,8 +32,8 @@ const socket: FastifyPluginCallback = (
 
         socket.on(
             SocketEvent.CHAT_CREATE_MESSAGE,
-            (payload: ChatMessageGetAllItemResponseDto) => {
-                const receiverId = connectedUsers.get(payload.receiver?.id);
+            (payload: MessageResponseDto) => {
+                const receiverId = connectedUsers.get(payload.receiverId);
                 if (receiverId) {
                     socket
                         .to(receiverId)
