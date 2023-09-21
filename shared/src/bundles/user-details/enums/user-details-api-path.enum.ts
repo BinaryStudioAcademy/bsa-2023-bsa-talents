@@ -1,7 +1,8 @@
 const UserDetailsApiPath = {
     ROOT: '',
     $ID: '/:userId',
-    APPROVE: '/approve',
+    APPROVE: '/approve/:userId',
+    DENY: '/deny/:userId',
     SHORT: '/short',
 } as const;
 

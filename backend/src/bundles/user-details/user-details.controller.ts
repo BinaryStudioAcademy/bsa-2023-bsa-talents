@@ -9,8 +9,8 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
-    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
+    type UserDetailsDenyRequestDto,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsSearchUsersRequestDto,
@@ -18,8 +18,8 @@ import {
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
 import {
-    userDetailsApproveValidationSchema,
     userDetailsCreateValidationSchema,
+    userDetailsDenyValidationSchema,
     userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
 } from './validation-schemas/validation-schemas.js';
@@ -185,13 +185,25 @@ class UserDetailsController extends ControllerBase {
         this.addRoute({
             path: UserDetailsApiPath.APPROVE,
             method: 'PATCH',
-            validation: {
-                body: userDetailsApproveValidationSchema,
-            },
             handler: (options) =>
                 this.approve(
                     options as ApiHandlerOptions<{
-                        body: UserDetailsApproveRequestDto;
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.DENY,
+            method: 'PATCH',
+            validation: {
+                body: userDetailsDenyValidationSchema,
+            },
+            handler: (options) =>
+                this.deny(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                        body: UserDetailsDenyRequestDto;
                     }>,
                 ),
         });
@@ -690,30 +702,32 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/approve:
+     * /user-details/deny/{userId}:
      *   patch:
      *     tags:
      *       - User Details
-     *     description: Approves user's details
+     *     description: Deny user's details
      *     security:
      *       - bearerAuth: []
+     *     parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch details for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
      *     requestBody:
-     *       description: User detail approve object
+     *       description: User detail deny object
      *       required: true
      *       content:
      *         application/json:
      *           schema:
-     *             $ref: '#/components/schemas/UserDetailsApproveRequestDto'
+     *             $ref: '#/components/schemas/UserDetailsDenyRequestDto'
      *           examples:
-     *             example1:
+     *             default:
      *               value:
-     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
-     *                 isApproved: false
      *                 deniedReason: 'Write here reasons'
-     *             example2:
-     *               value:
-     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
-     *                 isApproved: true
      *     responses:
      *       200:
      *         description: Successful operation
@@ -723,27 +737,60 @@ class UserDetailsController extends ControllerBase {
      *               type: boolean
      * components:
      *   schemas:
-     *     UserDetailsApproveRequestDto:
+     *     UserDetailsDenyRequestDto:
      *       type: object
      *       properties:
-     *         userId:
-     *           type: string
-     *           format: uuid
-     *           example: '550e8400-e29b-41d4-a716-446655440000'
-     *         isApproved:
-     *           type: boolean
      *         deniedReason:
      *           type: string
      */
 
-    private async approve(
+    private async deny(
         options: ApiHandlerOptions<{
-            body: UserDetailsApproveRequestDto;
+            params: UserDetailsFindByUserIdRequestDto;
+            body: UserDetailsDenyRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
         return {
             status: HttpCode.OK,
-            payload: await this.userDetailsService.approve(options.body),
+            payload: await this.userDetailsService.deny(userId, options.body),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/approve/{userId}:
+     *    patch:
+     *      tags: [User Details]
+     *      description: Approve user's details
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch details for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *               type: boolean
+     */
+
+    private async approve(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.approve(userId),
         };
     }
 }

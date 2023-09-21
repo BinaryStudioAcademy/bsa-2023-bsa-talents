@@ -9,8 +9,8 @@ import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
-    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
+    type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
@@ -180,11 +180,7 @@ class UserDetailsService implements Service {
         };
     }
 
-    public async approve(
-        payload: UserDetailsApproveRequestDto,
-    ): Promise<boolean> {
-        const { userId, ...rest } = payload;
-
+    public async approve(userId: string): Promise<boolean> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -197,7 +193,31 @@ class UserDetailsService implements Service {
         const userDetailsId = userDetails.toObject().id as string;
 
         await this.userDetailsRepository.update({
-            ...rest,
+            isApproved: true,
+            id: userDetailsId,
+        });
+
+        return true;
+    }
+
+    public async deny(
+        userId: string,
+        payload: UserDetailsDenyRequestDto,
+    ): Promise<boolean> {
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        await this.userDetailsRepository.update({
+            ...payload,
+            isApproved: false,
             id: userDetailsId,
         });
 
