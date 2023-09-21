@@ -10,10 +10,7 @@ import {
     MessageList,
 } from '~/bundles/chat/components/components.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
-import {
-    type ChatListItemType,
-    type Message,
-} from '~/bundles/chat/types/types.js';
+import { type ChatListItemType } from '~/bundles/chat/types/types.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -133,22 +130,16 @@ const ChatsPage: React.FC = () => {
         };
     });
 
-    const messagesMapped = useCallback(
-        (): Message[] =>
-            chatMessages.map((message) => {
-                const match = chatGroups.find(
-                    (it) => it.userId === message.senderId,
-                );
-                return {
-                    id: message.id,
-                    userId: message.senderId,
-                    value: message.message,
-                    avatarUrl: match?.avatar,
-                    userFullName: match?.fullName ?? '',
-                };
-            }),
-        [chatMessages, chatGroups],
-    );
+    const messagesMapped = chatMessages.map((message) => {
+        const match = chatGroups.find((it) => it.userId === message.senderId);
+        return {
+            id: message.id,
+            userId: message.senderId,
+            value: message.message,
+            avatarUrl: match?.avatar,
+            userFullName: match?.fullName ?? '',
+        };
+    });
 
     return (
         <Grid container direction="column">
@@ -207,7 +198,7 @@ const ChatsPage: React.FC = () => {
                         avatarUrl={currentChat.avatar}
                     />
                     <MessageList
-                        messages={messagesMapped()}
+                        messages={messagesMapped}
                         className={styles.messageList}
                     />
                     <MessageInput
