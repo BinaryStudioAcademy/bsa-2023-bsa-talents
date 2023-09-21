@@ -3,6 +3,7 @@ const UserDetailsApiPath = {
     $ID: '/:userId',
     APPROVE: '/approve',
     SHORT: '/short',
+    PUBLISH: '/:userId/publish',
 } as const;
 
 export { UserDetailsApiPath };

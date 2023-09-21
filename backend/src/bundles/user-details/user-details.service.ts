@@ -11,6 +11,7 @@ import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-sk
 import {
     type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
+    type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
@@ -202,6 +203,25 @@ class UserDetailsService implements Service {
         });
 
         return true;
+    }
+
+    public async publish(
+        payload: UserDetailsFindByUserIdRequestDto,
+    ): Promise<string> {
+        const { userId } = payload;
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.publish({ id: userDetailsId });
     }
 
     public delete(): Promise<boolean> {
