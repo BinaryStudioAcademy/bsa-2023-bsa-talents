@@ -49,6 +49,13 @@ a {
     }
 }
 
+.listItem {
+    & a[aria-current="page"] {
+        color: var(--slate-gray);
+        cursor: default;
+    }
+}
+
 // BURGER
 .burgerBackground {
     position: fixed;
@@ -155,7 +162,7 @@ a {
     outline-offset: 5px;
 }
 
-@media screen and (width <= 660px) {
+@media screen and (width <=660px) {
     .wrapper {
         position: fixed;
         z-index: 20;

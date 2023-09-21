@@ -14,6 +14,7 @@ import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-on
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
+import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
@@ -33,6 +34,7 @@ type RootReducer = {
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
     candidate: ReturnType<typeof candidateReducer>;
+    cabinet: ReturnType<typeof cabinetReducer>;
 };
 
 type ExtraArguments = {
@@ -67,6 +69,7 @@ class Store {
                 employer: employerReducer,
                 app: appReducer,
                 candidate: candidateReducer,
+                cabinet: cabinetReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
