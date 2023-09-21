@@ -14,6 +14,7 @@ type UserDetailsSearchUsersRequestDto = {
     sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value'];
     isBaseSearch?: boolean;
     searchValue?: string;
+    BSABadges?: string[];
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];

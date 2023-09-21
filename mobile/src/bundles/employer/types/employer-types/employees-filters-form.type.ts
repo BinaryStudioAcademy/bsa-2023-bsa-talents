@@ -9,6 +9,7 @@ type SelectorValues = Omit<
     | 'sortBy'
     | 'isBaseSearch'
     | 'searchValue'
+    | 'BSABadges'
 >;
 
 type EmployeesFiltersForm = Pick<

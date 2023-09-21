@@ -50,6 +50,10 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
+    BSABadges: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+
     location: joi.alternatives().try(
         joi.array().items(
             joi
