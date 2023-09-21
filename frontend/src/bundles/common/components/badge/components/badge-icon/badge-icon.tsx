@@ -1,13 +1,12 @@
 import { HeadphonesOutlined } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
-import { type ReactElement } from 'react';
 
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from '../../styles.module.scss';
 
 type Properties = {
-    icon?: ReactElement;
+    icon?: React.ReactElement;
     iconClass?: string;
     isRoundedIcon?: boolean;
     isFifthStep?: boolean;

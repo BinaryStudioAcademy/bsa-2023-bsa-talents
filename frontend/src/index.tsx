@@ -5,7 +5,6 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Auth } from '~/bundles/auth/pages/auth.js';
 import {
     App,
     Navigate,
@@ -18,11 +17,18 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
+import {
+    ResetPasswordPage,
+    SignInPage,
+    SignUpPage,
+} from './bundles/auth/pages/pages.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
+import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
 import { Candidates } from './bundles/employers/pages/candidates.js';
+import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
@@ -62,7 +68,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.SIGN_IN,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <SignInPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -70,7 +76,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.SIGN_UP,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <SignUpPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -78,7 +84,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.RESET_PASSWORD,
                                         element: (
                                             <PublicRoute>
-                                                <Auth />
+                                                <ResetPasswordPage />
                                             </PublicRoute>
                                         ),
                                     },
@@ -97,10 +103,42 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ],
                                     },
                                     {
+                                        path: AppRoute.MY_PROFILE_TALENT,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <FormSubmitProvider>
+                                                    <ProfileCabinet />
+                                                </FormSubmitProvider>
+                                            </ProtectedRoute>
+                                        ),
+                                        children: [
+                                            {
+                                                path: '',
+                                                element: (
+                                                    <ProtectedRoute>
+                                                        <StepNavigation />
+                                                    </ProtectedRoute>
+                                                ),
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        path: AppRoute.MY_PROFILE_EMPLOYER,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <FormSubmitProvider>
+                                                    <ProfileCabinet />
+                                                </FormSubmitProvider>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+                                    {
                                         path: AppRoute.EMPLOYER_ONBOARDING,
                                         element: (
                                             <ProtectedRoute>
-                                                <EmployerOnboarding />
+                                                <FormSubmitProvider>
+                                                    <EmployerOnboarding />
+                                                </FormSubmitProvider>
                                             </ProtectedRoute>
                                         ),
                                     },

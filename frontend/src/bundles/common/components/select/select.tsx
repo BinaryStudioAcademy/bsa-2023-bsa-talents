@@ -1,4 +1,4 @@
-import { MenuItem, Select as MuiSelect } from '@mui/material';
+import { InputAdornment, MenuItem, Select as MuiSelect } from '@mui/material';
 import {
     type Control,
     type FieldErrors,
@@ -29,6 +29,7 @@ type Properties<T extends FieldValues> = {
     label?: string;
     isMulti?: boolean;
     isDisabled?: boolean;
+    startAdornmentText?: string;
 };
 
 const Select = <T extends FieldValues>({
@@ -40,9 +41,9 @@ const Select = <T extends FieldValues>({
     isMulti,
     isDisabled,
     placeholder = 'Placeholder',
+    startAdornmentText,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
@@ -83,7 +84,14 @@ const Select = <T extends FieldValues>({
                 multiple={isMulti}
                 className={selectStyles}
                 renderValue={handleSelectChange}
-                value={field.value || []}
+                value={field.value || ''}
+                startAdornment={
+                    startAdornmentText && (
+                        <InputAdornment position="start">
+                            {startAdornmentText}
+                        </InputAdornment>
+                    )
+                }
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>

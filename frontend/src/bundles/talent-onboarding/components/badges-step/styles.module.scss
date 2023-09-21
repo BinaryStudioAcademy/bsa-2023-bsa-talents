@@ -4,16 +4,17 @@
     font-weight: var(--font-weight-regular);
 }
 
-.formControl {
+.form {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 26px;
     max-width: var(--step-width);
-    margin-bottom: 20px;
     padding: 10px;
 }
 
 .badgeCheckboxContainer {
     display: flex;
+    align-items: center;
 }
 
 .badgesContainer {

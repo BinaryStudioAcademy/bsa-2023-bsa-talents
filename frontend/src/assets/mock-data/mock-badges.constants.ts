@@ -4,7 +4,7 @@ const mockBadges = [
     {
         id: '1',
         score: 2,
-        maxScore: 10,
+        maxScore: 5,
         description: 'Your average project score',
         type: 'service',
         color: BadgeColors.DARK_BLUE,
@@ -12,7 +12,7 @@ const mockBadges = [
     {
         id: '2',
         score: 1.5,
-        maxScore: 5,
+        maxScore: 10,
         description: 'Your average lectures score',
         type: 'service',
         color: BadgeColors.RED,
@@ -20,7 +20,7 @@ const mockBadges = [
     {
         id: '3',
         score: 2.1,
-        maxScore: 4,
+        maxScore: 5,
         description: 'Communication score',
         type: 'custom',
         color: BadgeColors.YELLOW,

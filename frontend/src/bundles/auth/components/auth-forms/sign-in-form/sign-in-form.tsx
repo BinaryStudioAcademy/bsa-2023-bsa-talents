@@ -1,9 +1,4 @@
 import {
-    type UserSignInRequestDto,
-    userSignInValidationSchema,
-} from 'shared/build/index.js';
-
-import {
     Button,
     Checkbox,
     FormControl,
@@ -16,6 +11,10 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
+} from '~/bundles/users/users.js';
 
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -48,7 +47,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.email ? '' : 'email',
                     )}
                 >
-                    <FormLabel className="label">Email *</FormLabel>
+                    <FormLabel className="label">Email*</FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -62,7 +61,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className="label">Password *</FormLabel>
+                    <FormLabel className="label">Password*</FormLabel>
                     <Input
                         control={control}
                         errors={errors}

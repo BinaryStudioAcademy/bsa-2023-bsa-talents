@@ -1,14 +1,9 @@
-import {
-    type ControllerFieldState,
-    type ControllerRenderProps,
-    type UseFormStateReturn,
-} from 'react-hook-form';
-import { Controller } from 'react-hook-form';
-
 import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
+import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Autocomplete,
     Checkbox,
+    Controller,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -16,6 +11,7 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -26,23 +22,31 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
+    type ControllerFieldState,
+    type ControllerRenderProps,
+    type UseFormStateReturn,
+} from '~/bundles/common/types/types.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import {
     EnglishLevel,
     NotConsidered,
     OnboardingSteps,
     PreferredLanguages,
 } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import {
+    type SkillsStepDto,
+    type UserDetailsGeneralCustom,
+} from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
 import {
     fromUrlLinks,
     setEnglishLevelValue,
     toUrlLinks,
 } from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
-import { SkillsProjectLinks } from './components/skills-project-links.js';
+import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -61,42 +65,52 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
     label: option,
 }));
 
+const getAuthState = (state: RootReducer): State => state.auth;
+const getTalentOnBoardingState = (
+    state: RootReducer,
+): UserDetailsGeneralCustom => state.talentOnBoarding;
 const SkillsStep: React.FC = () => {
+    const currentUser = useAppSelector(
+        (rootState) => getAuthState(rootState).currentUser,
+    );
     const {
         hardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
         projectLinks,
-    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+    } = useAppSelector((rootState) => getTalentOnBoardingState(rootState));
 
-    const { control, handleSubmit, errors, reset } = useAppForm<SkillsStepDto>({
-        defaultValues: useMemo(
-            () => ({
-                hardSkills,
-                englishLevel: setEnglishLevelValue(englishLevel),
-                notConsidered,
-                preferredLanguages,
-                projectLinks: toUrlLinks(projectLinks),
-            }),
-            [
-                englishLevel,
-                hardSkills,
-                notConsidered,
-                preferredLanguages,
-                projectLinks,
-            ],
-        ),
-        validationSchema: SkillsStepValidationSchema,
-    });
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<SkillsStepDto>({
+            defaultValues: useMemo(
+                () => ({
+                    hardSkills,
+                    englishLevel: setEnglishLevelValue(englishLevel),
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks: toUrlLinks(projectLinks),
+                }),
+                [
+                    englishLevel,
+                    hardSkills,
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks,
+                ],
+            ),
+            validationSchema: SkillsStepValidationSchema,
+        });
 
     useEffect(() => {
         reset({
             hardSkills,
-            englishLevel: setEnglishLevelValue(englishLevel),
+            englishLevel,
             notConsidered,
             preferredLanguages,
-            projectLinks: toUrlLinks(projectLinks),
         });
     }, [
         hardSkills,
@@ -106,11 +120,51 @@ const SkillsStep: React.FC = () => {
         reset,
         projectLinks,
     ]);
+
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
 
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    const watchedValues = watch([
+        'hardSkills',
+        'englishLevel',
+        'notConsidered',
+        'preferredLanguages',
+        'projectLinks',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'hardSkills',
+            'englishLevel',
+            'notConsidered',
+            'preferredLanguages',
+            'projectLinks',
+        ]);
+        const initialValues = {
+            hardSkills,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        dispatch,
+        englishLevel,
+        getValues,
+        hardSkills,
+        hasChangesInDetails,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        watchedValues,
+    ]);
 
     const onSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
@@ -120,8 +174,21 @@ const SkillsStep: React.FC = () => {
                 preferredLanguages,
                 hardSkills,
             } = data;
+            if (!data.projectLinks[0].url) {
+                await dispatch(
+                    talentActions.updateTalentDetails({
+                        englishLevel,
+                        notConsidered,
+                        preferredLanguages,
+                        userId: currentUser?.id,
+                        completedStep: OnboardingSteps.STEP_03,
+                    }),
+                );
+                return true;
+            }
+
             await dispatch(
-                actions.updateTalentDetails({
+                talentActions.updateTalentDetails({
                     englishLevel,
                     notConsidered,
                     preferredLanguages,
@@ -211,7 +278,7 @@ const SkillsStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
+        <>
             <Autocomplete
                 name="hardSkills"
                 control={control}
@@ -233,14 +300,13 @@ const SkillsStep: React.FC = () => {
                     name={'englishLevel'}
                     placeholder="Option"
                 />
-
                 {errors.englishLevel && (
                     <FormHelperText className={styles.hasError}>
                         {String(errors.englishLevel.message)}
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl>
+            <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
                     <Typography variant={'label'}>I do not consider</Typography>
                 </FormLabel>
@@ -278,7 +344,7 @@ const SkillsStep: React.FC = () => {
                 )}
             </FormControl>
             <SkillsProjectLinks control={control} errors={errors} />
-        </FormControl>
+        </>
     );
 };
 

@@ -1,17 +1,23 @@
-import { UserRole } from 'shared/build/index.js';
-
 import {
     Button,
+    Checkbox,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,
     Link,
     RadioGroup,
+    Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
+import {
+    UserRole,
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
@@ -35,6 +41,12 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    const [isTermsAcceptedAfterSubmit, setIsTermsAcceptedAfterSubmit] =
+        useState({
+            isFormSubmitted: false,
+            isTermsAccepted: false,
+        });
+
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
@@ -42,9 +54,41 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
-            void handleSubmit(onSubmit)(event_);
+            event_.preventDefault();
+
+            setIsTermsAcceptedAfterSubmit({
+                isFormSubmitted: true,
+                isTermsAccepted: isTermsAcceptedAfterSubmit.isTermsAccepted,
+            });
+
+            if (isTermsAcceptedAfterSubmit.isTermsAccepted) {
+                void handleSubmit(onSubmit)(event_);
+            }
         },
-        [handleSubmit, onSubmit],
+        [handleSubmit, onSubmit, isTermsAcceptedAfterSubmit],
+    );
+
+    const handleCheckboxChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setIsTermsAcceptedAfterSubmit({
+                isFormSubmitted: isTermsAcceptedAfterSubmit.isFormSubmitted,
+                isTermsAccepted: event.target.checked,
+            });
+        },
+        [isTermsAcceptedAfterSubmit],
+    );
+
+    const checkboxLabel = (
+        <Typography variant="body1" className={styles.termsLabel}>
+            I agree to the
+            <span className={styles.bsaTermsLinkWrapper}>
+                {/* TODO: replace with actual terms link */}
+                <Link to="/" className={styles.bsaTermsLink}>
+                    BSA Talents Terms
+                </Link>
+            </span>
+            <span className={styles.required}>*</span>
+        </Typography>
     );
 
     return (
@@ -58,7 +102,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.email ? '' : 'email',
                     )}
                 >
-                    <FormLabel className="label">Email *</FormLabel>
+                    <FormLabel className="label">
+                        Email <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -72,7 +118,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className="label">Password *</FormLabel>
+                    <FormLabel className="label">
+                        Password <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -94,6 +142,21 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name={'role'}
                     />
                 </FormControl>
+
+                <FormControl className={styles.checkboxWrapper} required>
+                    <Checkbox
+                        label={checkboxLabel}
+                        isChecked={isTermsAcceptedAfterSubmit.isTermsAccepted}
+                        onChange={handleCheckboxChange}
+                    />
+                    {isTermsAcceptedAfterSubmit.isFormSubmitted &&
+                        !isTermsAcceptedAfterSubmit.isTermsAccepted && (
+                            <FormHelperText className={styles.hasError}>
+                                Please accept BSA Talents Terms to continue
+                            </FormHelperText>
+                        )}
+                </FormControl>
+
                 <Button
                     label="Continue"
                     className={getValidClassNames('btn', styles.btnLogin)}
@@ -104,6 +167,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Link className="cta" to={'/sign-in'}>
                     I already have an account
                 </Link>
+                {/* TODO: replace with actual privacy policy link */}
                 <Link to={'/'} className="span">
                     Privacy Policy
                 </Link>

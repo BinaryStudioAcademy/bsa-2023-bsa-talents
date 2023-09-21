@@ -9,13 +9,16 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
+    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
 import {
+    userDetailsApproveValidationSchema,
     userDetailsCreateValidationSchema,
     userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
@@ -95,6 +98,53 @@ import {
  *            type: string
  *          cvId:
  *            type: string
+ *          talentBadges:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                score:
+ *                  type: number
+ *                level:
+ *                  type: string
+ *                isShown:
+ *                  type: boolean
+ *                badgeId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userDetailsId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *          talentHardSkills:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                hardSkillId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *                userDetailsId:
+ *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *                  type: string
+ *      ShortUserDetails:
+ *        type: object
+ *        properties:
+ *          userId:
+ *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            type: string
+ *          photoUrl:
+ *            type: string
+ *          fullName:
+ *            type: string
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -133,6 +183,20 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
+            path: UserDetailsApiPath.APPROVE,
+            method: 'PATCH',
+            validation: {
+                body: userDetailsApproveValidationSchema,
+            },
+            handler: (options) =>
+                this.approve(
+                    options as ApiHandlerOptions<{
+                        body: UserDetailsApproveRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
             path: UserDetailsApiPath.ROOT,
             method: 'GET',
             validation: {
@@ -157,11 +221,23 @@ class UserDetailsController extends ControllerBase {
                 );
             },
         });
+
+        this.addRoute({
+            path: UserDetailsApiPath.SHORT,
+            method: 'GET',
+            handler: (options) => {
+                return this.findShort(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsFindShortByRoleRequestDto;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    post:
      *      tags:
      *        - User Details
@@ -250,6 +326,14 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          cvId:
      *            type: string
+     *          talentBadges:
+     *            type: array
+     *            items:
+     *              type: string
+     *          talentHardSkills:
+     *            type: array
+     *            items:
+     *              type: string
      */
     private async create(
         options: ApiHandlerOptions<{
@@ -264,7 +348,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    patch:
      *      tags:
      *        - User Details
@@ -376,6 +460,14 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          cvId:
      *            type: string
+     *          talentBadges:
+     *            type: array
+     *            items:
+     *              type: string
+     *          talentHardSkills:
+     *            type: array
+     *            items:
+     *              type: string
      */
     private async update(
         options: ApiHandlerOptions<{
@@ -390,7 +482,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    get:
      *      tags:
      *        - User Details
@@ -519,6 +611,47 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
+     * /user-details/short:
+     *    get:
+     *      tags: [User Details]
+     *      description: Returns short users details by user role
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: userType
+     *          required: true
+     *          description: The role to filter users by.
+     *          schema:
+     *            type: string
+     *            enum:
+     *              - talent
+     *              - employer
+     *          example: talent
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                   $ref: '#/components/schemas/ShortUserDetails'
+     */
+
+    private async findShort(
+        options: ApiHandlerOptions<{
+            query: UserDetailsFindShortByRoleRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userType } = options.query;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findShortByRole(userType),
+        };
+    }
+
+    /**
+     * @swagger
      * /user-details/{userId}:
      *    get:
      *      tags: [User Details]
@@ -552,6 +685,65 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/approve:
+     *   patch:
+     *     tags:
+     *       - User Details
+     *     description: Approves user's details
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       description: User detail approve object
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/UserDetailsApproveRequestDto'
+     *           examples:
+     *             example1:
+     *               value:
+     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                 isApproved: false
+     *                 deniedReason: 'Write here reasons'
+     *             example2:
+     *               value:
+     *                 userId: '550e8400-e29b-41d4-a716-446655440000'
+     *                 isApproved: true
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: boolean
+     * components:
+     *   schemas:
+     *     UserDetailsApproveRequestDto:
+     *       type: object
+     *       properties:
+     *         userId:
+     *           type: string
+     *           format: uuid
+     *           example: '550e8400-e29b-41d4-a716-446655440000'
+     *         isApproved:
+     *           type: boolean
+     *         deniedReason:
+     *           type: string
+     */
+
+    private async approve(
+        options: ApiHandlerOptions<{
+            body: UserDetailsApproveRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.approve(options.body),
         };
     }
 }

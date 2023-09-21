@@ -1,3 +1,11 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: var(--step-width);
+    padding: 10px;
+}
+
 .stepContent {
     display: flex;
     flex-direction: column;
@@ -57,6 +65,9 @@
 }
 
 .stepButtons {
+    display: flex;
+    align-items: center;
+
     .button {
         width: 104px;
         height: 36px;
@@ -64,6 +75,13 @@
         font-weight: 500;
         font-size: 13px;
         text-transform: capitalize;
+    }
+
+    .buttonPlaceholder {
+        display: inline-block;
+        width: 104px;
+        height: 36px;
+        margin: 5px;
     }
 }
 
@@ -95,6 +113,12 @@
         font-size: 13px;
         text-transform: none;
     }
+
+    .buttonPlaceholder {
+        width: 181px;
+        height: 36px;
+        margin: 7px;
+    }
 }
 
 .stepOutlet {
@@ -103,7 +127,7 @@
     align-items: center;
 }
 
-@media screen and (width <= 660px) {
+@media screen and (width <=660px) {
     .stepName {
         font-size: 15px;
     }
@@ -118,10 +142,19 @@
         .button {
             width: 60px;
         }
+
+        .buttonPlaceholder {
+            width: 60px;
+        }
     }
 
     .wideStepButtons {
         .button {
+            width: 120px;
+            height: 50px;
+        }
+
+        .buttonPlaceholder {
             width: 120px;
             height: 50px;
         }

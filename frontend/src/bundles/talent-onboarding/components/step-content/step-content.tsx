@@ -1,14 +1,15 @@
 import {
     Button,
+    FormControl,
     Grid,
     RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
-import { useFormSubmit } from '../../context/context.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
@@ -49,7 +50,11 @@ const StepContent: React.FC<Properties> = ({
                 </Typography>
             </Grid>
             <Grid className={styles.stepBody}>
-                <Grid className={styles.stepOutlet}>{<RouterOutlet />}</Grid>
+                <Grid className={styles.stepOutlet}>
+                    <FormControl className={styles.form}>
+                        {<RouterOutlet />}
+                    </FormControl>
+                </Grid>
                 <Grid
                     className={getValidClassNames(
                         currentStep === STEPS_NUMBER
@@ -57,26 +62,28 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    <Button
-                        onClick={
-                            currentStep === STEPS_NUMBER
-                                ? undefined
-                                : onPreviousStep
-                        }
-                        label={
-                            currentStep === STEPS_NUMBER
-                                ? 'Save without publishing'
-                                : 'Back'
-                        }
-                        variant={
-                            currentStep === STEP_ONE ? 'contained' : 'outlined'
-                        }
-                        className={getValidClassNames(
-                            styles.button,
-                            styles.buttonBack,
-                        )}
-                        disabled={currentStep === STEP_ONE}
-                    />
+                    {currentStep !== STEP_ONE && (
+                        <Button
+                            onClick={
+                                currentStep === STEPS_NUMBER
+                                    ? undefined
+                                    : onPreviousStep
+                            }
+                            label={
+                                currentStep === STEPS_NUMBER
+                                    ? 'Save without publishing'
+                                    : 'Back'
+                            }
+                            variant="outlined"
+                            className={getValidClassNames(
+                                styles.button,
+                                styles.buttonBack,
+                            )}
+                        />
+                    )}
+                    {currentStep === STEP_ONE && (
+                        <Grid className={styles.buttonPlaceholder} />
+                    )}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER
