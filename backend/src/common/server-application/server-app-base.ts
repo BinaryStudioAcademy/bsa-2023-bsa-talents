@@ -57,7 +57,6 @@ class ServerAppBase implements ServerApp {
 
     public addRoute(parameters: ServerAppRouteParameters): void {
         const { path, method, preHandler, handler, validation } = parameters;
-
         this.app.route({
             url: path,
             method,
