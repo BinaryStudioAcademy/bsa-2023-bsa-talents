@@ -1,5 +1,3 @@
-import { AccountCircle, InsertPhotoOutlined } from '@mui/icons-material';
-
 import {
     Button,
     FormControl,
@@ -266,15 +264,9 @@ const OnboardingForm: React.FC = () => {
                                 item
                                 className={styles.photoWrapper}
                                 style={renderFileUrl({
-                                    file: watch('photo'),
+                                    file: errors.photo ? null : watch('photo'),
                                 })}
-                            >
-                                {!watch('photo') && (
-                                    <AccountCircle
-                                        className={styles.photoIcon}
-                                    />
-                                )}
-                            </Grid>
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a photo"
@@ -287,15 +279,11 @@ const OnboardingForm: React.FC = () => {
                                 item
                                 className={styles.photoWrapper}
                                 style={renderFileUrl({
-                                    file: watch('companyLogo'),
+                                    file: errors.companyLogo
+                                        ? null
+                                        : watch('companyLogo'),
                                 })}
-                            >
-                                {!watch('companyLogo') && (
-                                    <InsertPhotoOutlined
-                                        className={styles.photoWrapper}
-                                    />
-                                )}
-                            </Grid>
+                            ></Grid>
 
                             <EmployerFileUpload
                                 label="Uphoad a company logo"
@@ -305,27 +293,16 @@ const OnboardingForm: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        onClick={handleFormSubmit}
-                        label="Preview"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.previewButton,
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        onClick={handleFormSubmit}
-                        label="Submit for verification"
-                        className={getValidClassNames(
-                            styles.buttonRegistration,
-                            styles.submitButton,
-                        )}
-                    />
-                </Grid>
+
+                <Button
+                    type="submit"
+                    onClick={handleFormSubmit}
+                    label="Submit for verification"
+                    className={getValidClassNames(
+                        styles.buttonRegistration,
+                        styles.submitButton,
+                    )}
+                />
             </FormControl>
         </Grid>
     );
