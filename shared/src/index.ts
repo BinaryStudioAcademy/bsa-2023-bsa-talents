@@ -6,12 +6,12 @@ export {
     ContactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
-export { type ChatMessageGetAllItemResponseDto } from './bundles/chat/chat.js';
 export {
-    FileApiPath,
-    type FileUploadResponse,
-    type UploadedFile,
-} from './bundles/file/file.js';
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
+    type ChatMessageGetAllResponseDto,
+} from './bundles/chat/chat.js';
+export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
@@ -45,9 +45,11 @@ export {
     userDetailsCreateValidationSchema,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,
+    type UserDetailsShortResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
