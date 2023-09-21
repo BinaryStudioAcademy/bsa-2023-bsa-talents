@@ -100,7 +100,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     Skills
                 </Typography>
                 <ul className={styles.skills}>
-                    {candidateParameters.hardSkills.map((skill) => (
+                    {(candidateParameters.hardSkills ?? []).map((skill) => (
                         <li key={skill}>
                             <Chip label={skill} />
                         </li>

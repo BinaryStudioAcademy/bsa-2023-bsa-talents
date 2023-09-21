@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import { type UserDetailsGeneralCustom } from '~/bundles/employer-onboarding/types/types.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
@@ -10,11 +11,13 @@ import { searchCandidates, setFilters } from './actions.js';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
+    filteredCandidates: UserDetailsGeneralCustom[];
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     filters: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
+    filteredCandidates: [],
 };
 
 const { reducer, actions, name } = createSlice({
@@ -22,9 +25,10 @@ const { reducer, actions, name } = createSlice({
     name: 'employers',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(searchCandidates.fulfilled, (state) => {
+        builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
-            //TODO: set here also candidates which will be returned from server
+            state.filteredCandidates = [];
+            state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(searchCandidates.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

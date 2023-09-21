@@ -1,4 +1,4 @@
-import { mockCandidates } from '~/assets/mock-data/mock-data.js';
+// import { mockCandidates } from '~/assets/mock-data/mock-data.js';
 import {
     Button,
     Grid,
@@ -34,15 +34,15 @@ const FIELDS: [
 ] = [
     'searchType',
     'searchValue',
-    'activeSearchingOnly',
-    'jobTitles',
-    'userYearsOfExperience',
+    'searchActiveCandidatesOnly',
+    'jobTitle',
+    'yearsOfExperience',
     'hardSkills',
     'userBsaCharacteristics',
-    'userBsaBadges',
+    'BSABadges',
     'userBsaProject',
-    'userLocation',
-    'levelOfEnglish',
+    'location',
+    'englishLevel',
     'employmentType',
     'sortBy',
 ];
@@ -53,10 +53,16 @@ const Candidates: React.FC = () => {
         useAppForm<EmployeesFiltersDto>({
             defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
         });
-    const { dataStatus, filters } = useAppSelector(({ employer }) => ({
-        dataStatus: employer.dataStatus,
-        filters: employer.filters,
-    }));
+    const { dataStatus, filters, filteredCandidates } = useAppSelector(
+        ({ employer }) => ({
+            dataStatus: employer.dataStatus,
+            filters: employer.filters,
+            filteredCandidates: employer.filteredCandidates,
+        }),
+    );
+
+    // console.log('filteredCand', filteredCandidates);
+
     const watchedValues = watch(FIELDS);
     const dispatch = useAppDispatch();
     const [isFilterOpened, setIsFilterOpened] = useState(false);
@@ -84,6 +90,11 @@ const Candidates: React.FC = () => {
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
+
+    useEffect(() => {
+        void dispatch(employerActions.searchCandidates(filters));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Grid className={styles.searchPageWrapper}>
@@ -141,9 +152,9 @@ const Candidates: React.FC = () => {
                             isFilterOpened ? styles.searchResultsHidden : '',
                         )}
                     >
-                        {mockCandidates.map((candidate) => (
+                        {filteredCandidates.map((candidate) => (
                             <CandidateProfile
-                                key={candidate.cvId}
+                                key={candidate.id}
                                 isProfileCard
                                 candidateData={candidate}
                             />

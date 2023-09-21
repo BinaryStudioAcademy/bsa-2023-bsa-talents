@@ -1,17 +1,21 @@
-type EmployeesFiltersDto = {
-    searchType: string;
-    searchValue: string;
-    activeSearchingOnly: boolean;
-    jobTitles: string[];
-    userYearsOfExperience: string[];
-    hardSkills: string[];
-    userBsaCharacteristics: string[];
-    userBsaBadges: string[];
-    userBsaProject: string[];
-    userLocation: string[];
-    levelOfEnglish: string[];
-    employmentType: string[];
-    sortBy: string;
-};
+// type EmployeesFiltersDto = {
+//     searchType: string;
+//     searchValue: string;
+//     searchActiveCandidatesOnly: boolean;
+//     jobTitle: string[];
+//     yearsOfExperience: string[];
+//     hardSkills: string[];
+//     userBsaCharacteristics: string[];
+//     BSABadges: string[];
+//     userBsaProject: string[];
+//     location: string[];
+//     englishLevel: string[];
+//     employmentType: string[];
+//     sortBy: string;
+// };
+
+import { type UserDetailsSearchUsersRequestDto } from './types.js';
+
+type EmployeesFiltersDto = UserDetailsSearchUsersRequestDto;
 
 export { type EmployeesFiltersDto };

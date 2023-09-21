@@ -11,7 +11,7 @@ import {
 
 type UserDetailsSearchUsersRequestDto = {
     sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value'];
-    isBaseSearch?: boolean;
+    searchType?: string;
     searchValue: string;
     searchActiveCandidatesOnly: boolean;
     jobTitle?: ValueOf<typeof JobTitle>[];

@@ -19,7 +19,7 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             ),
         ),
 
-    isBaseSearch: joi.boolean(),
+    searchType: joi.string(),
 
     searchValue: joi.string().trim(),
 
