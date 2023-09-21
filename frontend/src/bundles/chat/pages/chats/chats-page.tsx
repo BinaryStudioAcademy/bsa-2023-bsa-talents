@@ -24,11 +24,7 @@ import {
     ChatInfoIcon,
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
-import {
-    companyInfo,
-    currentUser,
-    messages,
-} from '../../mock-data/mock-data.js';
+import { companyInfo } from '../../mock-data/mock-data.js';
 import { type ChatListItemType } from './../../types/types.js';
 import styles from './styles.module.scss';
 
@@ -40,7 +36,7 @@ const ChatsPage: React.FC = () => {
 
     const [isOpenChatList, setIsOpenChatList] = useState(false);
     const [isOpenInfo, setIsOpenInfo] = useState(false);
-    const [chatMessages, setChatMessages] = useState(messages);
+    // const [chatMessages, setChatMessages] = useState(messages);
 
     const handleOpenChatListButton = useCallback(() => {
         setIsOpenChatList(!isOpenChatList);
@@ -57,9 +53,10 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats } = useAppSelector(({ auth, chat }) => ({
+    const { user, chats, chatMessages } = useAppSelector(({ auth, chat }) => ({
         user: auth.currentUser,
         chats: chat.chats,
+        chatMessages: chat.current.messages,
     }));
 
     useEffect(() => {
@@ -76,19 +73,17 @@ const ChatsPage: React.FC = () => {
     });
 
     // TODO: will be replaced by send message logic
-    const sendMessage = useCallback(
-        (message: string) => {
-            setChatMessages([
-                ...chatMessages,
-                {
-                    ...currentUser,
-                    value: message,
-                    id: Date.now().toString(),
-                },
-            ]);
-        },
-        [chatMessages],
-    );
+    const sendMessage = useCallback((message: string) => {
+        alert(message);
+        // setChatMessages([
+        //     ...chatMessages,
+        //     {
+        //         ...currentUser,
+        //         value: message,
+        //         id: Date.now().toString(),
+        //     },
+        // ]);
+    }, []);
 
     // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
@@ -96,6 +91,9 @@ const ChatsPage: React.FC = () => {
             isOpenChatList && setIsOpenChatList(false);
             const participant = items.find((item) => id === item.userId);
             if (participant) {
+                void dispatch(
+                    chatActions.getAllMessagesByChatId(participant.chatId),
+                );
                 setCurrentChat({
                     ...currentChat,
                     userName: participant.username,
@@ -103,19 +101,33 @@ const ChatsPage: React.FC = () => {
                 });
             }
         },
-        [isOpenChatList, currentChat],
+        [isOpenChatList, currentChat, dispatch],
     );
 
-    const test = chats.map((chat) => {
+    const chatGroups = chats.map((chat) => {
         const timeSince = formatDistanceToNowStrict(
             Date.parse(chat.lastMessageCreatedAt),
         );
+
         return {
+            chatId: chat.chatId,
             userId: chat.partner.id,
             username: chat.partner.profileName as string,
             lastMessage: chat.lastMessage,
             lastMessageDate: `${timeSince} ago`,
-            avatar: chat.partner.avatar,
+            avatar: chat.partner.avatar?.url,
+            fullName: chat.partner.fullName,
+        };
+    });
+
+    const messagesMapped = chatMessages.map((message) => {
+        const match = chatGroups.find((it) => it.userId === message.senderId);
+        return {
+            id: message.id,
+            userId: message.senderId,
+            value: message.message,
+            avatarUrl: match?.avatar,
+            userFullName: match?.fullName ?? '',
         };
     });
 
@@ -141,7 +153,7 @@ const ChatsPage: React.FC = () => {
                         )}
                     >
                         <ChatList
-                            chatItems={test}
+                            chatItems={chatGroups}
                             onItemClick={handleItemClick}
                         />
                     </Grid>
@@ -176,7 +188,7 @@ const ChatsPage: React.FC = () => {
                         avatarUrl={currentChat.avatar}
                     />
                     <MessageList
-                        messages={chatMessages}
+                        messages={messagesMapped}
                         className={styles.messageList}
                     />
                     <MessageInput

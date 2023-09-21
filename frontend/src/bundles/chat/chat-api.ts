@@ -61,14 +61,13 @@ class ChatApi extends HttpApiBase {
     public async getAllMessagesByChatId(payload: string): Promise<{
         items: MessageResponseDto[];
     }> {
-        const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.$CHAT_ID, payload, {}),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
-        );
+        const path = ChatMessagesApiPath.$CHAT_ID.replace(':chatId', payload);
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
+
         return response.json<{
             items: MessageResponseDto[];
         }>();
