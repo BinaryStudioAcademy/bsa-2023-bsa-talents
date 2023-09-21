@@ -10,10 +10,10 @@ const mockCandidates = [
         description:
             'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes1 on purpose (injected humour and the like)',
         hardSkills: [
-            { value: 'React', label: 'React' },
-            { value: 'CSS', label: 'CSS' },
-            { value: 'Python', label: 'Python' },
-            { value: 'Java', label: 'Java' },
+            { id: 'React', name: 'React' },
+            { id: 'CSS', name: 'CSS' },
+            { id: 'Python', name: 'Python' },
+            { id: 'Java', name: 'Java' },
         ],
         experienceYears: 3,
         jobTitle: 'JS',
@@ -35,9 +35,9 @@ const mockCandidates = [
         description:
             'Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)',
         hardSkills: [
-            { value: 'React', label: 'React' },
-            { value: 'Node.js', label: 'Node.js' },
-            { value: 'JavaScript', label: 'JavaScript' },
+            { id: 'React', name: 'React' },
+            { id: 'Node.js', name: 'Node.js' },
+            { id: 'JavaScript', name: 'JavaScript' },
         ],
         experienceYears: 3,
         jobTitle: 'JS',
@@ -58,7 +58,7 @@ const mockCandidates = [
         preferredLanguages: ['English', 'French'],
         description:
             'looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)',
-        hardSkills: [{ value: 'React', label: 'React' }],
+        hardSkills: [{ id: 'React', name: 'React' }],
         experienceYears: 3,
         jobTitle: 'JS',
         fullName: 'Test Test',
@@ -78,7 +78,7 @@ const mockCandidates = [
         preferredLanguages: ['English', 'French'],
         description:
             'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)',
-        hardSkills: [{ value: 'React', label: 'React' }],
+        hardSkills: [{ id: 'React', name: 'React' }],
         experienceYears: 3,
         jobTitle: 'JS',
         fullName: 'Test Test',
@@ -98,7 +98,7 @@ const mockCandidates = [
         preferredLanguages: ['English', 'French'],
         description:
             'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)',
-        hardSkills: [{ value: 'React', label: 'React' }],
+        hardSkills: [{ id: 'React', name: 'React' }],
         experienceYears: 3,
         jobTitle: 'JS',
         fullName: 'Test Test',
