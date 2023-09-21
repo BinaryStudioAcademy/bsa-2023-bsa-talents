@@ -702,7 +702,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/deny/{userId}:
+     * /user-details/{userId}/deny:
      *   patch:
      *     tags:
      *       - User Details
@@ -759,7 +759,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/approve/{userId}:
+     * /user-details/{userId}/approve:
      *    patch:
      *      tags: [User Details]
      *      description: Approve user's details

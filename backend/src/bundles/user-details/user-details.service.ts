@@ -194,6 +194,7 @@ class UserDetailsService implements Service {
 
         await this.userDetailsRepository.update({
             isApproved: true,
+            deniedReason: '',
             id: userDetailsId,
         });
 
