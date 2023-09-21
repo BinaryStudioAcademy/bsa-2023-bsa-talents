@@ -1,4 +1,7 @@
-import { actions as authActions } from '~/bundles/auth/store/auth.js';
+import {
+    actions as authActions,
+    type State,
+} from '~/bundles/auth/store/auth.js';
 import {
     Loader,
     Notifications,
@@ -10,12 +13,15 @@ import {
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { type RootReducer } from '~/framework/store/store.js';
+
+const getAuthState = (state: RootReducer): State => state.auth;
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    const dataStatus = useAppSelector(
+        (rootState) => getAuthState(rootState).dataStatus,
+    );
 
     const token = localStorage.getItem('token');
     useEffect(() => {
