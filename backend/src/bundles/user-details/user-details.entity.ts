@@ -1,5 +1,6 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
+import { type FileModel } from '../files/file.model.js';
 import {
     type CountryList,
     type EmploymentType,
@@ -66,6 +67,10 @@ class UserDetailsEntity implements Entity {
 
     private 'completedStep': ValueOf<typeof OnboardingSteps> | null;
 
+    private 'photo': ValueOf<typeof FileModel> | null;
+
+    private 'companyLogo': ValueOf<typeof FileModel> | null;
+
     private constructor({
         id,
         userId,
@@ -94,6 +99,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        photo,
+        companyLogo,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -122,6 +129,8 @@ class UserDetailsEntity implements Entity {
         this.employerPosition = employerPosition;
         this.cvId = cvId;
         this.completedStep = completedStep;
+        this.photo = photo;
+        this.companyLogo = companyLogo;
     }
 
     public static initialize({
@@ -152,6 +161,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        photo,
+        companyLogo,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -181,6 +192,8 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            photo,
+            companyLogo,
         });
     }
 
@@ -211,6 +224,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        photo,
+        companyLogo,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -240,6 +255,8 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            photo,
+            companyLogo,
         });
     }
 
@@ -272,6 +289,8 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            photo: this.photo,
+            companyLogo: this.companyLogo,
         };
     }
 
@@ -304,6 +323,8 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            photo: this.photo,
+            companyLogo: this.companyLogo,
         };
     }
 }

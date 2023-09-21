@@ -1,3 +1,4 @@
+import { type FileModel } from '~/bundles/files/file.model.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
@@ -38,6 +39,8 @@ type UserDetailsProperties = {
     employerPosition: string | null;
     cvId: string | null;
     completedStep: ValueOf<typeof OnboardingSteps> | null;
+    photo: ValueOf<typeof FileModel> | null;
+    companyLogo: ValueOf<typeof FileModel> | null;
 };
 
 export { type UserDetailsProperties };

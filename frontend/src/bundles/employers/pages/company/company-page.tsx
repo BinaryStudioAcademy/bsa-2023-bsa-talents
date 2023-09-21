@@ -1,6 +1,5 @@
 import { LocationOn as LocationIcon } from '@mui/icons-material';
 
-import { companyInfo } from '~/bundles/chat/mock-data/mock-data.js';
 import {
     Avatar,
     Grid,
@@ -15,7 +14,6 @@ import {
 import { employersApi } from '~/bundles/employers/employers.js';
 
 import { type EmployerDataDto } from '../../types/employers-data-dto.js';
-import { mockCompanyData } from './mock-data.js';
 import styles from './styles.module.scss';
 
 const CompanyPage: React.FC = () => {
@@ -25,8 +23,8 @@ const CompanyPage: React.FC = () => {
 
     useEffect(() => {
         async function fetchCompanyData(): Promise<void> {
-            await employersApi.getEmployerDetails(id as string);
-            setCompanyData(mockCompanyData); // Replace with data from server
+            const data = await employersApi.getEmployerDetails(id as string);
+            setCompanyData(data);
         }
         void fetchCompanyData();
     }, [id]);
@@ -34,7 +32,10 @@ const CompanyPage: React.FC = () => {
     return companyData ? (
         <Grid container className={styles.container}>
             <Grid container className={styles.representor}>
-                <Avatar src={companyInfo.logoUrl} className={styles.logo} />
+                <Avatar
+                    src={companyData.companyLogo.url}
+                    className={styles.logo}
+                />
                 <Grid>
                     <Typography variant="h3">
                         {companyData.companyName}
@@ -51,8 +52,7 @@ const CompanyPage: React.FC = () => {
                         variant="body1"
                         className={styles.secondaryText}
                     >
-                        {companyData.employerFullName},{' '}
-                        {companyData.employerPosition}
+                        {companyData.fullName}, {companyData.employerPosition}
                     </Typography>
                 </Grid>
             </Grid>
@@ -66,9 +66,9 @@ const CompanyPage: React.FC = () => {
                 Company website
                 <a
                     className={styles.websiteUrl}
-                    href={companyInfo.companyWebsite}
+                    href={companyData.companyWebsite}
                 >
-                    {companyInfo.companyWebsite}
+                    {companyData.companyWebsite}
                 </a>
             </Typography>
         </Grid>

@@ -27,7 +27,9 @@ class UserDetailsRepository implements Repository {
     ): Promise<UserDetailsEntity | null> {
         const details = await this.userDetailsModel
             .query()
-            .findOne({ ...payload });
+            .findOne({ ...payload })
+            .withGraphFetched('[photo, companyLogo]')
+            .execute();
 
         if (!details) {
             return null;
@@ -61,6 +63,8 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            photo: details.photo,
+            companyLogo: details.companyLogo,
         });
     }
 
@@ -224,6 +228,8 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            photo: details.photo,
+            companyLogo: details.companyLogo,
         });
     }
 
@@ -264,6 +270,8 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            photo: details.photo,
+            companyLogo: details.companyLogo,
         });
     }
 

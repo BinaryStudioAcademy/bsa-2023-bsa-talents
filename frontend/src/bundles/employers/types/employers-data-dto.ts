@@ -1,7 +1,7 @@
 type EmployerDataDto = {
     companyWebsite: string;
-    employerFullName: string;
-    companyLogoUrl: string;
+    fullName: string;
+    companyLogo: { url: string };
     employerPosition: string;
     companyName: string;
     location: string;
