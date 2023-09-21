@@ -1,4 +1,4 @@
-import { EmailRounded, FolderShared } from '@mui/icons-material';
+import { EmailRounded, FolderShared, Home } from '@mui/icons-material';
 
 import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -6,9 +6,14 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
+import { type UserRole, type ValueOf } from '../../types/types.js';
 import styles from './styles.module.scss';
 
-const menuItems = [
+type Properties = {
+    role?: ValueOf<typeof UserRole>;
+};
+
+const generalMenu = [
     {
         link: AppRoute.CANDIDATES,
         name: 'Candidates',
@@ -21,7 +26,15 @@ const menuItems = [
     },
 ];
 
-const Sidebar: React.FC = () => {
+const adminMenu = [
+    {
+        link: AppRoute.ROOT,
+        name: 'Home',
+        icon: <Home />,
+    },
+];
+
+const Sidebar: React.FC<Properties> = ({ role }) => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
 
     const { isApproved } = useAppSelector(
@@ -31,6 +44,8 @@ const Sidebar: React.FC = () => {
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
+
+    const menuItems = role === 'admin' ? adminMenu : generalMenu;
 
     return (
         <>
