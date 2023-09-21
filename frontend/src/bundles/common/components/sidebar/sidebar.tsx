@@ -2,6 +2,7 @@ import { EmailRounded, FolderShared } from '@mui/icons-material';
 
 import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { UserRole } from '~/bundles/users/users.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
@@ -23,9 +24,13 @@ const menuItems = [
 
 const Sidebar: React.FC = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
-
-    const { isApproved } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
+    const currentUser = useAppSelector(
+        (state: RootReducer) => state.auth.currentUser,
+    );
+    const { isApproved } = useAppSelector((state: RootReducer) =>
+        currentUser?.role == UserRole.TALENT
+            ? state.talentOnBoarding
+            : state.employerOnBoarding,
     );
 
     const handleToggleSidebar = useCallback(() => {
