@@ -1,4 +1,5 @@
-import DocumentViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
+import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
+import { type DocViewerProps } from '@cyntler/react-doc-viewer/dist/esm/DocViewer.js';
 import { Article, LinkedIn, Phone } from '@mui/icons-material';
 
 import { Grid, Typography } from '~/bundles/common/components/components.js';
@@ -7,6 +8,8 @@ import { useState } from '~/bundles/common/hooks/hooks.js';
 
 import { mapDocumentForViewer } from './helpers/map-document-for-viewer.helper.js';
 import styles from './styles.module.scss';
+
+const DocumentViewer = DocViewer as unknown as React.FC<DocViewerProps>;
 
 const CVAndContacts: React.FC = () => {
     // TODO: Change with actual selected candidate's data:
