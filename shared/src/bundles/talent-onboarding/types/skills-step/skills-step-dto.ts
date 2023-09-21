@@ -1,5 +1,5 @@
 type SkillsStepDto = {
-    hardSkills: { value: string; label: string }[];
+    hardSkills: { id: string; name: string }[];
     englishLevel: string;
     notConsidered: string[];
     preferredLanguages: string[];

@@ -6,7 +6,7 @@ import {
 
 //TODO delete when backend is ready
 type HardSkillsDto = {
-    hardSkills: { value: string; label: string }[];
+    hardSkills: { id: string; name: string }[];
 };
 
 type PhotoDto = {

@@ -59,7 +59,7 @@ const ScoresAndSkillsContainer: React.FC = () => {
                 ]}
             >
                 {hardSkills?.map((skill) => {
-                    return <Tag key={skill.label} value={skill.label} />;
+                    return <Tag key={skill.id} value={skill.name} />;
                 })}
             </View>
         </View>
