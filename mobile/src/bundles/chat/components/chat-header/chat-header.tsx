@@ -47,6 +47,7 @@ const ChatHeader: React.FC = () => {
             style={[
                 globalStyles.flexDirectionRow,
                 globalStyles.justifyContentSpaceBetween,
+                globalStyles.alignItemsCenter,
                 globalStyles.pv25,
                 globalStyles.ph15,
                 styles.headerContainer,

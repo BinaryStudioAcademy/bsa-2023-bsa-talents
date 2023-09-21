@@ -1,4 +1,5 @@
 const IconName = {
+    ARROW_LEFT_CIRCLE: 'arrow-left-circle',
     ARROW_DROP_UP: 'arrow-drop-up',
     ARROW_DROP_DOWN: 'arrow-drop-down',
     CLOSE: 'close',

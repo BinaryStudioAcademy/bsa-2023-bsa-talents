@@ -8,8 +8,8 @@ import {
 import {
     EMPLOYER_ID,
     INTERVAL,
-    newMessageForChat1,
-    newMessageForChat2,
+    NEW_MESSAGE_FOR_CHAT_1,
+    NEW_MESSAGE_FOR_CHAT_2,
 } from '~/bundles/chat/constants/constants';
 import { findUserInChat } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
@@ -45,7 +45,7 @@ const Chat: React.FC = () => {
                 () =>
                     void dispatch(
                         chatActions.sendMessage({
-                            ...newMessageForChat1,
+                            ...NEW_MESSAGE_FOR_CHAT_1,
                             id: new Date().toISOString(),
                             createdAt: new Date().toISOString(),
                         }),
@@ -56,7 +56,7 @@ const Chat: React.FC = () => {
                 () =>
                     void dispatch(
                         chatActions.sendMessage({
-                            ...newMessageForChat2,
+                            ...NEW_MESSAGE_FOR_CHAT_2,
                             id: new Date().toISOString(),
                             createdAt: new Date().toISOString(),
                         }),
