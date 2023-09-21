@@ -1,5 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 import {
     ChatHeader,
@@ -8,9 +9,12 @@ import {
     MessageInput,
     MessageList,
 } from '~/bundles/chat/components/components.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useState,
@@ -23,9 +27,9 @@ import {
 import {
     companyInfo,
     currentUser,
-    items,
     messages,
 } from '../../mock-data/mock-data.js';
+import { type ChatListItemType } from './../../types/types.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
@@ -51,6 +55,19 @@ const ChatsPage: React.FC = () => {
         !isScreenLessLG && setIsOpenInfo(false);
     }, [isScreenLessMD, isScreenLessLG]);
 
+    const dispatch = useAppDispatch();
+
+    const { user, chats } = useAppSelector(({ auth, chat }) => ({
+        user: auth.currentUser,
+        chats: chat.chats,
+    }));
+
+    useEffect(() => {
+        if (user) {
+            void dispatch(chatActions.getAllChatsByUserId(user.id));
+        }
+    }, [dispatch, user]);
+
     // TODO: will be replaced by redux logic with server API
     const [currentChat, setCurrentChat] = useState({
         id: undefined,
@@ -75,7 +92,7 @@ const ChatsPage: React.FC = () => {
 
     // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
-        (id: string) => {
+        (id: string, items: ChatListItemType[]) => {
             isOpenChatList && setIsOpenChatList(false);
             const participant = items.find((item) => id === item.userId);
             if (participant) {
@@ -88,6 +105,19 @@ const ChatsPage: React.FC = () => {
         },
         [isOpenChatList, currentChat],
     );
+
+    const test = chats.map((chat) => {
+        const timeSince = formatDistanceToNowStrict(
+            Date.parse(chat.lastMessageCreatedAt),
+        );
+        return {
+            userId: chat.partner.id,
+            username: chat.partner.profileName as string,
+            lastMessage: chat.lastMessage,
+            lastMessageDate: `${timeSince} ago`,
+            avatar: chat.partner.avatar,
+        };
+    });
 
     return (
         <Grid container direction="column">
@@ -111,7 +141,7 @@ const ChatsPage: React.FC = () => {
                         )}
                     >
                         <ChatList
-                            chatItems={items}
+                            chatItems={test}
                             onItemClick={handleItemClick}
                         />
                     </Grid>

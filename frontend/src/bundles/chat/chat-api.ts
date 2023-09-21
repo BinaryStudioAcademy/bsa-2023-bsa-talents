@@ -22,7 +22,7 @@ type Constructor = {
 
 class ChatApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
+        super({ path: ApiPath.CHAT_MESSAGES, baseUrl, http, storage });
     }
 
     public async getAllMessages(): Promise<{
@@ -44,14 +44,15 @@ class ChatApi extends HttpApiBase {
     public async getAllChatsByUserId(payload: string): Promise<{
         items: ChatResponseDto[];
     }> {
-        const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.ROOT, payload, {}),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
+        const path = ChatMessagesApiPath.CHATS_$USER_ID.replace(
+            ':userId',
+            payload,
         );
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
         return response.json<{
             items: ChatResponseDto[];
         }>();

@@ -20,7 +20,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
     chatItems: ChatListItemType[];
-    onItemClick?: (id: string) => void;
+    onItemClick?: (id: string, items: ChatListItemType[]) => void;
 };
 
 const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
@@ -31,7 +31,7 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
         (id: string): void => {
             setItems(getItemsWithSelected(items, id));
             if (onItemClick) {
-                onItemClick(id);
+                onItemClick(id, items);
             }
         },
         [items, onItemClick],

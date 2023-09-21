@@ -37,7 +37,7 @@ const getAllChatsByUserId = createAsyncThunk<
     ChatResponseDto[],
     string,
     AsyncThunkConfig
->(`${sliceName}/get-messages-by-chat-id`, async (userId, { extra }) => {
+>(`${sliceName}/get-chats-by-user-id`, async (userId, { extra }) => {
     const { chatApi } = extra;
     const chats = await chatApi.getAllChatsByUserId(userId);
 
