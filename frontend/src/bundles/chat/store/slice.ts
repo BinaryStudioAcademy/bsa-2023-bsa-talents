@@ -79,6 +79,14 @@ const { reducer, actions, name } = createSlice({
             })
             .addCase(createMessage.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
+
+                state.chats = state.chats.map((chat) => {
+                    if (chat.chatId === action.payload.chatId) {
+                        chat.lastMessage = action.payload.message;
+                    }
+                    return chat;
+                });
+
                 state.current.messages = [
                     ...state.current.messages,
                     action.payload,
