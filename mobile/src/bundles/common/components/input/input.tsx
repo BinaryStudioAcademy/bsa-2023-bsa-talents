@@ -85,6 +85,7 @@ const Input = <T extends FieldValues>({
                 value={value}
                 onBlur={onBlur}
                 placeholderTextColor={Color.TEXT2}
+                multiline={multiline}
                 {...props}
                 style={[
                     globalStyles.flex1,
