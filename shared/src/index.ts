@@ -65,8 +65,12 @@ export {
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserResetPasswordRequestDto,
+    userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
