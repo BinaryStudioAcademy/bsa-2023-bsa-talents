@@ -5,11 +5,11 @@ import {
     RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import { STEPS_NUMBER, StepsList } from '../../constants/constants.js';
-import { useFormSubmit } from '../../context/context.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
