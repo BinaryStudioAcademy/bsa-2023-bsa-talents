@@ -1,17 +1,17 @@
 //TODO: mock data, will get this from db
 type Option = {
-    label: string;
-    value: string;
+    id: string;
+    name: string;
 };
 const mockHardSkills: Option[] = [
-    { value: 'React', label: 'React' },
-    { value: 'Node.js', label: 'Node.js' },
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'HTML', label: 'HTML' },
-    { value: 'CSS', label: 'CSS' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'Ruby', label: 'Ruby' },
+    { id: 'React', name: 'React' },
+    { id: 'Node.js', name: 'Node.js' },
+    { id: 'JavaScript', name: 'JavaScript' },
+    { id: 'HTML', name: 'HTML' },
+    { id: 'CSS', name: 'CSS' },
+    { id: 'Python', name: 'Python' },
+    { id: 'Java', name: 'Java' },
+    { id: 'Ruby', name: 'Ruby' },
 ];
 
 export { mockHardSkills };
