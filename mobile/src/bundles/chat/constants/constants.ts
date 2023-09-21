@@ -88,18 +88,16 @@ const chatListItems: Record<string, ChatDataRequestDto[]> | null = {
 };
 
 const newMessageForChat1 = {
-    id: '4',
-    senderId: EMPLOYER_ID,
-    senderName: EMPLOYER,
-    receiverId: FIRST_TALENT_ID,
-    receiverName: FIRST_TALENT_NAME,
-    receiverAvatar: FIRST_TALENT_AVATAR,
+    senderId: FIRST_TALENT_ID,
+    senderName: FIRST_TALENT_NAME,
+    senderAvatar: FIRST_TALENT_AVATAR,
+    receiverId: EMPLOYER_ID,
+    receiverName: EMPLOYER,
     chatId: 'chat1',
-    message: `New message from ${EMPLOYER}`,
+    message: `New message from ${FIRST_TALENT_NAME}`,
 };
 
 const newMessageForChat2 = {
-    id: '4',
     senderId: SECOND_TALENT_ID,
     senderName: SECOND_TALENT_NAME,
     senderAvatar: SECOND_TALENT_AVATAR,
@@ -109,4 +107,13 @@ const newMessageForChat2 = {
     message: `New message from ${SECOND_TALENT_NAME}`,
 };
 
-export { chatListItems, newMessageForChat1, newMessageForChat2 };
+const INTERVAL = 2000;
+
+export {
+    chatListItems,
+    EMPLOYER,
+    EMPLOYER_ID,
+    INTERVAL,
+    newMessageForChat1,
+    newMessageForChat2,
+};
