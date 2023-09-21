@@ -1,8 +1,6 @@
 export { type CompanyInfoDto } from './company-info/company-info-dto.js';
 export {
     type ChatListItemType,
-    type ChatMessageGetAllItemResponseDto,
-    type ChatMessageGetAllResponseDto,
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
