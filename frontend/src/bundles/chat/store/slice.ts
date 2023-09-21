@@ -102,7 +102,7 @@ const { reducer, actions, name } = createSlice({
             .addMatcher(
                 isAnyOf(
                     getAllMessages.rejected,
-                    getAllChatsByUserId.pending,
+                    getAllChatsByUserId.rejected,
                     getAllMessagesByChatId.rejected,
                     createMessage.rejected,
                 ),
