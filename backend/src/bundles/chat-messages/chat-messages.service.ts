@@ -3,6 +3,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type ChatMessagesRepository } from './chat-messages.repository.js';
+import { chatDtoToChatResponseDto } from './helpers/chat-dto-to-chat-response-dto.js';
 import {
     type ChatMessagesCreateRequestDto,
     type ChatResponseDto,
@@ -48,41 +49,7 @@ class ChatMessagesService implements Service {
             userId,
         );
 
-        const parsedChats = chats.map((chat) => {
-            const {
-                chatId,
-                lastMessageCreatedAt,
-                lastMessage,
-                sender,
-                receiver,
-            } = chat;
-
-            const conversationPartner =
-                userId === sender.userId ? receiver : sender;
-
-            // Get necessary fields from user details model
-            const {
-                userId: id,
-                profileName,
-                companyName,
-                photo,
-            } = conversationPartner;
-
-            // Get necessary fields from file model
-            const avatarUrl = photo ? photo.url : null;
-
-            return {
-                chatId,
-                lastMessageCreatedAt,
-                lastMessage,
-                partner: {
-                    id,
-                    profileName,
-                    companyName,
-                    avatarUrl,
-                },
-            };
-        });
+        const parsedChats = chats.map((chat) => chatDtoToChatResponseDto(chat));
 
         return {
             items: parsedChats,
