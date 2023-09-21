@@ -22,6 +22,10 @@ import { type CompanyInfoDto } from '~/bundles/talent/types/types';
 
 import { styles } from './styles';
 
+type Properties = {
+    companyInfo: CompanyInfoDto;
+};
+
 const radioButtons: RadioButtonProps[] = [
     {
         id: 'Yes',
@@ -32,10 +36,6 @@ const radioButtons: RadioButtonProps[] = [
         label: 'No',
     },
 ];
-
-type Properties = {
-    companyInfo: CompanyInfoDto;
-};
 
 const CompanyInfo: React.FC<Properties> = ({
     companyInfo: {
