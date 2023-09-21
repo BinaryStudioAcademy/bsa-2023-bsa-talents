@@ -1,52 +1,34 @@
-import {
-    type EmployeesFilterOption,
-    type EmployeesFiltersDto,
-} from '~/bundles/employer/types/types';
+import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/components/autocomplete-multi-selector-value';
+import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 // TODO: remove with real data
 
-const YEARS_EXPERIENCE: EmployeesFilterOption[] = [
-    { value: 'any', label: 'Any work experience' },
-    { value: '>1', label: 'Less than 1 year' },
-    { value: '1-2', label: '1-2 years' },
-    { value: '2-3', label: '2-3 years' },
-    { value: '3-5', label: '3-5 years' },
-    { value: '5>', label: '5+ years' },
+const YEARS_EXPERIENCE: AutocompleteMultiSelectorValue[] = [
+    { id: 'any', name: 'Any work experience' },
+    { id: '>1', name: 'Less than 1 year' },
+    { id: '1-2', name: '1-2 years' },
+    { id: '2-3', name: '2-3 years' },
+    { id: '3-5', name: '3-5 years' },
+    { id: '5>', name: '5+ years' },
 ];
-const BSA_CHARACTERISTICS: EmployeesFilterOption[] = [
-    { value: 'one', label: 'one' },
-    { value: 'two', label: 'two' },
-    { value: 'some', label: 'some' },
-];
-const HARD_SKILLS: EmployeesFilterOption[] = [
-    { value: 'React', label: 'React' },
-    { value: 'Node.js', label: 'Node.js' },
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'HTML', label: 'HTML' },
-    { value: 'CSS', label: 'CSS' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'Ruby', label: 'Ruby' },
-];
-const BSA_BADGES: EmployeesFilterOption[] = [
-    { value: 'one', label: 'one' },
-    { value: 'two', label: 'two' },
-    { value: 'some', label: 'some' },
+const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
+    { id: 'one', name: 'one' },
+    { id: 'two', name: 'two' },
+    { id: 'some', name: 'some' },
 ];
 
 const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const BSA_PROJECT: EmployeesFilterOption[] = [
-    { value: 'one', label: 'one' },
-    { value: 'two', label: 'two' },
-    { value: 'some', label: 'some' },
+const BSA_PROJECT: AutocompleteMultiSelectorValue[] = [
+    { id: 'one', name: 'one' },
+    { id: 'two', name: 'two' },
+    { id: 'some', name: 'some' },
 ];
 
 const DEFAULT_VALUES: EmployeesFiltersDto = {
     activeTalentsOnly: true,
     jobTitle: [],
     hardSkills: [],
-    BSABadges: [],
     BSACharacteristics: [],
     location: [],
     BSAProjectName: [],
@@ -56,11 +38,9 @@ const DEFAULT_VALUES: EmployeesFiltersDto = {
 };
 
 export {
-    BSA_BADGES,
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
-    HARD_SKILLS,
     YEARS_EXPERIENCE,
 };
