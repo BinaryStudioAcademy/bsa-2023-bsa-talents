@@ -16,12 +16,14 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
     currentCandidateDetails: UserDetailsGeneralCustom | null;
+    filteredCandidates: UserDetailsGeneralCustom[];
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     filters: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
     currentCandidateDetails: null,
+    filteredCandidates: [],
 };
 
 const { reducer, actions, name } = createSlice({
@@ -29,9 +31,10 @@ const { reducer, actions, name } = createSlice({
     name: 'employers',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(searchCandidates.fulfilled, (state) => {
+        builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
-            //TODO: set here also candidates which will be returned from server
+            state.filteredCandidates = [];
+            state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(getCandidateDetails.fulfilled, (state, action) => {
             state.currentCandidateDetails = action.payload;

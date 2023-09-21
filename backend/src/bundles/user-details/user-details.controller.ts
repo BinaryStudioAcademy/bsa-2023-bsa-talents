@@ -197,17 +197,18 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
-            path: UserDetailsApiPath.ROOT,
+            path: '',
             method: 'GET',
             validation: {
                 query: userDetailsSearchValidationSchema,
             },
-            handler: (options) =>
-                this.searchUsers(
+            handler: (options) => {
+                return this.searchUsers(
                     options as ApiHandlerOptions<{
                         query: UserDetailsSearchUsersRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -501,9 +502,9 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: isBaseSearch
+     *          name: searchType
      *          schema:
-     *            type: boolean
+     *            type: string
      *          description: Determines whether search type is base or extended
      *        - in: query
      *          name: searchActiveCandidatesOnly

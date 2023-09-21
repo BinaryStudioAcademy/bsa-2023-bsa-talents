@@ -57,9 +57,9 @@ class HttpApiBase implements HttpApi {
         return (await this.checkResponse(response)) as HttpApiResponse;
     }
 
-    protected getFullEndpoint<T extends Record<string, string>>(
-        ...parameters: [...string[], T]
-    ): string {
+    protected getFullEndpoint<
+        T extends Record<string, string | string[] | boolean>,
+    >(...parameters: [...string[], T]): string {
         const copiedParameters = [...parameters];
 
         const options = copiedParameters.pop() as T;

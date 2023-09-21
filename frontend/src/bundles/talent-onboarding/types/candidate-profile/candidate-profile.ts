@@ -8,7 +8,7 @@ type FirstSectionDetails = {
     experienceYears: string;
     englishLevel: string;
     badges: typeof mockBadges;
-    hardSkills: string[];
+    hardSkills?: string[];
     preferredLanguages: string[];
     description: string;
 };
@@ -19,7 +19,7 @@ type SecondSectionDetails = {
     photoId?: string;
     fullName: string;
     salaryExpectation: string;
-    email: string;
+    email?: string;
     phone: string;
     location: string;
     experienceYears: string;

@@ -4,20 +4,24 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const searchCandidates = createAsyncThunk<
-    EmployeesFiltersDto,
-    EmployeesFiltersDto,
+    UserDetailsGeneralCustom[],
+    UserDetailsSearchUsersRequestDto,
     AsyncThunkConfig
->(`${sliceName}/search-candidates`, (filters) => {
+>(`${sliceName}/search-candidates`, async (filters, { extra }) => {
+    const { employersApi } = extra;
+
     // TODO: call search candidates API. For now, we're just returning the filters
     //console.log('api call', filters);
-    return filters;
+
+    return await employersApi.searchUserDetails(filters);
 });
 
 const setFilters = createAsyncThunk<
-    EmployeesFiltersDto,
+    UserDetailsSearchUsersRequestDto,
     EmployeesFiltersDto,
     AsyncThunkConfig
 >(`${sliceName}/set-filters`, (filters) => {

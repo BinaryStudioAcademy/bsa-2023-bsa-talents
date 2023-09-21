@@ -67,7 +67,7 @@ const locationOptions = Object.values(CountryList).map((country) => ({
 }));
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
-    value: level.split(' ')[0],
+    value: level,
     label: level,
 }));
 
@@ -181,7 +181,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="activeSearchingOnly"
+                        name="searchActiveCandidatesOnly"
                         control={control}
                         render={renderCheckboxes}
                     />
@@ -196,7 +196,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={jobTitleOptions}
                             control={control}
                             errors={errors}
-                            name="jobTitles"
+                            name="jobTitle"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -221,7 +221,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={yearsOfExperience}
                             control={control}
                             errors={errors}
-                            name="userYearsOfExperience"
+                            name="yearsOfExperience"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -247,7 +247,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={bsaBadges}
                             control={control}
                             errors={errors}
-                            name="userBsaBadges"
+                            name="BSABadges"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -273,7 +273,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={locationOptions}
                             control={control}
                             errors={errors}
-                            name="userLocation"
+                            name="location"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -284,7 +284,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         {'Level of English'}
                         <Controller
                             control={control}
-                            name="levelOfEnglish"
+                            name="englishLevel"
                             render={renderCheckboxes}
                         />
                     </FormLabel>
