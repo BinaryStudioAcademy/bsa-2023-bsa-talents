@@ -174,19 +174,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                 />
             </FormField>
-            {/* <FormField
-                label="BSA badges"
-                name="BSABadges"
-                containerStyle={globalStyles.pb25}
-            >
-                <AutocompleteMultiSelector
-                    items={transformDtoValuesToMultiSelector(badgesData)}
-                    control={control}
-                    name="BSABadges"
-                    placeholder="Start typing and select skills"
-                    isValuesLoading={isSelectorValuesLoading}
-                />
-            </FormField> */}
             <FormField
                 label="BSA project name"
                 name="BSAProjectName"
