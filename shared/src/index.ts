@@ -11,7 +11,11 @@ export {
     type ChatMessageGetAllItemResponseDto,
     type ChatMessageGetAllResponseDto,
 } from './bundles/chat/chat.js';
-export { FileApiPath } from './bundles/file/file.js';
+export {
+    FileApiPath,
+    type FileUploadResponse,
+    type UploadedFile,
+} from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
