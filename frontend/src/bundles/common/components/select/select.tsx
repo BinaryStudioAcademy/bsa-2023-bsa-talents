@@ -44,7 +44,6 @@ const Select = <T extends FieldValues>({
     startAdornmentText,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
-
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
@@ -85,7 +84,7 @@ const Select = <T extends FieldValues>({
                 multiple={isMulti}
                 className={selectStyles}
                 renderValue={handleSelectChange}
-                value={field.value || []}
+                value={field.value || ''}
                 startAdornment={
                     startAdornmentText && (
                         <InputAdornment position="start">

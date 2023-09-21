@@ -1,8 +1,8 @@
-import { actions as storeActions } from '~/app/store/app.js';
 import {
     Button,
     Checkbox,
     FormControl,
+    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -12,7 +12,6 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
-    useAppDispatch,
     useAppForm,
     useCallback,
     useState,
@@ -22,7 +21,6 @@ import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -43,40 +41,41 @@ const options = [
 ];
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const dispatch = useAppDispatch();
-
-    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
-
-    const { control, errors, watch, handleSubmit } =
-        useAppForm<UserSignUpRequestDto>({
-            defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-            validationSchema: userSignUpValidationSchema,
+    const [isTermsAcceptedAfterSubmit, setIsTermsAcceptedAfterSubmit] =
+        useState({
+            isFormSubmitted: false,
+            isTermsAccepted: false,
         });
+
+    const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
+        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+        validationSchema: userSignUpValidationSchema,
+    });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            if (watch('role') === UserRole.TALENT && !isTermsAccepted) {
-                const termsErrorMessage =
-                    'Please accept BSA Talents Terms to continue';
-                void dispatch(
-                    storeActions.notify({
-                        type: NotificationType.ERROR,
-                        message: termsErrorMessage,
-                    }),
-                );
-                return;
+
+            setIsTermsAcceptedAfterSubmit({
+                isFormSubmitted: true,
+                isTermsAccepted: isTermsAcceptedAfterSubmit.isTermsAccepted,
+            });
+
+            if (isTermsAcceptedAfterSubmit.isTermsAccepted) {
+                void handleSubmit(onSubmit)(event_);
             }
-            void handleSubmit(onSubmit)(event_);
         },
-        [dispatch, handleSubmit, isTermsAccepted, onSubmit, watch],
+        [handleSubmit, onSubmit, isTermsAcceptedAfterSubmit],
     );
 
     const handleCheckboxChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            setIsTermsAccepted(event.target.checked);
+            setIsTermsAcceptedAfterSubmit({
+                isFormSubmitted: isTermsAcceptedAfterSubmit.isFormSubmitted,
+                isTermsAccepted: event.target.checked,
+            });
         },
-        [],
+        [isTermsAcceptedAfterSubmit],
     );
 
     const checkboxLabel = (
@@ -88,7 +87,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     BSA Talents Terms
                 </Link>
             </span>
-            *
+            <span className={styles.required}>*</span>
         </Typography>
     );
 
@@ -103,7 +102,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.email ? '' : 'email',
                     )}
                 >
-                    <FormLabel className="label">Email *</FormLabel>
+                    <FormLabel className="label">
+                        Email <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -117,7 +118,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className="label">Password *</FormLabel>
+                    <FormLabel className="label">
+                        Password <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -139,15 +142,20 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         name={'role'}
                     />
                 </FormControl>
-                {watch('role') === UserRole.TALENT && (
-                    <FormControl className={styles.checkboxWrapper} required>
-                        <Checkbox
-                            label={checkboxLabel}
-                            isChecked={isTermsAccepted}
-                            onChange={handleCheckboxChange}
-                        />
-                    </FormControl>
-                )}
+
+                <FormControl className={styles.checkboxWrapper} required>
+                    <Checkbox
+                        label={checkboxLabel}
+                        isChecked={isTermsAcceptedAfterSubmit.isTermsAccepted}
+                        onChange={handleCheckboxChange}
+                    />
+                    {isTermsAcceptedAfterSubmit.isFormSubmitted &&
+                        !isTermsAcceptedAfterSubmit.isTermsAccepted && (
+                            <FormHelperText className={styles.hasError}>
+                                Please accept BSA Talents Terms to continue
+                            </FormHelperText>
+                        )}
+                </FormControl>
 
                 <Button
                     label="Continue"
