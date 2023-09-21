@@ -10,4 +10,4 @@ const allActions = {
 };
 
 export { allActions as actions };
-export { reducer } from './slice.js';
+export { reducer, type State } from './slice.js';

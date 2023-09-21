@@ -1,6 +1,6 @@
 const ContactCandidateValidationRule = {
     MIN_LINK_AMOUNT: 1,
-    MAX_LINK_AMOUNT: 5,
+    MAX_LINK_AMOUNT: 2,
     MIN_LINK_LENGTH: 5,
     MAX_LINK_LENGTH: 250,
     MIN_MESSAGE_LENGTH: 10,

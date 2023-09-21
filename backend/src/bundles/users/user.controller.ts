@@ -82,7 +82,7 @@ class UserController extends ControllerBase {
 
     /**
      * @swagger
-     * /users/:
+     * /users:
      *    get:
      *      tags: [Users]
      *      description: Returns an array of users

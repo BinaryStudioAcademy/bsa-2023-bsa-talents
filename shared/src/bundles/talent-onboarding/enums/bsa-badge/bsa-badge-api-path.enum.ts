@@ -1,5 +1,5 @@
 const BSABadgeApiPath = {
-    ROOT: '/',
+    ROOT: '',
 } as const;
 
 export { BSABadgeApiPath };

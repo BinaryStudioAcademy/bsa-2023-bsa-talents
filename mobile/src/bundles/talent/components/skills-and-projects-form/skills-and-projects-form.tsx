@@ -14,18 +14,21 @@ import {
 } from '~/bundles/common/components/components';
 import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
+    useEffect,
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     ENGLISH_LEVEL,
-    HARD_SKILLS,
     MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES_ARRAY,
@@ -48,6 +51,8 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: SkillsStepValidationSchema,
     });
+    const dispatch = useAppDispatch();
+    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -56,6 +61,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
+
+    useEffect(() => {
+        void dispatch(getHardSkillsData());
+    }, [dispatch]);
 
     return (
         <ScrollView
@@ -69,7 +78,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={HARD_SKILLS}
+                    items={hardSkillsData?.items}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"

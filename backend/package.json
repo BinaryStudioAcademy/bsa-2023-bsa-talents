@@ -16,6 +16,8 @@
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
         "migrate:dev:down": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:down",
         "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
+        "seed:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:make -x ts",
+        "seed:dev:run": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:run",
         "build": "tsc && tsc-alias -p tsconfig.json && npm run build:copy",
         "build:copy": "cp -r package.json build",
         "prestart": "npm run migrate",
@@ -47,6 +49,7 @@
         "pg": "8.11.2",
         "pino": "8.15.0",
         "pino-pretty": "10.2.0",
+        "socket.io": "4.7.2",
         "swagger-jsdoc": "6.2.8",
         "tsc-alias": "1.6.11"
     }

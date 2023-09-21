@@ -10,9 +10,11 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
+import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
@@ -21,7 +23,7 @@ import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
 import { storage } from '../storage/storage.js';
-import { errorHandler } from './middlewares/middlewares.js';
+import { chatSocket, errorHandler } from './middlewares/middlewares.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -32,12 +34,14 @@ type RootReducer = {
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
     candidate: ReturnType<typeof candidateReducer>;
+    cabinet: ReturnType<typeof cabinetReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
+    employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -65,6 +69,7 @@ class Store {
                 employer: employerReducer,
                 app: appReducer,
                 candidate: candidateReducer,
+                cabinet: cabinetReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
@@ -73,6 +78,7 @@ class Store {
                         extraArgument: this.extraArguments,
                     },
                 }),
+                chatSocket,
             ],
         });
     }
@@ -82,6 +88,7 @@ class Store {
             authApi,
             userApi,
             talentOnBoardingApi,
+            employerOnBoardingApi,
             notification,
             storage,
         };
