@@ -19,7 +19,7 @@ import {
     useRoute,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { LabelForButtonEmployerProfile } from '~/bundles/employer/enums/enums';
+import { EmployerDataSubmitLabel } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
@@ -54,8 +54,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
 
     const labelForSubmitButton =
         route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE
-            ? LabelForButtonEmployerProfile.SAVE
-            : LabelForButtonEmployerProfile.SUBMIT_FOR_VERIFICATION;
+            ? EmployerDataSubmitLabel.SAVE
+            : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
 
     return (
         <>
