@@ -39,6 +39,7 @@ const CandidateProfile: React.FC<Properties> = ({
     const data = candidateData ?? reduxData;
 
     const firstSectionCandidateDetails: FirstSectionDetails = {
+        userId: data.userId as string,
         profileName: data.profileName as string,
         salaryExpectation: data.salaryExpectation as unknown as string,
         projectLinks: data.projectLinks as string[],

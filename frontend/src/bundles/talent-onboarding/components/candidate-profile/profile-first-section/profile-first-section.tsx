@@ -5,11 +5,12 @@ import {
     Button,
     Chip,
     Grid,
+    Link,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { BadgeColors } from '~/bundles/common/enums/enums.js';
+import { AppRoute, BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useNavigate } from '~/bundles/common/hooks/hooks.js';
 import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
 import styles from './styles.module.scss';
@@ -36,6 +37,10 @@ const ProfileFirstSection: React.FC<Properties> = ({
         );
     }, [candidateParameters.projectLinks]);
 
+    const navigate = useNavigate();
+    const handleReadMoreButton = useCallback((): void => {
+        navigate(AppRoute.CANDIDATES + `/${candidateParameters.userId}`);
+    }, [candidateParameters.userId, navigate]);
     return (
         <Grid
             className={getValidClassNames(
@@ -45,14 +50,19 @@ const ProfileFirstSection: React.FC<Properties> = ({
             )}
         >
             <Grid>
-                <Typography variant="h5" className={styles.candidatePosition}>
-                    {candidateParameters.profileName}
+                <Grid className={styles.candidatePosition}>
+                    <Link
+                        to={`/candidates/${candidateParameters.userId}`}
+                        className={styles.candidateLink}
+                    >
+                        {candidateParameters.profileName}
+                    </Link>
                     {isProfileCard && (
                         <Typography variant="input" className={styles.salary}>
                             ${candidateParameters.salaryExpectation}
                         </Typography>
                     )}
-                </Typography>
+                </Grid>
                 {isProfileCard && (
                     <Typography
                         variant="caption"
@@ -161,6 +171,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                 <Button
                     label="Read more"
                     variant={isProfileCard ? 'contained' : 'text'}
+                    onClick={handleReadMoreButton}
                     className={
                         isProfileCard
                             ? styles.profileCardReadMoreButton
