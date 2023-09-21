@@ -8,10 +8,11 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import { FormControlLabel } from '~/bundles/common/components/components.js';
+import {
+    FormControlLabel,
+    Radio,
+} from '~/bundles/common/components/components.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
-
-import { Radio } from '../radio-item/radio-item.js';
 
 type Option = {
     value: string;
@@ -23,6 +24,7 @@ type Properties<T extends FieldValues> = RadioGroupProps & {
     name: FieldPath<T>;
     options?: Option[];
     className?: string;
+    value?: string;
 };
 
 const RadioGroup = <T extends FieldValues>({

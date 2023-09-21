@@ -1,6 +1,6 @@
 export { type CompanyInfoDto } from './company-info/company-info-dto.js';
 export {
-    type ChatMessagesCreateRequestDto,
-    type ChatMessagesPatchDto,
-    type ChatMessagesResponseDto,
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
+    type ChatMessageGetAllResponseDto,
 } from 'shared/build/index.js';

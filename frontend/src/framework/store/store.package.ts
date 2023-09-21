@@ -11,6 +11,7 @@ import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
@@ -22,7 +23,7 @@ import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
 import { storage } from '../storage/storage.js';
-import { errorHandler } from './middlewares/middlewares.js';
+import { chatSocket, errorHandler } from './middlewares/middlewares.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -40,6 +41,7 @@ type ExtraArguments = {
     userApi: typeof userApi;
     chatApi: typeof chatApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
+    employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -75,6 +77,7 @@ class Store {
                         extraArgument: this.extraArguments,
                     },
                 }),
+                chatSocket,
             ],
         });
     }
@@ -85,6 +88,7 @@ class Store {
             userApi,
             chatApi,
             talentOnBoardingApi,
+            employerOnBoardingApi,
             notification,
             storage,
         };

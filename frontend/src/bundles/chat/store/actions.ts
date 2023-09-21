@@ -3,8 +3,8 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import {
-    type ChatMessagesCreateRequestDto,
-    type ChatMessagesResponseDto,
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
 } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
@@ -21,7 +21,7 @@ const leaveRoom = createAction(`${sliceName}/leave-room`, (chatId: string) => {
 });
 
 const getAllMessages = createAsyncThunk<
-    ChatMessagesResponseDto[],
+    ChatMessageGetAllItemResponseDto[],
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/get-messages`, async (_, { extra }) => {
@@ -33,7 +33,7 @@ const getAllMessages = createAsyncThunk<
 const getAllMessagesByChatId = createAsyncThunk<
     {
         chatId: string;
-        messages: ChatMessagesResponseDto[];
+        messages: ChatMessageGetAllItemResponseDto[];
     },
     string,
     AsyncThunkConfig
@@ -45,8 +45,8 @@ const getAllMessagesByChatId = createAsyncThunk<
 });
 
 const createMessage = createAsyncThunk<
-    ChatMessagesResponseDto,
-    ChatMessagesCreateRequestDto,
+    ChatMessageGetAllItemResponseDto,
+    ChatMessageCreateRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/create-message`, async (createPayload, { extra }) => {
     const { chatApi } = extra;
@@ -62,7 +62,7 @@ const createMessage = createAsyncThunk<
 
 const addMessage = createAction(
     `${sliceName}/add-message`,
-    (message: ChatMessagesResponseDto) => {
+    (message: ChatMessageGetAllItemResponseDto) => {
         return {
             payload: message,
         };

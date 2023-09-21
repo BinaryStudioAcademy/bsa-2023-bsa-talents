@@ -1,21 +1,10 @@
-import { CircularProgress } from '@mui/material';
-
+import { Logo } from '../components.js';
 import styles from './styles.module.scss';
 
-type Properties = {
-    size?: number;
-    variant?: 'determinate' | 'indeterminate';
-    value?: number;
-};
-
-const Loader: React.FC<Properties> = ({
-    size,
-    variant = 'indeterminate',
-    value,
-}) => {
+const Loader: React.FC = () => {
     return (
         <div className={styles.loader}>
-            <CircularProgress size={size} variant={variant} value={value} />
+            <Logo className={styles.logo} isCollapsed />
         </div>
     );
 };

@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
-
 import { Color } from '~/bundles/common/enums/enums';
+import { StyleSheet } from '~/bundles/common/styles/styles';
 
 const styles = StyleSheet.create({
     container: {
@@ -9,6 +8,7 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderColor: Color.INPUT,
+        color: Color.TEXT,
     },
     error: {
         borderColor: Color.ERROR,

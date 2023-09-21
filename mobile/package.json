@@ -16,6 +16,7 @@
     "dependencies": {
         "@hookform/resolvers": "3.2.0",
         "@react-native-community/checkbox": "0.5.16",
+        "@react-native-community/hooks": "3.0.0",
         "@react-native-community/netinfo": "9.4.1",
         "@react-native-community/slider": "4.4.3",
         "@react-navigation/bottom-tabs": "6.5.8",

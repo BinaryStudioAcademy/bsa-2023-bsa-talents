@@ -7,12 +7,10 @@ export {
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
-    ChatMessagesApiPath,
-    type ChatMessagesCreateRequestDto,
-    ChatMessagesCreateValidationSchema,
-    type ChatMessagesPatchDto,
-    type ChatMessagesResponseDto,
-} from './bundles/chat-messages/chat-messages.js';
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
+    type ChatMessageGetAllResponseDto,
+} from './bundles/chat/chat.js';
 export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
@@ -42,14 +40,21 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsSearchUsersRequestDto,
+    userDetailsSearchValidationSchema,
+    type UserDetailsShortResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
+    UserSortCriteria,
+    YearsOfExperience,
 } from './bundles/user-details/user-details.js';
 export {
     type UserCreateResponseDto,
@@ -86,6 +91,7 @@ export {
     type HttpMethod,
     type HttpOptions,
 } from './framework/http/http.js';
+export { SocketEvent, SocketNamespace } from './framework/socket/socket.js';
 export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
@@ -93,6 +99,7 @@ export {
     getItemsWithSelected,
     getNestedProperty,
     getSearchedItems,
+    mapQueryValuesToArrays,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,
