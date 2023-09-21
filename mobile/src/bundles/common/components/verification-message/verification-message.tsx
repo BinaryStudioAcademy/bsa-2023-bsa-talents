@@ -17,8 +17,8 @@ const VerificationMessage: React.FC<Properties> = ({ isApproved }) => {
 
     return (
         <Text
-            category={TextCategory.LABEL}
-            style={[styles.text, globalStyles.pv5, globalStyles.ph15]}
+            category={TextCategory.CAPTION}
+            style={[styles.text, globalStyles.p5, globalStyles.ph10]}
         >
             Waiting for approval
         </Text>

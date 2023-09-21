@@ -1,10 +1,16 @@
 import React from 'react';
 
 import {
+    StatusBar,
     Text,
     VerificationMessage,
+    View,
 } from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { globalStyles } from '~/bundles/common/styles/styles';
+
+import { styles } from './style';
 
 const TalentProfile: React.FC = () => {
     //todo change to real data
@@ -12,7 +18,13 @@ const TalentProfile: React.FC = () => {
 
     return (
         <>
-            <Text>Talent Profile screen</Text>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Color.BACKGROUND}
+            />
+            <View style={[globalStyles.p25, styles.header]}>
+                <Text category={TextCategory.H3}>Your profile</Text>
+            </View>
             <VerificationMessage isApproved={isApproved} />
         </>
     );
