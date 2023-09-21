@@ -5,11 +5,12 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { actions as bsaBadgesActions } from '../bsa-badges/store/bsa-badges.js';
+import { actions as hardSkillsActions } from '../hard-skills/store/hard-skills.js';
 import {
     convertBsaBadgesApiResponseIntoSelectOptions,
     convertHardSkillsApiResponseIntoAutoselectOptions,
 } from '../helpers/helpers.js';
-import { actions as commonDataActions } from '../store/common-data.js';
 import { type AutoselectOptions } from '../types/autoselect-options.js';
 
 type UseCommonDataReturnType = {
@@ -19,16 +20,15 @@ type UseCommonDataReturnType = {
 
 const useCommonData = (): UseCommonDataReturnType => {
     const dispatch = useAppDispatch();
-    const { bsaBadgesData, hardSkillsData } = useAppSelector(
-        (state) => state.commonData,
-    );
+    const { hardSkillsData } = useAppSelector((state) => state.hardSkills);
+    const { bsaBadgesData } = useAppSelector((state) => state.bsaBadges);
 
     useEffect(() => {
         if (!hardSkillsData) {
-            void dispatch(commonDataActions.getHardSkillsData());
+            void dispatch(hardSkillsActions.getHardSkillsData());
         }
         if (!bsaBadgesData) {
-            void dispatch(commonDataActions.getBsaBadgesData());
+            void dispatch(bsaBadgesActions.getBsaBadgesData());
         }
     }, [dispatch, bsaBadgesData, hardSkillsData]);
 

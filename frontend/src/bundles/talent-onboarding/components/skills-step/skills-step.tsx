@@ -9,6 +9,7 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -23,7 +24,6 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
-import { useCommonData } from '~/bundles/common-data/hooks/use-common-data.hook.js';
 import {
     EnglishLevel,
     NotConsidered,

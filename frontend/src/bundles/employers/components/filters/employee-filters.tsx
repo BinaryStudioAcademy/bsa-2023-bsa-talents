@@ -14,9 +14,9 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { useCommonData } from '~/bundles/common-data/hooks/use-common-data.hook.js';
 
 import {
     BsaCharacteristics,
