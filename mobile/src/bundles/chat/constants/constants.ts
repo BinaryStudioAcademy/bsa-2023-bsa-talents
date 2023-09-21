@@ -14,7 +14,7 @@ const SECOND_TALENT_AVATAR =
 const EMPLOYER_ID = 'employerId';
 const EMPLOYER = 'Facebook';
 
-const chatListItems: Record<string, ChatDataRequestDto[]> | null = {
+const CHAT_LIST_ITEMS: Record<string, ChatDataRequestDto[]> | null = {
     'chat1': [
         {
             id: '3',
@@ -87,7 +87,7 @@ const chatListItems: Record<string, ChatDataRequestDto[]> | null = {
     ],
 };
 
-const newMessageForChat1 = {
+const NEW_MESSAGE_FOR_CHAT_1 = {
     senderId: FIRST_TALENT_ID,
     senderName: FIRST_TALENT_NAME,
     senderAvatar: FIRST_TALENT_AVATAR,
@@ -97,7 +97,7 @@ const newMessageForChat1 = {
     message: `New message from ${FIRST_TALENT_NAME}`,
 };
 
-const newMessageForChat2 = {
+const NEW_MESSAGE_FOR_CHAT_2 = {
     senderId: SECOND_TALENT_ID,
     senderName: SECOND_TALENT_NAME,
     senderAvatar: SECOND_TALENT_AVATAR,
@@ -110,10 +110,10 @@ const newMessageForChat2 = {
 const INTERVAL = 2000;
 
 export {
-    chatListItems,
+    CHAT_LIST_ITEMS,
     EMPLOYER,
     EMPLOYER_ID,
     INTERVAL,
-    newMessageForChat1,
-    newMessageForChat2,
+    NEW_MESSAGE_FOR_CHAT_1,
+    NEW_MESSAGE_FOR_CHAT_2,
 };
