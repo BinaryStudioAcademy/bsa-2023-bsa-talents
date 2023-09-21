@@ -22,7 +22,7 @@ type Constructor = {
 
 class ChatApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
+        super({ path: ApiPath.CHAT_MESSAGES, baseUrl, http, storage });
     }
 
     public async getAllMessages(): Promise<{
@@ -44,14 +44,15 @@ class ChatApi extends HttpApiBase {
     public async getAllChatsByUserId(payload: string): Promise<{
         items: ChatResponseDto[];
     }> {
-        const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.ROOT, payload, {}),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
+        const path = ChatMessagesApiPath.CHATS_$USER_ID.replace(
+            ':userId',
+            payload,
         );
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
         return response.json<{
             items: ChatResponseDto[];
         }>();
@@ -61,7 +62,7 @@ class ChatApi extends HttpApiBase {
         items: MessageResponseDto[];
     }> {
         const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.$CHAT_ID, payload, {}),
+            this.getFullEndpoint(ChatMessagesApiPath.ROOT, payload, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
@@ -91,17 +92,17 @@ class ChatApi extends HttpApiBase {
     public async readMessage(
         payload: ChatMessagesPatchDto,
     ): Promise<MessageResponseDto> {
-        const { id = '' } = payload;
-
-        const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.READ_$MESSAGE_ID, id, {}),
-            {
-                method: 'PATCH',
-                contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
-                hasAuth: true,
-            },
+        const path = ChatMessagesApiPath.READ_$MESSAGE_ID.replace(
+            ':messageId',
+            payload.id,
         );
+
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'PATCH',
+            contentType: ContentType.JSON,
+            payload: JSON.stringify(payload),
+            hasAuth: true,
+        });
         return response.json<MessageResponseDto>();
     }
 }
