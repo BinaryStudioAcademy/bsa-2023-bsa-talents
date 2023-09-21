@@ -1,4 +1,4 @@
-import { mockBadges } from '~/assets/mock-data/mock-data.js';
+import { mockBadges, mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
@@ -45,12 +45,14 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
+        //badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
+        badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: data.hardSkills
-            ? data.hardSkills.map((skill) => skill.label)
-            : [],
+        hardSkills: mockHardSkills.map((skill) => skill.label),
+        // hardSkills: data.hardSkills
+        //     ? data.hardSkills.map((skill) => skill.label)
+        //     : [],
         experienceYears: formatNumber(data.experienceYears as number),
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
