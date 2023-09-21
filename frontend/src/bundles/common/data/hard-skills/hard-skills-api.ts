@@ -3,10 +3,7 @@ import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
-import {
-    type BsaBadgesResponseDto,
-    type HardSkillsResponseDto,
-} from './types/types.js';
+import { type HardSkillsResponseDto } from '../../types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -14,7 +11,7 @@ type Constructor = {
     storage: Storage;
 };
 
-class CommonDataApi extends HttpApiBase {
+class HardSkillsApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: '', baseUrl, http, storage });
     }
@@ -31,19 +28,6 @@ class CommonDataApi extends HttpApiBase {
 
         return response.json<HardSkillsResponseDto>();
     }
-
-    public async getAllBsaBadges(): Promise<BsaBadgesResponseDto> {
-        const response = await this.load(
-            this.getFullEndpoint(ApiPath.BSA_BADGES, {}),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
-        );
-
-        return response.json<BsaBadgesResponseDto>();
-    }
 }
 
-export { CommonDataApi };
+export { HardSkillsApi };

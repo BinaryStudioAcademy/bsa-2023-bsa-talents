@@ -2,12 +2,12 @@ import { config } from '~/framework/config/config.js';
 import { http } from '~/framework/http/http.js';
 import { storage } from '~/framework/storage/storage.js';
 
-import { CommonDataApi } from './common-data-api.js';
+import { HardSkillsApi } from './hard-skills-api.js';
 
-const commonDataApi = new CommonDataApi({
+const hardSkillsApi = new HardSkillsApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
     http,
     storage,
 });
 
-export { commonDataApi };
+export { hardSkillsApi };

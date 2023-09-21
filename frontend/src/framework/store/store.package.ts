@@ -9,9 +9,9 @@ import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
+import { hardSkillsApi } from '~/bundles/common/data/hard-skills/hard-skills.js';
+import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/store/hard-skills.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
-import { commonDataApi } from '~/bundles/common-data/common-data.js';
-import { reducer as commonReducer } from '~/bundles/common-data/store/common-data.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
@@ -31,7 +31,7 @@ type RootReducer = {
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
     employer: ReturnType<typeof employerReducer>;
     employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
-    commonData: ReturnType<typeof commonReducer>;
+    hardSkills: ReturnType<typeof hardSkillsReducer>;
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
@@ -45,7 +45,7 @@ type ExtraArguments = {
     employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
-    commonDataApi: typeof commonDataApi;
+    hardSkillsApi: typeof hardSkillsApi;
 };
 
 class Store {
@@ -71,7 +71,7 @@ class Store {
                 employer: employerReducer,
                 app: appReducer,
                 candidate: candidateReducer,
-                commonData: commonReducer,
+                hardSkills: hardSkillsReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
@@ -93,7 +93,7 @@ class Store {
             employerOnBoardingApi,
             notification,
             storage,
-            commonDataApi,
+            hardSkillsApi,
         };
     }
 }
