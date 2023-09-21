@@ -30,12 +30,11 @@ const { reducer, actions, name } = createSlice({
             state.filteredCandidates = [];
             state.filteredCandidates.push(...action.payload);
         });
-        builder.addCase(searchCandidates.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-
         builder.addCase(setFilters.fulfilled, (state, action) => {
             state.filters = action.payload;
+        });
+        builder.addCase(setFilters.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
         });
     },
 });

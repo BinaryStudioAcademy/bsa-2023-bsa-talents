@@ -1,4 +1,3 @@
-// import { mockCandidates } from '~/assets/mock-data/mock-data.js';
 import {
     Button,
     Grid,
@@ -60,8 +59,6 @@ const Candidates: React.FC = () => {
             filteredCandidates: employer.filteredCandidates,
         }),
     );
-
-    // console.log('filteredCand', filteredCandidates);
 
     const watchedValues = watch(FIELDS);
     const dispatch = useAppDispatch();

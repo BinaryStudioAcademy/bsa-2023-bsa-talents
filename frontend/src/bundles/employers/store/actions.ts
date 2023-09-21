@@ -14,9 +14,6 @@ const searchCandidates = createAsyncThunk<
 >(`${sliceName}/search-candidates`, async (filters, { extra }) => {
     const { employersApi } = extra;
 
-    // TODO: call search candidates API. For now, we're just returning the filters
-    //console.log('api call', filters);
-
     return await employersApi.searchUserDetails(filters);
 });
 
