@@ -11,7 +11,7 @@ import {
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
 
 const userDetailsUpdate = joi
-    .object<UserDetailsUpdateRequestDto, true>({
+    .object<UserDetailsUpdateRequestDto>({
         id: joi.string().trim(),
         userId: joi.string().trim(),
 
@@ -59,14 +59,17 @@ const userDetailsUpdate = joi
                 .valid(...Object.values(PreferredLanguages)),
         ),
 
-        projectLinks: joi.array().items(
-            joi
-                .string()
-                .trim()
-                .uri({
-                    scheme: ['http', 'https', 'ftp'],
-                    allowRelative: true,
-                }),
+        projectLinks: joi.alternatives().try(
+            joi.array().items(
+                joi
+                    .string()
+                    .trim()
+                    .uri({
+                        scheme: ['http', 'https', 'ftp'],
+                        allowRelative: true,
+                    }),
+            ),
+            joi.allow(null),
         ),
         photoId: joi.string().trim(),
         fullName: joi.string().trim(),
