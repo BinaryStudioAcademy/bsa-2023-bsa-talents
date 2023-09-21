@@ -40,6 +40,8 @@ export {
     OnboardingSteps,
     PreferredLanguages,
     UserDetailsApiPath,
+    type UserDetailsApproveRequestDto,
+    userDetailsApproveValidationSchema,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
