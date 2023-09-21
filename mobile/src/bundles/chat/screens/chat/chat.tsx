@@ -39,6 +39,7 @@ const Chat: React.FC = () => {
     const handleSendMessage = useCallback(
         (payload: ChatDataRequestDto): void => {
             void dispatch(chatActions.sendMessage(payload));
+
             //TODO delete after demonstration
             setTimeout(
                 () =>
