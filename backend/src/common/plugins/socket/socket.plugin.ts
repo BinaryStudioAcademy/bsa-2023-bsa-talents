@@ -19,10 +19,11 @@ const socket: FastifyPluginCallback = (
     const connectedUsers = new Map();
 
     io.of(SocketNamespace.CHAT).on(SocketEvent.CONNECTION, (socket) => {
-        const userId = socket.handshake.query.userId;
-        connectedUsers.set(userId, socket.id);
+        // const userId = socket.handshake.query.userId;
+        // connectedUsers.set(userId, socket.id);
 
-        socket.on(SocketEvent.CHAT_JOIN_ROOM, (chatId: string) => {
+        socket.on(SocketEvent.CHAT_JOIN_ROOM, (userId, chatId: string) => {
+            connectedUsers.set(userId, socket.id); // TODO: temporary solution while we can not get userId on connection
             return socket.join(chatId);
         });
 
@@ -34,6 +35,7 @@ const socket: FastifyPluginCallback = (
             SocketEvent.CHAT_CREATE_MESSAGE,
             (payload: MessageResponseDto) => {
                 const receiverId = connectedUsers.get(payload.receiverId);
+
                 if (receiverId) {
                     socket
                         .to(receiverId)

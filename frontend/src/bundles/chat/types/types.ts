@@ -1,4 +1,5 @@
 export { type CompanyInfoDto } from './company-info/company-info-dto.js';
+export { type Message } from './message/message.js';
 export {
     type ChatListItemType,
     type ChatMessagesCreateRequestDto,

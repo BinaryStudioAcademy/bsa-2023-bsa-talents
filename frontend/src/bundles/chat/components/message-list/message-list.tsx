@@ -1,17 +1,10 @@
+import { type Message } from '~/bundles/chat/types/types.js';
 import { Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
-
-type Message = {
-    id: string;
-    userId: string;
-    value: string;
-    avatarUrl?: string;
-    userFullName: string;
-};
 
 type Properties = {
     messages: Message[];

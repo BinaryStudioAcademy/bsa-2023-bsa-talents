@@ -10,6 +10,10 @@ import {
     MessageList,
 } from '~/bundles/chat/components/components.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
+import {
+    type ChatListItemType,
+    type Message,
+} from '~/bundles/chat/types/types.js';
 import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -25,7 +29,6 @@ import {
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
 import { companyInfo } from '../../mock-data/mock-data.js';
-import { type ChatListItemType } from './../../types/types.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
@@ -100,6 +103,7 @@ const ChatsPage: React.FC = () => {
             isOpenChatList && setIsOpenChatList(false);
             const participant = items.find((item) => id === item.userId);
             if (participant) {
+                void dispatch(chatActions.joinRoom(participant.userId));
                 void dispatch(
                     chatActions.getAllMessagesByChatId(participant.chatId),
                 );
@@ -129,16 +133,22 @@ const ChatsPage: React.FC = () => {
         };
     });
 
-    const messagesMapped = chatMessages.map((message) => {
-        const match = chatGroups.find((it) => it.userId === message.senderId);
-        return {
-            id: message.id,
-            userId: message.senderId,
-            value: message.message,
-            avatarUrl: match?.avatar,
-            userFullName: match?.fullName ?? '',
-        };
-    });
+    const messagesMapped = useCallback(
+        (): Message[] =>
+            chatMessages.map((message) => {
+                const match = chatGroups.find(
+                    (it) => it.userId === message.senderId,
+                );
+                return {
+                    id: message.id,
+                    userId: message.senderId,
+                    value: message.message,
+                    avatarUrl: match?.avatar,
+                    userFullName: match?.fullName ?? '',
+                };
+            }),
+        [chatMessages, chatGroups],
+    );
 
     return (
         <Grid container direction="column">
@@ -197,7 +207,7 @@ const ChatsPage: React.FC = () => {
                         avatarUrl={currentChat.avatar}
                     />
                     <MessageList
-                        messages={messagesMapped}
+                        messages={messagesMapped()}
                         className={styles.messageList}
                     />
                     <MessageInput
