@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
         top: 10,
         right: 10,
         borderRadius: 999,
+        borderWidth: 1,
+        borderColor: Color.PRIMARY,
         backgroundColor: Color.TAG,
         color: Color.TEXT,
     },
