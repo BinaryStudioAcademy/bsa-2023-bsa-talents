@@ -158,36 +158,32 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                         </FormLabel>
                         {fields.map((field, index) => {
                             return (
-                                <Grid key={index}>
-                                    <Grid
-                                        className={styles.linkWrapper}
-                                        key={field.id}
-                                    >
-                                        <Input
-                                            className={styles.link}
-                                            control={control}
-                                            errors={errors}
-                                            name={`links.${index}.value`}
-                                            placeholder="link"
-                                            adornmentText="www."
-                                        />
-                                        <Button
-                                            className={getValidClassNames(
-                                                styles.button,
-                                                styles.deleteButton,
-                                            )}
-                                            label=""
-                                            onClick={removeLink(index)}
-                                            variant="outlined"
-                                            endIcon={
-                                                <DeleteIcon
-                                                    className={
-                                                        styles.deleteIcon
-                                                    }
-                                                />
-                                            }
-                                        />
-                                    </Grid>
+                                <Grid
+                                    className={styles.linkWrapper}
+                                    key={field.id}
+                                >
+                                    <Input
+                                        className={styles.link}
+                                        control={control}
+                                        errors={errors}
+                                        name={`links.${index}.value`}
+                                        placeholder="link"
+                                        adornmentText="www."
+                                    />
+                                    <Button
+                                        className={getValidClassNames(
+                                            styles.button,
+                                            styles.deleteButton,
+                                        )}
+                                        label=""
+                                        onClick={removeLink(index)}
+                                        variant="outlined"
+                                        endIcon={
+                                            <DeleteIcon
+                                                className={styles.deleteIcon}
+                                            />
+                                        }
+                                    />
                                 </Grid>
                             );
                         })}

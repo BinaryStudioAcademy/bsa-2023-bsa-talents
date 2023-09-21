@@ -19,17 +19,6 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 15px;
-
-    .requiredField {
-        color: var(--st-tropaz);
-    }
-}
-
-.formLabel {
-    display: block;
-    width: max-content;
-    margin-top: 10px;
-    margin-right: 10px;
 }
 
 .formInput {

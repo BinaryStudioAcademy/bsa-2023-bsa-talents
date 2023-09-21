@@ -306,11 +306,10 @@ const ContactsCVStep: React.FC = () => {
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Full name
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -323,11 +322,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Phone number
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -340,11 +338,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         LinkedIn profile
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -359,14 +356,13 @@ const ContactsCVStep: React.FC = () => {
 
             <div>
                 <FormControl className={styles.formControl}>
-                    <FormLabel className={styles.label}>
+                    <FormLabel className={styles.label} required>
                         <Typography
                             variant="label"
                             className={styles.labelText}
                         >
                             CV
                         </Typography>
-                        <span className={styles.requiredField}>*</span>
                     </FormLabel>
                     <Controller
                         control={control}
