@@ -49,9 +49,11 @@ class LMSDataEntity implements Entity {
     }
 
     public toNewObject(): {
+        userId: string | null;
         data: string;
     } {
         return {
+            userId: this.userId,
             data: this.data,
         };
     }

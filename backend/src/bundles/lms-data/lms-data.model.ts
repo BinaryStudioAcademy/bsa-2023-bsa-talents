@@ -11,6 +11,7 @@ import {
 } from '~/common/packages/database/database.js';
 
 class LMSDataModel extends AbstractModel {
+    public 'userId': string;
     public 'data': string;
 
     public static override get tableName(): string {

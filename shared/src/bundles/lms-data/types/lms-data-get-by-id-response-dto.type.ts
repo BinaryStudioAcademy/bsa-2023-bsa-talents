@@ -1,6 +1,6 @@
 // TODO: should be replaced in future
 type LMSDataGetByIdResponseDto = {
-    userId: string;
+    userId: string | null;
     data: string;
 };
 

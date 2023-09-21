@@ -1,24 +1,21 @@
-// import { LMSDataApiPath } from '~/common/enums/enums.js';
+import { LMSDataApiPath } from '~/common/enums/enums.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
 import { type LMSDataGetByIdResponseDto } from './types/types.js';
 
-// remove
-const apiTestPath = 'https://api.github.com/users/github';
-// remove
-
 class LMSDataService implements Service {
+    // TODO: implements main logic
     public async findByUserId(
         userId: string,
     ): Promise<LMSDataGetByIdResponseDto | undefined> {
         return await this.findByUserIdOnLMSServer(userId);
     }
 
-    public async findByUserIdOnLMSServer(
+    private async findByUserIdOnLMSServer(
         userId: string,
     ): Promise<LMSDataGetByIdResponseDto | undefined> {
-        const response = await http.load(apiTestPath, {});
+        const response = await http.load(LMSDataApiPath.TEST, {});
         const data = await response.json();
         return { userId, data: data as string };
     }
