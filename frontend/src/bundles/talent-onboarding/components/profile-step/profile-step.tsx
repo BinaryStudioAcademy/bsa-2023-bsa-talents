@@ -17,6 +17,7 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -25,6 +26,7 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
     CountryList,
     EmploymentType,
@@ -37,10 +39,9 @@ import {
     sliderToRealValue,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
@@ -68,8 +69,11 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors, reset } = useAppForm<ProfileStepDto>(
-        {
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<ProfileStepDto>({
             defaultValues: useMemo(
                 () => ({
                     profileName,
@@ -91,8 +95,62 @@ const ProfileStep: React.FC = () => {
                 ],
             ),
             validationSchema: ProfileStepValidationSchema,
-        },
-    );
+        });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
+    const watchedValues = watch([
+        'profileName',
+        'salaryExpectation',
+        'jobTitle',
+        'location',
+        'experienceYears',
+        'employmentType',
+        'description',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'profileName',
+            'salaryExpectation',
+            'jobTitle',
+            'location',
+            'experienceYears',
+            'employmentType',
+            'description',
+        ]);
+        const initialValues = {
+            profileName,
+            salaryExpectation,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        description,
+        dispatch,
+        employmentType,
+        experienceYears,
+        getValues,
+        hasChangesInDetails,
+        jobTitle,
+        location,
+        profileName,
+        salaryExpectation,
+        watchedValues,
+    ]);
 
     useEffect(() => {
         reset({
@@ -115,16 +173,10 @@ const ProfileStep: React.FC = () => {
         salaryExpectation,
     ]);
 
-    const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-
     const onSubmit = useCallback(
         async (data: ProfileStepDto): Promise<boolean> => {
             await dispatch(
-                actions.saveTalentDetails({
+                talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
                     completedStep: OnboardingSteps.STEP_01,
@@ -232,8 +284,8 @@ const ProfileStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
-            <FormControl className={styles.formControl}>
+        <>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Profile name</Typography>
                 </FormLabel>
@@ -245,7 +297,7 @@ const ProfileStep: React.FC = () => {
                     name={'profileName'}
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Salary expectations
@@ -260,7 +312,7 @@ const ProfileStep: React.FC = () => {
                     adornmentText="$"
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Job title</Typography>
                 </FormLabel>
@@ -277,7 +329,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl className={styles.formControlSlider}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Experience</Typography>
                 </FormLabel>
@@ -292,7 +344,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
@@ -309,7 +361,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-            <Grid className={styles.checkboxContainer}>
+            <Grid>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Employment type</Typography>
                 </FormLabel>
@@ -326,7 +378,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </Grid>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Briefly tell employers about your experience
@@ -346,7 +398,7 @@ const ProfileStep: React.FC = () => {
                     </FormHelperText>
                 )}
             </FormControl>
-        </FormControl>
+        </>
     );
 };
 

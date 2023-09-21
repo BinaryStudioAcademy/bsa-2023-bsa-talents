@@ -1,5 +1,6 @@
 import {
     Button,
+    FormControl,
     Grid,
     RouterOutlet,
     Typography,
@@ -58,7 +59,11 @@ const StepContent: React.FC<Properties> = ({
                 </Typography>
             </Grid>
             <Grid className={styles.stepBody}>
-                <Grid className={styles.stepOutlet}>{<RouterOutlet />}</Grid>
+                <Grid className={styles.stepOutlet}>
+                    <FormControl className={styles.form}>
+                        {<RouterOutlet />}
+                    </FormControl>
+                </Grid>
                 <Grid
                     className={getValidClassNames(
                         currentStep === STEPS_NUMBER

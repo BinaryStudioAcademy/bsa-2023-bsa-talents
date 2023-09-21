@@ -4,9 +4,7 @@ import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type UserDetailsCreateRequestDto,
-    type UserDetailsFindRequestDto,
     type UserDetailsGeneralRequestDto,
-    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
 } from '~/bundles/talent/types/types';
 
@@ -28,7 +26,7 @@ const createTalentDetails = createAsyncThunk<
 });
 
 const updateOnboardingData = createAsyncThunk<
-    UserDetailsGeneralResponseDto,
+    UserDetailsGeneralRequestDto,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
@@ -36,8 +34,7 @@ const updateOnboardingData = createAsyncThunk<
     const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
 
     if (Object.keys(payload).length === 0) {
-        //TODO remove unknown
-        return stepPayload as unknown as UserDetailsGeneralResponseDto;
+        return stepPayload;
     }
     try {
         const response = await talentApi.completeOnboardingStep(payload);
@@ -57,14 +54,17 @@ const updateOnboardingData = createAsyncThunk<
     }
 });
 
-const getTalentDetails = createAsyncThunk<
-    UserDetailsResponseDto | null,
-    UserDetailsFindRequestDto,
+const getUserDetails = createAsyncThunk<
+    UserDetailsGeneralRequestDto | null,
+    UserDetailsGeneralRequestDto,
     AsyncThunkConfig
->(`${sliceName}/getTalentDetails`, (detailsPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
+>(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
+    const { notifications, talentApi } = extra;
     try {
-        return talentApi.getTalentDetailsById(detailsPayload);
+        const userDetails = await talentApi.getUserDetailsByUserId({
+            userId: payload.userId,
+        });
+        return userDetails ?? null;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -77,6 +77,6 @@ const clearTalentStore = createAction(`${sliceName}/clearTalentStore`);
 export {
     clearTalentStore,
     createTalentDetails,
-    getTalentDetails,
+    getUserDetails,
     updateOnboardingData,
 };
