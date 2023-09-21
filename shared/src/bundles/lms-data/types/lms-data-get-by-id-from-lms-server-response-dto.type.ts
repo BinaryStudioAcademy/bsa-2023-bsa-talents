@@ -1,7 +1,7 @@
 // TODO: should be replaced in future
 type LMSDataGetByIdFromLMSServerResponseDto = {
-    field1: string;
-    field2: string;
+    userId: string;
+    data: string;
 };
 
 export { type LMSDataGetByIdFromLMSServerResponseDto };

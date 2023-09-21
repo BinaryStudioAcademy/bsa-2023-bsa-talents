@@ -1,5 +1,6 @@
+// TODO: should be replaced in future
 type LMSDataGetAllItemResponseDto = {
-    id: string;
+    userId: string;
     data: string;
 };
 

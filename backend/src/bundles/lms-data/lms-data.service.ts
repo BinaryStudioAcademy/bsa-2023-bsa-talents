@@ -20,7 +20,7 @@ class LMSDataService implements Service {
     ): Promise<LMSDataGetByIdResponseDto | undefined> {
         const response = await http.load(apiTestPath, {});
         const data = await response.json();
-        return { field1: userId, field2: data as string };
+        return { userId, data: data as string };
     }
 
     public create(): ReturnType<Service['create']> {

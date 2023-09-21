@@ -1,52 +1,58 @@
 import { type Entity } from '~/common/types/types.js';
 
 class LMSDataEntity implements Entity {
-    private 'id': string | null;
+    private 'userId': string | null;
 
-    private 'field': string;
+    private 'data': string;
 
     // TODO: should be added another fields
 
-    private constructor({ id, field }: { id: string | null; field: string }) {
-        this.id = id;
-        this.field = field;
+    private constructor({
+        userId,
+        data,
+    }: {
+        userId: string | null;
+        data: string;
+    }) {
+        this.userId = userId;
+        this.data = data;
     }
 
     public static initialize({
-        id,
-        field,
+        userId,
+        data,
     }: {
-        id: string;
-        field: string;
+        userId: string;
+        data: string;
     }): LMSDataEntity {
         return new LMSDataEntity({
-            id,
-            field,
+            userId,
+            data,
         });
     }
 
-    public static initializeNew({ field }: { field: string }): LMSDataEntity {
+    public static initializeNew({ data }: { data: string }): LMSDataEntity {
         return new LMSDataEntity({
-            id: null,
-            field,
+            userId: null,
+            data,
         });
     }
 
     public toObject(): {
-        id: string;
-        field: string;
+        userId: string;
+        data: string;
     } {
         return {
-            id: this.id as string,
-            field: this.field,
+            userId: this.userId as string,
+            data: this.data,
         };
     }
 
     public toNewObject(): {
-        field: string;
+        data: string;
     } {
         return {
-            field: this.field,
+            data: this.data,
         };
     }
 }
