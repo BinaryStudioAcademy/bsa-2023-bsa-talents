@@ -18,8 +18,6 @@ class UserDetailsEntity implements Entity {
 
     private 'isApproved': boolean;
 
-    private 'isPublished': boolean;
-
     private 'deniedReason': string | null;
 
     private 'isHired': boolean;
@@ -72,7 +70,6 @@ class UserDetailsEntity implements Entity {
         id,
         userId,
         isApproved,
-        isPublished,
         deniedReason,
         isHired,
         profileName,
@@ -101,7 +98,6 @@ class UserDetailsEntity implements Entity {
         this.id = id;
         this.userId = userId;
         this.isApproved = isApproved;
-        this.isPublished = isPublished;
         this.deniedReason = deniedReason;
         this.isHired = isHired;
         this.profileName = profileName;
@@ -132,7 +128,6 @@ class UserDetailsEntity implements Entity {
         id,
         userId,
         isApproved,
-        isPublished,
         deniedReason,
         isHired,
         profileName,
@@ -162,7 +157,6 @@ class UserDetailsEntity implements Entity {
             id,
             userId,
             isApproved,
-            isPublished,
             deniedReason,
             isHired,
             profileName,
@@ -193,7 +187,6 @@ class UserDetailsEntity implements Entity {
     public static initializeNew({
         userId,
         isApproved,
-        isPublished,
         deniedReason,
         isHired,
         profileName,
@@ -223,7 +216,6 @@ class UserDetailsEntity implements Entity {
             id: null,
             userId,
             isApproved,
-            isPublished,
             deniedReason,
             isHired,
             profileName,
@@ -256,7 +248,6 @@ class UserDetailsEntity implements Entity {
             id: this.id as string,
             userId: this.userId,
             isApproved: this.isApproved,
-            isPublished: this.isPublished,
             deniedReason: this.deniedReason,
             isHired: this.isHired,
             profileName: this.profileName,
@@ -289,7 +280,6 @@ class UserDetailsEntity implements Entity {
             id: null,
             userId: this.userId,
             isApproved: this.isApproved,
-            isPublished: this.isPublished,
             deniedReason: this.deniedReason,
             isHired: this.isHired,
             profileName: this.profileName,

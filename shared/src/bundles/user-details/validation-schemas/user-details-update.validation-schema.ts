@@ -16,7 +16,6 @@ const userDetailsUpdate = joi
         userId: joi.string().trim(),
 
         isApproved: joi.boolean(),
-        isPublished: joi.boolean(),
         isHired: joi.boolean(),
 
         profileName: joi.string().trim().allow(null),

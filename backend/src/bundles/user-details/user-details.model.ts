@@ -31,8 +31,6 @@ class UserDetailsModel extends AbstractModel {
 
     public 'isApproved': boolean;
 
-    public 'isPublished': boolean;
-
     public 'deniedReason': string | null;
 
     public 'isHired': boolean;

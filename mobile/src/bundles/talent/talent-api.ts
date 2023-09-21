@@ -74,7 +74,6 @@ class TalentApi extends HttpApiBase {
             id: '329d3d03-30af-4ca7-87f2-c253d47449f9',
             userId: userId,
             isApproved: false,
-            isPublished: false,
             deniedReason: null,
             isHired: false,
             profileName: 'Fake Profile name',
