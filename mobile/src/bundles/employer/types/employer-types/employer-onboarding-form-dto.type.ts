@@ -1,5 +1,5 @@
 type EmployerOnboardingFormDto = {
-    profilePhoto?: File | null;
+    profilePhoto: File | null;
     companyLogo: File | null;
     fullName: string;
     position: string;
