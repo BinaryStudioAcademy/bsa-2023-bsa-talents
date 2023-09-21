@@ -1,7 +1,7 @@
 import {
     type AutoselectOptions,
     type BsaBadgesResponseDto,
-} from '~/bundles/common-data/types/types.js';
+} from '~/bundles/common/data/types/types.js';
 
 const convertBsaBadgesApiResponseIntoSelectOptions = (
     bsaBadgesApiResponse: BsaBadgesResponseDto | null,

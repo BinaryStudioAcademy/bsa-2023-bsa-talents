@@ -4,10 +4,10 @@ import { storage } from '~/framework/storage/storage.js';
 
 import { BsaBadgesApi } from './bsa-badges-api.js';
 
-const bsaBadgesApiApi = new BsaBadgesApi({
+const bsaBadgesApi = new BsaBadgesApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
     http,
     storage,
 });
 
-export { bsaBadgesApiApi };
+export { bsaBadgesApi };

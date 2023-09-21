@@ -9,6 +9,8 @@ import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
+import { bsaBadgesApi } from '~/bundles/common/data/bsa-badges/bsa-badges.js';
+import { reducer as bsaBadgesReducer } from '~/bundles/common/data/bsa-badges/store/bsa-badges.js';
 import { hardSkillsApi } from '~/bundles/common/data/hard-skills/hard-skills.js';
 import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/store/hard-skills.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
@@ -36,6 +38,7 @@ type RootReducer = {
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
     candidate: ReturnType<typeof candidateReducer>;
+    bsaBadges: ReturnType<typeof bsaBadgesReducer>;
 };
 
 type ExtraArguments = {
@@ -46,6 +49,7 @@ type ExtraArguments = {
     notification: typeof notification;
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
+    bsaBadgesApi: typeof bsaBadgesApi;
 };
 
 class Store {
@@ -72,6 +76,7 @@ class Store {
                 app: appReducer,
                 candidate: candidateReducer,
                 hardSkills: hardSkillsReducer,
+                bsaBadges: bsaBadgesReducer,
             },
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
@@ -94,6 +99,7 @@ class Store {
             notification,
             storage,
             hardSkillsApi,
+            bsaBadgesApi,
         };
     }
 }

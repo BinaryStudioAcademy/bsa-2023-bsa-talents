@@ -1,9 +1,8 @@
+import { type BsaBadgesResponseDto } from '~/bundles/common/data/types/types.js';
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
-
-import { type BsaBadgesResponseDto } from '../../types/types.js';
 
 type Constructor = {
     baseUrl: string;

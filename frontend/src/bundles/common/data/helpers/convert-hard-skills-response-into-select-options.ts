@@ -1,7 +1,7 @@
 import {
     type AutoselectOptions,
     type HardSkillsResponseDto,
-} from '~/bundles/common-data/types/types.js';
+} from '~/bundles/common/data/types/types.js';
 
 const convertHardSkillsApiResponseIntoAutoselectOptions = (
     hardSkillsApiResponse: HardSkillsResponseDto | null,
