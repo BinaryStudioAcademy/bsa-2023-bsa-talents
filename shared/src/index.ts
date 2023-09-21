@@ -14,7 +14,6 @@ export {
 export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
-    ChatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
     type MessageResponseDto,
