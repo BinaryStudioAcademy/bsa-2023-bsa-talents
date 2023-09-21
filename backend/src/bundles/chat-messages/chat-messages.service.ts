@@ -64,22 +64,12 @@ class ChatMessagesService implements Service {
             const {
                 userId: id,
                 profileName,
-                fullName,
-                linkedinLink,
                 companyName,
-                companyLogoId,
-                companyWebsite,
                 photo,
             } = conversationPartner;
 
             // Get necessary fields from file model
-            const photoData = photo
-                ? {
-                      url: photo.url,
-                      fileName: photo.fileName,
-                      etag: photo.etag,
-                  }
-                : null;
+            const avatarUrl = photo ? photo.url : null;
 
             return {
                 chatId,
@@ -88,12 +78,8 @@ class ChatMessagesService implements Service {
                 partner: {
                     id,
                     profileName,
-                    fullName,
-                    linkedinLink,
                     companyName,
-                    companyLogoId,
-                    companyWebsite,
-                    avatar: photoData, // TODO: change photo url logic after testing file uploading
+                    avatarUrl,
                 },
             };
         });

@@ -70,59 +70,30 @@ import { ChatMessagesCreateValidationSchema } from './validation-schemas/validat
  *            example: 'This is the last message in the chat.'
  *          partner:
  *            type: object
- *            properties:
- *              id:
- *                format: uuid
- *                type: string
- *                description: The ID of the chat partner.
- *                example: '550e8400-e29b-41d4-a716-446655440000'
- *              profileName:
- *                type: string
- *                description: The profile name of the chat partner (nullable).
- *                example: 'lee_swagger'
- *                nullable: true
- *              fullName:
- *                type: string
- *                description: The full name of the chat partner (nullable).
- *                example: 'Lee Swagger'
- *                nullable: true
- *              linkedinLink:
- *                type: string
- *                description: The LinkedIn profile link of the chat partner (nullable).
- *                example: 'https://www.linkedin.com/in/leeswagger'
- *                nullable: true
- *              companyName:
- *                type: string
- *                description: The company name of the chat partner (nullable).
- *                example: 'Lee Corp'
- *                nullable: true
- *              companyLogoId:
- *                format: uuid
- *                type: string
- *                description: The company logo ID of the chat partner (nullable).
- *                example: '550e8400-e29b-41d4-a716-446655440000'
- *                nullable: true
- *              companyWebsite:
- *                type: string
- *                description: The company website of the chat partner (nullable).
- *                example: 'https://www.lee-studio.com'
- *                nullable: true
- *              avatar:
- *                type: object
- *                properties:
- *                  url:
- *                    type: string
- *                    description: The URL of the avatar image.
- *                    example: 'https://www.awss3.com/avatar/avatar.jpg'
- *                  fileName:
- *                    type: string
- *                    description: The filename of the avatar image.
- *                    example: 'avatar.jpg'
- *                  etag:
- *                    type: string
- *                    description: The ETag of the avatar image.
- *                    example: '12345'
- *                nullable: true
+ *            $ref: '#/components/schemas/PartnerDto'
+ *      PartnerDto:
+ *        type: "object"
+ *        properties:
+ *          id:
+ *            format: uuid
+ *            type: string
+ *            description: "The ID of the chat partner."
+ *            example: "550e8400-e29b-41d4-a716-446655440000"
+ *          profileName:
+ *            type: string
+ *            description: "The profile name of the chat partner (nullable)."
+ *            example: "lee_swagger"
+ *            nullable: true
+ *          companyName:
+ *            type: string
+ *            description: "The company name of the chat partner (nullable)."
+ *            example: "Lee Corp"
+ *            nullable: true
+ *          avatarUrl:
+ *            type: string
+ *            description: "The URL of the avatar image."
+ *            example: "https://www.awss3.com/avatar/avatar.jpg"
+ *            nullable: true
  */
 class ChatMessagesController extends ControllerBase {
     private chatMessagesService: ChatMessagesService;
