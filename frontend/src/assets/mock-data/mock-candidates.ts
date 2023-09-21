@@ -29,7 +29,7 @@ const mockCandidates = [
         salaryExpectation: 50,
         projectLinks: [],
         location: 'Ukraine',
-        englishLevel: 'B2 Intermidiate',
+        englishLevel: 'B1 Intermediate',
         badges: ['1', '2', '5', '4', '3'],
         preferredLanguages: ['English', 'French'],
         description:
@@ -93,7 +93,7 @@ const mockCandidates = [
         salaryExpectation: 50,
         projectLinks: [],
         location: 'Ukraine',
-        englishLevel: 'B1 Intermidiate',
+        englishLevel: 'B1 Intermediate',
         badges: ['1', '2', '5', '4', '3'],
         preferredLanguages: ['English', 'French'],
         description:
