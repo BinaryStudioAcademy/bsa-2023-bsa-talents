@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
 import { useCallback, useNavigation } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type EmployerBottomTabNavigationParameterList,
     type NavigationProp,
@@ -21,7 +20,6 @@ const ChatBackButton: React.FC = () => {
 
     return (
         <Button
-            style={globalStyles.mr10}
             label="Back"
             buttonType={ButtonType.OUTLINE}
             onPress={handlePreviousPress}

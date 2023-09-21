@@ -52,7 +52,7 @@ const MessageEntryField: React.FC<Properties> = ({
     return (
         <View
             style={[
-                globalStyles.mh25,
+                globalStyles.mh15,
                 globalStyles.mb15,
                 globalStyles.borderRadius15,
                 globalStyles.flexDirectionRow,
