@@ -2,7 +2,7 @@ type BsaBadgesItem = {
     id: string;
     type: string;
     name: string;
-    maxScore: number;
+    maxScore: number | null;
 };
 
 type BsaBadgesResponseDto = {
