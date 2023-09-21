@@ -1,0 +1,50 @@
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: var(--white);
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+}
+
+.secondaryText,
+.locationIcon {
+    color: var(--nepal);
+}
+
+.locationIcon {
+    width: 14px;
+    height: 14px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.companyName {
+    margin: 20px;
+    text-align: center;
+}
+
+.description {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.descriptionBody {
+    white-space: pre-line;
+}
+
+.websiteLabel {
+    margin-top: 20px;
+}
+
+.websiteUrl {
+    display: flex;
+    align-items: start;
+    width: auto;
+    color: var(--azure);
+    font-size: 14px;
+}

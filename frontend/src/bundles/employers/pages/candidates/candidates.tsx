@@ -20,11 +20,14 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
-import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
-import { debounce } from '../helpers/helpers.js';
-import { actions as employerActions } from '../store/employers.js';
-import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import {
+    EmployeeFilters,
+    SortingDropdown,
+} from '../../components/components.js';
+import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
+import { debounce } from '../../helpers/helpers.js';
+import { actions as employerActions } from '../../store/employers.js';
+import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import styles from './styles.module.scss';
 
 const FIELDS: [
