@@ -80,14 +80,7 @@ const ChatList: React.FC = () => {
 
     return (
         <View style={globalStyles.flex1}>
-            <View
-                style={[
-                    globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentSpaceBetween,
-                    globalStyles.p25,
-                    styles.header,
-                ]}
-            >
+            <View style={[globalStyles.p25, styles.header]}>
                 <Text category={TextCategory.H3}>Chat</Text>
             </View>
             <View
@@ -101,14 +94,14 @@ const ChatList: React.FC = () => {
                 <Search
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
-                    containerStyle={styles.search}
+                    containerStyle={[
+                        globalStyles.borderRadius15,
+                        globalStyles.p15,
+                        styles.search,
+                    ]}
                 />
                 <FlatList
-                    style={[
-                        globalStyles.pb15,
-                        globalStyles.mt10,
-                        styles.chatList,
-                    ]}
+                    style={[globalStyles.pb15, styles.chatList]}
                     data={sortedChats}
                     renderItem={renderListItem}
                     keyExtractor={(item): string => item.chatId}
