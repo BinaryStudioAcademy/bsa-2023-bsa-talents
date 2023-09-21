@@ -34,7 +34,7 @@ type UserDetailsUpdateDto = {
     notConsidered?: ValueOf<typeof NotConsidered>[];
     preferredLanguages?: ValueOf<typeof PreferredLanguages>[];
 
-    projectLinks?: string[];
+    projectLinks?: string[] | null;
     photoId?: string;
     fullName?: string;
     phone?: string;

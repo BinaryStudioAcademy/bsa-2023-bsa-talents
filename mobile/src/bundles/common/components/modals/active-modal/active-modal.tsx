@@ -16,7 +16,7 @@ type Properties = {
     title: string;
     visible: boolean;
     acceptText?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onClose: () => void;
     onAccept?: () => void;
 };
