@@ -12,6 +12,7 @@ import {
     FormHelperText,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -19,10 +20,11 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
 import { OnboardingSteps } from '../../enums/enums.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
@@ -32,20 +34,32 @@ const BadgesStep: React.FC = () => {
         badges: state.talentOnBoarding.badges,
         bsaBadges: state.lms.bsaBadges,
     }));
-
-    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
-        defaultValues: { badges },
-        validationSchema: BsaBadgesStepValidationSchema,
-    });
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, handleSubmit, errors, watch } =
+        useAppForm<BsaBadgesStepDto>({
+            defaultValues: { badges },
+            validationSchema: BsaBadgesStepValidationSchema,
+        });
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
+    const watchedBadges = watch('badges');
+
+    useEffect(() => {
+        const hasChanges =
+            JSON.stringify(watchedBadges) === JSON.stringify(badges);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [badges, dispatch, hasChangesInDetails, watchedBadges]);
 
     const onSubmit = useCallback(
         async (data: BsaBadgesStepDto): Promise<boolean> => {
             await dispatch(
-                actions.updateTalentDetails({
+                talentActions.updateTalentDetails({
                     ...data,
                     completedStep: OnboardingSteps.STEP_02,
                 }),
@@ -133,7 +147,7 @@ const BadgesStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.formControl}>
+        <>
             <Typography className={styles.formLabel} variant={'h6'}>
                 Choose BSA badges you want to show in your profile
             </Typography>
@@ -149,7 +163,7 @@ const BadgesStep: React.FC = () => {
                     {errors.badges.message}
                 </FormHelperText>
             )}
-        </FormControl>
+        </>
     );
 };
 

@@ -1,0 +1,15 @@
+.tab {
+    width: auto;
+    padding: 0;
+    color: var(--steel-gray);
+    font-size: var(--font-size-h6);
+    text-transform: none;
+}
+
+.tab:global(.MuiButtonBase-root) {
+    min-width: 30px;
+}
+
+.tab:global(.Mui-selected) {
+    color: var(--st-tropaz);
+}

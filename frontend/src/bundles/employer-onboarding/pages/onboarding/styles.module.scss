@@ -17,10 +17,56 @@
     border-radius: 8px;
 }
 
+.buttonRegistration {
+    width: fit-content;
+    height: 36px;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: none;
+}
+
+.previewButton {
+    margin-right: 10px;
+    color: var(--hover-primary);
+    border-color: var(--hover-primary);
+
+    &:disabled {
+        color: var(--aluminium);
+        background-color: var(--background-primary);
+    }
+}
+
+.submitButton {
+    background-color: var(--background-secondary);
+
+    &:hover {
+        background-color: var(--hover-primary);
+    }
+}
+
+.container {
+    width: 100%;
+}
+
+.paragraph {
+    margin-bottom: 40px;
+
+    .body {
+        margin-top: 7px;
+    }
+}
+
 @media screen and (width <=760px) {
     .header {
         margin-bottom: 20px;
         padding-left: 40px;
         font-size: 20px;
+    }
+
+    .paragraph {
+        h2 {
+            font-size: 24px;
+        }
     }
 }
