@@ -27,12 +27,12 @@ import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
+import { CandidatePage } from './bundles/employers/pages/candidate-page/candidate-page.js';
 import { Candidates } from './bundles/employers/pages/candidates.js';
 import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
-import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(

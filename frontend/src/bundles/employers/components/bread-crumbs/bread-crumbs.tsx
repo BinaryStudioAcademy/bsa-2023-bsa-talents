@@ -6,7 +6,10 @@ import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 
 import styles from './styles.module.scss';
 
-const BreadCrumbs: React.FC = () => {
+type Properties = {
+    profileName?: string;
+};
+const BreadCrumbs: React.FC<Properties> = ({ profileName }) => {
     const linkClass = useCallback(
         ({ isActive }: { isActive: boolean }) =>
             isActive ? `${styles.active}` : `${styles.inactive}`,
@@ -27,9 +30,8 @@ const BreadCrumbs: React.FC = () => {
                     alt="rounded arrow"
                 />
                 <li>
-                    {/*TODO: change link 'to' and link text */}
-                    <Link to={AppRoute.CANDIDATE} className={linkClass}>
-                        Middle Python Developer
+                    <Link to={AppRoute.SAME_PAGE} className={linkClass}>
+                        {profileName}
                     </Link>
                 </li>
             </ul>

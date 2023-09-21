@@ -1,7 +1,7 @@
 const AppRoute = {
     ROOT: '/',
     CANDIDATES: '/candidates',
-    CANDIDATE: '/candidates/:candidate',
+    CANDIDATE: '/candidates/:userId',
     CHATS: '/chats',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
