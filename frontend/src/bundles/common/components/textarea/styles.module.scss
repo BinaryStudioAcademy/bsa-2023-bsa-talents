@@ -7,6 +7,7 @@
     border: 1px solid var(--botticelli);
     border-radius: 4px;
     transition: border 200ms;
+    resize: vertical;
 
     &::placeholder {
         color: var(--nepal);

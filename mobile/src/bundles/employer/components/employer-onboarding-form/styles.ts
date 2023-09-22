@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
+    photoContainer: {
+        flexWrap: 'wrap',
+    },
     title: {
         fontWeight: '700',
         textAlign: 'center',
