@@ -57,6 +57,29 @@
     display: flex;
 }
 
+.summaryText {
+    margin-block: 10px;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+}
+
+.cardSummaryText {
+    margin-inline: -35px;
+    padding-inline: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.profileCardReadMoreButton {
+    float: right;
+    width: 127px;
+    height: 36px;
+    margin-top: 10px;
+    font-size: var(--font-size-base);
+    text-transform: none;
+    background-color: var(--background-secondary);
+}
+
 .project {
     margin-top: 30px;
 }

@@ -151,12 +151,31 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     </ul>
                 </Grid>
             )}
-            <SummaryPreview
-                description={candidateParameters.description}
-                isExpanded={isExpanded}
-                handleSummaryClick={handleSummaryClick}
-                isProfileCard={isProfileCard}
-            />
+            {isProfileCard ? (
+                <Grid className={styles.summaryText}>
+                    <Typography
+                        variant="body1"
+                        className={getValidClassNames(
+                            styles.summaryText,
+                            styles.cardsummaryText,
+                        )}
+                    >
+                        {candidateParameters.description}
+                    </Typography>
+                    <Button
+                        label="Read more"
+                        variant={'contained'}
+                        className={styles.profileCardReadMoreButton}
+                    />
+                </Grid>
+            ) : (
+                <SummaryPreview
+                    description={candidateParameters.description}
+                    isExpanded={isExpanded}
+                    handleSummaryClick={handleSummaryClick}
+                />
+            )}
+
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
