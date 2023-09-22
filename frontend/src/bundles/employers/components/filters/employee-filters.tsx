@@ -18,6 +18,7 @@ import {
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
+import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaBadges,
     BsaCharacteristics,
@@ -162,7 +163,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     );
 
     const handleFiltersClear = useCallback((): void => {
-        reset();
+        reset(DEFAULT_EMPLOYEES_FILTERS_PAYLOAD);
     }, [reset]);
 
     return (
