@@ -1,4 +1,5 @@
 import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
+import { BsaBadgeType } from '~/bundles/common/enums/badge-types.enum.js';
 
 const mockBadges = [
     {
@@ -6,7 +7,7 @@ const mockBadges = [
         score: 2,
         maxScore: 5,
         description: 'Your average project score',
-        type: 'service',
+        type: BsaBadgeType.SERVICE,
         color: BadgeColors.DARK_BLUE,
     },
     {
@@ -14,7 +15,7 @@ const mockBadges = [
         score: 1.5,
         maxScore: 10,
         description: 'Your average lectures score',
-        type: 'service',
+        type: BsaBadgeType.SERVICE,
         color: BadgeColors.RED,
     },
     {
@@ -22,7 +23,7 @@ const mockBadges = [
         score: 2.1,
         maxScore: 5,
         description: 'Communication score',
-        type: 'custom',
+        type: BsaBadgeType.CUSTOM,
         color: BadgeColors.YELLOW,
     },
     {
@@ -30,14 +31,14 @@ const mockBadges = [
         score: 1,
         maxScore: 5,
         description: 'Working with team score',
-        type: 'custom',
+        type: BsaBadgeType.CUSTOM,
         color: BadgeColors.PURPLE,
     },
     {
         id: '5',
         level: 'B+',
         description: 'Level of English',
-        type: 'service',
+        type: BsaBadgeType.SERVICE,
         color: BadgeColors.GREEN,
     },
     {
@@ -45,7 +46,7 @@ const mockBadges = [
         score: 4,
         maxScore: 5,
         description: 'Punctuality',
-        type: 'custom',
+        type: BsaBadgeType.CUSTOM,
         color: BadgeColors.ORANGE,
     },
 ];

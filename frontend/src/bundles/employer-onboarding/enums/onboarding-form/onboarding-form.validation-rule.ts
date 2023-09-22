@@ -12,6 +12,6 @@ const EmployerOnboardingValidationRule = {
     MIN_COMPANY_NAME_LENGTH: 2,
     MAX_COMPANY_NAME_LENGTH: 50,
     MAX_FILE_SIZE: 5_242_880,
-};
+} as const;
 
 export { EmployerOnboardingValidationRule };

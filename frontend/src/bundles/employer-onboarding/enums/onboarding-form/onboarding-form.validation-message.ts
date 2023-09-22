@@ -43,6 +43,6 @@ const EmployerOnboardingValidationMessage = {
         'Company name must be at least {{#limit}} characters',
     COMPANY_NAME_MAX_LENGTH:
         'Company name must be at most {{#limit}} characters',
-};
+} as const;
 
 export { EmployerOnboardingValidationMessage };
