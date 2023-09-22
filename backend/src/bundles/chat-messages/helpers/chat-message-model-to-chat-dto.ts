@@ -1,11 +1,14 @@
 import { type ChatMessageModel } from '../chat-message.model.js';
-import { type AdditionalChatProperties, type ChatDto } from '../types/types.js';
+import {
+    type AdditionalChatProperties,
+    type ChatItem,
+} from '../types/types.js';
 
 function chatMessageModelToChatDto(
     payload: ChatMessageModel & AdditionalChatProperties,
-): ChatDto {
+): ChatItem {
     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
-        payload as ChatDto;
+        payload as ChatItem;
 
     return {
         chatId,

@@ -1,6 +1,6 @@
-import { type ChatDto, type ChatResponseDto } from '../types/types.js';
+import { type ChatItem, type ChatResponseDto } from '../types/types.js';
 
-function chatDtoToChatResponseDto(chat: ChatDto): ChatResponseDto {
+function chatDtoToChatResponseDto(chat: ChatItem): ChatResponseDto {
     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
         chat;
 
