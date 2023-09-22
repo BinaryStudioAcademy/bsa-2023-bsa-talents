@@ -37,7 +37,7 @@ type RootReducer = {
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
-    chats: ReturnType<typeof chatReduser>;
+    chats: ReturnType<typeof chatReducer>;
     candidate: ReturnType<typeof candidateReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
 };
