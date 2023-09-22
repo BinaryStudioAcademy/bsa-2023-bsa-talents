@@ -1,7 +1,7 @@
-const SLIDER_VALUES = {
+const sliderValues = {
     defaultMinSliderValue: 0,
     defaultMaxSliderValue: 10,
     defaultValueWidth: 70,
 };
 
-export { SLIDER_VALUES };
+export { sliderValues };

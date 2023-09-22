@@ -20,7 +20,7 @@ import {
     type ViewStyle,
 } from '~/bundles/common/types/types';
 
-import { SLIDER_VALUES } from './constants/constants';
+import { sliderValues } from './constants/constants';
 import { styles } from './styles';
 
 type SliderOption = {
@@ -41,9 +41,9 @@ const Slider = <T extends FieldValues>({
     name,
     control,
     containerStyle,
-    thumbTitleValueWidth = SLIDER_VALUES.defaultValueWidth,
-    minimumValue = SLIDER_VALUES.defaultMinSliderValue,
-    maximumValue = SLIDER_VALUES.defaultMaxSliderValue,
+    thumbTitleValueWidth = sliderValues.defaultValueWidth,
+    minimumValue = sliderValues.defaultMinSliderValue,
+    maximumValue = sliderValues.defaultMaxSliderValue,
     sliderOptions,
     ...props
 }: Properties<T>): JSX.Element => {
