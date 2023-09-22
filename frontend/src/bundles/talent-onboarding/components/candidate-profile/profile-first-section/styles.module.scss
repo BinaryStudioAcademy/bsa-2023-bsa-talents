@@ -27,6 +27,10 @@
     align-items: unset;
     width: unset;
     color: var(--steel-gray);
+
+    &[aria-current="page"] {
+        color: var(--steel-gray);
+    }
 }
 
 .academyScore {
