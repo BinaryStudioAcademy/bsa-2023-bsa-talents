@@ -1,6 +1,8 @@
 import {
     type AnyAction,
+    combineReducers,
     type MiddlewareArray,
+    type Reducer,
     type ThunkMiddleware,
 } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
@@ -10,7 +12,7 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
-import { reducer as chatReduser } from '~/bundles/chat/store/chat.js';
+import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
@@ -50,6 +52,28 @@ type ExtraArguments = {
     storage: typeof storage;
 };
 
+const combinedReducer = combineReducers({
+    auth: authReducer,
+    users: usersReducer,
+    lms: lmsReducer,
+    chat: chatReducer,
+    employerOnBoarding: employerOnboardingReducer,
+    talentOnBoarding: talentOnBoardingReducer,
+    employer: employerReducer,
+    app: appReducer,
+    candidate: candidateReducer,
+    cabinet: cabinetReducer,
+});
+
+type RootState = ReturnType<typeof combinedReducer>;
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+    if (action.type === 'app/resetStore') {
+        state = {} as RootState;
+    }
+    return combinedReducer(state, action);
+};
+
 class Store {
     public instance: ReturnType<
         typeof configureStore<
@@ -64,18 +88,7 @@ class Store {
     public constructor(config: Config) {
         this.instance = configureStore({
             devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
-            reducer: {
-                auth: authReducer,
-                users: usersReducer,
-                lms: lmsReducer,
-                chats: chatReduser,
-                employerOnBoarding: employerOnboardingReducer,
-                talentOnBoarding: talentOnBoardingReducer,
-                employer: employerReducer,
-                app: appReducer,
-                candidate: candidateReducer,
-                cabinet: cabinetReducer,
-            },
+            reducer: rootReducer,
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
                 ...getDefaultMiddleware({
