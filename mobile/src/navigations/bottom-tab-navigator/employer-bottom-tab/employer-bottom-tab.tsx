@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ChatList } from '~/bundles/chat/screens/screens';
 import { MaterialIcon } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
     EmployerBottomTabScreenName,
     IconName,
@@ -18,8 +19,6 @@ import { bottomTabStyles } from '../styles';
 const BottomTab =
     createBottomTabNavigator<EmployerBottomTabNavigationParameterList>();
 
-const iconSize = 24;
-
 const EmployerBottomTabNavigator: React.FC = () => {
     return (
         <BottomTab.Navigator screenOptions={bottomTabStyles}>
@@ -30,7 +29,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                     tabBarIcon: ({ color }) => (
                         <MaterialIcon
                             name={IconName.FOLDER_SHARED}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -43,7 +42,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                     tabBarIcon: ({ color }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -56,7 +55,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                     tabBarIcon: ({ color }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),

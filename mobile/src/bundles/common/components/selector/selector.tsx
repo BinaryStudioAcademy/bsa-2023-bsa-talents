@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useCallback,
@@ -23,7 +24,6 @@ import {
     type FieldValues,
 } from '~/bundles/common/types/types';
 
-import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {

@@ -10,20 +10,17 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    CountryList,
-    IconName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
-import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
+import {
+    EMPLOYER_ONBOARDING_DEFAULT_VALUES,
+    LOCATION_OPTIONS,
+} from './constants/constants';
 import { styles } from './styles';
-
-const locationOptions = Object.values(CountryList);
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
@@ -202,7 +199,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Option"
                 />
             </FormField>

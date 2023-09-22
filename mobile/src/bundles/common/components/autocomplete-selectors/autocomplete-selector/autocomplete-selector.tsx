@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
@@ -23,7 +24,6 @@ import {
 } from '~/bundles/common/types/types';
 
 import { styles } from '../styles';
-import { ICON_SIZE } from './constants/constants';
 
 type Properties<T extends FieldValues> = {
     control?: Control<T, null>;
