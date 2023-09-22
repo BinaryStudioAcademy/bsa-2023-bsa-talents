@@ -8,7 +8,7 @@ const StepsList = {
     THREE: 3,
     FOUR: 4,
     FIVE: 5,
-};
+} as const;
 
 const STEPS_NUMBER = 5;
 
