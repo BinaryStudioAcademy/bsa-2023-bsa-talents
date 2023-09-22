@@ -83,9 +83,9 @@ class UserDetailsModel extends AbstractModel {
 
     public 'completedStep': ValueOf<typeof OnboardingSteps>;
 
-    public 'photo': ValueOf<typeof FileModel> | null;
+    public 'photo': FileModel | null;
 
-    public 'companyLogo': ValueOf<typeof FileModel> | null;
+    public 'companyLogo': FileModel | null;
 
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));

@@ -1,8 +1,9 @@
-import { searchCandidates, setFilters } from './actions.js';
+import { getEmployerData, searchCandidates, setFilters } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
+    getEmployerData,
     searchCandidates,
     setFilters,
 };

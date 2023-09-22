@@ -7,34 +7,26 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useEffect,
-    useNavigate,
     useParameters,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { employersApi } from '~/bundles/employers/employers.js';
 
-import { type EmployerDataDto } from '../../types/employers-data-dto.js';
+import { actions as employersActon } from '../../store/employers.js';
 import styles from './styles.module.scss';
 
 const CompanyPage: React.FC = () => {
     const { id } = useParameters();
-    const navigate = useNavigate();
-    const [companyData, setCompanyData] = useState<EmployerDataDto>();
+    const dispatch = useAppDispatch();
+    const { employers } = useAppSelector((state) => state.employer);
+    const companyData = employers.find((it) => it.userId === id);
 
     useEffect(() => {
-        async function fetchCompanyData(): Promise<void> {
-            try {
-                const data = await employersApi.getEmployerDetails(
-                    id as string,
-                );
-                setCompanyData(data);
-            } catch {
-                navigate('/404');
-            }
+        if (!companyData) {
+            void dispatch(employersActon.getEmployerData(id as string));
         }
-        void fetchCompanyData();
-    }, [id, navigate]);
+    }, [companyData, dispatch, id]);
 
     return companyData ? (
         <Grid container className={styles.container}>

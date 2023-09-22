@@ -5,14 +5,17 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
-import { searchCandidates, setFilters } from './actions.js';
+import { type EmployerDataDto } from '../types/types.js';
+import { getEmployerData, searchCandidates, setFilters } from './actions.js';
 
 type State = {
+    employers: EmployerDataDto[];
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
 };
 
 const initialState: State = {
+    employers: [],
     dataStatus: DataStatus.IDLE,
     filters: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
 };
@@ -32,6 +35,11 @@ const { reducer, actions, name } = createSlice({
 
         builder.addCase(setFilters.fulfilled, (state, action) => {
             state.filters = action.payload;
+        });
+        builder.addCase(getEmployerData.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.employers.push(action.payload);
+            }
         });
     },
 });

@@ -2,7 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
-import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { employerDataMapper } from '../helpers/mapper/employers-data-mapper.js';
+import {
+    type EmployeesFiltersDto,
+    type EmployerDataDto,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const searchCandidates = createAsyncThunk<
@@ -23,4 +27,24 @@ const setFilters = createAsyncThunk<
     return filters;
 });
 
-export { searchCandidates, setFilters };
+const getEmployerData = createAsyncThunk<
+    EmployerDataDto | null,
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/get-employer-data`, async (id, { extra, rejectWithValue }) => {
+    const { employersApi } = extra;
+
+    try {
+        const userDetails = await employersApi.getEmployerDetails(id);
+
+        return employerDataMapper(userDetails);
+    } catch (error) {
+        rejectWithValue({
+            _type: 'rejected',
+            error,
+        });
+        return null;
+    }
+});
+
+export { getEmployerData, searchCandidates, setFilters };
