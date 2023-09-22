@@ -6,7 +6,7 @@ import { ChatMessageEntity } from './chat-message.entity.js';
 import { type ChatMessageModel } from './chat-message.model.js';
 import { chatMessageModelToChatDto } from './helpers/utils.js';
 import {
-    type ChatDto,
+    type ChatItem,
     type ChatMessagesCreateRequestDto,
     type ChatMessagesPatchDto,
 } from './types/types.js';
@@ -43,7 +43,7 @@ class ChatMessagesRepository implements Repository {
         );
     }
 
-    public async findAllChatsByUserId(userId: string): Promise<ChatDto[]> {
+    public async findAllChatsByUserId(userId: string): Promise<ChatItem[]> {
         const chats = await this.chatMessageModel
             .query()
             .alias('cm')

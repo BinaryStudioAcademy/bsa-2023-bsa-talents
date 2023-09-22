@@ -5,7 +5,8 @@ import {
 } from 'fastify';
 
 import { type HttpMethod } from '~/common/http/http.js';
-import { type ValidationSchema } from '~/common/types/types.js';
+
+import { type ValidationParameters } from './validation-parameters.type.js';
 
 type ServerAppRouteParameters = {
     path: string;
@@ -15,10 +16,7 @@ type ServerAppRouteParameters = {
         request: FastifyRequest,
         reply: FastifyReply,
     ) => Promise<void> | void;
-    validation?: {
-        body?: ValidationSchema;
-        query?: ValidationSchema;
-    };
+    validation?: ValidationParameters;
 };
 
 export { type ServerAppRouteParameters };

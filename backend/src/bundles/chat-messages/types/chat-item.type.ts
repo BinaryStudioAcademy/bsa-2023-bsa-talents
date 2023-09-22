@@ -1,6 +1,6 @@
 import { type UserDetailsModel } from '~/bundles/user-details/user-details.model.js';
 
-type ChatDto = {
+type ChatItem = {
     chatId: string;
     lastMessageCreatedAt: string;
     lastMessage: string;
@@ -8,4 +8,4 @@ type ChatDto = {
     receiver: UserDetailsModel;
 };
 
-export { type ChatDto };
+export { type ChatItem };
