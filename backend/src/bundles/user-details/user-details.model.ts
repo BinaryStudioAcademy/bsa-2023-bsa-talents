@@ -83,6 +83,8 @@ class UserDetailsModel extends AbstractModel {
 
     public 'completedStep': ValueOf<typeof OnboardingSteps>;
 
+    public 'publishedAt': Date;
+
     public 'photo'?: FileModel;
 
     public override $afterFind(): void {
