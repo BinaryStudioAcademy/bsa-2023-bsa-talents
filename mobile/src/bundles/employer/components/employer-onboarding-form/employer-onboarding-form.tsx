@@ -207,6 +207,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 label="Briefly tell about your company and its values"
                 name="description"
                 containerStyle={globalStyles.pb25}
+                required
             >
                 <Input
                     control={control}
