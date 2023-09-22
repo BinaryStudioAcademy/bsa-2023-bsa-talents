@@ -5,7 +5,7 @@ const LAST_TWO_CHARS = -2;
 const STEP_ONE = 1;
 const STEPS_NUMBER = 5;
 const PLURAL_YEARS = 1.5;
-const PREVIEW_CHAR_LIMIT = 100;
+const PREVIEW_CHAR_LIMIT = 200;
 
 const STEP_NUMBER_FROM_ROUTE = Object.fromEntries(
     Object.entries(StepsRoute)

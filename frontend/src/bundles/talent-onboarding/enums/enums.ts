@@ -10,5 +10,6 @@ export {
     NotConsidered,
     OnboardingSteps,
     PreferredLanguages,
+    ProfileStepValidationRule,
     OnboardingSteps as StepsRoute,
 } from 'shared/build/index.js';
