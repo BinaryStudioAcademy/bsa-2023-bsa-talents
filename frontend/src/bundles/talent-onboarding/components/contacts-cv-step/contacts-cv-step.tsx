@@ -26,7 +26,7 @@ import {
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { OnboardingSteps } from '../../enums/enums.js';
+import { OnboardingStep } from '../../enums/enums.js';
 import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
@@ -114,7 +114,7 @@ const ContactsCVStep: React.FC = () => {
                     phone,
                     linkedinLink,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_04,
+                    completedStep: OnboardingStep.STEP_04,
                 }),
             );
             return true;

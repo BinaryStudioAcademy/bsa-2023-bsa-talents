@@ -5,7 +5,7 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
+    OnboardingStep,
     PreferredLanguages,
     UserDetailsApiPath,
     UserSortCriteria,

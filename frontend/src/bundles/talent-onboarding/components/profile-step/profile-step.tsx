@@ -31,7 +31,7 @@ import {
     CountryList,
     EmploymentType,
     JobTitle,
-    OnboardingSteps,
+    OnboardingStep,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -179,7 +179,7 @@ const ProfileStep: React.FC = () => {
                 talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_01,
+                    completedStep: OnboardingStep.STEP_01,
                 }),
             );
             return true;
