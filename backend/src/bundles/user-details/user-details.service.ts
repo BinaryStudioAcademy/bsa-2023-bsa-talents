@@ -225,6 +225,23 @@ class UserDetailsService implements Service {
         return true;
     }
 
+    public async publish(payload: { userId: string }): Promise<string> {
+        const { userId } = payload;
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.publish({ id: userDetailsId });
+    }
+
     public delete(): Promise<boolean> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
