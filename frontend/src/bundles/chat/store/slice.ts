@@ -49,8 +49,9 @@ const { reducer, actions, name } = createSlice({
             const chat = state.chats.find(
                 (chat) => chat.chatId === action.payload.chatId,
             );
+
             if (chat) {
-                chat.lastMessage = action.payload;
+                chat.lastMessage = action.payload.message;
             }
 
             if (state.current.chatId === action.payload.chatId) {
@@ -60,10 +61,10 @@ const { reducer, actions, name } = createSlice({
                 ];
             }
 
-            state.current.messages = [
-                ...state.current.messages,
-                action.payload,
-            ];
+            // state.current.messages = [
+            //     ...state.current.messages,
+            //     action.payload,
+            // ];
         },
     },
     extraReducers(builder) {

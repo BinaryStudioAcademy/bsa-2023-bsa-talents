@@ -36,7 +36,6 @@ const ChatsPage: React.FC = () => {
 
     const [isOpenChatList, setIsOpenChatList] = useState(false);
     const [isOpenInfo, setIsOpenInfo] = useState(false);
-    // const [chatMessages, setChatMessages] = useState(messages);
 
     const handleOpenChatListButton = useCallback(() => {
         setIsOpenChatList(!isOpenChatList);
@@ -62,11 +61,10 @@ const ChatsPage: React.FC = () => {
         }),
     );
 
+    const id = user?.id;
     useEffect(() => {
-        if (user) {
-            void dispatch(chatActions.getAllChatsByUserId(user.id));
-        }
-    }, [dispatch, user]);
+        void dispatch(chatActions.getAllChatsByUserId(id as string));
+    }, [dispatch, id]);
 
     // TODO: will be replaced by redux logic with server API
     const [currentChat, setCurrentChat] = useState({
@@ -82,14 +80,13 @@ const ChatsPage: React.FC = () => {
                 (chat) => chat.chatId === currentChatId,
             )?.partner.id;
 
-            void dispatch(
-                chatActions.createMessage({
-                    message,
-                    chatId: currentChatId as string,
-                    senderId: user?.id as string,
-                    receiverId: recieverId as string,
-                }),
-            );
+            const payload = {
+                message,
+                chatId: currentChatId as string,
+                senderId: user?.id as string,
+                receiverId: recieverId as string,
+            };
+            void dispatch(chatActions.createMessage(payload));
         },
         [dispatch, currentChatId, chats, user?.id],
     );
@@ -100,7 +97,12 @@ const ChatsPage: React.FC = () => {
             isOpenChatList && setIsOpenChatList(false);
             const participant = items.find((item) => id === item.userId);
             if (participant) {
-                void dispatch(chatActions.joinRoom(participant.userId));
+                void dispatch(
+                    chatActions.joinRoom({
+                        userId: participant.userId,
+                        chatId: participant.chatId,
+                    }),
+                );
                 void dispatch(
                     chatActions.getAllMessagesByChatId(participant.chatId),
                 );
@@ -138,6 +140,7 @@ const ChatsPage: React.FC = () => {
             value: message.message,
             avatarUrl: match?.avatar,
             userFullName: match?.fullName ?? '',
+            // selfPhoto: match?.selfPhoto.url
         };
     });
 

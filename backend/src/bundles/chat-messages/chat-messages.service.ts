@@ -42,7 +42,9 @@ class ChatMessagesService implements Service {
     }
 
     public async findAllChatsByUserId(userId: string): Promise<{
-        items: ChatResponseDto[];
+        items: (ChatResponseDto & {
+            selfPhoto: { url: string | null } | null;
+        })[];
     }> {
         const chats = await this.chatMessagesRepository.findAllChatsByUserId(
             userId,
@@ -59,6 +61,8 @@ class ChatMessagesService implements Service {
 
             const conversationPartner =
                 userId === sender.userId ? receiver : sender;
+
+            const yourself = userId === sender.userId ? sender : receiver;
 
             // Get necessary fields from user details model
             const {
@@ -81,10 +85,17 @@ class ChatMessagesService implements Service {
                   }
                 : null;
 
+            const selfPhoto = yourself.photo
+                ? {
+                      url: yourself.photo.url,
+                  }
+                : null;
+
             return {
                 chatId,
                 lastMessageCreatedAt,
                 lastMessage,
+                selfPhoto,
                 partner: {
                     id,
                     profileName,

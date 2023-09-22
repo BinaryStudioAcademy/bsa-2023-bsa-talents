@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -9,17 +9,18 @@ import {
 } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
-const joinRoom = createAction(`${sliceName}/join-room`, (chatId: string) => {
-    return {
-        payload: chatId,
-    };
-});
+// const joinRoom = createAction(`${sliceName}/join-room`, (payload: { userId: string, chatId: string} ) => {
+//     console.log("DO I RUN?")
+//     return {
+//         payload
+//     };
+// });
 
-const leaveRoom = createAction(`${sliceName}/leave-room`, (chatId: string) => {
-    return {
-        payload: chatId,
-    };
-});
+// const leaveRoom = createAction(`${sliceName}/leave-room`, (chatId: string) => {
+//     return {
+//         payload: chatId,
+//     };
+// });
 
 const getAllMessages = createAsyncThunk<
     MessageResponseDto[],
@@ -74,21 +75,23 @@ const createMessage = createAsyncThunk<
     });
 });
 
-const addMessage = createAction(
-    `${sliceName}/add-message`,
-    (message: MessageResponseDto) => {
-        return {
-            payload: message,
-        };
-    },
-);
+// const addMessage = createAction(
+//     `${sliceName}/add-message`,
+//     (message: MessageResponseDto) => {
+//         console.log("ACTIONS: " , message)
+
+//         return {
+//             payload: message,
+//         };
+//     },
+// );
 
 export {
-    addMessage,
+    // addMessage,
     createMessage,
     getAllChatsByUserId,
     getAllMessages,
     getAllMessagesByChatId,
-    joinRoom,
-    leaveRoom,
+    // joinRoom,
+    // leaveRoom,
 };

@@ -13,6 +13,11 @@ type Properties = {
 
 const MessageList: React.FC<Properties> = ({ messages, className }) => {
     const autoScrollElement = useRef<HTMLDivElement>(null);
+
+    // const { currentUser } = useAppSelector(({ auth }) => ({
+    //     currentUser: auth.currentUser,
+    // }));
+
     useEffect(() => {
         if (messages.length > 0) {
             autoScrollElement.current?.scrollIntoView({
@@ -29,6 +34,7 @@ const MessageList: React.FC<Properties> = ({ messages, className }) => {
                     userId={message.userId}
                     userFullName={message.userFullName}
                     avatarUrl={message.avatarUrl}
+                    // avatarUrl={currentUser!.id === message.userId? message.avatarUrl : message.selfPhoto}
                 >
                     {message.value}
                 </MessageItem>

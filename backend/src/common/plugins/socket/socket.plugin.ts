@@ -22,10 +22,13 @@ const socket: FastifyPluginCallback = (
         // const userId = socket.handshake.query.userId;
         // connectedUsers.set(userId, socket.id);
 
-        socket.on(SocketEvent.CHAT_JOIN_ROOM, (userId, chatId: string) => {
-            connectedUsers.set(userId, socket.id); // TODO: temporary solution while we can not get userId on connection
-            return socket.join(chatId);
-        });
+        socket.on(
+            SocketEvent.CHAT_JOIN_ROOM,
+            ({ userId, chatId }: { userId: string; chatId: string }) => {
+                connectedUsers.set(userId, socket.id); // TODO: temporary solution while we can not get userId on connection
+                return socket.join(chatId);
+            },
+        );
 
         socket.on(SocketEvent.CHAT_LEAVE_ROOM, (chatId: string) => {
             return socket.leave(chatId);
@@ -34,13 +37,15 @@ const socket: FastifyPluginCallback = (
         socket.on(
             SocketEvent.CHAT_CREATE_MESSAGE,
             (payload: MessageResponseDto) => {
-                const receiverId = connectedUsers.get(payload.receiverId);
+                // const receiverId = connectedUsers.get(payload.receiverId);
 
-                if (receiverId) {
-                    socket
-                        .to(receiverId)
-                        .emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
-                }
+                socket.broadcast.emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
+
+                // if (receiverId) {
+                //     socket
+                //         .to(receiverId)
+                //         .emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
+                // }
             },
         );
 

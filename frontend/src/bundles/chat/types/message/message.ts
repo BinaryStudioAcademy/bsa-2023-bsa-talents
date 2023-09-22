@@ -4,6 +4,7 @@ type Message = {
     value: string;
     avatarUrl?: string;
     userFullName: string;
+    selfPhoto?: string;
 };
 
 export { type Message };
