@@ -2,7 +2,7 @@ type BadgesItem = {
     id: string;
     type: string;
     name: string;
-    maxScore: number;
+    maxScore: number | null;
 };
 
 export { type BadgesItem };

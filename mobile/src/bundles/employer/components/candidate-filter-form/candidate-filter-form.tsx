@@ -31,7 +31,8 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { getHardSkillsData } from '~/bundles/common-data/store/actions';
-import { ExperienceYears } from '~/bundles/employer/enums/enums';
+import { YearsOfExperience } from '~/bundles/employer/enums/enums';
+import { transformDataToMultiSelector } from '~/bundles/employer/helpers/helpers';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 import {
@@ -41,23 +42,12 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-const jobTitleOptions = Object.entries(JobTitle).map(([id, name]) => ({
-    id,
-    name,
-}));
-const locationOptions = Object.entries(CountryList).map(([id, name]) => ({
-    id,
-    name,
-}));
+const jobTitleOptions = transformDataToMultiSelector(JobTitle);
+const locationOptions = transformDataToMultiSelector(CountryList);
+const experienceYears = transformDataToMultiSelector(YearsOfExperience);
 
 const englishLevels = Object.values(EnglishLevel);
-
 const employmentTypeOptions = Object.values(EmploymentType);
-
-const experienceYears = Object.entries(ExperienceYears).map(([id, name]) => ({
-    id,
-    name,
-}));
 
 type CandidatesFilterFormProperties = {
     onSubmit: (dto: EmployeesFiltersForm) => void;

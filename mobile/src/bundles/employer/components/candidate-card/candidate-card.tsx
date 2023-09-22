@@ -18,6 +18,7 @@ const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
 
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
+    fullName,
     salaryExpectation,
     jobTitle,
     location,
@@ -43,9 +44,13 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                         globalStyles.justifyContentSpaceBetween,
                     ]}
                 >
-                    <Text category={TextCategory.H5} style={styles.title}>
-                        {jobTitle}
-                    </Text>
+                    <View>
+                        <Text category={TextCategory.H5}>{fullName}</Text>
+                        <Text category={TextCategory.H5} style={styles.title}>
+                            {jobTitle}
+                        </Text>
+                    </View>
+
                     <Text category={TextCategory.H5} style={styles.salary}>
                         ${salaryExpectation}
                     </Text>
@@ -61,8 +66,9 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                         category={TextCategory.CAPTION}
                         style={styles.supportingText}
                     >
-                        // TODO: add submitted at after fix backend
-                        {englishLevel}
+                        {
+                            englishLevel // TODO: add submitted at after fix backend
+                        }
                     </Text>
                 </View>
             </View>

@@ -11,11 +11,13 @@ export {
     type ChatMessageGetAllItemResponseDto,
     type ChatMessageGetAllResponseDto,
 } from './bundles/chat/chat.js';
-export { FileApiPath } from './bundles/file/file.js';
 export {
+    type BadgesItem,
     type BadgesResponseDto,
+    type HardSkillsItem,
     type HardSkillsResponseDto,
-} from './bundles/gather-selected-data/gather-selected-data.js';
+} from './bundles/common-data/common-data.js';
+export { FileApiPath } from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,

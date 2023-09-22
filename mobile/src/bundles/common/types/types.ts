@@ -54,6 +54,7 @@ export {
     type RadioGroupProps,
 } from 'react-native-radio-buttons-group';
 export {
+    type BadgesItem,
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,

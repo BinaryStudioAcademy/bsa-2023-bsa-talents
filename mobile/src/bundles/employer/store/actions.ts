@@ -13,9 +13,7 @@ const getTalentsData = createAsyncThunk<
 >(`${sliceName}/getTalentsData`, async (_, { extra }) => {
     const { employerApi, notifications } = extra;
     try {
-        const talentsData = await employerApi.getAllTalents();
-        // TODO: add check for isSubmitted
-        return talentsData.filter(({ isApproved }) => isApproved);
+        return await employerApi.getAllTalents();
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -30,9 +28,7 @@ const getFilteredTalents = createAsyncThunk<
 >(`${sliceName}/getTalentsData`, async (payload, { extra }) => {
     const { employerApi, notifications } = extra;
     try {
-        const talentsData = await employerApi.getFilteredTalents(payload);
-        // TODO: add check for isSubmitted
-        return talentsData.filter(({ isApproved }) => isApproved);
+        return await employerApi.getFilteredTalents(payload);
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

@@ -4,5 +4,5 @@ export {
 } from './employer-onboarding/employer-onboarding.enum';
 export {
     ContactCandidateValidationRule,
-    ExperienceYears,
+    YearsOfExperience,
 } from 'shared/build/index.js';
