@@ -50,7 +50,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         <PasswordVisibility
             handleClick={handleClickShowPassword}
             showPassword={isPasswordVisible}
-        ></PasswordVisibility>
+        />
     );
 
     return (
