@@ -39,8 +39,8 @@ type UserDetailsProperties = {
     employerPosition: string | null;
     cvId: string | null;
     completedStep: ValueOf<typeof OnboardingSteps> | null;
-    photo?: ValueOf<typeof FileModel> | null;
-    companyLogo?: ValueOf<typeof FileModel> | null;
+    photo: FileModel | null;
+    companyLogo: FileModel | null;
 };
 
 export { type UserDetailsProperties };
