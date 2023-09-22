@@ -14,6 +14,7 @@ const userDetailsUpdate = joi
     .object<UserDetailsUpdateRequestDto>({
         id: joi.string().trim(),
         userId: joi.string().trim(),
+        deniedReason: joi.string().trim(),
 
         isApproved: joi.boolean(),
         isHired: joi.boolean(),
