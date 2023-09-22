@@ -42,7 +42,7 @@ const AutocompleteSelector = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     const handleSearch = (text: string): void => {
         onChange(text);
@@ -50,7 +50,7 @@ const AutocompleteSelector = <T extends FieldValues>({
 
     const handleItemSelect = (item: string): void => {
         onChange(item);
-        toggleVisibility();
+        handleToggleVisibility();
     };
 
     const filteredItems = useMemo(() => {
@@ -74,7 +74,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                     <TextInput
                         placeholder={placeholder}
                         onBlur={onBlur}
-                        onFocus={toggleVisibility}
+                        onFocus={handleToggleVisibility}
                         value={value}
                         maxLength={100}
                         onChangeText={handleSearch}
@@ -91,7 +91,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                         ]}
                         placeholderTextColor={Color.TEXT2}
                     />
-                    <TouchableOpacity onPress={toggleVisibility}>
+                    <TouchableOpacity onPress={handleToggleVisibility}>
                         <Animated.View
                             style={[iconAnimatedStyle, styles.dropdownButton]}
                         >
