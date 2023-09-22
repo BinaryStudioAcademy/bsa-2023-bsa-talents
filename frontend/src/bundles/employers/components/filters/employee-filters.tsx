@@ -165,6 +165,11 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
         reset();
     }, [reset]);
 
+    const formattedHardSkills = mockHardSkills.map((skill) => ({
+        value: skill.id,
+        label: skill.name,
+    }));
+
     return (
         <Grid container className={styles.filtersSidebar}>
             <Grid className={styles.header}>
@@ -209,7 +214,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             isFilter={true}
                             name="hardSkills"
                             control={control}
-                            options={mockHardSkills}
+                            options={formattedHardSkills}
                             placeholder="Start typing and select skills"
                         />
                     </FormLabel>

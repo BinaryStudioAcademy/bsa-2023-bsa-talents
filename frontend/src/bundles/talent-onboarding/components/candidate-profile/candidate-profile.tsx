@@ -47,7 +47,7 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: data.hardSkills?.map((skill) => skill.label) as string[],
+        hardSkills: data.hardSkills?.map((skill) => skill.name) as string[],
         experienceYears: formatNumber(data.experienceYears as number),
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {

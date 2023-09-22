@@ -7,8 +7,8 @@ import { type DataStatus } from '~/bundles/common/enums/enums.js';
 
 type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     hardSkills?: {
-        value: string;
-        label: string;
+        id: string;
+        name: string;
     }[];
     badges?: string[];
     photo?: File | null;

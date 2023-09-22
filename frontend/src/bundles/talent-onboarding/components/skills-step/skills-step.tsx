@@ -277,12 +277,17 @@ const SkillsStep: React.FC = () => {
         [handleCheckboxOnChange],
     );
 
+    const formattedHardSkills = mockHardSkills.map((skill) => ({
+        value: skill.id,
+        label: skill.name,
+    }));
+
     return (
         <>
             <Autocomplete
                 name="hardSkills"
                 control={control}
-                options={mockHardSkills}
+                options={formattedHardSkills}
                 placeholder="Start typing and select skills"
                 label="Hard Skills"
             />
