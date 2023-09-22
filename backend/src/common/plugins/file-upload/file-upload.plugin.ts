@@ -32,24 +32,29 @@ const fileFilter = (
                 AllowedMimeTypes.PDF,
                 AllowedMimeTypes.DOC,
                 AllowedMimeTypes.DOCX,
-            ].includes(file.mimetype);
+            ].includes(
+                file.mimetype as
+                    | 'application/pdf'
+                    | 'application/msword'
+                    | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            );
             isValidExtension = [
                 AllowedExtensions.PDF,
                 AllowedExtensions.DOCX,
                 AllowedExtensions.DOC,
-            ].includes(fileExtension);
+            ].includes(fileExtension as 'pdf' | 'docx' | 'doc');
             break;
         }
         case FileGroups.IMAGE: {
             isValidMimeType = [
                 AllowedMimeTypes.JPEG,
                 AllowedMimeTypes.PNG,
-            ].includes(file.mimetype);
+            ].includes(file.mimetype as 'image/jpeg' | 'image/png');
             isValidExtension = [
                 AllowedExtensions.JPEG,
                 AllowedExtensions.JPG,
                 AllowedExtensions.PNG,
-            ].includes(fileExtension);
+            ].includes(fileExtension as 'jpeg' | 'jpg' | 'png');
             break;
         }
         default: {
