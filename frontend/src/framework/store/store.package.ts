@@ -1,6 +1,8 @@
 import {
     type AnyAction,
+    combineReducers,
     type MiddlewareArray,
+    type Reducer,
     type ThunkMiddleware,
 } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
@@ -46,6 +48,27 @@ type ExtraArguments = {
     storage: typeof storage;
 };
 
+const combinedReducer = combineReducers({
+    auth: authReducer,
+    users: usersReducer,
+    lms: lmsReducer,
+    employerOnBoarding: employerOnboardingReducer,
+    talentOnBoarding: talentOnBoardingReducer,
+    employer: employerReducer,
+    app: appReducer,
+    candidate: candidateReducer,
+    cabinet: cabinetReducer,
+});
+
+type RootState = ReturnType<typeof combinedReducer>;
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+    if (action.type === 'app/resetStore') {
+        state = {} as RootState;
+    }
+    return combinedReducer(state, action);
+};
+
 class Store {
     public instance: ReturnType<
         typeof configureStore<
@@ -60,17 +83,7 @@ class Store {
     public constructor(config: Config) {
         this.instance = configureStore({
             devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
-            reducer: {
-                auth: authReducer,
-                users: usersReducer,
-                lms: lmsReducer,
-                employerOnBoarding: employerOnboardingReducer,
-                talentOnBoarding: talentOnBoardingReducer,
-                employer: employerReducer,
-                app: appReducer,
-                candidate: candidateReducer,
-                cabinet: cabinetReducer,
-            },
+            reducer: rootReducer,
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
                 ...getDefaultMiddleware({
