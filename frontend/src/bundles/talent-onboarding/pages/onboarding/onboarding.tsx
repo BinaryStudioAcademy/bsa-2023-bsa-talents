@@ -4,6 +4,7 @@ import {
     PageLayout,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { FormSubmitProvider } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -27,7 +28,6 @@ import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
-import { FormSubmitProvider } from '../../context/context.js';
 import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 

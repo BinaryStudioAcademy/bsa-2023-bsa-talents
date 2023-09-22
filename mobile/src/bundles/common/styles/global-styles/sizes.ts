@@ -11,6 +11,9 @@ const SIZES = {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
     },
+    borderRadius15: {
+        borderRadius: 15,
+    },
     borderRadius10: {
         borderRadius: 10,
     },
