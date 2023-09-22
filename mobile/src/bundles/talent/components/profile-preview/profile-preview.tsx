@@ -88,7 +88,8 @@ const ProfilePreview: React.FC = () => {
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {experienceYears} year of experience
+                            {experienceYears && +experienceYears} year of
+                            experience
                         </Text>
                     </View>
                     <View
@@ -134,24 +135,30 @@ const ProfilePreview: React.FC = () => {
                             );
                         })}
                     </View>
-                    <View
-                        style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
-                        ]}
-                    >
-                        <MaterialIcon
-                            name={IconName.NOT_CONSIDER}
-                            size={ICON_SIZE}
-                            color={Color.ERROR}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
-                        >
-                            Does’t consider: {notConsidered?.join(' ')}
-                        </Text>
-                    </View>
+                    {notConsidered?.map((item, index) => {
+                        return (
+                            <View
+                                key={item}
+                                style={[
+                                    globalStyles.flexDirectionRow,
+                                    globalStyles.pb15,
+                                ]}
+                            >
+                                <MaterialIcon
+                                    name={IconName.NOT_CONSIDER}
+                                    size={ICON_SIZE}
+                                    color={Color.ERROR}
+                                />
+                                <Text
+                                    category={TextCategory.BODY1}
+                                    style={globalStyles.pl10}
+                                >
+                                    {index === 0 && 'Does’t consider: '}
+                                    {item}
+                                </Text>
+                            </View>
+                        );
+                    })}
                 </View>
             </View>
             <Text category={TextCategory.CAPTION} style={globalStyles.pt5}>
