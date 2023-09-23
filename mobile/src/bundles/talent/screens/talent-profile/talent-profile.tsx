@@ -13,10 +13,8 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './style';
 
 const TalentProfile: React.FC = () => {
-    //todo change to real data
-    const { isApproved } = useAppSelector(({ talents }) => talents);
-
-    //console.log(useAppSelector(({ talents }) => talents));
+    const { isApproved } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
 
     return (
         <>
@@ -36,7 +34,7 @@ const TalentProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Your profile</Text>
-                <VerificationMessage isApproved={isApproved} />
+                {!isApproved && <VerificationMessage />}
             </View>
         </>
     );
