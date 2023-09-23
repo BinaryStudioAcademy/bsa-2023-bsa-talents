@@ -8,6 +8,7 @@ export { Typography } from './typography.enum.js';
 export {
     ApiPath,
     AppEnvironment,
+    ChatMessagesApiPath,
     ContentType,
     HttpCode,
     ServerErrorType,
