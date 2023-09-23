@@ -1,11 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+
+import { DataStatus } from '~/bundles/common/enums/enums.js';
 
 import { DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD } from '../components/onboarding-form/constants/constants.js';
-import { type EmployerOnboardingDto } from '../types/types.js';
-import { createEmployerDetails } from './actions.js';
+import { type UserDetailsGeneralCustom } from '../types/types.js';
+import {
+    createEmployerDetails,
+    getEmployerDetails,
+    saveEmployerDetails,
+    updateEmployerDetails,
+} from './actions.js';
 
-const initialState: EmployerOnboardingDto = {
+const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
+    dataStatus: DataStatus.IDLE,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -13,19 +21,47 @@ const { reducer, actions, name } = createSlice({
     name: 'employerOnboarding',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(createEmployerDetails.fulfilled, (state, action) => {
-            const data = action.payload;
+        builder.addMatcher(
+            isAnyOf(
+                createEmployerDetails.fulfilled,
+                updateEmployerDetails.fulfilled,
+                getEmployerDetails.fulfilled,
+                saveEmployerDetails.fulfilled,
+            ),
+            (state, action) => {
+                state.dataStatus = DataStatus.FULFILLED;
+                const data: UserDetailsGeneralCustom | null = action.payload;
 
-            state.photo = data.photo;
-            state.fullName = data.fullName;
-            state.position = data.position;
-            state.companyName = data.companyName;
-            state.companyWebsite = data.companyWebsite;
-            state.location = data.location;
-            state.description = data.description;
-            state.companyLogo = data.companyLogo;
-            state.linkedInLink = data.linkedInLink;
-        });
+                for (const key in data) {
+                    const typedKey = key as keyof UserDetailsGeneralCustom;
+                    if (Object.keys(state).includes(key)) {
+                        state[typedKey] = data[typedKey];
+                    }
+                }
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(
+                createEmployerDetails.pending,
+                updateEmployerDetails.pending,
+                getEmployerDetails.pending,
+                saveEmployerDetails.pending,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(
+                createEmployerDetails.rejected,
+                updateEmployerDetails.rejected,
+                getEmployerDetails.rejected,
+                saveEmployerDetails.rejected,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 

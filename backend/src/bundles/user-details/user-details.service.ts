@@ -10,9 +10,11 @@ import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-
 import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
     type UserDetailsCreateRequestDto,
+    type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
+    type UserDetailsShortResponseDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
@@ -51,6 +53,22 @@ class UserDetailsService implements Service {
             });
         }
         return userDetails;
+    }
+
+    public async findShortByRole(
+        role: 'talent' | 'employer',
+    ): Promise<UserDetailsShortResponseDto[]> {
+        const results = (await this.userDetailsRepository.findUnconfirmedByRole(
+            role,
+        )) as unknown as UserDetailsShortResponseDto[];
+
+        return results.map((it) => {
+            return {
+                userId: it.userId,
+                fullName: it.fullName,
+                photoUrl: it.photoUrl,
+            };
+        });
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
@@ -160,6 +178,68 @@ class UserDetailsService implements Service {
             talentBadges: badgesResult,
             talentHardSkills: hardSkillsResult,
         };
+    }
+
+    public async approve(userId: string): Promise<boolean> {
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        await this.userDetailsRepository.update({
+            isApproved: true,
+            deniedReason: '',
+            id: userDetailsId,
+        });
+
+        return true;
+    }
+
+    public async deny(
+        userId: string,
+        payload: UserDetailsDenyRequestDto,
+    ): Promise<boolean> {
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        await this.userDetailsRepository.update({
+            ...payload,
+            isApproved: false,
+            id: userDetailsId,
+        });
+
+        return true;
+    }
+
+    public async publish(payload: { userId: string }): Promise<string> {
+        const { userId } = payload;
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessages.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.publish({ id: userDetailsId });
     }
 
     public delete(): Promise<boolean> {

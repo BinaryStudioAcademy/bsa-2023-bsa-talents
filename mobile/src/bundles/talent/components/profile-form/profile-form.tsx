@@ -16,7 +16,11 @@ import {
     EmploymentType,
     JobTitle,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
@@ -38,10 +42,14 @@ type Properties = {
 };
 
 const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
         validationSchema: ProfileStepValidationSchema,
     });
+
+    useEffect(() => {
+        profileStepData && reset(profileStepData);
+    }, [profileStepData, reset]);
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
@@ -150,7 +158,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell employers about your experience"
+                label="Introduce yourself"
                 name="description"
                 required
                 containerStyle={globalStyles.pb25}
@@ -158,7 +166,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <Input
                     control={control}
                     name="description"
-                    placeholder="Text"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer"
                     numberOfLines={5}
                     multiline={true}
                 />

@@ -14,6 +14,8 @@ type UserDetailsUpdateDto = {
     id?: string;
     userId?: string;
 
+    isApproved?: boolean;
+    deniedReason?: string;
     isHired?: boolean;
 
     profileName?: string;
@@ -33,7 +35,7 @@ type UserDetailsUpdateDto = {
     notConsidered?: ValueOf<typeof NotConsidered>[];
     preferredLanguages?: ValueOf<typeof PreferredLanguages>[];
 
-    projectLinks?: string[];
+    projectLinks?: string[] | null;
     photoId?: string;
     fullName?: string;
     phone?: string;

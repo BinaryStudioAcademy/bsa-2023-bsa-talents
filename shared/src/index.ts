@@ -6,7 +6,23 @@ export {
     ContactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
+export {
+    type ChatMessageCreateRequestDto,
+    type ChatMessageGetAllItemResponseDto,
+    type ChatMessageGetAllResponseDto,
+} from './bundles/chat/chat.js'; // TODO: compare with bundles/chat-messages/chat-messages.js
+export {
+    ChatMessagesApiPath,
+    type ChatMessagesCreateRequestDto,
+    type ChatMessagesPatchDto,
+    type ChatResponseDto,
+    type MessageResponseDto,
+} from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
 export { FileApiPath } from './bundles/file/file.js';
+export {
+    type BadgesResponseDto,
+    type HardSkillsResponseDto,
+} from './bundles/gather-selected-data/gather-selected-data.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
@@ -38,11 +54,15 @@ export {
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     userDetailsCreateValidationSchema,
+    type UserDetailsDenyRequestDto,
+    userDetailsDenyValidationSchema,
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,
+    type UserDetailsShortResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
     userDetailsUpdateValidationSchema,
@@ -84,6 +104,7 @@ export {
     type HttpMethod,
     type HttpOptions,
 } from './framework/http/http.js';
+export { SocketEvent, SocketNamespace } from './framework/socket/socket.js';
 export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,

@@ -64,6 +64,19 @@ class UserDetailsRepository implements Repository {
         });
     }
 
+    public findUnconfirmedByRole(
+        role: 'talent' | 'employer',
+    ): Promise<UserDetailsModel[]> {
+        return this.userDetailsModel
+            .query()
+            .joinRelated('user')
+            .leftOuterJoinRelated('photo')
+            .where('user.role', role)
+            .andWhere('isApproved', false)
+            .select('user_id', 'photo.url as photoUrl', 'full_name')
+            .execute();
+    }
+
     public findAll(): ReturnType<Repository['findAll']> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
@@ -252,6 +265,15 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
         });
+    }
+
+    public async publish(payload: UserDetailsUpdateDto): Promise<string> {
+        const { id } = payload;
+
+        const details = await this.userDetailsModel
+            .query()
+            .patchAndFetchById(id as string, { publishedAt: new Date() });
+        return details.publishedAt.toLocaleString();
     }
 
     public delete(): Promise<boolean> {
