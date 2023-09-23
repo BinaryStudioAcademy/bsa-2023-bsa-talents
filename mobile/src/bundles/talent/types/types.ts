@@ -11,6 +11,7 @@ export {
     type BadgesItem,
     type BadgeStepDto,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
     type HardSkillsItem,
     type ProfileStepDto,
     type SkillsStepDto,

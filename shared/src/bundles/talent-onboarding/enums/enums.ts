@@ -1,4 +1,4 @@
-export { BSABadgeApiPath } from './bsa-badge/bsa-badge-api-path.enum.js';
+export { BSABadgeApiPath } from './bsa-badges-step/bsa-badge-api-path.enum.js';
 export { BsaBadgeStepBadgesTitle } from './bsa-badges-step/bsa-badge-step.badges-title.js';
 export { BsaBadgesStepUncontrolledBadges } from './bsa-badges-step/bsa-badges-step.uncontroled-badges.js';
 export { BsaBadgesStepValidationMessage } from './bsa-badges-step/bsa-badges-step.validation-message.js';

@@ -1,6 +1,6 @@
 import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
 import {
-    type BadgesFormDto,
+    type BsaBadgesStepTypes,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
@@ -20,13 +20,13 @@ type CVDto = {
 };
 
 type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
-    Partial<BadgesFormDto> &
+    Partial<BsaBadgesStepTypes> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto>;
 
 type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
-    Partial<BadgesFormDto> &
+    Partial<BsaBadgesStepTypes> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto>;

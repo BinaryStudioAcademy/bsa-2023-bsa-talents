@@ -31,6 +31,7 @@ export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
     BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
@@ -114,6 +115,8 @@ export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
     getAvatarInitials,
+    getBadgeColor,
+    getBadgeIcon,
     getItemsWithSelected,
     getNestedProperty,
     getSearchedItems,
