@@ -19,8 +19,8 @@ const BottomTab =
 const iconSize = 24;
 
 const TalentBottomTabNavigator: React.FC = () => {
-    //todo change to real data
-    const { isApproved } = useAppSelector(({ talents }) => talents);
+    const { isApproved } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
 
     return (
         <BottomTab.Navigator

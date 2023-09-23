@@ -32,7 +32,7 @@ const EmployerProfile: React.FC = () => {
                 style={[
                     globalStyles.pv25,
                     globalStyles.pl25,
-                    globalStyles.pr5,
+                    globalStyles.pr10,
                     styles.header,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,

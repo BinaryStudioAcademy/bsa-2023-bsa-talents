@@ -7,11 +7,13 @@ import {
     IconName,
 } from '~/bundles/common/enums/enums';
 import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type EmployerBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import {
     Candidates,
     EmployerProfile,
 } from '~/bundles/employer/screens/screens';
+import { notifications } from '~/framework/notifications/notifications';
 
 import { bottomTabStyles } from '../styles';
 
@@ -21,8 +23,14 @@ const BottomTab =
 const iconSize = 24;
 
 const EmployerBottomTabNavigator: React.FC = () => {
+    const { isApproved } =
+        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+
     return (
-        <BottomTab.Navigator screenOptions={bottomTabStyles}>
+        <BottomTab.Navigator
+            screenOptions={bottomTabStyles}
+            initialRouteName={EmployerBottomTabScreenName.EMPLOYER_PROFILE}
+        >
             <BottomTab.Screen
                 name={EmployerBottomTabScreenName.CANDIDATES}
                 component={Candidates}
@@ -34,6 +42,16 @@ const EmployerBottomTabNavigator: React.FC = () => {
                             color={color}
                         />
                     ),
+                }}
+                listeners={{
+                    tabPress: (event): void => {
+                        if (!isApproved) {
+                            notifications.showError({
+                                title: 'You are not verified to see other pages',
+                            });
+                            event.preventDefault();
+                        }
+                    },
                 }}
             />
             <BottomTab.Screen
@@ -47,6 +65,16 @@ const EmployerBottomTabNavigator: React.FC = () => {
                             color={color}
                         />
                     ),
+                }}
+                listeners={{
+                    tabPress: (event): void => {
+                        if (!isApproved) {
+                            notifications.showError({
+                                title: 'You are not verified to see other pages',
+                            });
+                            event.preventDefault();
+                        }
+                    },
                 }}
             />
             <BottomTab.Screen
