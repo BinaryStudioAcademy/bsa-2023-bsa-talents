@@ -3,6 +3,7 @@ export {
     BSABadgesTableColumn,
     FilesTableColumn,
     HardSkillsTableColumn,
+    HiringInfoTableColumn,
     TalentBadgesTableColumn,
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,

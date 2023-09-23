@@ -11,6 +11,7 @@ export {
     DatabaseTableName,
     FilesTableColumn,
     HardSkillsTableColumn,
+    HiringInfoTableColumn,
     TalentBadgesTableColumn,
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,
