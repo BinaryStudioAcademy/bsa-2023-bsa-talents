@@ -3,9 +3,9 @@ import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/type
 function transformDataToMultiSelector(
     data: Record<string | number, string>,
 ): AutocompleteMultiSelectorValue[] {
-    return Object.entries(data).map(([id, name]) => ({
-        id,
-        name,
+    return Object.entries(data).map(([value, label]) => ({
+        value,
+        label,
     }));
 }
 
