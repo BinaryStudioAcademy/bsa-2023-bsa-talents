@@ -3,6 +3,8 @@ import { type UserModel } from '~/bundles/users/user.model.js';
 import { token } from '~/common/packages/packages.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
+import { type ResetToken } from './types/reset-token.js';
+
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
 
@@ -50,11 +52,17 @@ class UserRepository implements Repository {
         return UserEntity.initialize(item);
     }
 
-    public update(): ReturnType<Repository['update']> {
-        return Promise.resolve(null);
+    public async updateResetToken(resetToken: ResetToken): Promise<void> {
+        const { userId, ...rest } = resetToken;
+
+        await this.userModel.query().patchAndFetchById(userId, rest);
     }
 
     public delete(): ReturnType<Repository['delete']> {
+        return Promise.resolve(true);
+    }
+
+    public update(): ReturnType<Repository['update']> {
         return Promise.resolve(true);
     }
 }

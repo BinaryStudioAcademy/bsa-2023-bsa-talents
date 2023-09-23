@@ -1,12 +1,12 @@
 import {
     type UserForgotPasswordRequestDto,
-    type UserResetPasswordRequestDto,
+    // type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 import {
     userForgotPasswordValidationSchema,
-    userResetPasswordValidationSchema,
+    // userResetPasswordValidationSchema,
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
@@ -19,6 +19,7 @@ import {
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
+import { type EmailService } from '../email/email.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
@@ -33,11 +34,17 @@ import { AuthApiPath } from './enums/enums.js';
  */
 class AuthController extends ControllerBase {
     private authService: AuthService;
+    private emailService: EmailService;
 
-    public constructor(logger: Logger, authService: AuthService) {
+    public constructor(
+        logger: Logger,
+        authService: AuthService,
+        emailService: EmailService,
+    ) {
         super(logger, ApiPath.AUTH);
 
         this.authService = authService;
+        this.emailService = emailService;
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
@@ -87,19 +94,19 @@ class AuthController extends ControllerBase {
                 ),
         });
 
-        this.addRoute({
-            path: AuthApiPath.RESET_PASSWORD,
-            method: 'POST',
-            validation: {
-                body: userResetPasswordValidationSchema,
-            },
-            handler: (options) =>
-                this.resetPassword(
-                    options as ApiHandlerOptions<{
-                        body: UserResetPasswordRequestDto;
-                    }>,
-                ),
-        });
+        // this.addRoute({
+        //     path: AuthApiPath.RESET_PASSWORD,
+        //     method: 'POST',
+        //     validation: {
+        //         body: userResetPasswordValidationSchema,
+        //     },
+        //     handler: (options) =>
+        //         this.resetPassword(
+        //             options as ApiHandlerOptions<{
+        //                 body: UserResetPasswordRequestDto;
+        //             }>,
+        //         ),
+        // });
     }
 
     /**
@@ -231,6 +238,28 @@ class AuthController extends ControllerBase {
             payload: user,
         };
     }
+
+    private async forgotPassword(
+        options: ApiHandlerOptions<{ body: UserForgotPasswordRequestDto }>,
+    ): Promise<ApiHandlerResponse> {
+        const resetToken = await this.authService.createResetToken(
+            options.body,
+        );
+
+        await this.emailService.sendForgotPasswordEmail(
+            options.body.email,
+            resetToken,
+        );
+
+        return {
+            status: HttpCode.OK,
+            payload: { message: 'Reset email sent' },
+        };
+    }
+
+    // private async resetPassword(
+    //     options: ApiHandlerOptions,
+    // ): Promise<ApiHandlerResponse> {}
 }
 
 export { AuthController };

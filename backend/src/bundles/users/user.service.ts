@@ -4,6 +4,7 @@ import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { type Service } from '~/common/types/types.js';
 
 import {
+    type ResetToken,
     type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
@@ -68,6 +69,10 @@ class UserService implements Service {
         );
 
         return user.toObject();
+    }
+
+    public async updateResetToken(resetToken: ResetToken): Promise<void> {
+        await this.userRepository.updateResetToken(resetToken);
     }
 
     public update(): ReturnType<Service['update']> {

@@ -1,3 +1,4 @@
+export { type ResetToken } from './reset-token.js';
 export {
     type UserCreateResponseDto,
     type UserDetailsSearchUsersRequestDto,

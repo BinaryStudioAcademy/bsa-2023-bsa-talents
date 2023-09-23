@@ -1,5 +1,8 @@
+import crypto from 'node:crypto';
+
 import {
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -10,6 +13,8 @@ import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
+
+import { BITES_SIZE, TOKEN_EXPIRY } from './constants/constants.js';
 
 class AuthService {
     private userService: UserService;
@@ -91,6 +96,33 @@ class AuthService {
             });
         }
         return user;
+    }
+
+    public async createResetToken({
+        email,
+    }: UserForgotPasswordRequestDto): Promise<string> {
+        const user = await this.userService.findByEmail(email);
+
+        if (!user) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessages.USER_NOT_FOUND,
+            });
+        }
+
+        const resetToken = crypto.randomBytes(BITES_SIZE).toString('hex');
+
+        const hash = await this.encrypt.make(resetToken);
+
+        const resetTokenExpiry = Date.now() + TOKEN_EXPIRY;
+
+        await this.userService.updateResetToken({
+            userId: user.id,
+            resetToken: hash,
+            resetTokenExpiry,
+        });
+
+        return resetToken;
     }
 }
 

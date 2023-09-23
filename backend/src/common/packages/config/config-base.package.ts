@@ -148,6 +148,26 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            SEND_GRID: {
+                MAIL_API_KEY: {
+                    doc: 'API key for sendGrid',
+                    format: String,
+                    env: 'MAIL_API_KEY',
+                    default: null,
+                },
+                MAIL_SENDER_DOMAIN: {
+                    doc: 'Mail sender domain',
+                    format: String,
+                    env: 'MAIL_SENDER_DOMAIN',
+                    default: null,
+                },
+                CLIENT_URL: {
+                    doc: 'Client URL',
+                    format: String,
+                    env: 'CLIENT_URL',
+                    default: null,
+                },
+            },
         });
     }
 }
