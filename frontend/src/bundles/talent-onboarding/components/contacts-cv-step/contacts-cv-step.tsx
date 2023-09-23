@@ -105,7 +105,7 @@ const ContactsCVStep: React.FC = () => {
         watchedValues,
     ]);
 
-    const onSubmit = useCallback(
+    const handleFormSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
             const { fullName, phone, linkedinLink } = data;
             await dispatch(
@@ -127,7 +127,7 @@ const ContactsCVStep: React.FC = () => {
             return async () => {
                 let result = false;
                 await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                    result = await handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -135,7 +135,7 @@ const ContactsCVStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const [photoURL, setPhotoURL] = useState<string>('');
 

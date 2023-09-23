@@ -8,6 +8,7 @@ export { Chip } from './chip/chip.js';
 export { ConfirmHire } from './confirm-hire/confirm-hire.js';
 export { ConfirmModal } from './confirm-modal/confirm-modal.js';
 export { Dropdown, Menu, MenuButton, MenuItem } from './dropdown/components.js';
+export { ErrorMessage } from './error-message/error-message.js';
 export { FileUpload } from './file-upload/file-upload.js';
 export { FormControl } from './form-control/form-control.js';
 export { FormControlLabel } from './form-control-label/form-control-label.js';

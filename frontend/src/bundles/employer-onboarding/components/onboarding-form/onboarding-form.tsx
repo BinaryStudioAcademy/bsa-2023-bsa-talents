@@ -1,6 +1,6 @@
 import {
+    ErrorMessage,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -56,35 +56,42 @@ const OnboardingForm: React.FC = () => {
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
-    const { control, getValues, handleSubmit, errors, watch, reset } =
-        useAppForm<EmployerOnboardingDto>({
-            defaultValues: useMemo(
-                () => ({
-                    photo,
-                    fullName,
-                    employerPosition,
-                    companyName,
-                    companyWebsite,
-                    location,
-                    description,
-                    companyLogo,
-                    linkedinLink,
-                }),
-                [
-                    companyLogo,
-                    companyName,
-                    companyWebsite,
-                    description,
-                    employerPosition,
-                    fullName,
-                    linkedinLink,
-                    location,
-                    photo,
-                ],
-            ),
-            validationSchema: EmployerOnboardingValidationSchema,
-            mode: 'onSubmit',
-        });
+    const {
+        control,
+        getValues,
+        handleSubmit,
+        errors,
+        watch,
+        reset,
+        setError,
+        clearErrors,
+    } = useAppForm<EmployerOnboardingDto>({
+        defaultValues: useMemo(
+            () => ({
+                photo,
+                fullName,
+                employerPosition,
+                companyName,
+                companyWebsite,
+                location,
+                description,
+                companyLogo,
+                linkedinLink,
+            }),
+            [
+                companyLogo,
+                companyName,
+                companyWebsite,
+                description,
+                employerPosition,
+                fullName,
+                linkedinLink,
+                location,
+                photo,
+            ],
+        ),
+        validationSchema: EmployerOnboardingValidationSchema,
+    });
     useEffect(() => {
         reset({
             photo,
@@ -170,7 +177,7 @@ const OnboardingForm: React.FC = () => {
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
-    const onSubmit = useCallback(
+    const handleFormSubmit = useCallback(
         async (data: EmployerOnboardingDto): Promise<boolean> => {
             const {
                 fullName,
@@ -203,7 +210,7 @@ const OnboardingForm: React.FC = () => {
             return async () => {
                 let result = false;
                 await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                    result = await handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -211,18 +218,7 @@ const OnboardingForm: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
-
-    const renderFileUrl = useCallback(
-        ({ file }: { file: File | null }): React.CSSProperties | undefined => {
-            if (file) {
-                return {
-                    backgroundImage: `url(${URL.createObjectURL(file)})`,
-                };
-            }
-        },
-        [],
-    );
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     return (
         <FormControl className={styles.formWrapper}>
@@ -341,11 +337,7 @@ const OnboardingForm: React.FC = () => {
                                 placeholder="Option"
                                 options={locationOptions}
                             />
-                            {errors.location && (
-                                <FormHelperText className={styles.hasError}>
-                                    {`${errors.location.message}`}
-                                </FormHelperText>
-                            )}
+                            <ErrorMessage errors={errors} name="location" />
                         </Grid>
                     </FormControl>
 
@@ -363,44 +355,52 @@ const OnboardingForm: React.FC = () => {
                             placeholder="Text"
                             name={'description'}
                         />
-                        {errors.description && (
-                            <FormHelperText className={styles.hasError}>
-                                {`${errors.description.message}`}
-                            </FormHelperText>
-                        )}
+                        <ErrorMessage errors={errors} name="description" />
                     </FormControl>
                 </Grid>
 
                 <Grid className={styles.photoContainer}>
                     <Grid container className={styles.photo}>
-                        <Grid
-                            item
-                            className={styles.photoWrapper}
-                            style={renderFileUrl({
-                                file: errors.photo ? null : watch('photo'),
-                            })}
-                        ></Grid>
+                        <Grid item className={styles.photoWrapper}>
+                            {errors.photo ?? !watch('photo') ? null : (
+                                <img
+                                    src={URL.createObjectURL(
+                                        watch('photo') as Blob,
+                                    )}
+                                    className={styles.photoElement}
+                                    alt="Profile"
+                                />
+                            )}
+                        </Grid>
 
                         <EmployerFileUpload
-                            label="Uphoad a photo"
+                            label="Upload a photo"
                             control={control}
                             name="photo"
+                            setError={setError}
+                            clearErrors={clearErrors}
                         />
                     </Grid>
                     <Grid container className={styles.photo}>
-                        <Grid
-                            item
-                            className={styles.photoWrapper}
-                            style={renderFileUrl({
-                                file: errors.companyLogo
-                                    ? null
-                                    : watch('companyLogo'),
-                            })}
-                        ></Grid>
+                        <Grid item className={styles.photoWrapper}>
+                            {errors.companyLogo ??
+                            !watch('companyLogo') ? null : (
+                                <img
+                                    src={URL.createObjectURL(
+                                        watch('companyLogo') as Blob,
+                                    )}
+                                    className={styles.photoElement}
+                                    alt="Company logo"
+                                />
+                            )}
+                        </Grid>
+
                         <EmployerFileUpload
                             label="Upload a company logo"
                             control={control}
                             name="companyLogo"
+                            setError={setError}
+                            clearErrors={clearErrors}
                         />
                     </Grid>
                 </Grid>

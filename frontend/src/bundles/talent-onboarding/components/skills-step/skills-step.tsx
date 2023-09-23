@@ -5,12 +5,12 @@ import {
     Checkbox,
     Controller,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -171,7 +171,7 @@ const SkillsStep: React.FC = () => {
         watchedValues,
     ]);
 
-    const onSubmit = useCallback(
+    const handleFormSubmit = useCallback(
         async (data: SkillsStepDto): Promise<boolean> => {
             const {
                 englishLevel,
@@ -208,7 +208,7 @@ const SkillsStep: React.FC = () => {
             return async () => {
                 let result = false;
                 await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                    result = await handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -216,7 +216,7 @@ const SkillsStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -300,11 +300,7 @@ const SkillsStep: React.FC = () => {
                     name={'englishLevel'}
                     placeholder="Option"
                 />
-                {errors.englishLevel && (
-                    <FormHelperText className={styles.hasError}>
-                        {String(errors.englishLevel.message)}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'englishLevel'} />
             </FormControl>
             <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
@@ -337,11 +333,7 @@ const SkillsStep: React.FC = () => {
                     name={'preferredLanguages'}
                     options={preferredLanguagesOptions}
                 />
-                {errors.preferredLanguages && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.preferredLanguages.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'preferredLanguages'} />
             </FormControl>
             <SkillsProjectLinks control={control} errors={errors} />
         </>
