@@ -6,17 +6,20 @@ import {
     FormField,
     Input,
     PhotoPicker,
-    ScrollView,
-    Text,
     View,
 } from '~/bundles/common/components/components';
 import {
     CountryList,
+    EmployerBottomTabScreenName,
     IconName,
-    TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useRoute,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { EmployerDataSubmitLabel } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
@@ -40,6 +43,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
         validationSchema: EmployerOnboardingFormValidationSchema,
     });
 
+    const route = useRoute();
+
     const handleFormSubmit = useCallback(() => {
         //TODO logic saving employer data
         void handleSubmit(() => {
@@ -47,20 +52,13 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
         })();
     }, [handleSubmit, onSubmit]);
 
+    const labelForSubmitButton =
+        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE
+            ? EmployerDataSubmitLabel.SAVE
+            : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
+
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-        >
-            <Text
-                category={TextCategory.H4}
-                style={[globalStyles.mb15, styles.title]}
-            >
-                Create a profile to find a perfect match to your company
-            </Text>
-            <Text category={TextCategory.H6} style={globalStyles.mb10}>
-                Please, fill out all the fields below, so we could verify your
-                company
-            </Text>
+        <>
             <View
                 style={[
                     globalStyles.width100,
@@ -76,6 +74,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                         }
                         name="profilePhoto"
                         containerStyle={globalStyles.alignItemsCenter}
+                        label="Profile photo"
+                        required
                     >
                         <PhotoPicker
                             control={control}
@@ -94,14 +94,11 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Profile photo</Text>
                 </View>
                 <View style={styles.photoContainer}>
                     <FormField
-                        errorMessage={
-                            errors.companyLogo && 'Company logo is required'
-                        }
                         name="companyLogo"
+                        label="Company logo"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
                         <PhotoPicker
@@ -122,7 +119,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Company logo</Text>
                 </View>
             </View>
             <FormField
@@ -155,8 +151,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
                 name="linkedinLink"
-                required
                 containerStyle={globalStyles.pb15}
+                required
             >
                 <Input
                     control={control}
@@ -222,11 +218,11 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 />
             </FormField>
             <Button
-                label="Submit for verification"
+                label={labelForSubmitButton}
                 onPress={handleFormSubmit}
                 style={globalStyles.mt25}
             />
-        </ScrollView>
+        </>
     );
 };
 
