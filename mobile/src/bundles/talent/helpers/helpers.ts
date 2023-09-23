@@ -1,6 +1,5 @@
 export { checkIfFileSizeValid } from './check-if-file-size-valid/check-if-file-size-valid';
 export { checkIfImageTypeValid } from './check-if-image-type-valid/check-if-image-type-valid';
-export { getBadgesFormDto } from './get-badges-form-dto/get-badges-form-dto';
 export {
     getNextStepTitle,
     getPreviousStepTitle,
