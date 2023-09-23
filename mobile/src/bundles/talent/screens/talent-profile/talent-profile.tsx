@@ -16,16 +16,28 @@ const TalentProfile: React.FC = () => {
     //todo change to real data
     const { isApproved } = useAppSelector(({ talents }) => talents);
 
+    //console.log(useAppSelector(({ talents }) => talents));
+
     return (
         <>
             <StatusBar
                 barStyle="dark-content"
                 backgroundColor={Color.BACKGROUND}
             />
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.pv25,
+                    globalStyles.pl25,
+                    globalStyles.pr5,
+                    styles.header,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                ]}
+            >
                 <Text category={TextCategory.H3}>Your profile</Text>
+                <VerificationMessage isApproved={isApproved} />
             </View>
-            <VerificationMessage isApproved={isApproved} />
         </>
     );
 };
