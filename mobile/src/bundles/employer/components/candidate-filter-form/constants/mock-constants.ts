@@ -15,15 +15,15 @@ const DEFAULT_VALUES: EmployeesFiltersForm = {
 
 // TODO: replace when backend will be ready
 const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
-    { name: 'FIRST', id: 'first' },
-    { name: 'SECOND', id: 'second' },
-    { name: 'THIRD', id: 'third' },
+    { value: 'one', label: 'one' },
+    { value: 'two', label: 'two' },
+    { value: 'some', label: 'some' },
 ];
 
 const USER_BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
-    { name: 'FIRST', id: 'first' },
-    { name: 'SECOND', id: 'second' },
-    { name: 'THIRD', id: 'third' },
+    { value: 'one', label: 'one' },
+    { value: 'two', label: 'two' },
+    { value: 'some', label: 'some' },
 ];
 
 export { BSA_CHARACTERISTICS, DEFAULT_VALUES, USER_BSA_PROJECTS };

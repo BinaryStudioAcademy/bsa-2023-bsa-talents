@@ -1,3 +1,3 @@
-type AutocompleteMultiSelectorValue = { name: string | number; id: string };
+type AutocompleteMultiSelectorValue = { label: string; value: string };
 
 export { type AutocompleteMultiSelectorValue };

@@ -40,12 +40,11 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
-
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] = state[typedKey]
-                    ? action.payload[typedKey]
-                    : [];
+                if (typedKey in state) {
+                    state[typedKey] = action.payload[typedKey];
+                }
             }
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {

@@ -15,11 +15,9 @@ import {
 } from '~/bundles/common/components/components';
 import {
     Color,
-    CountryList,
     EmploymentType,
     EnglishLevel,
     IconName,
-    JobTitle,
 } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import {
@@ -31,20 +29,17 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { getHardSkillsData } from '~/bundles/common-data/store/actions';
-import { YearsOfExperience } from '~/bundles/employer/enums/enums';
-import { transformDataToMultiSelector } from '~/bundles/employer/helpers/helpers';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 import {
     BSA_CHARACTERISTICS,
     DEFAULT_VALUES,
+    EXPERIENCE_YEARS,
+    JOB_TITLE_OPTIONS,
+    LOCATION_OPTIONS,
     USER_BSA_PROJECTS,
 } from './constants/constants';
 import { styles } from './styles';
-
-const jobTitleOptions = transformDataToMultiSelector(JobTitle);
-const locationOptions = transformDataToMultiSelector(CountryList);
-const experienceYears = transformDataToMultiSelector(YearsOfExperience);
 
 const englishLevels = Object.values(EnglishLevel);
 const employmentTypeOptions = Object.values(EmploymentType);
@@ -129,7 +124,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteMultiSelector
-                    items={jobTitleOptions}
+                    items={JOB_TITLE_OPTIONS}
                     control={control}
                     name="jobTitle"
                     placeholder="Start typing and choose option"
@@ -141,7 +136,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteMultiSelector
-                    items={experienceYears}
+                    items={EXPERIENCE_YEARS}
                     control={control}
                     name="yearsOfExperience"
                     placeholder="Start typing and choose option"
@@ -191,7 +186,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <AutocompleteMultiSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Start typing and choose option"
                 />
             </FormField>
