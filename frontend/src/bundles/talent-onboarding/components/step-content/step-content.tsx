@@ -51,7 +51,12 @@ const StepContent: React.FC<Properties> = ({
             </Grid>
             <Grid className={styles.stepBody}>
                 <Grid className={styles.stepOutlet}>
-                    <FormControl className={styles.form}>
+                    <FormControl
+                        className={getValidClassNames(
+                            styles.form,
+                            currentStep === STEPS_NUMBER ? styles.wideForm : '',
+                        )}
+                    >
                         {<RouterOutlet />}
                     </FormControl>
                 </Grid>

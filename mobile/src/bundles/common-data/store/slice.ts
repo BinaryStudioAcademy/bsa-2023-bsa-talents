@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
-    type HardSkillsResponseDto,
+    type FormattedHardSkills,
 } from '~/bundles/common-data/types/types';
 
 import { getBadgesData, getHardSkillsData } from './actions';
@@ -12,7 +12,7 @@ import { getBadgesData, getHardSkillsData } from './actions';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     badgesData: BadgesResponseDto | null;
-    hardSkillsData: HardSkillsResponseDto | null;
+    hardSkillsData: FormattedHardSkills | null;
 };
 
 const initialState: State = {
@@ -44,7 +44,11 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(getHardSkillsData.fulfilled, (state, { payload }) => {
             state.dataStatus = DataStatus.FULFILLED;
-            state.hardSkillsData = payload;
+            const formattedData = payload.items.map((item) => ({
+                label: item.name,
+                value: item.id,
+            }));
+            state.hardSkillsData = { items: formattedData };
         });
         builder.addCase(getHardSkillsData.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
