@@ -41,13 +41,13 @@ import {
 } from './constants/constants';
 import { styles } from './styles';
 
-const jobTitleOptions = Object.entries(JobTitle).map(([id, name]) => ({
-    id,
-    name,
+const jobTitleOptions = Object.entries(JobTitle).map(([label, value]) => ({
+    label,
+    value,
 }));
-const locationOptions = Object.entries(CountryList).map(([id, name]) => ({
-    id,
-    name,
+const locationOptions = Object.entries(CountryList).map(([label, value]) => ({
+    label,
+    value,
 }));
 
 const employmentTypeOptions = Object.values(EmploymentType);
