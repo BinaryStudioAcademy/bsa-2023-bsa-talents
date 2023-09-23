@@ -16,7 +16,7 @@ import {
 const storage = multer.memoryStorage();
 
 const fileFilter = (
-    request: FastifyRequest,
+    _request: FastifyRequest,
     file: MulterFile,
     callback: FileFilterCallback,
 ): void => {
