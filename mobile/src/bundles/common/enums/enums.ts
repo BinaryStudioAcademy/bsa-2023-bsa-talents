@@ -22,6 +22,7 @@ export {
     ApiPath,
     AppEnvironment,
     BsaBadgeStepBadgesTitle,
+    BsaBadgesTypeEnum,
     ContentType,
     CountryList,
     EmploymentType,

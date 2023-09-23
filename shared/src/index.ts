@@ -14,6 +14,8 @@ export {
 export {
     type BadgesItem,
     type BadgesResponseDto,
+    BsaBadgesTitle,
+    BsaBadgesTypeEnum,
     type HardSkillsItem,
     type HardSkillsResponseDto,
 } from './bundles/common-data/common-data.js';
@@ -22,6 +24,7 @@ export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
+    BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
     BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,

@@ -1,4 +1,4 @@
-const BsaBadgeStepBadgesTitle = {
+const BsaBadgesTitle = {
     COMMUNICATIVE: 'Communicative',
     CONNECTOR: 'Connector',
     LEADERSHIP: 'Leadership',
@@ -15,4 +15,4 @@ const BsaBadgeStepBadgesTitle = {
     PROACTIVE: 'Proactive',
 } as const;
 
-export { BsaBadgeStepBadgesTitle };
+export { BsaBadgesTitle };

@@ -1,12 +1,14 @@
 import {
-    type BsaBadgesStepDto,
+    type BadgesFormDto,
+    type HardSkillsItem,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
 
-//TODO delete when backend is ready
+// TODO: replace when we know backend dto
+
 type HardSkillsDto = {
-    hardSkills: { value: string; label: string }[];
+    hardSkills: HardSkillsItem[];
 };
 
 type PhotoDto = {
@@ -18,13 +20,13 @@ type CVDto = {
 };
 
 type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
-    Partial<BsaBadgesStepDto> &
+    Partial<BadgesFormDto> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto>;
 
 type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
-    Partial<BsaBadgesStepDto> &
+    Partial<BadgesFormDto> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto>;
