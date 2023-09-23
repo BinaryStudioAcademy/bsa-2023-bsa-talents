@@ -61,13 +61,14 @@ class ChatApi extends HttpApiBase {
     public async getAllMessagesByChatId(payload: string): Promise<{
         items: MessageResponseDto[];
     }> {
-        const path = ChatMessagesApiPath.$CHAT_ID.replace(':chatId', payload);
-        const response = await this.load(this.getFullEndpoint(path, {}), {
-            method: 'GET',
-            contentType: ContentType.JSON,
-            hasAuth: true,
-        });
-
+        const response = await this.load(
+            this.getFullEndpoint(ChatMessagesApiPath.ROOT, payload, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
         return response.json<{
             items: MessageResponseDto[];
         }>();
@@ -91,17 +92,17 @@ class ChatApi extends HttpApiBase {
     public async readMessage(
         payload: ChatMessagesPatchDto,
     ): Promise<MessageResponseDto> {
-        const { id = '' } = payload;
-
-        const response = await this.load(
-            this.getFullEndpoint(ChatMessagesApiPath.READ_$MESSAGE_ID, id, {}),
-            {
-                method: 'PATCH',
-                contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
-                hasAuth: true,
-            },
+        const path = ChatMessagesApiPath.READ_$MESSAGE_ID.replace(
+            ':messageId',
+            payload.id,
         );
+
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'PATCH',
+            contentType: ContentType.JSON,
+            payload: JSON.stringify(payload),
+            hasAuth: true,
+        });
         return response.json<MessageResponseDto>();
     }
 }

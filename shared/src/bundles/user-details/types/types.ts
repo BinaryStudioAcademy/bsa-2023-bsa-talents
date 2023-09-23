@@ -1,6 +1,6 @@
-export { type UserDetailsApproveRequestDto } from './user-details-approve-request-dto.type.js';
 export { type UserDetailsCreateDto } from './user-details-create-dto.type.js';
 export { type UserDetailsCreateRequestDto } from './user-details-create-request-dto.type.js';
+export { type UserDetailsDenyRequestDto } from './user-details-deny-request-dto.type.js';
 export { type UserDetailsFindByUserIdRequestDto } from './user-details-find-by-userid-request-dto.type.js';
 export { type UserDetailsFindRequestDto } from './user-details-find-request-dto.type.js';
 export { type UserDetailsFindShortByRoleRequestDto } from './user-details-find-short-by-role-request-dto.type.js';

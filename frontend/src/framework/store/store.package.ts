@@ -1,6 +1,8 @@
 import {
     type AnyAction,
+    combineReducers,
     type MiddlewareArray,
+    type Reducer,
     type ThunkMiddleware,
 } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
@@ -36,6 +38,7 @@ type RootReducer = {
     lms: ReturnType<typeof lmsReducer>;
     users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
+    chats: ReturnType<typeof chatReducer>;
     candidate: ReturnType<typeof candidateReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
     chat: ReturnType<typeof chatReducer>;
@@ -52,6 +55,28 @@ type ExtraArguments = {
     storage: typeof storage;
 };
 
+const combinedReducer = combineReducers({
+    auth: authReducer,
+    users: usersReducer,
+    lms: lmsReducer,
+    chat: chatReducer,
+    employerOnBoarding: employerOnboardingReducer,
+    talentOnBoarding: talentOnBoardingReducer,
+    employer: employerReducer,
+    app: appReducer,
+    candidate: candidateReducer,
+    cabinet: cabinetReducer,
+});
+
+type RootState = ReturnType<typeof combinedReducer>;
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+    if (action.type === 'app/resetStore') {
+        state = {} as RootState;
+    }
+    return combinedReducer(state, action);
+};
+
 class Store {
     public instance: ReturnType<
         typeof configureStore<
@@ -66,18 +91,7 @@ class Store {
     public constructor(config: Config) {
         this.instance = configureStore({
             devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
-            reducer: {
-                auth: authReducer,
-                users: usersReducer,
-                chat: chatReducer,
-                lms: lmsReducer,
-                employerOnBoarding: employerOnboardingReducer,
-                talentOnBoarding: talentOnBoardingReducer,
-                employer: employerReducer,
-                app: appReducer,
-                candidate: candidateReducer,
-                cabinet: cabinetReducer,
-            },
+            reducer: rootReducer,
             middleware: (getDefaultMiddleware) => [
                 errorHandler,
                 ...getDefaultMiddleware({

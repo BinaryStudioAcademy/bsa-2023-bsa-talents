@@ -55,7 +55,7 @@ class TalentApi extends HttpApiBase {
     ): Promise<UserDetailsGeneralRequestDto | null> {
         const { userId = '' } = payload;
         const response = await this.load(
-            this.getFullEndpoint(UserDetailsApiPath.ROOT, userId, {}),
+            this.getFullEndpoint('/', userId, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
