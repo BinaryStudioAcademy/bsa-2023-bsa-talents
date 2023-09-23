@@ -3,6 +3,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type ChatMessagesRepository } from './chat-messages.repository.js';
+import { chatDtoToChatResponseDto } from './helpers/chat-dto-to-chat-response-dto.js';
 import {
     type ChatMessagesCreateRequestDto,
     type ChatResponseDto,
@@ -42,72 +43,13 @@ class ChatMessagesService implements Service {
     }
 
     public async findAllChatsByUserId(userId: string): Promise<{
-        items: (ChatResponseDto & {
-            selfPhoto: { url: string | null } | null;
-        })[];
+        items: ChatResponseDto[];
     }> {
         const chats = await this.chatMessagesRepository.findAllChatsByUserId(
             userId,
         );
 
-        const parsedChats = chats.map((chat) => {
-            const {
-                chatId,
-                lastMessageCreatedAt,
-                lastMessage,
-                sender,
-                receiver,
-            } = chat;
-
-            const conversationPartner =
-                userId === sender.userId ? receiver : sender;
-
-            const yourself = userId === sender.userId ? sender : receiver;
-
-            // Get necessary fields from user details model
-            const {
-                userId: id,
-                profileName,
-                fullName,
-                linkedinLink,
-                companyName,
-                companyLogoId,
-                companyWebsite,
-                photo,
-            } = conversationPartner;
-
-            // Get necessary fields from file model
-            const photoData = photo
-                ? {
-                      url: photo.url,
-                      fileName: photo.fileName,
-                      etag: photo.etag,
-                  }
-                : null;
-
-            const selfPhoto = yourself.photo
-                ? {
-                      url: yourself.photo.url,
-                  }
-                : null;
-
-            return {
-                chatId,
-                lastMessageCreatedAt,
-                lastMessage,
-                selfPhoto,
-                partner: {
-                    id,
-                    profileName,
-                    fullName,
-                    linkedinLink,
-                    companyName,
-                    companyLogoId,
-                    companyWebsite,
-                    avatar: photoData, // TODO: change photo url logic after testing file uploading
-                },
-            };
-        });
+        const parsedChats = chats.map((chat) => chatDtoToChatResponseDto(chat));
 
         return {
             items: parsedChats,
