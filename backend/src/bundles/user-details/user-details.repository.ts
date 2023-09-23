@@ -61,6 +61,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
@@ -169,11 +170,16 @@ class UserDetailsRepository implements Repository {
             sortingParameters.direction,
         );
 
-        const searchResults = await query;
+        const searchResults = await query
+            .withGraphJoined('user')
+            .where('user.role', '=', 'talent');
 
-        return searchResults.map((result) =>
-            UserDetailsEntity.initialize(result),
-        );
+        return searchResults.map((result) => {
+            return UserDetailsEntity.initialize({
+                ...result,
+                email: result.user?.email,
+            });
+        });
     }
 
     public async create(
@@ -215,6 +221,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
@@ -255,6 +262,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
