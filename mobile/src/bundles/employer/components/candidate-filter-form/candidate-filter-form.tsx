@@ -19,31 +19,37 @@ import {
     EmploymentType,
     IconName,
     JobTitle,
-    TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { TextCategory } from '~/bundles/common/enums/styles/styles';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 import {
-    BSA_BADGES,
     BSA_CHARACTERISTICS,
     BSA_PROJECT,
     DEFAULT_VALUES,
     ENGLISH_LEVEL,
-    HARD_SKILLS,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
 
-const jobTitleOptions = Object.entries(JobTitle).map(([value, label]) => ({
-    value,
+const jobTitleOptions = Object.entries(JobTitle).map(([label, value]) => ({
     label,
-}));
-const locationOptions = Object.entries(CountryList).map(([value, label]) => ({
     value,
-    label,
 }));
+const locationOptions = Object.entries(CountryList).map(([label, value]) => ({
+    label,
+    value,
+}));
+
 const employmentTypeOptions = Object.values(EmploymentType);
 
 type CandidatesFilterFormProperties = {
@@ -57,6 +63,8 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     const { control, reset, handleSubmit } = useAppForm<EmployeesFiltersDto>({
         defaultValues: DEFAULT_VALUES,
     });
+    const dispatch = useAppDispatch();
+    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
 
     const handleClearFilters = (): void => {
         reset();
@@ -65,6 +73,10 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
+
+    useEffect(() => {
+        void dispatch(getHardSkillsData());
+    }, [dispatch]);
 
     return (
         <>
@@ -138,12 +150,16 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                 />
             </FormField>
-            <FormField label="Hard Skills" name="hardSkills">
+            <FormField
+                containerStyle={globalStyles.pb25}
+                label="Hard Skills"
+                name="hardSkills"
+            >
                 <AutocompleteMultiSelector
-                    items={HARD_SKILLS}
+                    items={hardSkillsData?.items}
                     control={control}
                     name="hardSkills"
-                    placeholder="Start typing and choose option"
+                    placeholder="Start typing and select skills"
                 />
             </FormField>
             <FormField
@@ -155,18 +171,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     items={BSA_CHARACTERISTICS}
                     control={control}
                     name="BSACharacteristics"
-                    placeholder="Start typing and choose option"
-                />
-            </FormField>
-            <FormField
-                label="BSA badges"
-                name="BSABadges"
-                containerStyle={globalStyles.pb25}
-            >
-                <AutocompleteMultiSelector
-                    items={BSA_BADGES}
-                    control={control}
-                    name="BSABadges"
                     placeholder="Start typing and choose option"
                 />
             </FormField>

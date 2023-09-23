@@ -49,6 +49,22 @@ class EmployerOnBoardingApi extends HttpApiBase {
         );
         return response.json<UserDetailsGeneralCustom>();
     }
+
+    public async getUserDetailsByUserId(
+        payload: Partial<UserDetailsGeneralCustom>,
+    ): Promise<UserDetailsGeneralCustom | null> {
+        const { userId = '' } = payload;
+
+        const response = await this.load(
+            this.getFullEndpoint('/', userId, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<UserDetailsGeneralCustom>();
+    }
 }
 
 export { EmployerOnBoardingApi };
