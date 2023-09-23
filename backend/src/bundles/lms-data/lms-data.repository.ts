@@ -25,10 +25,7 @@ class LMSDataRepository implements Repository {
         if (!data) {
             return null;
         }
-        return LMSDataEntity.initialize({
-            userId: data.userId,
-            data: data.data,
-        });
+        return LMSDataEntity.initialize(data);
     }
 
     public async findAll(): Promise<LMSDataEntity[]> {

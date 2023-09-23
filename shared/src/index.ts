@@ -24,11 +24,15 @@ export {
     type HardSkillsResponseDto,
 } from './bundles/gather-selected-data/gather-selected-data.js';
 export {
-    type LMSDataGetAllItemResponseDto,
-    type LMSDataGetAllResponseDto,
-    type LMSDataGetByIdFromLMSServerResponseDto,
-    type LMSDataGetByIdResponseDto,
-    type LMSServerUserNotFoundDto,
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataServerResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
+    type UserLMSDataDto,
 } from './bundles/lms-data/lms-data.js';
 export {
     type BadgeStepDto,

@@ -5,7 +5,10 @@ import { type Service } from '~/common/types/types.js';
 
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
-import { type LMSDataGetByIdResponseDto } from './types/types.js';
+import {
+    type LMSDataServerResponseDto,
+    type UserLMSDataDto,
+} from './types/types.js';
 
 class LMSDataService implements Service {
     private lmsDataRepository: LMSDataRepository;
@@ -21,7 +24,7 @@ class LMSDataService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<LMSDataGetByIdResponseDto | undefined> {
+    ): Promise<UserLMSDataDto | undefined> {
         const dataFromDB = await this.lmsDataRepository.findByUserId({
             userId,
         });
@@ -37,11 +40,13 @@ class LMSDataService implements Service {
                 userEmail,
             );
             if (dataFromLMS) {
+                const parsedLMSData = this.parseLMSServerData(
+                    userId,
+                    dataFromLMS,
+                );
+
                 const newDBRecord = await this.lmsDataRepository.create(
-                    LMSDataEntity.initialize({
-                        userId,
-                        data: dataFromLMS,
-                    }),
+                    LMSDataEntity.initialize(parsedLMSData),
                 );
                 return newDBRecord.toObject();
             }
@@ -54,7 +59,7 @@ class LMSDataService implements Service {
 
     private async findByUserEmailOnLMSServer(
         email: string,
-    ): Promise<string | undefined> {
+    ): Promise<LMSDataServerResponseDto | undefined> {
         // TODO: specify type of return value
 
         const url = new URL(LMSDataApiPath.LMS_SERVER);
@@ -64,8 +69,8 @@ class LMSDataService implements Service {
             headers: this.requestsToLMSHeaders,
         });
 
-        //TODO: specify received data
-        const data = (await response.json()) as string;
+        //TODO: need change it to something proper
+        const data = (await response.json()) as LMSDataServerResponseDto;
 
         // TODO: need to refactor this check on error, this was quick solution
         if (!Object.keys(data).includes('talent')) {
@@ -78,7 +83,7 @@ class LMSDataService implements Service {
     // only for test, should be removed
     public async testLMSServer(
         email: string,
-    ): Promise<LMSDataGetByIdResponseDto | undefined> {
+    ): Promise<UserLMSDataDto | unknown> {
         const url = new URL(LMSDataApiPath.LMS_SERVER);
         url.searchParams.append('email', email);
 
@@ -86,10 +91,24 @@ class LMSDataService implements Service {
             headers: this.requestsToLMSHeaders,
         });
 
-        //TODO: specify received data
-        const data = (await response.json()) as string;
+        const json = (await response.json()) as LMSDataServerResponseDto;
+        return this.parseLMSServerData(email, json);
+    }
 
-        return { userId: email, data };
+    private parseLMSServerData(
+        userId: string,
+        serverData: LMSDataServerResponseDto,
+    ): UserLMSDataDto {
+        return {
+            userId,
+            english: serverData.talent.english,
+            averageProjectScore: serverData.averageProjectScore,
+            averageLectureScore: serverData.averageLectureScore,
+            lectureDetails: serverData.lectureDetails,
+            projectCoachesFeedback: serverData.projectCoachesFeedback,
+            hrFeedback: serverData.hrFeedback,
+            project: serverData.project,
+        };
     }
 
     public create(): ReturnType<Service['create']> {

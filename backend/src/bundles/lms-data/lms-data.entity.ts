@@ -1,54 +1,63 @@
 import { type Entity } from '~/common/types/types.js';
 
+import {
+    type HrFeedback,
+    type LectureDetail,
+    type Project,
+    type ProjectCoachesFeedback,
+    type UserLMSDataDto,
+} from './types/types.js';
+
 class LMSDataEntity implements Entity {
-    private 'userId': string | null;
+    private userId: string;
+    private english: string;
+    private averageProjectScore: number;
+    private averageLectureScore: number;
+    private lectureDetails: LectureDetail[];
+    private projectCoachesFeedback: ProjectCoachesFeedback[];
+    private hrFeedback: HrFeedback;
+    private project: Project;
 
-    private 'data': string;
-
-    // TODO: should be added another fields
-
-    private constructor({
-        userId,
-        data,
-    }: {
-        userId: string | null;
-        data: string;
-    }) {
-        this.userId = userId;
-        this.data = data;
+    private constructor(userLMSDataDto: UserLMSDataDto) {
+        this.userId = userLMSDataDto.userId;
+        this.english = userLMSDataDto.english;
+        this.averageProjectScore = userLMSDataDto.averageProjectScore;
+        this.averageLectureScore = userLMSDataDto.averageLectureScore;
+        this.lectureDetails = userLMSDataDto.lectureDetails;
+        this.projectCoachesFeedback = userLMSDataDto.projectCoachesFeedback;
+        this.hrFeedback = userLMSDataDto.hrFeedback;
+        this.project = userLMSDataDto.project;
     }
 
-    public static initialize({
-        userId,
-        data,
-    }: {
-        userId: string;
-        data: string;
-    }): LMSDataEntity {
+    public static initialize(userLMSDataDto: UserLMSDataDto): LMSDataEntity {
         return new LMSDataEntity({
-            userId,
-            data,
+            userId: userLMSDataDto.userId,
+            english: userLMSDataDto.english,
+            averageProjectScore: userLMSDataDto.averageProjectScore,
+            averageLectureScore: userLMSDataDto.averageLectureScore,
+            lectureDetails: userLMSDataDto.lectureDetails,
+            projectCoachesFeedback: userLMSDataDto.projectCoachesFeedback,
+            hrFeedback: userLMSDataDto.hrFeedback,
+            project: userLMSDataDto.project,
         });
     }
 
-    public toObject(): {
-        userId: string;
-        data: string;
-    } {
+    public toObject(): UserLMSDataDto {
         return {
-            userId: this.userId as string,
-            data: this.data,
+            userId: this.userId,
+            english: this.english,
+            averageProjectScore: this.averageProjectScore,
+            averageLectureScore: this.averageLectureScore,
+            lectureDetails: this.lectureDetails,
+            projectCoachesFeedback: this.projectCoachesFeedback,
+            hrFeedback: this.hrFeedback,
+            project: this.project,
         };
     }
 
-    public toNewObject(): {
-        userId: string | null;
-        data: string;
-    } {
-        return {
-            userId: this.userId,
-            data: this.data,
-        };
+    // may this cause some problem?
+    public toNewObject(): UserLMSDataDto {
+        return this.toObject();
     }
 }
 
