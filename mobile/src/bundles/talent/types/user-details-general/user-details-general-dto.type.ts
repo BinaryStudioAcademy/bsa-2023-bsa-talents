@@ -1,6 +1,6 @@
+import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
 import {
     type BadgesFormDto,
-    type HardSkillsItem,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/talent/types/types';
@@ -8,7 +8,7 @@ import {
 // TODO: replace when we know backend dto
 
 type HardSkillsDto = {
-    hardSkills: HardSkillsItem[];
+    hardSkills: FormattedHardSkillsItem[];
 };
 
 type PhotoDto = {
