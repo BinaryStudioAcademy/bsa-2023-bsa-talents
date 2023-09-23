@@ -49,6 +49,7 @@ const CandidateProfile: React.FC<Properties> = ({
         description: data.description as string,
         hardSkills: data.hardSkills?.map((skill) => skill.label),
         experienceYears: formatNumber(data.experienceYears as number),
+        date: data.createdAt as string,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,

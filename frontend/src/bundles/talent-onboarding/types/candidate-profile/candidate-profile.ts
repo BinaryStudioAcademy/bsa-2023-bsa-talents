@@ -11,6 +11,7 @@ type FirstSectionDetails = {
     hardSkills?: string[];
     preferredLanguages: string[];
     description: string;
+    date: string;
 };
 
 type SecondSectionDetails = {
