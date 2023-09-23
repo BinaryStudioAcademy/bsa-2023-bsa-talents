@@ -2,6 +2,7 @@ import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/type
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const DEFAULT_VALUES: EmployeesFiltersForm = {
+    sortBy: undefined,
     searchActiveCandidatesOnly: true,
     jobTitle: [],
     hardSkills: [],

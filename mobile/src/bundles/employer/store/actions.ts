@@ -13,7 +13,8 @@ const getTalentsData = createAsyncThunk<
 >(`${sliceName}/getTalentsData`, async (_, { extra }) => {
     const { employerApi, notifications } = extra;
     try {
-        return await employerApi.getAllTalents();
+        const users = await employerApi.getAllTalents();
+        return users.filter((user) => user.cvId);
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -28,7 +29,8 @@ const getFilteredTalents = createAsyncThunk<
 >(`${sliceName}/getTalentsData`, async (payload, { extra }) => {
     const { employerApi, notifications } = extra;
     try {
-        return await employerApi.getFilteredTalents(payload);
+        const users = await employerApi.getFilteredTalents(payload);
+        return users.filter((user) => user.cvId);
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

@@ -8,6 +8,7 @@ import {
     FormField,
     MaterialIcon,
     Pressable,
+    Selector,
     Switch,
     Text,
     TouchableOpacity,
@@ -37,6 +38,7 @@ import {
     EXPERIENCE_YEARS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
+    SORT_VALUES,
     USER_BSA_PROJECTS,
 } from './constants/constants';
 import { styles } from './styles';
@@ -116,6 +118,18 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     name="searchActiveCandidatesOnly"
                     control={control}
                     label="Active searching talents only"
+                />
+            </FormField>
+            <FormField
+                label="Sort by"
+                name="sortBy"
+                containerStyle={globalStyles.pb25}
+            >
+                <Selector
+                    control={control}
+                    name="sortBy"
+                    placeholder="Choose sort by value"
+                    options={SORT_VALUES}
                 />
             </FormField>
             <FormField

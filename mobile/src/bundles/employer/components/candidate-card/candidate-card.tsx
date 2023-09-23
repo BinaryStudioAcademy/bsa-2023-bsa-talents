@@ -103,7 +103,9 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                 ]}
             >
                 {talentBadges
-                    .slice(0, MAX_BADGES)
+                    //TODO: remove after backend got badges values
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    ?.slice(0, MAX_BADGES)
                     .map(
                         ({ level, score, badgeId, isShown }) =>
                             isShown && (
@@ -138,7 +140,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                 </Text>
 
                 {talentHardSkills
-                    // TODO: Replace value with common data from store and remove chain after fix backend
+                    //TODO: remove after backend got skills values
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     ?.slice(0, MAX_SKILLS)
                     .map(({ hardSkillId }) => (

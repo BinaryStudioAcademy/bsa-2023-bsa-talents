@@ -20,6 +20,7 @@ const BadgesGroup = ({ control }: Properties): JSX.Element => {
         name: 'badges',
         control,
     });
+
     const handleToggleCheckbox = useCallback(
         (clickedBadge: BadgeFormItem, index: number) => {
             update(index, {
