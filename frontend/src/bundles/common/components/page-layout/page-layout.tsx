@@ -4,7 +4,6 @@ import {
     Sidebar,
 } from '~/bundles/common/components/components.js';
 
-import { useAppSelector } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -20,13 +19,9 @@ const PageLayout: React.FC<Properties> = ({
     isOnline,
     children,
 }) => {
-    const { role } = useAppSelector(({ auth }) => ({
-        role: auth.currentUser?.role,
-    }));
-
     return (
         <Grid container className={styles.pageContainer}>
-            <Sidebar role={role} />
+            <Sidebar />
 
             <Header
                 avatarUrl={avatarUrl}

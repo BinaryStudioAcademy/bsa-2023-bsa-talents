@@ -6,12 +6,7 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
-import { type UserRole, type ValueOf } from '../../types/types.js';
 import styles from './styles.module.scss';
-
-type Properties = {
-    role?: ValueOf<typeof UserRole>;
-};
 
 const generalMenu = [
     {
@@ -34,8 +29,12 @@ const adminMenu = [
     },
 ];
 
-const Sidebar: React.FC<Properties> = ({ role }) => {
+const Sidebar: React.FC = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
+
+    const { role } = useAppSelector(({ auth }) => ({
+        role: auth.currentUser?.role,
+    }));
 
     const { isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
