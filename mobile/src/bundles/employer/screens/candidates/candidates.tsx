@@ -16,6 +16,10 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
+    getBadgesData,
+    getHardSkillsData,
+} from '~/bundles/common-data/store/actions';
+import {
     CandidateCard,
     CandidatesHeader,
     SearchTalents,
@@ -26,13 +30,24 @@ import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const dispatch = useAppDispatch();
-    const { dataStatus, talentsData } = useAppSelector(
+    const { dataStatus: employerDataStatus, talentsData } = useAppSelector(
         ({ employees }) => employees,
     );
+    const {
+        dataStatus: commonDataStatus,
+        badgesData,
+        hardSkillsData,
+    } = useAppSelector(({ commonData }) => commonData);
 
     useEffect(() => {
         void dispatch(getTalentsData());
-    }, [dispatch]);
+        if (!hardSkillsData) {
+            void dispatch(getHardSkillsData());
+        }
+        if (!badgesData) {
+            void dispatch(getBadgesData());
+        }
+    }, [badgesData, dispatch, hardSkillsData]);
 
     const renderCandidateCard = ({
         item,
@@ -53,7 +68,9 @@ const Candidates: React.FC = () => {
             : talentsData;
     }, [searchQuery, talentsData]);
 
-    const isCandidatesLoading = dataStatus === DataStatus.PENDING;
+    const isDataLoading =
+        employerDataStatus === DataStatus.PENDING ||
+        commonDataStatus === DataStatus.PENDING;
 
     return (
         <>
@@ -73,7 +90,7 @@ const Candidates: React.FC = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
-                {isCandidatesLoading ? (
+                {isDataLoading ? (
                     <Loader />
                 ) : (
                     <FlatList

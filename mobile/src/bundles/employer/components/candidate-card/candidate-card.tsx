@@ -8,13 +8,27 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type BadgesItem } from '~/bundles/common/types/types';
+import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
 import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 import { CardConstants } from './constants/constants';
 import { styles } from './styles';
 
 const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
+
+const getBadgeById = (data: BadgesItem[], id: string): BadgesItem => {
+    return data.find((value) => value.id === id) as BadgesItem;
+};
+
+const getHardSkillByValue = (
+    data: FormattedHardSkillsItem[],
+    id: string,
+): FormattedHardSkillsItem => {
+    return data.find(({ value }) => value === id) as FormattedHardSkillsItem;
+};
 
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
@@ -28,6 +42,13 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     talentBadges,
     talentHardSkills,
 }) => {
+    const { badgesData, hardSkillsData } = useAppSelector(
+        ({ commonData }) => commonData,
+    );
+
+    if (!badgesData || !hardSkillsData) {
+        return null;
+    }
     return (
         <View
             style={[
@@ -82,18 +103,20 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                 ]}
             >
                 {talentBadges
-                    // TODO: Replace value with common data from store and remove chain after fix backend
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    ?.slice(0, MAX_BADGES)
+                    .slice(0, MAX_BADGES)
                     .map(
                         ({ level, score, badgeId, isShown }) =>
                             isShown && (
                                 <Badge
                                     key={badgeId}
-                                    value={score}
-                                    badgeType={level}
                                     size={BadgeSize.SMALL}
                                     iconSize={20}
+                                    score={score}
+                                    level={level}
+                                    badge={getBadgeById(
+                                        badgesData.items,
+                                        badgeId,
+                                    )}
                                 />
                             ),
                     )}
@@ -119,7 +142,15 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     ?.slice(0, MAX_SKILLS)
                     .map(({ hardSkillId }) => (
-                        <Tag key={hardSkillId} value={hardSkillId} />
+                        <Tag
+                            key={hardSkillId}
+                            value={
+                                getHardSkillByValue(
+                                    hardSkillsData.items,
+                                    hardSkillId,
+                                ).label
+                            }
+                        />
                     ))}
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>

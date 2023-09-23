@@ -31,14 +31,14 @@ const transformCandidateFilterFormToQuery = (
 
     if (hardSkills.length > 0) {
         for (const value of hardSkills) {
-            result += `&hardSkills=${value.id}`;
+            result += `&hardSkills=${value.value}`;
         }
     }
 
     for (const [key, value] of Object.entries(multiSelectedData)) {
         if (value.length > 0) {
             for (const selector of value) {
-                result += `&${key}=${selector.name}`;
+                result += `&${key}=${selector.label}`;
             }
         }
     }
