@@ -1,27 +1,27 @@
 env:
-  node: true
+    node: true
 
 parserOptions:
-  project:
-    - ./tsconfig.json
+    project:
+        - ./tsconfig.json
 
 extends:
-  - ../.eslintrc.yml
+    - ../.eslintrc.yml
 
 overrides:
-  - files:
-      - knexfile.ts
-    rules:
-      'import/no-default-export':
-        - off
-  - files:
-      - src/migrations/**/*.ts
-    rules:
-      'unicorn/filename-case':
-        - error
-        - case: snakeCase
-  - files:
-      - src/*.d.ts
-    rules:
-      '@typescript-eslint/consistent-type-definitions':
-        - off
+    - files:
+          - knexfile.ts
+      rules:
+          'import/no-default-export':
+              - off
+    - files:
+          - src/migrations/**/*.ts
+      rules:
+          'unicorn/filename-case':
+              - error
+              - case: snakeCase
+    - files:
+          - src/*.d.ts
+      rules:
+          '@typescript-eslint/consistent-type-definitions':
+              - off
