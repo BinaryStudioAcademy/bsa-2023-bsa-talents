@@ -1,18 +1,11 @@
 import React from 'react';
 
 import { Badge, Tag, Text, View } from '~/bundles/common/components/components';
-import {
-    BadgeSize,
-    type BsaBadgeStepBadgesTitle,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
-
-type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 const ScoresAndSkillsContainer: React.FC = () => {
     const { onboardingData } = useAppSelector(({ talents }) => talents);
@@ -37,12 +30,14 @@ const ScoresAndSkillsContainer: React.FC = () => {
             >
                 {badges?.map((badge) => {
                     return (
-                        <Badge
-                            key={badge}
-                            badgeType={badge as BadgeName}
-                            size={BadgeSize.SMALL}
-                            iconSize={20}
-                        />
+                        badge.isChecked && (
+                            <Badge
+                                key={badge.id}
+                                badge={badge}
+                                size={BadgeSize.SMALL}
+                                iconSize={20}
+                            />
+                        )
                     );
                 })}
             </View>
