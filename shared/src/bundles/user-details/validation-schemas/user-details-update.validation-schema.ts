@@ -9,6 +9,7 @@ import {
     PreferredLanguages,
 } from '../enums/enums.js';
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
+import { URL_REGEX_CONSTANT } from './constants/constants.js';
 
 const userDetailsUpdate = joi
     .object<UserDetailsUpdateRequestDto>({
@@ -41,7 +42,7 @@ const userDetailsUpdate = joi
                 .valid(...Object.values(EmploymentType)),
         ),
 
-        description: joi.string().empty(''),
+        description: joi.string(),
 
         englishLevel: joi
             .string()
@@ -78,9 +79,7 @@ const userDetailsUpdate = joi
         linkedinLink: joi.string().trim().uri(),
         companyName: joi.string().trim(),
         companyLogoId: joi.string().trim(),
-        companyWebsite: joi
-            .string()
-            .regex(/^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/),
+        companyWebsite: joi.string().regex(URL_REGEX_CONSTANT),
         employerPosition: joi.string().trim(),
         cvId: joi.string().trim(),
         talentBadges: joi.array().items(joi.string().trim()),

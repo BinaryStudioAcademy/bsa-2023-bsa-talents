@@ -354,6 +354,7 @@ const OnboardingForm: React.FC = () => {
                             <Typography variant="label">
                                 Briefly tell about your company and its values
                             </Typography>
+                            <span className={styles.requiredField}>*</span>
                         </FormLabel>
                         <Textarea
                             minRows={7}
