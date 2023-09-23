@@ -129,8 +129,6 @@ const EmployerOnboardingFormValidationSchema = joi.object<
                 EmployerOnboardingFormValidationMessage.DESCRIPTION_REQUIRED,
             'string.max':
                 EmployerOnboardingFormValidationMessage.DESCRIPTION_MAX_LENGTH,
-            'string.empty':
-                EmployerOnboardingFormValidationMessage.DESCRIPTION_REQUIRED,
         }),
 });
 

@@ -37,7 +37,6 @@ const EmployerOnboardingFormValidationMessage = {
     POSITION_MIN_LENGTH: 'Your position must be at least {{#limit}} characters',
     POSITION_MAX_LENGTH: 'Your position must be at most {{#limit}} characters',
     POSITION_WRONG_PATTERN: 'Your position must contain only letters',
-    DESCRIPTION_REQUIRED: 'About your company is required',
     DESCRIPTION_MAX_LENGTH:
         'Your position must be at most {{#limit}} characters',
     DESCRIPTION_REQUIRED: 'Description can not be empty',
