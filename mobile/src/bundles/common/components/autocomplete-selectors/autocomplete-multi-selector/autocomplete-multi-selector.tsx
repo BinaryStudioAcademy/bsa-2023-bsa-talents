@@ -70,13 +70,14 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
 
     const filteredItems = useMemo(() => {
         return items?.filter(
-            ({ value: id }) =>
-                id.includes(search) &&
+            ({ label }) =>
+                label.toLowerCase().includes(search.toLowerCase()) &&
                 !value.some(
-                    (v: AutocompleteMultiSelectorValue) => v.value === id,
+                    (v: AutocompleteMultiSelectorValue) =>
+                        v.label.toLowerCase() === label.toLowerCase(),
                 ),
         );
-    }, [search, value, items]);
+    }, [value, search, items]);
 
     return (
         <>
