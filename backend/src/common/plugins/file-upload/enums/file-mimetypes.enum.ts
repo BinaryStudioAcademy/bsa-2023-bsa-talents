@@ -4,6 +4,6 @@ const AllowedMimeTypes = {
     DOCX: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     JPEG: 'image/jpeg',
     PNG: 'image/png',
-} as const;
+};
 
 export { AllowedMimeTypes };
