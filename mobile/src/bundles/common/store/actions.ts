@@ -3,7 +3,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
-    type UserDetailsCreateRequestDto,
+    type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
 } from '~/bundles/talent/types/types';
@@ -12,12 +12,19 @@ import { name as sliceName } from './slice';
 
 const createUserDetails = createAsyncThunk<
     UserDetailsResponseDto,
-    UserDetailsCreateRequestDto,
+    UserDetailsGeneralCreateRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/createUserDetails`, async (onboardingPayload, { extra }) => {
     const { commonApi, notifications } = extra;
+    const { photo, companyLogo, ...payload } = onboardingPayload;
     try {
-        return await commonApi.completeUserDetails(onboardingPayload);
+        const response = await commonApi.completeUserDetails(payload);
+        return {
+            ...response,
+            //TODO remove when it is ready at the backend
+            ...(photo && { photo }),
+            ...(companyLogo && { companyLogo }),
+        };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -31,7 +38,8 @@ const updateOnboardingData = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { commonApi, notifications } = extra;
-    const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
+    const { badges, hardSkills, photo, cv, companyLogo, ...payload } =
+        stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
     if (Object.keys(payload).length === 0) {
@@ -49,6 +57,7 @@ const updateOnboardingData = createAsyncThunk<
             ...(badges && { badges }),
             ...(photo && { photo }),
             ...(cv && { cv }),
+            ...(companyLogo && { companyLogo }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);

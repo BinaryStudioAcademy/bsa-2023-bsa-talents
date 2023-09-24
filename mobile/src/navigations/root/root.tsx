@@ -14,6 +14,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useEffect,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { getUserDetails } from '~/bundles/common/store/actions';
 import {
@@ -38,28 +39,33 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } =
-        useAppSelector(({ common }) => common.onboardingData) ?? {};
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
+    const [userDataLoaded, setUserDataLoaded] = useState(false);
     const dispatch = useAppDispatch();
 
+    //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        completedStep === CompletedTalentOnboardingStep.Preview;
+        onboardingData?.completedStep ===
+            CompletedTalentOnboardingStep.Preview ||
+        onboardingData?.companyName;
 
     useEffect(() => {
-        void dispatch(loadCurrentUser());
-    }, [dispatch]);
+        const loadData = async (): Promise<void> => {
+            await dispatch(loadCurrentUser());
+        };
 
-    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
+        currentUserData?.id
+            ? void dispatch(
+                  getUserDetails({ userId: currentUserData.id }),
+              ).then(() => {
+                  setUserDataLoaded(true);
+              })
+            : void loadData();
+    }, [dispatch, currentUserData]);
 
-    useEffect(() => {
-        if (!currentUserData) {
-            return;
-        }
-        void dispatch(getUserDetails({ userId: currentUserData.id }));
-    }, [currentUserData, currentUserData?.id, dispatch]);
-
-    if (isPendingAuth) {
+    if (isPendingAuth || !userDataLoaded) {
         return <Loader />;
     }
 

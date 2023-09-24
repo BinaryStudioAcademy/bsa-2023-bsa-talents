@@ -4,6 +4,7 @@ export {
     type CVDto,
     type HardSkillsDto,
     type PhotoDto,
+    type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
 } from './user-details-general/user-details-general-dto.type';

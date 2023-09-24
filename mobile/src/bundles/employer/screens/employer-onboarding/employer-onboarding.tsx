@@ -2,16 +2,39 @@ import React from 'react';
 
 import { ScrollView, Text } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
+import { useEmployerFormSubmit } from '~/bundles/employer/hooks/hooks';
+import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
 const EmployerOnboarding: React.FC = () => {
-    const handleEmployerDataSubmit = useCallback(() => {
-        // TODO: handle employer onboarding
-    }, []);
+    const { onboardingData } = useAppSelector(({ common }) => common);
+
+    const employerOnboardingData: EmployerOnboardingFormDto | null =
+        onboardingData
+            ? {
+                  photo: onboardingData.photo ?? null,
+                  companyLogo: onboardingData.companyLogo ?? null,
+                  fullName: onboardingData.fullName ?? '',
+                  employerPosition: onboardingData.employerPosition ?? '',
+                  linkedinLink: onboardingData.linkedinLink ?? '',
+                  companyName: onboardingData.companyName ?? '',
+                  companyWebsite: onboardingData.companyWebsite ?? '',
+                  location: onboardingData.location ?? '',
+                  description: onboardingData.description ?? '',
+              }
+            : null;
+
+    const handleSubmit = useEmployerFormSubmit();
+
+    const handleEmployerDataSubmit = (
+        payload: EmployerOnboardingFormDto,
+    ): void => {
+        void handleSubmit(payload);
+    };
 
     return (
         <ScrollView
@@ -31,7 +54,7 @@ const EmployerOnboarding: React.FC = () => {
                 company
             </Text>
             <EmployerOnboardingForm
-                employerOnboardingData={null}
+                employerOnboardingData={employerOnboardingData}
                 onSubmit={handleEmployerDataSubmit}
             />
         </ScrollView>
