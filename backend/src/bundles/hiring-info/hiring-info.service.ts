@@ -10,7 +10,6 @@ import {
     type HiringInfoCreateDto,
     type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
-    type HiringInfoUpdateDto,
 } from './types/types.js';
 
 class HiringInfoService implements Service {
@@ -66,33 +65,32 @@ class HiringInfoService implements Service {
         };
     }
 
-    public async update(
-        payload: HiringInfoUpdateDto,
-    ): Promise<HiringInfoResponseDto> {
-        const { talentId, companyId, ...rest } = payload;
+    public update(): Promise<HiringInfoResponseDto> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        // const { talentId, companyId, ...rest } = payload;
 
-        const hiringInfo = await this.userDetailsRepository.find({
-            talentId,
-            companyId,
-        });
+        // const hiringInfo = await this.userDetailsRepository.find({
+        //     talentId,
+        //     companyId,
+        // });
 
-        if (!hiringInfo) {
-            throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
-                status: HttpCode.NOT_FOUND,
-            });
-        }
+        // if (!hiringInfo) {
+        //     throw new HttpError({
+        //         message: ErrorMessages.NOT_FOUND,
+        //         status: HttpCode.NOT_FOUND,
+        //     });
+        // }
 
-        const hiringInfoId = hiringInfo.toObject().id as string;
+        // const hiringInfoId = hiringInfo.toObject().id as string;
 
-        const updatedHiringInfo = await this.userDetailsRepository.update({
-            ...rest,
-            id: hiringInfoId,
-        });
+        // const updatedHiringInfo = await this.userDetailsRepository.update({
+        //     ...rest,
+        //     id: hiringInfoId,
+        // });
 
-        return {
-            ...updatedHiringInfo.toObject(),
-        };
+        // return {
+        //     ...updatedHiringInfo.toObject(),
+        // };
     }
 
     public delete(): Promise<boolean> {
