@@ -21,15 +21,9 @@ import {
     IconName,
 } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import {
-    useAppDispatch,
-    useAppForm,
-    useAppSelector,
-    useCallback,
-    useEffect,
-} from '~/bundles/common/hooks/hooks';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { getHardSkillsData } from '~/bundles/common-data/store/actions';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 import {
@@ -57,9 +51,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     const { control, reset, handleSubmit } = useAppForm<EmployeesFiltersForm>({
         defaultValues: DEFAULT_VALUES,
     });
-    const dispatch = useAppDispatch();
-    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
-
+    const { hardSkillsData } = useCommonData();
     const handleClearFilters = (): void => {
         reset();
     };
@@ -67,10 +59,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
-
-    useEffect(() => {
-        void dispatch(getHardSkillsData());
-    }, [dispatch]);
 
     return (
         <>

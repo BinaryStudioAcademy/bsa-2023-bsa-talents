@@ -15,10 +15,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    getBadgesData,
-    getHardSkillsData,
-} from '~/bundles/common-data/store/actions';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import {
     CandidateCard,
     CandidatesHeader,
@@ -33,21 +30,11 @@ const Candidates: React.FC = () => {
     const { dataStatus: employerDataStatus, talentsData } = useAppSelector(
         ({ employees }) => employees,
     );
-    const {
-        dataStatus: commonDataStatus,
-        badgesData,
-        hardSkillsData,
-    } = useAppSelector(({ commonData }) => commonData);
+    const { dataStatus: commonDataStatus } = useCommonData();
 
     useEffect(() => {
         void dispatch(getTalentsData());
-        if (!hardSkillsData) {
-            void dispatch(getHardSkillsData());
-        }
-        if (!badgesData) {
-            void dispatch(getBadgesData());
-        }
-    }, [badgesData, dispatch, hardSkillsData]);
+    }, [dispatch]);
 
     const renderCandidateCard = ({
         item,

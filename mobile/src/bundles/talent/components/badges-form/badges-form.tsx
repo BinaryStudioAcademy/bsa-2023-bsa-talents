@@ -17,6 +17,7 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import {
     BADGES_STEP_DEFAULT_VALUES,
     UNCONTROLLED_BADGES,
@@ -38,9 +39,7 @@ type Properties = {
 
 const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
     const { onboardingData } = useAppSelector(({ talents }) => talents);
-    const { badgesData, dataStatus } = useAppSelector(
-        ({ commonData }) => commonData,
-    );
+    const { badgesData, dataStatus } = useCommonData();
 
     const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {
         if (onboardingData?.badges) {

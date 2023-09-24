@@ -8,9 +8,9 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type BadgesItem } from '~/bundles/common/types/types';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
 import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
@@ -42,9 +42,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     talentBadges,
     talentHardSkills,
 }) => {
-    const { badgesData, hardSkillsData } = useAppSelector(
-        ({ commonData }) => commonData,
-    );
+    const { badgesData, hardSkillsData } = useCommonData();
 
     if (!badgesData || !hardSkillsData) {
         return null;
