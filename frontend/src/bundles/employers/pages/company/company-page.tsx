@@ -29,8 +29,45 @@ const CompanyPage: React.FC = () => {
     }, [companyData, dispatch, id]);
 
     return companyData ? (
-        <Grid container className={styles.container}>
-            <Grid container className={styles.representor}>
+        <Grid container direction="row" className={styles.container}>
+            <Grid className={styles.body}>
+                <Grid container className={styles.representor}>
+                    <Avatar
+                        src={companyData.photo.url}
+                        className={styles.photo}
+                    />
+                    <Grid>
+                        <Typography
+                            variant="h5"
+                            className={styles.employerName}
+                        >
+                            {companyData.fullName}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            className={styles.employerPosition}
+                        >
+                            {companyData.employerPosition}
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Typography variant="h5" className={styles.description}>
+                    About {companyData.companyName}
+                </Typography>
+                <Typography variant="body1" className={styles.descriptionBody}>
+                    {companyData.description}
+                </Typography>
+                <Typography variant="h5" className={styles.websiteLabel}>
+                    Company website
+                    <a
+                        className={styles.websiteUrl}
+                        href={companyData.companyWebsite}
+                    >
+                        {companyData.companyWebsite}
+                    </a>
+                </Typography>
+            </Grid>
+            <Grid className={styles.aside}>
                 <Avatar
                     src={companyData.companyLogo.url}
                     className={styles.logo}
@@ -47,29 +84,8 @@ const CompanyPage: React.FC = () => {
                         {companyData.location}
                         <LocationIcon className={styles.locationIcon} />
                     </Typography>
-                    <Typography
-                        variant="body1"
-                        className={styles.secondaryText}
-                    >
-                        {companyData.fullName}, {companyData.employerPosition}
-                    </Typography>
                 </Grid>
             </Grid>
-            <Typography variant="h5" className={styles.description}>
-                About {companyData.companyName}
-            </Typography>
-            <Typography variant="body1" className={styles.descriptionBody}>
-                {companyData.description}
-            </Typography>
-            <Typography variant="h5" className={styles.websiteLabel}>
-                Company website
-                <a
-                    className={styles.websiteUrl}
-                    href={companyData.companyWebsite}
-                >
-                    {companyData.companyWebsite}
-                </a>
-            </Typography>
         </Grid>
     ) : (
         <Loader />

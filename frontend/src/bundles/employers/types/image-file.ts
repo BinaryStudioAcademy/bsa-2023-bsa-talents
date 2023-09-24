@@ -1,4 +1,4 @@
-type CompanyLogo = {
+type ImageFile = {
     id: string;
     createdAt: string;
     updatedAt: string;
@@ -7,4 +7,4 @@ type CompanyLogo = {
     etag: string;
 };
 
-export { type CompanyLogo };
+export { type ImageFile };

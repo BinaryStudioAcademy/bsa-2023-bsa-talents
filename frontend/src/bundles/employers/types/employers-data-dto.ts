@@ -1,10 +1,11 @@
-import { type CompanyLogo } from './types.js';
+import { type ImageFile } from './types.js';
 
 type EmployerDataDto = {
     userId: string;
     companyWebsite: string;
     fullName: string;
-    companyLogo: CompanyLogo;
+    companyLogo: ImageFile;
+    photo: ImageFile;
     employerPosition: string;
     companyName: string;
     location: string;

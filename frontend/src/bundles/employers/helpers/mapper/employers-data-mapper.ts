@@ -6,6 +6,7 @@ function employerDataMapper(response: EmployerDataDto): EmployerDataDto {
         companyWebsite: response.companyWebsite,
         fullName: response.fullName,
         companyLogo: response.companyLogo,
+        photo: response.photo,
         employerPosition: response.employerPosition,
         companyName: response.companyName,
         location: response.location,
