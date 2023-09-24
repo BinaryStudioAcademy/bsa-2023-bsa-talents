@@ -21,8 +21,6 @@ import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
-import { reducer as usersReducer } from '~/bundles/users/store/users.js';
-import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -35,7 +33,6 @@ type RootReducer = {
     employer: ReturnType<typeof employerReducer>;
     employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
     lms: ReturnType<typeof lmsReducer>;
-    users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
     chats: ReturnType<typeof chatReducer>;
     candidate: ReturnType<typeof candidateReducer>;
@@ -44,7 +41,6 @@ type RootReducer = {
 
 type ExtraArguments = {
     authApi: typeof authApi;
-    userApi: typeof userApi;
     chatApi: typeof chatApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
@@ -54,7 +50,6 @@ type ExtraArguments = {
 
 const combinedReducer = combineReducers({
     auth: authReducer,
-    users: usersReducer,
     lms: lmsReducer,
     chat: chatReducer,
     employerOnBoarding: employerOnboardingReducer,
@@ -104,7 +99,6 @@ class Store {
     public get extraArguments(): ExtraArguments {
         return {
             authApi,
-            userApi,
             chatApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
