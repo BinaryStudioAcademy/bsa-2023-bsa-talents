@@ -74,16 +74,18 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     required={true}
                     name="password"
                 >
-                    <Input
-                        control={control}
-                        name="password"
-                        placeholder="Enter your password"
-                        secureTextEntry={!isVisible}
-                    />
-                    <PasswordVisibilityToggle
-                        isPasswordVisible={isVisible}
-                        onChangeVisibility={toggleVisibility}
-                    />
+                    <View>
+                        <Input
+                            control={control}
+                            name="password"
+                            placeholder="Enter your password"
+                            secureTextEntry={!isVisible}
+                        />
+                        <PasswordVisibilityToggle
+                            isPasswordVisible={isVisible}
+                            onChangeVisibility={toggleVisibility}
+                        />
+                    </View>
                 </FormField>
                 <Link
                     textComponentCategory={TextCategory.CAPTION}

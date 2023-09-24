@@ -1,7 +1,7 @@
 import { type Middleware } from '@reduxjs/toolkit';
 
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
-import { type ChatMessageGetAllItemResponseDto } from '~/bundles/chat/types/types.js';
+import { type MessageResponseDto } from '~/bundles/chat/types/types.js';
 import {
     socket,
     SocketEvent,
@@ -18,7 +18,7 @@ const chatSocketInstance = socket.getInstance(SocketNamespace.CHAT);
 const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParameters) => {
     chatSocketInstance.on(
         SocketEvent.CHAT_ADD_MESSAGE,
-        (message: ChatMessageGetAllItemResponseDto) => {
+        (message: MessageResponseDto) => {
             dispatch(chatActions.addMessage(message));
         },
     );
