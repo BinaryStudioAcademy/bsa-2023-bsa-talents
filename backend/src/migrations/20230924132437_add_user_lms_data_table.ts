@@ -1,7 +1,7 @@
 import { type Knex } from 'knex';
 
 const uuid = 'uuid_generate_v4()';
-const constraintName = 'user_details_pkey';
+const constraintName = 'user_lms_data_pkey';
 
 const TableName = {
     USERS: 'users',
