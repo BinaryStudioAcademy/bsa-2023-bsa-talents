@@ -1,16 +1,16 @@
 import { createNumberRangeArray } from '../../../helpers/helpers.js';
 import { ProfileStepValidationRule } from '../../talent-onboarding/enums/enums.js';
 
-const ExperienceYearsList = createNumberRangeArray(
+const experienceYearsList = createNumberRangeArray(
     ProfileStepValidationRule.MIN_YEARS_OF_EXPERIENCE,
     ProfileStepValidationRule.MAX_YEARS_OF_EXPERIENCE,
     ProfileStepValidationRule.YEARS_OF_EXPERIENCE_STEP,
 );
 
-type ExperienceEnum = Record<string, (typeof ExperienceYearsList)[number]>;
-
-function createExperienceYearsEnum(array: readonly number[]): ExperienceEnum {
-    const enumObject: ExperienceEnum = {};
+function createExperienceYearsEnum(
+    array: readonly number[],
+): Record<string, number> {
+    const enumObject: Record<string, number> = {};
     for (const years of array) {
         const enumKey = String(years);
         enumObject[enumKey] = years;
@@ -18,6 +18,6 @@ function createExperienceYearsEnum(array: readonly number[]): ExperienceEnum {
     return enumObject;
 }
 
-const ExperienceYears = createExperienceYearsEnum(ExperienceYearsList);
+const ExperienceYears = createExperienceYearsEnum(experienceYearsList);
 
-export { ExperienceYears };
+export { ExperienceYears as const };
