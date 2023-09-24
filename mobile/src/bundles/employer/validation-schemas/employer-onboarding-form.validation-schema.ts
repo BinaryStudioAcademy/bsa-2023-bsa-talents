@@ -12,7 +12,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     true
 >({
     profilePhoto: joi.object().required(),
-    companyLogo: joi.object().required(),
+    companyLogo: joi.object().allow(null),
     fullName: joi
         .string()
         .trim()
@@ -87,7 +87,6 @@ const EmployerOnboardingFormValidationSchema = joi.object<
 
     companyWebsite: joi
         .string()
-        .trim()
         .uri()
         .min(
             EmployerOnboardingFormValidationRule.MIN_COMPANY_WEBSITE_LINK_LENGTH,
@@ -103,7 +102,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_LENGTH,
             'string.max':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_MAX_LENGTH,
-            'string.pattern.base':
+            'string.uri':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_WRONG_PATTERN,
         }),
 
@@ -122,10 +121,12 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     description: joi
         .string()
         .trim()
-        .allow('')
         .max(EmployerOnboardingFormValidationRule.MAX_DESCRIPTION_LENGTH)
         .pattern(/^[\s\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+$/)
+        .required()
         .messages({
+            'string.empty':
+                EmployerOnboardingFormValidationMessage.DESCRIPTION_REQUIRED,
             'string.max':
                 EmployerOnboardingFormValidationMessage.DESCRIPTION_MAX_LENGTH,
         }),
