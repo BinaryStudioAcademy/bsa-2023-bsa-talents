@@ -6,8 +6,8 @@ type UserFindResponseDto = {
     id: string;
     email: string;
     role: ValueOf<typeof UserRole>;
-    resetToken: string | null;
-    resetTokenExpiry: number | null;
+    resetToken?: string | null;
+    resetTokenExpiry?: number | null;
 };
 
 export { type UserFindResponseDto };
