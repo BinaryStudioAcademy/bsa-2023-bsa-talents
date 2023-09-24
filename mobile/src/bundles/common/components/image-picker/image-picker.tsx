@@ -9,7 +9,7 @@ import {
 import { PermissionsAndroid } from '~/bundles/common/constants/constants';
 import {
     ButtonType,
-    ErrorMessages,
+    ErrorMessage,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import {
@@ -75,7 +75,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
             if (error instanceof Error) {
                 notifications.showError({ title: error.message });
             }
-            notifications.showError({ title: ErrorMessages.UNKNOWN_ERROR });
+            notifications.showError({ title: ErrorMessage.UNKNOWN_ERROR });
         }
     }, [onImageLoad, toggleImagePickerVisibility]);
 

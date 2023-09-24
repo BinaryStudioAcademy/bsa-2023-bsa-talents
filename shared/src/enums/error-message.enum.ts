@@ -1,4 +1,4 @@
-const ErrorMessages = {
+const ErrorMessage = {
     NOT_AUTHORIZED: 'You are not authorized to access this route.',
     USER_ALREADY_EXIST: 'User already exist.',
     INCORRECT_EMAIL: 'Incorrect email.',
@@ -14,4 +14,4 @@ const ErrorMessages = {
     USER_DETAILS_NOT_FOUND: 'User profile not found',
 } as const;
 
-export { ErrorMessages };
+export { ErrorMessage };

@@ -87,7 +87,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';

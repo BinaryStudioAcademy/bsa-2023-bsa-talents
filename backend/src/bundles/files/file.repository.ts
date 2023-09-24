@@ -1,4 +1,4 @@
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type FileStorage } from '~/common/packages/file-storage/types/types.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
@@ -15,11 +15,11 @@ class FileRepository implements Repository {
     }
 
     public find(): Promise<unknown> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public findAll(): Promise<unknown[]> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async create(payload: {
@@ -45,11 +45,11 @@ class FileRepository implements Repository {
     }
 
     public update(): Promise<unknown> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 
