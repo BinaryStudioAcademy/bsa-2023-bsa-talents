@@ -15,8 +15,6 @@ const STATUS = {
     PAID: 'paid',
 } as const;
 
-const TABLE_NAME = 'user_details';
-
 const ColumnName = {
     ID: 'id',
     TALENT_ID: 'talent_id',
@@ -43,7 +41,7 @@ const RelationRule = {
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
-    return knex.schema.createTable(TABLE_NAME, (table) => {
+    return knex.schema.createTable(TableName.HIRING_INFO, (table) => {
         table
             .uuid(ColumnName.ID)
             .unique()
