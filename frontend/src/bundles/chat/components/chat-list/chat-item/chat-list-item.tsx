@@ -5,7 +5,7 @@ import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    userId: string;
+    chatId: string;
     username: string;
     lastMessage?: string;
     lastMessageDate?: string;
@@ -15,19 +15,19 @@ type Properties = {
 };
 
 const ChatListItem: React.FC<Properties> = ({
-    userId,
+    chatId,
     username,
     lastMessage = '',
     lastMessageDate = '',
     avatar = '',
-    isSelected = false,
+    isSelected,
     onClick,
 }) => {
     const handleClick = useCallback((): void => {
         if (onClick) {
-            onClick(userId);
+            onClick(chatId);
         }
-    }, [userId, onClick]);
+    }, [chatId, onClick]);
 
     return (
         <Grid

@@ -2,8 +2,8 @@ import {
     // addMessage,
     createMessage,
     getAllChatsByUserId,
-    getAllChatsByUserId,
     getAllMessages,
+    getAllMessagesByChatId,
     // joinRoom,
     // leaveRoom,
 } from './actions.js';
@@ -14,7 +14,7 @@ const allActions = {
     createMessage,
     getAllChatsByUserId,
     getAllMessages,
-    getAllChatsByUserId,
+    getAllMessagesByChatId,
     // joinRoom,
     // leaveRoom,
     // addMessage,

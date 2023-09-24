@@ -7,7 +7,7 @@ import {
     type ChatResponseDto,
     type MessageResponseDto,
 } from '../types/types.js';
-import { name as sliceName } from './slice.js';
+import { actions, name as sliceName } from './slice.js';
 
 // const joinRoom = createAction(`${sliceName}/join-room`, (payload: { userId: string, chatId: string} ) => {
 //     console.log("DO I RUN?")
@@ -52,12 +52,16 @@ const getAllMessagesByChatId = createAsyncThunk<
     },
     string,
     AsyncThunkConfig
->(`${sliceName}/get-messages-by-chat-id`, async (chatId, { extra }) => {
-    const { chatApi } = extra;
-    const messages = await chatApi.getAllMessagesByChatId(chatId);
+>(
+    `${sliceName}/get-messages-by-chat-id`,
+    async (chatId, { extra, dispatch }) => {
+        const { chatApi } = extra;
+        dispatch(actions.updateChatId(chatId));
+        const messages = await chatApi.getAllMessagesByChatId(chatId);
 
-    return { chatId, messages: messages.items };
-});
+        return { chatId, messages: messages.items };
+    },
+);
 
 const createMessage = createAsyncThunk<
     MessageResponseDto,

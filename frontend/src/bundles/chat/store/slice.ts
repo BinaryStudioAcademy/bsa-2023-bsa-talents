@@ -37,7 +37,7 @@ const { reducer, actions, name } = createSlice({
     name: 'chat',
     reducers: {
         joinRoom: (state, action) => {
-            const chatId = action.payload;
+            const chatId = action.payload.chatId;
             state.current.chatId = chatId;
             state.current.messages = [];
         },
@@ -65,6 +65,9 @@ const { reducer, actions, name } = createSlice({
             //     ...state.current.messages,
             //     action.payload,
             // ];
+        },
+        updateChatId: (state, action) => {
+            state.current.chatId = action.payload.chatId;
         },
     },
     extraReducers(builder) {
