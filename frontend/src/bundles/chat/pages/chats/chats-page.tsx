@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { formatDistanceToNowStrict } from 'date-fns';
 
 import {
     ChatHeader,
@@ -25,6 +24,7 @@ import {
     ChatInfoIcon,
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
+import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import { companyInfo } from '../../mock-data/mock-data.js';
 import styles from './styles.module.scss';
 
@@ -52,97 +52,43 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, chatMessages, currentChatId } = useAppSelector(
-        ({ auth, chat }) => ({
-            user: auth.currentUser,
-            chats: chat.chats,
-            chatMessages: chat.current.messages,
-            currentChatId: chat.current.chatId,
-        }),
-    );
+    const { user, chats, currentChatId } = useAppSelector(({ auth, chat }) => ({
+        user: auth.currentUser,
+        chats: chat.chats,
+        currentChatId: chat.current.chatId,
+    }));
 
-    const id = user?.id;
+    //  Get list of all chats this user is participating in and store:
     useEffect(() => {
+        const id = user?.id;
         void dispatch(chatActions.getAllChatsByUserId(id as string));
-    }, [dispatch, id]);
+    }, [dispatch, user?.id]);
 
-    // TODO: will be replaced by redux logic with server API
-    const [currentChat, setCurrentChat] = useState({
-        id: undefined,
-        userName: 'unset',
-        avatar: '',
+    const { chatHeaderName, chatHeaderAvatar } = getChatHeaderProperties({
+        chats,
+        selectedId: currentChatId,
+        userId: user?.id,
     });
-
-    // TODO: will be replaced by send message logic
-    const sendMessage = useCallback(
-        (message: string) => {
-            const recieverId = chats.find(
-                (chat) => chat.chatId === currentChatId,
-            )?.partner.id;
-
-            const payload = {
-                message,
-                chatId: currentChatId as string,
-                senderId: user?.id as string,
-                receiverId: recieverId as string,
-            };
-            void dispatch(chatActions.createMessage(payload));
-        },
-        [dispatch, currentChatId, chats, user?.id],
-    );
 
     // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
         (id: string, items: ChatListItemType[]) => {
             isOpenChatList && setIsOpenChatList(false);
-            const participant = items.find((item) => id === item.userId);
+            const participant = items.find((item) => id === item.chatId);
             if (participant) {
                 void dispatch(
                     chatActions.joinRoom({
-                        userId: participant.userId,
+                        userId: user?.id,
                         chatId: participant.chatId,
                     }),
                 );
                 void dispatch(
                     chatActions.getAllMessagesByChatId(participant.chatId),
                 );
-                setCurrentChat({
-                    ...currentChat,
-                    userName: participant.username,
-                    avatar: participant.avatar ?? '',
-                });
             }
         },
-        [isOpenChatList, currentChat, dispatch],
+        [isOpenChatList, dispatch, user?.id],
     );
-
-    const chatGroups = chats.map((chat) => {
-        const timeSince = formatDistanceToNowStrict(
-            Date.parse(chat.lastMessageCreatedAt),
-        );
-
-        return {
-            chatId: chat.chatId,
-            userId: chat.partner.id,
-            username: chat.partner.profileName as string,
-            lastMessage: chat.lastMessage,
-            lastMessageDate: `${timeSince} ago`,
-            avatar: chat.partner.avatar?.url,
-            fullName: chat.partner.fullName,
-        };
-    });
-
-    const messagesMapped = chatMessages.map((message) => {
-        const match = chatGroups.find((it) => it.userId === message.senderId);
-        return {
-            id: message.id,
-            userId: message.senderId,
-            value: message.message,
-            avatarUrl: match?.avatar,
-            userFullName: match?.fullName ?? '',
-            // selfPhoto: match?.selfPhoto.url
-        };
-    });
 
     return (
         <Grid container direction="column">
@@ -165,10 +111,7 @@ const ChatsPage: React.FC = () => {
                             isOpenChatList && styles.componentOpenedSmallest,
                         )}
                     >
-                        <ChatList
-                            chatItems={chatGroups}
-                            onItemClick={handleItemClick}
-                        />
+                        <ChatList onItemClick={handleItemClick} />
                     </Grid>
                 )}
                 <Grid
@@ -195,19 +138,13 @@ const ChatsPage: React.FC = () => {
                         </div>
                     )}
                     <ChatHeader
-                        title={currentChat.userName}
+                        title={chatHeaderName}
                         isOnline
                         className={styles.chatHeader}
-                        avatarUrl={currentChat.avatar}
+                        avatarUrl={chatHeaderAvatar}
                     />
-                    <MessageList
-                        messages={messagesMapped}
-                        className={styles.messageList}
-                    />
-                    <MessageInput
-                        className={styles.chatInput}
-                        onSend={sendMessage}
-                    />
+                    <MessageList className={styles.messageList} />
+                    <MessageInput className={styles.chatInput} />
                 </Grid>
                 {(!isScreenLessLG || isOpenInfo) && (
                     <Grid
