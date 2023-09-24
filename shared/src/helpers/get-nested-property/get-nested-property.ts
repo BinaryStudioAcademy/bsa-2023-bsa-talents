@@ -1,7 +1,7 @@
-function getNestedProperty<T>(
+const getNestedProperty = <T>(
     object: Record<string, unknown>,
     path: string,
-): T | undefined {
+): T | undefined => {
     const keys = path.split('.');
     let value: unknown = object;
 
@@ -13,6 +13,6 @@ function getNestedProperty<T>(
     }
 
     return value as T;
-}
+};
 
 export { getNestedProperty };

@@ -39,11 +39,7 @@ import {
 } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import {
-    fromUrlLinks,
-    setEnglishLevelValue,
-    toUrlLinks,
-} from '../../helpers/helpers.js';
+import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
@@ -89,7 +85,7 @@ const SkillsStep: React.FC = () => {
             defaultValues: useMemo(
                 () => ({
                     hardSkills,
-                    englishLevel: setEnglishLevelValue(englishLevel),
+                    englishLevel: englishLevel ?? '',
                     notConsidered,
                     preferredLanguages,
                     projectLinks: projectLinks?.length

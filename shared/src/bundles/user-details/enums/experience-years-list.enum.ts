@@ -9,14 +9,14 @@ const ExperienceYears = createNumberRangeArray(
 
 type Experience = Record<string, (typeof ExperienceYears)[number]>;
 
-function createExperienceYearsEnum(array: readonly number[]): Experience {
+const createExperienceYearsEnum = (array: readonly number[]): Experience => {
     const enumObject: Experience = {};
     for (const years of array) {
         const enumKey = String(years);
         enumObject[enumKey] = years;
     }
     return enumObject;
-}
+};
 
 const Experience = createExperienceYearsEnum(ExperienceYears);
 
