@@ -17,8 +17,8 @@ type Properties = CheckboxProps & {
     isRequired?: boolean;
 };
 
-const checkboxIcon = <span className={styles.checkboxIcon} />;
-const checkboxIconChecked = (
+const icon = <span className={styles.checkboxIcon} />;
+const iconChecked = (
     <span
         className={getValidClassNames(
             styles.checkboxIcon,
@@ -47,8 +47,8 @@ const Checkbox: React.FC<Properties> = ({
                     checked={isChecked}
                     required={isRequired}
                     disabled={isDisabled}
-                    icon={checkboxIcon}
-                    checkedIcon={checkboxIconChecked}
+                    icon={icon}
+                    checkedIcon={iconChecked}
                 />
             }
             className={className}
@@ -62,8 +62,8 @@ const Checkbox: React.FC<Properties> = ({
             required={isRequired}
             disabled={isDisabled}
             className={className}
-            icon={checkboxIcon}
-            checkedIcon={checkboxIconChecked}
+            icon={icon}
+            checkedIcon={iconChecked}
         />
     );
 };

@@ -102,8 +102,8 @@ const ProfileCabinet: React.FC = () => {
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {
             if (submitForm) {
-                const success = await submitForm();
-                if (success) {
+                const isSuccessful = await submitForm();
+                if (isSuccessful) {
                     void dispatch(
                         storeActions.notify({
                             type: NotificationType.SUCCESS,
