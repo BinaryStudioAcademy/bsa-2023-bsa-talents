@@ -28,6 +28,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
 
     const handleSignOut = useCallback((): void => {
         void dispatch(authActions.signOut());
+        void dispatch(storeActions.resetStore());
         void dispatch(
             storeActions.notify({
                 type: NotificationType.INFO,
