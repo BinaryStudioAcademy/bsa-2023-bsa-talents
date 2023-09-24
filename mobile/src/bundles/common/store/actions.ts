@@ -10,14 +10,14 @@ import {
 
 import { name as sliceName } from './slice';
 
-const createTalentDetails = createAsyncThunk<
+const createUserDetails = createAsyncThunk<
     UserDetailsResponseDto,
     UserDetailsCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/createTalentDetails`, async (onboardingPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
+>(`${sliceName}/createUserDetails`, async (onboardingPayload, { extra }) => {
+    const { commonApi, notifications } = extra;
     try {
-        return await talentApi.completeTalentDetails(onboardingPayload);
+        return await commonApi.completeUserDetails(onboardingPayload);
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -30,7 +30,7 @@ const updateOnboardingData = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
+    const { commonApi, notifications } = extra;
     const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
@@ -38,7 +38,7 @@ const updateOnboardingData = createAsyncThunk<
         return stepPayload;
     }
     try {
-        const response = await talentApi.completeOnboardingStep({
+        const response = await commonApi.completeOnboardingStep({
             ...payload,
             talentHardSkills: talentHardSkills,
         });
@@ -58,13 +58,13 @@ const updateOnboardingData = createAsyncThunk<
 });
 
 const getUserDetails = createAsyncThunk<
-    UserDetailsGeneralRequestDto | null,
+    UserDetailsResponseDto | null,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
-    const { notifications, talentApi } = extra;
+    const { notifications, commonApi } = extra;
     try {
-        const userDetails = await talentApi.getUserDetailsByUserId({
+        const userDetails = await commonApi.getUserDetailsByUserId({
             userId: payload.userId,
         });
         return userDetails ?? null;
@@ -75,11 +75,11 @@ const getUserDetails = createAsyncThunk<
     }
 });
 
-const clearTalentStore = createAction(`${sliceName}/clearTalentStore`);
+const clearCommonStore = createAction(`${sliceName}/clearCommonStore`);
 
 export {
-    clearTalentStore,
-    createTalentDetails,
+    clearCommonStore,
+    createUserDetails,
     getUserDetails,
     updateOnboardingData,
 };

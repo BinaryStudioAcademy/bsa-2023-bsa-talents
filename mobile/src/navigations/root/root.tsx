@@ -15,12 +15,12 @@ import {
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
+import { getUserDetails } from '~/bundles/common/store/actions';
 import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
-import { getUserDetails } from '~/bundles/talent/store/actions';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -39,7 +39,7 @@ const Root: React.FC = () => {
         ({ auth }) => auth,
     );
     const { completedStep } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
     const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
 
@@ -100,7 +100,6 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
-            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;

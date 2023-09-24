@@ -5,8 +5,8 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types';
 
 import {
-    clearTalentStore,
-    createTalentDetails,
+    clearCommonStore,
+    createUserDetails,
     getUserDetails,
     updateOnboardingData,
 } from './actions';
@@ -23,17 +23,17 @@ const initialState: State = {
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'talents',
+    name: 'common',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(clearTalentStore, (state) => {
+        builder.addCase(clearCommonStore, (state) => {
             state.dataStatus = DataStatus.IDLE;
             state.onboardingData = null;
         });
         builder.addMatcher(
             (action) =>
                 [
-                    createTalentDetails.fulfilled.type,
+                    createUserDetails.fulfilled.type,
                     updateOnboardingData.fulfilled.type,
                     getUserDetails.fulfilled.type,
                 ].includes(action.type),
@@ -47,7 +47,7 @@ const { reducer, actions, name } = createSlice({
         );
         builder.addMatcher(
             isAnyOf(
-                createTalentDetails.pending,
+                createUserDetails.pending,
                 updateOnboardingData.pending,
                 getUserDetails.pending,
             ),
@@ -57,7 +57,7 @@ const { reducer, actions, name } = createSlice({
         );
         builder.addMatcher(
             isAnyOf(
-                createTalentDetails.rejected,
+                createUserDetails.rejected,
                 updateOnboardingData.rejected,
                 getUserDetails.rejected,
             ),

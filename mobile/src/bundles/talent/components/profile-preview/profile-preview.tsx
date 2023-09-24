@@ -20,7 +20,7 @@ const mockUser = {
 const iconSize = 24;
 
 const ProfilePreview: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
         return null;
