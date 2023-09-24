@@ -77,9 +77,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         }
                         className={styles.checkbox}
                     />
-                    {/* TODO: Link to reset password route */}
                     <Link
-                        to={AppRoute.RESET_PASSWORD}
+                        to={AppRoute.FORGOT_PASSWORD}
                         className={styles.forgot}
                     >
                         <span>Forgot Password?</span>

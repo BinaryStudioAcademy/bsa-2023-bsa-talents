@@ -1,7 +1,11 @@
 export {
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
