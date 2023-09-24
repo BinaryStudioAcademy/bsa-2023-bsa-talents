@@ -71,7 +71,7 @@ const combinedReducer = combineReducers({
     app: appReducer,
     candidate: candidateReducer,
     cabinet: cabinetReducer,
-    basBadges: bsaBadgesReducer,
+    bsaBadges: bsaBadgesReducer,
     hardSkills: hardSkillsReducer,
 });
 
