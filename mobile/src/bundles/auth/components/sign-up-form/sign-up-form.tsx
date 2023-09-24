@@ -95,16 +95,18 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="password"
                     required
                 >
-                    <Input
-                        control={control}
-                        name="password"
-                        placeholder="Enter your password"
-                        secureTextEntry={!isVisible}
-                    />
-                    <PasswordVisibilityToggle
-                        isPasswordVisible={isVisible}
-                        onChangeVisibility={handleToggleVisibility}
-                    />
+                    <View>
+                        <Input
+                            control={control}
+                            name="password"
+                            placeholder="Enter your password"
+                            secureTextEntry={!isVisible}
+                        />
+                        <PasswordVisibilityToggle
+                            isPasswordVisible={isVisible}
+                            onChangeVisibility={handleToggleVisibility}
+                        />
+                    </View>
                 </FormField>
                 <Button
                     label="Sign up"
