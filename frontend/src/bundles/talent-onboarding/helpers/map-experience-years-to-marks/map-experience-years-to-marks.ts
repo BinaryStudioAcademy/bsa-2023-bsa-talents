@@ -1,12 +1,12 @@
 import { mapToSliderMarks } from '~/bundles/common/helpers/helpers.js';
-import { ExperienceYears } from '~/bundles/talent-onboarding/enums/enums.js';
+import { experienceYears } from '~/bundles/talent-onboarding/enums/enums.js';
 
 const MAX_MARKS_VALUE = 100;
 const MIN_MARKS_VALUE = 0;
 const FIRST_INDEX = 0;
 const SINGLE_UNIT_VALUE = 1;
 
-const experienceYearsScaled = mapToSliderMarks(ExperienceYears);
+const experienceYearsScaled = mapToSliderMarks(experienceYears);
 
 const experienceYearsSliderMarks = experienceYearsScaled.map((mark) => {
     if (mark.scaledValue == MAX_MARKS_VALUE) {

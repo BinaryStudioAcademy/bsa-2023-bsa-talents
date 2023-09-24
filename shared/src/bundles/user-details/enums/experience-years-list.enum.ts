@@ -18,6 +18,6 @@ function createExperienceYearsEnum(
     return enumObject;
 }
 
-const ExperienceYears = createExperienceYearsEnum(experienceYearsList);
+const experienceYears = createExperienceYearsEnum(experienceYearsList);
 
-export { ExperienceYears as const };
+export { experienceYears };
