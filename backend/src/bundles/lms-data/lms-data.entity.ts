@@ -49,10 +49,10 @@ class LMSDataEntity implements Entity {
             english: this.english,
             averageProjectScore: this.averageProjectScore,
             averageLectureScore: this.averageLectureScore,
-            lectureDetails: JSON.parse(this.lectureDetails),
-            projectCoachesFeedback: JSON.parse(this.projectCoachesFeedback),
-            hrFeedback: JSON.parse(this.hrFeedback),
-            project: JSON.parse(this.project),
+            lectureDetails: this.lectureDetails,
+            projectCoachesFeedback: this.projectCoachesFeedback,
+            hrFeedback: this.hrFeedback,
+            project: this.project,
         };
     }
 

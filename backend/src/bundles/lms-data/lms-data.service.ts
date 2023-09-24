@@ -25,15 +25,18 @@ class LMSDataService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<UserLMSDataDto | undefined> {
+    ): Promise<UserLMSDataDto | undefined | string> {
+        // TODO: remove string
         const dataFromDB = await this.lmsDataRepository.findByUserId({
             userId,
         });
+
         if (dataFromDB) {
             return dataFromDB.toObject();
         }
 
         const user = await userRepository.findById(userId);
+
         const userEmail = user?.toObject().email;
 
         if (userEmail) {
@@ -49,6 +52,7 @@ class LMSDataService implements Service {
                 const newDBRecord = await this.lmsDataRepository.create(
                     LMSDataEntity.initialize({
                         ...parsedLMSData,
+                        userId: user.toObject().id,
                         lectureDetails: JSON.stringify(
                             parsedLMSData.lectureDetails,
                         ),
@@ -62,10 +66,10 @@ class LMSDataService implements Service {
                 return newDBRecord.toObject();
             }
 
-            return undefined;
+            return 'there is no such data on LMS server'; // TODO: change to error
         }
 
-        return undefined;
+        return 'there is no such user'; // TODO: change to error
     }
 
     private async findByUserEmailOnLMSServer(

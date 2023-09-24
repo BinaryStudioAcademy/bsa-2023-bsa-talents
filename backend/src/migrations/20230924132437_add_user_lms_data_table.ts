@@ -5,7 +5,7 @@ const constraintName = 'user_lms_data_pkey';
 
 const TableName = {
     USERS: 'users',
-    USER_DETAILS: 'user_details',
+    // USER_DETAILS: 'user_details',
 };
 const TABLE_NAME = 'user_lms_data';
 
@@ -54,8 +54,6 @@ async function up(knex: Knex): Promise<void> {
             .notNullable()
             .references(ForeignColumnName.ID)
             .inTable(TableName.USERS)
-            .references(ForeignColumnName.USER_ID)
-            .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
         table.string(ColumnName.ENGLISH);
