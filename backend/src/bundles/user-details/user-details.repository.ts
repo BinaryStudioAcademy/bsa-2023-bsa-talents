@@ -266,6 +266,15 @@ class UserDetailsRepository implements Repository {
         });
     }
 
+    public async publish(payload: UserDetailsUpdateDto): Promise<string> {
+        const { id } = payload;
+
+        const details = await this.userDetailsModel
+            .query()
+            .patchAndFetchById(id as string, { publishedAt: new Date() });
+        return details.publishedAt.toLocaleString();
+    }
+
     public delete(): Promise<boolean> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
