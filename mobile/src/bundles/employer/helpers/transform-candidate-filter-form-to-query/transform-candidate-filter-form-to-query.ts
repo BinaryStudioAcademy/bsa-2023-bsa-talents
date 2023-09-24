@@ -1,11 +1,14 @@
 import { UserSortCriteria } from '~/bundles/employer/enums/enums';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
-const getSortSearchQuery = (label: string): string => {
+const getSortSearchQuery = (label: string | undefined): string => {
+    if (!label) {
+        return '';
+    }
     const sortValue = Object.values(UserSortCriteria).find(
         (sortCriteria) => sortCriteria.label === label,
     );
-    return sortValue?.value as string;
+    return `&sortBy=${sortValue?.value}`;
 };
 
 const getFilterSearchQuery = (
@@ -37,10 +40,7 @@ const transformCandidateFilterFormToQuery = (
     let result = `?searchActiveCandidatesOnly=${searchActiveCandidatesOnly}`;
     result += getFilterSearchQuery(englishLevel, 'englishLevel');
     result += getFilterSearchQuery(employmentType, 'employmentType');
-
-    if (sortBy) {
-        result += `&sortBy=${getSortSearchQuery(sortBy)}`;
-    }
+    result += getSortSearchQuery(sortBy);
 
     if (hardSkills.length > 0) {
         for (const value of hardSkills) {

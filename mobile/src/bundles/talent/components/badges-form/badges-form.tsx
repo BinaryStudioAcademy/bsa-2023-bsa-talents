@@ -56,7 +56,7 @@ const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
             }));
             return { badges };
         }
-        return { badges: [] };
+        return BADGES_STEP_DEFAULT_VALUES;
     }, [badgesData]);
 
     const { control, errors, handleSubmit, reset } = useAppForm({
