@@ -49,7 +49,7 @@ export {
     JobTitle,
     NotConsidered,
     OnboardingSteps,
-    PreferredLanguages,
+    PreferredLanguage,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,

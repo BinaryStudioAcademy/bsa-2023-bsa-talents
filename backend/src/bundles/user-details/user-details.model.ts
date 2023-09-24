@@ -23,7 +23,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type OnboardingSteps,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from './enums/enums.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -55,7 +55,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    public 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
+    public 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
 
     public 'projectLinks': string[] | null;
 

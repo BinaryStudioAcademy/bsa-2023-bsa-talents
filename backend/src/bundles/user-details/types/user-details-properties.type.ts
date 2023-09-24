@@ -7,7 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type OnboardingSteps,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from '../enums/enums.js';
 
 type UserDetailsProperties = {
@@ -26,7 +26,7 @@ type UserDetailsProperties = {
     description: string | null;
     englishLevel: ValueOf<typeof EnglishLevel> | null;
     notConsidered: ValueOf<typeof NotConsidered>[] | null;
-    preferredLanguages: ValueOf<typeof PreferredLanguages>[] | null;
+    preferredLanguages: ValueOf<typeof PreferredLanguage>[] | null;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string | null;

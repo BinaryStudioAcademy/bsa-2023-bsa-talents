@@ -31,7 +31,7 @@ import {
     EnglishLevel,
     NotConsidered,
     OnboardingSteps,
-    PreferredLanguages,
+    PreferredLanguage,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     type SkillsStepDto,
@@ -54,7 +54,7 @@ const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
     label: level,
 }));
 
-const preferredLanguagesOptions = Object.values(PreferredLanguages).map(
+const preferredLanguagesOptions = Object.values(PreferredLanguage).map(
     (language) => ({
         value: language,
         label: language,

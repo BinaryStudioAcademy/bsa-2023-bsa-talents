@@ -9,6 +9,6 @@ export {
     JobTitle,
     NotConsidered,
     OnboardingSteps,
-    PreferredLanguages,
+    PreferredLanguage,
     OnboardingSteps as StepsRoute,
 } from 'shared/build/index.js';

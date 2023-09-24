@@ -7,7 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type OnboardingSteps,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
 
@@ -42,7 +42,7 @@ class UserDetailsEntity implements Entity {
 
     private 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    private 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
+    private 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
 
     private 'projectLinks': string[] | null;
 

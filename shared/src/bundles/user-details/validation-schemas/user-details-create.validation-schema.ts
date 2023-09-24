@@ -6,7 +6,7 @@ import {
     EnglishLevel,
     JobTitle,
     NotConsidered,
-    PreferredLanguages,
+    PreferredLanguage,
 } from '../enums/enums.js';
 import { type UserDetailsCreateRequestDto } from '../types/types.js';
 
@@ -51,7 +51,7 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
         joi
             .string()
             .trim()
-            .valid(...Object.values(PreferredLanguages)),
+            .valid(...Object.values(PreferredLanguage)),
     ),
 
     projectLinks: joi.array().items(joi.string().trim().uri()),

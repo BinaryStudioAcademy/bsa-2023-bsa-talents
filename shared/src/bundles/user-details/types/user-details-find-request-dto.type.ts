@@ -7,7 +7,7 @@ import {
     type JobTitle,
     type NotConsidered,
     type OnboardingSteps,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from '../user-details.js';
 
 type UserDetailsFindRequestDto = {
@@ -31,7 +31,7 @@ type UserDetailsFindRequestDto = {
 
     englishLevel?: ValueOf<typeof EnglishLevel>;
     notConsidered?: ValueOf<typeof NotConsidered>[];
-    preferredLanguages?: ValueOf<typeof PreferredLanguages>[];
+    preferredLanguages?: ValueOf<typeof PreferredLanguage>[];
 
     projectLinks?: string[];
     photoId?: string;

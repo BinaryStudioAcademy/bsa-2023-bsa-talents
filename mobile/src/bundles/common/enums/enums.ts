@@ -29,7 +29,7 @@ export {
     ErrorMessages,
     JobTitle,
     NotConsidered,
-    PreferredLanguages,
+    PreferredLanguage,
     ServerErrorType,
     UserRole,
 } from 'shared/build/index.js';
