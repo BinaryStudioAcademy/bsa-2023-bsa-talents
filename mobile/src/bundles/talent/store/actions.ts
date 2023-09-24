@@ -32,13 +32,16 @@ const updateOnboardingData = createAsyncThunk<
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { talentApi, notifications } = extra;
     const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
+    const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
     if (Object.keys(payload).length === 0) {
         return stepPayload;
     }
     try {
-        const response = await talentApi.completeOnboardingStep(payload);
-
+        const response = await talentApi.completeOnboardingStep({
+            ...payload,
+            talentHardSkills: talentHardSkills,
+        });
         return {
             ...response,
             //TODO remove when it is ready at the backend
