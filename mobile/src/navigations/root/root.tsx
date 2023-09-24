@@ -14,6 +14,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useEffect,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import {
     type NativeStackNavigationOptions,
@@ -21,6 +22,7 @@ import {
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
 import { getUserDetails } from '~/bundles/talent/store/actions';
+import { getNextStep } from '~/helpers/helpers';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -42,6 +44,7 @@ const Root: React.FC = () => {
         useAppSelector(({ talents }) => talents.onboardingData) ?? {};
     const { role } = currentUserData ?? {};
     const dispatch = useAppDispatch();
+    const { navigate } = useNavigation();
 
     const isProfileComplete =
         completedStep === CompletedTalentOnboardingStep.Preview;
@@ -56,8 +59,20 @@ const Root: React.FC = () => {
         if (!currentUserData) {
             return;
         }
+        const nextStep = getNextStep(completedStep);
         void dispatch(getUserDetails({ userId: currentUserData.id }));
-    }, [currentUserData, currentUserData?.id, dispatch]);
+
+        if (nextStep && !isProfileComplete) {
+            navigate(nextStep);
+        }
+    }, [
+        currentUserData,
+        currentUserData?.id,
+        dispatch,
+        navigate,
+        completedStep,
+        isProfileComplete,
+    ]);
 
     if (isPendingAuth) {
         return <Loader />;
