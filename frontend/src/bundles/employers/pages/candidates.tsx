@@ -20,7 +20,7 @@ import {
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
+// import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
@@ -47,10 +47,6 @@ const FIELDS: [
 
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
-    const { watch, control, getValues, reset } =
-        useAppForm<EmployeesFiltersDto>({
-            defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
-        });
     const { dataStatus, filters, filteredCandidates } = useAppSelector(
         ({ employer }) => ({
             dataStatus: employer.dataStatus,
@@ -58,6 +54,11 @@ const Candidates: React.FC = () => {
             filteredCandidates: employer.filteredCandidates,
         }),
     );
+
+    const { watch, control, getValues, reset } =
+        useAppForm<EmployeesFiltersDto>({
+            defaultValues: filters,
+        });
 
     const watchedValues = watch(FIELDS);
     const dispatch = useAppDispatch();
