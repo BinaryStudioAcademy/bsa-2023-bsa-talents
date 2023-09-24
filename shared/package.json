@@ -15,6 +15,7 @@
         }
     },
     "scripts": {
+        "watch": "tsc -b --watch ./tsconfig.cjs.json ./tsconfig.esm.json && npm run build:copy",
         "lint:type": "npx tsc --noEmit",
         "lint:js": "npx eslint \"src/**/*.ts\"",
         "lint": "npm run lint:type && npm run lint:js",
