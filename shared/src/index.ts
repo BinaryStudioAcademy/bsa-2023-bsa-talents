@@ -110,7 +110,6 @@ export {
     configureString,
     getAvatarInitials,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
 } from './helpers/helpers.js';

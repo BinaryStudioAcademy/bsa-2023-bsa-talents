@@ -50,7 +50,16 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
-    const error = getNestedProperty<T>(errors, name)?.message;
+    type FieldError = {
+        message: string;
+    };
+
+    const pathArray = name.split('.') as (keyof typeof errors)[];
+    const error = getNestedProperty<FieldError, typeof errors>(
+        errors,
+        pathArray,
+    )?.message;
+
     const hasError = Boolean(error);
 
     let adornment = null;
