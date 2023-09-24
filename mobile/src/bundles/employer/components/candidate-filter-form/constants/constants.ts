@@ -4,13 +4,13 @@ import {
     JobTitle,
 } from '~/bundles/common/enums/enums';
 
-const JOB_TITLE_OPTIONS = Object.entries(JobTitle).map(([id, name]) => ({
-    id,
-    name,
+const JOB_TITLE_OPTIONS = Object.entries(JobTitle).map(([label, value]) => ({
+    label,
+    value,
 }));
-const LOCATION_OPTIONS = Object.entries(CountryList).map(([id, name]) => ({
-    id,
-    name,
+const LOCATION_OPTIONS = Object.entries(CountryList).map(([label, value]) => ({
+    label,
+    value,
 }));
 
 const EMPLOYMENT_TYPE_OPTIONS = Object.values(EmploymentType);
