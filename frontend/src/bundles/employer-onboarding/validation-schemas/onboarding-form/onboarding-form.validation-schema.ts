@@ -131,6 +131,7 @@ const EmployerOnboardingValidationSchema = joi.object<
 
     description: joi
         .string()
+        .trim()
         .required()
         .min(EmployerOnboardingValidationRule.MIN_DESCRIPTION_LENGTH)
         .max(EmployerOnboardingValidationRule.MAX_DESCRIPTION_LENGTH)
