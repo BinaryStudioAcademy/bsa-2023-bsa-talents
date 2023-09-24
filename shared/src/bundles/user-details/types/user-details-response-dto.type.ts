@@ -1,7 +1,7 @@
 import { type ValueOf } from '~/types/value-of.type.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -20,7 +20,7 @@ type UserDetailsResponseDto = {
     salaryExpectation: number | null;
     hiredSalary: number | null;
     jobTitle: ValueOf<typeof JobTitle> | null;
-    location: ValueOf<typeof CountryList> | null;
+    location: ValueOf<typeof Country> | null;
     experienceYears: number | null;
     employmentType: ValueOf<typeof EmploymentType>[] | null;
     description: string | null;

@@ -93,7 +93,7 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            //TODO change column name for searchActiveCandidatesOnly when it will be created
+            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
             if (payload.searchActiveCandidatesOnly) {
                 void builder.where(
                     'isHired',

@@ -1,7 +1,7 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -30,7 +30,7 @@ class UserDetailsEntity implements Entity {
 
     private 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    private 'location': ValueOf<typeof CountryList> | null;
+    private 'location': ValueOf<typeof Country> | null;
 
     private 'experienceYears': number | null;
 

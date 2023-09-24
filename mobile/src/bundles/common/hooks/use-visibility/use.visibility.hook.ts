@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 const useVisibility = (
-    initialVisibility = false,
+    hasInitialVisibility = false,
 ): { isVisible: boolean; toggleVisibility: () => void } => {
-    const [isVisible, setIsVisible] = useState<boolean>(initialVisibility);
+    const [isVisible, setIsVisible] = useState<boolean>(hasInitialVisibility);
 
     const toggleVisibility = (): void => {
         setIsVisible((previous) => !previous);

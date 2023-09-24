@@ -23,7 +23,7 @@ export {
     AppEnvironment,
     BsaBadgeStepBadgesTitle,
     ContentType,
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     ErrorMessages,

@@ -17,9 +17,9 @@ const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
     { value: 'some', label: 'some' },
 ];
 
-const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const ENGLISH_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const BSA_PROJECT: AutocompleteMultiSelectorValue[] = [
+const BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
     { value: 'one', label: 'one' },
     { value: 'two', label: 'two' },
     { value: 'some', label: 'some' },
@@ -39,8 +39,8 @@ const DEFAULT_VALUES: EmployeesFiltersDto = {
 
 export {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     YEARS_EXPERIENCE,
 };

@@ -1,5 +1,5 @@
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,

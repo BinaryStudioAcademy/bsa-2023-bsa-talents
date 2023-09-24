@@ -9,7 +9,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
+    Country,
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
@@ -26,7 +26,7 @@ import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/valid
 import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
-const locationOptions = Object.values(CountryList);
+const locationOptions = Object.values(Country);
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;

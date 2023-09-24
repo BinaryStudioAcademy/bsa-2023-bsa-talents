@@ -15,7 +15,7 @@ import {
 } from '~/bundles/common/components/components';
 import {
     Color,
-    CountryList,
+    Country,
     EmploymentType,
     IconName,
     JobTitle,
@@ -34,9 +34,9 @@ import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 import {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
@@ -45,7 +45,7 @@ const jobTitleOptions = Object.entries(JobTitle).map(([label, value]) => ({
     label,
     value,
 }));
-const locationOptions = Object.entries(CountryList).map(([label, value]) => ({
+const locationOptions = Object.entries(Country).map(([label, value]) => ({
     label,
     value,
 }));
@@ -183,7 +183,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                     control={control}
                     name="BSAProjectName"
-                    items={BSA_PROJECT}
+                    items={BSA_PROJECTS}
                 />
             </FormField>
             <FormField
@@ -206,7 +206,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={ENGLISH_LEVEL}
+                    options={ENGLISH_LEVELS}
                 />
             </FormField>
             <FormField

@@ -42,10 +42,10 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience as ExperienceYears,
     JobTitle,
     NotConsidered,
     OnboardingSteps,

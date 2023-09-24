@@ -17,7 +17,7 @@ import {
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -43,7 +43,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    public 'location': ValueOf<typeof CountryList> | null;
+    public 'location': ValueOf<typeof Country> | null;
 
     public 'experienceYears': number | null;
 

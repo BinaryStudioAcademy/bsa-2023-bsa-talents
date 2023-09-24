@@ -1,8 +1,8 @@
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience,
     JobTitle,
     NotConsidered,
     OnboardingSteps,

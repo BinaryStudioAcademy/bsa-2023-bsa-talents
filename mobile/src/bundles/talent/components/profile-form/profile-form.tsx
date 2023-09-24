@@ -12,7 +12,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
 } from '~/bundles/common/enums/enums';
@@ -33,7 +33,7 @@ import {
 import { styles } from './styles';
 
 const jobTitleOptions = Object.values(JobTitle);
-const locationOptions = Object.values(CountryList);
+const locationOptions = Object.values(Country);
 const employmentTypeOptions = Object.values(EmploymentType);
 
 type Properties = {

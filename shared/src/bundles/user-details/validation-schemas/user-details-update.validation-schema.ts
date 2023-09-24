@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
@@ -31,7 +31,7 @@ const userDetailsUpdate = joi
         location: joi
             .string()
             .trim()
-            .valid(...Object.values(CountryList)),
+            .valid(...Object.values(Country)),
 
         experienceYears: joi.number(),
         employmentType: joi.array().items(

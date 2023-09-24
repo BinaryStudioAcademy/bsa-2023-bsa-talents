@@ -1,7 +1,7 @@
 export {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     YEARS_EXPERIENCE,
 } from './mock-constants';

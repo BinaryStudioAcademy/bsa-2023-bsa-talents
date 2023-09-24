@@ -28,7 +28,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
     OnboardingSteps,
@@ -49,7 +49,7 @@ const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
 }));
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
