@@ -1,7 +1,8 @@
 type ResetToken = {
     userId: string;
-    resetToken: string;
-    resetTokenExpiry: number;
+    resetToken: string | null;
+    resetTokenExpiry: number | null;
+    passwordHash?: string;
 };
 
 export { type ResetToken };

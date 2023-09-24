@@ -66,10 +66,12 @@ export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
     type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
     userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
     userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
@@ -86,6 +88,7 @@ export {
     ContentType,
     ErrorMessages,
     FileUploadErrorMessage,
+    NotificationMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';

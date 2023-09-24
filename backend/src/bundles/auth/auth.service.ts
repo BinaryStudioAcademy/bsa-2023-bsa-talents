@@ -1,8 +1,7 @@
-import crypto from 'node:crypto';
-
 import {
     type UserFindResponseDto,
     type UserForgotPasswordRequestDto,
+    type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -14,7 +13,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
 
-import { BITES_SIZE, TOKEN_EXPIRY } from './constants/constants.js';
+import { TOKEN_EXPIRY } from './constants/constants.js';
 
 class AuthService {
     private userService: UserService;
@@ -110,7 +109,7 @@ class AuthService {
             });
         }
 
-        const resetToken = crypto.randomBytes(BITES_SIZE).toString('hex');
+        const resetToken = await token.create({ id: user.id });
 
         const hash = await this.encrypt.make(resetToken);
 
@@ -123,6 +122,40 @@ class AuthService {
         });
 
         return resetToken;
+    }
+
+    public async forgotPassword({
+        resetToken,
+        password,
+    }: UserResetPasswordRequestDto): Promise<void> {
+        const user = await this.userService.findByToken(resetToken);
+
+        if (
+            !user?.resetToken ||
+            !user.resetTokenExpiry ||
+            Date.now() > user.resetTokenExpiry
+        ) {
+            throw new HttpError({
+                status: HttpCode.BAD_REQUEST,
+                message: ErrorMessages.TOKEN_INVALID_OR_EXPIRED,
+            });
+        }
+
+        const isEqualToken = await this.encrypt.compare(
+            resetToken,
+            user.resetToken,
+        );
+
+        if (isEqualToken) {
+            const passwordHash = await this.encrypt.make(password);
+
+            await this.userService.updateResetToken({
+                userId: user.id,
+                resetToken: null,
+                resetTokenExpiry: null,
+                passwordHash,
+            });
+        }
     }
 }
 

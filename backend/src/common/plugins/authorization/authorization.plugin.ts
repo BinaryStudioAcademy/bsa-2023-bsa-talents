@@ -32,8 +32,8 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         } = request;
 
         if (
-            routerPath.includes(AuthApiPath.RESET_PASSWORD) ||
-            routerPath.includes(AuthApiPath.FORGOT_PASSWORD)
+            routerPath.includes(AuthApiPath.FORGOT_PASSWORD) ||
+            routerPath.includes(AuthApiPath.RESET_PASSWORD)
         ) {
             return;
         }

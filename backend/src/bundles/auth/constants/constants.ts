@@ -1,5 +1,3 @@
 const TOKEN_EXPIRY = 3_600_000;
 
-const BITES_SIZE = 32;
-
-export { BITES_SIZE, TOKEN_EXPIRY };
+export { TOKEN_EXPIRY };
