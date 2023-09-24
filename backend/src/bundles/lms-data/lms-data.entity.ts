@@ -1,22 +1,23 @@
 import { type Entity } from '~/common/types/types.js';
 
+// TODO: remove commented if it will work
 import {
-    type HrFeedback,
-    type LectureDetail,
-    type Project,
-    type ProjectCoachesFeedback,
+    // type HrFeedback,
+    // type LectureDetail,
+    // type Project,
+    // type ProjectCoachesFeedback,
     type UserLMSDataDto,
 } from './types/types.js';
 
 class LMSDataEntity implements Entity {
-    private userId: string;
-    private english: string;
-    private averageProjectScore: number;
-    private averageLectureScore: number;
-    private lectureDetails: LectureDetail[];
-    private projectCoachesFeedback: ProjectCoachesFeedback[];
-    private hrFeedback: HrFeedback;
-    private project: Project;
+    public userId: string;
+    public english: string;
+    public averageProjectScore: number | null;
+    public averageLectureScore: number | null;
+    public lectureDetails: string;
+    public projectCoachesFeedback: string;
+    public hrFeedback: string;
+    public project: string;
 
     private constructor(userLMSDataDto: UserLMSDataDto) {
         this.userId = userLMSDataDto.userId;
@@ -48,14 +49,14 @@ class LMSDataEntity implements Entity {
             english: this.english,
             averageProjectScore: this.averageProjectScore,
             averageLectureScore: this.averageLectureScore,
-            lectureDetails: this.lectureDetails,
-            projectCoachesFeedback: this.projectCoachesFeedback,
-            hrFeedback: this.hrFeedback,
-            project: this.project,
+            lectureDetails: JSON.parse(this.lectureDetails),
+            projectCoachesFeedback: JSON.parse(this.projectCoachesFeedback),
+            hrFeedback: JSON.parse(this.hrFeedback),
+            project: JSON.parse(this.project),
         };
     }
 
-    // may this cause some problem?
+    // TODO: may this cause some problem? remove this comment if not
     public toNewObject(): UserLMSDataDto {
         return this.toObject();
     }

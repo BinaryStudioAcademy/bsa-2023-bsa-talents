@@ -20,7 +20,9 @@ class LMSDataRepository implements Repository {
     public async findByUserId(
         payload: UserGetLMSDataById,
     ): Promise<LMSDataEntity | null> {
-        const data = await this.lmsDataModel.query().findOne({ ...payload });
+        const data = await this.lmsDataModel
+            .query()
+            .findOne({ userId: payload.userId });
 
         if (!data) {
             return null;

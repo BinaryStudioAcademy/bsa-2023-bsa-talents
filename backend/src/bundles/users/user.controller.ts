@@ -118,7 +118,7 @@ class UserController extends ControllerBase {
         };
     }
 
-    // only for test, should be removed
+    // TODO: only for test, should be removed
     private async testLMSDataServer(
         options: ApiHandlerOptions<{
             params: { userEmail: string };

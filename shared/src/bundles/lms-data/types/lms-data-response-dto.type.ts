@@ -1,5 +1,6 @@
-type LMSDataServerResponseDto = {
-    talent: Talent;
+type LMSDataResponseDto = {
+    userId: string;
+    english: string;
     averageProjectScore: number | null;
     averageLectureScore: number | null;
     lectureDetails: LectureDetail[];
@@ -49,12 +50,13 @@ type Marks = {
     communication_result: number;
 };
 
-type Talent = {
-    id: string;
-    fullName: string;
-    email: string;
-    phoneNumber: string;
-    english: string;
+export {
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
 };
-
-export { type LMSDataServerResponseDto };

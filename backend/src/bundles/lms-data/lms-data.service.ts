@@ -6,6 +6,7 @@ import { type Service } from '~/common/types/types.js';
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
 import {
+    type LMSDataResponseDto,
     type LMSDataServerResponseDto,
     type UserLMSDataDto,
 } from './types/types.js';
@@ -46,7 +47,17 @@ class LMSDataService implements Service {
                 );
 
                 const newDBRecord = await this.lmsDataRepository.create(
-                    LMSDataEntity.initialize(parsedLMSData),
+                    LMSDataEntity.initialize({
+                        ...parsedLMSData,
+                        lectureDetails: JSON.stringify(
+                            parsedLMSData.lectureDetails,
+                        ),
+                        projectCoachesFeedback: JSON.stringify(
+                            parsedLMSData.projectCoachesFeedback,
+                        ),
+                        hrFeedback: JSON.stringify(parsedLMSData.hrFeedback),
+                        project: JSON.stringify(parsedLMSData.project),
+                    }),
                 );
                 return newDBRecord.toObject();
             }
@@ -80,10 +91,10 @@ class LMSDataService implements Service {
         return data;
     }
 
-    // only for test, should be removed
+    // TODO: only for test, should be removed
     public async testLMSServer(
         email: string,
-    ): Promise<UserLMSDataDto | unknown> {
+    ): Promise<LMSDataResponseDto | unknown> {
         const url = new URL(LMSDataApiPath.LMS_SERVER);
         url.searchParams.append('email', email);
 
@@ -98,7 +109,7 @@ class LMSDataService implements Service {
     private parseLMSServerData(
         userId: string,
         serverData: LMSDataServerResponseDto,
-    ): UserLMSDataDto {
+    ): LMSDataResponseDto {
         return {
             userId,
             english: serverData.talent.english,

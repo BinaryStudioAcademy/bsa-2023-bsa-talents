@@ -2,6 +2,7 @@ export {
     type Details,
     type HrFeedback,
     type LectureDetail,
+    type LMSDataResponseDto,
     type LMSDataServerResponseDto,
     type Marks,
     type Project,
