@@ -1,6 +1,6 @@
 import { mapQueryValuesToArrays } from 'shared/build/index.js';
 
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
@@ -9,8 +9,8 @@ import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
-    type UserDetailsApproveRequestDto,
     type UserDetailsCreateRequestDto,
+    type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
@@ -49,7 +49,7 @@ class UserDetailsService implements Service {
         if (!userDetails) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_DETAILS_NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
             });
         }
         return userDetails;
@@ -72,7 +72,7 @@ class UserDetailsService implements Service {
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public searchUsers(
@@ -139,7 +139,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -180,16 +180,12 @@ class UserDetailsService implements Service {
         };
     }
 
-    public async approve(
-        payload: UserDetailsApproveRequestDto,
-    ): Promise<boolean> {
-        const { userId, ...rest } = payload;
-
+    public async approve(userId: string): Promise<boolean> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -197,15 +193,57 @@ class UserDetailsService implements Service {
         const userDetailsId = userDetails.toObject().id as string;
 
         await this.userDetailsRepository.update({
-            ...rest,
+            isApproved: true,
+            deniedReason: '',
             id: userDetailsId,
         });
 
         return true;
     }
 
+    public async deny(
+        userId: string,
+        payload: UserDetailsDenyRequestDto,
+    ): Promise<boolean> {
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessage.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        await this.userDetailsRepository.update({
+            ...payload,
+            isApproved: false,
+            id: userDetailsId,
+        });
+
+        return true;
+    }
+
+    public async publish(payload: { userId: string }): Promise<string> {
+        const { userId } = payload;
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessage.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.publish({ id: userDetailsId });
+    }
+
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

@@ -9,17 +9,16 @@ type Properties = {
     currentStep: number;
     totalSteps: number;
 };
+const MAX = 100;
 
 const StepProgressBar: React.FC<Properties> = ({ currentStep, totalSteps }) => {
-    const max = 100;
-
     return (
         <View
             style={[globalStyles.flexDirectionRow, styles.progressBarContainer]}
         >
             <View
                 style={[
-                    { width: `${(max / totalSteps) * currentStep}%` },
+                    { width: `${(MAX / totalSteps) * currentStep}%` },
                     styles.progressBarFill,
                 ]}
             />

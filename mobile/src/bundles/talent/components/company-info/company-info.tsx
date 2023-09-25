@@ -47,7 +47,7 @@ const CompanyInfo: React.FC<Properties> = ({
         companyWebsite,
     },
 }) => {
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     const { control, handleSubmit } = useAppForm({
         defaultValues: {
@@ -57,8 +57,8 @@ const CompanyInfo: React.FC<Properties> = ({
 
     //TODO handle submit form
     const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(toggleVisibility)();
-    }, [handleSubmit, toggleVisibility]);
+        void handleSubmit(handleToggleVisibility)();
+    }, [handleSubmit, handleToggleVisibility]);
 
     const openUrl = (): void => {
         companyWebsite && void Linking.openURL(`https://www.${companyWebsite}`);
@@ -125,12 +125,12 @@ const CompanyInfo: React.FC<Properties> = ({
                     label="Submit"
                     buttonType={ButtonType.OUTLINE}
                     style={styles.hiredButton}
-                    onPress={toggleVisibility}
+                    onPress={handleToggleVisibility}
                 />
             </View>
             <ActiveModal
                 visible={isVisible}
-                onClose={toggleVisibility}
+                onClose={handleToggleVisibility}
                 title="Are you sure you want to confirm this action?"
                 onAccept={handleFormSubmit}
             />

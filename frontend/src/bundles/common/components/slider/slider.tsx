@@ -45,10 +45,6 @@ const CustomSlider: React.FC<Properties> = ({
                 {...props}
                 className={styles.slider}
                 classes={styles}
-                style={{
-                    height: '15px',
-                    marginTop: '20px',
-                }}
                 aria-label={label}
                 marks={marks}
                 step={step}

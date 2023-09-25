@@ -16,7 +16,7 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
         <Grid container className={styles.container}>
             <Grid item xs={12} md={6}>
                 <Grid item className={styles.sellingPoint}>
-                    <Logo className={styles.logo} />
+                    <Logo className={styles.logo} hasLink />
                     <Typography
                         className={styles.animatedTextWrapper}
                         variant="h1"
@@ -29,10 +29,10 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
                                 )}
                             >
                                 <span className={styles.text}>
-                                    Find the top talent
+                                    Find the top talent{' '}
                                 </span>
                                 <span className={styles.text}>
-                                    for your business
+                                    for your business{' '}
                                 </span>
                             </span>
                             <span className={getValidClassNames(styles.text)}>

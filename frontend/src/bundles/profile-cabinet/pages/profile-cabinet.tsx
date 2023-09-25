@@ -25,7 +25,7 @@ import { actions as employerActions } from '~/bundles/employer-onboarding/store/
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 
@@ -102,8 +102,8 @@ const ProfileCabinet: React.FC = () => {
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {
             if (submitForm) {
-                const success = await submitForm();
-                if (success) {
+                const isSuccessful = await submitForm();
+                if (isSuccessful) {
                     void dispatch(
                         storeActions.notify({
                             type: NotificationType.SUCCESS,
@@ -142,7 +142,7 @@ const ProfileCabinet: React.FC = () => {
                             onClick={handleSaveClick}
                             label={'Save'}
                             variant={'contained'}
-                            disabled={!hasChanges}
+                            isDisabled={!hasChanges}
                             className={styles.saveButton}
                         />
                     </FormControl>

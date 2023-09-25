@@ -4,25 +4,25 @@ import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 // TODO: remove with real data
 
 const YEARS_EXPERIENCE: AutocompleteMultiSelectorValue[] = [
-    { id: 'any', name: 'Any work experience' },
-    { id: '>1', name: 'Less than 1 year' },
-    { id: '1-2', name: '1-2 years' },
-    { id: '2-3', name: '2-3 years' },
-    { id: '3-5', name: '3-5 years' },
-    { id: '5>', name: '5+ years' },
+    { value: 'any', label: 'Any work experience' },
+    { value: '>1', label: 'Less than 1 year' },
+    { value: '1-2', label: '1-2 years' },
+    { value: '2-3', label: '2-3 years' },
+    { value: '3-5', label: '3-5 years' },
+    { value: '5>', label: '5+ years' },
 ];
 const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
-    { id: 'one', name: 'one' },
-    { id: 'two', name: 'two' },
-    { id: 'some', name: 'some' },
+    { value: 'one', label: 'one' },
+    { value: 'two', label: 'two' },
+    { value: 'some', label: 'some' },
 ];
 
-const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const ENGLISH_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const BSA_PROJECT: AutocompleteMultiSelectorValue[] = [
-    { id: 'one', name: 'one' },
-    { id: 'two', name: 'two' },
-    { id: 'some', name: 'some' },
+const BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
+    { value: 'one', label: 'one' },
+    { value: 'two', label: 'two' },
+    { value: 'some', label: 'some' },
 ];
 
 const DEFAULT_VALUES: EmployeesFiltersDto = {
@@ -39,8 +39,8 @@ const DEFAULT_VALUES: EmployeesFiltersDto = {
 
 export {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     YEARS_EXPERIENCE,
 };

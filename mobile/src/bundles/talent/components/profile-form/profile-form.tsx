@@ -12,11 +12,6 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '~/bundles/common/enums/enums';
-import {
     useAppForm,
     useCallback,
     useEffect,
@@ -27,14 +22,13 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
+    EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
+    JOB_TITLE_OPTIONS,
+    LOCATION_OPTIONS,
     TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
-
-const jobTitleOptions = Object.values(JobTitle);
-const locationOptions = Object.values(CountryList);
-const employmentTypeOptions = Object.values(EmploymentType);
 
 type Properties = {
     profileStepData: ProfileStepDto | null;
@@ -103,7 +97,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={jobTitleOptions}
+                    options={JOB_TITLE_OPTIONS}
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
@@ -139,7 +133,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Option"
                 />
             </FormField>
@@ -153,7 +147,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={employmentTypeOptions}
+                    options={EMPLOYMENT_TYPE_OPTIONS}
                 />
             </FormField>
             <FormField

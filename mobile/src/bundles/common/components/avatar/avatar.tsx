@@ -4,7 +4,6 @@ import {
     Image,
     MaterialIcon,
     Text,
-    View,
 } from '~/bundles/common/components/components';
 import {
     IconName,
@@ -13,7 +12,6 @@ import {
 } from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type CustomPhotoStyle,
     type PhotoProperties,
@@ -34,33 +32,28 @@ const Avatar: React.FC<Properties> = ({
     uri,
     defaultIcon = IconName.PERSON,
 }) => {
-    const { defaultPhotoContainer, defaultPhoto, photoShape } =
-        customPhotoStyle ?? {};
-    const avatarStyles = useMemo(() => {
-        switch (avatarSize) {
-            case PhotoType.SMALL: {
-                return {
+    const { photoShape } = customPhotoStyle ?? {};
+    const avatarStyles = useMemo(
+        () =>
+            ({
+                [PhotoType.SMALL]: {
                     size: styles.small,
                     font: TextCategory.H6,
                     iconSize: 40,
-                };
-            }
-            case PhotoType.LARGE: {
-                return {
-                    size: styles.large,
-                    font: TextCategory.H1,
-                    iconSize: 100,
-                };
-            }
-            default: {
-                return {
+                },
+                [PhotoType.MEDIUM]: {
                     size: styles.medium,
                     font: TextCategory.H3,
                     iconSize: 60,
-                };
-            }
-        }
-    }, [avatarSize]);
+                },
+                [PhotoType.LARGE]: {
+                    size: styles.large,
+                    font: TextCategory.H1,
+                    iconSize: 100,
+                },
+            })[avatarSize],
+        [avatarSize],
+    );
 
     if (uri) {
         return (
@@ -81,19 +74,11 @@ const Avatar: React.FC<Properties> = ({
         );
     }
     return (
-        <View
-            style={[
-                defaultPhotoContainer,
-                globalStyles.justifyContentCenter,
-                globalStyles.alignItemsCenter,
-            ]}
-        >
-            <MaterialIcon
-                size={avatarStyles.iconSize}
-                style={[styles.icon, avatarStyles.size, defaultPhoto]}
-                name={defaultIcon}
-            />
-        </View>
+        <MaterialIcon
+            size={avatarStyles.iconSize}
+            style={[styles.icon, avatarStyles.size, photoShape]}
+            name={defaultIcon}
+        />
     );
 };
 
