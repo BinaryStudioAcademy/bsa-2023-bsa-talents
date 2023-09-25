@@ -209,7 +209,7 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
-            path: '',
+            path: UserDetailsApiPath.ROOT,
             method: 'GET',
             validation: {
                 query: userDetailsSearchValidationSchema,
