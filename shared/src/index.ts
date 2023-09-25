@@ -25,12 +25,9 @@ export {
 } from './bundles/gather-selected-data/gather-selected-data.js';
 export {
     HiringInfoApiPath,
-    type HiringInfoCreateDto,
     type HiringInfoCreateRequestDto,
     type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
-    type HiringInfoUpdateDto,
-    PaidStatus,
 } from './bundles/hiring-info/hiring-info.js';
 export {
     type BadgeStepDto,

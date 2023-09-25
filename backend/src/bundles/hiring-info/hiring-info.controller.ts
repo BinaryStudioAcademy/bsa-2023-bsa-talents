@@ -9,10 +9,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { HiringInfoApiPath } from './enums/enums.js';
 import { type HiringInfoService } from './hiring-info.service.js';
-import {
-    type HiringInfoCreateDto,
-    type HiringInfoFindRequestDto,
-} from './types/types.js';
+import { type HiringInfoCreateRequestDto } from './types/types.js';
 import { hiringInfoCreateValidationSchema } from './validation-schemas/validation-schemas.js';
 
 /**
@@ -36,36 +33,10 @@ import { hiringInfoCreateValidationSchema } from './validation-schemas/validatio
  *          companyId:
  *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *            type: string
- *          firstContactTime:
- *            type: string
- *            example: '2023-09-12T12:34:56.789Z'
- *          hasSharedInfo:
- *            type: boolean
- *          sharedInfoTime:
- *            type: string
- *            example: '2023-09-12T12:34:56.789Z'
- *            nullable: true
- *          isHired:
- *            type: boolean
  *          hiredTime:
  *            type: string
  *            example: '2023-09-12T12:34:56.789Z'
- *            nullable: true
- *          hiredPosition:
- *            type: string
- *            nullable: true
- *          hiredSalary:
- *            type: number
- *            nullable: true
- *          isApproved:
- *            type: boolean
- *          status:
- *            type: string
- *            nullable: true
- *          fee:
- *            type: number
- *            nullable: true
- *          talentBadges:
+ *          talent:
  *            type: array
  *            items:
  *              type: object
@@ -106,7 +77,7 @@ class HiringInfoController extends ControllerBase {
             handler: (options) =>
                 this.create(
                     options as ApiHandlerOptions<{
-                        body: HiringInfoCreateDto;
+                        body: HiringInfoCreateRequestDto;
                     }>,
                 ),
         });
@@ -116,18 +87,6 @@ class HiringInfoController extends ControllerBase {
             method: 'GET',
             handler: () => {
                 return this.findAll();
-            },
-        });
-
-        this.addRoute({
-            path: HiringInfoApiPath.$ID,
-            method: 'GET',
-            handler: (options) => {
-                return this.findByTalentIdCompanyId(
-                    options as ApiHandlerOptions<{
-                        params: HiringInfoFindRequestDto;
-                    }>,
-                );
             },
         });
     }
@@ -179,7 +138,7 @@ class HiringInfoController extends ControllerBase {
      */
     private async create(
         options: ApiHandlerOptions<{
-            body: HiringInfoCreateDto;
+            body: HiringInfoCreateRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
@@ -202,28 +161,12 @@ class HiringInfoController extends ControllerBase {
      *          content:
      *            application/json:
      *              schema:
-     *                $ref: '#/components/schemas/UserDetails'
+     *                $ref: '#/components/schemas/HiringInfo'
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
             payload: await this.hiringInfoService.findAll(),
-        };
-    }
-
-    private async findByTalentIdCompanyId(
-        options: ApiHandlerOptions<{
-            params: HiringInfoFindRequestDto;
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        const { talentId, companyId } = options.params;
-
-        return {
-            status: HttpCode.OK,
-            payload: await this.hiringInfoService.findByTalentIdCompanyId(
-                talentId,
-                companyId,
-            ),
         };
     }
 }

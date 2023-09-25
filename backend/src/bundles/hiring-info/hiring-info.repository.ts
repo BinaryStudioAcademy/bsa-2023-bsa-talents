@@ -4,11 +4,7 @@ import { type Repository } from '~/common/types/types.js';
 
 import { HiringInfoEntity } from './hiring-info.entity.js';
 import { type HiringInfoModel } from './hiring-info.model.js';
-import {
-    type HiringInfoCreateDto,
-    type HiringInfoFindRequestDto,
-    type HiringInfoUpdateDto,
-} from './types/types.js';
+import { type HiringInfoCreateRequestDto } from './types/types.js';
 
 class HiringInfoRepository implements Repository {
     private hiringInfoModel: typeof HiringInfoModel;
@@ -17,44 +13,21 @@ class HiringInfoRepository implements Repository {
         this.hiringInfoModel = hiringInfoModel;
     }
 
-    public async find(
-        payload: HiringInfoFindRequestDto,
-    ): Promise<HiringInfoEntity | null> {
-        const details = await this.hiringInfoModel
-            .query()
-            .findOne({ ...payload });
-
-        if (!details) {
-            return null;
-        }
-
-        return HiringInfoEntity.initialize({
-            id: details.id,
-            talentId: details.talentId,
-            companyId: details.companyId,
-            firstContactTime: details.firstContactTime,
-            hasSharedInfo: details.hasSharedInfo,
-            sharedInfoTime: details.sharedInfoTime,
-            isHired: details.isHired,
-            hiredTime: details.hiredTime,
-            hiredPosition: details.hiredPosition,
-            hiredSalary: details.hiredSalary,
-            isApproved: details.isApproved,
-            status: details.status,
-            fee: details.fee,
-        });
+    public find(): Promise<HiringInfoEntity | null> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public async findAll(): Promise<HiringInfoEntity[]> {
-        const hiringInfoAll = await this.hiringInfoModel.query().execute();
-
+        const hiringInfoAll = await this.hiringInfoModel
+            .query()
+            .withGraphJoined('[talent, company]');
         return hiringInfoAll.map((hiringInfo) =>
             HiringInfoEntity.initialize(hiringInfo),
         );
     }
 
     public async create(
-        payload: HiringInfoCreateDto,
+        payload: HiringInfoCreateRequestDto,
     ): Promise<HiringInfoEntity> {
         const details = await this.hiringInfoModel
             .query()
@@ -68,43 +41,12 @@ class HiringInfoRepository implements Repository {
             id: details.id,
             talentId: details.talentId,
             companyId: details.companyId,
-            firstContactTime: details.firstContactTime,
-            hasSharedInfo: details.hasSharedInfo,
-            sharedInfoTime: details.sharedInfoTime,
-            isHired: details.isHired,
             hiredTime: details.hiredTime,
-            hiredPosition: details.hiredPosition,
-            hiredSalary: details.hiredSalary,
-            isApproved: details.isApproved,
-            status: details.status,
-            fee: details.fee,
         });
     }
 
-    public async update(
-        payload: HiringInfoUpdateDto,
-    ): Promise<HiringInfoEntity> {
-        const { id, ...rest } = payload;
-
-        const details = await this.hiringInfoModel
-            .query()
-            .patchAndFetchById(id as string, rest);
-
-        return HiringInfoEntity.initialize({
-            id: details.id,
-            talentId: details.talentId,
-            companyId: details.companyId,
-            firstContactTime: details.firstContactTime,
-            hasSharedInfo: details.hasSharedInfo,
-            sharedInfoTime: details.sharedInfoTime,
-            isHired: details.isHired,
-            hiredTime: details.hiredTime,
-            hiredPosition: details.hiredPosition,
-            hiredSalary: details.hiredSalary,
-            isApproved: details.isApproved,
-            status: details.status,
-            fee: details.fee,
-        });
+    public update(): Promise<HiringInfoEntity> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {

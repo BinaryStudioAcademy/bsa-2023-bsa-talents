@@ -1,1 +1,1 @@
-export { HiringInfoApiPath, PaidStatus } from 'shared/build/index.js';
+export { HiringInfoApiPath } from 'shared/build/index.js';
