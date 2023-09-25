@@ -14,7 +14,7 @@ import { styles } from './style';
 
 const TalentProfile: React.FC = () => {
     const { isApproved } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     return (
         <>

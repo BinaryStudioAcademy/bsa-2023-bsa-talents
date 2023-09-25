@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ChatList } from '~/bundles/chat/screens/screens';
 import { MaterialIcon } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
     EmployerBottomTabScreenName,
     IconName,
@@ -20,8 +21,6 @@ import { bottomTabStyles } from '../styles';
 const BottomTab =
     createBottomTabNavigator<EmployerBottomTabNavigationParameterList>();
 
-const iconSize = 24;
-
 const EmployerBottomTabNavigator: React.FC = () => {
     const { isApproved } =
         useAppSelector(({ talents }) => talents.onboardingData) ?? {};
@@ -35,10 +34,10 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.CANDIDATES}
                 component={Candidates}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.FOLDER_SHARED}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -58,10 +57,10 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.CHAT_LIST}
                 component={ChatList}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -81,10 +80,10 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.EMPLOYER_PROFILE}
                 component={EmployerProfile}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),

@@ -34,13 +34,13 @@ type Properties = {
     iconSize?: number;
 } & PressableProps;
 
-const iconDefaultSize = 32;
+const DEFAULT_ICON_SIZE = 32;
 
 const Button: React.FC<Properties> = ({
     label,
     style: pressableStyle,
     iconName,
-    iconSize = iconDefaultSize,
+    iconSize = DEFAULT_ICON_SIZE,
     buttonType = ButtonType.FILLED,
     disabled = false,
     ...props

@@ -107,12 +107,9 @@ const ContactsCVStep: React.FC = () => {
 
     const onSubmit = useCallback(
         async (data: ContactsCVStepDto): Promise<boolean> => {
-            const { fullName, phone, linkedinLink } = data;
             await dispatch(
                 talentActions.updateTalentDetails({
-                    fullName,
-                    phone,
-                    linkedinLink,
+                    ...data,
                     userId: currentUser?.id,
                     completedStep: OnboardingSteps.STEP_04,
                 }),

@@ -22,6 +22,7 @@ import {
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
 
+import { PasswordVisibility } from '../password-visibility/password-visibility.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -47,10 +48,16 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             isTermsAccepted: false,
         });
 
+    const [isPasswordVisible, setShowPassword] = useState(false);
+
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
     });
+
+    const handleClickShowPassword = useCallback((): void => {
+        setShowPassword((show) => !show);
+    }, []);
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
@@ -91,6 +98,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         </Typography>
     );
 
+    const showPasswordIcon = (
+        <PasswordVisibility
+            handleClick={handleClickShowPassword}
+            showPassword={isPasswordVisible}
+        />
+    );
     return (
         <>
             <form onSubmit={handleFormSubmit} className="form">
@@ -124,9 +137,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     <Input
                         control={control}
                         errors={errors}
-                        type="password"
+                        type={isPasswordVisible ? 'text' : 'password'}
                         placeholder="****"
                         name="password"
+                        endAdornment={showPasswordIcon}
                     />
                 </FormControl>
                 <FormControl
