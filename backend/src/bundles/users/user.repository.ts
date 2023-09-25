@@ -1,6 +1,5 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
-import { token } from '~/common/packages/packages.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 import { type ResetToken } from './types/reset-token.js';
@@ -21,11 +20,7 @@ class UserRepository implements Repository {
     }
 
     public async findByToken(tokenString: string): Promise<UserEntity | null> {
-        const decodedToken = await token.decode(tokenString);
-
-        const user = await this.userModel
-            .query()
-            .findOne({ id: decodedToken.payload.id });
+        const user = await this.userModel.query().findOne({ id: tokenString });
 
         return user ? UserEntity.initialize(user) : null;
     }

@@ -1,6 +1,9 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
+import { ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
+import { token } from '~/common/packages/packages.js';
 import { type Service } from '~/common/types/types.js';
 
 import {
@@ -49,9 +52,18 @@ class UserService implements Service {
     }
 
     public async findByToken(
-        token: string,
+        tokenString: string,
     ): Promise<UserFindResponseDto | null> {
-        const userData = await this.userRepository.findByToken(token);
+        const { payload } = await token.decode(tokenString);
+
+        if (typeof payload.id !== 'string') {
+            throw new HttpError({
+                message: ErrorMessages.NOT_AUTHORIZED,
+                status: HttpCode.UNAUTHORIZED,
+            });
+        }
+
+        const userData = await this.userRepository.findByToken(payload.id);
         return userData ? userData.toObject() : null;
     }
 

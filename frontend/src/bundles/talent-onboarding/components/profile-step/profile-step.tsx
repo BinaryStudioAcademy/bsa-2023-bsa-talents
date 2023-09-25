@@ -28,10 +28,10 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
-    OnboardingSteps,
+    OnboardingStep,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -49,7 +49,7 @@ const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
 }));
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -179,7 +179,7 @@ const ProfileStep: React.FC = () => {
                 talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_01,
+                    completedStep: OnboardingStep.STEP_01,
                 }),
             );
             return true;
@@ -381,11 +381,11 @@ const ProfileStep: React.FC = () => {
             <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
-                        Briefly tell employers about your experience
+                        Introduce yourself
                     </Typography>
                 </FormLabel>
                 <Textarea
-                    placeholder="Tell us a little bit about yourself"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer."
                     control={control}
                     errors={errors}
                     name={'description'}

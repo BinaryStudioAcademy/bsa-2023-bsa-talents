@@ -8,7 +8,7 @@ type Properties = {
     label: string;
     variant?: 'text' | 'outlined' | 'contained';
     type?: 'submit' | 'button';
-    disabled?: boolean;
+    isDisabled?: boolean;
     className?: string;
     endIcon?: React.ReactNode;
     startIcon?: React.ReactNode;
@@ -20,7 +20,7 @@ const Button: React.FC<Properties> = ({
     variant = 'contained',
     label,
     type = 'button',
-    disabled = false,
+    isDisabled = false,
     className = '',
     endIcon = null,
     startIcon = null,
@@ -30,7 +30,7 @@ const Button: React.FC<Properties> = ({
     <MUIButton
         type={type}
         variant={variant}
-        disabled={disabled}
+        disabled={isDisabled}
         className={className}
         endIcon={endIcon}
         startIcon={startIcon}

@@ -28,8 +28,8 @@ const StepContent: React.FC<Properties> = ({
 
     const handleNextClick = async (): Promise<void> => {
         if (submitForm) {
-            const success = await submitForm();
-            if (success) {
+            const isSuccessful = await submitForm();
+            if (isSuccessful) {
                 onNextStep();
             }
         }
@@ -51,7 +51,12 @@ const StepContent: React.FC<Properties> = ({
             </Grid>
             <Grid className={styles.stepBody}>
                 <Grid className={styles.stepOutlet}>
-                    <FormControl className={styles.form}>
+                    <FormControl
+                        className={getValidClassNames(
+                            styles.form,
+                            currentStep === STEPS_NUMBER ? styles.wideForm : '',
+                        )}
+                    >
                         {<RouterOutlet />}
                     </FormControl>
                 </Grid>

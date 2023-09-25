@@ -93,11 +93,11 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            //TODO change column name for searchActiveCandidatesOnly when it will be created
-            if (payload.searchActiveCandidatesOnly) {
+            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
+            if (payload.isSearchActiveCandidatesOnly) {
                 void builder.where(
                     'isHired',
-                    payload.searchActiveCandidatesOnly,
+                    payload.isSearchActiveCandidatesOnly,
                 );
             }
 
@@ -265,6 +265,15 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
         });
+    }
+
+    public async publish(payload: UserDetailsUpdateDto): Promise<string> {
+        const { id } = payload;
+
+        const details = await this.userDetailsModel
+            .query()
+            .patchAndFetchById(id as string, { publishedAt: new Date() });
+        return details.publishedAt.toLocaleString();
     }
 
     public delete(): Promise<boolean> {

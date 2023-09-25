@@ -1,19 +1,21 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
     NotConsidered,
-    PreferredLanguages,
+    PreferredLanguage,
 } from '../enums/enums.js';
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
+import { URL_REGEX_CONSTANT } from './constants/constants.js';
 
 const userDetailsUpdate = joi
-    .object<UserDetailsUpdateRequestDto, true>({
+    .object<UserDetailsUpdateRequestDto>({
         id: joi.string().trim(),
         userId: joi.string().trim(),
+        deniedReason: joi.string().trim(),
 
         isApproved: joi.boolean(),
         isHired: joi.boolean(),
@@ -30,7 +32,7 @@ const userDetailsUpdate = joi
         location: joi
             .string()
             .trim()
-            .valid(...Object.values(CountryList)),
+            .valid(...Object.values(Country)),
 
         experienceYears: joi.number(),
         employmentType: joi.array().items(
@@ -56,17 +58,20 @@ const userDetailsUpdate = joi
             joi
                 .string()
                 .trim()
-                .valid(...Object.values(PreferredLanguages)),
+                .valid(...Object.values(PreferredLanguage)),
         ),
 
-        projectLinks: joi.array().items(
-            joi
-                .string()
-                .trim()
-                .uri({
-                    scheme: ['http', 'https', 'ftp'],
-                    allowRelative: true,
-                }),
+        projectLinks: joi.alternatives().try(
+            joi.array().items(
+                joi
+                    .string()
+                    .trim()
+                    .uri({
+                        scheme: ['http', 'https', 'ftp'],
+                        allowRelative: true,
+                    }),
+            ),
+            joi.allow(null),
         ),
         photoId: joi.string().trim(),
         fullName: joi.string().trim(),
@@ -74,7 +79,7 @@ const userDetailsUpdate = joi
         linkedinLink: joi.string().trim().uri(),
         companyName: joi.string().trim(),
         companyLogoId: joi.string().trim(),
-        companyWebsite: joi.string().trim().uri(),
+        companyWebsite: joi.string().regex(URL_REGEX_CONSTANT),
         employerPosition: joi.string().trim(),
         cvId: joi.string().trim(),
         talentBadges: joi.array().items(joi.string().trim()),

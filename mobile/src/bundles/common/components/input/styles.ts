@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     error: {
         borderColor: Color.ERROR,
     },
-    disabled: {
+    isDisabled: {
         backgroundColor: Color.INPUT,
         opacity: 0.5,
     },

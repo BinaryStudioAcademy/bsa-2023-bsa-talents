@@ -2,7 +2,7 @@ import { type AnyAction, type Middleware } from '@reduxjs/toolkit';
 import { isRejected } from '@reduxjs/toolkit';
 
 import { actions as appActions } from '~/app/store/app.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import { type store } from '../../store.js';
 
