@@ -40,14 +40,6 @@ const mockBadges = [
         type: 'service',
         color: BadgeColors.GREEN,
     },
-    {
-        id: '6',
-        score: 4,
-        maxScore: 5,
-        description: 'Punctuality',
-        type: 'custom',
-        color: BadgeColors.ORANGE,
-    },
 ];
 
 export { mockBadges };
