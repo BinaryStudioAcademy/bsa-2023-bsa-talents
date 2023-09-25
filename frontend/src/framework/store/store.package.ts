@@ -10,7 +10,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { reducer as appReducer } from '~/app/store/app.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
-import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
+import { reducer as candidateReducer } from '~/bundles/candidate-components/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
 import { bsaBadgesApi } from '~/bundles/common/data/bsa-badges/bsa-badges.js';

@@ -1,19 +1,24 @@
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
+import { CandidateModal } from '~/bundles/candidate-components/components/components.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
 } from '~/bundles/talent-onboarding/components/components.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { trimZerosFromNumber } from '../../helpers/helpers.js';
+import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
     type UserDetailsGeneralCustom,
-} from '../../types/types.js';
+} from '../../../talent-onboarding/types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -31,6 +36,14 @@ const CandidateProfile: React.FC<Properties> = ({
     isProfileCard,
     candidateData,
 }) => {
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+    const handleCloseContactModal = useCallback(() => {
+        setIsContactModalOpen(false);
+    }, []);
+    const handleOpenContactModal = useCallback(() => {
+        setIsContactModalOpen(true);
+    }, []);
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
@@ -96,14 +109,24 @@ const CandidateProfile: React.FC<Properties> = ({
                         isProfileOpen={isProfileOpen}
                         isFifthStep={isFifthStep}
                         candidateParameters={secondSectionCandidateDetails}
+                        isContactModalOpen={isContactModalOpen}
+                        onContactModalClose={handleCloseContactModal}
+                        onContactModalOpen={handleOpenContactModal}
                     />
                 )}
             </Grid>
             {isContactButtonVisible && (
-                <Button
-                    label="Contact candidate"
-                    className={styles.contactButton}
-                />
+                <Grid className={styles.modalWrapper}>
+                    <CandidateModal
+                        isOpen={isContactModalOpen}
+                        onClose={handleCloseContactModal}
+                    />
+                    <Button
+                        label="Contact candidate"
+                        className={styles.contactButton}
+                        onClick={handleOpenContactModal}
+                    />
+                </Grid>
             )}
         </Grid>
     );

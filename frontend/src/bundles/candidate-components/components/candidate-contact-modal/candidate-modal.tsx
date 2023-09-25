@@ -9,6 +9,7 @@ import {
     useFieldArray,
 } from 'react-hook-form';
 
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import {
     Button,
     Checkbox,
@@ -46,9 +47,13 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const [isSaveTemplateChecked, setIsSaveTemplateChecked] = useState(false);
 
     const dispatch = useAppDispatch();
-    const { messageTemplates } = useAppSelector(({ candidate }) => ({
-        messageTemplates: candidate.messageTemplates,
-    }));
+    const { messageTemplates, candidateId, employerId } = useAppSelector(
+        ({ candidate, searchCandidates, auth }) => ({
+            messageTemplates: candidate.messageTemplates,
+            candidateId: searchCandidates.currentCandidateDetails?.id,
+            employerId: auth.currentUser?.id,
+        }),
+    );
 
     const { control, errors, handleSubmit, setValue } =
         useAppForm<ContactCandidateDto>({
@@ -89,10 +94,18 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                     candidateActions.addMessageTemplate({ name, message }),
                 );
             }
-            // eslint-disable-next-line no-console
-            console.log(data); // remove later with real logic
+            if (employerId && candidateId) {
+                void dispatch(
+                    chatActions.createMessage({
+                        senderId: employerId,
+                        receiverId: candidateId,
+                        message: data.message,
+                    }),
+                );
+                onClose();
+            }
         },
-        [dispatch],
+        [candidateId, dispatch, employerId, onClose],
     );
 
     const handleCheckboxOnChange = useCallback(

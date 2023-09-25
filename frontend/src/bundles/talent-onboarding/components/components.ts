@@ -1,8 +1,8 @@
+export { CandidateParameter } from '../../candidate-components/components/candidate-profile/candidate-parameter/candidate-parameter.js';
+export { CandidateProfile } from '../../candidate-components/components/candidate-profile/candidate-profile.js';
+export { ProfileFirstSection } from '../../candidate-components/components/candidate-profile/profile-first-section/profile-first-section.js';
+export { ProfileSecondSection } from '../../candidate-components/components/candidate-profile/profile-second-section/profile-second-section.js';
 export { BadgesStep } from './badges-step/badges-step.js';
-export { CandidateParameter } from './candidate-profile/candidate-parameter/candidate-parameter.js';
-export { CandidateProfile } from './candidate-profile/candidate-profile.js';
-export { ProfileFirstSection } from './candidate-profile/profile-first-section/profile-first-section.js';
-export { ProfileSecondSection } from './candidate-profile/profile-second-section/profile-second-section.js';
 export { ContactsCVStep } from './contacts-cv-step/contacts-cv-step.js';
 export { ProfileStep } from './profile-step/profile-step.js';
 export { SkillsStep } from './skills-step/skills-step.js';

@@ -13,18 +13,25 @@ import { PLURAL_YEARS } from '~/bundles/talent-onboarding/constants/constants.js
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SecondSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
+import { CandidateModal } from '../../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
     candidateParameters: SecondSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
+    isContactModalOpen: boolean;
+    onContactModalClose: () => void;
+    onContactModalOpen: () => void;
 };
 
 const ProfileSecondSection: React.FC<Properties> = ({
     candidateParameters,
     isProfileOpen,
     isFifthStep,
+    isContactModalOpen,
+    onContactModalClose,
+    onContactModalOpen,
 }) => {
     const options = [
         {
@@ -146,10 +153,17 @@ const ProfileSecondSection: React.FC<Properties> = ({
                         Published today
                     </Typography>
                     {!isFifthStep && (
-                        <Button
-                            label="Contact candidate"
-                            className={styles.contactButton}
-                        />
+                        <Grid className={styles.modalWrapper}>
+                            <CandidateModal
+                                isOpen={isContactModalOpen}
+                                onClose={onContactModalClose}
+                            />
+                            <Button
+                                label="Contact candidate"
+                                className={styles.contactButton}
+                                onClick={onContactModalOpen}
+                            />
+                        </Grid>
                     )}
                 </>
             )}
