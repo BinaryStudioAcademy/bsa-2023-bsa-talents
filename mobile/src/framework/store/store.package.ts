@@ -8,6 +8,7 @@ import flipper from 'redux-flipper';
 
 import { authApi } from '~/bundles/auth/auth';
 import { reducer as authReducer } from '~/bundles/auth/store/slice';
+import { chatApi } from '~/bundles/chat/chat';
 import { reducer as chatReducer } from '~/bundles/chat/store';
 import { commonApi } from '~/bundles/common/common';
 import { AppEnvironment } from '~/bundles/common/enums/enums';
@@ -28,6 +29,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     notifications: typeof notifications;
+    chatApi: typeof chatApi;
     commonApi: typeof commonApi;
     storage: typeof storage;
     commonDataApi: typeof commonDataApi;
@@ -74,6 +76,7 @@ class Store {
     public get extraArguments(): ExtraArguments {
         return {
             authApi,
+            chatApi,
             commonApi,
             notifications,
             storage,

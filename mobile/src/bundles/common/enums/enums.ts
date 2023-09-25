@@ -22,6 +22,7 @@ export {
     ApiPath,
     AppEnvironment,
     BsaBadgeStepBadgesTitle,
+    ChatMessagesApiPath,
     ContentType,
     CountryList,
     EmploymentType,
