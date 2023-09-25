@@ -36,29 +36,6 @@ import { hiringInfoCreateValidationSchema } from './validation-schemas/validatio
  *          hiredTime:
  *            type: string
  *            example: '2023-09-12T12:34:56.789Z'
- *          talent:
- *            type: array
- *            items:
- *              type: object
- *              properties:
- *                id:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
- *                score:
- *                  type: number
- *                level:
- *                  type: string
- *                isShown:
- *                  type: boolean
- *                badgeId:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
- *                userDetailsId:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
- *                userId:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
  */
 class HiringInfoController extends ControllerBase {
     private hiringInfoService: HiringInfoService;
@@ -161,7 +138,46 @@ class HiringInfoController extends ControllerBase {
      *          content:
      *            application/json:
      *              schema:
-     *                $ref: '#/components/schemas/HiringInfo'
+     *                $ref: '#/components/schemas/HiringInfoFindResponse'
+     * components:
+     *   schemas:
+     *      HiringInfoFindResponse:
+     *        type: object
+     *        properties:
+     *          id:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *            required: true
+     *          talentId:
+     *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+     *            type: string
+     *            required: true
+     *          companyId:
+     *            format: uuid #Example: 'd36dfd26-63af-4922-a8cf-04cb939e6d97'
+     *            type: string
+     *            required: true
+     *          talentPhone:
+     *            type: string
+     *            required: true
+     *          talentFullName:
+     *            type: string
+     *            required: true
+     *          talentEmail:
+     *            type: string
+     *            required: true
+     *          employerFullName:
+     *            type: string
+     *            required: true
+     *          employerPosition:
+     *            type: string
+     *            required: true
+     *          companyName:
+     *            type: string
+     *            required: true
+     *          companyEmail:
+     *            type: string
+     *            required: true
+     *
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {

@@ -1,4 +1,4 @@
-import { ErrorMessages } from 'shared/build/index.js';
+import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
@@ -14,13 +14,30 @@ class HiringInfoRepository implements Repository {
     }
 
     public find(): Promise<HiringInfoEntity | null> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findAll(): Promise<HiringInfoEntity[]> {
         const hiringInfoAll = await this.hiringInfoModel
             .query()
-            .withGraphJoined('[talent, company]');
+            .select(
+                'hiring_info.*',
+                'talent.id as talent_id',
+                'talent.phone as talent_phone',
+                'talent.full_name as talent_full_name',
+                'talentUser.email as talent_email',
+                'company.id as company_id',
+                'company.full_name as employer_full_name',
+                'company.employer_position as employer_position',
+                'company.company_name as company_name',
+                'companyUser.email as company_email',
+            )
+            .leftJoinRelated('talent')
+            .join('users as talentUser', 'talentUser.id', 'talent.user_id')
+            .leftJoinRelated('company')
+            .join('users as companyUser', 'companyUser.id', 'company.user_id')
+            .returning('*');
+
         return hiringInfoAll.map((hiringInfo) =>
             HiringInfoEntity.initialize(hiringInfo),
         );
@@ -46,11 +63,11 @@ class HiringInfoRepository implements Repository {
     }
 
     public update(): Promise<HiringInfoEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

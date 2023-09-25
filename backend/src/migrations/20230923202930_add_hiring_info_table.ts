@@ -47,7 +47,10 @@ async function up(knex: Knex): Promise<void> {
             .inTable(TableName.USER_DETAILS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
-        table.timestamp(ColumnName.HIRED_TIME).nullable().defaultTo(null);
+        table
+            .timestamp(ColumnName.HIRED_TIME)
+            .notNullable()
+            .defaultTo(knex.fn.now());
         table
             .dateTime(ColumnName.CREATED_AT)
             .notNullable()

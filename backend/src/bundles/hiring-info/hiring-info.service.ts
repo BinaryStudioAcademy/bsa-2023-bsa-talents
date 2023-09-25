@@ -1,4 +1,4 @@
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type HiringInfoEntity } from './hiring-info.entity.js';
@@ -16,7 +16,7 @@ class HiringInfoService implements Service {
     }
 
     public find(): Promise<HiringInfoEntity | null> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findAll(): Promise<{ items: HiringInfoResponseDto[] }> {
@@ -38,11 +38,11 @@ class HiringInfoService implements Service {
     }
 
     public update(): Promise<HiringInfoResponseDto> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 
