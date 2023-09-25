@@ -6,6 +6,8 @@ export { NewAccountHeader } from './new-account-header/new-account-header';
 export { OnboardingBackButton } from './onboarding-back-button/onboarding-back-button';
 export { ProfileForm } from './profile-form/profile-form';
 export { ProfilePreview } from './profile-preview/profile-preview';
+export { ProfileScreenProfileForm } from './profile-screen.profile-form/profile-screen-profile-form';
+export { ProfileTabBar } from './profile-tab-bar/profile-tab-bar';
 export { ProjectContainer } from './project-container/project-container';
 export { ScoresAndSkillsContainer } from './scores-and-skills-container/scores-and-skills-container';
 export { SkillsAndProjectsForm } from './skills-and-projects-form/skills-and-projects-form';
