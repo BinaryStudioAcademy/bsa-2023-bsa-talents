@@ -1,8 +1,10 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
-import { type ValueOf } from '~/bundles/common/types/types';
-import { type UserDetailsGeneralResponseDto } from '~/bundles/talent/types/types';
+import {
+    type UserDetailsGeneralResponseDto,
+    type ValueOf,
+} from '~/bundles/common/types/types';
 
 import {
     clearCommonStore,

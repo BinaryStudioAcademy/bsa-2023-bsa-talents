@@ -1,10 +1,10 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
-import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
-} from '~/bundles/talent/types/types';
+} from '~/bundles/common/types/types';
+import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
