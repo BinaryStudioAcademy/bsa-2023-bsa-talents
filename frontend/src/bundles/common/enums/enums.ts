@@ -10,6 +10,7 @@ export {
     AppEnvironment,
     ChatMessagesApiPath,
     ContentType,
+    HttpCode,
     ServerErrorType,
     UserDetailsApiPath,
 } from 'shared/build/index.js';

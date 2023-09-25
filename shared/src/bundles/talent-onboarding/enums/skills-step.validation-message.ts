@@ -20,6 +20,6 @@ const SkillsStepValidationMessage = {
         'Project links must contain at least {{#limit.min}} chars',
     PROJECT_LINKS_MAX_LENGTH:
         'Project links must contain less than {{#limit.max}} chars',
-};
+} as const;
 
 export { SkillsStepValidationMessage };

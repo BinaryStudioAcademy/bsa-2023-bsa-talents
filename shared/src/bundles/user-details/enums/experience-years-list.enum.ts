@@ -7,16 +7,16 @@ const experienceYearsList = createNumberRangeArray(
     ProfileStepValidationRule.YEARS_OF_EXPERIENCE_STEP,
 );
 
-function createExperienceYearsEnum(
+const createExperienceYearsEnum = (
     array: readonly number[],
-): Record<string, number> {
+): Record<string, number> => {
     const enumObject: Record<string, number> = {};
     for (const years of array) {
         const enumKey = String(years);
         enumObject[enumKey] = years;
     }
     return enumObject;
-}
+};
 
 const experienceYears = createExperienceYearsEnum(experienceYearsList);
 
