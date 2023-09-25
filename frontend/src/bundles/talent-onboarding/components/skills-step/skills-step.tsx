@@ -172,7 +172,7 @@ const SkillsStep: React.FC = () => {
     ]);
 
     const handleFormSubmit = useCallback(
-        async (data: SkillsStepDto): Promise<boolean> => {
+        (data: SkillsStepDto): boolean => {
             const {
                 englishLevel,
                 notConsidered,
@@ -187,7 +187,7 @@ const SkillsStep: React.FC = () => {
             const preparedLinks =
                 enteredLinks.length > 0 ? fromUrlLinks(enteredLinks) : null;
 
-            await dispatch(
+            void dispatch(
                 talentActions.updateTalentDetails({
                     englishLevel,
                     notConsidered,
@@ -207,8 +207,8 @@ const SkillsStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await handleFormSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };

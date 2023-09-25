@@ -106,9 +106,9 @@ const ContactsCVStep: React.FC = () => {
     ]);
 
     const handleFormSubmit = useCallback(
-        async (data: ContactsCVStepDto): Promise<boolean> => {
+        (data: ContactsCVStepDto): boolean => {
             const { fullName, phone, linkedinLink } = data;
-            await dispatch(
+            void dispatch(
                 talentActions.updateTalentDetails({
                     fullName,
                     phone,
@@ -126,8 +126,8 @@ const ContactsCVStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await handleFormSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };

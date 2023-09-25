@@ -57,8 +57,8 @@ const BadgesStep: React.FC = () => {
     }, [badges, dispatch, hasChangesInDetails, watchedBadges]);
 
     const handleFormSubmit = useCallback(
-        async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(
+        (data: BsaBadgesStepDto): boolean => {
+            void dispatch(
                 talentActions.updateTalentDetails({
                     ...data,
                     completedStep: OnboardingSteps.STEP_02,
@@ -73,8 +73,8 @@ const BadgesStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await handleFormSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };

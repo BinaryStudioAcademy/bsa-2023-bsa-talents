@@ -174,8 +174,8 @@ const ProfileStep: React.FC = () => {
     ]);
 
     const handleFormSubmit = useCallback(
-        async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(
+        (data: ProfileStepDto): boolean => {
+            void dispatch(
                 talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
@@ -191,8 +191,8 @@ const ProfileStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await handleFormSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
