@@ -15,12 +15,12 @@ import {
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
+import { getUserDetails } from '~/bundles/common/store/actions';
 import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
-import { getUserDetails } from '~/bundles/talent/store/actions';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -38,19 +38,23 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+    const { onboardingData, dataStatus: userOnboardingDataStatus } =
+        useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
+    const isPendingOnboardingData =
+        userOnboardingDataStatus === DataStatus.IDLE;
     const dispatch = useAppDispatch();
 
+    //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        completedStep === CompletedTalentOnboardingStep.Preview;
+        onboardingData?.completedStep ===
+            CompletedTalentOnboardingStep.Preview ||
+        onboardingData?.companyName;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
-
-    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
 
     useEffect(() => {
         if (!currentUserData) {
@@ -59,7 +63,7 @@ const Root: React.FC = () => {
         void dispatch(getUserDetails({ userId: currentUserData.id }));
     }, [currentUserData, currentUserData?.id, dispatch]);
 
-    if (isPendingAuth) {
+    if (isPendingAuth || isPendingOnboardingData) {
         return <Loader />;
     }
 
@@ -100,7 +104,6 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
-            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;

@@ -1,5 +1,6 @@
 import { authController } from '~/bundles/auth/auth.js';
 import { bsaBadgesController } from '~/bundles/bsa-badges/bsa-badges.js';
+import { chatMessagesController } from '~/bundles/chat-messages/chat-messages.js';
 import { fileController } from '~/bundles/files/files.js';
 import { hardSkillsController } from '~/bundles/hard-skills/hard-skills.js';
 import { userDetailsController } from '~/bundles/user-details/user-details.js';
@@ -18,6 +19,7 @@ const apiV1 = new ServerAppApiBase(
     ...fileController.routes,
     ...hardSkillsController.routes,
     ...bsaBadgesController.routes,
+    ...chatMessagesController.routes,
 );
 const serverApp = new ServerAppBase({
     config,
