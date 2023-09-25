@@ -85,6 +85,8 @@ class UserDetailsModel extends AbstractModel {
 
     public 'publishedAt': Date;
 
+    public 'photo'?: FileModel;
+
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));
     }

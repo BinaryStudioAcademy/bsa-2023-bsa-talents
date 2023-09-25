@@ -4,7 +4,6 @@ import {
     Image,
     MaterialIcon,
     Text,
-    View,
 } from '~/bundles/common/components/components';
 import {
     IconName,
@@ -13,7 +12,6 @@ import {
 } from '~/bundles/common/enums/enums';
 import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type CustomPhotoStyle,
     type PhotoProperties,
@@ -34,9 +32,7 @@ const Avatar: React.FC<Properties> = ({
     uri,
     defaultIcon = IconName.PERSON,
 }) => {
-    const { defaultPhotoContainer, defaultPhoto, photoShape } =
-        customPhotoStyle ?? {};
-
+    const { photoShape } = customPhotoStyle ?? {};
     const avatarStyles = useMemo(
         () =>
             ({
@@ -78,19 +74,11 @@ const Avatar: React.FC<Properties> = ({
         );
     }
     return (
-        <View
-            style={[
-                defaultPhotoContainer,
-                globalStyles.justifyContentCenter,
-                globalStyles.alignItemsCenter,
-            ]}
-        >
-            <MaterialIcon
-                size={avatarStyles.iconSize}
-                style={[styles.icon, avatarStyles.size, defaultPhoto]}
-                name={defaultIcon}
-            />
-        </View>
+        <MaterialIcon
+            size={avatarStyles.iconSize}
+            style={[styles.icon, avatarStyles.size, photoShape]}
+            name={defaultIcon}
+        />
     );
 };
 

@@ -16,12 +16,12 @@ import {
     useEffect,
     useNavigation,
 } from '~/bundles/common/hooks/hooks';
+import { getUserDetails } from '~/bundles/common/store/actions';
 import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
-import { getUserDetails } from '~/bundles/talent/store/actions';
 import { getNextStep } from '~/helpers/helpers';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
@@ -40,26 +40,30 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+    const { onboardingData, dataStatus: userOnboardingDataStatus } =
+        useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
+    const isPendingOnboardingData =
+        userOnboardingDataStatus === DataStatus.IDLE;
     const dispatch = useAppDispatch();
     const { navigate } = useNavigation();
 
+    //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        completedStep === CompletedTalentOnboardingStep.Preview;
+        onboardingData?.completedStep ===
+            CompletedTalentOnboardingStep.Preview ||
+        onboardingData?.companyName;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
 
-    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
-
     useEffect(() => {
         if (!currentUserData) {
             return;
         }
-        const nextStep = getNextStep(completedStep);
+        const nextStep = getNextStep(onboardingData?.completedStep);
         void dispatch(getUserDetails({ userId: currentUserData.id }));
 
         if (nextStep && !isProfileComplete) {
@@ -70,11 +74,11 @@ const Root: React.FC = () => {
         currentUserData?.id,
         dispatch,
         navigate,
-        completedStep,
+        onboardingData?.completedStep,
         isProfileComplete,
     ]);
 
-    if (isPendingAuth) {
+    if (isPendingAuth || isPendingOnboardingData) {
         return <Loader />;
     }
 
@@ -115,7 +119,6 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
-            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;
