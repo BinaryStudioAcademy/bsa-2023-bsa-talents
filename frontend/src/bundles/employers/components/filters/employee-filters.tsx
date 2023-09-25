@@ -18,6 +18,7 @@ import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
+import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaCharacteristics,
     BsaProject,
@@ -61,7 +62,7 @@ const locationOptions = Object.values(Country).map((country) => ({
 }));
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
-    value: level.split(' ')[0],
+    value: level,
     label: level,
 }));
 
@@ -77,7 +78,7 @@ type Properties = {
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
 
-    const { bsaBadgesOptions, hardSkillsOptions } = useCommonData();
+    const { hardSkillsOptions } = useCommonData();
 
     const handleCheckboxOnChange = useCallback(
         <Field extends ValueOf<typeof CheckboxesFields>>(
@@ -163,7 +164,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     );
 
     const handleFiltersClear = useCallback((): void => {
-        reset();
+        reset(DEFAULT_EMPLOYEES_FILTERS_PAYLOAD);
     }, [reset]);
 
     return (
@@ -197,7 +198,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={jobTitleOptions}
                             control={control}
                             errors={errors}
-                            name="jobTitles"
+                            name="jobTitle"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -222,7 +223,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={yearsOfExperience}
                             control={control}
                             errors={errors}
-                            name="userYearsOfExperience"
+                            name="yearsOfExperience"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -236,19 +237,6 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             control={control}
                             errors={errors}
                             name="userBsaCharacteristics"
-                            isMulti={true}
-                            placeholder="Options"
-                        />
-                    </FormLabel>
-                </Grid>
-                <Grid className={styles.filtersMultiSelect}>
-                    <FormLabel className={styles.labels}>
-                        BSA Badges
-                        <Select
-                            options={bsaBadgesOptions}
-                            control={control}
-                            errors={errors}
-                            name="userBsaBadges"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -274,7 +262,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             options={locationOptions}
                             control={control}
                             errors={errors}
-                            name="userLocation"
+                            name="location"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -285,7 +273,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         Level of English
                         <Controller
                             control={control}
-                            name="levelOfEnglish"
+                            name="englishLevel"
                             render={renderCheckboxes}
                         />
                     </FormLabel>
