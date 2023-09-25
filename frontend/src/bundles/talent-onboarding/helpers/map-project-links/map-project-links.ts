@@ -1,11 +1,11 @@
-type UrlObject = { url: string };
+type Url = { url: string };
 
-function toUrlLinks(links: string[] | undefined): UrlObject[] {
+const toUrlLinks = (links: string[] | undefined): Url[] => {
     return links ? links.map((link) => ({ url: link })) : [];
-}
+};
 
-function fromUrlLinks(links: UrlObject[] | undefined): string[] {
+const fromUrlLinks = (links: Url[] | undefined): string[] => {
     return links ? links.map((link) => link.url) : [];
-}
+};
 
 export { fromUrlLinks, toUrlLinks };

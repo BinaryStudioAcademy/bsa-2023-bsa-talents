@@ -36,7 +36,7 @@ const DocumentMimeTypesFilter = new Set([
 ]);
 
 const fileFilter = (
-    request: FastifyRequest,
+    _request: FastifyRequest,
     file: MulterFile,
     callback: FileFilterCallback,
 ): void => {
