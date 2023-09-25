@@ -1,0 +1,33 @@
+.container {
+  flex-flow: column nowrap;
+  gap: 28px;
+}
+
+.feedback,
+.personalityType,
+.softSkills {
+  flex-flow: row nowrap;
+  gap: 20px;
+}
+
+.label {
+  flex: 0 1 100%;
+  max-width: 126px;
+  padding: 8px 0 0;
+  color: var(--midnight-black);
+}
+
+.body {
+  flex: 1 1 auto;
+}
+
+.feedback {
+  padding: 20px;
+  border: 1px solid #dce5ff;
+  border-radius: 8px;
+}
+
+.formControl {
+  flex: auto;
+  max-width: 329px;
+}/*# sourceMappingURL=styles.module.css.map */

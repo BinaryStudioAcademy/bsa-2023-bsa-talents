@@ -1,0 +1,21 @@
+.messageWrapper {
+  display: flex;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 16px;
+  padding: 8px 16px;
+  white-space: pre-line;
+  word-break: break-all;
+  background-color: var(--white-lilac);
+  border-radius: 12px;
+}
+
+.messageOwn {
+  order: -1;
+  margin-left: auto;
+  background-color: var(--solitude);
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,11 @@
+.menuItem {
+  color: var(--st-tropaz);
+}
+
+.signOut {
+  color: var(--torch-red);
+}
+
+.signOutIcon {
+  fill: var(--torch-red);
+}/*# sourceMappingURL=styles.module.css.map */

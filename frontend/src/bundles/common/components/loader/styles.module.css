@@ -1,0 +1,22 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+.loader .logo {
+  animation: pulse 1s ease-in-out infinite;
+}/*# sourceMappingURL=styles.module.css.map */

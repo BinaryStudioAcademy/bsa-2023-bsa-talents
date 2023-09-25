@@ -1,0 +1,27 @@
+.pageContainer {
+  display: flex;
+  overflow: hidden;
+}
+
+.mainContainer {
+  position: relative;
+  flex: 1;
+  float: right;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.mainHeader {
+  right: 0;
+  max-width: calc(100% - var(--sidebar-width));
+}
+
+.mainContent {
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: var(--header-height) 0 0;
+  overflow: hidden;
+  overflow-y: visible;
+  background-color: var(--white-lilac);
+}/*# sourceMappingURL=styles.module.css.map */

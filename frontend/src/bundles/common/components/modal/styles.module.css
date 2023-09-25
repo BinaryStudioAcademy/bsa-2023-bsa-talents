@@ -1,0 +1,46 @@
+.modalWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  max-height: 95vh;
+  overflow: hidden;
+  background-color: var(--white);
+  border-radius: 8px;
+  outline: 0;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.iconButton {
+  width: 35px;
+  min-width: 0;
+  height: 100%;
+  border: none;
+}
+.iconButton:hover {
+  border: none;
+}
+.iconButton .closeIcon {
+  margin-right: 11px;
+  color: var(--nepal);
+  font-size: var(--font-size-h6);
+}
+
+.closeButtonWrapper {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 12px 10px 17px 0;
+}
+
+.dividerVertical {
+  height: 32px;
+}/*# sourceMappingURL=styles.module.css.map */

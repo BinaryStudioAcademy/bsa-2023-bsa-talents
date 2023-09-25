@@ -1,0 +1,48 @@
+.required {
+  color: var(--st-tropaz);
+}
+
+.hasError {
+  color: var(--error-primary);
+}
+
+.btnLogin {
+  margin-top: 15px;
+}
+
+.radioWrapper {
+  width: 100%;
+}
+
+.hasError.radioWrapper {
+  margin-top: 0;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 5%;
+  margin-left: -2px;
+}
+
+.checkboxWrapper {
+  width: 100%;
+}
+.checkboxWrapper :global(.MuiFormControlLabel-root.MuiFormControlLabel-labelPlacementEnd) {
+  margin-left: -8px;
+}
+
+.termsLabel {
+  width: 100%;
+  margin-left: 5px;
+}
+.termsLabel .bsaTermsLinkWrapper {
+  margin: 0 5px;
+  margin-right: 0;
+}
+.termsLabel .bsaTermsLink {
+  display: inline;
+  color: var(--azure);
+  text-decoration: underline;
+}/*# sourceMappingURL=styles.module.css.map */

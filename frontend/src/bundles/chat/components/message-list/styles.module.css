@@ -1,0 +1,20 @@
+:root {
+  --message-items-gap: 32px;
+}
+
+.messageList {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: var(--message-items-gap);
+  width: 100%;
+  max-height: 100%;
+  padding: 24px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-bar-color) transparent;
+}
+
+.autoScrollElement {
+  margin: calc(var(--message-items-gap) * -1) 0;
+}/*# sourceMappingURL=styles.module.css.map */

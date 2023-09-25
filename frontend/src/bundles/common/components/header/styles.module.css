@@ -1,0 +1,16 @@
+.header {
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  padding: 10px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--porcelain);
+}
+
+.avatar {
+  margin-right: 20px;
+}/*# sourceMappingURL=styles.module.css.map */

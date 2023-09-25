@@ -1,0 +1,25 @@
+.chip {
+  gap: 6px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 23px;
+  margin-right: 9px;
+  margin-bottom: 5px;
+  color: var(--text-primary-dark);
+  background-color: var(--solitude);
+  border-radius: 5px;
+}
+.chip :global(.MuiChip-label) {
+  padding: 5px 6px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+}
+.chip .icon {
+  width: 13px;
+  height: 13px;
+  color: var(--text-primary-dark);
+}
+
+.deleteChip {
+  margin-right: 4px;
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,43 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  min-width: 0;
+  height: 35px;
+  margin-left: 14px;
+  text-transform: none;
+  border: none;
+}
+.button:hover {
+  border: none;
+}
+
+.buttonIcon {
+  margin-right: 13px;
+  font-size: var(--font-size-h6);
+  fill: var(--steel-gray);
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.template {
+  flex-grow: 1;
+  justify-content: flex-start;
+  height: 36px;
+  margin: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.templateError :global(.MuiInputBase-root) {
+  border-color: var(--error-primary);
+}
+
+.templateError :global(.MuiInputBase-input),
+.error {
+  color: var(--error-primary);
+}/*# sourceMappingURL=styles.module.css.map */

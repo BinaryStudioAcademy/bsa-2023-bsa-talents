@@ -1,0 +1,34 @@
+:root {
+  --search-bar-height: 48px;
+  --chat-list-item-min-width: 200px;
+  --chat-list-items-gap: 8px;
+}
+
+.chatListContainer {
+  height: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.chatList {
+  gap: var(--chat-list-items-gap);
+  height: calc(100% - var(--search-bar-height));
+  min-height: 100px;
+  margin: 0;
+  padding: 0 16px var(--chat-list-items-gap);
+  overflow: hidden scroll;
+  overflow-y: scroll;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-bar-color) transparent;
+}
+
+.nothingWasFound {
+  min-width: var(--chat-list-item-min-width);
+  padding: 12px;
+  color: var(--steel-gray);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  opacity: 0.4;
+}/*# sourceMappingURL=styles.module.css.map */

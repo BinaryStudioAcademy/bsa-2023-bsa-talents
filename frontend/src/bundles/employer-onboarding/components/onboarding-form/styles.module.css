@@ -1,0 +1,206 @@
+.formWrapper {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.formFields {
+  gap: 10px;
+  width: 50%;
+}
+
+.formField {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.formField .requiredField {
+  color: var(--st-tropaz);
+}
+
+.formLabel {
+  display: block;
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.formInput {
+  width: 70%;
+}
+
+.formTextarea {
+  display: flex;
+}
+
+.textareaLabel {
+  margin-bottom: 15px;
+}
+
+.hasError {
+  color: var(--error-primary);
+}
+
+.photoContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.photo {
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: grey;
+}
+
+.photoWrapper {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  background-color: var(--background-secondary);
+  border-radius: 50%;
+}
+
+.photoPlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-secondary);
+}
+
+.photoElement {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.fileError {
+  color: var(--error-primary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-main);
+}
+
+.photoError {
+  max-width: 122px;
+}
+
+.formControl {
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.photoFormControl {
+  flex-basis: content;
+}
+
+.label {
+  width: -moz-max-content;
+  width: max-content;
+  color: var(--background-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-main);
+}
+
+.labelError {
+  color: var(--error-primary);
+}
+
+.labelText {
+  color: var(--text-primary-dark);
+}
+
+.uploadPhotoBtn {
+  width: 125px;
+  height: 36px;
+  color: var(--background-secondary);
+  font-size: 13px;
+  line-height: 1.21;
+  text-transform: none;
+  border-color: var(--background-secondary);
+}
+
+.uploadCVBtn {
+  max-width: 329px;
+  height: 38px;
+  color: var(--background-secondary);
+  font-weight: var(--font-weight-semi-bold);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-main);
+  text-transform: none;
+  border-color: var(--background-secondary);
+}
+
+.btnError {
+  color: var(--error-primary);
+  border-color: var(--error-primary);
+}
+.btnError:hover, .btnError:focus {
+  color: var(--error-primary);
+  border-color: var(--error-primary);
+}
+
+.info {
+  padding: 12px;
+  color: var(--text-primary-dark);
+  background-color: var(--solitude);
+  border-radius: 4px;
+}
+
+@media screen and (width <= 1240px) {
+  .formInput {
+    width: 60%;
+  }
+}
+@media screen and (width <= 1050px) {
+  .photoWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (width <= 960px) {
+  .formField {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .photoWrapper {
+    width: 150px;
+    height: 150px;
+  }
+  .formInput {
+    width: 100%;
+  }
+}
+@media screen and (width <= 840px) {
+  .header {
+    margin-bottom: 20px;
+  }
+  .photoWrapper {
+    width: 130px;
+    height: 130px;
+  }
+}
+@media screen and (width <= 760px) {
+  .form {
+    flex-direction: column-reverse;
+  }
+  .formFields {
+    width: 100%;
+  }
+  .photo {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .paragraph h2 {
+    font-size: 24px;
+  }
+}/*# sourceMappingURL=styles.module.css.map */

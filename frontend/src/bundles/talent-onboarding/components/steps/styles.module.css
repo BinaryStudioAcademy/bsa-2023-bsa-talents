@@ -1,0 +1,94 @@
+.stepsWrapper {
+  display: flex;
+  justify-content: center;
+  width: 290px;
+  min-width: 135px;
+  height: 100%;
+  border-right: 1px solid var(--botticelli);
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 85px;
+  padding-top: 2px;
+  padding-left: 40px;
+  font-size: 10px;
+}
+.step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 17px;
+  width: 2px;
+  height: 100%;
+  background-color: var(--botticelli);
+}
+.step::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 7px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--botticelli);
+  border: 2px solid var(--botticelli);
+  border-radius: 50%;
+}
+
+.step:last-child::before {
+  display: none;
+}
+
+.steps {
+  margin-top: 39px;
+  padding: 0;
+}
+
+.title {
+  color: var(--st-tropaz);
+  font-weight: var(--font-weight-bold);
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.description {
+  color: var(--text-secondary);
+}
+
+.currentStep::after {
+  left: 5px;
+  width: 21px;
+  height: 21px;
+  background-color: var(--white);
+  border: 3px solid var(--st-tropaz);
+}
+
+.passedStep::after {
+  width: 18px;
+  height: 18px;
+  background-color: var(--st-tropaz);
+  background-image: url("../../../../assets/img/check-mark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px;
+  border: 2px solid var(--st-tropaz);
+}
+.passedStep::before {
+  background-color: var(--st-tropaz);
+}
+
+.currentStepDescription {
+  color: var(--text-primary-dark);
+}
+
+@media screen and (width <= 660px) {
+  .stepsWrapper {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--botticelli);
+  }
+}/*# sourceMappingURL=styles.module.css.map */

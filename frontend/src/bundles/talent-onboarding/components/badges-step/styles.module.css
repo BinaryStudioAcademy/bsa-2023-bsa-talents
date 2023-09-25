@@ -1,0 +1,28 @@
+.formLabel {
+  margin-bottom: 20px;
+  color: var(--steel-gray);
+  font-weight: var(--font-weight-regular);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: var(--step-width);
+  padding: 10px;
+}
+
+.badgeCheckboxContainer {
+  display: flex;
+  align-items: center;
+}
+
+.badgesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hasError {
+  color: var(--error-primary);
+}/*# sourceMappingURL=styles.module.css.map */

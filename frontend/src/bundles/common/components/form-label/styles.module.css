@@ -1,0 +1,8 @@
+.label :global .MuiFormLabel-asterisk {
+  visibility: hidden;
+}
+.label :global .MuiFormLabel-asterisk::before {
+  color: var(--st-tropaz);
+  visibility: visible;
+  content: "*";
+}/*# sourceMappingURL=styles.module.css.map */

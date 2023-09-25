@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: var(--step-width);
+  padding: 10px;
+}
+
+.formControlCheckbox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-left: 2px;
+}
+
+.formLabel {
+  color: var(--text-primary-dark);
+  font-weight: var(--font-weight-medium);
+}
+
+.hasError {
+  color: var(--error-primary);
+}/*# sourceMappingURL=styles.module.css.map */

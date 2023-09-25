@@ -1,0 +1,212 @@
+.container {
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--steel-gray);
+}
+
+.sellingPoint {
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin-bottom: 34px;
+}
+.sellingPoint .text {
+  display: none;
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
+  font-size: 32px;
+  font-family: var(--font-family);
+  line-height: var(--line-height-main);
+}
+.sellingPoint .logo {
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.formWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 12px;
+}
+
+.formWrapper :global .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: min(10vh, 228px) 0;
+}
+.formWrapper :global .header {
+  width: 100%;
+  max-width: 420px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-main);
+  text-align: center;
+}
+.formWrapper :global .inputContainer {
+  width: 100%;
+}
+.formWrapper :global .email {
+  margin-bottom: 25px;
+}
+.formWrapper :global .password {
+  margin-bottom: 8px;
+}
+.formWrapper :global .label {
+  margin-bottom: 5px;
+  color: var(--text-primary-dark);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+}
+.formWrapper :global .btn {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px 0;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  font-family: var(--font-family);
+  text-transform: unset;
+  background-color: var(--background-secondary);
+}
+.formWrapper :global .footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  margin-bottom: 48px;
+  font-family: var(--font-family);
+  line-height: var(--line-height-btn);
+  text-align: center;
+  -moz-column-gap: 18px;
+       column-gap: 18px;
+}
+.formWrapper :global .span {
+  display: inline-block;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 0 auto;
+  color: var(--gray-2);
+  font-weight: var(--font-weight-regulars);
+}
+.formWrapper :global .cta {
+  display: unset;
+  width: unset;
+  color: var(--st-tropaz);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding-right: 27px;
+  padding-left: 27px;
+}
+
+.animatedTextWrapper {
+  position: relative;
+  display: none;
+  width: 550px;
+  height: 50px;
+  overflow: hidden;
+  animation: shrink-expand 5s ease-in-out infinite;
+}
+
+.message {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  padding-left: 8px;
+  overflow: hidden;
+  color: #333333;
+  font-weight: 900;
+  white-space: nowrap;
+  animation: openclose 5s ease-in-out infinite;
+}
+
+.messageOne {
+  margin-bottom: 10px;
+}
+
+@media screen and (width >= 900px) {
+  .sellingPoint {
+    display: flex;
+    gap: 27px;
+  }
+  .sellingPoint .text {
+    display: block;
+  }
+  .sellingPoint .logo {
+    justify-content: start;
+    margin-top: unset;
+  }
+  .container {
+    flex-direction: row;
+    padding: 40px;
+  }
+  .animatedTextWrapper {
+    display: block;
+  }
+}
+@keyframes openclose {
+  0% {
+    bottom: 0;
+    width: 0%;
+  }
+  25% {
+    width: 100%;
+  }
+  50% {
+    bottom: 0;
+    width: 0%;
+  }
+  51% {
+    bottom: -50px;
+    width: 0%;
+  }
+  75% {
+    width: 100%;
+  }
+  100% {
+    bottom: -50px;
+    width: 0%;
+  }
+}
+@keyframes shrink-expand {
+  50% {
+    height: 50px;
+  }
+  51% {
+    height: 100px;
+  }
+  75% {
+    height: 100px;
+  }
+  99% {
+    height: 100px;
+  }
+  100% {
+    height: 50px;
+  }
+}
+@media screen and (width >= 900px) {
+  .formWrapper :global .footer {
+    flex-direction: row;
+    text-align: unset;
+  }
+  .formWrapper :global .span {
+    margin: unset;
+  }
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,122 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 570px;
+  max-height: 85vh;
+  padding: 45px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--solitude) transparent;
+}
+.form::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.form::-webkit-scrollbar {
+  width: 2px;
+  background-color: var(--solitude);
+}
+.form:hover::-webkit-scrollbar-thumb {
+  background-color: var(--st-tropaz);
+  border-radius: 10px;
+}
+
+.addLink {
+  margin-top: 5px;
+  color: var(--vivid);
+  font-weight: 400;
+  font-size: 14px;
+}
+.addLink :global(.MuiButton-startIcon) {
+  margin-right: 4px;
+}
+
+.links {
+  margin-top: 37px;
+}
+
+.linkWrapper {
+  display: flex;
+}
+
+.link {
+  margin-bottom: 5px;
+}
+
+.links,
+.message {
+  width: 100%;
+  max-width: 330px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-color: var(--botticelli);
+}
+
+.messageLabel :global(.MuiFormLabel-asterisk) {
+  color: var(--vivid);
+}
+
+.formControl {
+  display: flex;
+  align-items: start;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.button {
+  text-transform: none;
+}
+
+.deleteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  min-width: 0;
+  height: 35px;
+  margin-left: 14px;
+  border: none;
+}
+.deleteButton:hover {
+  border: none;
+}
+
+.deleteIcon {
+  margin-right: 13px;
+  font-size: var(--font-size-h6);
+  fill: var(--steel-gray);
+}
+
+.submit {
+  margin-top: 30px;
+  padding: 15px 22px;
+  background-color: var(--st-tropaz);
+}
+
+.label {
+  margin-bottom: 5px;
+  color: var(--steel-gray);
+}
+
+.checkbox {
+  margin-top: 10px;
+}
+
+.templates {
+  margin: 10px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.templateButton {
+  flex-grow: 1;
+  justify-content: flex-start;
+  min-width: auto;
+}
+
+.error {
+  color: var(--error-primary);
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,47 @@
+.wrapper {
+  height: 100%;
+  padding-bottom: 15px;
+  overflow: hidden;
+}
+
+.list {
+  height: 100%;
+  padding: 10px 20px 30px;
+  overflow-y: scroll;
+  background-color: var(--white);
+}
+
+.button {
+  padding: unset;
+  color: var(--black);
+  font-size: 14px;
+  font-family: var(--font-family);
+  line-height: var(--line-height-maain);
+  text-transform: unset;
+  background-color: unset;
+  border: unset;
+  border-radius: unset;
+  box-shadow: unset;
+}
+
+.filters {
+  display: flex;
+}
+
+.talents,
+.employers {
+  padding: 15px;
+}
+
+.talents:hover,
+.employers:hover {
+  background-color: unset;
+  background-color: var(--outline);
+  box-shadow: unset;
+}
+
+.talents.active,
+.employers.active {
+  color: var(--st-tropaz);
+  border-bottom: 2px solid var(--st-tropaz);
+}/*# sourceMappingURL=styles.module.css.map */

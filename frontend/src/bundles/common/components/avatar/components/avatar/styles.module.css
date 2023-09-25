@@ -1,0 +1,12 @@
+.avatar {
+  width: 48px;
+  height: 48px;
+  background-color: var(--avatar-color);
+  border-radius: 12px;
+}
+
+.small {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}/*# sourceMappingURL=styles.module.css.map */

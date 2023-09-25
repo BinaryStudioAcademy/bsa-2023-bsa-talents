@@ -1,0 +1,156 @@
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.profileSecondSection {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.candidateInfo {
+  min-width: 324px;
+  max-width: 300px;
+  margin: 40px auto;
+  margin-bottom: 15px;
+  border: 1px solid var(--botticelli);
+  border-radius: 8px;
+}
+
+.salary::after {
+  content: " / mo";
+  color: var(--text-primary);
+  font-weight: var(--font-weight-regular);
+}
+.salary::before {
+  content: "$ ";
+}
+
+.salaryTitle {
+  padding-left: 35px;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--botticelli);
+}
+
+.candidateParamsList {
+  padding-left: 35px;
+}
+
+.icon {
+  width: 28px;
+  margin-right: 18px;
+  padding: 0;
+  color: var(--st-tropaz);
+}
+
+.redIcon {
+  color: var(--torch-red);
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: 20px;
+  border-bottom: 1px solid var(--botticelli);
+  padding-block: 25px;
+}
+
+.emptyPhoto {
+  width: 40px;
+  height: 40px;
+  margin-right: 17px;
+}
+
+.publishDate {
+  margin-left: 30px;
+  color: var(--nepal);
+}
+
+.contactButton {
+  height: 45px;
+  margin-top: 35px;
+  text-transform: none;
+  background-color: var(--background-secondary);
+  margin-inline: 30px;
+}
+
+.hireCandidates {
+  justify-content: center;
+  align-items: center;
+  min-width: 324px;
+  max-width: 300px;
+  height: 155px;
+  margin: 0 auto;
+  background-color: var(--background-primary);
+  border: 1px solid var(--botticelli);
+  border-radius: 8px;
+}
+
+.submit {
+  width: 185px;
+  height: 35px;
+  margin-top: 10px;
+  color: var(--st-tropaz);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  text-transform: none;
+  border: 1px solid var(--st-tropaz);
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (width <= 1300px) {
+  .profileSecondSection {
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .publishDate {
+    margin-left: 0;
+  }
+  .contactButton {
+    width: 230px;
+    margin-block: 10px;
+  }
+}
+@media screen and (width <= 660px) {
+  .candidateInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: none;
+    padding-inline: 5px;
+    margin-inline: 5px;
+  }
+  .candidateParamsList {
+    padding-left: 0;
+    border: none;
+  }
+  .salaryTitle {
+    padding-right: 120px;
+    border: none;
+    padding-block: 0;
+  }
+  .name {
+    padding-right: 150px;
+    padding-block: 0;
+    border: none;
+  }
+  .hireCandidates {
+    min-width: 100%;
+    border: none;
+    border-radius: 0;
+  }
+  .publishDate {
+    margin-top: -25px;
+  }
+}/*# sourceMappingURL=styles.module.css.map */

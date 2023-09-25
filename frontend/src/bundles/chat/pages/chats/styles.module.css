@@ -1,0 +1,103 @@
+:root {
+  --border: 1px solid var(--solitude);
+  --page-title-height: 70px;
+  --chat-header-height: 80px;
+  --chat-header-padding: 24px;
+  --chat-input-height: 90px;
+  --chat-wrapper-height: calc(
+      100vh - var(--header-height) - var(--page-title-height)
+  );
+  --chat-list-small-min-width: 250px;
+  --button-group-width: 135px;
+  --scroll-bar-color: var(--solitude);
+  --scroll-bar-thumb-color: var(--st-tropaz);
+  --scroll-bar-width: 2px;
+}
+:root ::-webkit-scrollbar {
+  width: var(--scroll-bar-width);
+  background-color: var(--scroll-bar-color);
+}
+:root ::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-color);
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  height: 70px;
+  padding-left: 50px;
+  border-bottom: 1px solid var(--solitude);
+  padding-block: 20px;
+}
+
+.chatWrapper {
+  position: relative;
+  height: var(--chat-wrapper-height);
+  overflow: hidden;
+  background-color: var(--white);
+}
+
+.chatWrapperOnChatListOpened {
+  overflow-y: hidden;
+}
+
+.chatList {
+  box-sizing: border-box;
+  min-width: 350px;
+  max-width: 350px;
+  border-right: var(--border);
+}
+
+.chatListSmall {
+  min-width: unset;
+  max-width: var(--chat-list-small-min-width);
+}
+
+.componentOpenedSmallest {
+  position: absolute;
+  top: var(--chat-header-height);
+  right: 0;
+  left: 0;
+  z-index: 1;
+  max-width: 100%;
+  height: calc(var(--chat-wrapper-height) - var(--page-title-height));
+  background-color: var(--white);
+}
+
+.chatInfoOpenedMD {
+  left: var(--chat-list-small-min-width);
+}
+
+.chatWindow {
+  position: relative;
+}
+
+.chatHeader {
+  height: var(--chat-header-height);
+  padding: var(--chat-header-padding);
+}
+
+.messageList {
+  flex-grow: 1;
+  height: calc(100% - var(--chat-header-height) - var(--chat-input-height));
+}
+
+.chatInput {
+  height: var(--chat-input-height);
+}
+
+.smallScreenButtonGroup {
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: var(--button-group-width);
+  height: var(--chat-header-height);
+  padding: 0 calc(var(--chat-header-padding) - 8px);
+}
+
+.chatCompanyInfo {
+  flex-basis: 350px;
+  min-width: 350px;
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,38 @@
+.btnReset {
+  all: unset;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: var(--solitude);
+}
+
+.card:global(.selected) {
+  background-color: var(--solitude);
+}
+
+.avatar {
+  margin: 0 12px 0 8px;
+  margin-right: 12px;
+  border-radius: 100%;
+}
+
+.name {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  margin-right: 8px;
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}/*# sourceMappingURL=styles.module.css.map */
