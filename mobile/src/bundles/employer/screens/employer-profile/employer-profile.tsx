@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { logout } from '~/bundles/auth/store/actions';
 import {
+    Button,
     ScrollView,
     StatusBar,
     Text,
@@ -8,7 +10,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
 import { useEmployerFormSubmit } from '~/bundles/employer/hooks/hooks';
@@ -18,6 +20,7 @@ import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
+    const dispatch = useAppDispatch();
 
     const { isApproved } = onboardingData ?? {};
 
@@ -44,6 +47,10 @@ const EmployerProfile: React.FC = () => {
         void handleSubmit(payload);
     };
 
+    const handleLogout = (): void => {
+        void dispatch(logout());
+    };
+
     return (
         <>
             <StatusBar
@@ -61,7 +68,19 @@ const EmployerProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>My profile</Text>
-                {!isApproved && <VerificationMessage />}
+                {isApproved ? (
+                    <Button
+                        label="Logout"
+                        style={[
+                            globalStyles.ml5,
+                            globalStyles.ph10,
+                            globalStyles.pv5,
+                        ]}
+                        onPress={handleLogout}
+                    />
+                ) : (
+                    <VerificationMessage />
+                )}
             </View>
 
             <ScrollView

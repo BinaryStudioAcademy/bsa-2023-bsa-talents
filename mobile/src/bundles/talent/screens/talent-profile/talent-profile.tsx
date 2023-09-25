@@ -1,13 +1,15 @@
 import React from 'react';
 
+import { logout } from '~/bundles/auth/store/actions';
 import {
+    Button,
     StatusBar,
     Text,
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './style';
@@ -15,6 +17,10 @@ import { styles } from './style';
 const TalentProfile: React.FC = () => {
     const { isApproved } =
         useAppSelector(({ common }) => common.onboardingData) ?? {};
+    const dispatch = useAppDispatch();
+    const handleLogout = (): void => {
+        void dispatch(logout());
+    };
 
     return (
         <>
@@ -34,7 +40,19 @@ const TalentProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Your profile</Text>
-                {!isApproved && <VerificationMessage />}
+                {isApproved ? (
+                    <Button
+                        label="Logout"
+                        style={[
+                            globalStyles.ml5,
+                            globalStyles.ph10,
+                            globalStyles.pv5,
+                        ]}
+                        onPress={handleLogout}
+                    />
+                ) : (
+                    <VerificationMessage />
+                )}
             </View>
         </>
     );
