@@ -5,4 +5,4 @@ export {
     type ChatResponseDto,
     type MessageResponseDto,
 } from './types/types.js';
-export { chatMessagesCreate as ChatMessagesCreateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { chatMessagesCreateValidationSchema } from './validation-schemas/validation-schemas.js';

@@ -11,7 +11,7 @@ import {
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
 import { URL_REGEX_CONSTANT } from './constants/constants.js';
 
-const userDetailsUpdate = joi
+const userDetailsUpdateValidationSchema = joi
     .object<UserDetailsUpdateRequestDto>({
         id: joi.string().trim(),
         userId: joi.string().trim(),
@@ -88,4 +88,4 @@ const userDetailsUpdate = joi
     })
     .or('id', 'userId');
 
-export { userDetailsUpdate };
+export { userDetailsUpdateValidationSchema };

@@ -15,7 +15,7 @@ export {
     type SkillsStepDto,
 } from './types/types.js';
 export {
-    BsaBadgesStepValidationSchema,
-    ProfileStepValidationSchema,
-    SkillsStepValidationSchema,
+    bsaBadgesStepValidationSchema,
+    profileStepValidationSchema,
+    skillsStepValidationSchema,
 } from './validation-schemas/validation-schemas.js';

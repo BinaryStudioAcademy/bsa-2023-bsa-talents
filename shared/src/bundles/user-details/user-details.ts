@@ -24,7 +24,7 @@ export {
     type UserDetailsUpdateDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
-export { userDetailsDeny as userDetailsDenyValidationSchema } from './validation-schemas/validation-schemas.js';
-export { userDetailsUpdate as userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
-export { userDetailsCreate as userDetailsCreateValidationSchema } from './validation-schemas/validation-schemas.js';
-export { userDetailsSearch as userDetailsSearchValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsDenyValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsUpdateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsCreateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userDetailsSearchValidationSchema } from './validation-schemas/validation-schemas.js';

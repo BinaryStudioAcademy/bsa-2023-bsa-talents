@@ -3,7 +3,7 @@ export {
     type ContactCandidateDto,
     ContactCandidateValidationMessage,
     ContactCandidateValidationRule,
-    ContactCandidateValidationSchema,
+    contactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
@@ -14,7 +14,7 @@ export {
 export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
-    ChatMessagesCreateValidationSchema,
+    chatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
     type MessageResponseDto,
@@ -33,17 +33,17 @@ export {
     BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationSchema,
+    bsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
-    ProfileStepValidationSchema,
+    profileStepValidationSchema,
     type SkillsStepDto,
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-    SkillsStepValidationSchema,
+    skillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     Country,

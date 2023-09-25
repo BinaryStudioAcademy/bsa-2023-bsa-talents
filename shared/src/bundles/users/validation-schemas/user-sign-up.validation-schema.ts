@@ -7,7 +7,7 @@ import {
 } from '../enums/enums.js';
 import { type UserSignUpRequestDto } from '../types/types.js';
 
-const userSignUp = joi.object<UserSignUpRequestDto, true>({
+const userSignUpValidationSchema = joi.object<UserSignUpRequestDto, true>({
     email: joi
         .string()
         .trim()
@@ -44,4 +44,4 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
         .required(),
 });
 
-export { userSignUp };
+export { userSignUpValidationSchema };

@@ -11,7 +11,10 @@ import {
 import { type UserDetailsCreateRequestDto } from '../types/types.js';
 import { URL_REGEX_CONSTANT } from './constants/constants.js';
 
-const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
+const userDetailsCreateValidationSchema = joi.object<
+    UserDetailsCreateRequestDto,
+    true
+>({
     userId: joi.string().trim().required(),
 
     profileName: joi.string().trim().allow(null),
@@ -70,4 +73,4 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
     completedStep: joi.string().trim(),
 });
 
-export { userDetailsCreate };
+export { userDetailsCreateValidationSchema };
