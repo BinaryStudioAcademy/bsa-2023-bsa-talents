@@ -29,7 +29,7 @@ class UserRepository implements Repository {
     }
 
     public async findById(id: string): Promise<UserEntity | null> {
-        const user = await this.userModel.query().findOne({ id });
+        const user = await this.userModel.query().findById(id);
 
         return user ? UserEntity.initialize(user) : null;
     }

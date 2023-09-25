@@ -127,6 +127,7 @@ export {
     getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
+    parseLMSServerData,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

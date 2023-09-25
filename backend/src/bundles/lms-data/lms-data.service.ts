@@ -1,13 +1,15 @@
 import { Headers } from 'node-fetch';
 
 import { userRepository } from '~/bundles/users/users.js';
+import { ErrorMessages } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
+import { parseLMSServerData } from './helpers/helpers.js';
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
 import {
-    type LMSDataResponseDto,
     type LMSDataServerResponseDto,
     type UserLMSDataDto,
 } from './types/types.js';
@@ -24,10 +26,7 @@ class LMSDataService implements Service {
         this.requestsToLMSHeaders = { 'X-Token': token ?? '' };
     }
 
-    public async findByUserId(
-        userId: string,
-    ): Promise<UserLMSDataDto | undefined | string> {
-        // TODO: remove string
+    public async findByUserId(userId: string): Promise<UserLMSDataDto> {
         const dataFromDB = await this.lmsDataRepository.findByUserId({
             userId,
         });
@@ -45,10 +44,7 @@ class LMSDataService implements Service {
                 userEmail,
             );
             if (dataFromLMS) {
-                const parsedLMSData = this.parseLMSServerData(
-                    userId,
-                    dataFromLMS,
-                );
+                const parsedLMSData = parseLMSServerData(userId, dataFromLMS);
 
                 const newDBRecord = await this.lmsDataRepository.create(
                     LMSDataEntity.initialize({
@@ -67,17 +63,21 @@ class LMSDataService implements Service {
                 return newDBRecord.toObject();
             }
 
-            return 'there is no such data on LMS server'; // TODO: change to error
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessages.NOT_FOUND_ON_LMS,
+            });
         }
 
-        return 'there is no such user'; // TODO: change to error
+        throw new HttpError({
+            status: HttpCode.NOT_FOUND,
+            message: ErrorMessages.USER_NOT_FOUND,
+        });
     }
 
     private async findByUserEmailOnLMSServer(
         email: string,
     ): Promise<LMSDataServerResponseDto | undefined> {
-        // TODO: specify type of return value
-
         const url = new URL(process.env.LMS_SERVER ?? '');
         url.searchParams.append('email', email);
 
@@ -85,10 +85,8 @@ class LMSDataService implements Service {
             headers: new Headers(this.requestsToLMSHeaders),
         });
 
-        //TODO: need change it to something proper
         const data = (await response.json()) as LMSDataServerResponseDto;
 
-        // TODO: need to refactor this check on error, this was quick solution
         if (!Object.keys(data).includes('talent')) {
             return undefined;
         }
@@ -96,40 +94,24 @@ class LMSDataService implements Service {
         return data;
     }
 
-    private parseLMSServerData(
-        userId: string,
-        serverData: LMSDataServerResponseDto,
-    ): LMSDataResponseDto {
-        return {
-            userId,
-            english: serverData.talent.english,
-            averageProjectScore: serverData.averageProjectScore,
-            averageLectureScore: serverData.averageLectureScore,
-            lectureDetails: serverData.lectureDetails,
-            projectCoachesFeedback: serverData.projectCoachesFeedback,
-            hrFeedback: serverData.hrFeedback,
-            project: serverData.project,
-        };
-    }
-
     public create(): ReturnType<Service['create']> {
-        return Promise.resolve(null);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public findAll(): ReturnType<Service['findAll']> {
-        return Promise.resolve({ items: [] });
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public update(): ReturnType<Service['update']> {
-        return Promise.resolve(null);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
     public delete(): ReturnType<Service['delete']> {
-        return Promise.resolve(true);
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 }
 
