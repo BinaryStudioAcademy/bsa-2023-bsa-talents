@@ -21,6 +21,7 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
+import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
@@ -52,6 +53,7 @@ type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     chatApi: typeof chatApi;
+    fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
@@ -116,6 +118,7 @@ class Store {
             authApi,
             userApi,
             chatApi,
+            fileUploadApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
             notification,
