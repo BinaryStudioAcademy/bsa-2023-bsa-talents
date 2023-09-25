@@ -3,12 +3,12 @@ import { type Knex } from 'knex';
 const TableName = {
     USER_DETAILS: 'user_details',
     TALENT_BADGES: 'talent_badges',
-};
+} as const;
 
 const ColumnName = {
     ID: 'id',
     USER_DETAILS_ID: 'user_details_id',
-};
+} as const;
 
 const RelationRule = {
     CASCADE: 'CASCADE',

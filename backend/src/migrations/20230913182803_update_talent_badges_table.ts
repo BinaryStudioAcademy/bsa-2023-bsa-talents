@@ -3,13 +3,13 @@ import { type Knex } from 'knex';
 const TableName = {
     TALENT_BADGES: 'talent_badges',
     USERS: 'users',
-};
+} as const;
 
 const ColumnName = {
     ID: 'id',
     USER_EMAIL: 'user_email',
     USER_ID: 'user_id',
-};
+} as const;
 
 const RelationRule = {
     CASCADE: 'CASCADE',
