@@ -149,10 +149,10 @@ class ConfigBase implements Config {
                 },
             },
             LMS_DATA_SERVER: {
-                X_TOKEN: {
+                LMS_X_TOKEN: {
                     doc: 'X-Token key used in request header to access talent data from LMS server',
                     format: String,
-                    env: 'X_TOKEN',
+                    env: 'LMS_X_TOKEN',
                     default: null,
                 },
                 LMS_SERVER: {

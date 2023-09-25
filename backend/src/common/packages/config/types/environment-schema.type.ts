@@ -31,7 +31,7 @@ type EnvironmentSchema = {
         AWS_BUCKET_NAME: string;
     };
     LMS_DATA_SERVER: {
-        X_TOKEN: string;
+        LMS_X_TOKEN: string;
         LMS_SERVER: string;
     };
 };

@@ -22,7 +22,7 @@ class LMSDataService implements Service {
     public constructor(lmsDataRepository: LMSDataRepository) {
         this.lmsDataRepository = lmsDataRepository;
         this.requestsToLMSHeaders = {
-            'X-Token': config.ENV.LMS_DATA_SERVER.X_TOKEN,
+            'X-Token': config.ENV.LMS_DATA_SERVER.LMS_X_TOKEN,
         };
     }
 
