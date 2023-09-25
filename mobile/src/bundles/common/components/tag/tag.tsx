@@ -16,12 +16,12 @@ type Properties = {
     iconSize?: number;
     onPress?: (value: string | number) => void;
 };
-const iconDefaultSize = 12;
+const DEFAULT_ICON_SIZE = 12;
 
 const Tag: React.FC<Properties> = ({
     value,
     iconName,
-    iconSize = iconDefaultSize,
+    iconSize = DEFAULT_ICON_SIZE,
     onPress,
 }) => {
     return (

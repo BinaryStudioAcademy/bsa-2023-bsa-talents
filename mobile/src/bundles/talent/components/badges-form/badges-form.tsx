@@ -38,7 +38,7 @@ type Properties = {
 };
 
 const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const { badgesData, dataStatus } = useCommonData();
 
     const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {

@@ -16,6 +16,11 @@ export {
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
 export {
+    type UserDetailsGeneralCreateRequestDto,
+    type UserDetailsGeneralRequestDto,
+    type UserDetailsGeneralResponseDto,
+} from './user-details-general/user-details-general-dto.type';
+export {
     type AutocompleteMultiSelectorValue,
     type CheckBoxProps,
     type CustomPhotoStyle,
@@ -58,7 +63,9 @@ export {
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
+    type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
+    type UserDetailsUpdateRequestDto,
     type ValidationSchema,
     type ValueOf,
 } from 'shared/build/index.js';

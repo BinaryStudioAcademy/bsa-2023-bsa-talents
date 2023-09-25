@@ -8,7 +8,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './styles';
 
 const ScoresAndSkillsContainer: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
         return null;

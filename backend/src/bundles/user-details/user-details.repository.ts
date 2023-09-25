@@ -1,5 +1,5 @@
 import { type UserDetailsSearchUsersRequestDto } from 'shared/build/index.js';
-import { ErrorMessages } from 'shared/build/index.js';
+import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
@@ -78,7 +78,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public findAll(): ReturnType<Repository['findAll']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async searchUsers(
@@ -93,11 +93,11 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            //TODO change column name for searchActiveCandidatesOnly when it will be created
-            if (payload.searchActiveCandidatesOnly) {
+            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
+            if (payload.isSearchActiveCandidatesOnly) {
                 void builder.where(
                     'isHired',
-                    payload.searchActiveCandidatesOnly,
+                    payload.isSearchActiveCandidatesOnly,
                 );
             }
 
@@ -277,7 +277,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

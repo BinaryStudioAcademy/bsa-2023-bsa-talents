@@ -1,7 +1,7 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'bsa_badges_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'bsa_badges_pkey';
 
 const TABLE_NAME = 'bsa_badges';
 
@@ -12,7 +12,7 @@ const ColumnName = {
     MAX_SCORE: 'max_score',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
@@ -22,8 +22,8 @@ async function up(knex: Knex): Promise<void> {
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
         table.string(ColumnName.TYPE).unique().notNullable();
         table.string(ColumnName.NAME).notNullable();
         table.integer(ColumnName.MAX_SCORE).notNullable();

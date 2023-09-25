@@ -14,12 +14,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    EmploymentType,
-    EnglishLevel,
-    IconName,
-} from '~/bundles/common/enums/enums';
+import { Color, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -28,17 +23,15 @@ import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 import {
     BSA_CHARACTERISTICS,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    EXPERIENCE_YEARS,
+    EMPLOYMENT_TYPE_OPTIONS,
+    ENGLISH_LEVELS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
-    SORT_VALUES,
-    USER_BSA_PROJECTS,
+    YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
-
-const englishLevels = Object.values(EnglishLevel);
-const employmentTypeOptions = Object.values(EmploymentType);
 
 type CandidatesFilterFormProperties = {
     onSubmit: (dto: EmployeesFiltersForm) => void;
@@ -138,7 +131,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteMultiSelector
-                    items={EXPERIENCE_YEARS}
+                    items={YEARS_EXPERIENCE}
                     control={control}
                     name="yearsOfExperience"
                     placeholder="Start typing and choose option"
@@ -177,7 +170,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                     control={control}
                     name="userBsaProject"
-                    items={USER_BSA_PROJECTS}
+                    items={BSA_PROJECTS}
                 />
             </FormField>
             <FormField
@@ -200,18 +193,18 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={englishLevels}
+                    options={ENGLISH_LEVELS}
                 />
             </FormField>
             <FormField
                 label="Employment type"
-                name="employmentType"
+                name="employmentTypes"
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
                     control={control}
-                    name="employmentType"
-                    options={employmentTypeOptions}
+                    name="employmentTypes"
+                    options={EMPLOYMENT_TYPE_OPTIONS}
                 />
             </FormField>
             <Button

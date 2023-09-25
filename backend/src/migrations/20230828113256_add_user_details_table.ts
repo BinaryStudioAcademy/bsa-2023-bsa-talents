@@ -1,14 +1,13 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'user_details_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'user_details_pkey';
 
 const TableName = {
     USERS: 'users',
     USER_DETAILS: 'user_details',
     FILES: 'files',
-};
-const TABLE_NAME = 'user_details';
+} as const;
 
 const ColumnName = {
     ID: 'id',
@@ -39,7 +38,7 @@ const ColumnName = {
     CV_ID: 'cv_id',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 const RelationRule = {
     CASCADE: 'CASCADE',
@@ -49,13 +48,13 @@ const RelationRule = {
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
-    return knex.schema.createTable(TABLE_NAME, (table) => {
+    return knex.schema.createTable(TableName.USER_DETAILS, (table) => {
         table
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
         table
             .uuid(ColumnName.USER_ID)
             .unique()
@@ -115,7 +114,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-    return knex.schema.dropTableIfExists(TABLE_NAME);
+    return knex.schema.dropTableIfExists(TableName.USER_DETAILS);
 }
 
 export { down, up };

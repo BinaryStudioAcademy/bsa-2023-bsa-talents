@@ -14,6 +14,7 @@ export {
 export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
+    ChatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
     type MessageResponseDto,
@@ -26,7 +27,11 @@ export {
     type HardSkillsItem,
     type HardSkillsResponseDto,
 } from './bundles/common-data/common-data.js';
-export { FileApiPath } from './bundles/file/file.js';
+export {
+    FileApiPath,
+    type FileUploadResponse,
+    type UploadedFile,
+} from './bundles/file/file.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
@@ -48,14 +53,14 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience as ExperienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -93,7 +98,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
@@ -118,7 +123,6 @@ export {
     getBadgeColor,
     getBadgeIcon,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
 } from './helpers/helpers.js';

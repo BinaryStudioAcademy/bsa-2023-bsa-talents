@@ -28,7 +28,7 @@ const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const dispatch = useAppDispatch();
     const { dataStatus: employerDataStatus, talentsData } = useAppSelector(
-        ({ employees }) => employees,
+        ({ common }) => common,
     );
     const { dataStatus: commonDataStatus } = useCommonData();
 
@@ -75,7 +75,7 @@ const Candidates: React.FC = () => {
                 <CandidatesHeader numberOfUsers={filteredCandidates?.length} />
                 <SearchTalents
                     searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
+                    onSearch={setSearchQuery}
                 />
                 {isDataLoading ? (
                     <Loader />

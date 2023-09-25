@@ -25,10 +25,10 @@ import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     MAX_LINKS,
     NOT_CONSIDERED,
-    PREFERRED_LANGUAGES_ARRAY,
+    PREFERRED_LANGUAGES,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
@@ -85,7 +85,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={ENGLISH_LEVEL}
+                    options={ENGLISH_LEVELS}
                     control={control}
                     name="englishLevel"
                     placeholder="Option"
@@ -113,10 +113,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={PREFERRED_LANGUAGES_ARRAY}
+                    options={PREFERRED_LANGUAGES}
                     control={control}
                     name="preferredLanguages"
-                    multiSelect={true}
+                    isMultiSelect={true}
                     placeholder="Option"
                 />
             </FormField>

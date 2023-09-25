@@ -14,14 +14,12 @@ import {
     getBadgeById,
     getHardSkillByValue,
 } from '~/bundles/employer/helpers/helpers';
-import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
+import { type Candidate } from '~/bundles/employer/types/types';
 
-import { CardConstants } from './constants/constants';
+import { MaxValue } from './constants/constants';
 import { styles } from './styles';
 
-const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
-
-const CandidateCard: React.FC<UserDetailsResponseDto> = ({
+const CandidateCard: React.FC<Candidate> = ({
     userId,
     fullName,
     salaryExpectation,
@@ -94,7 +92,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                 {talentBadges
                     //TODO: remove after backend got badges values
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    ?.slice(0, MAX_BADGES)
+                    ?.slice(0, MaxValue.BADGES)
                     .map(
                         ({ level, score, badgeId, isShown }) =>
                             isShown && (
@@ -131,7 +129,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                 {talentHardSkills
                     //TODO: remove after backend got skills values
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    ?.slice(0, MAX_SKILLS)
+                    ?.slice(0, MaxValue.SKILLS)
                     .map(({ hardSkillId }) => (
                         <Tag
                             key={hardSkillId}
@@ -146,7 +144,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
-                    {description?.slice(0, MAX_CHAR_COUNT)}...
+                    {description?.slice(0, MaxValue.CHAR_COUNT)}...
                 </Text>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />

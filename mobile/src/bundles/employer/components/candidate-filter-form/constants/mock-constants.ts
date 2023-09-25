@@ -3,7 +3,7 @@ import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const DEFAULT_VALUES: EmployeesFiltersForm = {
     sortBy: undefined,
-    searchActiveCandidatesOnly: true,
+    isSearchActiveCandidatesOnly: true,
     jobTitle: [],
     hardSkills: [],
     userBsaCharacteristics: [],

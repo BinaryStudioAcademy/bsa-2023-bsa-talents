@@ -19,7 +19,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData, dataStatus } = useAppSelector(
-        ({ talents }) => talents,
+        ({ common }) => common,
     );
 
     const {

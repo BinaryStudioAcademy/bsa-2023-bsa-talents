@@ -22,13 +22,13 @@ type Properties = {
     size?: TBadgeSize;
 };
 
-const defaultIconSize = 40;
+const DEFAULT_ICON_SIZE = 40;
 
 const Badge: React.FC<Properties> = ({
     badge,
     score,
     level,
-    iconSize = defaultIconSize,
+    iconSize = DEFAULT_ICON_SIZE,
     size = BadgeSize.LARGE,
 }) => {
     const valueFontSize =

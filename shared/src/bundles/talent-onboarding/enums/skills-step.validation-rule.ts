@@ -1,13 +1,13 @@
 import {
     EnglishLevel,
     NotConsidered,
-    PreferredLanguages,
+    PreferredLanguage,
 } from '../../user-details/user-details.js';
 
 const SkillsStepValidationRule = {
     ENGLISH_LEVEL: EnglishLevel,
     NOT_CONSIDERED: NotConsidered,
-    PREFERRED_LANGUAGES: PreferredLanguages,
+    PREFERRED_LANGUAGES: PreferredLanguage,
     HARD_SKILLS_MIN_LENGTH: 1,
     NOT_CONSIDERED_MIN_LENGTH: 1,
     PREFERRED_LANGUAGES_MIN_LENGTH: 1,

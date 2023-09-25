@@ -5,7 +5,7 @@ type SelectorValues = Omit<
     UserDetailsSearchUsersRequestDto,
     | 'englishLevel'
     | 'employmentType'
-    | 'searchActiveCandidatesOnly'
+    | 'isSearchActiveCandidatesOnly'
     | 'sortBy'
     | 'isBaseSearch'
     | 'searchValue'
@@ -14,7 +14,10 @@ type SelectorValues = Omit<
 
 type EmployeesFiltersForm = Pick<
     UserDetailsSearchUsersRequestDto,
-    'searchActiveCandidatesOnly' | 'englishLevel' | 'employmentType' | 'sortBy'
+    | 'isSearchActiveCandidatesOnly'
+    | 'englishLevel'
+    | 'employmentType'
+    | 'sortBy'
 > &
     Record<keyof SelectorValues, AutocompleteMultiSelectorValue[]>;
 

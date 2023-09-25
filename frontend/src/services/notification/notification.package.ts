@@ -1,6 +1,6 @@
 import { toast, type ToastOptions } from 'react-toastify';
 
-import { NotificationType } from './enums/notification-types.enum.js';
+import { NotificationType } from './enums/notification-type.enum.js';
 
 type Message = string | undefined;
 

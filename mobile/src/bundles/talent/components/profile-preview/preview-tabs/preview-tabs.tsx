@@ -18,9 +18,9 @@ import { ProfileTab } from '~/bundles/talent/enums/enums';
 
 import { styles } from './styles';
 
-const tabs = Object.values(ProfileTab);
-
 type Tab = ValueOf<typeof ProfileTab>;
+
+const tabs = Object.values(ProfileTab);
 
 const PreviewTabs: React.FC = () => {
     const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
