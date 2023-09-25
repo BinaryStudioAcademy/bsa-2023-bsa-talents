@@ -25,6 +25,7 @@ import { CandidateProfile } from '~/bundles/talent-onboarding/components/compone
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import styles from './styles.module.scss';
 
 const FIELDS: [
@@ -66,7 +67,7 @@ const Candidates: React.FC = () => {
     const [isFilterOpened, setIsFilterOpened] = useState(false);
 
     const searchCandidates = useCallback(
-        (resolvedFilters: EmployeesFiltersDto): void => {
+        (resolvedFilters: UserDetailsSearchUsersRequestDto): void => {
             void dispatch(employerActions.searchCandidates(resolvedFilters));
         },
         [dispatch],
@@ -78,7 +79,12 @@ const Candidates: React.FC = () => {
     );
 
     useEffect(() => {
-        const editedValues: EmployeesFiltersDto = getValues();
+        const valuesfromForm: EmployeesFiltersDto = getValues();
+        const editedValues: UserDetailsSearchUsersRequestDto = {
+            ...valuesfromForm,
+            hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
+        };
+
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
             void dispatch(employerActions.setFilters(editedValues));
             debouncedDispatch(editedValues, (filters) => filters);
@@ -90,7 +96,12 @@ const Candidates: React.FC = () => {
     }, [isFilterOpened]);
 
     useEffect(() => {
-        void dispatch(employerActions.searchCandidates(filters));
+        const valuesfromForm: EmployeesFiltersDto = getValues();
+        const editedValues: UserDetailsSearchUsersRequestDto = {
+            ...valuesfromForm,
+            hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
+        };
+        void dispatch(employerActions.searchCandidates(editedValues));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
