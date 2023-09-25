@@ -1,1 +1,1 @@
-export { ErrorMessages } from 'shared/build/index.js';
+export { ErrorMessage } from 'shared/build/index.js';

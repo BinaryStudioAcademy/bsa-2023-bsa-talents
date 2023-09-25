@@ -8,7 +8,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
@@ -44,7 +44,7 @@ class AuthService {
 
         if (userByEmail) {
             throw new HttpError({
-                message: ErrorMessages.EMAIL_ALREADY_EXISTS,
+                message: ErrorMessage.EMAIL_ALREADY_EXISTS,
                 status: HttpCode.BAD_REQUEST,
             });
         }
@@ -65,7 +65,7 @@ class AuthService {
 
         if (!user) {
             throw new HttpError({
-                message: ErrorMessages.INCORRECT_EMAIL,
+                message: ErrorMessage.INCORRECT_EMAIL,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -77,7 +77,7 @@ class AuthService {
 
         if (!isEqualPassword) {
             throw new HttpError({
-                message: ErrorMessages.PASSWORDS_NOT_MATCH,
+                message: ErrorMessage.PASSWORDS_NOT_MATCH,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
@@ -91,7 +91,7 @@ class AuthService {
         if (!user) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_NOT_FOUND,
+                message: ErrorMessage.USER_NOT_FOUND,
             });
         }
         return user;

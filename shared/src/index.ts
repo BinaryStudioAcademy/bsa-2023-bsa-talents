@@ -100,7 +100,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
     NotificationMessages,
     ServerErrorType,

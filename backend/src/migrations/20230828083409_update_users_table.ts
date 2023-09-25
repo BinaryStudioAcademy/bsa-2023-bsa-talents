@@ -1,13 +1,13 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'users_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'users_pkey';
 
 const TABLE_NAME = 'users';
 
 const ColumnName = {
     ID: 'id',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
@@ -22,14 +22,14 @@ async function up(knex: Knex): Promise<void> {
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
     });
 }
 
 async function down(knex: Knex): Promise<void> {
     await knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.dropPrimary(constraintName);
+        table.dropPrimary(CONTRAINT_NAME);
         table.dropColumn(ColumnName.ID);
     });
 
