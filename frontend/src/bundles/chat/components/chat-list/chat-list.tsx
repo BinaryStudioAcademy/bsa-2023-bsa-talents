@@ -45,6 +45,8 @@ const ChatList: React.FC<Properties> = ({ onItemClick }) => {
             avatar: partner.avatarUrl,
             fullName: partner.profileName ?? '',
             isSelected: currentChatId === chat.chatId,
+            receiver,
+            sender,
         };
     });
 

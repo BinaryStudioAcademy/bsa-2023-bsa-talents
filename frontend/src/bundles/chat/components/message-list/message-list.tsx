@@ -11,7 +11,6 @@ import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    // messages: Message[];
     className?: string;
 };
 
@@ -26,7 +25,19 @@ const MessageList: React.FC<Properties> = ({ className }) => {
         }),
     );
 
-    let receiver: ChatParticipantDto, sender: ChatParticipantDto;
+    let receiver: ChatParticipantDto = {
+        id: '',
+        profileName: '',
+        companyName: '',
+        avatarUrl: '',
+    };
+    let sender: ChatParticipantDto = {
+        id: '',
+        profileName: '',
+        companyName: '',
+        avatarUrl: '',
+    };
+
     const selectedChat = chats.find((chat) => chat.chatId === currentChatId);
 
     if (selectedChat) {
@@ -37,6 +48,7 @@ const MessageList: React.FC<Properties> = ({ className }) => {
     const messages = chatMessages.map((message) => {
         const match = message.senderId === sender.id ? sender : receiver;
         return {
+            chatId: message.chatId,
             id: message.id,
             userId: message.senderId,
             value: message.message,

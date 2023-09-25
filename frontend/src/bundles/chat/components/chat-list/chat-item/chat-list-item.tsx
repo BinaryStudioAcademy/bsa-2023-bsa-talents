@@ -20,7 +20,7 @@ const ChatListItem: React.FC<Properties> = ({
     lastMessage = '',
     lastMessageDate = '',
     avatar = '',
-    isSelected,
+    isSelected = false,
     onClick,
 }) => {
     const handleClick = useCallback((): void => {

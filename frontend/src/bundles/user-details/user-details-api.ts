@@ -3,6 +3,8 @@ import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
+import { type UserDetailsGeneralCustom } from '../talent-onboarding/types/types.js';
+
 type Constructor = {
     baseUrl: string;
     http: Http;
@@ -14,7 +16,9 @@ class UserDetailsApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async getUserDetailsById(payload: string): Promise<unknown> {
+    public async getUserDetailsById(
+        payload: string,
+    ): Promise<UserDetailsGeneralCustom | null> {
         const path = '/:userId/company'.replace(':userId', payload);
         const response = await this.load(this.getFullEndpoint(path, {}), {
             method: 'GET',
@@ -22,7 +26,7 @@ class UserDetailsApi extends HttpApiBase {
             hasAuth: true,
         });
 
-        return await response.json();
+        return await response.json<UserDetailsGeneralCustom>();
     }
 }
 

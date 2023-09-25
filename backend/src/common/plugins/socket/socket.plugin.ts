@@ -16,44 +16,48 @@ const socket: FastifyPluginCallback = (
         },
     });
 
-    const connectedUsers = new Map();
+    const activeChatRooms = new Map<string, string[]>();
 
     io.of(SocketNamespace.CHAT).on(SocketEvent.CONNECTION, (socket) => {
-        // const userId = socket.handshake.query.userId;
-        // connectedUsers.set(userId, socket.id);
-
         socket.on(
             SocketEvent.CHAT_JOIN_ROOM,
             ({ userId, chatId }: { userId: string; chatId: string }) => {
-                connectedUsers.set(userId, socket.id); // TODO: temporary solution while we can not get userId on connection
-                return socket.join(chatId);
+                if (activeChatRooms.has(chatId)) {
+                    const oldValue = activeChatRooms.get(chatId) as string[];
+                    const newValue = oldValue.includes(userId)
+                        ? oldValue
+                        : [...oldValue, userId];
+
+                    activeChatRooms.set(chatId, newValue);
+                } else {
+                    activeChatRooms.set(chatId, [userId]);
+                }
             },
         );
 
-        socket.on(SocketEvent.CHAT_LEAVE_ROOM, (chatId: string) => {
-            return socket.leave(chatId);
-        });
+        socket.on(
+            SocketEvent.CHAT_LEAVE_ROOM,
+            ({ userId, chatId }: { userId: string; chatId: string }) => {
+                const oldValue = activeChatRooms.get(chatId);
+                const ONE = 1;
+                if (oldValue && oldValue.length > ONE) {
+                    const newValue = oldValue.filter((it) => it !== userId);
+                    activeChatRooms.set(chatId, newValue);
+                } else {
+                    activeChatRooms.delete(chatId);
+                }
+            },
+        );
 
         socket.on(
             SocketEvent.CHAT_CREATE_MESSAGE,
             (payload: MessageResponseDto) => {
-                // const receiverId = connectedUsers.get(payload.receiverId);
-
                 socket.broadcast.emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
-
-                // if (receiverId) {
-                //     socket
-                //         .to(receiverId)
-                //         .emit(SocketEvent.CHAT_ADD_MESSAGE, payload);
-                // }
             },
         );
 
         socket.on(SocketEvent.DISCONNECT, () => {
-            const userId = [...connectedUsers.values()].find(
-                (it) => it === socket.id,
-            );
-            connectedUsers.delete(userId);
+            // TODO: What do went to do for disconnection from socket
         });
     });
 
