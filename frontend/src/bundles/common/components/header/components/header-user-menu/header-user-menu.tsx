@@ -15,7 +15,7 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { getStepRoute } from '~/bundles/profile-cabinet/helpers/helpers.js';
+import { configureString } from '~/helpers/helpers.js';
 import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
 
 import styles from './styles.module.scss';
@@ -41,7 +41,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     const role = useAppSelector((state) => state.auth.currentUser?.role);
 
     const handleCheckProfile = useCallback((): void => {
-        navigate(getStepRoute('profile', role));
+        navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
 
     return (
