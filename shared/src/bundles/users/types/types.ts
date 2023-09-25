@@ -1,8 +1,13 @@
 export { type UserCreateResponseDto } from './user-create-response-dto.type.js';
 export { type UserFindResponseDto } from './user-find-response-dto.type.js';
+export { type UserForgotPasswordRequestDto } from './user-forgot-password-request-dto.js';
+export { type UserForgotPasswordResponseDto } from './user-forgot-password-response-dto.js';
 export { type UserGetAllItemResponseDto } from './user-get-all-item-response-dto.type.js';
 export { type UserGetAllResponseDto } from './user-get-all-response-dto.type.js';
 export { type UserGetLMSDataById } from './user-get-lms-data-by-id.js';
+export { type UserResetPasswordDto } from './user-reset-password-dto.js';
+export { type UserResetPasswordRequestDto } from './user-reset-password-request-dto.js';
+export { type UserResetPasswordResponseDto } from './user-reset-password-response-dto.js';
 export { type UserSignInRequestDto } from './user-sign-in-request-dto.type.js';
 export { type UserSignInResponseDto } from './user-sign-in-response-dto.type.js';
 export { type UserSignUpRequestDto } from './user-sign-up-request-dto.type.js';

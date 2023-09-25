@@ -89,9 +89,17 @@ export {
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetLMSDataById,
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
+    userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
@@ -108,6 +116,7 @@ export {
     ErrorMessage,
     FileUploadErrorMessage,
     LMSDataApiPath,
+    NotificationMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';

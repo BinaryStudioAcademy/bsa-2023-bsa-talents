@@ -12,6 +12,8 @@ const userController = new UserController(logger, userService, lmsDataService);
 
 export { userController, userRepository, userService };
 export {
+    type UserForgotPasswordRequestDto,
+    type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
@@ -19,6 +21,8 @@ export {
 export { UserModel } from './user.model.js';
 export { UserService } from './user.service.js';
 export {
+    userForgotPasswordValidationSchema,
+    userResetPasswordValidationSchema,
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from './validation-schemas/validation-schemas.js';
