@@ -21,7 +21,7 @@ import {
     CandidatesHeader,
     SearchTalents,
 } from '~/bundles/employer/components/components';
-import { getTalentsData } from '~/bundles/employer/store/actions';
+import { getTalents } from '~/bundles/employer/store/actions';
 import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 const Candidates: React.FC = () => {
@@ -33,7 +33,7 @@ const Candidates: React.FC = () => {
     const { dataStatus: commonDataStatus } = useCommonData();
 
     useEffect(() => {
-        void dispatch(getTalentsData());
+        void dispatch(getTalents());
     }, [dispatch]);
 
     const renderCandidateCard = ({

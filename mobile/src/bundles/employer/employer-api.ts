@@ -16,19 +16,7 @@ class EmployerApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async getAllTalents(): Promise<UserDetailsResponseDto[]> {
-        const response = await this.load(
-            this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
-        );
-        return await response.json<UserDetailsResponseDto[]>();
-    }
-
-    public async getFilteredTalents(
+    public async getTalents(
         payload: string,
     ): Promise<UserDetailsResponseDto[]> {
         const response = await this.load(

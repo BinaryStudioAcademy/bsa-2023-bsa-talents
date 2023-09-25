@@ -10,7 +10,7 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CandidatesFilterForm } from '~/bundles/employer/components/components';
 import { transformCandidateFilterFormToQuery } from '~/bundles/employer/helpers/helpers';
-import { getFilteredTalents } from '~/bundles/employer/store/actions';
+import { getTalents } from '~/bundles/employer/store/actions';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const CandidatesFilter: React.FC = () => {
@@ -19,7 +19,7 @@ const CandidatesFilter: React.FC = () => {
     const handleFormSubmit = useCallback(
         (payload: EmployeesFiltersForm): void => {
             const queryString = transformCandidateFilterFormToQuery(payload);
-            void dispatch(getFilteredTalents(queryString));
+            void dispatch(getTalents(queryString));
         },
         [dispatch],
     );

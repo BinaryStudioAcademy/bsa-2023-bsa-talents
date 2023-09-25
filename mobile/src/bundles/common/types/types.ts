@@ -58,6 +58,7 @@ export {
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
+    type UserDetailsResponseDto,
     type ValidationSchema,
     type ValueOf,
 } from 'shared/build/index.js';

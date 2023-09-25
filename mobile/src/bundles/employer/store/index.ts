@@ -1,10 +1,9 @@
-import { getFilteredTalents, getTalentsData } from './actions';
+import { getTalents } from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
-    getTalentsData,
-    getFilteredTalents,
+    getTalents,
 };
 
 export { allActions as actions };
