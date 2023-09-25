@@ -15,7 +15,7 @@ import { styles } from './styles';
 type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 
 const ScoresAndSkillsContainer: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
         return null;

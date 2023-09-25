@@ -1,12 +1,12 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'talent_badges_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'talent_badges_pkey';
 
 const TableName = {
     TALENT_BADGES: 'talent_badges',
     BSA_BADGES: 'bsa_badges',
-};
+} as const;
 
 const ColumnName = {
     ID: 'id',
@@ -18,7 +18,7 @@ const ColumnName = {
     IS_SHOWN: 'is_shown',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 const RelationRule = {
     CASCADE: 'CASCADE',
@@ -32,8 +32,8 @@ async function up(knex: Knex): Promise<void> {
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
         table.integer(ColumnName.SCORE);
         table.string(ColumnName.LEVEL);
         table.boolean(ColumnName.IS_SHOWN).notNullable();

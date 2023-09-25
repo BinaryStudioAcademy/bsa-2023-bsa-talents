@@ -11,11 +11,8 @@ import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Candidate } from '~/bundles/employer/types/types';
 
+import { MaxValue } from './constants/constants';
 import { styles } from './styles';
-
-const maxSkills = 4;
-const maxBadges = 2;
-const maxCharCount = 150;
 
 const CandidateCard: React.FC<Candidate> = ({
     userId,
@@ -77,7 +74,7 @@ const CandidateCard: React.FC<Candidate> = ({
                     styles.badgeContainer,
                 ]}
             >
-                {badges.slice(0, maxBadges).map((badge) => (
+                {badges.slice(0, MaxValue.BADGES).map((badge) => (
                     <Badge
                         key={badge.label}
                         value={badge.value}
@@ -102,13 +99,13 @@ const CandidateCard: React.FC<Candidate> = ({
                 >
                     Skills
                 </Text>
-                {hardSkills.slice(0, maxSkills).map((skill) => (
+                {hardSkills.slice(0, MaxValue.SKILLS).map((skill) => (
                     <Tag key={skill} value={skill} />
                 ))}
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
-                    {description?.slice(0, maxCharCount)}...
+                    {description?.slice(0, MaxValue.CHAR_COUNT)}...
                 </Text>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />

@@ -1,4 +1,4 @@
-const CountryList = {
+const Country = {
     AFGHANISTAN: 'Afghanistan',
     ALBANIA: 'Albania',
     ALGERIA: 'Algeria',
@@ -207,4 +207,4 @@ const CountryList = {
     ZIMBABWE: 'Zimbabwe',
 } as const;
 
-export { CountryList };
+export { Country };

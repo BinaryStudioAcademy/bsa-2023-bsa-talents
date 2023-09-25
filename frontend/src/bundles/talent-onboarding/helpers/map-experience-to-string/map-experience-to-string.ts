@@ -1,4 +1,4 @@
-function formatNumber(number: number): string {
+const formatNumber = (number: number): number => {
     let string_ = String(number);
 
     if (string_.includes('.')) {
@@ -6,6 +6,7 @@ function formatNumber(number: number): string {
         string_ = string_.replace(/\.$/, '');
     }
 
-    return string_;
-}
+    return Number(string_);
+};
+
 export { formatNumber };
