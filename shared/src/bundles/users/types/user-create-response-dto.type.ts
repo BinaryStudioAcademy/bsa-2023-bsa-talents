@@ -1,4 +1,4 @@
-import { type ValueOf } from '~/types/value-of.type.js';
+import { type ValueOf } from '~/types/types.js';
 
 import { type UserRole } from '../enums/enums.js';
 
