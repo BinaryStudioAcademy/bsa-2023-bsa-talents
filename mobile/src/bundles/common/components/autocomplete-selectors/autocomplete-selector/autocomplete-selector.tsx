@@ -26,11 +26,12 @@ import { styles } from '../styles';
 import { ICON_SIZE } from './constants/constants';
 
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
     items: string[];
+    hasError?: boolean;
+    control?: Control<T, null>;
     placeholder?: string;
+    isIconShown?: boolean;
 };
 
 const AutocompleteSelector = <T extends FieldValues>({
@@ -39,6 +40,7 @@ const AutocompleteSelector = <T extends FieldValues>({
     hasError,
     items,
     placeholder,
+    isIconShown = true,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
@@ -95,11 +97,13 @@ const AutocompleteSelector = <T extends FieldValues>({
                         <Animated.View
                             style={[iconAnimatedStyle, styles.dropdownButton]}
                         >
-                            <MaterialIcon
-                                name={IconName.ARROW_DROP_DOWN}
-                                size={ICON_SIZE}
-                                color={Color.PRIMARY}
-                            />
+                            {isIconShown && (
+                                <MaterialIcon
+                                    name={IconName.ARROW_DROP_DOWN}
+                                    size={ICON_SIZE}
+                                    color={Color.PRIMARY}
+                                />
+                            )}
                         </Animated.View>
                     </TouchableOpacity>
                 </View>
