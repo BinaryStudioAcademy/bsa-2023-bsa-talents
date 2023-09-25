@@ -12,7 +12,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     true
 >({
     profilePhoto: joi.object().required(),
-    companyLogo: joi.object().required(),
+    companyLogo: joi.object().allow(null),
     fullName: joi
         .string()
         .trim()
@@ -125,10 +125,10 @@ const EmployerOnboardingFormValidationSchema = joi.object<
         .pattern(/^[\s\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+$/)
         .required()
         .messages({
-            'string.max':
-                EmployerOnboardingFormValidationMessage.DESCRIPTION_MAX_LENGTH,
             'string.empty':
                 EmployerOnboardingFormValidationMessage.DESCRIPTION_REQUIRED,
+            'string.max':
+                EmployerOnboardingFormValidationMessage.DESCRIPTION_MAX_LENGTH,
         }),
 });
 
