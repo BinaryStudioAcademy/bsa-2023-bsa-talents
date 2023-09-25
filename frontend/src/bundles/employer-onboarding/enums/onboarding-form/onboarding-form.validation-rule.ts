@@ -12,6 +12,7 @@ const EmployerOnboardingValidationRule = {
     MIN_COMPANY_NAME_LENGTH: 2,
     MAX_COMPANY_NAME_LENGTH: 50,
     MAX_FILE_SIZE: 5_242_880,
+    URL_REGEX_CONSTANT: /^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/,
 } as const;
 
 export { EmployerOnboardingValidationRule };
