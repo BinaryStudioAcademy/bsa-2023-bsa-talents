@@ -104,6 +104,7 @@ const ProfileScreenProfileForm: React.FC<Properties> = ({
                         keyboardType="numeric"
                         marker="$"
                         defaultValue={userData.salaryExpectation.toString()}
+                        value={undefined}
                     />
                 </FormField>
                 <FormField
