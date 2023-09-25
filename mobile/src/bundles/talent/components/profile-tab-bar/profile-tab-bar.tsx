@@ -15,14 +15,13 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
 }) => {
     return (
         <View style={styles.container}>
-            <Text category={TextCategory.H3} style={globalStyles.p15}>
+            <Text category={TextCategory.H3} style={globalStyles.p25}>
                 Your Profile
             </Text>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentCenter,
-                    globalStyles.mb15,
                     styles.navigations,
                 ]}
             >
