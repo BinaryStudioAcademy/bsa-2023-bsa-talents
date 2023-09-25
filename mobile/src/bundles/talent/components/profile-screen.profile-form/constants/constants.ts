@@ -1,8 +1,5 @@
-import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '~/bundles/common/enums/enums';
+import { EmploymentType, JobTitle } from '~/bundles/common/enums/enums';
+import { CountryList } from '~/bundles/talent/enums/enums';
 
 const JOB_TITLE_OPTIONS = Object.values(JobTitle);
 const LOCATION_OPTIONS = Object.values(CountryList);

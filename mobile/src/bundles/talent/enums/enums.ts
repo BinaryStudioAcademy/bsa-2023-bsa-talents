@@ -6,6 +6,7 @@ export { ProfileDetailsScreenName } from './profile-details-screen-name/profile-
 export { ProfileTab } from './profile-tab/profile-tab.enum';
 export {
     AuthApiPath,
+    CountryList,
     ProfileStepValidationRule,
     SkillsStepValidationRule,
     UserDetailsApiPath,
