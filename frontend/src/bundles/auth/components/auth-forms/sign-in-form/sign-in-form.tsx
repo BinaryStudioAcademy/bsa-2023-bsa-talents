@@ -64,7 +64,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.email ? '' : 'email',
                     )}
                 >
-                    <FormLabel className="label">Email*</FormLabel>
+                    <FormLabel className="label">
+                        Email
+                        <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
@@ -78,7 +81,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors.password ? '' : 'password',
                     )}
                 >
-                    <FormLabel className="label">Password*</FormLabel>
+                    <FormLabel className="label">
+                        Password
+                        <span className={styles.required}>*</span>
+                    </FormLabel>
                     <Input
                         control={control}
                         errors={errors}
