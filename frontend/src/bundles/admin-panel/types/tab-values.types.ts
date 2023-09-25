@@ -1,7 +1,7 @@
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { type PreviewTabs } from '../constants/preview-tabs.constant.js';
+import { type PreviewTab } from '../constants/preview-tab.constant.js';
 
-type TabValues = ValueOf<typeof PreviewTabs>;
+type TabValues = ValueOf<typeof PreviewTab>;
 
 export { type TabValues };
