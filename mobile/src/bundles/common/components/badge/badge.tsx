@@ -37,12 +37,12 @@ type Properties = {
     size?: TBadgeSize;
 };
 
-const defaultIconSize = 40;
+const DEFAULT_ICON_SIZE = 40;
 
 const Badge: React.FC<Properties> = ({
     badgeType,
     value,
-    iconSize = defaultIconSize,
+    iconSize = DEFAULT_ICON_SIZE,
     size = BadgeSize.LARGE,
 }) => {
     // TODO: replace with real data

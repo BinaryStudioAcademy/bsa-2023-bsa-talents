@@ -16,7 +16,7 @@ import {
     launchCamera,
     launchImageLibrary,
 } from '~/bundles/common/helpers/helpers';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { useCallback, useVisibility } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type ImagePickerResponse,
@@ -42,14 +42,15 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
     onImageLoad,
     containerStyle,
 }) => {
-    const [isPopUpActive, setIsPopUpActive] = useState(shouldHideButton);
+    const { isVisible, handleToggleVisibility } =
+        useVisibility(shouldHideButton);
 
     const getImageFromLibrary = useCallback((): void => {
         toggleImagePickerVisibility?.();
-        setIsPopUpActive(false);
+        handleToggleVisibility();
         const result = launchImageLibrary({ mediaType: 'photo' });
         onImageLoad(result);
-    }, [onImageLoad, toggleImagePickerVisibility]);
+    }, [handleToggleVisibility, onImageLoad, toggleImagePickerVisibility]);
 
     const getImageFromCamera = useCallback(async (): Promise<void> => {
         try {
@@ -69,7 +70,7 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
                     text: 'Please provide permission to access your camera in settings',
                 });
             }
-            setIsPopUpActive(false);
+            handleToggleVisibility();
             toggleImagePickerVisibility?.();
         } catch (error) {
             if (error instanceof Error) {
@@ -77,24 +78,24 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
             }
             notifications.showError({ title: ErrorMessage.UNKNOWN_ERROR });
         }
-    }, [onImageLoad, toggleImagePickerVisibility]);
+    }, [handleToggleVisibility, onImageLoad, toggleImagePickerVisibility]);
 
     const imageCameraHandler = useCallback((): void => {
         void getImageFromCamera();
     }, [getImageFromCamera]);
 
     const onPickerPress = (): void => {
-        setIsPopUpActive(true);
+        handleToggleVisibility();
     };
 
     const onPopUpClose = (): void => {
-        setIsPopUpActive(false);
+        handleToggleVisibility;
         toggleImagePickerVisibility?.();
     };
 
     return (
         <>
-            <Modal visible={isPopUpActive} onClose={onPopUpClose}>
+            <Modal visible={isVisible} onClose={onPopUpClose}>
                 <Text style={globalStyles.pb10} category={TextCategory.H5}>
                     You can either take a picture or select one from your
                     library

@@ -14,13 +14,10 @@ import { styles } from './styles';
 
 type Properties = {
     searchQuery: string;
-    setSearchQuery: (text: string) => void;
+    onSearch: (text: string) => void;
 };
 
-const SearchTalents: React.FC<Properties> = ({
-    searchQuery,
-    setSearchQuery,
-}) => {
+const SearchTalents: React.FC<Properties> = ({ searchQuery, onSearch }) => {
     return (
         <View
             style={[
@@ -55,7 +52,7 @@ const SearchTalents: React.FC<Properties> = ({
 
                 <TextInput
                     onChangeText={(text): void => {
-                        setSearchQuery(text);
+                        onSearch(text);
                     }}
                     value={searchQuery}
                     placeholder="Search candidates"

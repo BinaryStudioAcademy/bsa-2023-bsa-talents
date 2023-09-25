@@ -41,14 +41,6 @@ const mockBadges = [
         type: BSABadgeType.SERVICE,
         color: BadgeColors.GREEN,
     },
-    {
-        id: '6',
-        score: 4,
-        maxScore: 5,
-        description: 'Punctuality',
-        type: BSABadgeType.CUSTOM,
-        color: BadgeColors.ORANGE,
-    },
 ];
 
 export { mockBadges };

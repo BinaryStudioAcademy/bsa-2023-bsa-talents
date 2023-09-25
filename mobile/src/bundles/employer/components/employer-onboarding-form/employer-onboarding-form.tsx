@@ -9,7 +9,6 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
@@ -23,14 +22,15 @@ import { EmployerDataSubmitLabel } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
-import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
+import {
+    EMPLOYER_ONBOARDING_DEFAULT_VALUES,
+    LOCATION_OPTIONS,
+} from './constants/constants';
 import { styles } from './styles';
-
-const locationOptions = Object.values(CountryList);
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
-    onSubmit: () => void;
+    onSubmit: (payload: EmployerOnboardingFormDto) => void;
 };
 
 const EmployerOnboardingForm: React.FC<Properties> = ({
@@ -45,11 +45,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
 
     const route = useRoute();
 
-    const handleFormSubmit = useCallback(() => {
-        //TODO logic saving employer data
-        void handleSubmit(() => {
-            onSubmit();
-        })();
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
     const labelForSubmitButton =
@@ -70,28 +67,18 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 <View style={styles.photoContainer}>
                     <FormField
                         errorMessage={
-                            errors.profilePhoto && 'Profile photo is required'
+                            errors.photo && 'Profile photo is required'
                         }
-                        name="profilePhoto"
+                        name="photo"
                         containerStyle={globalStyles.alignItemsCenter}
                         label="Profile photo"
                         required
                     >
                         <PhotoPicker
                             control={control}
-                            name="profilePhoto"
+                            name="photo"
                             shouldHideButton
                             defaultIcon={IconName.PERSON}
-                            customPhotoStyle={{
-                                defaultPhotoContainer: [
-                                    styles.defaultContainer,
-                                    styles.employerProfileContainer,
-                                ],
-                                defaultPhoto: [
-                                    styles.defaultPhoto,
-                                    styles.employerPhoto,
-                                ],
-                            }}
                         />
                     </FormField>
                 </View>
@@ -105,17 +92,9 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             control={control}
                             name="companyLogo"
                             shouldHideButton
-                            defaultIcon={IconName.AUTO_GRAPH}
+                            defaultIcon={IconName.IMAGE}
                             customPhotoStyle={{
-                                defaultPhotoContainer: [
-                                    styles.defaultContainer,
-                                    styles.companyLogoContainer,
-                                ],
-                                defaultPhoto: [
-                                    styles.defaultPhoto,
-                                    styles.companyLogo,
-                                ],
-                                photoShape: styles.photoShape,
+                                photoShape: globalStyles.borderRadius15,
                             }}
                         />
                     </FormField>
@@ -135,15 +114,15 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 />
             </FormField>
             <FormField
-                errorMessage={errors.position?.message}
+                errorMessage={errors.employerPosition?.message}
                 label="Your position"
-                name="position"
+                name="employerPosition"
                 required
                 containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
-                    name="position"
+                    name="employerPosition"
                     placeholder="Add text"
                 />
             </FormField>
@@ -198,7 +177,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Option"
                 />
             </FormField>

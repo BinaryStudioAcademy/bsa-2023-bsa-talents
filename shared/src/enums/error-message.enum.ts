@@ -12,6 +12,7 @@ const ErrorMessage = {
     USER_NOT_FOUND: 'No user found for provided credentials.',
     NOT_IMPLEMENTED: 'Not implemented.',
     USER_DETAILS_NOT_FOUND: 'User profile not found',
+    FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 
 export { ErrorMessage };
