@@ -65,19 +65,6 @@ class UserController extends ControllerBase {
                 );
             },
         });
-
-        // only for test, should be removed
-        this.addRoute({
-            path: UsersApiPath.LMS_DATA_TEST,
-            method: 'GET',
-            handler: (options) => {
-                return this.testLMSDataServer(
-                    options as ApiHandlerOptions<{
-                        params: { userEmail: string };
-                    }>,
-                );
-            },
-        });
     }
 
     /**
@@ -115,20 +102,6 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.lmsDataService.findByUserId(userId),
-        };
-    }
-
-    // TODO: only for test, should be removed
-    private async testLMSDataServer(
-        options: ApiHandlerOptions<{
-            params: { userEmail: string };
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        const { userEmail } = options.params;
-
-        return {
-            status: HttpCode.OK,
-            payload: await this.lmsDataService.testLMSServer(userEmail),
         };
     }
 }

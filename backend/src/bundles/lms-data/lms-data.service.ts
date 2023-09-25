@@ -1,7 +1,6 @@
 import { Headers } from 'node-fetch';
 
 import { userRepository } from '~/bundles/users/users.js';
-import { LMSDataApiPath } from '~/common/enums/enums.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
@@ -79,7 +78,7 @@ class LMSDataService implements Service {
     ): Promise<LMSDataServerResponseDto | undefined> {
         // TODO: specify type of return value
 
-        const url = new URL(LMSDataApiPath.LMS_SERVER);
+        const url = new URL(process.env.LMS_SERVER ?? '');
         url.searchParams.append('email', email);
 
         const response = await http.load(url, {
@@ -95,21 +94,6 @@ class LMSDataService implements Service {
         }
 
         return data;
-    }
-
-    // TODO: only for test, should be removed
-    public async testLMSServer(
-        email: string,
-    ): Promise<LMSDataResponseDto | unknown> {
-        const url = new URL(LMSDataApiPath.LMS_SERVER);
-        url.searchParams.append('email', email);
-
-        const response = await http.load(url, {
-            headers: new Headers(this.requestsToLMSHeaders),
-        });
-
-        const json = (await response.json()) as LMSDataServerResponseDto;
-        return this.parseLMSServerData(email, json);
     }
 
     private parseLMSServerData(

@@ -1,13 +1,6 @@
 import { type Entity } from '~/common/types/types.js';
 
-// TODO: remove commented if it will work
-import {
-    // type HrFeedback,
-    // type LectureDetail,
-    // type Project,
-    // type ProjectCoachesFeedback,
-    type UserLMSDataDto,
-} from './types/types.js';
+import { type UserLMSDataDto } from './types/types.js';
 
 class LMSDataEntity implements Entity {
     public userId: string;
@@ -56,7 +49,6 @@ class LMSDataEntity implements Entity {
         };
     }
 
-    // TODO: may this cause some problem? remove this comment if not
     public toNewObject(): UserLMSDataDto {
         return this.toObject();
     }

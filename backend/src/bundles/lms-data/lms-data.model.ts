@@ -10,14 +10,6 @@ import {
     UsersTableColumn,
 } from '~/common/packages/database/database.js';
 
-// TODO: remove if all will work
-// import {
-//     type HrFeedback,
-//     type LectureDetail,
-//     type Project,
-//     type ProjectCoachesFeedback,
-// } from './types/types.js';
-
 class LMSDataModel extends AbstractModel {
     public 'userId': string;
     public 'english': string;
