@@ -22,6 +22,7 @@ import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
+import { employersApi } from '~/bundles/employers/employers.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
@@ -56,6 +57,7 @@ type ExtraArguments = {
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
+    employersApi: typeof employersApi;
     notification: typeof notification;
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
@@ -121,6 +123,7 @@ class Store {
             fileUploadApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
+            employersApi,
             notification,
             storage,
             hardSkillsApi,
