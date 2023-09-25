@@ -8,7 +8,7 @@ class HttpBase implements Http {
 
         return fetch(path, {
             method,
-            headers: { ...headers }, // TODO: fix, shoud be used all types of headers
+            headers,
             body: payload,
         });
     }

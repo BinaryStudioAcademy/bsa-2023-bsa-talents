@@ -1,3 +1,5 @@
+import { Headers } from 'node-fetch';
+
 import { userRepository } from '~/bundles/users/users.js';
 import { LMSDataApiPath } from '~/common/enums/enums.js';
 import { http } from '~/common/packages/http/http.js';
@@ -13,14 +15,14 @@ import {
 
 class LMSDataService implements Service {
     private lmsDataRepository: LMSDataRepository;
-    private requestsToLMSHeaders: { 'X-Token': string | undefined };
+    private requestsToLMSHeaders: { 'X-Token': string };
 
     public constructor(
         lmsDataRepository: LMSDataRepository,
         token: string | undefined,
     ) {
         this.lmsDataRepository = lmsDataRepository;
-        this.requestsToLMSHeaders = { 'X-Token': token };
+        this.requestsToLMSHeaders = { 'X-Token': token ?? '' };
     }
 
     public async findByUserId(
@@ -81,7 +83,7 @@ class LMSDataService implements Service {
         url.searchParams.append('email', email);
 
         const response = await http.load(url, {
-            headers: this.requestsToLMSHeaders,
+            headers: new Headers(this.requestsToLMSHeaders),
         });
 
         //TODO: need change it to something proper
@@ -103,7 +105,7 @@ class LMSDataService implements Service {
         url.searchParams.append('email', email);
 
         const response = await http.load(url, {
-            headers: this.requestsToLMSHeaders,
+            headers: new Headers(this.requestsToLMSHeaders),
         });
 
         const json = (await response.json()) as LMSDataServerResponseDto;
