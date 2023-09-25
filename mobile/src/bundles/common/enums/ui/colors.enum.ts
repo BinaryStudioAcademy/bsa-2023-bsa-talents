@@ -10,6 +10,7 @@ const Color = {
     BUTTON_PRESSED: '#2E61AE',
     BUTTON_DISABLED: '#AAB1BB',
     TEXT: '#1F1E29',
+    WARNING: '#F0AD4E',
 } as const;
 
 export { Color };
