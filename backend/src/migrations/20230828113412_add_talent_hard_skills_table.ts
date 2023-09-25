@@ -1,13 +1,13 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'talent_hard_skills_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'talent_hard_skills_pkey';
 
 const TableName = {
     USER_DETAILS: 'user_details',
     TALENT_HARD_SKILLS: 'talent_hard_skills',
     HARD_SKILLS: 'hard_skills',
-};
+} as const;
 
 const ColumnName = {
     ID: 'id',
@@ -15,7 +15,7 @@ const ColumnName = {
     USER_DETAILS_ID: 'user_details_id',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 const RelationRule = {
     CASCADE: 'CASCADE',
@@ -29,8 +29,8 @@ async function up(knex: Knex): Promise<void> {
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
         table
             .uuid(ColumnName.HARD_SKILL_ID)
             .unique()

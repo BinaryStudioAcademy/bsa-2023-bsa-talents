@@ -1,11 +1,11 @@
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
     NotConsidered,
     OnboardingStep,
-    PreferredLanguages,
+    PreferredLanguage,
     UserDetailsApiPath,
     UserSortCriteria,
     YearsOfExperience,

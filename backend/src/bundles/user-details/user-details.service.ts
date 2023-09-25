@@ -1,6 +1,6 @@
 import { mapQueryValuesToArrays } from 'shared/build/index.js';
 
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
@@ -49,7 +49,7 @@ class UserDetailsService implements Service {
         if (!userDetails) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_DETAILS_NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
             });
         }
         return userDetails;
@@ -72,7 +72,7 @@ class UserDetailsService implements Service {
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public searchUsers(
@@ -139,7 +139,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -185,7 +185,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -209,7 +209,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -232,7 +232,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -243,7 +243,7 @@ class UserDetailsService implements Service {
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

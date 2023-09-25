@@ -33,7 +33,6 @@ export {
     BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
@@ -47,14 +46,14 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience as ExperienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,
-    PreferredLanguages,
+    PreferredLanguage,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -92,7 +91,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
@@ -115,7 +114,6 @@ export {
     configureString,
     getAvatarInitials,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
 } from './helpers/helpers.js';
