@@ -15,6 +15,11 @@ import { type UserGetLMSDataById } from './types/types.js';
 /**
  * @swagger
  * components:
+ *    securitySchemes:
+ *      xTokenKey:
+ *        type: apiKey
+ *        in: header
+ *        name: X-Token
  *    schemas:
  *      RoleEnum:
  *        type: string
@@ -33,6 +38,102 @@ import { type UserGetLMSDataById } from './types/types.js';
  *            format: email
  *          role:
  *            $ref: '#/components/schemas/RoleEnum'
+ *      Result:
+ *        type: object
+ *        properties:
+ *          points:
+ *            type: string
+ *          comment:
+ *            type: string
+ *
+ *      HrFeedback:
+ *        type: object
+ *        properties:
+ *          result:
+ *            $ref: '#/components/schemas/Result'
+ *          comments:
+ *            type: string
+ *
+ *      LectureDetail:
+ *        type: object
+ *        properties:
+ *          grade:
+ *            type: number
+ *            nullable: true
+ *          name:
+ *            type: string
+ *          lectureId:
+ *            type: string
+ *
+ *      Details:
+ *        type: object
+ *        properties:
+ *          en:
+ *            type: string
+ *          ua:
+ *            type: string
+ *
+ *      Project:
+ *        type: object
+ *        properties:
+ *          name:
+ *            type: string
+ *          details:
+ *            $ref: '#/components/schemas/Details'
+ *          repositoryUrl:
+ *            type: string
+ *            nullable: true
+ *
+ *      Marks:
+ *        type: object
+ *        properties:
+ *          code_quality:
+ *            type: number
+ *          result_of_work:
+ *            type: number
+ *          result_quality:
+ *            type: number
+ *          team_interaction:
+ *            type: number
+ *          communication_result:
+ *            type: number
+ *
+ *      ProjectCoachesFeedback:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: string
+ *          marks:
+ *            $ref: '#/components/schemas/Marks'
+ *          feedback:
+ *            type: string
+ *            nullable: true
+ *
+ *      LMSDataResponseDto:
+ *        type: object
+ *        properties:
+ *          userId:
+ *            type: string
+ *          english:
+ *            type: string
+ *          averageProjectScore:
+ *            type: number
+ *            nullable: true
+ *          averageLectureScore:
+ *            type: number
+ *            nullable: true
+ *          lectureDetails:
+ *            type: array
+ *            items:
+ *              $ref: '#/components/schemas/LectureDetail'
+ *          projectCoachesFeedback:
+ *            type: array
+ *            items:
+ *              $ref: '#/components/schemas/ProjectCoachesFeedback'
+ *          hrFeedback:
+ *            $ref: '#/components/schemas/HrFeedback'
+ *          project:
+ *            $ref: '#/components/schemas/Project'
  */
 class UserController extends ControllerBase {
     private userService: UserService;
@@ -92,6 +193,32 @@ class UserController extends ControllerBase {
         };
     }
 
+    /**
+     * @swagger
+     * /users/{userId}/lms-data:
+     *    get:
+     *      tags: [Users]
+     *      description: Returns user LMS Data by user ID, you also need LMS_SERVER url in .env
+     *      security:
+     *        - bearerAuth: []
+     *        - xTokenKey: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch LMS data for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                items:
+     *                  $ref: '#/components/schemas/LMSDataResponseDto'
+     */
     private async getLMSDataById(
         options: ApiHandlerOptions<{
             params: UserGetLMSDataById;

@@ -12,7 +12,7 @@ const ErrorMessage = {
     USER_NOT_FOUND: 'No user found for provided credentials.',
     NOT_IMPLEMENTED: 'Not implemented.',
     USER_DETAILS_NOT_FOUND: 'User profile not found',
-    NOT_FOUND_ON_LMS: 'No not found on LMS server',
+    NOT_FOUND_ON_LMS: 'User not found on LMS server',
     FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 
