@@ -17,13 +17,13 @@ import {
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
     type OnboardingStep,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from './enums/enums.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -43,7 +43,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    public 'location': ValueOf<typeof CountryList> | null;
+    public 'location': ValueOf<typeof Country> | null;
 
     public 'experienceYears': number | null;
 
@@ -55,7 +55,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    public 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
+    public 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
 
     public 'projectLinks': string[] | null;
 

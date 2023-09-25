@@ -14,6 +14,6 @@ const ContactCandidateValidationMessage = {
     MESSAGE_MAX_VALUE: 'Message cannot exceed {{#limit}} characters.',
     MESSAGE_REQUIRED: 'Message is required',
     TEMPLATE_REQUIRED: 'Template name can`t be empty',
-};
+} as const;
 
 export { ContactCandidateValidationMessage };

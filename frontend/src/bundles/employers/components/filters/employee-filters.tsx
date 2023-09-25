@@ -22,7 +22,7 @@ import {
     BsaCharacteristics,
     BsaProject,
     CheckboxesFields,
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
@@ -55,7 +55,7 @@ const bsaProject = Object.values(BsaProject).map((project) => ({
     label: project,
 }));
 
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -85,17 +85,21 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             selectedValue?: string,
         ) =>
             (): void => {
-                if (field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY) {
+                if ('boolean' === typeof field.value) {
                     field.onChange(!field.value);
                     return;
                 }
 
                 if (
-                    ![
-                        CheckboxesFields.EMPLOYMENT_TYPE,
-                        CheckboxesFields.ENGLISH_LEVEL,
-                    ].includes(field.name) ||
-                    !Array.isArray(field.value)
+                    !Array.isArray(field.value) ||
+                    !(
+                        englishLevelOptions.some(
+                            (option) => option.value === selectedValue,
+                        ) ||
+                        employmentTypeOptions.some(
+                            (option) => option.value === selectedValue,
+                        )
+                    )
                 ) {
                     return;
                 }
@@ -123,7 +127,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     : englishLevelOptions;
             return field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY ? (
                 <Checkbox
-                    onChange={handleCheckboxOnChange(field)}
+                    onChange={handleCheckboxOnChange(field, field.name)}
                     isChecked={fieldValue as boolean}
                     className={styles.checkbox}
                 />
@@ -178,7 +182,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="activeSearchingOnly"
+                        name="isSearchActiveCandidatesOnly"
                         control={control}
                         render={renderCheckboxes}
                     />

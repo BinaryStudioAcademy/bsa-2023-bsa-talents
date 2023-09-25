@@ -1,12 +1,12 @@
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
 } from '~/bundles/common/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const JOB_TITLE_OPTIONS = Object.values(JobTitle);
-const LOCATION_OPTIONS = Object.values(CountryList);
+const LOCATION_OPTIONS = Object.values(Country);
 const EMPLOYMENT_TYPE_OPTIONS = Object.values(EmploymentType);
 
 const TALENT_PROFILE_DEFAULT_VALUES: ProfileStepDto = {
