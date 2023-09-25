@@ -33,6 +33,7 @@ export { Sidebar } from './sidebar/sidebar.js';
 export { Slider } from './slider/slider.js';
 export { Tab, Tabs } from './tabs/tabs.js';
 export { Textarea } from './textarea/textarea.js';
+export { Tooltip } from './tooltip/tooltip.js';
 export { Typography } from './typography/typography.js';
 export { VerificationLabel } from './verification-label/verification-label.js';
 export { Controller } from 'react-hook-form';
