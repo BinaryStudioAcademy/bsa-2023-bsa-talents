@@ -285,9 +285,8 @@ const SkillsStep: React.FC = () => {
             />
 
             <FormControl>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'}>Level of English</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Select
@@ -316,11 +315,11 @@ const SkillsStep: React.FC = () => {
                         styles.label,
                         styles.labelMargin,
                     )}
+                    required
                 >
                     <Typography variant={'label'}>
                         Preferred language of communication
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
                 <Select
                     isMulti

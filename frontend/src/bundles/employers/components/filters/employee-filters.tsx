@@ -170,7 +170,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
         <Grid container className={styles.filtersSidebar}>
             <Grid className={styles.header}>
                 <Typography variant={'h6'} className={styles.title}>
-                    {'Filters'}
+                    Filters
                 </Typography>
                 <Button
                     onClick={handleFiltersClear}
@@ -192,7 +192,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Job Title'}
+                        Job Title
                         <Select
                             options={jobTitleOptions}
                             control={control}
@@ -205,7 +205,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Hard Skills'}
+                        Hard Skills
                         <Autocomplete
                             isFilter={true}
                             name="hardSkills"
@@ -217,7 +217,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Years of experience'}
+                        Years of experience
                         <Select
                             options={yearsOfExperience}
                             control={control}
@@ -230,7 +230,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'BSA Characteristics'}
+                        BSA Characteristics
                         <Select
                             options={bsaCharacteristics}
                             control={control}
@@ -243,7 +243,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'BSA Badges'}
+                        BSA Badges
                         <Select
                             options={bsaBadgesOptions}
                             control={control}
@@ -256,7 +256,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'BSA Project'}
+                        BSA Project
                         <Select
                             options={bsaProject}
                             control={control}
@@ -269,7 +269,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Location'}
+                        Location
                         <Select
                             options={locationOptions}
                             control={control}
@@ -282,7 +282,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Level of English'}
+                        Level of English
                         <Controller
                             control={control}
                             name="levelOfEnglish"
@@ -292,7 +292,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Employment Type'}
+                        Employment Type
                         <Controller
                             control={control}
                             name="employmentType"
