@@ -47,14 +47,14 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience as ExperienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,
-    PreferredLanguages,
+    PreferredLanguage,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -115,7 +115,6 @@ export {
     configureString,
     getAvatarInitials,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
 } from './helpers/helpers.js';

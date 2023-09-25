@@ -22,7 +22,7 @@ import {
     BsaCharacteristics,
     BsaProject,
     CheckboxesFields,
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
@@ -55,7 +55,7 @@ const bsaProject = Object.values(BsaProject).map((project) => ({
     label: project,
 }));
 
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -178,7 +178,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="activeSearchingOnly"
+                        name="isSearchActiveCandidatesOnly"
                         control={control}
                         render={renderCheckboxes}
                     />

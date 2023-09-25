@@ -1,13 +1,13 @@
 import { type ValueOf } from '~/types/value-of.type.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
     type OnboardingStep,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from '../user-details.js';
 
 type UserDetailsFindRequestDto = {
@@ -22,7 +22,7 @@ type UserDetailsFindRequestDto = {
     hiredSalary?: number;
 
     jobTitle?: ValueOf<typeof JobTitle>;
-    location?: ValueOf<typeof CountryList>;
+    location?: ValueOf<typeof Country>;
 
     experienceYears?: number;
     employmentType?: ValueOf<typeof EmploymentType>[];
@@ -31,7 +31,7 @@ type UserDetailsFindRequestDto = {
 
     englishLevel?: ValueOf<typeof EnglishLevel>;
     notConsidered?: ValueOf<typeof NotConsidered>[];
-    preferredLanguages?: ValueOf<typeof PreferredLanguages>[];
+    preferredLanguages?: ValueOf<typeof PreferredLanguage>[];
 
     projectLinks?: string[];
     photoId?: string;

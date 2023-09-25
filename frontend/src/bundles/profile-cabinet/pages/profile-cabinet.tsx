@@ -102,8 +102,8 @@ const ProfileCabinet: React.FC = () => {
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {
             if (submitForm) {
-                const success = await submitForm();
-                if (success) {
+                const isSuccessful = await submitForm();
+                if (isSuccessful) {
                     void dispatch(
                         storeActions.notify({
                             type: NotificationType.SUCCESS,
@@ -144,7 +144,7 @@ const ProfileCabinet: React.FC = () => {
                             onClick={handleSaveClick}
                             label={'Save'}
                             variant={'contained'}
-                            disabled={!hasChanges}
+                            isDisabled={!hasChanges}
                             className={styles.saveButton}
                         />
                     </FormControl>
