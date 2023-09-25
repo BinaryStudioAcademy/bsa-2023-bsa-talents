@@ -1,8 +1,15 @@
 type HiringInfoFindRequestDto = {
-    id?: string;
+    id: string | null;
     talentId: string;
     companyId: string;
-    hiredTime?: Date;
+    hiredTime: Date;
+    talentPhone?: string;
+    talentFullName?: string;
+    talentEmail?: string;
+    employerFullName?: string;
+    employerPosition?: string;
+    companyName?: string;
+    companyEmail?: string;
 };
 
 export { type HiringInfoFindRequestDto };

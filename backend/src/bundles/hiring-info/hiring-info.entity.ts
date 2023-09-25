@@ -83,16 +83,12 @@ class HiringInfoEntity implements Entity {
         talentId,
         companyId,
         hiredTime,
-        talent,
-        company,
     }: HiringInfoProperties): HiringInfoEntity {
         return new HiringInfoEntity({
             id: null,
             talentId,
             companyId,
             hiredTime,
-            talent,
-            company,
         });
     }
 

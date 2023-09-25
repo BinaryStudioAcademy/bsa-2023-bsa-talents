@@ -31,6 +31,7 @@ export {
 export {
     HiringInfoApiPath,
     type HiringInfoCreateRequestDto,
+    type HiringInfoFindAllRequestDto,
     type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
 } from './bundles/hiring-info/hiring-info.js';
