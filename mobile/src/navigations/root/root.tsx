@@ -14,7 +14,6 @@ import {
     useAppDispatch,
     useAppSelector,
     useEffect,
-    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { getUserDetails } from '~/bundles/common/store/actions';
 import {
@@ -22,7 +21,6 @@ import {
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
-import { getNextStep } from '~/helpers/helpers';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -45,9 +43,8 @@ const Root: React.FC = () => {
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
     const isPendingOnboardingData =
-        userOnboardingDataStatus === DataStatus.IDLE;
+        userOnboardingDataStatus === DataStatus.PENDING;
     const dispatch = useAppDispatch();
-    const { navigate } = useNavigation();
 
     //TODO change to onboardingData?.isApprove
     const isProfileComplete =
@@ -63,20 +60,8 @@ const Root: React.FC = () => {
         if (!currentUserData) {
             return;
         }
-        const nextStep = getNextStep(onboardingData?.completedStep);
         void dispatch(getUserDetails({ userId: currentUserData.id }));
-
-        if (nextStep && !isProfileComplete) {
-            navigate(nextStep as never);
-        }
-    }, [
-        currentUserData,
-        currentUserData?.id,
-        dispatch,
-        navigate,
-        onboardingData?.completedStep,
-        isProfileComplete,
-    ]);
+    }, [currentUserData, currentUserData?.id, dispatch]);
 
     if (isPendingAuth || isPendingOnboardingData) {
         return <Loader />;

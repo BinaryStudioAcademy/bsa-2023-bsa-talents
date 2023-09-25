@@ -7,7 +7,7 @@ import { type ValueOf } from '~/bundles/common/types/types';
 const INDEX = 1;
 const NEGATIVE_INDEX = -1;
 
-const getNextStep = (currentStep: string): string | null => {
+const getNextStep = (currentStep: string): string => {
     const completedStepToScreen = Object.fromEntries(
         Object.entries(CompletedTalentOnboardingStep).map(
             ([screenName, step]) => [step, screenName],
@@ -27,7 +27,7 @@ const getNextStep = (currentStep: string): string | null => {
             typeof TalentOnboardingScreenName
         >;
     }
-    return null;
+    return '';
 };
 
 export { getNextStep };
