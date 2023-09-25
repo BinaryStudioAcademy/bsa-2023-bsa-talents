@@ -1,5 +1,4 @@
 import React from 'react';
-import { type UserFindResponseDto } from 'shared/build/index';
 
 // import { logout } from '~/bundles/auth/store/actions';
 // import { ChatListItem, Search } from '~/bundles/chat/components/components';
@@ -20,7 +19,7 @@ import {
     useEffect,
     // useMemo,
     // useNavigation,
-    // useState,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as CommonDataActions } from '~/bundles/common-data/store';
 // import { globalStyles } from '~/bundles/common/styles/styles';
@@ -37,42 +36,46 @@ const ChatList: React.FC = () => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { chats, current } = useAppSelector(({ chat }) => chat);
     const { partners } = useAppSelector(({ commonData }) => commonData);
+    const [isInitialized, setIsInitialized] = useState(false);
 
     const currentChatId = current.chatId;
     const user = currentUserData;
 
     useEffect(() => {
-        void dispatch(CommonDataActions.loadAllPartners());
-    }, [dispatch]);
+        if (!partners) {
+            void dispatch(CommonDataActions.loadAllPartners());
+        }
+    }, [dispatch, partners]);
 
     useEffect(() => {
-        const sendMessagesToUsers = (
-            partners: UserFindResponseDto[],
-            user: UserFindResponseDto | null,
-        ): void => {
-            partners.map((partner) => {
-                if (user) {
+        if (user) {
+            void dispatch(chatActions.getAllChatsByUserId(user.id));
+        }
+    }, [dispatch, user]);
+
+    useEffect(() => {
+        const existingChatIds = new Set(chats.map((chat) => chat.chatId));
+        if (!isInitialized && user && partners) {
+            for (const partner of partners) {
+                if (!existingChatIds.has(partner.id)) {
                     const messageData = {
                         senderId: user.id,
                         receiverId: partner.id,
                         message: 'Hello',
                         chatId: partner.id,
                     };
-
                     void dispatch(chatActions.createMessage(messageData));
                 }
-            });
-        };
-
-        if (partners && user) {
-            sendMessagesToUsers(partners, user);
+            }
+            setIsInitialized(true);
         }
-    }, [partners, user, dispatch]);
+    }, [user, partners, chats, dispatch, isInitialized]);
 
-    useEffect(() => {
-        const id = user?.id;
-        void dispatch(chatActions.getAllChatsByUserId(id as string));
-    }, [dispatch, user?.id]);
+    // useEffect(() => {
+    //     if (user && partners) {
+    //         dispatch(initializeChats(partners));
+    //     }
+    // }, [user, partners, dispatch]);
 
     // const navigation =
     //     useNavigation<NavigationProp<RootNavigationParameterList>>();
