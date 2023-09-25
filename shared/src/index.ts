@@ -26,6 +26,7 @@ export {
 export {
     HiringInfoApiPath,
     type HiringInfoCreateDto,
+    type HiringInfoCreateRequestDto,
     type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
     type HiringInfoUpdateDto,

@@ -24,7 +24,7 @@ import { hiringInfoCreateValidationSchema } from './validation-schemas/validatio
  *        scheme: bearer
  *        bearerFormat: JWT
  *    schemas:
- *      Hiring info:
+ *      HiringInfo:
  *        type: object
  *        properties:
  *          id:
@@ -36,83 +36,35 @@ import { hiringInfoCreateValidationSchema } from './validation-schemas/validatio
  *          companyId:
  *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *            type: string
+ *          firstContactTime:
+ *            type: string
+ *            example: '2023-09-12T12:34:56.789Z'
+ *          hasSharedInfo:
+ *            type: boolean
+ *          sharedInfoTime:
+ *            type: string
+ *            example: '2023-09-12T12:34:56.789Z'
+ *            nullable: true
+ *          isHired:
+ *            type: boolean
+ *          hiredTime:
+ *            type: string
+ *            example: '2023-09-12T12:34:56.789Z'
+ *            nullable: true
+ *          hiredPosition:
+ *            type: string
+ *            nullable: true
+ *          hiredSalary:
+ *            type: number
+ *            nullable: true
  *          isApproved:
  *            type: boolean
  *          status:
  *            type: string
- *          isHired:
- *            type: boolean
- *          profileName:
- *            type: string
- *          salaryExpectation:
+ *            nullable: true
+ *          fee:
  *            type: number
- *          hiredSalary:
- *            type: number
- *      UserDetails:
- *        type: object
- *        properties:
- *          id:
- *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *            type: string
- *          userId:
- *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *            type: string
- *          isApproved:
- *            type: boolean
- *          deniedReason:
- *            type: string
- *          isHired:
- *            type: boolean
- *          profileName:
- *            type: string
- *          salaryExpectation:
- *            type: number
- *          hiredSalary:
- *            type: number
- *          jobTitle:
- *            type: string
- *          location:
- *            type: string
- *          experienceYears:
- *            type: number
- *          employmentType:
- *            type: array
- *            items:
- *              type: string
- *          description:
- *            type: string
- *          englishLevel:
- *            type: string
- *          notConsidered:
- *            type: array
- *            items:
- *              type: string
- *          preferredLanguages:
- *            type: array
- *            items:
- *              type: string
- *          projectLinks:
- *            type: array
- *            items:
- *              type: string
- *          photoId:
- *            type: string
- *          fullName:
- *            type: string
- *          phone:
- *            type: string
- *          linkedinLink:
- *            type: string
- *          companyName:
- *            type: string
- *          companyLogoId:
- *            type: string
- *          companyWebsite:
- *            type: string
- *          employerPosition:
- *            type: string
- *          cvId:
- *            type: string
+ *            nullable: true
  *          talentBadges:
  *            type: array
  *            items:
@@ -136,21 +88,6 @@ import { hiringInfoCreateValidationSchema } from './validation-schemas/validatio
  *                userId:
  *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *                  type: string
- *          talentHardSkills:
- *            type: array
- *            items:
- *              type: object
- *              properties:
- *                id:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
- *                hardSkillId:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
- *                userDetailsId:
- *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
- *                  type: string
-
  */
 class HiringInfoController extends ControllerBase {
     private hiringInfoService: HiringInfoService;
@@ -175,6 +112,14 @@ class HiringInfoController extends ControllerBase {
         });
 
         this.addRoute({
+            path: HiringInfoApiPath.ROOT,
+            method: 'GET',
+            handler: () => {
+                return this.findAll();
+            },
+        });
+
+        this.addRoute({
             path: HiringInfoApiPath.$ID,
             method: 'GET',
             handler: (options) => {
@@ -192,24 +137,23 @@ class HiringInfoController extends ControllerBase {
      * /hiring-info:
      *    post:
      *      tags:
-     *        - User Details
-     *      description: Updates a user's details
+     *        - Hiring Info
+     *      description: Creates company and talent hiring info
      *      security:
      *        - bearerAuth: []
      *      requestBody:
-     *        description: User detail update object
+     *        description: Hiring info create object
      *        required: true
      *        content:
      *          application/json:
      *            schema:
      *              type: object
-     *              $ref: '#/components/schemas/UserDetailsCreateRequestDto'
+     *              $ref: '#/components/schemas/HiringInfoCreateRequestDto'
      *            examples:
      *              example:
      *                value:
-     *                  userId: '550e8400-e29b-41d4-a716-446655440000'
-     *                  profileName: 'Lee Swagger'
-     *                  fullName: 'qwerty'
+     *                  talentId: '550e8400-e29b-41d4-a716-446655440000'
+     *                  companyId: 'd36dfd26-63af-4922-a8cf-04cb939e6d97'
      *      responses:
      *         200:
      *           description: Successful operation
@@ -217,75 +161,21 @@ class HiringInfoController extends ControllerBase {
      *             application/json:
      *               schema:
      *                 type: object
-     *                 $ref: '#/components/schemas/UserDetails'
+     *                 $ref: '#/components/schemas/HiringInfo'
      * components:
      *   schemas:
-     *      UserDetailsCreateRequestDto:
+     *      HiringInfoCreateRequestDto:
      *        type: object
      *        properties:
-     *          userId:
+     *          talentId:
      *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
      *            type: string
      *            required: true
-     *          profileName:
-     *            type: string
-     *          salaryExpectation:
-     *            type: number
-     *          hiredSalary:
-     *            type: number
-     *          jobTitle:
-     *            type: string
-     *          location:
-     *            type: string
-     *          experienceYears:
-     *            type: number
-     *          employmentType:
-     *            type: array
-     *            items:
-     *              type: string
-     *          description:
-     *            type: string
-     *          englishLevel:
-     *            type: string
-     *          notConsidered:
-     *            type: array
-     *            items:
-     *              type: string
-     *          preferredLanguages:
-     *            type: array
-     *            items:
-     *              type: string
-     *          projectLinks:
-     *            type: array
-     *            items:
-     *              type: string
-     *          photoId:
-     *            type: string
-     *          fullName:
+     *          companyId:
+     *            format: uuid #Example: 'd36dfd26-63af-4922-a8cf-04cb939e6d97'
      *            type: string
      *            required: true
-     *          phone:
-     *            type: string
-     *          linkedinLink:
-     *            type: string
-     *          companyName:
-     *            type: string
-     *          companyLogoId:
-     *            type: string
-     *          companyWebsite:
-     *            type: string
-     *          employerPosition:
-     *            type: string
-     *          cvId:
-     *            type: string
-     *          talentBadges:
-     *            type: array
-     *            items:
-     *              type: string
-     *          talentHardSkills:
-     *            type: array
-     *            items:
-     *              type: string
+     *
      */
     private async create(
         options: ApiHandlerOptions<{
@@ -300,20 +190,12 @@ class HiringInfoController extends ControllerBase {
 
     /**
      * @swagger
-     * /hiring-info/{userId}:
+     * /hiring-info:
      *    get:
-     *      tags: [User Details]
-     *      description: Returns user details by user ID
+     *      tags: [Hiring Info]
+     *      description: Returns all hiring info records
      *      security:
      *        - bearerAuth: []
-     *      parameters:
-     *        - in: path
-     *          name: userId
-     *          required: true
-     *          description: User ID to fetch details for
-     *          schema:
-     *            type: string
-     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
      *      responses:
      *        200:
      *          description: Successful operation
@@ -322,6 +204,12 @@ class HiringInfoController extends ControllerBase {
      *              schema:
      *                $ref: '#/components/schemas/UserDetails'
      */
+    private async findAll(): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.hiringInfoService.findAll(),
+        };
+    }
 
     private async findByTalentIdCompanyId(
         options: ApiHandlerOptions<{

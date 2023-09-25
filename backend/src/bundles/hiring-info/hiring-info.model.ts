@@ -1,7 +1,6 @@
 import { Model } from 'objection';
 
 import { FileModel } from '~/bundles/files/files.js';
-import { UserDetailsModel } from '~/bundles/user-details/user-details.model.js';
 import {
     AbstractModel,
     DatabaseTableName,
@@ -44,7 +43,7 @@ class HiringInfoModel extends AbstractModel {
     public static override relationMappings = {
         talent: {
             relation: Model.HasOneRelation,
-            modelClass: UserDetailsModel,
+            modelClass: HiringInfoModel,
             join: {
                 from: `${DatabaseTableName.HIRING_INFO}.${HiringInfoTableColumn.TALENT_ID}`,
                 to: `${DatabaseTableName.USER_DETAILS}.${UserDetailsTableColumn.ID}`,

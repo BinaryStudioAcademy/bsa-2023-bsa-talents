@@ -13,16 +13,16 @@ import {
 } from './types/types.js';
 
 class HiringInfoService implements Service {
-    private userDetailsRepository: HiringInfoRepository;
+    private hiringInfoRepository: HiringInfoRepository;
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
 
     public constructor(
-        userDetailsRepository: HiringInfoRepository,
+        hiringInfoRepository: HiringInfoRepository,
         talentBadgeService: TalentBadgeService,
         talentHardSkillsService: TalentHardSkillsService,
     ) {
-        this.userDetailsRepository = userDetailsRepository;
+        this.hiringInfoRepository = hiringInfoRepository;
         this.talentBadgeService = talentBadgeService;
         this.talentHardSkillsService = talentHardSkillsService;
     }
@@ -30,14 +30,14 @@ class HiringInfoService implements Service {
     public async find(
         payload: HiringInfoFindRequestDto,
     ): Promise<HiringInfoEntity | null> {
-        return this.userDetailsRepository.find({ ...payload });
+        return this.hiringInfoRepository.find({ ...payload });
     }
 
     public async findByTalentIdCompanyId(
         talentId: string,
         companyId: string,
     ): Promise<HiringInfoEntity | null> {
-        const userDetails = await this.userDetailsRepository.find({
+        const userDetails = await this.hiringInfoRepository.find({
             talentId,
             companyId,
         });
@@ -51,14 +51,18 @@ class HiringInfoService implements Service {
         return userDetails;
     }
 
-    public findAll(): Promise<{ items: unknown[] }> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    public async findAll(): Promise<{ items: HiringInfoResponseDto[] }> {
+        const items = await this.hiringInfoRepository.findAll();
+
+        return {
+            items: items.map((it) => it.toObject()),
+        };
     }
 
     public async create(
         payload: HiringInfoCreateDto,
     ): Promise<HiringInfoResponseDto> {
-        const newHiringInfo = await this.userDetailsRepository.create(payload);
+        const newHiringInfo = await this.hiringInfoRepository.create(payload);
 
         return {
             ...newHiringInfo.toObject(),
@@ -67,30 +71,6 @@ class HiringInfoService implements Service {
 
     public update(): Promise<HiringInfoResponseDto> {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
-        // const { talentId, companyId, ...rest } = payload;
-
-        // const hiringInfo = await this.userDetailsRepository.find({
-        //     talentId,
-        //     companyId,
-        // });
-
-        // if (!hiringInfo) {
-        //     throw new HttpError({
-        //         message: ErrorMessages.NOT_FOUND,
-        //         status: HttpCode.NOT_FOUND,
-        //     });
-        // }
-
-        // const hiringInfoId = hiringInfo.toObject().id as string;
-
-        // const updatedHiringInfo = await this.userDetailsRepository.update({
-        //     ...rest,
-        //     id: hiringInfoId,
-        // });
-
-        // return {
-        //     ...updatedHiringInfo.toObject(),
-        // };
     }
 
     public delete(): Promise<boolean> {

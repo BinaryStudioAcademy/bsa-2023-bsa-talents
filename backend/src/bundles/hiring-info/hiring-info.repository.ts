@@ -45,8 +45,12 @@ class HiringInfoRepository implements Repository {
         });
     }
 
-    public findAll(): ReturnType<Repository['findAll']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    public async findAll(): Promise<HiringInfoEntity[]> {
+        const hiringInfoAll = await this.hiringInfoModel.query().execute();
+
+        return hiringInfoAll.map((hiringInfo) =>
+            HiringInfoEntity.initialize(hiringInfo),
+        );
     }
 
     public async create(
