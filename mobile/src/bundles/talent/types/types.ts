@@ -7,6 +7,7 @@ export {
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
 } from './user-details-general/user-details-general-dto.type';
+export { type MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 export {
     type BadgeStepDto,
     type BsaBadgesStepDto,

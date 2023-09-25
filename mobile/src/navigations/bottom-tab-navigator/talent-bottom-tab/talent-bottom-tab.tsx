@@ -7,7 +7,8 @@ import {
 } from '~/bundles/common/enums/enums';
 import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
+import { Mail } from '~/bundles/talent/screens/screens';
+import { TalentProfileNavigator } from '~/navigations/talent-profile-navigator/talent-profile-navigator';
 
 import { bottomTabStyles } from '../styles';
 
@@ -34,7 +35,7 @@ const TalentBottomTabNavigator: React.FC = () => {
             />
             <BottomTab.Screen
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
-                component={TalentProfile}
+                component={TalentProfileNavigator}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <MaterialIcon
