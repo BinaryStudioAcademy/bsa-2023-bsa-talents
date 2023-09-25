@@ -6,8 +6,11 @@
 .feedback,
 .personalityType,
 .softSkills {
+    display: flex;
     flex-flow: row nowrap;
     gap: 20px;
+    text-align: start;
+    column-gap: 8%;
 }
 
 .label {
@@ -30,4 +33,10 @@
 .formControl {
     flex: auto;
     max-width: 329px;
+}
+
+@media screen and (width <=1200px) {
+    .feedback {
+        flex-direction: column;
+    }
 }
