@@ -45,7 +45,6 @@ export {
     BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,

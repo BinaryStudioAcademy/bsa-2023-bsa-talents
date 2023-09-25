@@ -17,12 +17,6 @@ class UserRepository implements Repository {
         return user ? UserEntity.initialize(user) : undefined;
     }
 
-    public async findByToken(tokenString: string): Promise<UserEntity | null> {
-        const user = await this.userModel.query().findOne({ id: tokenString });
-
-        return user ? UserEntity.initialize(user) : null;
-    }
-
     public async findById(id: string): Promise<UserEntity | null> {
         const user = await this.userModel.query().findById(id);
 

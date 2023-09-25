@@ -18,6 +18,7 @@ import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
+import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
     BsaCharacteristics,
     BsaProject,
@@ -61,7 +62,7 @@ const locationOptions = Object.values(Country).map((country) => ({
 }));
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
-    value: level.split(' ')[0],
+    value: level,
     label: level,
 }));
 
@@ -77,7 +78,7 @@ type Properties = {
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
 
-    const { bsaBadgesOptions, hardSkillsOptions } = useCommonData();
+    const { hardSkillsOptions } = useCommonData();
 
     const handleCheckboxOnChange = useCallback(
         <Field extends ValueOf<typeof CheckboxesFields>>(
@@ -85,17 +86,21 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             selectedValue?: string,
         ) =>
             (): void => {
-                if (field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY) {
+                if ('boolean' === typeof field.value) {
                     field.onChange(!field.value);
                     return;
                 }
 
                 if (
-                    ![
-                        CheckboxesFields.EMPLOYMENT_TYPE,
-                        CheckboxesFields.ENGLISH_LEVEL,
-                    ].includes(field.name) ||
-                    !Array.isArray(field.value)
+                    !Array.isArray(field.value) ||
+                    !(
+                        englishLevelOptions.some(
+                            (option) => option.value === selectedValue,
+                        ) ||
+                        employmentTypeOptions.some(
+                            (option) => option.value === selectedValue,
+                        )
+                    )
                 ) {
                     return;
                 }
@@ -123,7 +128,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     : englishLevelOptions;
             return field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY ? (
                 <Checkbox
-                    onChange={handleCheckboxOnChange(field)}
+                    onChange={handleCheckboxOnChange(field, field.name)}
                     isChecked={fieldValue as boolean}
                     className={styles.checkbox}
                 />
@@ -159,14 +164,14 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     );
 
     const handleFiltersClear = useCallback((): void => {
-        reset();
+        reset(DEFAULT_EMPLOYEES_FILTERS_PAYLOAD);
     }, [reset]);
 
     return (
         <Grid container className={styles.filtersSidebar}>
             <Grid className={styles.header}>
                 <Typography variant={'h6'} className={styles.title}>
-                    {'Filters'}
+                    Filters
                 </Typography>
                 <Button
                     onClick={handleFiltersClear}
@@ -188,12 +193,12 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Job Title'}
+                        Job Title
                         <Select
                             options={jobTitleOptions}
                             control={control}
                             errors={errors}
-                            name="jobTitles"
+                            name="jobTitle"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -201,7 +206,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Hard Skills'}
+                        Hard Skills
                         <Autocomplete
                             isFilter={true}
                             name="hardSkills"
@@ -213,12 +218,12 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Years of experience'}
+                        Years of experience
                         <Select
                             options={yearsOfExperience}
                             control={control}
                             errors={errors}
-                            name="userYearsOfExperience"
+                            name="yearsOfExperience"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -226,7 +231,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'BSA Characteristics'}
+                        BSA Characteristics
                         <Select
                             options={bsaCharacteristics}
                             control={control}
@@ -239,20 +244,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'BSA Badges'}
-                        <Select
-                            options={bsaBadgesOptions}
-                            control={control}
-                            errors={errors}
-                            name="userBsaBadges"
-                            isMulti={true}
-                            placeholder="Options"
-                        />
-                    </FormLabel>
-                </Grid>
-                <Grid className={styles.filtersMultiSelect}>
-                    <FormLabel className={styles.labels}>
-                        {'BSA Project'}
+                        BSA Project
                         <Select
                             options={bsaProject}
                             control={control}
@@ -265,12 +257,12 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
-                        {'Location'}
+                        Location
                         <Select
                             options={locationOptions}
                             control={control}
                             errors={errors}
-                            name="userLocation"
+                            name="location"
                             isMulti={true}
                             placeholder="Options"
                         />
@@ -278,17 +270,17 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Level of English'}
+                        Level of English
                         <Controller
                             control={control}
-                            name="levelOfEnglish"
+                            name="englishLevel"
                             render={renderCheckboxes}
                         />
                     </FormLabel>
                 </Grid>
                 <Grid>
                     <FormLabel className={styles.labels}>
-                        {'Employment Type'}
+                        Employment Type
                         <Controller
                             control={control}
                             name="employmentType"

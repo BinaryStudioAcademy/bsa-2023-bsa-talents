@@ -27,7 +27,7 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
     const [items, setItems] = useState(chatItems);
     const [searchValue, setSearchValue] = useState('');
 
-    const selectionHandler = useCallback(
+    const handleSelection = useCallback(
         (id: string): void => {
             setItems(getItemsWithSelected(items, id));
             if (onItemClick) {
@@ -45,7 +45,7 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
         return items.length > EMPTY_ARRAY_LENGTH
             ? items.map((item) => (
                   <li key={item.userId}>
-                      <ChatListItem onClick={selectionHandler} {...item} />
+                      <ChatListItem onClick={handleSelection} {...item} />
                   </li>
               ))
             : [
@@ -56,7 +56,7 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
                       {'Nothing was found'}
                   </li>,
               ];
-    }, [items, selectionHandler]);
+    }, [items, handleSelection]);
 
     return (
         <Grid
