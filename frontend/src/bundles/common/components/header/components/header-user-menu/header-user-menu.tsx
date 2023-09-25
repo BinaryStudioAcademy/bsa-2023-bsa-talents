@@ -16,7 +16,7 @@ import {
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
 import { configureString } from '~/helpers/helpers.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 

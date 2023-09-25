@@ -8,7 +8,7 @@ import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
 
-const menuItems = [
+const MENU_ITEMS = [
     {
         link: AppRoute.CANDIDATES,
         name: 'Candidates',
@@ -40,9 +40,9 @@ const Sidebar: React.FC = () => {
                     styles.wrapper,
                 )}
             >
-                <Logo isCollapsed={true} className={styles.logo} withLink />
+                <Logo isCollapsed={true} className={styles.logo} hasLink />
                 <ul className={styles.list}>
-                    {menuItems.map((item) => (
+                    {MENU_ITEMS.map((item) => (
                         <li
                             key={item.link}
                             className={isApproved ? '' : styles.listItem}

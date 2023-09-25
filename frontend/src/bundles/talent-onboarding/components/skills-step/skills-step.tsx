@@ -1,4 +1,3 @@
-import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Autocomplete,
@@ -12,6 +11,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -30,8 +30,8 @@ import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profi
 import {
     EnglishLevel,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     type SkillsStepDto,
@@ -39,11 +39,7 @@ import {
 } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import {
-    fromUrlLinks,
-    setEnglishLevelValue,
-    toUrlLinks,
-} from '../../helpers/helpers.js';
+import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
@@ -55,7 +51,7 @@ const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
     label: level,
 }));
 
-const preferredLanguagesOptions = Object.values(PreferredLanguages).map(
+const preferredLanguagesOptions = Object.values(PreferredLanguage).map(
     (language) => ({
         value: language,
         label: language,
@@ -90,7 +86,7 @@ const SkillsStep: React.FC = () => {
             defaultValues: useMemo(
                 () => ({
                     hardSkills,
-                    englishLevel: setEnglishLevelValue(englishLevel),
+                    englishLevel: englishLevel ?? '',
                     notConsidered,
                     preferredLanguages,
                     projectLinks: projectLinks?.length
@@ -131,6 +127,7 @@ const SkillsStep: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const { hardSkillsOptions } = useCommonData();
     const watchedValues = watch([
         'hardSkills',
         'englishLevel',
@@ -195,7 +192,7 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     userId: currentUser?.id,
                     projectLinks: preparedLinks,
-                    completedStep: OnboardingSteps.STEP_03,
+                    completedStep: OnboardingStep.STEP_03,
                     hardSkills,
                 }),
             );
@@ -283,7 +280,7 @@ const SkillsStep: React.FC = () => {
             <Autocomplete
                 name="hardSkills"
                 control={control}
-                options={mockHardSkills}
+                options={hardSkillsOptions}
                 placeholder="Start typing and select skills"
                 label="Hard Skills"
             />

@@ -20,7 +20,7 @@ import {
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { CountryList } from '../../enums/enums.js';
+import { Country } from '../../enums/enums.js';
 import { actions as employerActions } from '../../store/employer-onboarding.js';
 import {
     type EmployerOnboardingDto,
@@ -31,7 +31,7 @@ import { EmployerFileUpload } from './components/employer-file-upload.js';
 import { TEXTAREA } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -230,14 +230,8 @@ const OnboardingForm: React.FC = () => {
             <Grid className={styles.form}>
                 <Grid className={styles.formFields}>
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
-                                Full Name
-                                <span className={styles.requiredField}>*</span>
-                            </Typography>
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">Full Name</Typography>
                         </FormLabel>
 
                         <Input
@@ -250,13 +244,9 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">
                                 Your position
-                                <span className={styles.requiredField}>*</span>
                             </Typography>
                         </FormLabel>
                         <Input
@@ -269,13 +259,9 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">
                                 Linkedin profile
-                                <span className={styles.requiredField}>*</span>
                             </Typography>
                         </FormLabel>
                         <Input
@@ -287,13 +273,9 @@ const OnboardingForm: React.FC = () => {
                         />
                     </FormControl>
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">
                                 Company name
-                                <span className={styles.requiredField}>*</span>
                             </Typography>
                         </FormLabel>
                         <Input
@@ -306,13 +288,9 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">
                                 Company website
-                                <span className={styles.requiredField}>*</span>
                             </Typography>
                         </FormLabel>
                         <Input
@@ -325,14 +303,8 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel>
-                            <Typography
-                                variant="label"
-                                className={styles.formLabel}
-                            >
-                                Location
-                                <span className={styles.requiredField}>*</span>
-                            </Typography>
+                        <FormLabel className={styles.formLabel} required>
+                            <Typography variant="label">Location</Typography>
                         </FormLabel>
                         <Grid className={styles.formInput}>
                             <Select
@@ -351,7 +323,7 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formTextarea}>
-                        <FormLabel className={styles.textareaLabel}>
+                        <FormLabel className={styles.textareaLabel} required>
                             <Typography variant="label">
                                 Briefly tell about your company and its values
                             </Typography>

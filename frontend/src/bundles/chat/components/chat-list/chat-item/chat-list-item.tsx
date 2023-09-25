@@ -69,5 +69,4 @@ const ChatListItem: React.FC<Properties> = ({
     );
 };
 
-export { type Properties as ChatListItemProperties };
 export { ChatListItem };

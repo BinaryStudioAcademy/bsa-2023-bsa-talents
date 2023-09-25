@@ -535,7 +535,7 @@ class UserDetailsController extends ControllerBase {
      *            type: boolean
      *          description: Determines whether search type is base or extended
      *        - in: query
-     *          name: searchActiveCandidatesOnly
+     *          name: isSearchActiveCandidatesOnly
      *          schema:
      *            type: boolean
      *          description: Filter by active status (optional)

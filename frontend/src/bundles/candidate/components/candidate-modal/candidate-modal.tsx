@@ -200,7 +200,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                 styles.button,
                                 styles.addLink,
                             )}
-                            disabled={fields.length === MODAL.MAX_LINKS}
+                            isDisabled={fields.length === MODAL.MAX_LINKS}
                             onClick={addLink}
                             variant="text"
                             label="Add more links"
