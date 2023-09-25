@@ -50,6 +50,7 @@ export {
     NotConsidered,
     OnboardingSteps,
     PreferredLanguages,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
