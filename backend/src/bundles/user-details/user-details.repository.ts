@@ -3,6 +3,7 @@ import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { UserRole } from './enums/enums.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
@@ -172,7 +173,7 @@ class UserDetailsRepository implements Repository {
 
         const searchResults = await query
             .withGraphJoined('user')
-            .where('user.role', '=', 'talent');
+            .where('user.role', '=', UserRole.TALENT);
 
         return searchResults.map((result) => {
             return UserDetailsEntity.initialize({
