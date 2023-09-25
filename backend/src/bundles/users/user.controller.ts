@@ -15,11 +15,6 @@ import { type UserGetLMSDataById } from './types/types.js';
 /**
  * @swagger
  * components:
- *    securitySchemes:
- *      xTokenKey:
- *        type: apiKey
- *        in: header
- *        name: X-Token
  *    schemas:
  *      RoleEnum:
  *        type: string
@@ -198,10 +193,9 @@ class UserController extends ControllerBase {
      * /users/{userId}/lms-data:
      *    get:
      *      tags: [Users]
-     *      description: Returns user LMS Data by user ID, you also need LMS_SERVER url in .env
+     *      description: Returns user LMS Data by user ID
      *      security:
      *        - bearerAuth: []
-     *        - xTokenKey: []
      *      parameters:
      *        - in: path
      *          name: userId
