@@ -32,6 +32,8 @@ import {
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
 import styles from './styles.module.scss';
 
+const FIRST_ELEMENT = 0;
+
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
@@ -67,7 +69,7 @@ const locationOptions = Object.values(CountryList).map((country) => ({
 }));
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
-    value: level.split(' ')[0],
+    value: level.split(' ')[FIRST_ELEMENT],
     label: level,
 }));
 

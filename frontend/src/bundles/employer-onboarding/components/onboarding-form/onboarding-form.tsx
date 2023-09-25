@@ -28,6 +28,7 @@ import {
 } from '../../types/types.js';
 import { EmployerOnboardingValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { EmployerFileUpload } from './components/employer-file-upload.js';
+import { TEXTAREA } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const locationOptions = Object.values(CountryList).map((country) => ({
@@ -356,8 +357,8 @@ const OnboardingForm: React.FC = () => {
                             </Typography>
                         </FormLabel>
                         <Textarea
-                            minRows={7}
-                            maxRows={9}
+                            minRows={TEXTAREA.minRows}
+                            maxRows={TEXTAREA.maxRows}
                             control={control}
                             errors={errors}
                             placeholder="Text"

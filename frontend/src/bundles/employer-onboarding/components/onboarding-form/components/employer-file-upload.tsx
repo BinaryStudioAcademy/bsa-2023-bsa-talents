@@ -21,6 +21,8 @@ import { type EmployerOnboardingDto } from '../../../types/types.js';
 import { ACCEPTED_PHOTO_TYPES } from '../constants/constants.js';
 import styles from '../styles.module.scss';
 
+const FIRST_ELEMENT = 0;
+
 type Properties = {
     label: string;
     control: Control<EmployerOnboardingDto>;
@@ -36,7 +38,7 @@ const EmployerFileUpload: React.FC<Properties> = ({ label, name, control }) => {
     const handleFileChange = useCallback(
         (field: ControllerRenderProps<EmployerOnboardingDto, typeof name>) =>
             (event: React.ChangeEvent<HTMLInputElement>): void => {
-                const file = event.target.files?.[0];
+                const file = event.target.files?.[FIRST_ELEMENT];
                 field.onChange(file);
             },
         [],
