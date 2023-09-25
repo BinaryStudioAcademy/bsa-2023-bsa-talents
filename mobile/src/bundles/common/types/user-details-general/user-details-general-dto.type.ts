@@ -1,23 +1,25 @@
 import {
-    type BsaBadgesStepDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
-} from '~/bundles/talent/types/types';
+} from '~/bundles/common/types/types';
+import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 
-//TODO delete when backend is ready
 type HardSkillsDto = {
     hardSkills: { value: string; label: string }[];
 };
 
+//TODO delete when backend is ready
 type PhotoDto = {
     photo: File | null;
 };
 
+//TODO delete when backend is ready
 type CVDto = {
     cv: File | null;
 };
 
+//TODO delete when backend is ready
 type CompanyLogoDto = {
     companyLogo: File | null;
 };

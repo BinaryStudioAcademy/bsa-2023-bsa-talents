@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { ScrollView, Text } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import {
+    ScrollView,
+    StatusBar,
+    Text,
+} from '~/bundles/common/components/components';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
@@ -37,27 +41,33 @@ const EmployerOnboarding: React.FC = () => {
     };
 
     return (
-        <ScrollView
-            contentContainerStyle={[
-                globalStyles.defaultScreenPadding,
-                styles.container,
-            ]}
-        >
-            <Text
-                category={TextCategory.H4}
-                style={[globalStyles.mb15, styles.title]}
-            >
-                Create a profile to find a perfect match to your company
-            </Text>
-            <Text category={TextCategory.H6} style={globalStyles.mb10}>
-                Please, fill out all the fields below, so we could verify your
-                company
-            </Text>
-            <EmployerOnboardingForm
-                employerOnboardingData={employerOnboardingData}
-                onSubmit={handleEmployerDataSubmit}
+        <>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Color.BACKGROUND}
             />
-        </ScrollView>
+            <ScrollView
+                contentContainerStyle={[
+                    globalStyles.defaultScreenPadding,
+                    styles.container,
+                ]}
+            >
+                <Text
+                    category={TextCategory.H4}
+                    style={[globalStyles.mb15, styles.title]}
+                >
+                    Create a profile to find a perfect match to your company
+                </Text>
+                <Text category={TextCategory.H6} style={globalStyles.mb10}>
+                    Please, fill out all the fields below, so we could verify
+                    your company
+                </Text>
+                <EmployerOnboardingForm
+                    employerOnboardingData={employerOnboardingData}
+                    onSubmit={handleEmployerDataSubmit}
+                />
+            </ScrollView>
+        </>
     );
 };
 

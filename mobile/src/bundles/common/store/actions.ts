@@ -1,12 +1,12 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
-import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
+    type AsyncThunkConfig,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
-} from '~/bundles/talent/types/types';
+} from '~/bundles/common/types/types';
 
 import { name as sliceName } from './slice';
 
