@@ -2,6 +2,7 @@ export {
     UserRole,
     UsersApiPath,
     UserValidationMessage,
+    UserValidationRule,
 } from './enums/enums.js';
 export {
     type UserCreateResponseDto,

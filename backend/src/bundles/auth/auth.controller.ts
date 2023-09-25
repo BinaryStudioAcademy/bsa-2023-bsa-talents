@@ -20,6 +20,7 @@ import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
 import { type EmailService } from '../email/email.js';
+import { type UserFindResponseDto } from '../users/types/types.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
@@ -77,7 +78,14 @@ class AuthController extends ControllerBase {
         this.addRoute({
             path: AuthApiPath.CURRENT_USER,
             method: 'GET',
-            handler: (options) => this.getCurrentUser(options),
+            handler: (options) =>
+                this.getCurrentUser(
+                    options as ApiHandlerOptions<{
+                        body: {
+                            user: UserFindResponseDto;
+                        };
+                    }>,
+                ),
         });
 
         this.addRoute({
@@ -226,16 +234,18 @@ class AuthController extends ControllerBase {
      *               $ref: '#/components/schemas/User'
      */
 
-    private async getCurrentUser(
-        options: ApiHandlerOptions,
-    ): Promise<ApiHandlerResponse> {
-        const [, token] = options.headers.authorization?.split(' ') ?? [];
-
-        const user = await this.authService.getCurrentUser(token);
+    private getCurrentUser(
+        options: ApiHandlerOptions<{
+            body: {
+                user: UserFindResponseDto;
+            };
+        }>,
+    ): ApiHandlerResponse {
+        const selectedUser = options.body.user;
 
         return {
             status: HttpCode.OK,
-            payload: user,
+            payload: selectedUser,
         };
     }
 

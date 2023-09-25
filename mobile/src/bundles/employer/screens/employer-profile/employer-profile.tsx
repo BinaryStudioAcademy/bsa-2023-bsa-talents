@@ -4,6 +4,7 @@ import {
     ScrollView,
     StatusBar,
     Text,
+    VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
@@ -17,6 +18,8 @@ import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
+
+    const { isApproved } = onboardingData ?? {};
 
     const employerOnboardingData: EmployerOnboardingFormDto | null =
         onboardingData
@@ -58,6 +61,7 @@ const EmployerProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>My profile</Text>
+                {!isApproved && <VerificationMessage />}
             </View>
 
             <ScrollView
