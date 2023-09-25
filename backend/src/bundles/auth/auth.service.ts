@@ -105,7 +105,7 @@ class AuthService {
         if (!user) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_NOT_FOUND,
+                message: ErrorMessage.USER_NOT_FOUND,
             });
         }
 
@@ -139,7 +139,7 @@ class AuthService {
         ) {
             throw new HttpError({
                 status: HttpCode.BAD_REQUEST,
-                message: ErrorMessages.TOKEN_INVALID_OR_EXPIRED,
+                message: ErrorMessage.TOKEN_INVALID_OR_EXPIRED,
             });
         }
 

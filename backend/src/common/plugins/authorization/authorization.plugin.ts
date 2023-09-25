@@ -1,6 +1,6 @@
 import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
 import fp from 'fastify-plugin';
-import { ErrorMessages } from 'shared/build/enums/enums.js';
+import { ErrorMessage } from 'shared/build/enums/enums.js';
 import { AuthApiPath } from 'shared/build/index.js';
 
 import { type UserService } from '~/bundles/users/users.js';
@@ -52,7 +52,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
 
         if (!token) {
             throw new HttpError({
-                message: ErrorMessages.UNAUTHORIZED_USER,
+                message: ErrorMessage.UNAUTHORIZED_USER,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
@@ -63,7 +63,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
 
         if (!authorizedUser) {
             throw new HttpError({
-                message: ErrorMessages.INVALID_TOKEN,
+                message: ErrorMessage.INVALID_TOKEN,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
