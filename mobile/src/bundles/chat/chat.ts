@@ -4,10 +4,10 @@ import { storage } from '~/framework/storage/storage';
 
 import { ChatApi } from './chat-api';
 
-const commonApi = new ChatApi({
+const chatApi = new ChatApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
     storage,
     http,
 });
 
-export { commonApi };
+export { chatApi };
