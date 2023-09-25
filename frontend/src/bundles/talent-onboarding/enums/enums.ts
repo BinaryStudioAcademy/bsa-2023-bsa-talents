@@ -8,8 +8,8 @@ export {
     ExperienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
+    OnboardingStep,
     PreferredLanguages,
     ProfileStepValidationRule,
-    OnboardingSteps as StepsRoute,
+    OnboardingStep as StepsRoute,
 } from 'shared/build/index.js';

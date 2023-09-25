@@ -25,7 +25,7 @@ import { actions as employerActions } from '~/bundles/employer-onboarding/store/
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 

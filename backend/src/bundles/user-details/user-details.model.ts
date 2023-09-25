@@ -22,7 +22,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
+    type OnboardingStep,
     type PreferredLanguages,
 } from './enums/enums.js';
 
@@ -81,7 +81,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'talentBadges': TalentBadgeModel[];
 
-    public 'completedStep': ValueOf<typeof OnboardingSteps>;
+    public 'completedStep': ValueOf<typeof OnboardingStep>;
 
     public 'publishedAt': Date;
 
