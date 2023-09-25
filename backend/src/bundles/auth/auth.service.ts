@@ -1,5 +1,7 @@
 import {
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -10,6 +12,8 @@ import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
+
+import { TOKEN_EXPIRY } from './constants/constants.js';
 
 class AuthService {
     private userService: UserService;
@@ -91,6 +95,69 @@ class AuthService {
             });
         }
         return user;
+    }
+
+    public async createResetToken({
+        email,
+    }: UserForgotPasswordRequestDto): Promise<string> {
+        const user = await this.userService.findByEmail(email);
+
+        if (!user) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessage.USER_NOT_FOUND,
+            });
+        }
+
+        const resetToken = await token.create({ id: user.id });
+
+        const hash = await this.encrypt.make(resetToken);
+
+        const resetTokenExpiry = Date.now() + TOKEN_EXPIRY;
+
+        await this.userService.updateResetToken({
+            userId: user.id,
+            resetToken: hash,
+            resetTokenExpiry,
+        });
+
+        const encodedResetToken = Buffer.from(resetToken).toString('base64');
+
+        return encodedResetToken.replaceAll('+', '-').replaceAll('/', '_');
+    }
+
+    public async forgotPassword({
+        resetToken,
+        password,
+    }: UserResetPasswordRequestDto): Promise<void> {
+        const user = await this.userService.findByToken(resetToken);
+
+        if (
+            !user?.resetToken ||
+            !user.resetTokenExpiry ||
+            Date.now() > user.resetTokenExpiry
+        ) {
+            throw new HttpError({
+                status: HttpCode.BAD_REQUEST,
+                message: ErrorMessage.TOKEN_INVALID_OR_EXPIRED,
+            });
+        }
+
+        const isEqualToken = await this.encrypt.compare(
+            resetToken,
+            user.resetToken,
+        );
+
+        if (isEqualToken) {
+            const passwordHash = await this.encrypt.make(password);
+
+            await this.userService.updateResetToken({
+                userId: user.id,
+                resetToken: null,
+                resetTokenExpiry: null,
+                passwordHash,
+            });
+        }
     }
 }
 

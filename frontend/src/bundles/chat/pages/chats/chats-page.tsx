@@ -143,8 +143,6 @@ const ChatsPage: React.FC = () => {
                         employerId,
                     }),
                 );
-
-                dispatch(chatActions.checkOnline(room.chatId));
             }
         },
         [isOpenChatList, dispatch, user?.id, user?.role],

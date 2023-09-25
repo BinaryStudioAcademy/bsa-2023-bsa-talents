@@ -68,8 +68,11 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     >
                         {candidateParameters.location} |{' '}
                         {candidateParameters.experienceYears} years of
-                        experience |{candidateParameters.englishLevel} | Publish
-                        today
+                        experience | {candidateParameters.englishLevel} |
+                        Published{' '}
+                        {new Date(
+                            candidateParameters.date,
+                        ).toLocaleDateString()}
                     </Typography>
                 )}
             </Grid>
@@ -108,7 +111,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     Skills
                 </Typography>
                 <ul className={styles.skills}>
-                    {candidateParameters.hardSkills.map((skill) => (
+                    {(candidateParameters.hardSkills ?? []).map((skill) => (
                         <li key={skill}>
                             <Chip label={skill} />
                         </li>

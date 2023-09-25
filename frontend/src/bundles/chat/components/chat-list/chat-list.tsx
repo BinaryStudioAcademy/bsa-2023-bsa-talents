@@ -52,7 +52,7 @@ const ChatList: React.FC<Properties> = ({ onItemClick }) => {
 
     const chatList = getSearchedItems(chatListMapped, searchValue);
 
-    const selectionHandler = useCallback(
+    const handleSelection = useCallback(
         (id: string): void => {
             if (onItemClick) {
                 onItemClick(id, chatList);
@@ -63,7 +63,7 @@ const ChatList: React.FC<Properties> = ({ onItemClick }) => {
 
     const renderedChatItems = chatList.map((item) => (
         <li key={item.chatId}>
-            <ChatListItem onClick={selectionHandler} {...item} />
+            <ChatListItem onClick={handleSelection} {...item} />
         </li>
     ));
 

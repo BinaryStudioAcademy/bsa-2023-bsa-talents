@@ -13,7 +13,6 @@ import {
     Button,
     Checkbox,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -21,6 +20,7 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -32,7 +32,7 @@ import {
 
 import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';
-import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { contactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { MessageTemplate } from '../components.js';
 import { DEFAULT_CONTACT_CANDIDATE_MODAL, MODAL_CONST } from './constants.js';
 import styles from './styles.module.scss';
@@ -53,7 +53,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const { control, errors, handleSubmit, setValue } =
         useAppForm<ContactCandidateDto>({
             defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
-            validationSchema: ContactCandidateValidationSchema,
+            validationSchema: contactCandidateValidationSchema,
         });
 
     const { fields, append, remove } = useFieldArray({
@@ -61,20 +61,20 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
         control,
     });
 
-    const addLink = useCallback((): void => {
+    const handleAddLink = useCallback((): void => {
         append({
             value: '',
         });
     }, [append]);
 
-    const removeLink = useCallback(
+    const handleRemoveLink = useCallback(
         (index: number) => (): void => {
             remove(index);
         },
         [remove],
     );
 
-    const applyTemplate = useCallback(
+    const handleApplyTemplate = useCallback(
         (message: string) => (): void => {
             setValue('message', message);
         },
@@ -177,7 +177,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                                 styles.deleteButton,
                                             )}
                                             label=""
-                                            onClick={removeLink(index)}
+                                            onClick={handleRemoveLink(index)}
                                             variant="outlined"
                                             endIcon={
                                                 <DeleteIcon
@@ -197,17 +197,13 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                 styles.addLink,
                             )}
                             isDisabled={fields.length === MODAL_CONST.MAX_LINKS}
-                            onClick={addLink}
+                            onClick={handleAddLink}
                             variant="text"
                             label="Add more links"
                             startIcon={<AddIcon />}
                             color="primary"
                         />
-                        {errors.links && (
-                            <FormHelperText className={styles.error}>
-                                {errors.links.message}
-                            </FormHelperText>
-                        )}
+                        <ErrorMessage errors={errors} name={'links'} />
                     </FormControl>
 
                     <FormControl className={styles.formControl}>
@@ -231,11 +227,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             minRows={4}
                             maxRows={7}
                         />
-                        {errors.message && (
-                            <FormHelperText className={styles.error}>
-                                {errors.message.message}
-                            </FormHelperText>
-                        )}
+                        <ErrorMessage errors={errors} name={'message'} />
 
                         <Controller
                             name={'isSaveTemplate'}
@@ -267,7 +259,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                         key={template.name}
                                         template={template}
                                         templates={messageTemplates}
-                                        applyTemplate={applyTemplate}
+                                        applyTemplate={handleApplyTemplate}
                                         control={templateControl}
                                         errors={templateErrors}
                                         name={`templates.${index}.name`}

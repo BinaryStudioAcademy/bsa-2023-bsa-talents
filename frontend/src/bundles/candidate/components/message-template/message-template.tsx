@@ -50,11 +50,11 @@ const MessageTemplate = <T extends FieldValues>({
     const [errorMessage, setErrorMessage] = useState('');
     const [editedName, setEditedName] = useState(template.name);
 
-    const editTemplate = useCallback((): void => {
+    const handleEditTemplate = useCallback((): void => {
         setIsEdit(true);
     }, []);
 
-    const cancelTemplateEdit = useCallback((): void => {
+    const handleCancelTemplateEdit = useCallback((): void => {
         setErrorMessage('');
         setIsEdit(false);
     }, []);
@@ -69,7 +69,7 @@ const MessageTemplate = <T extends FieldValues>({
         [errorMessage],
     );
 
-    const confirmTemplateEdit = useCallback(
+    const handleConfirmTemplateEdit = useCallback(
         (oldName: string) => (): void => {
             if (templates.some((template) => template.name === editedName)) {
                 setErrorMessage('Duplicate name');
@@ -86,7 +86,7 @@ const MessageTemplate = <T extends FieldValues>({
         [dispatch, editedName, templates],
     );
 
-    const removeTemplate = useCallback(
+    const handleRemoveTemplate = useCallback(
         (templateName: string) => (): void => {
             void dispatch(candidateActions.removeMessageTemplate(templateName));
         },
@@ -94,7 +94,7 @@ const MessageTemplate = <T extends FieldValues>({
     );
 
     return isEdit ? (
-        <Grid>
+        <>
             <Grid container justifyContent={'space-between'}>
                 <Input
                     className={getValidClassNames(
@@ -115,14 +115,14 @@ const MessageTemplate = <T extends FieldValues>({
                     <Button
                         className={getValidClassNames(styles.button)}
                         label=""
-                        onClick={confirmTemplateEdit(template.name)}
+                        onClick={handleConfirmTemplateEdit(template.name)}
                         variant="outlined"
                         endIcon={<CheckIcon className={styles.buttonIcon} />}
                     />
                     <Button
                         className={getValidClassNames(styles.button)}
                         label=""
-                        onClick={cancelTemplateEdit}
+                        onClick={handleCancelTemplateEdit}
                         variant="outlined"
                         endIcon={<CloseIcon className={styles.buttonIcon} />}
                     />
@@ -133,7 +133,7 @@ const MessageTemplate = <T extends FieldValues>({
                     {errorMessage}
                 </FormHelperText>
             )}
-        </Grid>
+        </>
     ) : (
         <Grid container justifyContent={'space-between'}>
             <Button
@@ -150,14 +150,14 @@ const MessageTemplate = <T extends FieldValues>({
                 <Button
                     className={getValidClassNames(styles.button)}
                     label=""
-                    onClick={editTemplate}
+                    onClick={handleEditTemplate}
                     variant="outlined"
                     endIcon={<EditIcon className={styles.buttonIcon} />}
                 />
                 <Button
                     className={getValidClassNames(styles.button)}
                     label=""
-                    onClick={removeTemplate(template.name)}
+                    onClick={handleRemoveTemplate(template.name)}
                     variant="outlined"
                     endIcon={<DeleteIcon className={styles.buttonIcon} />}
                 />

@@ -7,8 +7,8 @@ import { type Service } from '~/common/types/service.type.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
-import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
+    type TalentHardSkill,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
@@ -19,6 +19,10 @@ import {
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
+
+type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
+    talentHardSkills: TalentHardSkill[];
+};
 
 class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
@@ -43,7 +47,7 @@ class UserDetailsService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<UserDetailsEntity | null> {
+    ): Promise<UserDetailsWithTalentHardSkills | null> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -52,7 +56,18 @@ class UserDetailsService implements Service {
                 message: ErrorMessage.USER_DETAILS_NOT_FOUND,
             });
         }
-        return userDetails;
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        const talentHardSkills =
+            await this.talentHardSkillsService.findByUserDetailsId(
+                userDetailsId,
+            );
+
+        return {
+            ...userDetails,
+            talentHardSkills,
+        } as UserDetailsWithTalentHardSkills;
     }
 
     public async findCompanyInfoByUserId(

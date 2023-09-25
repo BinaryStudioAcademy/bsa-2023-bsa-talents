@@ -1,12 +1,16 @@
 import {
+    type UserForgotPasswordRequestDto,
+    type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 import {
+    userForgotPasswordValidationSchema,
+    userResetPasswordValidationSchema,
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
-import { ApiPath } from '~/common/enums/enums.js';
+import { ApiPath, NotificationMessages } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import {
     type ApiHandlerOptions,
@@ -15,6 +19,8 @@ import {
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
+import { type EmailService } from '../email/email.js';
+import { type UserFindResponseDto } from '../users/types/types.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
@@ -29,11 +35,17 @@ import { AuthApiPath } from './enums/enums.js';
  */
 class AuthController extends ControllerBase {
     private authService: AuthService;
+    private emailService: EmailService;
 
-    public constructor(logger: Logger, authService: AuthService) {
+    public constructor(
+        logger: Logger,
+        authService: AuthService,
+        emailService: EmailService,
+    ) {
         super(logger, ApiPath.AUTH);
 
         this.authService = authService;
+        this.emailService = emailService;
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
@@ -66,7 +78,42 @@ class AuthController extends ControllerBase {
         this.addRoute({
             path: AuthApiPath.CURRENT_USER,
             method: 'GET',
-            handler: (options) => this.getCurrentUser(options),
+            handler: (options) =>
+                this.getCurrentUser(
+                    options as ApiHandlerOptions<{
+                        body: {
+                            user: UserFindResponseDto;
+                        };
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.FORGOT_PASSWORD,
+            method: 'POST',
+            validation: {
+                body: userForgotPasswordValidationSchema,
+            },
+            handler: (options) =>
+                this.forgotPassword(
+                    options as ApiHandlerOptions<{
+                        body: UserForgotPasswordRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.RESET_PASSWORD,
+            method: 'POST',
+            validation: {
+                body: userResetPasswordValidationSchema,
+            },
+            handler: (options) =>
+                this.resetPassword(
+                    options as ApiHandlerOptions<{
+                        body: UserResetPasswordRequestDto;
+                    }>,
+                ),
         });
     }
 
@@ -187,16 +234,49 @@ class AuthController extends ControllerBase {
      *               $ref: '#/components/schemas/User'
      */
 
-    private async getCurrentUser(
-        options: ApiHandlerOptions,
-    ): Promise<ApiHandlerResponse> {
-        const [, token] = options.headers.authorization?.split(' ') ?? [];
-
-        const user = await this.authService.getCurrentUser(token);
+    private getCurrentUser(
+        options: ApiHandlerOptions<{
+            body: {
+                user: UserFindResponseDto;
+            };
+        }>,
+    ): ApiHandlerResponse {
+        const selectedUser = options.body.user;
 
         return {
             status: HttpCode.OK,
-            payload: user,
+            payload: selectedUser,
+        };
+    }
+
+    private async forgotPassword(
+        options: ApiHandlerOptions<{ body: UserForgotPasswordRequestDto }>,
+    ): Promise<ApiHandlerResponse> {
+        const resetToken = await this.authService.createResetToken(
+            options.body,
+        );
+
+        await this.emailService.sendForgotPasswordEmail(
+            options.body.email,
+            resetToken,
+        );
+
+        return {
+            status: HttpCode.OK,
+            payload: {
+                message: NotificationMessages.PASSWORD_RESET_LINK_SENT_BY_EMAIL,
+            },
+        };
+    }
+
+    private async resetPassword(
+        options: ApiHandlerOptions<{ body: UserResetPasswordRequestDto }>,
+    ): Promise<ApiHandlerResponse> {
+        await this.authService.forgotPassword(options.body);
+
+        return {
+            status: HttpCode.OK,
+            payload: { message: NotificationMessages.PASSWORD_HAS_BEEN_RESET },
         };
     }
 }

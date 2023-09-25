@@ -26,7 +26,7 @@ class TalentOnBoardingApi extends HttpApiBase {
         const { userId = '' } = payload;
 
         const response = await this.load(
-            this.getFullEndpoint('/', userId, {}),
+            this.getFullEndpoint('/', ':userId', { userId }),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,

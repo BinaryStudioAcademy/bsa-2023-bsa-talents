@@ -3,6 +3,7 @@ import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { UserRole } from './enums/enums.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
@@ -61,6 +62,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
@@ -175,15 +177,6 @@ class UserDetailsRepository implements Repository {
                 });
             }
 
-            if (payload.BSABadges && payload.BSABadges.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.BSABadges,
-                    columnName: 'badge_id',
-                    relativeTable: 'talentBadges',
-                });
-            }
-
             if (payload.location) {
                 void builder.where((subquery) => {
                     searchByColumnValues(
@@ -223,11 +216,16 @@ class UserDetailsRepository implements Repository {
             sortingParameters.direction,
         );
 
-        const searchResults = await query;
+        const searchResults = await query
+            .withGraphJoined('user')
+            .where('user.role', '=', UserRole.TALENT);
 
-        return searchResults.map((result) =>
-            UserDetailsEntity.initialize(result),
-        );
+        return searchResults.map((result) => {
+            return UserDetailsEntity.initialize({
+                ...result,
+                email: result.user?.email,
+            });
+        });
     }
 
     public async create(
@@ -269,6 +267,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
@@ -309,6 +308,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 

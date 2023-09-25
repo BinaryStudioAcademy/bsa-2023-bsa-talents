@@ -4,14 +4,15 @@ import {
     Checkbox,
     Controller,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
+import { type AutoselectOptions } from '~/bundles/common/data/types/autoselect-options.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -35,13 +36,14 @@ import {
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     type SkillsStepDto,
+    type TalentHardSkill,
     type UserDetailsGeneralCustom,
 } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
-import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { skillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
@@ -69,8 +71,18 @@ const SkillsStep: React.FC = () => {
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
+
     const {
-        hardSkills,
+        talentHardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
@@ -80,6 +92,17 @@ const SkillsStep: React.FC = () => {
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
+
+    const { hardSkillsOptions } = useCommonData();
+
+    const hardSkills = useMemo((): AutoselectOptions => {
+        return hardSkillsOptions.filter((item) =>
+            (talentHardSkills as unknown as TalentHardSkill[]).some(
+                (skill) => skill.hardSkillId === item.value,
+            ),
+        );
+    }, [talentHardSkills, hardSkillsOptions]);
+
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<SkillsStepDto>({
             defaultValues: useMemo(
@@ -100,7 +123,7 @@ const SkillsStep: React.FC = () => {
                     projectLinks,
                 ],
             ),
-            validationSchema: SkillsStepValidationSchema,
+            validationSchema: skillsStepValidationSchema,
         });
 
     useEffect(() => {
@@ -124,9 +147,6 @@ const SkillsStep: React.FC = () => {
 
     const { setSubmitForm } = useFormSubmit();
 
-    const dispatch = useAppDispatch();
-
-    const { hardSkillsOptions } = useCommonData();
     const watchedValues = watch([
         'hardSkills',
         'englishLevel',
@@ -168,8 +188,8 @@ const SkillsStep: React.FC = () => {
         watchedValues,
     ]);
 
-    const onSubmit = useCallback(
-        async (data: SkillsStepDto): Promise<boolean> => {
+    const handleFormSubmit = useCallback(
+        (data: SkillsStepDto): boolean => {
             const {
                 englishLevel,
                 notConsidered,
@@ -184,7 +204,7 @@ const SkillsStep: React.FC = () => {
             const preparedLinks =
                 enteredLinks.length > 0 ? fromUrlLinks(enteredLinks) : null;
 
-            await dispatch(
+            void dispatch(
                 talentActions.updateTalentDetails({
                     englishLevel,
                     notConsidered,
@@ -204,8 +224,8 @@ const SkillsStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -213,7 +233,7 @@ const SkillsStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -285,9 +305,8 @@ const SkillsStep: React.FC = () => {
             />
 
             <FormControl>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'}>Level of English</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Select
@@ -297,11 +316,7 @@ const SkillsStep: React.FC = () => {
                     name={'englishLevel'}
                     placeholder="Option"
                 />
-                {errors.englishLevel && (
-                    <FormHelperText className={styles.hasError}>
-                        {String(errors.englishLevel.message)}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'englishLevel'} />
             </FormControl>
             <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
@@ -320,11 +335,11 @@ const SkillsStep: React.FC = () => {
                         styles.label,
                         styles.labelMargin,
                     )}
+                    required
                 >
                     <Typography variant={'label'}>
                         Preferred language of communication
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
                 <Select
                     isMulti
@@ -334,11 +349,7 @@ const SkillsStep: React.FC = () => {
                     name={'preferredLanguages'}
                     options={preferredLanguagesOptions}
                 />
-                {errors.preferredLanguages && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.preferredLanguages.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'preferredLanguages'} />
             </FormControl>
             <SkillsProjectLinks control={control} errors={errors} />
         </>

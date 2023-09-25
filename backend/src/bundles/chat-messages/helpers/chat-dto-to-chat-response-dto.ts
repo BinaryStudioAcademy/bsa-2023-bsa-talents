@@ -1,6 +1,6 @@
 import { type ChatItem, type ChatResponseDto } from '../types/types.js';
 
-function chatDtoToChatResponseDto(chat: ChatItem): ChatResponseDto {
+const chatDtoToChatResponseDto = (chat: ChatItem): ChatResponseDto => {
     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
         chat;
 
@@ -23,6 +23,6 @@ function chatDtoToChatResponseDto(chat: ChatItem): ChatResponseDto {
             },
         },
     };
-}
+};
 
 export { chatDtoToChatResponseDto };

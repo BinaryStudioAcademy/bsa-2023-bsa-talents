@@ -85,6 +85,8 @@ class UserDetailsModel extends AbstractModel {
 
     public 'publishedAt': Date;
 
+    public 'user'?: UserModel;
+
     public 'photo'?: FileModel;
 
     public 'companyLogo'?: FileModel;

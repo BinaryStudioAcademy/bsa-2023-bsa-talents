@@ -1,7 +1,6 @@
 import {
     Autocomplete,
     FormControl,
-    FormHelperText,
     FormLabel,
     TextField,
     Typography,
@@ -19,6 +18,7 @@ import {
     useFormController,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { ErrorMessage } from '../error-message/error-message.js';
 import styles from './styles.module.scss';
 
 type Option = {
@@ -72,7 +72,14 @@ const CustomAutocomplete = <T extends FieldValues>({
         [fieldPassProperties, placeholder],
     );
 
-    const hideDefaultTags = useCallback(() => null, []);
+    const renderDefaultTags = useCallback(() => null, []);
+
+    const isOptionEqualToValue = useCallback(
+        (option: Option, value: Option): boolean => {
+            return option.value === value.value;
+        },
+        [],
+    );
 
     const handleChange = useCallback(
         (event: SyntheticEvent, values: Option[]) => {
@@ -80,13 +87,6 @@ const CustomAutocomplete = <T extends FieldValues>({
             onChange(values);
         },
         [onChange],
-    );
-
-    const isOptionEqualToValue = useCallback(
-        (option: Option, value: Option): boolean => {
-            return option.value === value.value;
-        },
-        [],
     );
 
     const handleDelete = useCallback(
@@ -113,27 +113,24 @@ const CustomAutocomplete = <T extends FieldValues>({
                 value={value as Option[]}
                 renderInput={renderInput}
                 options={options}
-                renderTags={hideDefaultTags}
+                renderTags={renderDefaultTags}
                 popupIcon={null}
                 clearIcon={null}
                 isOptionEqualToValue={isOptionEqualToValue}
                 onChange={handleChange}
             />
 
+            {!isFilter && <ErrorMessage errors={errors} name={name} />}
+
             <div className={styles.chips}>
                 {(value as Option[]).map((entry) => (
                     <Chip
-                        key={entry.label}
+                        key={entry.value}
                         label={entry.label}
                         onDelete={handleDelete(entry)}
                     />
                 ))}
             </div>
-            {errors[name] && !isFilter && (
-                <FormHelperText className={styles.hasError}>
-                    {errors[name]?.message as string}
-                </FormHelperText>
-            )}
         </FormControl>
     );
 };

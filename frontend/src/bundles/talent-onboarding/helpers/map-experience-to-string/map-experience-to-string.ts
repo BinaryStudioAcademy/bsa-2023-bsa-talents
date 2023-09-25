@@ -1,4 +1,4 @@
-const formatNumber = (number: number): number => {
+const trimZerosFromNumber = (number: number): number => {
     let string_ = String(number);
 
     if (string_.includes('.')) {
@@ -9,4 +9,4 @@ const formatNumber = (number: number): number => {
     return Number(string_);
 };
 
-export { formatNumber };
+export { trimZerosFromNumber };
