@@ -1,1 +1,1 @@
-export { PreviewTabs } from './preview-tabs.constant.js';
+export { PreviewTab } from './preview-tab.constant.js';

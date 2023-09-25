@@ -17,14 +17,14 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { VerificationList } from './components/components.js';
-import { PreviewTabs } from './constants/constants.js';
+import { PreviewTab } from './constants/constants.js';
 import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
 import { type FilterValues, type ValueOf } from './types/types.js';
 
 const AdminPanel: React.FC = () => {
     const [filter, setFilter] = useState<FilterValues>('talents');
-    type TabValues = ValueOf<typeof PreviewTabs>;
+    type TabValues = ValueOf<typeof PreviewTab>;
     const items = filter === 'talents' ? talents : employers;
     const FIRST_INDEX = 0;
     const theme = useTheme();
@@ -34,7 +34,7 @@ const AdminPanel: React.FC = () => {
         items[FIRST_INDEX]?.userId,
     );
     const [selectedTab, setSelectedTab] = useState<TabValues>(
-        PreviewTabs.PROFILE,
+        PreviewTab.PROFILE,
     );
 
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
@@ -51,7 +51,7 @@ const AdminPanel: React.FC = () => {
         [],
     );
 
-    const previewTabs = Object.values(PreviewTabs).map((tab) => (
+    const previewTabs = Object.values(PreviewTab).map((tab) => (
         <Button
             key={tab}
             onClick={handleSelectTab}
