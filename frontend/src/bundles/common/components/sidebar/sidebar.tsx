@@ -1,11 +1,11 @@
 import { EmailRounded, FolderShared, Home } from '@mui/icons-material';
 
-import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
+import { Grid, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
+import { SidebarItem } from './sidebar-item/sidebar-item.js';
 import styles from './styles.module.scss';
 import { type SideBarMenu } from './types/sidebar-menu.type.js';
 
@@ -37,10 +37,6 @@ const Sidebar: React.FC = () => {
         role: auth.currentUser?.role,
     }));
 
-    const { isApproved } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
-    );
-
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
@@ -58,19 +54,12 @@ const Sidebar: React.FC = () => {
                 <Logo isCollapsed={true} className={styles.logo} hasLink />
                 <ul className={styles.list}>
                     {menuItems.map((item) => (
-                        <li
-                            key={item.link}
-                            className={isApproved ? '' : styles.listItem}
-                        >
-                            <Link
-                                to={`${
-                                    isApproved ? item.link : AppRoute.SAME_PAGE
-                                }`}
-                            >
-                                {item.icon}
-                                <p className={styles.title}>{item.name}</p>
-                            </Link>
-                        </li>
+                        <SidebarItem
+                            key={item.name}
+                            icon={item.icon}
+                            link={item.link}
+                            name={item.name}
+                        />
                     ))}
                 </ul>
             </Grid>
