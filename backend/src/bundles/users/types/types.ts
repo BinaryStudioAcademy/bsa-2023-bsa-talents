@@ -5,6 +5,7 @@ export {
     type UserFindResponseDto,
     type UserForgotPasswordRequestDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
     type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,

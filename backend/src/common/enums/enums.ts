@@ -2,6 +2,7 @@ export {
     ApiPath,
     AppEnvironment,
     ErrorMessage,
+    LMSDataApiPath,
     NotificationMessages,
     ServerErrorType,
     UserRole,

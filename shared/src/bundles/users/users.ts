@@ -11,6 +11,7 @@ export {
     type UserForgotPasswordResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
     type UserResetPasswordDto,
     type UserResetPasswordRequestDto,
     type UserResetPasswordResponseDto,

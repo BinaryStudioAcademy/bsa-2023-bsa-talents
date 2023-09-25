@@ -13,6 +13,7 @@ const ErrorMessage = {
     NOT_IMPLEMENTED: 'Not implemented.',
     USER_DETAILS_NOT_FOUND: 'User profile not found',
     TOKEN_INVALID_OR_EXPIRED: 'token invalid or expired.',
+    NOT_FOUND_ON_LMS: 'User not found on LMS server',
     FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 
