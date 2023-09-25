@@ -4,7 +4,7 @@ import {
     type File as MulterFile,
     type FileFilterCallback,
 } from 'fastify-multer/lib/interfaces.js';
-import { FileUploadErrorMessage } from 'shared/build/index.js';
+import { FileUploadErrorMessage, type ValueOf } from 'shared/build/index.js';
 
 import {
     AllowedExtensions,
@@ -13,23 +13,23 @@ import {
 } from './enums/enums.js';
 
 const storage = multer.memoryStorage();
-const ImageExtensionFilter = new Set([
+const ImageExtensionFilter = new Set<ValueOf<typeof AllowedExtensions>>([
     AllowedExtensions.JPG,
     AllowedExtensions.JPEG,
     AllowedExtensions.PNG,
 ]);
-const DocumentExtensionFilter = new Set([
+const DocumentExtensionFilter = new Set<ValueOf<typeof AllowedExtensions>>([
     AllowedExtensions.DOC,
     AllowedExtensions.DOCX,
     AllowedExtensions.PDF,
 ]);
 
-const ImageMimeTypesFilter = new Set([
+const ImageMimeTypesFilter = new Set<ValueOf<typeof AllowedMimeTypes>>([
     AllowedMimeTypes.JPEG,
     AllowedMimeTypes.PNG,
 ]);
 
-const DocumentMimeTypesFilter = new Set([
+const DocumentMimeTypesFilter = new Set<ValueOf<typeof AllowedMimeTypes>>([
     AllowedMimeTypes.PDF,
     AllowedMimeTypes.DOC,
     AllowedMimeTypes.DOCX,
@@ -42,30 +42,26 @@ const fileFilter = (
 ): void => {
     const fileExtension =
         file.originalname.split('.').pop()?.toLowerCase() ?? '';
-
     let isValidMimeType = false;
 
     const isDocument = DocumentExtensionFilter.has(
-        fileExtension as 'pdf' | 'docx' | 'doc',
+        fileExtension as ValueOf<typeof AllowedExtensions>,
     );
     const isImage = ImageExtensionFilter.has(
-        fileExtension as 'jpeg' | 'jpg' | 'png',
+        fileExtension as ValueOf<typeof AllowedExtensions>,
     );
     const isValidExtension = isDocument || isImage;
 
     switch (true) {
         case isDocument: {
             isValidMimeType = DocumentMimeTypesFilter.has(
-                file.mimetype as
-                    | 'application/pdf'
-                    | 'application/msword'
-                    | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                file.mimetype as ValueOf<typeof AllowedMimeTypes>,
             );
             break;
         }
         case isImage: {
             isValidMimeType = ImageMimeTypesFilter.has(
-                file.mimetype as 'image/jpeg' | 'image/png',
+                file.mimetype as ValueOf<typeof AllowedMimeTypes>,
             );
             break;
         }
