@@ -20,10 +20,11 @@ import { store } from '~/framework/store/store.js';
 import { AdminConnectionsPanel } from './bundles/admin-panel/pages/connections/connections-panel.js';
 import { AdminVerificationsPanel } from './bundles/admin-panel/pages/verifications/verifications-panel.js';
 import {
-    ResetPasswordPage,
+    ForgotPasswordPage,
     SignInPage,
     SignUpPage,
 } from './bundles/auth/pages/pages.js';
+import { ResetPasswordPage } from './bundles/auth/pages/reset-password-page/reset-password-page.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
@@ -79,6 +80,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: (
                                             <PublicRoute>
                                                 <SignUpPage />
+                                            </PublicRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.FORGOT_PASSWORD,
+                                        element: (
+                                            <PublicRoute>
+                                                <ForgotPasswordPage />
                                             </PublicRoute>
                                         ),
                                     },

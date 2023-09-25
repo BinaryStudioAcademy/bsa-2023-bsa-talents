@@ -2,9 +2,9 @@ import { type FastifySchema } from 'fastify';
 
 import { type ValidationParameters } from '../types/types.js';
 
-function buildValidationSchema(
+const buildValidationSchema = (
     validation: ValidationParameters,
-): FastifySchema {
+): FastifySchema => {
     const validationSchema: FastifySchema = {};
 
     if (validation.body) {
@@ -16,6 +16,6 @@ function buildValidationSchema(
     }
 
     return validationSchema;
-}
+};
 
 export { buildValidationSchema };

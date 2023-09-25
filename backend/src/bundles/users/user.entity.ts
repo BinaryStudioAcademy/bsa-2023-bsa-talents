@@ -10,21 +10,31 @@ class UserEntity implements Entity {
 
     private 'passwordHash': string;
 
+    private 'resetToken': string | null;
+
+    private 'resetTokenExpiry': number | null;
+
     private constructor({
         id,
         email,
         role,
         passwordHash,
+        resetToken,
+        resetTokenExpiry,
     }: {
         id: string | null;
         email: string;
         role: ValueOf<typeof UserRole>;
         passwordHash: string;
+        resetToken: string | null;
+        resetTokenExpiry: number | null;
     }) {
         this.id = id;
         this.email = email;
         this.role = role;
         this.passwordHash = passwordHash;
+        this.resetToken = resetToken;
+        this.resetTokenExpiry = resetTokenExpiry;
     }
 
     public static initialize({
@@ -32,17 +42,23 @@ class UserEntity implements Entity {
         email,
         role,
         passwordHash,
+        resetToken,
+        resetTokenExpiry,
     }: {
         id: string;
         email: string;
         role: ValueOf<typeof UserRole>;
         passwordHash: string;
+        resetToken: string | null;
+        resetTokenExpiry: number | null;
     }): UserEntity {
         return new UserEntity({
             id,
             email,
             role,
             passwordHash,
+            resetToken,
+            resetTokenExpiry,
         });
     }
 
@@ -60,6 +76,8 @@ class UserEntity implements Entity {
             email,
             role,
             passwordHash,
+            resetToken: null,
+            resetTokenExpiry: null,
         });
     }
 
@@ -67,11 +85,15 @@ class UserEntity implements Entity {
         id: string;
         email: string;
         role: ValueOf<typeof UserRole>;
+        resetToken: string | null;
+        resetTokenExpiry: number | null;
     } {
         return {
             id: this.id as string,
             email: this.email,
             role: this.role,
+            resetToken: this.resetToken,
+            resetTokenExpiry: this.resetTokenExpiry,
         };
     }
 
@@ -79,11 +101,15 @@ class UserEntity implements Entity {
         email: string;
         role: ValueOf<typeof UserRole>;
         passwordHash: string;
+        resetToken: string | null;
+        resetTokenExpiry: number | null;
     } {
         return {
             email: this.email,
             role: this.role,
             passwordHash: this.passwordHash,
+            resetToken: this.resetToken,
+            resetTokenExpiry: this.resetTokenExpiry,
         };
     }
 }
