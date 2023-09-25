@@ -1,10 +1,10 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
-import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
-} from '~/bundles/talent/types/types';
+} from '~/bundles/common/types/types';
+import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
@@ -15,12 +15,12 @@ type Constructor = {
     storage: Storage;
 };
 
-class TalentApi extends HttpApiBase {
+class CommonApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async completeTalentDetails(
+    public async completeUserDetails(
         payload: UserDetailsCreateRequestDto,
     ): Promise<UserDetailsResponseDto> {
         const response = await this.load(
@@ -52,7 +52,7 @@ class TalentApi extends HttpApiBase {
 
     public async getUserDetailsByUserId(
         payload: Partial<UserDetailsGeneralRequestDto>,
-    ): Promise<UserDetailsGeneralRequestDto | null> {
+    ): Promise<UserDetailsResponseDto | null> {
         const { userId = '' } = payload;
         const response = await this.load(
             this.getFullEndpoint('/', userId, {}),
@@ -62,8 +62,8 @@ class TalentApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsGeneralRequestDto>();
+        return response.json<UserDetailsResponseDto>();
     }
 }
 
-export { TalentApi };
+export { CommonApi };

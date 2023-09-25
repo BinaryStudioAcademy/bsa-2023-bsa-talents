@@ -6,7 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
+    type OnboardingStep,
     type PreferredLanguage,
 } from '../user-details.js';
 
@@ -51,7 +51,7 @@ type UserDetailsResponseDto = {
         hardSkillId: string;
         userDetailsId: string;
     }[];
-    completedStep: ValueOf<typeof OnboardingSteps> | null;
+    completedStep: ValueOf<typeof OnboardingStep> | null;
 };
 
 export { type UserDetailsResponseDto };

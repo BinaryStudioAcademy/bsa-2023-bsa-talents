@@ -6,7 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
+    type OnboardingStep,
     type PreferredLanguage,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
@@ -64,7 +64,7 @@ class UserDetailsEntity implements Entity {
 
     private 'cvId': string | null;
 
-    private 'completedStep': ValueOf<typeof OnboardingSteps> | null;
+    private 'completedStep': ValueOf<typeof OnboardingStep> | null;
 
     private constructor({
         id,

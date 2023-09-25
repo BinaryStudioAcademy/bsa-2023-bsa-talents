@@ -30,7 +30,7 @@ import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profi
 import {
     EnglishLevel,
     NotConsidered,
-    OnboardingSteps,
+    OnboardingStep,
     PreferredLanguage,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
@@ -191,7 +191,7 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     userId: currentUser?.id,
                     projectLinks: preparedLinks,
-                    completedStep: OnboardingSteps.STEP_03,
+                    completedStep: OnboardingStep.STEP_03,
                     hardSkills,
                 }),
             );

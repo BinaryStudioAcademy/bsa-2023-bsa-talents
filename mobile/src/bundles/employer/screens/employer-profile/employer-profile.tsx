@@ -7,16 +7,39 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
+import { useEmployerFormSubmit } from '~/bundles/employer/hooks/hooks';
+import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
-    const handleEmployerDataSubmit = useCallback(() => {
-        // TODO: handle employer onboarding
-    }, []);
+    const { onboardingData } = useAppSelector(({ common }) => common);
+
+    const employerOnboardingData: EmployerOnboardingFormDto | null =
+        onboardingData
+            ? {
+                  photo: onboardingData.photo ?? null,
+                  companyLogo: onboardingData.companyLogo ?? null,
+                  fullName: onboardingData.fullName ?? '',
+                  employerPosition: onboardingData.employerPosition ?? '',
+                  linkedinLink: onboardingData.linkedinLink ?? '',
+                  companyName: onboardingData.companyName ?? '',
+                  companyWebsite: onboardingData.companyWebsite ?? '',
+                  location: onboardingData.location ?? '',
+                  description: onboardingData.description ?? '',
+              }
+            : null;
+
+    const handleSubmit = useEmployerFormSubmit();
+
+    const handleEmployerDataSubmit = (
+        payload: EmployerOnboardingFormDto,
+    ): void => {
+        void handleSubmit(payload);
+    };
 
     return (
         <>
@@ -24,7 +47,16 @@ const EmployerProfile: React.FC = () => {
                 barStyle="dark-content"
                 backgroundColor={Color.BACKGROUND}
             />
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.p25,
+                    globalStyles.pr15,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    styles.header,
+                ]}
+            >
                 <Text category={TextCategory.H3}>My profile</Text>
             </View>
 
@@ -35,7 +67,7 @@ const EmployerProfile: React.FC = () => {
                 ]}
             >
                 <EmployerOnboardingForm
-                    employerOnboardingData={null}
+                    employerOnboardingData={employerOnboardingData}
                     onSubmit={handleEmployerDataSubmit}
                 />
             </ScrollView>

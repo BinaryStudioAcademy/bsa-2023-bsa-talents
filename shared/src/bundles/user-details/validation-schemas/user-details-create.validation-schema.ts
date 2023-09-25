@@ -9,6 +9,7 @@ import {
     PreferredLanguage,
 } from '../enums/enums.js';
 import { type UserDetailsCreateRequestDto } from '../types/types.js';
+import { URL_REGEX_CONSTANT } from './constants/constants.js';
 
 const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
     userId: joi.string().trim().required(),
@@ -61,7 +62,7 @@ const userDetailsCreate = joi.object<UserDetailsCreateRequestDto, true>({
     linkedinLink: joi.string().trim().uri(),
     companyName: joi.string().trim(),
     companyLogoId: joi.string().trim(),
-    companyWebsite: joi.string().trim().uri(),
+    companyWebsite: joi.string().regex(URL_REGEX_CONSTANT),
     employerPosition: joi.string().trim(),
     cvId: joi.string().trim(),
     talentBadges: joi.array().items(joi.string().trim()),

@@ -4,7 +4,7 @@ export {
     EnglishLevel,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
+    OnboardingStep,
     PreferredLanguage,
     UserDetailsApiPath,
     UserSortCriteria,

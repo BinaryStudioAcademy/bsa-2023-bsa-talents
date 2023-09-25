@@ -87,7 +87,7 @@ const EmployerOnboardingValidationSchema = joi.object<
     companyWebsite: joi
         .string()
         .empty('')
-        .regex(/^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/)
+        .regex(EmployerOnboardingValidationRule.URL_REGEX_CONSTANT)
         .min(EmployerOnboardingValidationRule.MIN_LENGTH_COMPANY_WEBSITE)
         .max(EmployerOnboardingValidationRule.MAX_LENGTH_COMPANY_WEBSITE)
         .required()
@@ -132,12 +132,19 @@ const EmployerOnboardingValidationSchema = joi.object<
     description: joi
         .string()
         .trim()
+        .required()
         .min(EmployerOnboardingValidationRule.MIN_DESCRIPTION_LENGTH)
         .max(EmployerOnboardingValidationRule.MAX_DESCRIPTION_LENGTH)
         .regex(/^[\s\w!"#$%&'()*+,./:;<=>?@[\\\]^{|}-]*$/)
         .messages({
+            'any.required':
+                EmployerOnboardingValidationMessage.DESCRIPTION_REQUIRED,
             'string.base':
                 EmployerOnboardingValidationMessage.DESCRIPTION_NOT_STRING,
+            'string.empty':
+                EmployerOnboardingValidationMessage.DESCRIPTION_REQUIRED,
+            'string.min':
+                EmployerOnboardingValidationMessage.DESCRIPTION_MIN_LENGTH,
             'string.max':
                 EmployerOnboardingValidationMessage.DESCRIPTION_MAX_LENGTH,
             'string.pattern.base':

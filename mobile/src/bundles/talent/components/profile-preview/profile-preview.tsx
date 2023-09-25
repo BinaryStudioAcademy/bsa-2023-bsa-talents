@@ -19,7 +19,7 @@ const mockUser = {
 };
 
 const ProfilePreview: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
         return null;

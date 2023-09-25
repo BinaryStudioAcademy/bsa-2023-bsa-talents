@@ -6,7 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
+    type OnboardingStep,
     type PreferredLanguage,
 } from '../enums/enums.js';
 
@@ -37,7 +37,7 @@ type UserDetailsProperties = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
-    completedStep: ValueOf<typeof OnboardingSteps> | null;
+    completedStep: ValueOf<typeof OnboardingStep> | null;
 };
 
 export { type UserDetailsProperties };

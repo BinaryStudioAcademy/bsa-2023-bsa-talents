@@ -6,7 +6,7 @@ import {
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
+    type OnboardingStep,
     type PreferredLanguage,
 } from '../user-details.js';
 import { type UserDetailsUpdateDto } from './types.js';
@@ -51,7 +51,7 @@ type UserDetailsUpdateRequestDto = {
     talentBadges?: string[];
     talentHardSkills?: string[];
 
-    completedStep?: ValueOf<typeof OnboardingSteps>;
+    completedStep?: ValueOf<typeof OnboardingStep>;
 } & UserDetailsUpdateDto;
 
 export { type UserDetailsUpdateRequestDto };
