@@ -12,8 +12,8 @@ const searchCandidates = createAsyncThunk<
     UserDetailsSearchUsersRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/search-candidates`, async (filters, { extra }) => {
-    const { employersApi } = extra;
-    return await employersApi.searchUserDetails(filters);
+    const { searchCandidatesApi } = extra;
+    return await searchCandidatesApi.searchUserDetails(filters);
 });
 
 const setFilters = createAsyncThunk<

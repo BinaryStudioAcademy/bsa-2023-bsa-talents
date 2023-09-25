@@ -4,7 +4,7 @@ import {
     useEffect,
     useParameters,
 } from '~/bundles/common/hooks/hooks.js';
-import { actions as candidateSearchActions } from '~/bundles/employers/store/employers.js';
+import { actions as candidateSearchActions } from '~/bundles/search-candidates/store/search-candidates.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { CandidateProfile } from '../../../talent-onboarding/components/components.js';
@@ -16,7 +16,7 @@ const CandidatePage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const candidateDetails = useAppSelector(
-        (state: RootReducer) => state.employer.currentCandidateDetails,
+        (state: RootReducer) => state.searchCandidates.currentCandidateDetails,
     );
     useEffect(() => {
         if (userId !== candidateDetails?.userId) {

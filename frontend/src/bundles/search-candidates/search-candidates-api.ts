@@ -12,7 +12,7 @@ type Constructor = {
     storage: Storage;
 };
 
-class EmployersApi extends HttpApiBase {
+class SearchCandidatesApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
@@ -36,4 +36,4 @@ class EmployersApi extends HttpApiBase {
     }
 }
 
-export { EmployersApi };
+export { SearchCandidatesApi };

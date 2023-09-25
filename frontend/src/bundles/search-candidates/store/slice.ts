@@ -28,7 +28,7 @@ const initialState: State = {
 
 const { reducer, actions, name } = createSlice({
     initialState,
-    name: 'employers',
+    name: 'searchCandidates',
     reducers: {},
     extraReducers(builder) {
         builder.addCase(searchCandidates.fulfilled, (state, action) => {

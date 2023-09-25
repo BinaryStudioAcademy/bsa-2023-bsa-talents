@@ -23,7 +23,7 @@ import {
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-import { actions as employerActions } from '../store/employers.js';
+import { actions as searchCandidatesActions } from '../store/search-candidates.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import styles from './styles.module.scss';
@@ -50,10 +50,10 @@ const FIELDS: [
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
     const { dataStatus, filters, filteredCandidates } = useAppSelector(
-        ({ employer }) => ({
-            dataStatus: employer.dataStatus,
-            filters: employer.filters,
-            filteredCandidates: employer.filteredCandidates,
+        ({ searchCandidates }) => ({
+            dataStatus: searchCandidates.dataStatus,
+            filters: searchCandidates.filters,
+            filteredCandidates: searchCandidates.filteredCandidates,
         }),
     );
 
@@ -74,7 +74,9 @@ const Candidates: React.FC = () => {
                     (skill) => skill.value,
                 ),
             };
-            void dispatch(employerActions.searchCandidates(editedValues));
+            void dispatch(
+                searchCandidatesActions.searchCandidates(editedValues),
+            );
         },
         [dispatch],
     );
@@ -88,7 +90,7 @@ const Candidates: React.FC = () => {
         const editedValues: EmployeesFiltersDto = getValues();
 
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
-            void dispatch(employerActions.setFilters(editedValues));
+            void dispatch(searchCandidatesActions.setFilters(editedValues));
             debouncedDispatch(editedValues, (filters) => filters);
         }
     }, [debouncedDispatch, dispatch, filters, getValues, watchedValues]);
@@ -103,7 +105,7 @@ const Candidates: React.FC = () => {
             ...valuesfromForm,
             hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
         };
-        void dispatch(employerActions.searchCandidates(editedValues));
+        void dispatch(searchCandidatesActions.searchCandidates(editedValues));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

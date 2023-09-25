@@ -20,11 +20,11 @@ import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
-import { employersApi } from '~/bundles/employers/employers.js';
-import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
 import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import { searchCandidatesApi } from '~/bundles/search-candidates/search-candidates.js';
+import { reducer as searchCandidatesReducer } from '~/bundles/search-candidates/store/search-candidates.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
 import { type Config } from '~/framework/config/config.js';
@@ -36,7 +36,7 @@ import { chatSocket, errorHandler } from './middlewares/middlewares.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
-    employer: ReturnType<typeof employerReducer>;
+    searchCandidates: ReturnType<typeof searchCandidatesReducer>;
     employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
     hardSkills: ReturnType<typeof hardSkillsReducer>;
     lms: ReturnType<typeof lmsReducer>;
@@ -53,7 +53,7 @@ type ExtraArguments = {
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
-    employersApi: typeof employersApi;
+    searchCandidatesApi: typeof searchCandidatesApi;
     notification: typeof notification;
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
@@ -66,7 +66,7 @@ const combinedReducer = combineReducers({
     chat: chatReducer,
     employerOnBoarding: employerOnboardingReducer,
     talentOnBoarding: talentOnBoardingReducer,
-    employer: employerReducer,
+    searchCandidates: searchCandidatesReducer,
     app: appReducer,
     candidate: candidateReducer,
     cabinet: cabinetReducer,
@@ -117,7 +117,7 @@ class Store {
             fileUploadApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
-            employersApi,
+            searchCandidatesApi,
             notification,
             storage,
             hardSkillsApi,

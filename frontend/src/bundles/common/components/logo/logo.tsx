@@ -2,10 +2,6 @@ import logoSvg from '~/assets/img/logo/logo.svg';
 import logoLabelSvg from '~/assets/img/logo/logo-label.svg';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
-// import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-// import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
-import { UserRole } from '~/bundles/users/users.js';
 
 import { Grid, Link } from '../components.js';
 import styles from './styles.module.scss';
@@ -52,17 +48,11 @@ const Logo: React.FC<Properties> = ({
     isCollapsed = false,
     hasLink = false,
 }) => {
-    const role = useAppSelector((state) => state.auth.currentUser?.role);
-
     return (
         <Grid container alignItems="center" justifyContent="center">
             {hasLink ? (
                 <Link
-                    to={
-                        role == UserRole.TALENT
-                            ? '/talent/onboarding/step/profile'
-                            : AppRoute.EMPLOYER_ONBOARDING
-                    }
+                    to={AppRoute.ROOT}
                     className={getValidClassNames(styles.logo, className)}
                 >
                     <BaseLogo isCollapsed={isCollapsed} />
