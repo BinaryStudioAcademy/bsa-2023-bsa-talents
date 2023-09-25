@@ -59,7 +59,7 @@ const ChatsPage: React.FC = () => {
     });
 
     // TODO: will be replaced by send message logic
-    const sendMessage = useCallback(
+    const handleSendMessage = useCallback(
         (message: string) => {
             setChatMessages([
                 ...chatMessages,
@@ -151,7 +151,7 @@ const ChatsPage: React.FC = () => {
                     />
                     <MessageInput
                         className={styles.chatInput}
-                        onSend={sendMessage}
+                        onSend={handleSendMessage}
                     />
                 </Grid>
                 {(!isScreenLessLG || isOpenInfo) && (

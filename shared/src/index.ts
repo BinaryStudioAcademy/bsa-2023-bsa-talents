@@ -39,7 +39,6 @@ export {
     type BsaBadgesStepTypes,
     BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationRule,
     BsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,

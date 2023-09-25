@@ -8,8 +8,8 @@ import {
 import {
     Badge,
     Checkbox,
+    ErrorMessage,
     FormControl,
-    FormHelperText,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
@@ -56,9 +56,9 @@ const BadgesStep: React.FC = () => {
         }
     }, [badges, dispatch, hasChangesInDetails, watchedBadges]);
 
-    const onSubmit = useCallback(
-        async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(
+    const handleFormSubmit = useCallback(
+        (data: BsaBadgesStepDto): boolean => {
+            void dispatch(
                 talentActions.updateTalentDetails({
                     ...data,
                     completedStep: OnboardingStep.STEP_02,
@@ -73,8 +73,8 @@ const BadgesStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -82,7 +82,7 @@ const BadgesStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -158,11 +158,7 @@ const BadgesStep: React.FC = () => {
                     render={renderCheckboxes}
                 />
             </FormControl>
-            {errors.badges && (
-                <FormHelperText className={styles.hasError}>
-                    {errors.badges.message}
-                </FormHelperText>
-            )}
+            <ErrorMessage errors={errors} name="badges" />
         </>
     );
 };

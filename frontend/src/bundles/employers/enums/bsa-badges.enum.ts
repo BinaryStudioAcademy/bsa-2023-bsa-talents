@@ -1,7 +1,7 @@
 const BsaBadges = {
     TEAMWORK: 'teamwork',
     COMMUNICATION: 'communication',
-    INITIATIVNESS: 'initiatibness',
+    INITIATIVNESS: 'initiativness',
 } as const;
 
 export { BsaBadges };
