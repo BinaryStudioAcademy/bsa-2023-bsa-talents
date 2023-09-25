@@ -32,7 +32,7 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';
 export { Slider } from './slider/slider.js';
-export { Table } from './table/table.js';
+export { type BodyRow, type HeadCell, Table } from './table/table.js';
 export { Tab, Tabs } from './tabs/tabs.js';
 export { Textarea } from './textarea/textarea.js';
 export { Tooltip } from './tooltip/tooltip.js';

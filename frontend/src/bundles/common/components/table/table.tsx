@@ -11,18 +11,18 @@ import { useState } from 'react';
 
 import styles from './styles.module.scss';
 
-type headCell = {
+type HeadCell = {
     value: string;
     label: string;
 };
 
-type bodyRow = {
+type BodyRow = {
     id: string;
 } & Record<string, string>;
 
 type Properties = {
-    headRow: headCell[];
-    bodyRows: bodyRow[];
+    headRow: HeadCell[];
+    bodyRows: BodyRow[];
 };
 const ASCENDING_SORT = 1;
 const DESCENDING_SORT = -1;
@@ -86,4 +86,4 @@ const Table: React.FC<Properties> = ({ headRow, bodyRows }) => {
     );
 };
 
-export { Table };
+export { type BodyRow, type HeadCell, Table };

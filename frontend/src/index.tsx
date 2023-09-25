@@ -17,7 +17,8 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { AdminPanel } from './bundles/admin-panel/admin-panel.js';
+import { AdminConnectionsPanel } from './bundles/admin-panel/pages/connections/connections-panel.js';
+import { AdminVerificationsPanel } from './bundles/admin-panel/pages/verifications/verifications-panel.js';
 import {
     ResetPasswordPage,
     SignInPage,
@@ -170,14 +171,28 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: AppRoute.ADMIN_PANEL,
+                                        path: AppRoute.ADMIN_VERIFICATIONS_PANEL,
                                         element: (
                                             <ProtectedRoute>
                                                 <PageLayout
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <AdminPanel />
+                                                    <AdminVerificationsPanel />
+                                                </PageLayout>
+                                            </ProtectedRoute>
+                                        ),
+                                    },
+
+                                    {
+                                        path: AppRoute.ADMIN_CONNECTIONS_PANEL,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <AdminConnectionsPanel />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),
