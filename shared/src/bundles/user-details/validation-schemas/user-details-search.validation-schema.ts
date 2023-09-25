@@ -23,7 +23,7 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
 
     searchValue: joi.string().trim(),
 
-    searchActiveCandidatesOnly: joi.boolean(),
+    isSearchActiveCandidatesOnly: joi.boolean(),
 
     jobTitle: joi.alternatives().try(
         joi.array().items(

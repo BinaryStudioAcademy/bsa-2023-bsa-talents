@@ -15,7 +15,7 @@ type UserDetailsSearchUsersRequestDto = {
         | '';
     searchType?: string;
     searchValue: string;
-    searchActiveCandidatesOnly: boolean;
+    isSearchActiveCandidatesOnly: boolean;
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];

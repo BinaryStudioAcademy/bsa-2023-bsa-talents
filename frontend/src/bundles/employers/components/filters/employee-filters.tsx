@@ -176,7 +176,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="searchActiveCandidatesOnly"
+                        name="isSearchActiveCandidatesOnly"
                         control={control}
                         render={renderCheckboxes}
                     />
