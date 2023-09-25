@@ -26,7 +26,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
-    ErrorMessages,
+    ErrorMessage,
     JobTitle,
     NotConsidered,
     PreferredLanguage,

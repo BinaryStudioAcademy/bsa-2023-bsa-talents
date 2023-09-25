@@ -1,6 +1,6 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
@@ -57,7 +57,7 @@ class UserService implements Service {
 
         if (typeof payload.id !== 'string') {
             throw new HttpError({
-                message: ErrorMessages.NOT_AUTHORIZED,
+                message: ErrorMessage.NOT_AUTHORIZED,
                 status: HttpCode.UNAUTHORIZED,
             });
         }

@@ -1,6 +1,6 @@
 import { type BSABadgeEntity } from '~/bundles/bsa-badges/bsa-badges.entity.js';
 import { type BSABadgesRepository } from '~/bundles/bsa-badges/bsa-badges.repository.js';
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/types.js';
 
 class BSABadgesService implements Service {
@@ -16,19 +16,19 @@ class BSABadgesService implements Service {
     }
 
     public find(): Promise<BSABadgeEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public create(): Promise<BSABadgeEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public update(): Promise<BSABadgeEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

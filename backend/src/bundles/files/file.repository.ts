@@ -1,6 +1,6 @@
 import { type S3 } from 'aws-sdk';
 
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import {
     type FileStorage,
     type MulterFile,
@@ -22,11 +22,11 @@ class FileRepository implements Repository {
     }
 
     public find(): Promise<unknown> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public findAll(): Promise<unknown[]> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async create(file: S3.ManagedUpload.SendData): Promise<FileModel> {
@@ -61,11 +61,11 @@ class FileRepository implements Repository {
     }
 
     public update(): Promise<unknown> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 
