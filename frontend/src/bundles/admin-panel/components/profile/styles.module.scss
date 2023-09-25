@@ -1,6 +1,7 @@
 .container {
     flex-flow: row nowrap;
     gap: 42px;
+    margin-bottom: var(--tabs-container-margin-bottom);
 }
 
 .textInfo {

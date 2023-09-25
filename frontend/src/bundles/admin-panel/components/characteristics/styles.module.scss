@@ -1,6 +1,7 @@
 .container {
     flex-flow: column nowrap;
     gap: 28px;
+    margin-bottom: var(--tabs-container-margin-bottom);
 }
 
 .feedback,
