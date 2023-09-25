@@ -4,10 +4,10 @@ import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 const LOCATION_OPTIONS = Object.values(CountryList);
 
 const EMPLOYER_ONBOARDING_DEFAULT_VALUES: EmployerOnboardingFormDto = {
-    profilePhoto: null,
+    photo: null,
     companyLogo: null,
     fullName: '',
-    position: '',
+    employerPosition: '',
     linkedinLink: '',
     companyName: '',
     companyWebsite: '',

@@ -1,23 +1,30 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
-import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
-    type UserDetailsCreateRequestDto,
+    type AsyncThunkConfig,
+    type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
-} from '~/bundles/talent/types/types';
+} from '~/bundles/common/types/types';
 
 import { name as sliceName } from './slice';
 
-const createTalentDetails = createAsyncThunk<
+const createUserDetails = createAsyncThunk<
     UserDetailsResponseDto,
-    UserDetailsCreateRequestDto,
+    UserDetailsGeneralCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/createTalentDetails`, async (onboardingPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
+>(`${sliceName}/createUserDetails`, async (onboardingPayload, { extra }) => {
+    const { commonApi, notifications } = extra;
+    const { photo, companyLogo, ...payload } = onboardingPayload;
     try {
-        return await talentApi.completeTalentDetails(onboardingPayload);
+        const response = await commonApi.completeUserDetails(payload);
+        return {
+            ...response,
+            //TODO remove when it is ready at the backend
+            ...(photo && { photo }),
+            ...(companyLogo && { companyLogo }),
+        };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -30,15 +37,19 @@ const updateOnboardingData = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
-    const { talentApi, notifications } = extra;
-    const { badges, hardSkills, photo, cv, ...payload } = stepPayload;
+    const { commonApi, notifications } = extra;
+    const { badges, hardSkills, photo, cv, companyLogo, ...payload } =
+        stepPayload;
+    const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
     if (Object.keys(payload).length === 0) {
         return stepPayload;
     }
     try {
-        const response = await talentApi.completeOnboardingStep(payload);
-
+        const response = await commonApi.completeOnboardingStep({
+            ...payload,
+            talentHardSkills: talentHardSkills,
+        });
         return {
             ...response,
             //TODO remove when it is ready at the backend
@@ -46,6 +57,7 @@ const updateOnboardingData = createAsyncThunk<
             ...(badges && { badges }),
             ...(photo && { photo }),
             ...(cv && { cv }),
+            ...(companyLogo && { companyLogo }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -55,13 +67,13 @@ const updateOnboardingData = createAsyncThunk<
 });
 
 const getUserDetails = createAsyncThunk<
-    UserDetailsGeneralRequestDto | null,
+    UserDetailsResponseDto | null,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
-    const { notifications, talentApi } = extra;
+    const { notifications, commonApi } = extra;
     try {
-        const userDetails = await talentApi.getUserDetailsByUserId({
+        const userDetails = await commonApi.getUserDetailsByUserId({
             userId: payload.userId,
         });
         return userDetails ?? null;
@@ -72,11 +84,11 @@ const getUserDetails = createAsyncThunk<
     }
 });
 
-const clearTalentStore = createAction(`${sliceName}/clearTalentStore`);
+const clearCommonStore = createAction(`${sliceName}/clearCommonStore`);
 
 export {
-    clearTalentStore,
-    createTalentDetails,
+    clearCommonStore,
+    createUserDetails,
     getUserDetails,
     updateOnboardingData,
 };

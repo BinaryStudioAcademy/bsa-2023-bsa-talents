@@ -22,7 +22,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.MAIL}
                 component={Mail}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
                             size={ICON_SIZE}
@@ -35,7 +35,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
                 component={TalentProfile}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
                             size={ICON_SIZE}
