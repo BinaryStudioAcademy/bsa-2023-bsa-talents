@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '~/bundles/common/helpers/helpers';
 import {
     useAppSelector,
     useEffect,
-    useState,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import {
     type DrawerContentComponentProps,
@@ -26,25 +26,21 @@ const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
 const TalentOnboardingNavigator: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
-    const [nextStep, setNextStep] = useState<
-        keyof TalentOnboardingNavigationParameterList | undefined
-    >();
-
+    const { reset } = useNavigation();
     useEffect(() => {
         if (onboardingData?.completedStep) {
             const calculatedNextStep = getNextStep(
                 onboardingData.completedStep,
             );
-
-            setNextStep(
-                calculatedNextStep as keyof TalentOnboardingNavigationParameterList,
-            );
+            reset({
+                index: 0,
+                routes: [{ name: calculatedNextStep as never }],
+            });
         }
-    }, [onboardingData?.completedStep, onboardingData]);
+    }, [onboardingData?.completedStep, onboardingData, reset]);
 
     return (
         <Drawer.Navigator
-            initialRouteName={nextStep}
             screenOptions={{
                 headerShown: true,
                 header: ({ navigation }): React.ReactNode => (
