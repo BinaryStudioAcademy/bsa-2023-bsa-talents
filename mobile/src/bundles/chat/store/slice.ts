@@ -90,6 +90,7 @@ const { reducer, actions, name } = createSlice({
                     }
                     return chat;
                 });
+                // console.log('chats -', state.chats);
 
                 state.current.messages = [
                     ...state.current.messages,

@@ -34,13 +34,12 @@ import { actions as CommonDataActions } from '~/bundles/common-data/store';
 
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { user, chats, currentChatId } = useAppSelector(({ auth, chat }) => ({
-        user: auth.currentUserData,
-        chats: chat.chats,
-        currentChatId: chat.current.chatId,
-    }));
-
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { chats, current } = useAppSelector(({ chat }) => chat);
     const { partners } = useAppSelector(({ commonData }) => commonData);
+
+    const currentChatId = current.chatId;
+    const user = currentUserData;
 
     useEffect(() => {
         void dispatch(CommonDataActions.loadAllPartners());
