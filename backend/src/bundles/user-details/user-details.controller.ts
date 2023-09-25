@@ -235,6 +235,18 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
+            path: `${UserDetailsApiPath.$ID}/company`,
+            method: 'GET',
+            handler: (options) => {
+                return this.findCompanyInfoByUserId(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
             path: UserDetailsApiPath.SHORT,
             method: 'GET',
             handler: (options) => {
@@ -709,6 +721,20 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    private async findCompanyInfoByUserId(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findCompanyInfoByUserId(
+                userId,
+            ),
         };
     }
 

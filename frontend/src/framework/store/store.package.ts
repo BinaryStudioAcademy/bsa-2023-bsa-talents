@@ -26,6 +26,7 @@ import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
+import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -50,7 +51,6 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     chatApi: typeof chatApi;
-    userApi: typeof userApi;
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
@@ -58,6 +58,7 @@ type ExtraArguments = {
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
     bsaBadgesApi: typeof bsaBadgesApi;
+    userDetailsApi: typeof userDetailsApi;
 };
 
 const combinedReducer = combineReducers({
@@ -114,7 +115,6 @@ class Store {
         return {
             authApi,
             chatApi,
-            userApi,
             fileUploadApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
@@ -122,6 +122,7 @@ class Store {
             storage,
             hardSkillsApi,
             bsaBadgesApi,
+            userDetailsApi,
         };
     }
 }
