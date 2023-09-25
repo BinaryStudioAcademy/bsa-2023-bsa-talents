@@ -1,4 +1,4 @@
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/types.js';
 
 import { type TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
@@ -17,11 +17,11 @@ class TalentHardSkillsService implements Service {
     }
 
     public findAll(): Promise<{ items: TalentHardSkillsEntity[] }> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public find(): Promise<TalentHardSkillsEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findByUserDetailsId(
@@ -45,7 +45,7 @@ class TalentHardSkillsService implements Service {
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

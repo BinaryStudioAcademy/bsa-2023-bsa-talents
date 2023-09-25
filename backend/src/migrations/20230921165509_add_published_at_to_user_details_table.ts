@@ -3,7 +3,7 @@ import { type Knex } from 'knex';
 const TABLE_NAME = 'user_details';
 const ColumnName = {
     PUBLISHED_AT: 'published_at',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {

@@ -17,7 +17,7 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
             <Grid container className={styles.container}>
                 <Grid item xs={12} md={6}>
                     <Grid item className={styles.sellingPoint}>
-                        <Logo className={styles.logo} withLink />
+                        <Logo className={styles.logo} hasLink />
                         <Typography
                             className={styles.animatedTextWrapper}
                             variant="h1"

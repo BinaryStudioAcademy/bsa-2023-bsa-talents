@@ -19,18 +19,34 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
-    const { talentOnBoardingApi } = extra;
-    if ('badges' in updatePayload) {
-        return updatePayload;
-    }
-    const { hardSkills, ...otherOptions } = updatePayload;
-    const sendUserData = {
-        ...otherOptions,
-        talentHardSkills: hardSkills?.map((item) => item.value),
-    };
-    return await talentOnBoardingApi.updateUserDetails(sendUserData);
-});
+>(
+    `${sliceName}/update-talent-details`,
+    async (updatePayload, { extra, getState }) => {
+        const { talentOnBoardingApi, fileUploadApi } = extra;
+        const { cv, photo, ...restPayload } = updatePayload;
+
+        if (cv && photo) {
+            const { document, image } = await fileUploadApi.upload({
+                files: [cv, photo],
+            });
+
+            restPayload.photoId = image.id;
+            restPayload.cvId = document.id;
+        }
+
+        //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+        if ('badges' in updatePayload) {
+            return updatePayload;
+        }
+        //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+        const { hardSkills, ...data } = restPayload;
+        const { talentOnBoarding } = getState();
+        return {
+            ...(await talentOnBoardingApi.updateUserDetails(data)),
+            hardSkills: hardSkills ?? talentOnBoarding.hardSkills,
+        };
+    },
+);
 
 const saveTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,

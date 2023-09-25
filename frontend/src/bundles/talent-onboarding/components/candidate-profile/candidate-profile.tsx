@@ -15,7 +15,7 @@ import {
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { formatNumber } from '../../helpers/helpers.js';
+import { trimZerosFromNumber } from '../../helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
@@ -83,14 +83,14 @@ const CandidateProfile: React.FC<Properties> = ({
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         hardSkills: hardskillsLabels,
-        experienceYears: formatNumber(data.experienceYears as number),
+        experienceYears: trimZerosFromNumber(data.experienceYears as number),
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        experienceYears: formatNumber(data.experienceYears as number),
+        experienceYears: trimZerosFromNumber(data.experienceYears as number),
         jobTitle: data.jobTitle,
         fullName: data.fullName as string,
         email: data.email as string,

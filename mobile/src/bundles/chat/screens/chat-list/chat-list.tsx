@@ -1,11 +1,18 @@
 import React from 'react';
 
+import { logout } from '~/bundles/auth/store/actions';
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
 import { type ChatItem } from '~/bundles/chat/types/types';
-import { FlatList, Text, View } from '~/bundles/common/components/components';
+import {
+    Button,
+    FlatList,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppSelector,
     useCallback,
     useMemo,
@@ -22,6 +29,7 @@ import {
 import { styles } from './styles';
 
 const ChatList: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { chatData } = useAppSelector(({ chat }) => chat);
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
@@ -78,10 +86,32 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
+    const handleLogout = (): void => {
+        void dispatch(logout());
+    };
+
     return (
         <View style={globalStyles.flex1}>
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.p25,
+                    globalStyles.pr15,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    styles.header,
+                ]}
+            >
                 <Text category={TextCategory.H3}>Chat</Text>
+                <Button
+                    label="Logout"
+                    style={[
+                        globalStyles.ml5,
+                        globalStyles.ph10,
+                        globalStyles.pv5,
+                    ]}
+                    onPress={handleLogout}
+                />
             </View>
             <View
                 style={[

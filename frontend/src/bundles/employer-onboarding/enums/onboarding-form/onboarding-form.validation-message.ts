@@ -16,10 +16,13 @@ const EmployerOnboardingValidationMessage = {
     LINKEDIN_LINK_MAX_LENGTH:
         'LinkedIn link must be at most {{#limit}} characters',
     COMPANY_LOGO_MAX_SIZE: 'Please upload a company logo smaller than 5 MB.',
+    DESCRIPTION_REQUIRED: 'Description is required',
     DESCRIPTION_WRONG_PATTERN:
         'Description must contain only letters, special characters and spaces',
     DESCRIPTION_NOT_STRING: 'Description must be a string',
     DESCRIPTION_MAX_LENGTH: 'Description must be at most {{#limit}} characters',
+    DESCRIPTION_MIN_LENGTH:
+        'Description must be at least {{#limit}} characters',
     LOCATION_NOT_STRING: 'Location must be a string',
     LOCATION_REQUIRED: 'Location is required',
     LOCATION_BASE: 'Please select a valid location from the provided options',
@@ -43,6 +46,6 @@ const EmployerOnboardingValidationMessage = {
         'Company name must be at least {{#limit}} characters',
     COMPANY_NAME_MAX_LENGTH:
         'Company name must be at most {{#limit}} characters',
-};
+} as const;
 
 export { EmployerOnboardingValidationMessage };

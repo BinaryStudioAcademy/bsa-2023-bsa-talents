@@ -6,7 +6,7 @@ const ColumnName = {
     FULL_NAME: 'full_name',
     EXPERIENCE_YEARS: 'experience_years',
     COMPLETED_STEP: 'completed_step',
-};
+} as const;
 
 const CompletedStep = {
     STEP_1: 'profile',
