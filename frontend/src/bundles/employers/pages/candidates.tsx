@@ -67,8 +67,14 @@ const Candidates: React.FC = () => {
     const [isFilterOpened, setIsFilterOpened] = useState(false);
 
     const searchCandidates = useCallback(
-        (resolvedFilters: UserDetailsSearchUsersRequestDto): void => {
-            void dispatch(employerActions.searchCandidates(resolvedFilters));
+        (resolvedFilters: EmployeesFiltersDto): void => {
+            const editedValues: UserDetailsSearchUsersRequestDto = {
+                ...resolvedFilters,
+                hardSkills: resolvedFilters.hardSkills.map(
+                    (skill) => skill.value,
+                ),
+            };
+            void dispatch(employerActions.searchCandidates(editedValues));
         },
         [dispatch],
     );
@@ -79,11 +85,7 @@ const Candidates: React.FC = () => {
     );
 
     useEffect(() => {
-        const valuesfromForm: EmployeesFiltersDto = getValues();
-        const editedValues: UserDetailsSearchUsersRequestDto = {
-            ...valuesfromForm,
-            hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
-        };
+        const editedValues: EmployeesFiltersDto = getValues();
 
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
             void dispatch(employerActions.setFilters(editedValues));
