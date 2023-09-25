@@ -14,7 +14,6 @@ type State = {
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    //TODO delete mock-data
     chatData: CHAT_LIST_ITEMS,
 };
 
@@ -34,7 +33,7 @@ const { reducer, actions, name } = createSlice({
             if (!state.chatData) {
                 state.chatData = {};
             }
-
+            state.dataStatus = DataStatus.FULFILLED;
             state.chatData[chatId].unshift(message);
         });
         builder.addMatcher(
