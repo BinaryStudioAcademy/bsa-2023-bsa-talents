@@ -29,7 +29,7 @@ type Properties = {
     isFifthStep?: boolean;
     isProfileCard?: boolean;
     candidateData?: UserDetailsGeneralCustom & {
-        email: string;
+        email?: string;
     };
 };
 
@@ -84,6 +84,7 @@ const CandidateProfile: React.FC<Properties> = ({
         description: data.description as string,
         hardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        date: data.createdAt as string,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,

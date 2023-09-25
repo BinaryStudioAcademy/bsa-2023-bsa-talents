@@ -3,6 +3,11 @@ import React from 'react';
 import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import { createDrawerNavigator } from '~/bundles/common/helpers/helpers';
 import {
+    useAppSelector,
+    useEffect,
+    useNavigation,
+} from '~/bundles/common/hooks/hooks';
+import {
     type DrawerContentComponentProps,
     type TalentOnboardingNavigationParameterList,
 } from '~/bundles/common/types/types';
@@ -13,12 +18,27 @@ import {
     Profile,
     SkillsAndProjects,
 } from '~/bundles/talent/screens/screens';
+import { getNextStep } from '~/helpers/helpers';
 
 import { Header, Steps } from './components/components';
 
 const Drawer = createDrawerNavigator<TalentOnboardingNavigationParameterList>();
 
 const TalentOnboardingNavigator: React.FC = () => {
+    const { onboardingData } = useAppSelector(({ common }) => common);
+    const { reset } = useNavigation();
+    useEffect(() => {
+        if (onboardingData?.completedStep) {
+            const calculatedNextStep = getNextStep(
+                onboardingData.completedStep,
+            );
+            reset({
+                index: 0,
+                routes: [{ name: calculatedNextStep as never }],
+            });
+        }
+    }, [onboardingData?.completedStep, onboardingData, reset]);
+
     return (
         <Drawer.Navigator
             screenOptions={{

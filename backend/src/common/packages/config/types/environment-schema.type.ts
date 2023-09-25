@@ -30,6 +30,10 @@ type EnvironmentSchema = {
         AWS_SECRET_ACCESS_KEY: string;
         AWS_BUCKET_NAME: string;
     };
+    LMS_DATA_SERVER: {
+        LMS_X_TOKEN: string;
+        LMS_SERVER: string;
+    };
 };
 
 export { type EnvironmentSchema };
