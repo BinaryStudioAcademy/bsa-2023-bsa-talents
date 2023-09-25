@@ -65,7 +65,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 21px 0;
+    padding: 21px 27px;
 }
 
 .avatar {
@@ -181,7 +181,7 @@
     }
 }
 
-@media screen and (width >= 992px) {
+@media screen and (width >= 900px) {
     .filterWrapper {
         width: 30%;
         max-width: 358px;
