@@ -6,8 +6,8 @@ import {
     useAppSelector,
     useMemo,
 } from '~/bundles/common/hooks/hooks';
+import { updateOnboardingData } from '~/bundles/common/store/actions';
 import { ProfileScreenProfileForm } from '~/bundles/talent/components/components';
-import { updateOnboardingData } from '~/bundles/talent/store/actions';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const ProfileScreenProfile: React.FC = () => {
@@ -21,7 +21,7 @@ const ProfileScreenProfile: React.FC = () => {
         );
     };
 
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     const profileValues = useMemo(() => {
         return {

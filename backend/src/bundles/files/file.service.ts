@@ -1,8 +1,10 @@
+import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
+
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/types.js';
 
-import { type FileEntity } from './file.entity.js';
 import { type FileRepository } from './file.repository.js';
+import { type FileUploadResponse } from './types/types.js';
 
 class FileService implements Service {
     private fileRepository: FileRepository;
@@ -19,11 +21,14 @@ class FileService implements Service {
         throw new Error(ErrorMessages.NOT_IMPLEMENTED);
     }
 
-    public async create(payload: {
-        file: Buffer;
-        newFileName: string;
-    }): Promise<FileEntity> {
-        return this.fileRepository.create({ ...payload });
+    public create(): Promise<unknown> {
+        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+    }
+
+    public async upload(payload: {
+        files: MulterFile[];
+    }): Promise<FileUploadResponse> {
+        return this.fileRepository.upload({ ...payload });
     }
 
     public update(): Promise<ReturnType<Service['update']>> {

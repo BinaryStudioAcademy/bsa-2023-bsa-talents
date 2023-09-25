@@ -3,6 +3,7 @@ import React from 'react';
 import { Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/styles/text-category.enum';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
+import { ProfileDetailsScreenName } from '~/bundles/talent/enums/enums';
 import { type MaterialTopTabBarProps } from '~/bundles/talent/types/types';
 
 import { ProfileTabBarItem } from './profile-top-bar-item/profile-top-bar-item';
@@ -41,11 +42,16 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
                         }
                     };
 
+                    const routeName =
+                        name === ProfileDetailsScreenName.PROFILE
+                            ? 'Profile'
+                            : name;
+
                     return (
                         <ProfileTabBarItem
                             onPress={onPress}
                             key={key}
-                            routeName={name}
+                            routeName={routeName}
                             isFocused={isFocused}
                         />
                     );

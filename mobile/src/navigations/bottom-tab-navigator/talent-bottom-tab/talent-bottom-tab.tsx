@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { MaterialIcon } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
     IconName,
     TalentBottomTabScreenName,
@@ -15,8 +16,6 @@ import { bottomTabStyles } from '../styles';
 const BottomTab =
     createBottomTabNavigator<TalentBottomTabNavigationParameterList>();
 
-const iconSize = 24;
-
 const TalentBottomTabNavigator: React.FC = () => {
     return (
         <BottomTab.Navigator screenOptions={bottomTabStyles}>
@@ -24,10 +23,10 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.MAIL}
                 component={Mail}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -37,10 +36,10 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
                 component={TalentProfileNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),

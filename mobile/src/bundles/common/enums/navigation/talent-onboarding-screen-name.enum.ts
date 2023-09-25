@@ -1,5 +1,5 @@
 const TalentOnboardingScreenName = {
-    PROFILE: 'Profile ',
+    PROFILE: 'Profile',
     BSA_BADGES: 'BSA Badges',
     SKILLS_AND_PROJECTS: 'Skills and projects',
     CV_AND_CONTACTS: 'CV and contacts',

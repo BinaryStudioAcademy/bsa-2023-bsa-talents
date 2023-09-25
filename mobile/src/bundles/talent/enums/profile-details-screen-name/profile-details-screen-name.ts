@@ -1,5 +1,5 @@
 const ProfileDetailsScreenName = {
-    PROFILE: 'Profile',
+    PROFILE: 'Profile screen',
     BADGES: 'Badges',
     SKILLS: 'Skills',
     CONTACTS: 'Contacts',
