@@ -1,4 +1,4 @@
-import { EmailRounded, FolderShared } from '@mui/icons-material';
+import { EmailRounded, FolderShared, Home } from '@mui/icons-material';
 
 import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -7,8 +7,9 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
+import { type SideBarMenu } from './types/sidebar-menu.type.js';
 
-const MENU_ITEMS = [
+const GENERAL_MENU: SideBarMenu = [
     {
         link: AppRoute.CANDIDATES,
         name: 'Candidates',
@@ -21,8 +22,20 @@ const MENU_ITEMS = [
     },
 ];
 
+const ADMIN_MENU: SideBarMenu = [
+    {
+        link: AppRoute.ROOT,
+        name: 'Home',
+        icon: <Home />,
+    },
+];
+
 const Sidebar: React.FC = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
+
+    const { role } = useAppSelector(({ auth }) => ({
+        role: auth.currentUser?.role,
+    }));
 
     const { isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
@@ -31,6 +44,8 @@ const Sidebar: React.FC = () => {
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
+
+    const menuItems = role === 'admin' ? ADMIN_MENU : GENERAL_MENU;
 
     return (
         <>
@@ -42,7 +57,7 @@ const Sidebar: React.FC = () => {
             >
                 <Logo isCollapsed={true} className={styles.logo} hasLink />
                 <ul className={styles.list}>
-                    {MENU_ITEMS.map((item) => (
+                    {menuItems.map((item) => (
                         <li
                             key={item.link}
                             className={isApproved ? '' : styles.listItem}
