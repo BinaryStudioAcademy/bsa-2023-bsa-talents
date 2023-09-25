@@ -15,7 +15,7 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
 }) => {
     return (
         <View style={styles.container}>
-            <Text category={TextCategory.H2} style={globalStyles.p15}>
+            <Text category={TextCategory.H3} style={globalStyles.p15}>
                 Your Profile
             </Text>
             <View

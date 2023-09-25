@@ -16,6 +16,10 @@ const Tab = createMaterialTopTabNavigator();
 const TalentProfileNavigator: React.FC = () => {
     return (
         <Tab.Navigator
+            screenOptions={{
+                tabBarScrollEnabled: true,
+                tabBarItemStyle: { width: 100 },
+            }}
             initialRouteName={ProfileDetailsScreenName.PROFILE}
             tabBar={(props): React.ReactNode => <ProfileTabBar {...props} />}
         >
