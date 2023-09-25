@@ -3,7 +3,7 @@ import { ExperienceYears } from '~/bundles/talent-onboarding/enums/enums.js';
 
 const MAX_MARKS_VALUE = 100;
 const MIN_MARKS_VALUE = 0;
-const FIRST_INDEX = 0;
+const DEFAULT_EXPERIENCE = 0;
 const SINGLE_UNIT_VALUE = 1;
 
 const experienceYearsScaled = mapToSliderMarks(ExperienceYears);
@@ -39,17 +39,24 @@ const roundNumber = (number: number): number => {
 };
 
 const sliderToRealValue = (sliderValue: number): number => {
-    const experience = experienceYearsScaled.filter(
+    const experience = experienceYearsScaled.find(
         (item) => item.scaledValue === sliderValue,
-    )[FIRST_INDEX];
-    return experience.value;
+    );
+    if (experience) {
+        return experience.value;
+    }
+    return DEFAULT_EXPERIENCE;
 };
-const realToSliderValue = (realValue: number): number => {
-    const experience = experienceYearsScaled.filter(
-        (item) => item.value === roundNumber(realValue),
-    )[FIRST_INDEX];
 
-    return experience.scaledValue;
+const realToSliderValue = (realValue: number): number => {
+    const experience = experienceYearsScaled.find(
+        (item) => item.value === roundNumber(realValue),
+    );
+
+    if (experience) {
+        return experience.scaledValue;
+    }
+    return DEFAULT_EXPERIENCE;
 };
 
 export { experienceYearsSliderMarks, realToSliderValue, sliderToRealValue };

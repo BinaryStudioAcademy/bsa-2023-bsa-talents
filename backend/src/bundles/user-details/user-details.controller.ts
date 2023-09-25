@@ -245,6 +245,18 @@ class UserDetailsController extends ControllerBase {
                 );
             },
         });
+
+        this.addRoute({
+            path: UserDetailsApiPath.PUBLISH,
+            method: 'PATCH',
+            handler: (options) => {
+                return this.publish(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
@@ -518,7 +530,7 @@ class UserDetailsController extends ControllerBase {
      *            type: boolean
      *          description: Determines whether search type is base or extended
      *        - in: query
-     *          name: searchActiveCandidatesOnly
+     *          name: isSearchActiveCandidatesOnly
      *          schema:
      *            type: boolean
      *          description: Filter by active status (optional)
@@ -791,6 +803,45 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.approve(userId),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/{userId}/publish:
+     *    patch:
+     *      tags: [User Details]
+     *      description: Publishes users data and returns publish time
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to publish data
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: string
+     *                example: '2023-09-12T12:34:56.789Z'
+     */
+
+    private async publish(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.publish({ userId }),
         };
     }
 }

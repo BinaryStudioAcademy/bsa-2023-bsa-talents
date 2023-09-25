@@ -109,7 +109,7 @@ const Candidates: React.FC = () => {
                 <CandidatesHeader numberOfUsers={numberOfMockUsers} />
                 <SearchTalents
                     searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
+                    onSearch={setSearchQuery}
                 />
                 <FlatList
                     data={filteredCandidates}

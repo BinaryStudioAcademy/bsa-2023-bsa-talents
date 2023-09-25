@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 type Properties = {
     className?: string;
     isCollapsed?: boolean;
-    withLink?: boolean;
+    hasLink?: boolean;
 };
 
 const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
@@ -46,11 +46,11 @@ const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
 const Logo: React.FC<Properties> = ({
     className = '',
     isCollapsed = false,
-    withLink = false,
+    hasLink = false,
 }) => {
     return (
         <Grid container alignItems="center" justifyContent="center">
-            {withLink ? (
+            {hasLink ? (
                 <Link
                     to={AppRoute.ROOT}
                     className={getValidClassNames(styles.logo, className)}
