@@ -21,7 +21,7 @@ import { CVAndContacts } from './components/cv-and-contacts/cv-and-contacts.js';
 import { FIRST_INDEX, PreviewTabs } from './constants/constants.js';
 import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
-import { type FilterValues,type TabValues } from './types/types.js';
+import { type FilterValues, type TabValues } from './types/types.js';
 
 const AdminPanel: React.FC = () => {
     const [filter, setFilter] = useState<FilterValues>('talents');
