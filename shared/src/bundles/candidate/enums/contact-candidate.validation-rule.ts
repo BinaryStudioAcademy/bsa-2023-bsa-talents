@@ -6,6 +6,6 @@ const ContactCandidateValidationRule = {
     MIN_MESSAGE_LENGTH: 10,
     MAX_MESSAGE_LENGTH: 5000,
     MIN_TEMPLATE_LENGTH: 1,
-};
+} as const;
 
 export { ContactCandidateValidationRule };

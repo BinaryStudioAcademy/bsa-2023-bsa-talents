@@ -8,7 +8,7 @@ const DEFAULT_CONTACT_CANDIDATE_MODAL = {
 const MODAL = {
     EMPTY_ARRAY_LENGTH: 0,
     MAX_LINKS: 5,
-};
+} as const;
 
 const TEXTAREA = {
     minRows: 3,

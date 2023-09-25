@@ -36,6 +36,6 @@ const ProfileStepValidationMessage = {
     DESCRIPTION_MAX_LENGTH:
         'Introduce yourself must be at most {{#limit}} characters',
     DESCRIPTION_EMPTY: 'Introduce yourself can not be empty',
-};
+} as const;
 
 export { ProfileStepValidationMessage };
