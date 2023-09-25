@@ -3,6 +3,7 @@ import { Headers } from 'node-fetch';
 import { userRepository } from '~/bundles/users/users.js';
 import { ErrorMessages } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
+import { config } from '~/common/packages/config/config.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
@@ -78,7 +79,7 @@ class LMSDataService implements Service {
     private async findByUserEmailOnLMSServer(
         email: string,
     ): Promise<LMSDataServerResponseDto | undefined> {
-        const url = new URL(process.env.LMS_SERVER ?? '');
+        const url = new URL(config.ENV.LMS_DATA_SERVER.LMS_SERVER);
         url.searchParams.append('email', email);
 
         const response = await http.load(url, {
