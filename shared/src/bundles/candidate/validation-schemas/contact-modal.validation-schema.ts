@@ -19,7 +19,7 @@ const linkSchema = joi
         'string.pattern.base': ContactCandidateValidationMessage.LINK_INVALID,
     });
 
-const contactCandidateValidationSchema = joi.object<ContactCandidateDto, true>({
+const contactCandidate = joi.object<ContactCandidateDto, true>({
     links: joi
         .array()
         .items(
@@ -79,4 +79,4 @@ const contactCandidateValidationSchema = joi.object<ContactCandidateDto, true>({
     }),
 });
 
-export { contactCandidateValidationSchema };
+export { contactCandidate };

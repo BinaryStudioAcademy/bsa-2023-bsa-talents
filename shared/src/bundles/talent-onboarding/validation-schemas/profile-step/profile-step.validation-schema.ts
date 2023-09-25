@@ -11,7 +11,7 @@ import {
 } from '../../enums/enums.js';
 import { type ProfileStepDto } from '../../types/types.js';
 
-const profileStepValidationSchema = joi.object<ProfileStepDto, true>({
+const profileStep = joi.object<ProfileStepDto, true>({
     profileName: joi
         .string()
         .min(ProfileStepValidationRule.MIN_PROFILE_NAME_LENGTH)
@@ -95,4 +95,4 @@ const profileStepValidationSchema = joi.object<ProfileStepDto, true>({
         }),
 });
 
-export { profileStepValidationSchema };
+export { profileStep };

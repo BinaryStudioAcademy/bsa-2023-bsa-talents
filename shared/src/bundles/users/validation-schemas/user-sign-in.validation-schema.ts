@@ -3,7 +3,7 @@ import joi from 'joi';
 import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
 
-const userSignInValidationSchema = joi.object<UserSignInRequestDto, true>({
+const userSignIn = joi.object<UserSignInRequestDto, true>({
     email: joi
         .string()
         .trim()
@@ -35,4 +35,4 @@ const userSignInValidationSchema = joi.object<UserSignInRequestDto, true>({
         }),
 });
 
-export { userSignInValidationSchema };
+export { userSignIn };

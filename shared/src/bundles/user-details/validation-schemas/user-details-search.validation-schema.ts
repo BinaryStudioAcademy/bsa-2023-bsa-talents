@@ -10,95 +10,94 @@ import {
 } from '../enums/enums.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 
-const userDetailsSearchValidationSchema =
-    joi.object<UserDetailsSearchUsersRequestDto>({
-        sortBy: joi
-            .string()
-            .valid(
-                ...Object.values(UserSortCriteria).map(
-                    (criteria) => criteria.value,
-                ),
+const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
+    sortBy: joi
+        .string()
+        .valid(
+            ...Object.values(UserSortCriteria).map(
+                (criteria) => criteria.value,
             ),
+        ),
 
-        isBaseSearch: joi.boolean(),
+    isBaseSearch: joi.boolean(),
 
-        searchValue: joi.string().trim(),
+    searchValue: joi.string().trim(),
 
-        isSearchActiveCandidatesOnly: joi.boolean(),
+    isSearchActiveCandidatesOnly: joi.boolean(),
 
-        jobTitle: joi.alternatives().try(
-            joi.array().items(
-                joi
-                    .string()
-                    .trim()
-                    .valid(...Object.values(JobTitle)),
-            ),
+    jobTitle: joi.alternatives().try(
+        joi.array().items(
             joi
                 .string()
                 .trim()
                 .valid(...Object.values(JobTitle)),
         ),
-        yearsOfExperience: joi.alternatives().try(
-            joi.array().items(
-                joi
-                    .string()
-                    .trim()
-                    .valid(...Object.values(YearsOfExperience)),
-            ),
-            joi.string().trim(),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(JobTitle)),
+    ),
+    yearsOfExperience: joi.alternatives().try(
+        joi.array().items(
+            joi
+                .string()
+                .trim()
+                .valid(...Object.values(YearsOfExperience)),
         ),
-        hardSkills: joi
-            .alternatives()
-            .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+        joi.string().trim(),
+    ),
+    hardSkills: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-        BSABadges: joi
-            .alternatives()
-            .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+    BSABadges: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-        location: joi.alternatives().try(
-            joi.array().items(
-                joi
-                    .string()
-                    .trim()
-                    .valid(...Object.values(Country)),
-            ),
+    location: joi.alternatives().try(
+        joi.array().items(
             joi
                 .string()
                 .trim()
                 .valid(...Object.values(Country)),
         ),
-        englishLevel: joi.alternatives().try(
-            joi.array().items(
-                joi
-                    .string()
-                    .trim()
-                    .valid(...Object.values(EnglishLevel)),
-            ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(Country)),
+    ),
+    englishLevel: joi.alternatives().try(
+        joi.array().items(
             joi
                 .string()
                 .trim()
                 .valid(...Object.values(EnglishLevel)),
         ),
-        employmentType: joi.alternatives().try(
-            joi.array().items(
-                joi
-                    .string()
-                    .trim()
-                    .valid(...Object.values(EmploymentType)),
-            ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(EnglishLevel)),
+    ),
+    employmentType: joi.alternatives().try(
+        joi.array().items(
             joi
                 .string()
                 .trim()
                 .valid(...Object.values(EmploymentType)),
         ),
+        joi
+            .string()
+            .trim()
+            .valid(...Object.values(EmploymentType)),
+    ),
 
-        userBsaCharacteristics: joi
-            .alternatives()
-            .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+    userBsaCharacteristics: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-        userBsaProject: joi
-            .alternatives()
-            .try(joi.array().items(joi.string().trim()), joi.string().trim()),
-    });
+    userBsaProject: joi
+        .alternatives()
+        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
+});
 
-export { userDetailsSearchValidationSchema };
+export { userDetailsSearch };

@@ -6,7 +6,7 @@ import {
 } from '../../enums/enums.js';
 import { type SkillsStepDto } from '../../types/skills-step/skills-step-dto.js';
 
-const skillsStepValidationSchema = joi.object<SkillsStepDto, true>({
+const skillsStep = joi.object<SkillsStepDto, true>({
     hardSkills: joi
         .array()
         .items(
@@ -102,4 +102,4 @@ const skillsStepValidationSchema = joi.object<SkillsStepDto, true>({
         }),
 });
 
-export { skillsStepValidationSchema };
+export { skillsStep };

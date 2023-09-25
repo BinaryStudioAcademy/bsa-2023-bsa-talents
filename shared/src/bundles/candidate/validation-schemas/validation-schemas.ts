@@ -1,1 +1,1 @@
-export { contactCandidateValidationSchema } from './contact-modal.validation-schema.js';
+export { contactCandidate } from './contact-modal.validation-schema.js';

@@ -6,4 +6,4 @@ export {
     type ContactCandidateDto,
     type MessageTemplateDto,
 } from './types/types.js';
-export { contactCandidateValidationSchema } from './validation-schemas/validation-schemas.js';
+export { contactCandidate as contactCandidateValidationSchema } from './validation-schemas/validation-schemas.js';
