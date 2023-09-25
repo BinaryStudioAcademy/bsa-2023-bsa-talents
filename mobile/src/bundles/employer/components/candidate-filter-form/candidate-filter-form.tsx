@@ -13,13 +13,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    Country,
-    EmploymentType,
-    IconName,
-    JobTitle,
-} from '~/bundles/common/enums/enums';
+import { Color, IconName } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import {
     useAppDispatch,
@@ -36,21 +30,13 @@ import {
     BSA_CHARACTERISTICS,
     BSA_PROJECTS,
     DEFAULT_VALUES,
+    EMPLOYMENT_TYPE_OPTIONS,
     ENGLISH_LEVELS,
+    JOB_TITLE_OPTIONS,
+    LOCATION_OPTIONS,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
-
-const jobTitleOptions = Object.entries(JobTitle).map(([label, value]) => ({
-    label,
-    value,
-}));
-const locationOptions = Object.entries(Country).map(([label, value]) => ({
-    label,
-    value,
-}));
-
-const employmentTypeOptions = Object.values(EmploymentType);
 
 type CandidatesFilterFormProperties = {
     onSubmit: (dto: EmployeesFiltersDto) => void;
@@ -132,7 +118,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteMultiSelector
-                    items={jobTitleOptions}
+                    items={JOB_TITLE_OPTIONS}
                     control={control}
                     name="jobTitle"
                     placeholder="Start typing and choose option"
@@ -194,7 +180,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <AutocompleteMultiSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Start typing and choose option"
                 />
             </FormField>
@@ -217,7 +203,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="employmentTypes"
-                    options={employmentTypeOptions}
+                    options={EMPLOYMENT_TYPE_OPTIONS}
                 />
             </FormField>
             <Button
