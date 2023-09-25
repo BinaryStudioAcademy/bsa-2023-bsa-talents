@@ -1,7 +1,6 @@
 import {
     clearCommonStore,
     createUserDetails,
-    getTalents,
     getUserDetails,
     updateOnboardingData,
 } from './actions';
@@ -13,7 +12,6 @@ const allActions = {
     clearCommonStore,
     getUserDetails,
     updateOnboardingData,
-    getTalents,
 };
 
 export { allActions as actions };

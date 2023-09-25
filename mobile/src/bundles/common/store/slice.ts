@@ -10,7 +10,6 @@ import {
 import {
     clearCommonStore,
     createUserDetails,
-    getTalents,
     getUserDetails,
     updateOnboardingData,
 } from './actions';
@@ -36,13 +35,6 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.IDLE;
             state.onboardingData = null;
         });
-        builder.addCase(getTalents.fulfilled, (state, action) => {
-            state.dataStatus = DataStatus.FULFILLED;
-            state.talentsData = action.payload;
-        });
-        builder.addCase(getTalents.rejected, (state) => {
-            state.talentsData = null;
-        });
         builder.addMatcher(
             (action) =>
                 [
@@ -63,7 +55,6 @@ const { reducer, actions, name } = createSlice({
                 createUserDetails.pending,
                 updateOnboardingData.pending,
                 getUserDetails.pending,
-                getTalents.pending,
             ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
@@ -74,7 +65,6 @@ const { reducer, actions, name } = createSlice({
                 createUserDetails.rejected,
                 updateOnboardingData.rejected,
                 getUserDetails.rejected,
-                getTalents.rejected,
             ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;

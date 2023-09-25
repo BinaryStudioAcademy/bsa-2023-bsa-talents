@@ -31,13 +31,13 @@ const transformCandidateFilterFormToQuery = (
     const {
         employmentType,
         englishLevel,
-        searchActiveCandidatesOnly,
+        isSearchActiveCandidatesOnly,
         hardSkills,
         sortBy,
         ...multiSelectedData
     } = formData;
 
-    let result = `?searchActiveCandidatesOnly=${searchActiveCandidatesOnly}`;
+    let result = `?isSearchActiveCandidatesOnly=${isSearchActiveCandidatesOnly}`;
     result += getFilterSearchQuery(englishLevel, 'englishLevel');
     result += getFilterSearchQuery(employmentType, 'employmentType');
     result += getSortSearchQuery(sortBy);

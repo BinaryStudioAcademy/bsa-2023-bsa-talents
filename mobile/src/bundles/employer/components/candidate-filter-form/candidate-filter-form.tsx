@@ -29,6 +29,7 @@ import {
     ENGLISH_LEVELS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
+    SORT_VALUES,
     YEARS_EXPERIENCE,
 } from './constants/constants';
 import { styles } from './styles';
@@ -93,10 +94,10 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
 
             <FormField
                 containerStyle={globalStyles.pb25}
-                name="searchActiveCandidatesOnly"
+                name="isSearchActiveCandidatesOnly"
             >
                 <Switch
-                    name="searchActiveCandidatesOnly"
+                    name="isSearchActiveCandidatesOnly"
                     control={control}
                     label="Active searching talents only"
                 />
@@ -198,12 +199,12 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
             </FormField>
             <FormField
                 label="Employment type"
-                name="employmentTypes"
+                name="employmentType"
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
                     control={control}
-                    name="employmentTypes"
+                    name="employmentType"
                     options={EMPLOYMENT_TYPE_OPTIONS}
                 />
             </FormField>

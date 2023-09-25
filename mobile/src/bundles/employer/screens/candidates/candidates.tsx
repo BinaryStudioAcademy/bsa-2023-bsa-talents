@@ -28,14 +28,13 @@ const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const dispatch = useAppDispatch();
     const { dataStatus: employerDataStatus, talentsData } = useAppSelector(
-        ({ common }) => common,
+        ({ employees }) => employees,
     );
     const { dataStatus: commonDataStatus } = useCommonData();
 
     useEffect(() => {
         void dispatch(getTalents());
     }, [dispatch]);
-
     const renderCandidateCard = ({
         item,
     }: {

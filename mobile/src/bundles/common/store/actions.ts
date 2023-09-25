@@ -84,28 +84,11 @@ const getUserDetails = createAsyncThunk<
     }
 });
 
-const getTalents = createAsyncThunk<
-    UserDetailsResponseDto[],
-    string | undefined,
-    AsyncThunkConfig
->(`${sliceName}/getTalentsData`, async (payload, { extra }) => {
-    const { commonApi, notifications } = extra;
-    try {
-        const users = await commonApi.getTalents(payload ?? '');
-        return users.filter((user) => user.cvId);
-    } catch (error) {
-        const errorMessage = getErrorMessage(error);
-        notifications.showError({ title: errorMessage });
-        throw error;
-    }
-});
-
 const clearCommonStore = createAction(`${sliceName}/clearCommonStore`);
 
 export {
     clearCommonStore,
     createUserDetails,
-    getTalents,
     getUserDetails,
     updateOnboardingData,
 };

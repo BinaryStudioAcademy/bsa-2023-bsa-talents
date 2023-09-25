@@ -21,10 +21,10 @@ const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
     { value: 'some', label: 'some' },
 ];
 
-const USER_BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
+const BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
     { value: 'one', label: 'one' },
     { value: 'two', label: 'two' },
     { value: 'some', label: 'some' },
 ];
 
-export { BSA_CHARACTERISTICS, DEFAULT_VALUES, USER_BSA_PROJECTS };
+export { BSA_CHARACTERISTICS, BSA_PROJECTS, DEFAULT_VALUES };
