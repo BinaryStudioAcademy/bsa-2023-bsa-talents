@@ -7,8 +7,9 @@ import { type RootReducer } from '~/framework/store/store.package.js';
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
+import { type SideBarMenu } from './types/sidebar-menu.type.js';
 
-const GENERAL_MENU = [
+const GENERAL_MENU: SideBarMenu = [
     {
         link: AppRoute.CANDIDATES,
         name: 'Candidates',
@@ -21,7 +22,7 @@ const GENERAL_MENU = [
     },
 ];
 
-const ADMIN_MENU = [
+const ADMIN_MENU: SideBarMenu = [
     {
         link: AppRoute.ROOT,
         name: 'Home',

@@ -18,7 +18,7 @@ import {
 
 import { VerificationList } from './components/components.js';
 import { CVAndContacts } from './components/cv-and-contacts/cv-and-contacts.js';
-import { FIRST_INDEX, PreviewTabs } from './constants/constants.js';
+import { FIRST_INDEX, PreviewTab } from './constants/constants.js';
 import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
 import { type FilterValues, type TabValues } from './types/types.js';
@@ -33,7 +33,7 @@ const AdminPanel: React.FC = () => {
         items[FIRST_INDEX]?.userId,
     );
     const [selectedTab, setSelectedTab] = useState<TabValues>(
-        PreviewTabs.PROFILE,
+        PreviewTab.PROFILE,
     );
 
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
@@ -50,7 +50,7 @@ const AdminPanel: React.FC = () => {
         [],
     );
 
-    const previewTabs = Object.values(PreviewTabs).map((tab) => (
+    const previewTabs = Object.values(PreviewTab).map((tab) => (
         <Button
             key={tab}
             onClick={handleSelectTab}
