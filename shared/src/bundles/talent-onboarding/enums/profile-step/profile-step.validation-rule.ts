@@ -9,6 +9,6 @@ const ProfileStepValidationRule = {
     MAX_YEARS_OF_EXPERIENCE: 5.5,
     YEARS_OF_EXPERIENCE_STEP: 0.5,
     EMPLOYMENT_TYPES_MIN_LENGTH: 1,
-};
+} as const;
 
 export { ProfileStepValidationRule };
