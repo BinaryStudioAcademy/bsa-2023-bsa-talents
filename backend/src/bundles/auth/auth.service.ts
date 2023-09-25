@@ -80,18 +80,6 @@ class AuthService {
 
         return user.toObject();
     }
-
-    public async getCurrentUser(token: string): Promise<UserFindResponseDto> {
-        const user = await this.userService.findByToken(token);
-
-        if (!user) {
-            throw new HttpError({
-                status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_NOT_FOUND,
-            });
-        }
-        return user;
-    }
 }
 
 export { AuthService };
