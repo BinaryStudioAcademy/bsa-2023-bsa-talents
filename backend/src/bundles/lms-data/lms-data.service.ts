@@ -1,7 +1,7 @@
 import { Headers } from 'node-fetch';
 
 import { userRepository } from '~/bundles/users/users.js';
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { config } from '~/common/packages/config/config.js';
 import { http } from '~/common/packages/http/http.js';
@@ -66,13 +66,13 @@ class LMSDataService implements Service {
 
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.NOT_FOUND_ON_LMS,
+                message: ErrorMessage.NOT_FOUND_ON_LMS,
             });
         }
 
         throw new HttpError({
             status: HttpCode.NOT_FOUND,
-            message: ErrorMessages.USER_NOT_FOUND,
+            message: ErrorMessage.USER_NOT_FOUND,
         });
     }
 
@@ -96,23 +96,23 @@ class LMSDataService implements Service {
     }
 
     public create(): ReturnType<Service['create']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public find(): ReturnType<Service['find']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public findAll(): ReturnType<Service['findAll']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public update(): ReturnType<Service['update']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): ReturnType<Service['delete']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

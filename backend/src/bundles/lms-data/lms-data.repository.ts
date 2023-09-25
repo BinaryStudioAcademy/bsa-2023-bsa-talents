@@ -1,5 +1,4 @@
-import { ErrorMessages } from 'shared/build/index.js';
-
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 import { LMSDataEntity } from './lms-data.entity.js';
@@ -14,7 +13,7 @@ class LMSDataRepository implements Repository {
     }
 
     public find(): ReturnType<Repository['find']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findByUserId(
