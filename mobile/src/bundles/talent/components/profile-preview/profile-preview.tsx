@@ -5,6 +5,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -16,8 +17,6 @@ import { styles } from './styles';
 const mockUser = {
     PUBLISHED: 'Published today',
 };
-
-const iconSize = 24;
 
 const ProfilePreview: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
@@ -64,7 +63,7 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.LANGUAGE}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -82,7 +81,7 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.EXPERIENCE}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -101,7 +100,7 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.FORUM}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -123,7 +122,7 @@ const ProfilePreview: React.FC = () => {
                                 >
                                     <MaterialIcon
                                         name={IconName.CHECK_CIRCLE}
-                                        size={iconSize}
+                                        size={ICON_SIZE}
                                         color={Color.PRIMARY}
                                     />
                                     <Text
@@ -136,7 +135,6 @@ const ProfilePreview: React.FC = () => {
                             );
                         })}
                     </View>
-
                     {notConsidered?.map((item, index) => {
                         return (
                             <View
@@ -148,7 +146,7 @@ const ProfilePreview: React.FC = () => {
                             >
                                 <MaterialIcon
                                     name={IconName.NOT_CONSIDER}
-                                    size={iconSize}
+                                    size={ICON_SIZE}
                                     color={Color.ERROR}
                                 />
                                 <Text
