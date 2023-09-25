@@ -31,7 +31,7 @@ const experienceYearsSliderMarks = experienceYearsScaled.map((mark) => {
     };
 });
 
-const formatNumber = (number: number): number => {
+const roundNumber = (number: number): number => {
     const INT_TO_FIXED = 1;
     const parsedNumber = Number.parseFloat('' + number);
 
@@ -50,7 +50,7 @@ const sliderToRealValue = (sliderValue: number): number => {
 
 const realToSliderValue = (realValue: number): number => {
     const experience = experienceYearsScaled.find(
-        (item) => item.value === formatNumber(realValue),
+        (item) => item.value === roundNumber(realValue),
     );
 
     if (experience) {
