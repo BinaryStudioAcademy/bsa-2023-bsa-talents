@@ -10,6 +10,7 @@ export {
     type UserForgotPasswordResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserResetPasswordDto,
     type UserResetPasswordRequestDto,
     type UserResetPasswordResponseDto,
     type UserSignInRequestDto,
@@ -21,3 +22,4 @@ export { userSignUp as userSignUpValidationSchema } from './validation-schemas/v
 export { userSignIn as userSignInValidationSchema } from './validation-schemas/validation-schemas.js';
 export { userForgotPassword as userForgotPasswordValidationSchema } from './validation-schemas/validation-schemas.js';
 export { userResetPassword as userResetPasswordValidationSchema } from './validation-schemas/validation-schemas.js';
+export { userPassword as userPasswordValidationSchema } from './validation-schemas/validation-schemas.js';

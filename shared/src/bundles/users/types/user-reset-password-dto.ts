@@ -1,4 +1,4 @@
-import { type UserResetPasswordRequestDto } from '~/bundles/users/users.js';
+import { type UserResetPasswordRequestDto } from './types.js';
 
 type UserResetPasswordDto = Omit<UserResetPasswordRequestDto, 'resetToken'>;
 

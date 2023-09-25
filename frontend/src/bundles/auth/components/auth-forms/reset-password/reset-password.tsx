@@ -6,9 +6,11 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
-import { userResetPasswordValidationSchema } from '~/bundles/users/users.js';
+import {
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+} from '~/bundles/users/users.js';
 
-import { type UserResetPasswordDto } from '../../../types/types.js';
 import { DEFAULT_RESET_PASSWORD_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -19,7 +21,7 @@ type Properties = {
 const ResetPassword: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserResetPasswordDto>({
         defaultValues: DEFAULT_RESET_PASSWORD_PAYLOAD,
-        validationSchema: userResetPasswordValidationSchema,
+        validationSchema: userPasswordValidationSchema,
     });
 
     const handleFormSubmit = useCallback(

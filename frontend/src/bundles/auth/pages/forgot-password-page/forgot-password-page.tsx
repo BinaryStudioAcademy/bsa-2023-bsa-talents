@@ -7,7 +7,7 @@ import { AuthLayout, ForgotPassword } from '../../components/components.js';
 const ForgotPasswordPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const handleSignInSubmit = useCallback(
+    const handleForgotPasswordSubmit = useCallback(
         (payload: UserForgotPasswordRequestDto): void => {
             void dispatch(authActions.forgotPassword(payload));
         },
@@ -15,7 +15,7 @@ const ForgotPasswordPage: React.FC = () => {
     );
     return (
         <AuthLayout>
-            <ForgotPassword onSubmit={handleSignInSubmit} />
+            <ForgotPassword onSubmit={handleForgotPasswordSubmit} />
         </AuthLayout>
     );
 };

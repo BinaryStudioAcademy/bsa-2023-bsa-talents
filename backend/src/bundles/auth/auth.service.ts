@@ -121,7 +121,9 @@ class AuthService {
             resetTokenExpiry,
         });
 
-        return resetToken;
+        const encodedResetToken = Buffer.from(resetToken).toString('base64');
+
+        return encodedResetToken.replaceAll('+', '-').replaceAll('/', '_');
     }
 
     public async forgotPassword({

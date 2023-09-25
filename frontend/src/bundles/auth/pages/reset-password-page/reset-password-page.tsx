@@ -4,21 +4,26 @@ import {
     useCallback,
     useParameters,
 } from '~/bundles/common/hooks/hooks.js';
+import { type UserResetPasswordDto } from '~/bundles/users/users.js';
 
 import { AuthLayout, ResetPassword } from '../../components/components.js';
-import { type UserResetPasswordDto } from '../../types/types.js';
 
 const ResetPasswordPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { token } = useParameters();
 
-    const handleSignInSubmit = useCallback(
+    const handleResetPasswordSubmit = useCallback(
         (payload: UserResetPasswordDto): void => {
             if (token) {
+                const safeEncodedToken = token
+                    .replaceAll('-', '+')
+                    .replaceAll('_', '/');
+                const decodedToken = atob(safeEncodedToken);
+
                 void dispatch(
                     authActions.resetPassword({
-                        resetToken: token,
+                        resetToken: decodedToken,
                         ...payload,
                     }),
                 );
@@ -29,7 +34,7 @@ const ResetPasswordPage: React.FC = () => {
 
     return (
         <AuthLayout>
-            <ResetPassword onSubmit={handleSignInSubmit} />
+            <ResetPassword onSubmit={handleResetPasswordSubmit} />
         </AuthLayout>
     );
 };

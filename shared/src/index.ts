@@ -70,6 +70,8 @@ export {
     userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
     type UserResetPasswordRequestDto,
     type UserResetPasswordResponseDto,
     userResetPasswordValidationSchema,
