@@ -38,6 +38,8 @@ type UserDetailsProperties = {
     employerPosition: string | null;
     cvId: string | null;
     completedStep: ValueOf<typeof OnboardingStep> | null;
+    createdAt: string | null;
+    email?: string | null;
 };
 
 export { type UserDetailsProperties };

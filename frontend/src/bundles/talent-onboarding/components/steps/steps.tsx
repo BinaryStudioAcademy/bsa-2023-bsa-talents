@@ -2,7 +2,7 @@ import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import { STEP_ONE } from '../../constants/constants.js';
+import { StepsList } from '../../constants/constants.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
@@ -32,7 +32,7 @@ const Steps: React.FC<Properties> = ({ currentStep }) => {
                         key={step}
                         className={getClassNameForStep({
                             stepName: step,
-                            stepIndex: index + STEP_ONE,
+                            stepIndex: index + StepsList.ONE,
                             baseClass: styles.step,
                             activeClass: styles.currentStep,
                             passedStepClass: styles.passedStep,

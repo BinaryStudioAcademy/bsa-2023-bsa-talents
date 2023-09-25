@@ -29,6 +29,18 @@ export {
     type HardSkillsResponseDto,
 } from './bundles/gather-selected-data/gather-selected-data.js';
 export {
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataResponseDto,
+    type LMSDataServerResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
+    type UserLMSDataDto,
+} from './bundles/lms-data/lms-data.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
@@ -54,6 +66,7 @@ export {
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -78,6 +91,7 @@ export {
     type UserFindResponseDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
@@ -93,6 +107,7 @@ export {
     ContentType,
     ErrorMessage,
     FileUploadErrorMessage,
+    LMSDataApiPath,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
@@ -116,6 +131,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     mapQueryValuesToArrays,
+    parseLMSServerData,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

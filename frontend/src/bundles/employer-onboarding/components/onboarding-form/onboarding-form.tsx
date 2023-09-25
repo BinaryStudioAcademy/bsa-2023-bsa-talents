@@ -225,7 +225,7 @@ const OnboardingForm: React.FC = () => {
             <Grid className={styles.form}>
                 <Grid className={styles.formFields}>
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">Full Name</Typography>
                         </FormLabel>
 
@@ -239,7 +239,7 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">
                                 Your position
                             </Typography>
@@ -254,7 +254,7 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">
                                 Linkedin profile
                             </Typography>
@@ -268,7 +268,7 @@ const OnboardingForm: React.FC = () => {
                         />
                     </FormControl>
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">
                                 Company name
                             </Typography>
@@ -283,7 +283,7 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">
                                 Company website
                             </Typography>
@@ -298,7 +298,7 @@ const OnboardingForm: React.FC = () => {
                     </FormControl>
 
                     <FormControl className={styles.formField}>
-                        <FormLabel className={styles.formLabel} required>
+                        <FormLabel required>
                             <Typography variant="label">Location</Typography>
                         </FormLabel>
                         <Grid className={styles.formInput}>

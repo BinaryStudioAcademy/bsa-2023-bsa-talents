@@ -3,6 +3,7 @@ export {
     type UserDetailsSearchUsersRequestDto,
     type UserFindResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

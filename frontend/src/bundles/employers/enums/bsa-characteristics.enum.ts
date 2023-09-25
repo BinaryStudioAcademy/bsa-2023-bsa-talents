@@ -1,7 +1,7 @@
 const BsaCharacteristics = {
-    FIRST: 'first',
-    SECOND: 'second',
-    THIRD: 'third',
+    FIRST: 'communication',
+    SECOND: 'resilience',
+    THIRD: 'adaptability',
 } as const;
 
 export { BsaCharacteristics };
