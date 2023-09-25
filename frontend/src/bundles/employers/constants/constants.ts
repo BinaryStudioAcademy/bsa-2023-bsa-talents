@@ -3,17 +3,16 @@ import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
     searchType: 'Basic search',
     searchValue: '',
-    searchActiveCandidatesOnly: false,
+    isSearchActiveCandidatesOnly: false,
     jobTitle: [],
     yearsOfExperience: [],
     hardSkills: [],
     userBsaCharacteristics: [],
-    BSABadges: [],
     userBsaProject: [],
     location: [],
     englishLevel: [],
     employmentType: [],
-    sortBy: undefined,
+    sortBy: '',
 };
 
 export { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD };

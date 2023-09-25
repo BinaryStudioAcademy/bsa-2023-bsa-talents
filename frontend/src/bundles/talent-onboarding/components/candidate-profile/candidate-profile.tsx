@@ -1,4 +1,4 @@
-import { mockBadges, mockHardSkills } from '~/assets/mock-data/mock-data.js';
+import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
@@ -8,7 +8,7 @@ import {
 } from '~/bundles/talent-onboarding/components/components.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { formatNumber } from '../../helpers/helpers.js';
+import { trimZerosFromNumber } from '../../helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
@@ -49,18 +49,16 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: mockHardSkills.map((skill) => skill.label),
-        // hardSkills: data.hardSkills
-        //     ? data.hardSkills.map((skill) => skill.label)
-        //     : [],
-        experienceYears: formatNumber(data.experienceYears as number),
+        hardSkills: data.hardSkills?.map((skill) => skill.label),
+        experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        date: data.createdAt as string,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        experienceYears: formatNumber(data.experienceYears as number),
+        experienceYears: trimZerosFromNumber(data.experienceYears as number),
         jobTitle: data.jobTitle,
         fullName: data.fullName as string,
         email: data.email as string,

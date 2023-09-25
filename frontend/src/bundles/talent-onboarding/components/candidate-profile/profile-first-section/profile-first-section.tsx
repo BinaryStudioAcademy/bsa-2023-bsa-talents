@@ -83,8 +83,11 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     >
                         {candidateParameters.location} |{' '}
                         {candidateParameters.experienceYears} years of
-                        experience |{candidateParameters.englishLevel} | Publish
-                        today
+                        experience | {candidateParameters.englishLevel} |
+                        Published{' '}
+                        {new Date(
+                            candidateParameters.date,
+                        ).toLocaleDateString()}
                     </Typography>
                 )}
             </Grid>

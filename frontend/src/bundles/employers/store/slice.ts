@@ -46,6 +46,9 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(setFilters.fulfilled, (state, action) => {
             state.filters = action.payload;
         });
+        builder.addCase(setFilters.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
     },
 });
 

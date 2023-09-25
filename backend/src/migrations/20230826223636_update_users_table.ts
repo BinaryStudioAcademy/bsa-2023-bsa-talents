@@ -4,7 +4,7 @@ const TABLE_NAME = 'users';
 
 const ColumnName = {
     ROLE: 'role',
-};
+} as const;
 
 const UserRole = {
     TALENT: 'talent',

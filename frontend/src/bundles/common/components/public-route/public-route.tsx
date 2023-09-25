@@ -24,7 +24,7 @@ const PublicRoute: FC<Properties> = ({ children }) => {
     if (hasUser) {
         return <Navigate to={AppRoute.ROOT} replace />;
     }
-    return <>{children}</>;
+    return children;
 };
 
 export { PublicRoute };

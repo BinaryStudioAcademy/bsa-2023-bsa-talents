@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 type Properties = {
     className?: string;
     isCollapsed?: boolean;
-    withLink?: boolean;
+    hasLink?: boolean;
 };
 
 const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
@@ -50,13 +50,13 @@ const BaseLogo: React.FC<{ isCollapsed?: boolean }> = ({ isCollapsed }) => {
 const Logo: React.FC<Properties> = ({
     className = '',
     isCollapsed = false,
-    withLink = false,
+    hasLink = false,
 }) => {
     const role = useAppSelector((state) => state.auth.currentUser?.role);
 
     return (
         <Grid container alignItems="center" justifyContent="center">
-            {withLink ? (
+            {hasLink ? (
                 <Link
                     to={
                         role == UserRole.TALENT

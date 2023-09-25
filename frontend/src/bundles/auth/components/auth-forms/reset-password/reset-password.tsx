@@ -21,31 +21,29 @@ const ResetPassword: React.FC = () => {
     }, []);
 
     return (
-        <>
-            <form className={'form'} onSubmit={handleFormSubmit}>
-                <Typography
-                    className={getValidClassNames('header', styles.header)}
-                    variant="h1"
-                >
-                    Reset Your Password
-                </Typography>
-                <FormControl
-                    className={getValidClassNames(
-                        'inputContainer',
-                        errors.email ? '' : 'email',
-                    )}
-                >
-                    <Input
-                        className={styles.input}
-                        control={control}
-                        errors={errors}
-                        placeholder="user@email.com"
-                        name="email"
-                    />
-                    <Button className="btn" label="Proceed" />
-                </FormControl>
-            </form>
-        </>
+        <form className={'form'} onSubmit={handleFormSubmit}>
+            <Typography
+                className={getValidClassNames('header', styles.header)}
+                variant="h1"
+            >
+                Reset Your Password
+            </Typography>
+            <FormControl
+                className={getValidClassNames(
+                    'inputContainer',
+                    errors.email ? '' : 'email',
+                )}
+            >
+                <Input
+                    className={styles.input}
+                    control={control}
+                    errors={errors}
+                    placeholder="user@email.com"
+                    name="email"
+                />
+                <Button className="btn" label="Proceed" />
+            </FormControl>
+        </form>
     );
 };
 

@@ -20,7 +20,7 @@ import { type SkillsStepDto } from '~/bundles/talent/types/types';
 const SkillsAndProjects: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData, dataStatus } = useAppSelector(
-        ({ talents }) => talents,
+        ({ common }) => common,
     );
     const commonDataStatus = useAppSelector(
         ({ commonData }) => commonData.dataStatus,

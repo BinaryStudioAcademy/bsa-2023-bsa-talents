@@ -9,6 +9,7 @@ import {
     useCallback,
     useNavigation,
 } from '~/bundles/common/hooks/hooks';
+import { actions as commonActions } from '~/bundles/common/store';
 import {
     type NavigationProp,
     type TalentOnboardingNavigationParameterList,
@@ -18,7 +19,6 @@ import {
     getNextStepTitle,
     urlObjectsToStrings,
 } from '~/bundles/talent/helpers/helpers';
-import { actions as talentActions } from '~/bundles/talent/store';
 import {
     type BsaBadgesStepDto,
     type CvAndContactsFormDto,
@@ -47,7 +47,7 @@ const useOnboardingFormSubmit = ({
 }: Properties): SubmitOnboardingData => {
     const dispatch = useAppDispatch();
     const { currentUserData } = useAppSelector(({ auth }) => auth);
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const userId = currentUserData?.id ?? '';
 
     const completedOnboardingStep = CompletedTalentOnboardingStep[stepTitle];
@@ -79,10 +79,10 @@ const useOnboardingFormSubmit = ({
 
             const result = isNewTalentOnboardingData
                 ? await dispatch(
-                      talentActions.createTalentDetails(createdPayload),
+                      commonActions.createUserDetails(createdPayload),
                   )
                 : await dispatch(
-                      talentActions.updateOnboardingData(updatedPayload),
+                      commonActions.updateOnboardingData(updatedPayload),
                   );
 
             if (result.payload) {

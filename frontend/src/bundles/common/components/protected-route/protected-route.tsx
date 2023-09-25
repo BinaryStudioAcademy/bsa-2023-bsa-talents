@@ -29,7 +29,7 @@ const ProtectedRoute: FC<Properties> = ({ children }) => {
     }
 
     if (hasUser) {
-        return <>{children}</>;
+        return children;
     }
     return <Navigate to={AppRoute.SIGN_IN} replace />;
 };

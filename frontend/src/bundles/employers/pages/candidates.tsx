@@ -7,7 +7,10 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import {
+    debounce,
+    getValidClassNames,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -20,9 +23,9 @@ import {
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import styles from './styles.module.scss';
 
 const FIELDS: [
@@ -32,12 +35,11 @@ const FIELDS: [
 ] = [
     'searchType',
     'searchValue',
-    'searchActiveCandidatesOnly',
+    'isSearchActiveCandidatesOnly',
     'jobTitle',
     'yearsOfExperience',
     'hardSkills',
     'userBsaCharacteristics',
-    'BSABadges',
     'userBsaProject',
     'location',
     'englishLevel',
@@ -64,20 +66,27 @@ const Candidates: React.FC = () => {
     const dispatch = useAppDispatch();
     const [isFilterOpened, setIsFilterOpened] = useState(false);
 
-    const dispatchAction = useCallback(
+    const searchCandidates = useCallback(
         (resolvedFilters: EmployeesFiltersDto): void => {
-            void dispatch(employerActions.searchCandidates(resolvedFilters));
+            const editedValues: UserDetailsSearchUsersRequestDto = {
+                ...resolvedFilters,
+                hardSkills: resolvedFilters.hardSkills.map(
+                    (skill) => skill.value,
+                ),
+            };
+            void dispatch(employerActions.searchCandidates(editedValues));
         },
         [dispatch],
     );
 
     const debouncedDispatch = useMemo(
-        () => debounce(dispatchAction, SEND_DELAY),
-        [dispatchAction],
+        () => debounce(searchCandidates, SEND_DELAY),
+        [searchCandidates],
     );
 
     useEffect(() => {
         const editedValues: EmployeesFiltersDto = getValues();
+
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
             void dispatch(employerActions.setFilters(editedValues));
             debouncedDispatch(editedValues, (filters) => filters);
@@ -89,7 +98,12 @@ const Candidates: React.FC = () => {
     }, [isFilterOpened]);
 
     useEffect(() => {
-        void dispatch(employerActions.searchCandidates(filters));
+        const valuesfromForm: EmployeesFiltersDto = getValues();
+        const editedValues: UserDetailsSearchUsersRequestDto = {
+            ...valuesfromForm,
+            hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
+        };
+        void dispatch(employerActions.searchCandidates(editedValues));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -1,4 +1,4 @@
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 import { TalentHardSkillsEntity } from './talent-hard-skills.entity.js';
@@ -17,7 +17,7 @@ class TalentHardSkillsRepository implements Repository {
     }
 
     public findAll(): Promise<TalentHardSkillsEntity[]> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async create(
@@ -35,7 +35,7 @@ class TalentHardSkillsRepository implements Repository {
     }
 
     public find(): Promise<TalentHardSkillsEntity | null> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findByUserDetailsId(
@@ -102,7 +102,7 @@ class TalentHardSkillsRepository implements Repository {
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 
