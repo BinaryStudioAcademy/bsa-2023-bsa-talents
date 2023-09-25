@@ -9,26 +9,17 @@ import {
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type BadgesItem } from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
-import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
+import {
+    getBadgeById,
+    getHardSkillByValue,
+} from '~/bundles/employer/helpers/helpers';
 import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 import { CardConstants } from './constants/constants';
 import { styles } from './styles';
 
 const { MAX_CHAR_COUNT, MAX_SKILLS, MAX_BADGES } = CardConstants;
-
-const getBadgeById = (data: BadgesItem[], id: string): BadgesItem => {
-    return data.find((value) => value.id === id) as BadgesItem;
-};
-
-const getHardSkillByValue = (
-    data: FormattedHardSkillsItem[],
-    id: string,
-): FormattedHardSkillsItem => {
-    return data.find(({ value }) => value === id) as FormattedHardSkillsItem;
-};
 
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
