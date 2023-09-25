@@ -118,9 +118,7 @@ const ProfileCabinet: React.FC = () => {
     return (
         <PageLayout avatarUrl="" isOnline>
             <Grid className={styles.pageTitle}>
-                <Typography variant="h4" className={''}>
-                    Your Profile
-                </Typography>
+                <Typography variant="h4">Your Profile</Typography>
             </Grid>
             <Grid className={styles.pageWrapper}>
                 <Grid className={styles.headNavigation}>

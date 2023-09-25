@@ -16,8 +16,12 @@ import {
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { VerificationList } from './components/components.js';
-import { CVAndContacts } from './components/cv-and-contacts/cv-and-contacts.js';
+import {
+    Characteristics,
+    CVAndContacts,
+    Profile,
+    VerificationList,
+} from './components/components.js';
 import { FIRST_INDEX, PreviewTab } from './constants/constants.js';
 import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
@@ -63,6 +67,20 @@ const AdminPanel: React.FC = () => {
             {tab}
         </Button>
     ));
+
+    const renderSelectedTab = (): JSX.Element => {
+        switch (selectedTab) {
+            case PreviewTab.PROFILE: {
+                return <Profile />;
+            }
+            case PreviewTab.CV: {
+                return <CVAndContacts />;
+            }
+            case PreviewTab.CHARACTERISTICS: {
+                return <Characteristics />;
+            }
+        }
+    };
 
     const handleFilterShow = useCallback((): void => {
         setIsFilterOpen((previous) => !previous);
@@ -127,7 +145,7 @@ const AdminPanel: React.FC = () => {
                         </Grid>
                         <Grid className={styles.tabs}>{previewTabs}</Grid>
                         <Grid item className={styles.previewInfo}>
-                            <CVAndContacts />
+                            {renderSelectedTab()}
                         </Grid>
                         <Grid item className={styles.buttonGroup}>
                             <Button

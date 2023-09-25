@@ -9,6 +9,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     photo?: File | null;
     companyLogo?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;
+    createdAt?: string;
 };
 
 export { type UserDetailsGeneralCustom };
