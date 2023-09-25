@@ -43,7 +43,7 @@ import { type RootReducer } from '~/framework/store/store.js';
 
 import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
-import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { skillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
 import styles from './styles.module.scss';
 
@@ -123,7 +123,7 @@ const SkillsStep: React.FC = () => {
                     projectLinks,
                 ],
             ),
-            validationSchema: SkillsStepValidationSchema,
+            validationSchema: skillsStepValidationSchema,
         });
 
     useEffect(() => {

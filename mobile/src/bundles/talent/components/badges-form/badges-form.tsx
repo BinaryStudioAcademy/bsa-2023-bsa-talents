@@ -13,7 +13,7 @@ import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
-import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { BadgesGroup } from './badges-group/badges-group';
 import { styles } from './styles';
@@ -33,7 +33,7 @@ const BsaBadgesForm: React.FC<Properties> = ({
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: badgesStepData ?? BADGES_STEP_DEFAULT_VALUES,
-        validationSchema: BsaBadgesStepValidationSchema,
+        validationSchema: bsaBadgesStepValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {

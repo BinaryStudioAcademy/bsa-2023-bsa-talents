@@ -25,7 +25,7 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { getHardSkillsData } from '~/bundles/common-data/store/actions';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
-import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     ENGLISH_LEVELS,
@@ -49,7 +49,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
-        validationSchema: SkillsStepValidationSchema,
+        validationSchema: skillsStepValidationSchema,
     });
     const dispatch = useAppDispatch();
     const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
