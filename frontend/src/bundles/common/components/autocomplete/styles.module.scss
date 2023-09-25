@@ -27,6 +27,10 @@
 
 .chips {
     margin-top: 13px;
+
+    &:empty {
+        display: none;
+    }
 }
 
 .input {

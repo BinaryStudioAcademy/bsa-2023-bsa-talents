@@ -35,7 +35,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     return (
         <View
@@ -83,7 +83,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         />
                         <PasswordVisibilityToggle
                             isPasswordVisible={isVisible}
-                            onChangeVisibility={toggleVisibility}
+                            onChangeVisibility={handleToggleVisibility}
                         />
                     </View>
                 </FormField>

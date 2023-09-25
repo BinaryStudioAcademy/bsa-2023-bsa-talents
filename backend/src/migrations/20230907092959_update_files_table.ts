@@ -9,7 +9,7 @@ const OldColumnName = {
     CONTENT_TYPE: 'content_type',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 const NewColumnName = {
     ID: 'id',
@@ -18,7 +18,7 @@ const NewColumnName = {
     ETAG: 'etag',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.table(TABLE_NAME, (table) => {

@@ -1,7 +1,7 @@
 import { type Knex } from 'knex';
 
-const uuid = 'uuid_generate_v4()';
-const constraintName = 'files_pkey';
+const UUID = 'uuid_generate_v4()';
+const CONTRAINT_NAME = 'files_pkey';
 
 const TABLE_NAME = 'files';
 
@@ -12,7 +12,7 @@ const ColumnName = {
     CONTENT_TYPE: 'content_type',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
@@ -22,8 +22,8 @@ async function up(knex: Knex): Promise<void> {
             .uuid(ColumnName.ID)
             .unique()
             .notNullable()
-            .defaultTo(knex.raw(uuid))
-            .primary({ constraintName });
+            .defaultTo(knex.raw(UUID))
+            .primary({ constraintName: CONTRAINT_NAME });
         table.string(ColumnName.URL).notNullable();
         table.string(ColumnName.FILE_NAME);
         table.string(ColumnName.CONTENT_TYPE).notNullable();

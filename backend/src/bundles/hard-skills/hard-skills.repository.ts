@@ -1,6 +1,6 @@
 import { HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
 import { type HardSkillsModel } from '~/bundles/hard-skills/hard-skills.model.js';
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 class HardSkillsRepository implements Repository {
@@ -16,19 +16,19 @@ class HardSkillsRepository implements Repository {
     }
 
     public create(): Promise<HardSkillsEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public find(): Promise<HardSkillsEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public update(): Promise<HardSkillsEntity> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

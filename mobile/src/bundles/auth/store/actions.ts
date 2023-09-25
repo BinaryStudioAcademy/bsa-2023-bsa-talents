@@ -9,8 +9,8 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/auth/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
+import { clearCommonStore } from '~/bundles/common/store/actions';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
-import { clearTalentStore } from '~/bundles/talent/store/actions';
 import { StorageKey } from '~/framework/storage/enums/enums';
 
 import { name as sliceName } from './slice';
@@ -71,7 +71,7 @@ const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
         const { storage, notifications } = extra;
         try {
             dispatch(clearAll());
-            dispatch(clearTalentStore());
+            dispatch(clearCommonStore());
             await storage.drop(StorageKey.TOKEN);
             return null;
         } catch (error) {

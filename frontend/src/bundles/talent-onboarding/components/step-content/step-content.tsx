@@ -28,8 +28,8 @@ const StepContent: React.FC<Properties> = ({
 
     const handleNextClick = async (): Promise<void> => {
         if (submitForm) {
-            const success = await submitForm();
-            if (success) {
+            const isSuccessful = await submitForm();
+            if (isSuccessful) {
                 onNextStep();
             }
         }

@@ -1,4 +1,4 @@
-const OnboardingSteps = {
+const OnboardingStep = {
     STEP_01: 'profile',
     STEP_02: 'bsa-badges',
     STEP_03: 'skills-and-projects',
@@ -6,4 +6,4 @@ const OnboardingSteps = {
     STEP_05: 'preview',
 } as const;
 
-export { OnboardingSteps };
+export { OnboardingStep };

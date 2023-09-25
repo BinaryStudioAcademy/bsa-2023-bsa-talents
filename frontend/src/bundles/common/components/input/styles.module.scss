@@ -49,6 +49,14 @@
         -webkit-text-fill-color: var(--nepal);
         opacity: 1;
     }
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 100px var(--white) inset;
+    }
+
+    &::-ms-reveal {
+        display: none;
+    }
 }
 
 .inputPaddingSearch {

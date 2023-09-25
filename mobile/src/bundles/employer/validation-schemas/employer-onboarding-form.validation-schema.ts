@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { CountryList } from '~/bundles/common/enums/enums';
+import { Country } from '~/bundles/common/enums/enums';
 import {
     EmployerOnboardingFormValidationMessage,
     EmployerOnboardingFormValidationRule,
@@ -11,7 +11,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     EmployerOnboardingFormDto,
     true
 >({
-    profilePhoto: joi.object().required(),
+    photo: joi.object().required(),
     companyLogo: joi.object().allow(null),
     fullName: joi
         .string()
@@ -31,7 +31,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
                 EmployerOnboardingFormValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    position: joi
+    employerPosition: joi
         .string()
         .trim()
         .min(EmployerOnboardingFormValidationRule.MIN_POSITION_LENGTH)
@@ -108,7 +108,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': EmployerOnboardingFormValidationMessage.LOCATION_BASE,

@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import FastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -22,6 +23,7 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { buildValidationSchema } from './helpers/build-validation-schema.helper.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -57,15 +59,13 @@ class ServerAppBase implements ServerApp {
 
     public addRoute(parameters: ServerAppRouteParameters): void {
         const { path, method, preHandler, handler, validation } = parameters;
+
         this.app.route({
             url: path,
             method,
             preHandler,
             handler,
-            schema: {
-                body: validation?.body,
-                querystring: validation?.query,
-            },
+            schema: validation && buildValidationSchema(validation),
         });
 
         this.logger.info(`Route: ${method as string} ${path} is registered`);
@@ -122,6 +122,11 @@ class ServerAppBase implements ServerApp {
     }
 
     public async initPlugins(): Promise<void> {
+        await this.app.register(FastifyCors, {
+            origin: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com',
+            methods: ['GET'],
+            allowedHeaders: ['Authorization'],
+        });
         await this.app.register(multer.contentParser);
         await this.app.register(authorization, {
             services: {
