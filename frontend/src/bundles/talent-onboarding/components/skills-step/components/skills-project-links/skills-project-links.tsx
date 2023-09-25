@@ -22,11 +22,11 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
         name: 'projectLinks',
     });
 
-    const appendLinks = useCallback((): void => {
+    const handleAppendLinks = useCallback((): void => {
         append({ url: '' });
     }, [append]);
 
-    const removeLink = useCallback(
+    const handleRemoveLink = useCallback(
         (index: number): void => {
             remove(index);
         },
@@ -55,7 +55,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                         {index !== 0 && (
                             <CloseIconButton
                                 index={index}
-                                onClick={removeLink}
+                                onClick={handleRemoveLink}
                             />
                         )}
                     </Grid>
@@ -67,7 +67,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                     variant="text"
                     type="button"
                     label="+ Add more links"
-                    onClick={appendLinks}
+                    onClick={handleAppendLinks}
                     className={styles.buttonAddLink}
                 />
             )}

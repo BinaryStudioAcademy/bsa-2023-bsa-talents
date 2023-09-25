@@ -9,6 +9,7 @@ import {
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
+import { PLURAL_YEARS } from '~/bundles/talent-onboarding/constants/constants.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
 import { type SecondSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
@@ -95,7 +96,11 @@ const ProfileSecondSection: React.FC<Properties> = ({
                     </CandidateParameter>
 
                     <CandidateParameter
-                        text={candidateParameters.experienceYears}
+                        text={
+                            candidateParameters.experienceYears >= PLURAL_YEARS
+                                ? `${candidateParameters.experienceYears} years of exerience`
+                                : `${candidateParameters.experienceYears} year of exerience`
+                        }
                     >
                         <CandidateIcons.EXPERIENCE className={styles.icon} />
                     </CandidateParameter>

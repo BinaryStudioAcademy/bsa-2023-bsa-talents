@@ -5,13 +5,15 @@ import {
     Button,
     Chip,
     Grid,
+    Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
+import { SummaryPreview } from '../summary-preview/summary-preview.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -27,6 +29,8 @@ const ProfileFirstSection: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
 }) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+
     const handleLinkClick = useCallback((): void => {
         window.open(
             candidateParameters.projectLinks
@@ -35,6 +39,10 @@ const ProfileFirstSection: React.FC<Properties> = ({
             '_blank',
         );
     }, [candidateParameters.projectLinks]);
+
+    const handleSummaryClick = useCallback((): void => {
+        setIsExpanded(!isExpanded);
+    }, [isExpanded]);
 
     return (
         <Grid
@@ -143,31 +151,31 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     </ul>
                 </Grid>
             )}
-            <Grid className={styles.coverLetter}>
-                {!isProfileCard && (
-                    <Typography variant="input" className={styles.title}>
-                        Cover letter
+            {isProfileCard ? (
+                <Grid className={styles.summaryText}>
+                    <Typography
+                        variant="body1"
+                        className={getValidClassNames(
+                            styles.summaryText,
+                            styles.cardsummaryText,
+                        )}
+                    >
+                        {candidateParameters.description}
                     </Typography>
-                )}
-                <Typography
-                    variant="body1"
-                    className={getValidClassNames(
-                        styles.coverLetterText,
-                        isProfileCard ? styles.cardCoverLetterText : '',
-                    )}
-                >
-                    {candidateParameters.description}
-                </Typography>
-                <Button
-                    label="Read more"
-                    variant={isProfileCard ? 'contained' : 'text'}
-                    className={
-                        isProfileCard
-                            ? styles.profileCardReadMoreButton
-                            : styles.readMoreButton
-                    }
+                    <Button
+                        label="Read more"
+                        variant={'contained'}
+                        className={styles.profileCardReadMoreButton}
+                    />
+                </Grid>
+            ) : (
+                <SummaryPreview
+                    description={candidateParameters.description}
+                    isExpanded={isExpanded}
+                    handleSummaryClick={handleSummaryClick}
                 />
-            </Grid>
+            )}
+
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
@@ -178,13 +186,20 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         className={styles.projectDescription}
                     >
                         6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
-                        {isProfileOpen && (
-                            <Button
-                                label="Repository link"
-                                variant="outlined"
-                                className={styles.projectButton}
-                                onClick={handleLinkClick}
-                            ></Button>
+                        {isProfileOpen && candidateParameters.projectLinks && (
+                            <Tooltip
+                                title={candidateParameters.projectLinks[0]}
+                                arrow
+                            >
+                                <div className={styles.tooltipWrapper}>
+                                    <Button
+                                        label="Repository link"
+                                        variant="outlined"
+                                        className={styles.projectButton}
+                                        onClick={handleLinkClick}
+                                    />
+                                </div>
+                            </Tooltip>
                         )}
                     </Typography>
                     <img
@@ -192,13 +207,20 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         className={styles.projectPicture}
                         alt="project"
                     />
-                    {isFifthStep && (
-                        <Button
-                            label="Repository link"
-                            variant="outlined"
-                            className={styles.projectButton}
-                            onClick={handleLinkClick}
-                        />
+                    {isFifthStep && candidateParameters.projectLinks && (
+                        <Tooltip
+                            title={candidateParameters.projectLinks[0]}
+                            arrow
+                        >
+                            <div className={styles.tooltipWrapper}>
+                                <Button
+                                    label="Repository link"
+                                    variant="outlined"
+                                    className={styles.projectButton}
+                                    onClick={handleLinkClick}
+                                />
+                            </div>
+                        </Tooltip>
                     )}
                 </Grid>
             )}

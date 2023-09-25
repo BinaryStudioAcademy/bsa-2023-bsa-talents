@@ -7,7 +7,10 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import {
+    debounce,
+    getValidClassNames,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -20,8 +23,6 @@ import {
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-// import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
-import { debounce } from '../helpers/helpers.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import styles from './styles.module.scss';
@@ -64,7 +65,7 @@ const Candidates: React.FC = () => {
     const dispatch = useAppDispatch();
     const [isFilterOpened, setIsFilterOpened] = useState(false);
 
-    const dispatchAction = useCallback(
+    const searchCandidates = useCallback(
         (resolvedFilters: EmployeesFiltersDto): void => {
             void dispatch(employerActions.searchCandidates(resolvedFilters));
         },
@@ -72,8 +73,8 @@ const Candidates: React.FC = () => {
     );
 
     const debouncedDispatch = useMemo(
-        () => debounce(dispatchAction, SEND_DELAY),
-        [dispatchAction],
+        () => debounce(searchCandidates, SEND_DELAY),
+        [searchCandidates],
     );
 
     useEffect(() => {

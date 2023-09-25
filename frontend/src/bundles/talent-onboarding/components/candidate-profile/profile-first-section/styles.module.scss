@@ -57,26 +57,28 @@
     display: flex;
 }
 
-.coverLetterText {
+.summaryText {
     margin-block: 10px;
     color: var(--text-primary);
+    white-space: pre-wrap;
     word-wrap: break-word;
 }
 
-.cardCoverLetterText {
+.cardSummaryText {
     margin-inline: -35px;
     padding-inline: 35px;
     padding-bottom: 30px;
     border-bottom: 1px solid var(--botticelli);
 }
 
-.readMoreButton {
-    margin-top: 7px;
-    padding: 0;
-    color: var(--st-tropaz);
-    font-size: var(--font-size-body);
-    font-style: italic;
+.profileCardReadMoreButton {
+    float: right;
+    width: 127px;
+    height: 36px;
+    margin-top: 10px;
+    font-size: var(--font-size-base);
     text-transform: none;
+    background-color: var(--background-secondary);
 }
 
 .project {
@@ -94,10 +96,10 @@
 
 .projectButton {
     height: 36px;
+    margin-top: 10px;
     color: var(--st-tropaz);
     text-transform: none;
     border: 1px solid var(--st-tropaz);
-    margin-block: 10px;
 }
 
 .projectPicture {
@@ -118,14 +120,8 @@
     font-size: 22px;
 }
 
-.profileCardReadMoreButton {
-    float: right;
-    width: 127px;
-    height: 36px;
-    margin-top: 10px;
-    font-size: var(--font-size-base);
-    text-transform: none;
-    background-color: var(--background-secondary);
+.tooltipWrapper {
+    display: inline-block;
 }
 
 @media screen and (width <= 1300px) {

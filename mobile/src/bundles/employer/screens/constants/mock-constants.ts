@@ -3,9 +3,9 @@
 const YEARS_EXPERIENCE = ['>1', 'from 1 to 2', '2+'];
 const BSA_CHARACTERISTICS = ['bad', 'good', 'great'];
 
-const ENGLISH_LEVEL = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const ENGLISH_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const BSA_PROJECT = [
+const BSA_PROJECTS = [
     'Talents',
     'Writorium',
     'TowHub',
@@ -28,8 +28,8 @@ const DEFAULT_VALUES = {
 
 export {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     YEARS_EXPERIENCE,
 };

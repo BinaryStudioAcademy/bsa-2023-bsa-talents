@@ -17,7 +17,7 @@ import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
 
 const BsaBadges: React.FC = () => {
     const { name } = useAppRoute();
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     const badgesStepData: BsaBadgesStepDto | null = onboardingData?.badges
         ? {
