@@ -5,7 +5,7 @@ type FirstSectionDetails = {
     salaryExpectation: string;
     projectLinks?: string[];
     location: string;
-    experienceYears: string;
+    experienceYears: number;
     englishLevel: string;
     badges: typeof mockBadges;
     hardSkills: string[];
@@ -22,7 +22,7 @@ type SecondSectionDetails = {
     email: string;
     phone: string;
     location: string;
-    experienceYears: string;
+    experienceYears: number;
     englishLevel: string;
     employmentType: string[];
     notConsidered: string[];

@@ -14,11 +14,16 @@ export {
 export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
+    ChatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
-export { FileApiPath } from './bundles/file/file.js';
+export {
+    FileApiPath,
+    type FileUploadResponse,
+    type UploadedFile,
+} from './bundles/file/file.js';
 export {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
@@ -42,14 +47,14 @@ export {
     SkillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    Experience as ExperienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -87,7 +92,7 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
     ServerErrorType,
 } from './enums/enums.js';
@@ -110,7 +115,6 @@ export {
     configureString,
     getAvatarInitials,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
 } from './helpers/helpers.js';

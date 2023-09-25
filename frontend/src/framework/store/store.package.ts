@@ -13,16 +13,19 @@ import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
+import { bsaBadgesApi } from '~/bundles/common/data/bsa-badges/bsa-badges.js';
+import { reducer as bsaBadgesReducer } from '~/bundles/common/data/bsa-badges/store/bsa-badges.js';
+import { hardSkillsApi } from '~/bundles/common/data/hard-skills/hard-skills.js';
+import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/store/hard-skills.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { reducer as employerReducer } from '~/bundles/employers/store/employers.js';
+import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
-import { reducer as usersReducer } from '~/bundles/users/store/users.js';
-import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -34,27 +37,29 @@ type RootReducer = {
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
     employer: ReturnType<typeof employerReducer>;
     employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
+    hardSkills: ReturnType<typeof hardSkillsReducer>;
     lms: ReturnType<typeof lmsReducer>;
-    users: ReturnType<typeof usersReducer>;
     app: ReturnType<typeof appReducer>;
     chats: ReturnType<typeof chatReducer>;
     candidate: ReturnType<typeof candidateReducer>;
+    bsaBadges: ReturnType<typeof bsaBadgesReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
-    userApi: typeof userApi;
     chatApi: typeof chatApi;
+    fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
     notification: typeof notification;
     storage: typeof storage;
+    hardSkillsApi: typeof hardSkillsApi;
+    bsaBadgesApi: typeof bsaBadgesApi;
 };
 
 const combinedReducer = combineReducers({
     auth: authReducer,
-    users: usersReducer,
     lms: lmsReducer,
     chat: chatReducer,
     employerOnBoarding: employerOnboardingReducer,
@@ -63,6 +68,8 @@ const combinedReducer = combineReducers({
     app: appReducer,
     candidate: candidateReducer,
     cabinet: cabinetReducer,
+    bsaBadges: bsaBadgesReducer,
+    hardSkills: hardSkillsReducer,
 });
 
 type RootState = ReturnType<typeof combinedReducer>;
@@ -104,12 +111,14 @@ class Store {
     public get extraArguments(): ExtraArguments {
         return {
             authApi,
-            userApi,
             chatApi,
+            fileUploadApi,
             talentOnBoardingApi,
             employerOnBoardingApi,
             notification,
             storage,
+            hardSkillsApi,
+            bsaBadgesApi,
         };
     }
 }

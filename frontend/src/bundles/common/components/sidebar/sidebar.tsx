@@ -55,7 +55,7 @@ const Sidebar: React.FC = () => {
                     styles.wrapper,
                 )}
             >
-                <Logo isCollapsed={true} className={styles.logo} withLink />
+                <Logo isCollapsed={true} className={styles.logo} hasLink />
                 <ul className={styles.list}>
                     {menuItems.map((item) => (
                         <li

@@ -22,15 +22,27 @@ const updateTalentDetails = createAsyncThunk<
 >(
     `${sliceName}/update-talent-details`,
     async (updatePayload, { extra, getState }) => {
-        const { talentOnBoardingApi } = extra;
+        const { talentOnBoardingApi, fileUploadApi } = extra;
+        const { cv, photo, ...restPayload } = updatePayload;
+
+        if (cv && photo) {
+            const { document, image } = await fileUploadApi.upload({
+                files: [cv, photo],
+            });
+
+            restPayload.photoId = image.id;
+            restPayload.cvId = document.id;
+        }
+
+        //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
         if ('badges' in updatePayload) {
             return updatePayload;
         }
         //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-        const { hardSkills, ...otherDetails } = updatePayload;
+        const { hardSkills, ...data } = restPayload;
         const { talentOnBoarding } = getState();
         return {
-            ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
+            ...(await talentOnBoardingApi.updateUserDetails(data)),
             hardSkills: hardSkills ?? talentOnBoarding.hardSkills,
         };
     },

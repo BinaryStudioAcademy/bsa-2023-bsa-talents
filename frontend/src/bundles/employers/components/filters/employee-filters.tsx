@@ -5,7 +5,6 @@ import {
     type UseFormReset,
 } from 'react-hook-form';
 
-import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
 import {
     Autocomplete,
     Button,
@@ -15,15 +14,15 @@ import {
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import {
-    BsaBadges,
     BsaCharacteristics,
     BsaProject,
     CheckboxesFields,
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
@@ -51,17 +50,12 @@ const bsaCharacteristics = Object.values(BsaCharacteristics).map(
     }),
 );
 
-const bsaBadges = Object.values(BsaBadges).map((characteristic) => ({
-    value: characteristic,
-    label: characteristic,
-}));
-
 const bsaProject = Object.values(BsaProject).map((project) => ({
     value: project,
     label: project,
 }));
 
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -82,6 +76,9 @@ type Properties = {
 };
 const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
     const errors = {};
+
+    const { bsaBadgesOptions, hardSkillsOptions } = useCommonData();
+
     const handleCheckboxOnChange = useCallback(
         <Field extends ValueOf<typeof CheckboxesFields>>(
             field: ControllerRenderProps<EmployeesFiltersDto, Field>,
@@ -181,7 +178,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="activeSearchingOnly"
+                        name="isSearchActiveCandidatesOnly"
                         control={control}
                         render={renderCheckboxes}
                     />
@@ -209,7 +206,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             isFilter={true}
                             name="hardSkills"
                             control={control}
-                            options={mockHardSkills}
+                            options={hardSkillsOptions}
                             placeholder="Start typing and select skills"
                         />
                     </FormLabel>
@@ -244,7 +241,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     <FormLabel className={styles.labels}>
                         {'BSA Badges'}
                         <Select
-                            options={bsaBadges}
+                            options={bsaBadgesOptions}
                             control={control}
                             errors={errors}
                             name="userBsaBadges"
