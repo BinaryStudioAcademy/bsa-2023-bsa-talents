@@ -38,8 +38,8 @@ const Onboarding: React.FC = () => {
     const handleFormSubmit = useCallback((): void => {
         if (submitForm) {
             submitForm()
-                .then((success) => {
-                    if (success) {
+                .then((isSuccessful) => {
+                    if (isSuccessful) {
                         navigate(AppRoute.MY_PROFILE_EMPLOYER);
                     }
                 })

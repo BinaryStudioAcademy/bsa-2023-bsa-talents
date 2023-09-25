@@ -1,4 +1,4 @@
-import { ErrorMessages } from 'shared/build/index.js';
+import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
@@ -19,7 +19,7 @@ class ChatMessagesRepository implements Repository {
     }
 
     public find(): Promise<unknown | null> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async findAll(): Promise<ChatMessageEntity[]> {
@@ -111,11 +111,11 @@ class ChatMessagesRepository implements Repository {
     }
 
     public update(): Promise<unknown> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

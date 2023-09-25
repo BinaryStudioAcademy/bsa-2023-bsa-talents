@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import FastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -121,6 +122,11 @@ class ServerAppBase implements ServerApp {
     }
 
     public async initPlugins(): Promise<void> {
+        await this.app.register(FastifyCors, {
+            origin: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com',
+            methods: ['GET'],
+            allowedHeaders: ['Authorization'],
+        });
         await this.app.register(multer.contentParser);
         await this.app.register(authorization, {
             services: {

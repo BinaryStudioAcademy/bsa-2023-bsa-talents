@@ -2,7 +2,7 @@ import AWS from 'aws-sdk';
 
 import { generateRandomId } from '~/bundles/files/helpers/generate-random-id.helper.js';
 
-import { ErrorMessages } from './enums/enums.js';
+import { ErrorMessage } from './enums/enums.js';
 import {
     type FileStorage,
     type MulterFile,
@@ -67,7 +67,7 @@ class FileStorageBase implements FileStorage {
         try {
             return this.s3.upload(parameters).promise();
         } catch {
-            throw new Error(ErrorMessages.FILE_UPLOAD_ERROR);
+            throw new Error(ErrorMessage.FILE_UPLOAD_ERROR);
         }
     }
 }

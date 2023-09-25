@@ -1,12 +1,12 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
     NotConsidered,
-    PreferredLanguages,
+    PreferredLanguage,
 } from '../enums/enums.js';
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
 import { URL_REGEX_CONSTANT } from './constants/constants.js';
@@ -32,7 +32,7 @@ const userDetailsUpdate = joi
         location: joi
             .string()
             .trim()
-            .valid(...Object.values(CountryList)),
+            .valid(...Object.values(Country)),
 
         experienceYears: joi.number(),
         employmentType: joi.array().items(
@@ -58,7 +58,7 @@ const userDetailsUpdate = joi
             joi
                 .string()
                 .trim()
-                .valid(...Object.values(PreferredLanguages)),
+                .valid(...Object.values(PreferredLanguage)),
         ),
 
         projectLinks: joi.alternatives().try(

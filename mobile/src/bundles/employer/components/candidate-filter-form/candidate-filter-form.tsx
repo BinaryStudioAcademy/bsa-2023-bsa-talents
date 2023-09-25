@@ -28,10 +28,10 @@ import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
 
 import {
     BSA_CHARACTERISTICS,
-    BSA_PROJECT,
+    BSA_PROJECTS,
     DEFAULT_VALUES,
     EMPLOYMENT_TYPE_OPTIONS,
-    ENGLISH_LEVEL,
+    ENGLISH_LEVELS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
     YEARS_EXPERIENCE,
@@ -169,7 +169,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                     placeholder="Start typing and choose option"
                     control={control}
                     name="BSAProjectName"
-                    items={BSA_PROJECT}
+                    items={BSA_PROJECTS}
                 />
             </FormField>
             <FormField
@@ -192,7 +192,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={ENGLISH_LEVEL}
+                    options={ENGLISH_LEVELS}
                 />
             </FormField>
             <FormField

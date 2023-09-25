@@ -41,7 +41,6 @@ const Root: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
-
     const dispatch = useAppDispatch();
 
     //TODO change to onboardingData?.isApprove

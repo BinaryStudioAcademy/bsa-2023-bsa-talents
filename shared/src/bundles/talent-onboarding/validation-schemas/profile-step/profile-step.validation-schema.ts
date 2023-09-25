@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
 } from '../../../user-details/enums/enums.js';
@@ -62,7 +62,7 @@ const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': ProfileStepValidationMessage.LOCATION_BASE,

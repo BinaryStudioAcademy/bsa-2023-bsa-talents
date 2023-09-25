@@ -1,4 +1,4 @@
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
 import { TalentBadgeEntity } from './talent-badge.entity.js';
@@ -17,7 +17,7 @@ class TalentBadgeRepository implements Repository {
     }
 
     public findAll(): Promise<TalentBadgeEntity[]> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async create(badge: TalentBadgeCreate): Promise<TalentBadge> {
@@ -59,7 +59,7 @@ class TalentBadgeRepository implements Repository {
     }
 
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 
