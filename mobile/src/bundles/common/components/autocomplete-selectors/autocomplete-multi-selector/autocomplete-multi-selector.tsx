@@ -44,7 +44,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
     const [search, setSearch] = useState('');
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
     const handleSearch = (text: string): void => {
         setSearch(text);
@@ -54,7 +54,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         if (value.includes(item.value)) {
             return;
         }
-        toggleVisibility();
+        handleToggleVisibility();
         value.push(item);
         onChange(value);
     };
@@ -70,13 +70,14 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
 
     const filteredItems = useMemo(() => {
         return items?.filter(
-            ({ value: id }) =>
-                id.includes(search) &&
+            ({ label }) =>
+                label.toLowerCase().includes(search.toLowerCase()) &&
                 !value.some(
-                    (v: AutocompleteMultiSelectorValue) => v.value === id,
+                    (v: AutocompleteMultiSelectorValue) =>
+                        v.label.toLowerCase() === label.toLowerCase(),
                 ),
         );
-    }, [search, value, items]);
+    }, [value, search, items]);
 
     return (
         <>
@@ -84,7 +85,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <TextInput
                     placeholder={placeholder}
                     onBlur={onBlur}
-                    onFocus={toggleVisibility}
+                    onFocus={handleToggleVisibility}
                     value={search}
                     onChangeText={handleSearch}
                     style={[

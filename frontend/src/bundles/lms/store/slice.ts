@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 
-import { type bsaBadge } from '../types/types.js';
+import { type BSABadge } from '../types/types.js';
 
 type State = {
-    bsaBadges: bsaBadge[];
+    bsaBadges: BSABadge[];
 };
 
 const initialState: State = {

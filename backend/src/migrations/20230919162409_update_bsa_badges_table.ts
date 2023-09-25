@@ -7,7 +7,7 @@ const TABLE_NAME = 'bsa_badges';
 const ColumnName = {
     TYPE: 'type',
     MAX_SCORE: 'max_score',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {

@@ -23,7 +23,7 @@ import {
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { OnboardingSteps } from '../../enums/enums.js';
+import { OnboardingStep } from '../../enums/enums.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
 import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
@@ -61,7 +61,7 @@ const BadgesStep: React.FC = () => {
             await dispatch(
                 talentActions.updateTalentDetails({
                     ...data,
-                    completedStep: OnboardingSteps.STEP_02,
+                    completedStep: OnboardingStep.STEP_02,
                 }),
             );
             return true;

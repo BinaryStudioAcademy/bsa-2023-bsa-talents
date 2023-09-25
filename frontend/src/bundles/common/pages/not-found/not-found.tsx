@@ -6,7 +6,7 @@ const NotFoundPage: React.FC = () => {
     return (
         <Grid container className={styles.pageContainer}>
             <Grid container item className={styles.header}>
-                <Logo className={styles.logo} withLink />
+                <Logo className={styles.logo} hasLink />
             </Grid>
 
             <Grid container item className={styles.text}>

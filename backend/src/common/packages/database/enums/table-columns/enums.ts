@@ -1,4 +1,5 @@
 export { BSABadgesTableColumn } from './bsa-badges-table-column.enum.js';
+export { ChatMessagesTableColumn } from './chat-messages-table-column.enum.js';
 export { FilesTableColumn } from './files-table-column.enum.js';
 export { HardSkillsTableColumn } from './hard-skills-table-column.enum.js';
 export { HiringInfoTableColumn } from './hiring-info-table-column.enum.js';

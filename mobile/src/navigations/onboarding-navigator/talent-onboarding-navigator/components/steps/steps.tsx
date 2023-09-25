@@ -51,7 +51,7 @@ const {
 const Steps: React.FC<DrawerContentComponentProps> = (props) => {
     const { navigation, state } = props;
     const { completedStep } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     const progress = useDrawerProgress();
     const dispatch = useAppDispatch();
