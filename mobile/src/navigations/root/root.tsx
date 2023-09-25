@@ -63,9 +63,9 @@ const Root: React.FC = () => {
         void dispatch(getUserDetails({ userId: currentUserData.id }));
     }, [currentUserData, currentUserData?.id, dispatch]);
 
-    // if (isPendingAuth || isPendingOnboardingData) {
-    //     return <Loader />;
-    // }
+    if (isPendingAuth || isPendingOnboardingData) {
+        return <Loader />;
+    }
 
     const navigators = {
         auth: (

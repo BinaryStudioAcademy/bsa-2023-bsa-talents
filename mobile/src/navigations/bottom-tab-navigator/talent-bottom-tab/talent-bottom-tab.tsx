@@ -19,7 +19,7 @@ const BottomTab =
 
 const TalentBottomTabNavigator: React.FC = () => {
     const { isApproved } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     return (
         <BottomTab.Navigator
