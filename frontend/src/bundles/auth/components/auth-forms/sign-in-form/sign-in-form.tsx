@@ -10,12 +10,17 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
 } from '~/bundles/users/users.js';
 
+import { PasswordVisibility } from '../password-visibility/password-visibility.js';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
@@ -28,12 +33,24 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
     });
+    const [isPasswordVisible, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = useCallback((): void => {
+        setShowPassword((show) => !show);
+    }, []);
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
+    );
+
+    const showPasswordIcon = (
+        <PasswordVisibility
+            handleClick={handleClickShowPassword}
+            showPassword={isPasswordVisible}
+        />
     );
 
     return (
@@ -65,9 +82,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     <Input
                         control={control}
                         errors={errors}
-                        type="password"
+                        type={isPasswordVisible ? 'text' : 'password'}
                         placeholder="****"
                         name="password"
+                        endAdornment={showPasswordIcon}
                     />
                 </FormControl>
                 <Grid item className={styles.authOptions}>
