@@ -42,14 +42,15 @@ class FileController extends ControllerBase {
             path: FileApiPath.UPLOAD,
             preHandler: uploadFile.single('document'),
             method: 'POST',
-            handler: (options) =>
-                this.upload(
+            handler: (options) => {
+                return this.upload(
                     options as ApiHandlerOptions<{
                         body: {
                             file: MulterFile;
                         };
                     }>,
-                ),
+                );
+            },
         });
     }
 

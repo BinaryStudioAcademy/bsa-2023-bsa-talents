@@ -5,10 +5,12 @@ import { type ValueOf } from '~/common/types/types.js';
 import { YearsOfExperience } from '../enums/enums.js';
 import { type UserDetailsModel } from '../user-details.model.js';
 
-const ONE = 1;
-const TWO = 2;
-const THREE = 3;
-const FIVE = 5;
+const YEARS = {
+    ONE: 1,
+    TWO: 2,
+    THREE: 3,
+    FIVE: 5,
+};
 
 const searchByYearsOfExperience = (
     subquery: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
@@ -23,32 +25,40 @@ const searchByYearsOfExperience = (
                         break;
                     }
                     case YearsOfExperience.LESS_THAN_1: {
-                        void subquery.orWhere('experienceYears', '<', ONE);
+                        void subquery.orWhere(
+                            'experienceYears',
+                            '<',
+                            YEARS.ONE,
+                        );
                         break;
                     }
                     case YearsOfExperience.FROM_1_TO_2: {
                         void subquery.orWhereBetween('experienceYears', [
-                            ONE,
-                            TWO,
+                            YEARS.ONE,
+                            YEARS.TWO,
                         ]);
                         break;
                     }
                     case YearsOfExperience.FROM_2_TO_3: {
                         void subquery.orWhereBetween('experienceYears', [
-                            TWO,
-                            THREE,
+                            YEARS.TWO,
+                            YEARS.THREE,
                         ]);
                         break;
                     }
                     case YearsOfExperience.FROM_3_TO_5: {
                         void subquery.orWhereBetween('experienceYears', [
-                            THREE,
-                            FIVE,
+                            YEARS.THREE,
+                            YEARS.FIVE,
                         ]);
                         break;
                     }
                     case YearsOfExperience.MORE_THAN_5: {
-                        void subquery.orWhere('experienceYears', '>', FIVE);
+                        void subquery.orWhere(
+                            'experienceYears',
+                            '>',
+                            YEARS.FIVE,
+                        );
                         break;
                     }
                     default: {

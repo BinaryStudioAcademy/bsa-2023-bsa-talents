@@ -40,7 +40,9 @@ class UserController extends ControllerBase {
         this.addRoute({
             path: UsersApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: () => {
+                return this.findAll();
+            },
         });
     }
 
