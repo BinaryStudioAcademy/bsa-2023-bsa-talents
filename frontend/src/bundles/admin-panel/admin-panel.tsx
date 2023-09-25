@@ -18,16 +18,14 @@ import {
 
 import { VerificationList } from './components/components.js';
 import { CVAndContacts } from './components/cv-and-contacts/cv-and-contacts.js';
-import { PreviewTabs } from './constants/constants.js';
+import { FIRST_INDEX, PreviewTabs } from './constants/constants.js';
 import { employers, talents } from './mock-data/mock-data.js';
 import styles from './styles.module.scss';
-import { type FilterValues, type ValueOf } from './types/types.js';
+import { type FilterValues,type TabValues } from './types/types.js';
 
 const AdminPanel: React.FC = () => {
     const [filter, setFilter] = useState<FilterValues>('talents');
-    type TabValues = ValueOf<typeof PreviewTabs>;
     const items = filter === 'talents' ? talents : employers;
-    const FIRST_INDEX = 0;
     const theme = useTheme();
 
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
