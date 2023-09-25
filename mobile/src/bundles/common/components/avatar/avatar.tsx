@@ -36,31 +36,28 @@ const Avatar: React.FC<Properties> = ({
 }) => {
     const { defaultPhotoContainer, defaultPhoto, photoShape } =
         customPhotoStyle ?? {};
-    const avatarStyles = useMemo(() => {
-        switch (avatarSize) {
-            case PhotoType.SMALL: {
-                return {
+
+    const avatarStyles = useMemo(
+        () =>
+            ({
+                [PhotoType.SMALL]: {
                     size: styles.small,
                     font: TextCategory.H6,
                     iconSize: 40,
-                };
-            }
-            case PhotoType.LARGE: {
-                return {
-                    size: styles.large,
-                    font: TextCategory.H1,
-                    iconSize: 100,
-                };
-            }
-            default: {
-                return {
+                },
+                [PhotoType.MEDIUM]: {
                     size: styles.medium,
                     font: TextCategory.H3,
                     iconSize: 60,
-                };
-            }
-        }
-    }, [avatarSize]);
+                },
+                [PhotoType.LARGE]: {
+                    size: styles.large,
+                    font: TextCategory.H1,
+                    iconSize: 100,
+                },
+            })[avatarSize],
+        [avatarSize],
+    );
 
     if (uri) {
         return (
