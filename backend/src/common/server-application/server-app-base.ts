@@ -22,6 +22,7 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { buildValidationSchema } from './helpers/build-validation-schema.helper.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -57,15 +58,13 @@ class ServerAppBase implements ServerApp {
 
     public addRoute(parameters: ServerAppRouteParameters): void {
         const { path, method, preHandler, handler, validation } = parameters;
+
         this.app.route({
             url: path,
             method,
             preHandler,
             handler,
-            schema: {
-                body: validation?.body,
-                querystring: validation?.query,
-            },
+            schema: validation && buildValidationSchema(validation),
         });
 
         this.logger.info(`Route: ${method as string} ${path} is registered`);
