@@ -33,7 +33,9 @@ async function down(knex: Knex): Promise<void> {
     return knex.schema.table(TABLE_NAME, (table) => {
         table.dropColumn(NewColumnName.ETAG);
         table.dropColumn(NewColumnName.FILE_NAME);
-        table.string(OldColumnName.CONTENT_TYPE).notNullable();
+        table
+            .string(OldColumnName.CONTENT_TYPE)
+            .defaultTo('multipart/form-data');
         table.string(OldColumnName.FILE_NAME);
     });
 }
