@@ -19,12 +19,11 @@ class LMSDataService implements Service {
     private lmsDataRepository: LMSDataRepository;
     private requestsToLMSHeaders: { 'X-Token': string };
 
-    public constructor(
-        lmsDataRepository: LMSDataRepository,
-        token: string | undefined,
-    ) {
+    public constructor(lmsDataRepository: LMSDataRepository) {
         this.lmsDataRepository = lmsDataRepository;
-        this.requestsToLMSHeaders = { 'X-Token': token ?? '' };
+        this.requestsToLMSHeaders = {
+            'X-Token': config.ENV.LMS_DATA_SERVER.X_TOKEN,
+        };
     }
 
     public async findByUserId(userId: string): Promise<UserLMSDataDto> {
@@ -78,7 +77,7 @@ class LMSDataService implements Service {
 
     private async findByUserEmailOnLMSServer(
         email: string,
-    ): Promise<LMSDataServerResponseDto | undefined> {
+    ): Promise<LMSDataServerResponseDto | null> {
         const url = new URL(config.ENV.LMS_DATA_SERVER.LMS_SERVER);
         url.searchParams.append('email', email);
 
@@ -89,7 +88,7 @@ class LMSDataService implements Service {
         const data = (await response.json()) as LMSDataServerResponseDto;
 
         if (!Object.keys(data).includes('talent')) {
-            return undefined;
+            return null;
         }
 
         return data;

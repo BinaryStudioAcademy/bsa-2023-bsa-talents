@@ -5,7 +5,6 @@ const constraintName = 'user_lms_data_pkey';
 
 const TableName = {
     USERS: 'users',
-    // USER_DETAILS: 'user_details',
 };
 const TABLE_NAME = 'user_lms_data';
 
