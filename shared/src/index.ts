@@ -66,6 +66,7 @@ export {
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
