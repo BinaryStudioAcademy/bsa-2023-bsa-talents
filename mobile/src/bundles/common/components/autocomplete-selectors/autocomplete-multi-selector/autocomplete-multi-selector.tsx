@@ -44,7 +44,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
     const [search, setSearch] = useState('');
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
     const handleSearch = (text: string): void => {
         setSearch(text);
@@ -54,7 +54,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         if (value.includes(item.value)) {
             return;
         }
-        toggleVisibility();
+        handleToggleVisibility();
         value.push(item);
         onChange(value);
     };
@@ -84,7 +84,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <TextInput
                     placeholder={placeholder}
                     onBlur={onBlur}
-                    onFocus={toggleVisibility}
+                    onFocus={handleToggleVisibility}
                     value={search}
                     onChangeText={handleSearch}
                     style={[

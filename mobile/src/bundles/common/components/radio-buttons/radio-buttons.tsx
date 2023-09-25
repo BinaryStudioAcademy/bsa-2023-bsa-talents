@@ -17,7 +17,7 @@ type Properties<T extends FieldValues> = RadioGroupProps & {
     control: Control<T, null>;
 };
 
-const radioButtonsStyles = {
+const RADIO_BUTTONS_STYLES = {
     color: Color.PRIMARY,
     borderColor: Color.INPUT,
     labelStyle: styles.label,
@@ -35,7 +35,7 @@ const RadioButtons = <T extends FieldValues>({
     const radioButtonsWithStyles = radioButtons.map((button) => {
         return {
             ...button,
-            ...radioButtonsStyles,
+            ...RADIO_BUTTONS_STYLES,
         };
     });
 

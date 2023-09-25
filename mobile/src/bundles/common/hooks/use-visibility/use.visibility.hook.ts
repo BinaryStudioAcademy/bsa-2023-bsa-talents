@@ -2,16 +2,16 @@ import { useState } from 'react';
 
 const useVisibility = (
     initialVisibility = false,
-): { isVisible: boolean; toggleVisibility: () => void } => {
+): { isVisible: boolean; handleToggleVisibility: () => void } => {
     const [isVisible, setIsVisible] = useState<boolean>(initialVisibility);
 
-    const toggleVisibility = (): void => {
+    const handleToggleVisibility = (): void => {
         setIsVisible((previous) => !previous);
     };
 
     return {
         isVisible,
-        toggleVisibility,
+        handleToggleVisibility,
     };
 };
 
