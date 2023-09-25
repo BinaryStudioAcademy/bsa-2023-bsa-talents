@@ -1,9 +1,6 @@
 {
     "extends": "../tsconfig.json",
-    "include": [
-        "src",
-        "../shared/src/bundles/users/types/user-reset-password-dto.ts"
-    ],
+    "include": ["src"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "target": "ESNext",
