@@ -43,7 +43,7 @@ const Root: React.FC = () => {
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
     const isPendingOnboardingData =
-        userOnboardingDataStatus === DataStatus.PENDING;
+        userOnboardingDataStatus === DataStatus.IDLE;
     const dispatch = useAppDispatch();
 
     //TODO change to onboardingData?.isApprove

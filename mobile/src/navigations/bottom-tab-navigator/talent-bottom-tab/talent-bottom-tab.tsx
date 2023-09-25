@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Chat } from '~/bundles/chat/screens/screens';
 import { MaterialIcon } from '~/bundles/common/components/components';
 import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
@@ -8,7 +9,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
+import { TalentProfile } from '~/bundles/talent/screens/screens';
 
 import { bottomTabStyles } from '../styles';
 
@@ -20,9 +21,9 @@ const TalentBottomTabNavigator: React.FC = () => {
         <BottomTab.Navigator screenOptions={bottomTabStyles}>
             <BottomTab.Screen
                 name={TalentBottomTabScreenName.MAIL}
-                component={Mail}
+                component={Chat}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
                             size={ICON_SIZE}
@@ -35,7 +36,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
                 component={TalentProfile}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
                             size={ICON_SIZE}

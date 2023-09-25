@@ -26,7 +26,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.CANDIDATES}
                 component={Candidates}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.FOLDER_SHARED}
                             size={ICON_SIZE}
@@ -39,7 +39,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.CHAT_LIST}
                 component={ChatList}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
                             size={ICON_SIZE}
@@ -52,7 +52,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 name={EmployerBottomTabScreenName.EMPLOYER_PROFILE}
                 component={EmployerProfile}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
                             size={ICON_SIZE}
