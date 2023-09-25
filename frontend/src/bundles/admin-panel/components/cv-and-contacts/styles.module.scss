@@ -7,8 +7,8 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    max-width: 80%;
     margin: 0 auto;
+    margin-bottom: var(--tabs-container-margin-bottom);
     padding: 0;
     background-color: var(--white);
 }
@@ -62,7 +62,6 @@
 @media screen and (width >= 500px) {
     .container {
         flex-direction: column;
-        height: 100%;
     }
 
     :global(#react-doc-viewer #pdf-controls) {
@@ -94,7 +93,7 @@
     }
 }
 
-@media screen and (width >= 900px) {
+@media screen and (width >=900px) {
     .data {
         display: grid;
         grid-template-areas:
@@ -113,21 +112,16 @@
 }
 
 @media screen and (width >= 1100px) {
-    .container {
-        padding: 25px;
-    }
-
     .row {
         width: unset;
     }
 
     .preview {
         align-self: start;
-        margin-top: 35px;
     }
 }
 
-@media screen and (width >= 1300px) {
+@media screen and (width >= 1200px) {
     .container {
         flex-direction: column;
         overflow: hidden;
@@ -142,7 +136,6 @@
     .preview {
         display: flex;
         align-self: start;
-        margin-top: 35px;
     }
 }
 

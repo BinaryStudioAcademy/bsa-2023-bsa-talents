@@ -1,7 +1,7 @@
 .container {
     flex-flow: row nowrap;
     gap: 42px;
-    padding: 35px 50px;
+    margin-bottom: var(--tabs-container-margin-bottom);
 }
 
 .textInfo {
@@ -14,19 +14,22 @@
 
     & .name {
         flex: 1 0 auto;
+        width: 40%;
         max-width: 130px;
         max-height: fit-content;
     }
 
     & .value {
         flex: 1 0 auto;
+        width: 42%;
         color: var(--slate-gray);
         font-style: normal;
     }
 
     & .valueLink {
-        width: fit-content;
-        color: var(--st-topaz);
+        align-items: flex-start;
+        width: 42%;
+        color: var(--st-tropaz);
         font-weight: 500;
         font-size: 13px;
         font-style: italic;
@@ -54,4 +57,17 @@
 
 .title {
     width: 100%;
+}
+
+@media screen and (width <=1100px) {
+    .row {
+        & .name {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        & .valueLink {
+            width: 100%;
+        }
+    }
 }
