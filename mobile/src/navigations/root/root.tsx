@@ -63,7 +63,7 @@ const Root: React.FC = () => {
         void dispatch(getUserDetails({ userId: currentUserData.id }));
 
         if (nextStep && !isProfileComplete) {
-            navigate(nextStep);
+            navigate(nextStep as never);
         }
     }, [
         currentUserData,
