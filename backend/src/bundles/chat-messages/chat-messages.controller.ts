@@ -10,7 +10,7 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { type ChatMessagesService } from './chat-messages.service.js';
 import { ChatMessagesApiPath } from './enums/enums.js';
 import { type ChatMessagesCreateRequestDto } from './types/types.js';
-import { ChatMessagesCreateValidationSchema } from './validation-schemas/validation-schemas.js';
+import { chatMessagesCreateValidationSchema } from './validation-schemas/validation-schemas.js';
 
 /**
  * @swagger
@@ -138,7 +138,7 @@ class ChatMessagesController extends ControllerBase {
             path: ChatMessagesApiPath.ROOT,
             method: 'POST',
             validation: {
-                body: ChatMessagesCreateValidationSchema,
+                body: chatMessagesCreateValidationSchema,
             },
             handler: (options) =>
                 this.create(

@@ -27,7 +27,7 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ContactCandidateValidationRule } from '~/bundles/employer/enums/enums';
 import { type ContactCandidateDto } from '~/bundles/employer/types/types';
-import { ContactCandidateValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
+import { contactCandidateValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
 import { DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -43,7 +43,7 @@ const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
 }) => {
     const { control, errors, handleSubmit } = useAppForm<ContactCandidateDto>({
         defaultValues: DEFAULT_VALUES,
-        validationSchema: ContactCandidateValidationSchema,
+        validationSchema: contactCandidateValidationSchema,
     });
 
     const isSaveTemplate = useWatch({

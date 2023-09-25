@@ -24,6 +24,14 @@ class TalentHardSkillsService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
+    public async findByUserDetailsId(
+        userDetailsId: string,
+    ): Promise<TalentHardSkill[]> {
+        return this.talentHardSkillsRepository.findByUserDetailsId(
+            userDetailsId,
+        );
+    }
+
     public async create(
         talentHardSkill: TalentHardSkillNew,
     ): Promise<TalentHardSkill> {

@@ -1,4 +1,4 @@
-function trimZerosFromNumber(number: number): number {
+const trimZerosFromNumber = (number: number): number => {
     let string_ = String(number);
 
     if (string_.includes('.')) {
@@ -7,5 +7,6 @@ function trimZerosFromNumber(number: number): number {
     }
 
     return Number(string_);
-}
+};
+
 export { trimZerosFromNumber };

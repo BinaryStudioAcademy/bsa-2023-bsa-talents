@@ -42,7 +42,7 @@ import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js'
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { actions as talentActions } from '../../store/talent-onboarding.js';
-import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { profileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
@@ -94,7 +94,7 @@ const ProfileStep: React.FC = () => {
                     description,
                 ],
             ),
-            validationSchema: ProfileStepValidationSchema,
+            validationSchema: profileStepValidationSchema,
         });
 
     const { setSubmitForm } = useFormSubmit();
