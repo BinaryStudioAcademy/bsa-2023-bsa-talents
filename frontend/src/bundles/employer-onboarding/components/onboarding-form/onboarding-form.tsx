@@ -20,7 +20,7 @@ import {
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { CountryList } from '../../enums/enums.js';
+import { Country } from '../../enums/enums.js';
 import { actions as employerActions } from '../../store/employer-onboarding.js';
 import {
     type EmployerOnboardingDto,
@@ -30,7 +30,7 @@ import { EmployerOnboardingValidationSchema } from '../../validation-schemas/val
 import { EmployerFileUpload } from './components/employer-file-upload.js';
 import styles from './styles.module.scss';
 
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));

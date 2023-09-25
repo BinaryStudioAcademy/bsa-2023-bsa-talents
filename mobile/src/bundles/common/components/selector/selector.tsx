@@ -33,7 +33,7 @@ type Properties<T extends FieldValues> = {
     isIconShown?: boolean;
     hasError?: boolean;
     placeholder?: string;
-    multiSelect?: boolean;
+    isMultiSelect?: boolean;
     onSelect?: (item: string) => void;
 };
 
@@ -42,7 +42,7 @@ const Selector = <T extends FieldValues>({
     control,
     hasError,
     options,
-    multiSelect = false,
+    isMultiSelect = false,
     placeholder,
     isIconShown = true,
 }: Properties<T>): JSX.Element => {
@@ -56,7 +56,7 @@ const Selector = <T extends FieldValues>({
     const handlePressItem = useCallback(
         (option: string): void => {
             handleToggleVisibility();
-            if (multiSelect) {
+            if (isMultiSelect) {
                 if (value.includes(option)) {
                     onChange(value.filter((item: string) => item !== option));
                 } else {
@@ -66,7 +66,7 @@ const Selector = <T extends FieldValues>({
                 onChange(option);
             }
         },
-        [handleToggleVisibility, multiSelect, value, onChange],
+        [handleToggleVisibility, isMultiSelect, value, onChange],
     );
     const selectedOptions = useMemo(
         () =>

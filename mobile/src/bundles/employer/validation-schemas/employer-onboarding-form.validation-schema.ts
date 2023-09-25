@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { CountryList } from '~/bundles/common/enums/enums';
+import { Country } from '~/bundles/common/enums/enums';
 import {
     EmployerOnboardingFormValidationMessage,
     EmployerOnboardingFormValidationRule,
@@ -108,7 +108,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': EmployerOnboardingFormValidationMessage.LOCATION_BASE,

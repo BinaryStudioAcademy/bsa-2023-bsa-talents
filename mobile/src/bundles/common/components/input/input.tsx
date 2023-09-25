@@ -93,7 +93,7 @@ const Input = <T extends FieldValues>({
                     iconName ? styles.noLeftBorder : globalStyles.pl10,
                     styles.input,
                     multiline && styles.multiline,
-                    !editable && styles.disabled,
+                    !editable && styles.isDisabled,
                     hasError && styles.error,
                 ]}
             />

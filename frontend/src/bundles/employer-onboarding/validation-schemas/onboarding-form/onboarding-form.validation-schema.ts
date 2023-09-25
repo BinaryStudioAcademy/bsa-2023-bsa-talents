@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmployerOnboardingValidationMessage,
     EmployerOnboardingValidationRule,
 } from '../../enums/enums.js';
@@ -117,7 +117,7 @@ const EmployerOnboardingValidationSchema = joi.object<
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': EmployerOnboardingValidationMessage.LOCATION_BASE,

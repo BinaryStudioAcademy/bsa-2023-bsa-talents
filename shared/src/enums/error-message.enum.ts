@@ -1,4 +1,4 @@
-const ErrorMessages = {
+const ErrorMessage = {
     NOT_AUTHORIZED: 'You are not authorized to access this route.',
     USER_ALREADY_EXIST: 'User already exist.',
     INCORRECT_EMAIL: 'Incorrect email.',
@@ -15,4 +15,4 @@ const ErrorMessages = {
     FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 
-export { ErrorMessages };
+export { ErrorMessage };

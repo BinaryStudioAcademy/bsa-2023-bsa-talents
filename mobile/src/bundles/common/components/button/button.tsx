@@ -21,7 +21,7 @@ import { styles } from './styles';
 type StylesProperties = {
     basic: StyleProp<ViewStyle>;
     pressed: StyleProp<ViewStyle | TextStyle>;
-    disabled: StyleProp<ViewStyle | TextStyle>;
+    isDisabled: StyleProp<ViewStyle | TextStyle>;
     label: StyleProp<ViewStyle | TextStyle>;
 };
 
@@ -51,19 +51,19 @@ const Button: React.FC<Properties> = ({
                 [ButtonType.FILLED]: {
                     basic: styles.button_filled,
                     pressed: styles.button_filled_pressed,
-                    disabled: styles.button_filled_disabled,
+                    isDisabled: styles.button_filled_disabled,
                     label: styles.label,
                 },
                 [ButtonType.OUTLINE]: {
                     basic: styles.button_outline,
                     pressed: styles.button_outline_pressed,
-                    disabled: styles.button_outline_disabled,
+                    isDisabled: styles.button_outline_disabled,
                     label: styles.content_pressed,
                 },
                 [ButtonType.GHOST]: {
                     basic: styles.button_ghost,
                     pressed: styles.button_ghost_pressed,
-                    disabled: styles.content_disabled,
+                    isDisabled: styles.content_disabled,
                     label: styles.content_pressed,
                 },
             };
@@ -83,7 +83,7 @@ const Button: React.FC<Properties> = ({
                 styles.button,
                 componentStyles[buttonType].basic,
                 pressed && componentStyles[buttonType].pressed,
-                disabled && componentStyles[buttonType].disabled,
+                disabled && componentStyles[buttonType].isDisabled,
                 pressableStyle as StyleProp<ViewStyle>,
             ]}
             {...props}
