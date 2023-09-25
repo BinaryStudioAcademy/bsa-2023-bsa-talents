@@ -15,6 +15,7 @@ export { FormHelperText } from './form-helper-text/form-helper-text.js';
 export { FormLabel } from './form-label/form-label.js';
 export { Grid } from './grid/grid.js';
 export { Header } from './header/header.js';
+export { IconButton } from './icon-button/icon-button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';

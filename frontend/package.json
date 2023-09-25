@@ -17,6 +17,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@cyntler/react-doc-viewer": "1.13.0",
         "@hookform/resolvers": "3.2.0",
         "@mui/icons-material": "5.14.3",
         "@mui/material": "5.14.5",
