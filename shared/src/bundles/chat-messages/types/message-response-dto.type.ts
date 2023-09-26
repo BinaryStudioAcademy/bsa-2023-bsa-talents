@@ -5,6 +5,7 @@ type MessageResponseDto = {
     chatId: string;
     message: string;
     isRead: boolean;
+    selfPhoto?: unknown;
 };
 
 export { type MessageResponseDto };

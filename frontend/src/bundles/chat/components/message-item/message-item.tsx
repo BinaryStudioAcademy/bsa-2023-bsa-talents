@@ -4,6 +4,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -20,11 +21,13 @@ const MessageItem: React.FC<Properties> = ({
     children,
     userFullName,
 }) => {
-    const currentUserId = 'id'; // TODO: get current user from store
+    const { currentUser } = useAppSelector(({ auth }) => ({
+        currentUser: auth.currentUser,
+    }));
     const wrapperClasses = getValidClassNames(styles.messageWrapper);
     const messageClasses = getValidClassNames(
         styles.message,
-        currentUserId === userId && styles.messageOwn,
+        currentUser?.id === userId && styles.messageOwn,
     );
     return (
         <Grid item className={wrapperClasses}>

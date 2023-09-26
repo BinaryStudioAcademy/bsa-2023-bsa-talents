@@ -19,7 +19,18 @@ type State = {
     current: {
         chatId: string | null;
         messages: MessageResponseDto[];
+        employerDetails:
+            | {
+                  logoUrl: string | null;
+                  companyName: string | null;
+                  employerName: string | null;
+                  employerPosition: string | null;
+                  about: string | null;
+                  companyWebsite: string | null;
+              }
+            | Record<string, never>;
     };
+    onlineUsers: string[];
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
@@ -28,7 +39,16 @@ const initialState: State = {
     current: {
         chatId: null,
         messages: [],
+        employerDetails: {
+            logoUrl: '',
+            companyName: '',
+            employerName: '',
+            employerPosition: '',
+            about: '',
+            companyWebsite: '',
+        },
     },
+    onlineUsers: [],
     dataStatus: DataStatus.IDLE,
 };
 
@@ -37,11 +57,10 @@ const { reducer, actions, name } = createSlice({
     name: 'chat',
     reducers: {
         joinRoom: (state, action) => {
-            const chatId = action.payload;
-            state.current.chatId = chatId;
-            state.current.messages = [];
+            action.payload;
         },
-        leaveRoom: (state) => {
+        leaveRoom: (state, action) => {
+            action.payload;
             state.current.chatId = null;
             state.current.messages = [];
         },
@@ -49,8 +68,9 @@ const { reducer, actions, name } = createSlice({
             const chat = state.chats.find(
                 (chat) => chat.chatId === action.payload.chatId,
             );
+
             if (chat) {
-                chat.lastMessage = action.payload;
+                chat.lastMessage = action.payload.message;
             }
 
             if (state.current.chatId === action.payload.chatId) {
@@ -59,11 +79,9 @@ const { reducer, actions, name } = createSlice({
                     action.payload,
                 ];
             }
-
-            state.current.messages = [
-                ...state.current.messages,
-                action.payload,
-            ];
+        },
+        updateChatId: (state, action) => {
+            state.current.chatId = action.payload;
         },
     },
     extraReducers(builder) {
@@ -76,23 +94,32 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.FULFILLED;
                 state.current.chatId = action.payload.chatId;
                 state.current.messages = action.payload.messages;
+                state.current.employerDetails = action.payload.employerDetails;
             })
             .addCase(createMessage.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
+
+                state.chats = state.chats.map((chat) => {
+                    if (chat.chatId === action.payload.chatId) {
+                        chat.lastMessage = action.payload.message;
+                    }
+                    return chat;
+                });
+
                 state.current.messages = [
                     ...state.current.messages,
                     action.payload,
                 ];
-                state.current.messages = [
-                    ...state.current.messages,
-                    action.payload,
-                ];
+            })
+            .addCase(getAllMessagesByChatId.pending, (state) => {
+                state.dataStatus = DataStatus.PENDING;
+                state.current.messages = [];
+                state.current.employerDetails = {};
             })
             .addMatcher(
                 isAnyOf(
                     getAllMessages.pending,
                     getAllChatsByUserId.pending,
-                    getAllMessagesByChatId.pending,
                     createMessage.pending,
                 ),
                 (state) => {
