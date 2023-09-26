@@ -20,6 +20,16 @@ type State = {
     current: {
         chatId: string | null;
         messages: MessageResponseDto[];
+        employerDetails:
+            | {
+                  logoUrl: string | null;
+                  companyName: string | null;
+                  employerName: string | null;
+                  employerPosition: string | null;
+                  about: string | null;
+                  companyWebsite: string | null;
+              }
+            | Record<string, never>;
     };
     dataStatus: ValueOf<typeof DataStatus>;
 };
@@ -29,6 +39,14 @@ const initialState: State = {
     current: {
         chatId: null,
         messages: [],
+        employerDetails: {
+            logoUrl: '',
+            companyName: '',
+            employerName: '',
+            employerPosition: '',
+            about: '',
+            companyWebsite: '',
+        },
     },
     dataStatus: DataStatus.IDLE,
 };
@@ -37,6 +55,14 @@ const { reducer, actions, name } = createSlice({
     initialState,
     name: 'chat',
     reducers: {
+        joinRoom: (_, action) => {
+            action.payload;
+        },
+        leaveRoom: (state, action) => {
+            action.payload;
+            state.current.chatId = null;
+            state.current.messages = [];
+        },
         addMessage: (state, action) => {
             const chat = state.chats.find(
                 (chat) => chat.chatId === action.payload.chatId,
@@ -54,7 +80,7 @@ const { reducer, actions, name } = createSlice({
             }
         },
         updateChatId: (state, action) => {
-            state.current.chatId = action.payload.chatId;
+            state.current.chatId = action.payload;
         },
     },
     extraReducers(builder) {
@@ -64,6 +90,14 @@ const { reducer, actions, name } = createSlice({
             state.current = {
                 chatId: null,
                 messages: [],
+                employerDetails: {
+                    logoUrl: '',
+                    companyName: '',
+                    employerName: '',
+                    employerPosition: '',
+                    about: '',
+                    companyWebsite: '',
+                },
             };
         });
         builder
@@ -75,6 +109,7 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.FULFILLED;
                 state.current.chatId = action.payload.chatId;
                 state.current.messages = action.payload.messages;
+                state.current.employerDetails = action.payload.employerDetails;
             })
             .addCase(createMessage.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;

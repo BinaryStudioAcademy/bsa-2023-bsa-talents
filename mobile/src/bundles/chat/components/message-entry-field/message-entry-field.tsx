@@ -23,12 +23,14 @@ import { styles } from './styles';
 type Properties = {
     chatId: string;
     conversationPartner: UserInformation;
+    partnerId: string;
     onSendMessage: (payload: ChatMessagesCreateRequestDto) => void;
 };
 
 const MessageEntryField: React.FC<Properties> = ({
     chatId,
-    conversationPartner,
+    // conversationPartner,
+    partnerId,
     onSendMessage,
 }) => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
@@ -41,17 +43,11 @@ const MessageEntryField: React.FC<Properties> = ({
         onSendMessage({
             chatId: chatId,
             senderId: currentUserData?.id ?? '',
-            receiverId: conversationPartner?.id ?? '',
+            receiverId: partnerId, //conversationPartner?.id ?? '',
             message: textMessage,
         });
         setTextMessage('');
-    }, [
-        chatId,
-        conversationPartner,
-        onSendMessage,
-        textMessage,
-        currentUserData?.id,
-    ]);
+    }, [chatId, partnerId, onSendMessage, textMessage, currentUserData?.id]);
 
     return (
         <View

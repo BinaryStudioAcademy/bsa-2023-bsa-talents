@@ -53,18 +53,37 @@ const getAllMessagesByChatId = createAsyncThunk<
     {
         chatId: string;
         messages: MessageResponseDto[];
+        employerDetails: {
+            logoUrl: string;
+            companyName: string;
+            employerName: string;
+            employerPosition: string;
+            about: string;
+            companyWebsite: string;
+        };
     },
-    string,
+    { chatId: string; employerId: string },
     AsyncThunkConfig
 >(
     `${sliceName}/getAllMessagesByChatId`,
-    async (chatId, { extra, dispatch }) => {
-        const { chatApi, notifications } = extra;
+    async ({ chatId, employerId }, { extra, dispatch }) => {
+        const { chatApi, commonApi, notifications } = extra;
         try {
             dispatch(actions.updateChatId(chatId));
             const messages = await chatApi.getAllMessagesByChatId(chatId);
+            const employer = await commonApi.getUserDetailsByUserId({
+                userId: employerId,
+            });
+            const employerDetails = {
+                logoUrl: employer?.companyLogoId ?? '',
+                companyName: employer?.companyName ?? '',
+                employerName: employer?.fullName ?? '',
+                employerPosition: employer?.employerPosition ?? '',
+                about: employer?.description ?? '',
+                companyWebsite: employer?.companyWebsite ?? '',
+            };
 
-            return { chatId, messages: messages.items };
+            return { chatId, messages: messages.items, employerDetails };
         } catch (error) {
             const errorMessage = getErrorMessage(error);
             notifications.showError({ title: errorMessage });

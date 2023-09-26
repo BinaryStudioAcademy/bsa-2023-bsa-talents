@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getPartnerInfo } from '~/bundles/chat/helpers/helpers';
 import { useRealTimeElapsed } from '~/bundles/chat/hooks/hooks';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
@@ -9,7 +10,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { PhotoType } from '~/bundles/common/enums/enums';
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ChatNavigationProperties } from '~/bundles/common/types/types';
 
@@ -21,12 +22,21 @@ type Properties = {
 };
 
 const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
-    const { chatId, partner, lastMessage, lastMessageCreatedAt } = item;
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+
+    const { chatId, participants, lastMessage, lastMessageCreatedAt } = item;
     const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageCreatedAt);
+
+    const { partnerName, partnerAvatar, partnerId } = getPartnerInfo(
+        currentUserData?.id ?? '',
+        participants,
+    );
+
+    const ownerChat = participants.sender;
 
     const itemAvatar = (
         <Avatar
-            uri={partner.avatarUrl ?? ''}
+            uri={ownerChat.avatarUrl}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,
@@ -42,7 +52,7 @@ const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
                 ellipsizeMode="tail"
                 style={[globalStyles.mb5, styles.userName]}
             >
-                {chatId}
+                {ownerChat.profileName ?? ownerChat.companyName}
             </Text>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.message}>
                 {lastMessage}
@@ -55,8 +65,8 @@ const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
     );
 
     const handleListItemSelect = useCallback((): void => {
-        onSelect({ chatId });
-    }, [onSelect, chatId]);
+        onSelect({ chatId, partnerName, partnerAvatar, partnerId });
+    }, [onSelect, chatId, partnerName, partnerAvatar, partnerId]);
 
     return (
         <Pressable onPress={handleListItemSelect}>
