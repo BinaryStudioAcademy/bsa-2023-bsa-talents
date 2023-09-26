@@ -1,9 +1,9 @@
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 
 const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
-    searchType: 'Basic search',
+    searchStringType: 'Basic search',
     searchValue: '',
-    isSearchActiveCandidatesOnly: false,
+    searchType: 'active',
     jobTitle: [],
     yearsOfExperience: [],
     hardSkills: [],

@@ -96,6 +96,7 @@ class UserDetailsService implements Service {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',
+            'searchType',
         ]);
 
         return this.userDetailsRepository.searchUsers(preparedData);

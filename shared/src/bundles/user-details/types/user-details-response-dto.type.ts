@@ -8,6 +8,7 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from '../user-details.js';
 
 type UserDetailsResponseDto = {
@@ -27,6 +28,7 @@ type UserDetailsResponseDto = {
     englishLevel: ValueOf<typeof EnglishLevel> | null;
     notConsidered: ValueOf<typeof NotConsidered>[] | null;
     preferredLanguages: ValueOf<typeof PreferredLanguage>[] | null;
+    searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string | null;

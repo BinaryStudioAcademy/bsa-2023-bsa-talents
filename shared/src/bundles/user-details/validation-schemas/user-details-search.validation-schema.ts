@@ -5,6 +5,7 @@ import {
     EmploymentType,
     EnglishLevel,
     JobTitle,
+    SearchType,
     UserSortCriteria,
     YearsOfExperience,
 } from '../enums/enums.js';
@@ -19,11 +20,14 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             ),
         ),
 
-    searchType: joi.string(),
+    searchStringType: joi.string(),
 
     searchValue: joi.string().trim(),
 
-    isSearchActiveCandidatesOnly: joi.boolean(),
+    searchType: joi
+        .string()
+        .trim()
+        .valid(...Object.values(SearchType)),
 
     jobTitle: joi.alternatives().try(
         joi.array().items(

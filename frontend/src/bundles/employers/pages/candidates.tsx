@@ -35,7 +35,7 @@ const FIELDS: [
 ] = [
     'searchType',
     'searchValue',
-    'isSearchActiveCandidatesOnly',
+    'searchType',
     'jobTitle',
     'yearsOfExperience',
     'hardSkills',

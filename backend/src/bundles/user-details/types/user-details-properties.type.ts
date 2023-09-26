@@ -8,6 +8,7 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from '../enums/enums.js';
 
 type UserDetailsProperties = {
@@ -27,6 +28,7 @@ type UserDetailsProperties = {
     englishLevel: ValueOf<typeof EnglishLevel> | null;
     notConsidered: ValueOf<typeof NotConsidered>[] | null;
     preferredLanguages: ValueOf<typeof PreferredLanguage>[] | null;
+    searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     photoId: string | null;
     fullName: string | null;

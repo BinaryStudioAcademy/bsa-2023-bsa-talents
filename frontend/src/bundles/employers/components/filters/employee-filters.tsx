@@ -108,7 +108,9 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 const updatedValue = field.value.includes(
                     selectedValue as string,
                 )
-                    ? field.value.filter((item) => item !== selectedValue)
+                    ? field.value.filter(
+                          (item: string) => item !== selectedValue,
+                      )
                     : [...field.value, selectedValue];
                 field.onChange(updatedValue);
             },
@@ -183,7 +185,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="isSearchActiveCandidatesOnly"
+                        name="searchType"
                         control={control}
                         render={renderCheckboxes}
                     />

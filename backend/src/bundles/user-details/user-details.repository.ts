@@ -51,6 +51,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',
@@ -96,11 +97,8 @@ class UserDetailsRepository implements Repository {
             }
 
             //TODO change column name for isSearchActiveCandidatesOnly when it will be created
-            if (payload.isSearchActiveCandidatesOnly) {
-                void builder.where(
-                    'isHired',
-                    payload.isSearchActiveCandidatesOnly,
-                );
+            if (payload.searchType) {
+                void builder.where('isHired', payload.searchType);
             }
 
             if (payload.jobTitle && payload.jobTitle.length > 0) {
@@ -211,6 +209,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',
@@ -252,6 +251,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',
