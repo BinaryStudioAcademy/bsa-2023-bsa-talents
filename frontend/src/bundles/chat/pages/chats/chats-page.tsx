@@ -13,7 +13,11 @@ import {
     type ChatListItemType,
     type ChatResponseDto,
 } from '~/bundles/chat/types/types.js';
-import { Grid, Typography } from '~/bundles/common/components/components.js';
+import {
+    Grid,
+    Logo,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -212,7 +216,16 @@ const ChatsPage: React.FC = () => {
                             isScreenMoreMD && styles.chatInfoOpenedMD,
                         )}
                     >
-                        <CompanyInfo />
+                        {user?.role === 'talent' ? (
+                            <CompanyInfo />
+                        ) : (
+                            <div className={styles.placeholder}>
+                                <Logo isCollapsed />
+                                <span className={styles.hire}>
+                                    Hire someone today!
+                                </span>
+                            </div>
+                        )}
                     </Grid>
                 )}
             </Grid>
