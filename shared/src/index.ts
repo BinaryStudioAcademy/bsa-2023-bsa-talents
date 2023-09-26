@@ -29,6 +29,13 @@ export {
     type UploadedFile,
 } from './bundles/file/file.js';
 export {
+    HiringInfoApiPath,
+    type HiringInfoCreateRequestDto,
+    type HiringInfoFindAllRequestDto,
+    type HiringInfoFindRequestDto,
+    type HiringInfoResponseDto,
+} from './bundles/hiring-info/hiring-info.js';
+export {
     type Details,
     type HrFeedback,
     type LectureDetail,
