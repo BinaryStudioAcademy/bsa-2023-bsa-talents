@@ -1,3 +1,4 @@
+import { lmsDataService } from '~/bundles/lms-data/lms-data.js';
 import {
     type UserFindResponseDto,
     type UserForgotPasswordRequestDto,
@@ -8,7 +9,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
-import { ErrorMessage } from '~/common/enums/enums.js';
+import { ErrorMessage, UserRole } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Encrypt } from '~/common/packages/encrypt/encrypt.js';
 import { token } from '~/common/packages/packages.js';
@@ -38,13 +39,23 @@ class AuthService {
     public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        const { email } = userRequestDto;
+        const { email, role } = userRequestDto;
 
         const userByEmail = await this.userService.findByEmail(email);
 
         if (userByEmail) {
             throw new HttpError({
                 message: ErrorMessage.EMAIL_ALREADY_EXISTS,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+
+        const isEmailExistOnLMS = await lmsDataService.isMailExistOnLMS(email);
+        const isUserTalent = role === UserRole.TALENT;
+
+        if (!isEmailExistOnLMS && isUserTalent) {
+            throw new HttpError({
+                message: ErrorMessage.NOT_FOUND_ON_LMS,
                 status: HttpCode.BAD_REQUEST,
             });
         }

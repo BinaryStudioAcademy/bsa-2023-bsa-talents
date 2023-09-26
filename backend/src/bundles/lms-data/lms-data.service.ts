@@ -94,6 +94,11 @@ class LMSDataService implements Service {
         return data;
     }
 
+    public async isMailExistOnLMS(email: string): Promise<boolean> {
+        const data = await this.findByUserEmailOnLMSServer(email);
+        return !!data;
+    }
+
     public create(): ReturnType<Service['create']> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
