@@ -19,6 +19,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
@@ -69,7 +70,7 @@ const ProfileCabinet: React.FC = () => {
     }
     const [isWaitingForApproval, setIsWaitingForApproval] =
         useState<boolean>(false);
-
+    const navigate = useNavigate();
     const { submitForm } = useFormSubmit();
     const dispatch = useAppDispatch();
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
@@ -129,9 +130,17 @@ const ProfileCabinet: React.FC = () => {
         })();
     }, [dispatch, submitForm]);
 
-    // const handlePublishNowClick = useCallback(() => {
-    //     console.log('Publish now');
-    // }, []);
+    const handlePublishNowClick = useCallback(() => {
+        void dispatch(
+            talentActions.updateTalentPublishedDate({
+                userId: currentUser?.id,
+            }),
+        );
+
+        if (role === UserRole.TALENT) {
+            navigate(`/${role}/onboarding/step/${StepsRoute.STEP_05}`);
+        }
+    }, [currentUser?.id, dispatch, navigate, role]);
 
     return (
         <PageLayout
@@ -175,8 +184,12 @@ const ProfileCabinet: React.FC = () => {
                             </Grid>
                             <Grid item>
                                 <Button
-                                    // onClick={handlePublishNowClick}
-                                    label={'Publish now'}
+                                    onClick={handlePublishNowClick}
+                                    label={
+                                        role === UserRole.TALENT
+                                            ? 'Publish now'
+                                            : 'Submit for varification'
+                                    }
                                     variant={'contained'}
                                     className={getValidClassNames(
                                         styles.profileButton,

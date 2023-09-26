@@ -13,4 +13,5 @@ export {
     HttpCode,
     ServerErrorType,
     UserDetailsApiPath,
+    UserRole,
 } from 'shared/build/index.js';
