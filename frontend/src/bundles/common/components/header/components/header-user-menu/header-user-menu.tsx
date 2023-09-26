@@ -39,18 +39,20 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     }, [dispatch, navigate]);
 
     const role = useAppSelector((state) => state.auth.currentUser?.role);
-
+    const isAdmin = role === 'admin';
     const handleCheckProfile = useCallback((): void => {
         navigate(getStepRoute('profile', role));
     }, [navigate, role]);
 
     return (
         <Menu>
-            <MenuItem onClick={handleCheckProfile}>
-                <Typography variant="h6" className={styles.menuItem}>
-                    My profile
-                </Typography>
-            </MenuItem>
+            {!isAdmin && (
+                <MenuItem onClick={handleCheckProfile}>
+                    <Typography variant="h6" className={styles.menuItem}>
+                        My profile
+                    </Typography>
+                </MenuItem>
+            )}
             <MenuItem onClick={handleSignOut}>
                 <Logout fontSize="small" className={styles.signOutIcon} />
                 <Typography variant="h6" className={styles.signOut}>

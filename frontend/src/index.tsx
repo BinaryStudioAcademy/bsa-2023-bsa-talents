@@ -7,7 +7,6 @@ import { createRoot } from 'react-dom/client';
 
 import {
     App,
-    Navigate,
     PageLayout,
     ProtectedRoute,
     PublicRoute,
@@ -27,14 +26,13 @@ import {
 import { ResetPasswordPage } from './bundles/auth/pages/reset-password-page/reset-password-page.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { FormSubmitProvider } from './bundles/common/context/context.js';
+import { Home } from './bundles/common/pages/home.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
 import { Candidates } from './bundles/employers/pages/candidates.js';
 import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
-import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
 
@@ -51,13 +49,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 children: [
                                     {
                                         path: AppRoute.ROOT,
-                                        element: (
-                                            <Navigate
-                                                to={getStepRoute(
-                                                    StepsRoute.STEP_01,
-                                                )}
-                                            />
-                                        ),
+                                        element: <Home />,
                                     },
                                     {
                                         path: AppRoute.CANDIDATE,

@@ -9,39 +9,22 @@ import {
     useCallback,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
-import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
-import { UserRole, type UserSignInRequestDto } from '~/bundles/users/users.js';
+import { type UserSignInRequestDto } from '~/bundles/users/users.js';
 
 const SignInPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
-    const navigateUser = useCallback(
-        ({ role }: { role: ValueOf<typeof UserRole> }): void => {
-            switch (role) {
-                case UserRole.TALENT: {
-                    navigate(getStepRoute(StepsRoute.STEP_01));
-                    break;
-                }
-                case UserRole.EMPLOYER: {
-                    navigate(AppRoute.EMPLOYER_ONBOARDING);
-                    break;
-                }
-            }
-        },
-        [navigate],
-    );
-
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
             void dispatch(authActions.signIn(payload))
                 .unwrap()
-                .then(navigateUser);
+                .then(() => {
+                    navigate(AppRoute.ROOT);
+                });
         },
-        [dispatch, navigateUser],
+        [dispatch, navigate],
     );
     return (
         <AuthLayout>
