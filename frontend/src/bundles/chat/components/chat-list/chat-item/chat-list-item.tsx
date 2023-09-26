@@ -2,10 +2,11 @@ import { Avatar, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
+import { GRID_FLEX_GROW } from '../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    userId: string;
+    chatId: string;
     username: string;
     lastMessage?: string;
     lastMessageDate?: string;
@@ -15,7 +16,7 @@ type Properties = {
 };
 
 const ChatListItem: React.FC<Properties> = ({
-    userId,
+    chatId,
     username,
     lastMessage = '',
     lastMessageDate = '',
@@ -25,9 +26,9 @@ const ChatListItem: React.FC<Properties> = ({
 }) => {
     const handleClick = useCallback((): void => {
         if (onClick) {
-            onClick(userId);
+            onClick(chatId);
         }
-    }, [userId, onClick]);
+    }, [chatId, onClick]);
 
     return (
         <Grid
@@ -43,7 +44,7 @@ const ChatListItem: React.FC<Properties> = ({
             onClick={handleClick}
         >
             <Avatar src={avatar} alt={username} />
-            <Grid flexGrow={1}>
+            <Grid flexGrow={GRID_FLEX_GROW}>
                 <div
                     className={getValidClassNames(
                         styles.headerText,

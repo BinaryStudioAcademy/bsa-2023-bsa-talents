@@ -1,23 +1,25 @@
-import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/components/autocomplete-multi-selector-value';
-import { type EmployeesFiltersDto } from '~/bundles/employer/types/types';
+import { type AutocompleteMultiSelectorValue } from '~/bundles/common/types/types';
+import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
-// TODO: remove with real data
+const DEFAULT_VALUES: EmployeesFiltersForm = {
+    sortBy: '',
+    searchType: 'passive',
+    jobTitle: [],
+    hardSkills: [],
+    userBsaCharacteristics: [],
+    location: [],
+    userBsaProject: [],
+    englishLevel: [],
+    yearsOfExperience: [],
+    employmentType: [],
+};
 
-const YEARS_EXPERIENCE: AutocompleteMultiSelectorValue[] = [
-    { value: 'any', label: 'Any work experience' },
-    { value: '>1', label: 'Less than 1 year' },
-    { value: '1-2', label: '1-2 years' },
-    { value: '2-3', label: '2-3 years' },
-    { value: '3-5', label: '3-5 years' },
-    { value: '5>', label: '5+ years' },
-];
+// TODO: replace when backend will be ready
 const BSA_CHARACTERISTICS: AutocompleteMultiSelectorValue[] = [
     { value: 'one', label: 'one' },
     { value: 'two', label: 'two' },
     { value: 'some', label: 'some' },
 ];
-
-const ENGLISH_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 const BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
     { value: 'one', label: 'one' },
@@ -25,22 +27,4 @@ const BSA_PROJECTS: AutocompleteMultiSelectorValue[] = [
     { value: 'some', label: 'some' },
 ];
 
-const DEFAULT_VALUES: EmployeesFiltersDto = {
-    activeTalentsOnly: true,
-    jobTitle: [],
-    hardSkills: [],
-    BSACharacteristics: [],
-    location: [],
-    BSAProjectName: [],
-    englishLevel: [],
-    experienceYears: [],
-    employmentTypes: [],
-};
-
-export {
-    BSA_CHARACTERISTICS,
-    BSA_PROJECTS,
-    DEFAULT_VALUES,
-    ENGLISH_LEVELS,
-    YEARS_EXPERIENCE,
-};
+export { BSA_CHARACTERISTICS, BSA_PROJECTS, DEFAULT_VALUES };

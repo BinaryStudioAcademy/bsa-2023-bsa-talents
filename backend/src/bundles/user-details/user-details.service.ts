@@ -70,6 +70,23 @@ class UserDetailsService implements Service {
         } as UserDetailsWithTalentHardSkills;
     }
 
+    public async findCompanyInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsEntity | null> {
+        const userDetails =
+            await this.userDetailsRepository.findCompanyInfoByUserId({
+                userId,
+            });
+
+        if (!userDetails) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
+            });
+        }
+        return userDetails;
+    }
+
     public async findShortByRole(
         role: 'talent' | 'employer',
     ): Promise<UserDetailsShortResponseDto[]> {

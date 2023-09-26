@@ -67,6 +67,53 @@ class UserDetailsRepository implements Repository {
         });
     }
 
+    public async findCompanyInfoByUserId(
+        payload: UserDetailsFindRequestDto,
+    ): Promise<UserDetailsEntity | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ ...payload })
+            .withGraphFetched('[photo, companyLogo]');
+
+        if (!details) {
+            return null;
+        }
+        const companyLogo = details.companyLogo?.url ?? null;
+        const photo = details.photo?.url ?? null;
+
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            createdAt: details.createdAt,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
+            projectLinks: details.projectLinks ?? [],
+            photoId: photo,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: companyLogo,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+            completedStep: details.completedStep,
+        });
+    }
+
     public findUnconfirmedByRole(
         role: 'talent' | 'employer',
     ): Promise<UserDetailsModel[]> {
@@ -96,9 +143,8 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
             if (payload.searchType) {
-                void builder.where('isHired', payload.searchType);
+                void builder.where('searchType', payload.searchType);
             }
 
             if (payload.jobTitle && payload.jobTitle.length > 0) {
@@ -171,7 +217,8 @@ class UserDetailsRepository implements Repository {
 
         const searchResults = await query
             .withGraphJoined('user')
-            .where('user.role', '=', UserRole.TALENT);
+            .where('user.role', '=', UserRole.TALENT)
+            .andWhere('isApproved', true);
 
         return searchResults.map((result) => {
             return UserDetailsEntity.initialize({

@@ -33,7 +33,7 @@ const FIELDS: [
     keyof EmployeesFiltersDto,
     ...(keyof EmployeesFiltersDto)[],
 ] = [
-    'searchType',
+    'searchStringType',
     'searchValue',
     'searchType',
     'jobTitle',
@@ -135,7 +135,7 @@ const Candidates: React.FC = () => {
                 </Grid>
                 <Grid className={styles.optionsWrapper}>
                     <RadioGroup
-                        name={'searchType'}
+                        name={'searchStringType'}
                         control={control}
                         row={true}
                         options={[
