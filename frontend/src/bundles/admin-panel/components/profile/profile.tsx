@@ -2,13 +2,17 @@ import {
     Badge,
     Chip,
     Grid,
-    Link,
     Typography,
 } from '~/bundles/common/components/components.js';
 
+import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import styles from './styles.module.scss';
 
-const Profile: React.FC = () => {
+type Properties = {
+    userDetails: UserDetailsFullResponseDto;
+};
+
+const Profile: React.FC<Properties> = ({ userDetails }) => {
     return (
         <Grid container className={styles.container}>
             <Grid container item className={styles.textInfo}>
@@ -17,7 +21,7 @@ const Profile: React.FC = () => {
                         Profile name (?)
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        Maria
+                        {userDetails.profileName}
                     </Typography>
                 </Grid>
 
@@ -26,7 +30,7 @@ const Profile: React.FC = () => {
                         Salary expectations
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        1500$
+                        {userDetails.salaryExpectation}$
                     </Typography>
                 </Grid>
 
@@ -35,7 +39,7 @@ const Profile: React.FC = () => {
                         Job title
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        JS Engineer
+                        {userDetails.jobTitle}
                     </Typography>
                 </Grid>
 
@@ -44,7 +48,7 @@ const Profile: React.FC = () => {
                         Experience
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        1-2 years
+                        {userDetails.experienceYears} years
                     </Typography>
                 </Grid>
 
@@ -53,7 +57,7 @@ const Profile: React.FC = () => {
                         Current Location
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        Astana
+                        {userDetails.location}
                     </Typography>
                 </Grid>
 
@@ -62,7 +66,7 @@ const Profile: React.FC = () => {
                         Employment type
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        Remote, Freelancer
+                        {userDetails.employmentType?.join(',\n')}
                     </Typography>
                 </Grid>
 
@@ -71,7 +75,7 @@ const Profile: React.FC = () => {
                         Level of English
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        B1
+                        {userDetails.englishLevel}
                     </Typography>
                 </Grid>
 
@@ -80,7 +84,7 @@ const Profile: React.FC = () => {
                         I do not consider
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        -
+                        {userDetails.notConsidered?.join(', ') ?? '-'}
                     </Typography>
                 </Grid>
 
@@ -89,7 +93,7 @@ const Profile: React.FC = () => {
                         Preferred language of communication
                     </Typography>
                     <Typography variant="body1" className={styles.value}>
-                        -
+                        {userDetails.preferredLanguages?.join(', ') ?? '-'}
                     </Typography>
                 </Grid>
 
@@ -97,9 +101,17 @@ const Profile: React.FC = () => {
                     <Typography variant="body1" className={styles.name}>
                         Project links
                     </Typography>
-                    <Link to="/" className={styles.valueLink}>
-                        link to BSA project
-                    </Link>
+                    {userDetails.projectLinks?.map((link) => {
+                        return (
+                            <a
+                                href={link}
+                                key={link}
+                                className={styles.valueLink}
+                            >
+                                link to BSA project
+                            </a>
+                        );
+                    })}
                 </Grid>
             </Grid>
             <Grid container item className={styles.labelsInfo}>

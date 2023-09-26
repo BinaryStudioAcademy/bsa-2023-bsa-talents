@@ -6,12 +6,17 @@ import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useState } from '~/bundles/common/hooks/hooks.js';
 
+import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import { mapDocumentForViewer } from './helpers/map-document-for-viewer.helper.js';
 import styles from './styles.module.scss';
 
 const DocumentViewer = DocViewer as unknown as React.FC<DocViewerProps>;
 
-const CVAndContacts: React.FC = () => {
+type Properties = {
+    userDetails: UserDetailsFullResponseDto;
+};
+
+const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
     // TODO: Change with actual selected candidate's data:
     const mockCandidate = {
         phone: '+639709980196',
@@ -38,7 +43,7 @@ const CVAndContacts: React.FC = () => {
                 <Grid container item className={styles.row}>
                     <Phone className={styles.icon} />
                     <Typography className={styles.span} variant="body1">
-                        +639709980196
+                        {userDetails.phone}
                     </Typography>
                 </Grid>
                 <Grid
@@ -51,7 +56,7 @@ const CVAndContacts: React.FC = () => {
                         <a
                             className={styles.link}
                             target={'_blank'}
-                            href={'https://www.linkedin.com/in/josuer-bague/'}
+                            href={userDetails.linkedinLink as string}
                             rel="noreferrer"
                         >
                             LinkedIn Profile

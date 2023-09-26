@@ -5,10 +5,13 @@ import {
     Button,
     Grid,
     IconButton,
+    Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useMediaQuery,
@@ -16,31 +19,91 @@ import {
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { VerificationList } from './components/components.js';
-import { CVAndContacts } from './components/cv-and-contacts/cv-and-contacts.js';
-import { FIRST_INDEX, PreviewTab } from './constants/constants.js';
-import { employers, talents } from './mock-data/mock-data.js';
+import {
+    Characteristics,
+    CVAndContacts,
+    DenyModal,
+    Profile,
+    VerificationList,
+} from '../components/components.js';
+import { PreviewTab } from '../constants/constants.js';
+import { actions as adminActions } from '../store/admin.js';
+import {
+    type FilterValues,
+    type TabValues,
+    type UserDetailsFullResponseDto,
+} from '../types/types.js';
 import styles from './styles.module.scss';
-import { type FilterValues, type TabValues } from './types/types.js';
 
 const AdminPanel: React.FC = () => {
-    const [filter, setFilter] = useState<FilterValues>('talents');
-    const items = filter === 'talents' ? talents : employers;
+    const dispatch = useAppDispatch();
     const theme = useTheme();
 
-    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-    const [selectedId, setSelectedId] = useState<string>(
-        items[FIRST_INDEX]?.userId,
+    const { shortDetails, fullDetails } = useAppSelector(
+        (state) => state.admin,
     );
+
+    const [filter, setFilter] = useState<FilterValues>('talent');
+    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<string>();
     const [selectedTab, setSelectedTab] = useState<TabValues>(
         PreviewTab.PROFILE,
     );
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+    const toggleModal = useCallback(() => {
+        setIsModalOpen((previous) => !previous);
+    }, []);
+
+    const denyUser = useCallback(
+        (message: string) => {
+            void dispatch(
+                adminActions.approveUser({
+                    userId: selectedId as string,
+                    deniedReason: message,
+                }),
+            );
+        },
+        [selectedId, dispatch],
+    );
+
+    const approveUser = useCallback(() => {
+        void dispatch(
+            adminActions.approveUser({ userId: selectedId as string }),
+        );
+    }, [selectedId, dispatch]);
+
+    const tabComponents = {
+        [PreviewTab.PROFILE]: (
+            <Profile userDetails={fullDetails as UserDetailsFullResponseDto} />
+        ),
+        [PreviewTab.CV]: (
+            <CVAndContacts
+                userDetails={fullDetails as UserDetailsFullResponseDto}
+            />
+        ),
+        [PreviewTab.CHARACTERISTICS]: <Characteristics />,
+    };
+
+    useEffect(() => {
+        void dispatch(
+            adminActions.getShortUserDetails({
+                role: filter,
+            }),
+        );
+    }, [filter, dispatch]);
+
+    useEffect(() => {
+        if (selectedId) {
+            void dispatch(
+                adminActions.getFullUserDetails({
+                    userId: selectedId,
+                }),
+            );
+        }
+    }, [selectedId, dispatch]);
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
     const isTogglePreviewAllowed = !isScreenMoreMD && isFilterOpen;
-
-    // TODO: Change mock data to data from DB.
-    const selected = items.find((it) => it.userId === selectedId);
 
     const handleSelectTab = useCallback(
         (_event: React.MouseEvent<HTMLSpanElement>): void => {
@@ -97,7 +160,7 @@ const AdminPanel: React.FC = () => {
                     )}
                 >
                     <VerificationList
-                        items={items}
+                        items={shortDetails}
                         filter={filter}
                         setFilter={setFilter}
                         selectedId={selectedId}
@@ -107,7 +170,7 @@ const AdminPanel: React.FC = () => {
                         setIsFilterOpen={setIsFilterOpen}
                     />
                 </Grid>
-                {
+                {fullDetails && selectedId ? (
                     <Grid
                         container
                         item
@@ -119,22 +182,31 @@ const AdminPanel: React.FC = () => {
                         <Grid className={styles.previewHeader}>
                             <Avatar
                                 className={styles.avatar}
-                                src={selected?.avatar}
+                                src={fullDetails.photo?.url}
                             />
                             <Typography variant="body1" className={styles.name}>
-                                {selected?.username ?? 'username'}
+                                {fullDetails.fullName ?? 'username'}
                             </Typography>
                         </Grid>
-                        <Grid className={styles.tabs}>{previewTabs}</Grid>
-                        <Grid item className={styles.previewInfo}>
-                            <CVAndContacts />
-                        </Grid>
+                        {filter === 'talent' ? (
+                            <>
+                                <Grid className={styles.tabs}>
+                                    {previewTabs}
+                                </Grid>
+                                <Grid item className={styles.previewInfo}>
+                                    {tabComponents[selectedTab]}
+                                </Grid>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                         <Grid item className={styles.buttonGroup}>
                             <Button
                                 className={getValidClassNames(
                                     styles.button,
                                     styles.denyButton,
                                 )}
+                                onClick={toggleModal}
                                 label="Deny"
                                 variant="outlined"
                             />
@@ -143,11 +215,29 @@ const AdminPanel: React.FC = () => {
                                     styles.button,
                                     styles.approveButton,
                                 )}
-                                label="Next Step"
+                                onClick={approveUser}
+                                label="Approve"
                             />
                         </Grid>
                     </Grid>
-                }
+                ) : (
+                    <Grid
+                        container
+                        item
+                        className={getValidClassNames(
+                            styles.previewWrapper,
+                            styles.previewEmpty,
+                            isTogglePreviewAllowed ? 'hidden' : '',
+                        )}
+                    >
+                        <Logo />
+                    </Grid>
+                )}
+                <DenyModal
+                    isOpen={isModalOpen}
+                    handleClose={toggleModal}
+                    onSubmit={denyUser}
+                />
             </Grid>
         </Grid>
     );
