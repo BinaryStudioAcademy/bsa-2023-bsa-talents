@@ -50,33 +50,28 @@ const Badge: React.FC<Properties> = ({
         return {
             [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: {
                 style: styles.lectureScore,
-                ending: ' / 5',
-                defaultValue: 4.2,
+                ending: ' / 10',
+                defaultValue: 8,
             },
             [BsaBadgeStepBadgesTitle.PROJECT_SCORE]: {
                 style: styles.projectScore,
-                ending: ' / 10',
-                defaultValue: 8.4,
+                ending: ' / 5',
+                defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: {
                 style: styles.communicationScore,
-                ending: ' / 10',
-                defaultValue: 10,
+                ending: ' / 5',
+                defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.TEAM_SCORE]: {
                 style: styles.workingWithTeamScore,
-                ending: ' / 10',
-                defaultValue: 7,
+                ending: ' / 5',
+                defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: {
                 style: styles.englishLevel,
                 ending: '',
                 defaultValue: 'B+',
-            },
-            [BsaBadgeStepBadgesTitle.PUNCTUALITY]: {
-                style: styles.punctuality,
-                ending: ' / 10',
-                defaultValue: 7,
             },
         };
     }, []);

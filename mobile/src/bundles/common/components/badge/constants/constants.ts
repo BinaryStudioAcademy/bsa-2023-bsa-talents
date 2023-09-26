@@ -15,7 +15,6 @@ const DEFAULT_VALUE_IS_DISABLED = {
     [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: true,
     [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: false,
     [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: true,
-    [BsaBadgeStepBadgesTitle.PUNCTUALITY]: false,
     [BsaBadgeStepBadgesTitle.TEAM_SCORE]: false,
 };
 
