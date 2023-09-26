@@ -27,50 +27,23 @@ import {
     type NavigationProp,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
-import { actions as CommonDataActions } from '~/bundles/common-data/store';
 
 import { styles } from './styles';
 
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
     const { currentUserData: user } = useAppSelector(({ auth }) => auth);
-    const { chats } = useAppSelector(({ chat }) => chat);
-    const { partners } = useAppSelector(({ commonData }) => commonData);
+    const { chats, current } = useAppSelector(({ chat }) => chat);
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
 
     useEffect(() => {
-        if (!partners) {
-            void dispatch(CommonDataActions.loadAllPartners());
-        }
-    }, [dispatch, partners]);
-
-    useEffect(() => {
         if (user) {
             void dispatch(chatActions.getAllChatsByUserId(user.id));
         }
-    }, [dispatch, user, chats]);
-
-    // useEffect(() => {
-    //     const existingChatIds = new Set(chats.map((chat) => chat.chatId));
-    //     if (!isInitialized && user && partners) {
-    //         for (const partner of partners) {
-    //             if (!existingChatIds.has(partner.id)) {
-    //                 const messageData = {
-    //                     senderId: user.id,
-    //                     receiverId: partner.id,
-    //                     message: 'Hello',
-    //                     chatId: partner.id,
-    //                 };
-    //                 console.log(messageData);
-    //                 // void dispatch(chatActions.createMessage(messageData));
-    //             }
-    //         }
-    //         setIsInitialized(true);
-    //     }
-    // }, [user, partners, chats, dispatch, isInitialized, existingChatIds]);
+    }, [dispatch, user, current.messages.length]);
 
     const filteredChats = useMemo(() => {
         return chats.filter(({ lastMessage }) => {
@@ -154,7 +127,7 @@ const ChatList: React.FC = () => {
                     style={[globalStyles.pb15, styles.chatList]}
                     data={sortedChats}
                     renderItem={renderListItem}
-                    keyExtractor={(item): string => item.chatId}
+                    keyExtractor={(item): string => item.lastMessageCreatedAt}
                     showsVerticalScrollIndicator={false}
                 />
             </View>

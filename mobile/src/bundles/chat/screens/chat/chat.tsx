@@ -23,10 +23,11 @@ import { styles } from './styles';
 
 const Chat: React.FC = () => {
     const route = useAppRoute();
-    const { chatId } = route.params as ChatNavigationProperties;
+    const dispatch = useAppDispatch();
+    const { chatId, partnerName, partnerAvatar, partnerId } =
+        route.params as ChatNavigationProperties;
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { current } = useAppSelector(({ chat }) => chat);
-    const dispatch = useAppDispatch();
     const messages = [...current.messages].reverse();
 
     //TODO delete when information about the conversation partner is known
@@ -36,8 +37,13 @@ const Chat: React.FC = () => {
     );
 
     useEffect(() => {
-        void dispatch(chatActions.getAllMessagesByChatId(chatId));
-    }, [dispatch, chatId]);
+        void dispatch(
+            chatActions.getAllMessagesByChatId({
+                chatId,
+                employerId: currentUserData?.id ?? '',
+            }),
+        );
+    }, [dispatch, chatId, currentUserData?.id]);
 
     const handleSendMessage = useCallback(
         (payload: ChatMessagesCreateRequestDto): void => {
@@ -63,7 +69,10 @@ const Chat: React.FC = () => {
 
     return (
         <View style={[globalStyles.flex1, styles.chatContainer]}>
-            <ChatHeader />
+            <ChatHeader
+                partnerName={partnerName}
+                partnerAvatar={partnerAvatar}
+            />
             <FlatList
                 style={[
                     globalStyles.flex1,
@@ -79,6 +88,7 @@ const Chat: React.FC = () => {
             />
             <MessageEntryField
                 chatId={chatId}
+                partnerId={partnerId}
                 conversationPartner={conversationPartner}
                 onSendMessage={handleSendMessage}
             />

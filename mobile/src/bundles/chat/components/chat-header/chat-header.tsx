@@ -3,16 +3,19 @@ import React from 'react';
 import { ChatBackButton } from '~/bundles/chat/components/components';
 import { Avatar, Text, View } from '~/bundles/common/components/components';
 import { PhotoType, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-const ChatHeader: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ common }) => common);
+type Properties = {
+    partnerName: string;
+    partnerAvatar: string;
+};
 
+const ChatHeader: React.FC<Properties> = ({ partnerName, partnerAvatar }) => {
     const avatar = (
         <Avatar
+            uri={partnerAvatar}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,
@@ -29,7 +32,7 @@ const ChatHeader: React.FC = () => {
                 ellipsizeMode="tail"
                 style={styles.title}
             >
-                {onboardingData?.fullName}
+                {partnerName}
             </Text>
             <View
                 style={[
