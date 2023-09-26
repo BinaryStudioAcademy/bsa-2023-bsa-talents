@@ -5,7 +5,6 @@ import {
     ChatItem,
     MessageEntryField,
 } from '~/bundles/chat/components/components';
-import { findUserInChat } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatMessagesCreateRequestDto } from '~/bundles/chat/types/types';
 import { FlatList, View } from '~/bundles/common/components/components';
@@ -28,13 +27,6 @@ const Chat: React.FC = () => {
         route.params as ChatNavigationProperties;
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { current } = useAppSelector(({ chat }) => chat);
-    const messages = [...current.messages].reverse();
-
-    //TODO delete when information about the conversation partner is known
-    const conversationPartner = findUserInChat(
-        current.messages,
-        currentUserData?.id ?? '',
-    );
 
     useEffect(() => {
         void dispatch(
@@ -61,7 +53,7 @@ const Chat: React.FC = () => {
             <ChatItem
                 key={item.chatId}
                 senderId={item.senderId}
-                senderAvatar={''}
+                senderAvatar={current.employerDetails.logoUrl ?? ''}
                 message={item.message}
             />
         );
@@ -80,7 +72,7 @@ const Chat: React.FC = () => {
                     globalStyles.mh15,
                     styles.chatList,
                 ]}
-                data={messages}
+                data={current.messages}
                 keyExtractor={(item): string => item.id}
                 renderItem={renderMessageItem}
                 inverted={true}
@@ -89,7 +81,6 @@ const Chat: React.FC = () => {
             <MessageEntryField
                 chatId={chatId}
                 partnerId={partnerId}
-                conversationPartner={conversationPartner}
                 onSendMessage={handleSendMessage}
             />
         </View>

@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-    type ChatMessagesCreateRequestDto,
-    type UserInformation,
-} from '~/bundles/chat/types/types';
+import { type ChatMessagesCreateRequestDto } from '~/bundles/chat/types/types';
 import {
     CommunityIcon,
     Pressable,
@@ -22,14 +19,12 @@ import { styles } from './styles';
 
 type Properties = {
     chatId: string;
-    conversationPartner: UserInformation;
     partnerId: string;
     onSendMessage: (payload: ChatMessagesCreateRequestDto) => void;
 };
 
 const MessageEntryField: React.FC<Properties> = ({
     chatId,
-    // conversationPartner,
     partnerId,
     onSendMessage,
 }) => {
@@ -43,7 +38,7 @@ const MessageEntryField: React.FC<Properties> = ({
         onSendMessage({
             chatId: chatId,
             senderId: currentUserData?.id ?? '',
-            receiverId: partnerId, //conversationPartner?.id ?? '',
+            receiverId: partnerId,
             message: textMessage,
         });
         setTextMessage('');

@@ -1,9 +1,9 @@
 import {
     type AnyAction,
+    configureStore,
     type MiddlewareArray,
     type ThunkMiddleware,
 } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
 import flipper from 'redux-flipper';
 
 import { authApi } from '~/bundles/auth/auth';
