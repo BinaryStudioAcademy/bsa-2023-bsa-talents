@@ -9,13 +9,15 @@ import {
 import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import {
-    NewAccountHeader,
-    ProfileForm,
-} from '~/bundles/talent/components/components';
-import { ProfileFormType } from '~/bundles/talent/enums/enums';
+import { NewAccountHeader } from '~/bundles/talent/components/components';
+import { ProfileFormData } from '~/bundles/talent/components/profile-form-data/profile-form-data';
+import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+
+import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
@@ -65,10 +67,13 @@ const Profile: React.FC = () => {
             {isDataLoading ? (
                 <Loader />
             ) : (
-                <ProfileForm
-                    usersData={profileStepData}
+                <WithProfileForm
+                    validationSchema={profileStepValidationSchema}
+                    defaultValue={TALENT_PROFILE_DEFAULT_VALUES}
+                    value={profileStepData}
                     onSubmit={handleProfileSubmit}
-                    formType={ProfileFormType.ONBOARDING}
+                    formType={TalentFormType.ONBOARDING}
+                    renderedForm={ProfileFormData}
                 />
             )}
         </View>

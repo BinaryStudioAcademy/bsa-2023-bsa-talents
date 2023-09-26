@@ -1,93 +1,46 @@
 import React from 'react';
+import { type ProfileStepDto } from 'shared/build/bundles/talent-onboarding/types/profile-step/profile-step-dto';
 
 import {
     AutocompleteSelector,
     CheckboxGroup,
     FormField,
     Input,
-    ScrollView,
     Selector,
     Slider,
 } from '~/bundles/common/components/components';
-import {
-    useAppForm,
-    useCallback,
-    useEffect,
-    useState,
-} from '~/bundles/common/hooks/hooks';
+import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
-import {
-    ProfileFormType,
-    ProfileStepValidationRule,
-} from '~/bundles/talent/enums/enums';
-import { type ProfileStepDto } from '~/bundles/talent/types/types';
-import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { type Control, type FieldErrors } from '~/bundles/common/types/types';
+import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 
-import { OnboardingButtons, ProfileScreenButtons } from '../components';
 import {
     EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
-    TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
-import { styles } from './styles';
 
 type Properties = {
-    usersData: ProfileStepDto | null;
-    onSubmit: (payload: ProfileStepDto) => void;
-    formType: ValueOf<typeof ProfileFormType>;
-    isFormEditable?: boolean;
+    control: Control<ProfileStepDto>;
+    errors: FieldErrors<ProfileStepDto>;
+    isEditable: boolean;
 };
-
-const ProfileForm: React.FC<Properties> = ({
-    usersData,
-    onSubmit,
-    formType,
-    isFormEditable = true,
+const ProfileFormData: React.FC<Properties> = ({
+    control,
+    errors,
+    isEditable,
 }) => {
-    const [isEditable, setIsEditable] = useState(isFormEditable);
-
-    const { control, errors, handleSubmit, reset } = useAppForm({
-        defaultValues: usersData ?? TALENT_PROFILE_DEFAULT_VALUES,
-        validationSchema: profileStepValidationSchema,
-    });
-
-    useEffect(() => {
-        usersData && reset(usersData);
-    }, [usersData, reset]);
-
-    const handleFormSubmit = useCallback(() => {
-        void handleSubmit((data) => {
-            onSubmit({
-                ...data,
-                salaryExpectation: +data.salaryExpectation,
-            });
-        })();
-    }, [handleSubmit, onSubmit]);
-
-    const handleFormReset = (): void => {
-        reset(usersData as ProfileStepDto);
-        setIsEditable(false);
-    };
-
-    const handleFormEdit = (): void => {
-        setIsEditable(true);
-    };
-
-    const isOnboardingScreen = formType === ProfileFormType.ONBOARDING;
+    const { field } = useFormController({ name: 'salaryExpectation', control });
+    const { value: salaryExpectation } = field;
 
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-            showsVerticalScrollIndicator={false}
-        >
+        <>
             <FormField
                 errorMessage={errors.profileName?.message}
                 label="Profile name"
                 name="profileName"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -100,7 +53,7 @@ const ProfileForm: React.FC<Properties> = ({
                 errorMessage={errors.salaryExpectation?.message}
                 label="Salary expectations"
                 name="salaryExpectation"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -109,7 +62,7 @@ const ProfileForm: React.FC<Properties> = ({
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
-                    defaultValue={usersData?.salaryExpectation.toString()}
+                    defaultValue={salaryExpectation.toString()}
                     value={undefined}
                 />
             </FormField>
@@ -117,7 +70,7 @@ const ProfileForm: React.FC<Properties> = ({
                 errorMessage={errors.jobTitle?.message}
                 label="Job title"
                 name="jobTitle"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
@@ -125,13 +78,14 @@ const ProfileForm: React.FC<Properties> = ({
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
             <FormField
                 errorMessage={errors.experienceYears?.message}
                 label="Experience"
                 name="experienceYears"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
@@ -151,7 +105,7 @@ const ProfileForm: React.FC<Properties> = ({
                 errorMessage={errors.location?.message}
                 label="Current location"
                 name="location"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteSelector
@@ -159,13 +113,14 @@ const ProfileForm: React.FC<Properties> = ({
                     name="location"
                     items={LOCATION_OPTIONS}
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
             <FormField
                 errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentType"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
@@ -178,7 +133,7 @@ const ProfileForm: React.FC<Properties> = ({
                 errorMessage={errors.description?.message}
                 label="Introduce yourself"
                 name="description"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -189,22 +144,8 @@ const ProfileForm: React.FC<Properties> = ({
                     multiline={true}
                 />
             </FormField>
-
-            {isOnboardingScreen ? (
-                <OnboardingButtons
-                    currentStep={0}
-                    onFormSubmit={handleFormSubmit}
-                />
-            ) : (
-                <ProfileScreenButtons
-                    onFormEdit={handleFormEdit}
-                    isEditable={isEditable}
-                    onFormReset={handleFormReset}
-                    onFormSubmit={handleFormSubmit}
-                />
-            )}
-        </ScrollView>
+        </>
     );
 };
 
-export { ProfileForm };
+export { ProfileFormData };

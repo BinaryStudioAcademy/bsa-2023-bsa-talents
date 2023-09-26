@@ -1,6 +1,6 @@
-const ProfileFormType = {
+const TalentFormType = {
     PROFILE_SCREEN: 'profile-screen',
     ONBOARDING: 'onboarding',
 } as const;
 
-export { ProfileFormType };
+export { TalentFormType };
