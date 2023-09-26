@@ -27,6 +27,7 @@ import { searchCandidatesApi } from '~/bundles/search-candidates/search-candidat
 import { reducer as searchCandidatesReducer } from '~/bundles/search-candidates/store/search-candidates.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
+import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -45,6 +46,7 @@ type RootReducer = {
     candidate: ReturnType<typeof candidateReducer>;
     bsaBadges: ReturnType<typeof bsaBadgesReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
+    chat: ReturnType<typeof chatReducer>;
 };
 
 type ExtraArguments = {
@@ -58,6 +60,7 @@ type ExtraArguments = {
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
     bsaBadgesApi: typeof bsaBadgesApi;
+    userDetailsApi: typeof userDetailsApi;
 };
 
 const combinedReducer = combineReducers({
@@ -122,6 +125,7 @@ class Store {
             storage,
             hardSkillsApi,
             bsaBadgesApi,
+            userDetailsApi,
         };
     }
 }

@@ -34,8 +34,8 @@ import { CandidatePage } from './bundles/search-candidates/pages/candidate-page/
 import { Candidates } from './bundles/search-candidates/pages/candidates.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
+import { configureString } from './helpers/helpers.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -52,8 +52,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.ROOT,
                                         element: (
                                             <Navigate
-                                                to={getStepRoute(
-                                                    StepsRoute.STEP_01,
+                                                to={configureString(
+                                                    AppRoute.TALENT_STEP,
+                                                    {
+                                                        step: StepsRoute.STEP_01,
+                                                    },
                                                 )}
                                             />
                                         ),

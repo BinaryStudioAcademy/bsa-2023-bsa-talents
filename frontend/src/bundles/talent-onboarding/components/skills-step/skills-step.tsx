@@ -45,6 +45,7 @@ import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { skillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
+import { GRID } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -260,13 +261,13 @@ const SkillsStep: React.FC = () => {
             return (
                 <Grid
                     container
-                    spacing={2}
+                    spacing={GRID.spacing}
                     className={styles.checkboxContainer}
                 >
                     {notConsideredOptions.map((option) => (
                         <Grid
                             item
-                            xs={6}
+                            xs={GRID.xs}
                             key={option.value}
                             className={styles['MuiGrid-item']}
                         >
