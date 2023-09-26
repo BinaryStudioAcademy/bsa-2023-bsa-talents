@@ -95,7 +95,7 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: hardskillsLabels,
+        talentHardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
     };

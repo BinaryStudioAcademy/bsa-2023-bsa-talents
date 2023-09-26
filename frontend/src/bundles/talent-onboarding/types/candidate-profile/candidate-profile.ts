@@ -9,7 +9,7 @@ type FirstSectionDetails = {
     experienceYears: number;
     englishLevel: string;
     badges: typeof mockBadges;
-    hardSkills?: string[];
+    talentHardSkills?: string[];
     preferredLanguages: string[];
     description: string;
     date: string;
