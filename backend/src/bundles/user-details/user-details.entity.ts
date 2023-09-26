@@ -66,6 +66,10 @@ class UserDetailsEntity implements Entity {
 
     private 'completedStep': ValueOf<typeof OnboardingStep> | null;
 
+    private 'createdAt': string | null;
+
+    private 'email'?: string | null;
+
     private constructor({
         id,
         userId,
@@ -94,6 +98,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -122,6 +128,8 @@ class UserDetailsEntity implements Entity {
         this.employerPosition = employerPosition;
         this.cvId = cvId;
         this.completedStep = completedStep;
+        this.email = email;
+        this.createdAt = createdAt;
     }
 
     public static initialize({
@@ -152,6 +160,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -181,6 +191,8 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            email,
+            createdAt,
         });
     }
 
@@ -211,6 +223,8 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -240,6 +254,8 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            email,
+            createdAt,
         });
     }
 
@@ -272,6 +288,8 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            email: this.email,
+            createdAt: this.createdAt,
         };
     }
 
@@ -304,6 +322,8 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            email: this.email,
+            createdAt: this.createdAt,
         };
     }
 }

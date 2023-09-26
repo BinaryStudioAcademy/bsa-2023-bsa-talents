@@ -1,8 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -55,4 +60,32 @@ const signIn = createAsyncThunk<
     return data;
 });
 
-export { loadUser, signIn, signOut, signUp };
+const forgotPassword = createAsyncThunk<
+    UserForgotPasswordResponseDto,
+    UserForgotPasswordRequestDto,
+    AsyncThunkConfig
+>(
+    `${sliceName}${AuthApiPath.FORGOT_PASSWORD}`,
+    async (forgotPasswordPayload, { extra }) => {
+        const { authApi } = extra;
+        const result = await authApi.forgotPassword(forgotPasswordPayload);
+        toast(result.message);
+        return result;
+    },
+);
+
+const resetPassword = createAsyncThunk<
+    UserResetPasswordResponseDto,
+    UserResetPasswordRequestDto,
+    AsyncThunkConfig
+>(
+    `${sliceName}${AuthApiPath.FORGOT_PASSWORD}`,
+    async (resetPasswordPayload, { extra }) => {
+        const { authApi } = extra;
+        const result = await authApi.resetPassword(resetPasswordPayload);
+        toast(result.message);
+        return result;
+    },
+);
+
+export { forgotPassword, loadUser, resetPassword, signIn, signOut, signUp };

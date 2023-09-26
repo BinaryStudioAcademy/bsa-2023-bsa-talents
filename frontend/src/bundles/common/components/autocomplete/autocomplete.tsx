@@ -125,7 +125,7 @@ const CustomAutocomplete = <T extends FieldValues>({
             <div className={styles.chips}>
                 {(value as Option[]).map((entry) => (
                     <Chip
-                        key={entry.label}
+                        key={entry.value}
                         label={entry.label}
                         onDelete={handleDelete(entry)}
                     />

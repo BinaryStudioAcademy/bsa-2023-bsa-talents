@@ -19,10 +19,11 @@ import { store } from '~/framework/store/store.js';
 
 import { AdminPanel } from './bundles/admin-panel/admin-panel.js';
 import {
-    ResetPasswordPage,
+    ForgotPasswordPage,
     SignInPage,
     SignUpPage,
 } from './bundles/auth/pages/pages.js';
+import { ResetPasswordPage } from './bundles/auth/pages/reset-password-page/reset-password-page.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
@@ -32,9 +33,9 @@ import { Candidates } from './bundles/employers/pages/candidates.js';
 import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { StepNavigation } from './bundles/talent-onboarding/components/components.js';
 import { StepsRoute } from './bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from './bundles/talent-onboarding/helpers/helpers.js';
 import { CandidatePage } from './bundles/talent-onboarding/pages/candidate-page/candidate-page.js';
 import { Onboarding as TalentOnboarding } from './bundles/talent-onboarding/pages/onboarding/onboarding.js';
+import { configureString } from './helpers/helpers.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -51,8 +52,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         path: AppRoute.ROOT,
                                         element: (
                                             <Navigate
-                                                to={getStepRoute(
-                                                    StepsRoute.STEP_01,
+                                                to={configureString(
+                                                    AppRoute.TALENT_STEP,
+                                                    {
+                                                        step: StepsRoute.STEP_01,
+                                                    },
                                                 )}
                                             />
                                         ),
@@ -78,6 +82,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         element: (
                                             <PublicRoute>
                                                 <SignUpPage />
+                                            </PublicRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.FORGOT_PASSWORD,
+                                        element: (
+                                            <PublicRoute>
+                                                <ForgotPasswordPage />
                                             </PublicRoute>
                                         ),
                                     },

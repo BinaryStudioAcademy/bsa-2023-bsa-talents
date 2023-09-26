@@ -1,4 +1,3 @@
-import { mockCandidates } from '~/assets/mock-data/mock-data.js';
 import {
     Button,
     Grid,
@@ -24,9 +23,9 @@ import {
 import { CandidateProfile } from '~/bundles/talent-onboarding/components/components.js';
 
 import { EmployeeFilters, SortingDropdown } from '../components/components.js';
-import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { actions as employerActions } from '../store/employers.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import styles from './styles.module.scss';
 
 const FIELDS: [
@@ -37,35 +36,45 @@ const FIELDS: [
     'searchType',
     'searchValue',
     'isSearchActiveCandidatesOnly',
-    'jobTitles',
-    'userYearsOfExperience',
+    'jobTitle',
+    'yearsOfExperience',
     'hardSkills',
     'userBsaCharacteristics',
-    'userBsaBadges',
     'userBsaProject',
-    'userLocation',
-    'levelOfEnglish',
+    'location',
+    'englishLevel',
     'employmentType',
     'sortBy',
 ];
 
 const SEND_DELAY = 2000;
 const Candidates: React.FC = () => {
+    const { dataStatus, filters, filteredCandidates } = useAppSelector(
+        ({ employer }) => ({
+            dataStatus: employer.dataStatus,
+            filters: employer.filters,
+            filteredCandidates: employer.filteredCandidates,
+        }),
+    );
+
     const { watch, control, getValues, reset } =
         useAppForm<EmployeesFiltersDto>({
-            defaultValues: DEFAULT_EMPLOYEES_FILTERS_PAYLOAD,
+            defaultValues: filters,
         });
-    const { dataStatus, filters } = useAppSelector(({ employer }) => ({
-        dataStatus: employer.dataStatus,
-        filters: employer.filters,
-    }));
+
     const watchedValues = watch(FIELDS);
     const dispatch = useAppDispatch();
     const [isFilterOpened, setIsFilterOpened] = useState(false);
 
     const searchCandidates = useCallback(
         (resolvedFilters: EmployeesFiltersDto): void => {
-            void dispatch(employerActions.searchCandidates(resolvedFilters));
+            const editedValues: UserDetailsSearchUsersRequestDto = {
+                ...resolvedFilters,
+                hardSkills: resolvedFilters.hardSkills.map(
+                    (skill) => skill.value,
+                ),
+            };
+            void dispatch(employerActions.searchCandidates(editedValues));
         },
         [dispatch],
     );
@@ -77,6 +86,7 @@ const Candidates: React.FC = () => {
 
     useEffect(() => {
         const editedValues: EmployeesFiltersDto = getValues();
+
         if (JSON.stringify(editedValues) !== JSON.stringify(filters)) {
             void dispatch(employerActions.setFilters(editedValues));
             debouncedDispatch(editedValues, (filters) => filters);
@@ -86,6 +96,16 @@ const Candidates: React.FC = () => {
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
+
+    useEffect(() => {
+        const valuesfromForm: EmployeesFiltersDto = getValues();
+        const editedValues: UserDetailsSearchUsersRequestDto = {
+            ...valuesfromForm,
+            hardSkills: valuesfromForm.hardSkills.map((skill) => skill.value),
+        };
+        void dispatch(employerActions.searchCandidates(editedValues));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Grid className={styles.searchPageWrapper}>
@@ -143,9 +163,9 @@ const Candidates: React.FC = () => {
                             isFilterOpened ? styles.searchResultsHidden : '',
                         )}
                     >
-                        {mockCandidates.map((candidate) => (
+                        {filteredCandidates.map((candidate) => (
                             <CandidateProfile
-                                key={candidate.cvId}
+                                key={candidate.id}
                                 isProfileCard
                                 candidateData={candidate}
                             />

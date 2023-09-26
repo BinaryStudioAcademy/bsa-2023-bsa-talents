@@ -2,18 +2,30 @@ import React from 'react';
 
 import { Overlay, ScrollView } from '~/bundles/common/components/components';
 import { DataStatus } from '~/bundles/common/enums/enums';
-import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CandidatesFilterForm } from '~/bundles/employer/components/components';
+import { transformCandidateFilterFormToQuery } from '~/bundles/employer/helpers/helpers';
+import { getTalents } from '~/bundles/employer/store/actions';
+import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const CandidatesFilter: React.FC = () => {
+    const dispatch = useAppDispatch();
+
+    const handleFormSubmit = useCallback(
+        (payload: EmployeesFiltersForm): void => {
+            const queryString = transformCandidateFilterFormToQuery(payload);
+            void dispatch(getTalents(queryString));
+        },
+        [dispatch],
+    );
     const commonDataStatus = useAppSelector(
         ({ commonData }) => commonData.dataStatus,
     );
-
-    const handleFormSubmit = useCallback((): void => {
-        // TODO: handle submit
-    }, []);
 
     const handleFilterClose = useCallback((): void => {
         // TODO: navigate to Candidates page

@@ -19,7 +19,7 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             ),
         ),
 
-    isBaseSearch: joi.boolean(),
+    searchType: joi.string(),
 
     searchValue: joi.string().trim(),
 
@@ -47,10 +47,6 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         joi.string().trim(),
     ),
     hardSkills: joi
-        .alternatives()
-        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
-
-    BSABadges: joi
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 

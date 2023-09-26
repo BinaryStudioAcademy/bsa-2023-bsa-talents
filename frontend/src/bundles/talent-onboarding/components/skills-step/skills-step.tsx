@@ -12,6 +12,7 @@ import {
 import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
+import { type AutoselectOptions } from '~/bundles/common/data/types/autoselect-options.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -35,14 +36,16 @@ import {
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     type SkillsStepDto,
+    type TalentHardSkill,
     type UserDetailsGeneralCustom,
 } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
-import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { skillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
+import { GRID } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -69,8 +72,18 @@ const SkillsStep: React.FC = () => {
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
+
     const {
-        hardSkills,
+        talentHardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
@@ -80,6 +93,17 @@ const SkillsStep: React.FC = () => {
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
+
+    const { hardSkillsOptions } = useCommonData();
+
+    const hardSkills = useMemo((): AutoselectOptions => {
+        return hardSkillsOptions.filter((item) =>
+            (talentHardSkills as unknown as TalentHardSkill[]).some(
+                (skill) => skill.hardSkillId === item.value,
+            ),
+        );
+    }, [talentHardSkills, hardSkillsOptions]);
+
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<SkillsStepDto>({
             defaultValues: useMemo(
@@ -100,7 +124,7 @@ const SkillsStep: React.FC = () => {
                     projectLinks,
                 ],
             ),
-            validationSchema: SkillsStepValidationSchema,
+            validationSchema: skillsStepValidationSchema,
         });
 
     useEffect(() => {
@@ -124,9 +148,6 @@ const SkillsStep: React.FC = () => {
 
     const { setSubmitForm } = useFormSubmit();
 
-    const dispatch = useAppDispatch();
-
-    const { hardSkillsOptions } = useCommonData();
     const watchedValues = watch([
         'hardSkills',
         'englishLevel',
@@ -240,13 +261,13 @@ const SkillsStep: React.FC = () => {
             return (
                 <Grid
                     container
-                    spacing={2}
+                    spacing={GRID.spacing}
                     className={styles.checkboxContainer}
                 >
                     {notConsideredOptions.map((option) => (
                         <Grid
                             item
-                            xs={6}
+                            xs={GRID.xs}
                             key={option.value}
                             className={styles['MuiGrid-item']}
                         >
@@ -285,9 +306,8 @@ const SkillsStep: React.FC = () => {
             />
 
             <FormControl>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'}>Level of English</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Select
@@ -316,11 +336,11 @@ const SkillsStep: React.FC = () => {
                         styles.label,
                         styles.labelMargin,
                     )}
+                    required
                 >
                     <Typography variant={'label'}>
                         Preferred language of communication
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
                 <Select
                     isMulti

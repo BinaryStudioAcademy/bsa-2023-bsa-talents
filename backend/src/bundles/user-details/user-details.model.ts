@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model, type RelationMappings } from 'objection';
 
 import { FileModel } from '~/bundles/files/files.js';
 import { HardSkillsModel } from '~/bundles/hard-skills/hard-skills.model.js';
@@ -85,7 +85,11 @@ class UserDetailsModel extends AbstractModel {
 
     public 'publishedAt': Date;
 
+    public 'user'?: UserModel;
+
     public 'photo'?: FileModel;
+
+    public 'companyLogo'?: FileModel;
 
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));
@@ -94,7 +98,7 @@ class UserDetailsModel extends AbstractModel {
         return DatabaseTableName.USER_DETAILS;
     }
 
-    public static override relationMappings = {
+    public static override relationMappings = (): RelationMappings => ({
         user: {
             relation: Model.HasOneRelation,
             modelClass: UserModel,
@@ -147,7 +151,7 @@ class UserDetailsModel extends AbstractModel {
                 to: `${DatabaseTableName.TALENT_BADGES}.${TalentBadgesTableColumn.USER_DETAILS_ID}`,
             },
         },
-    };
+    });
 }
 
 export { UserDetailsModel };

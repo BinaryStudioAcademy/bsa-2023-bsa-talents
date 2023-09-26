@@ -32,9 +32,13 @@ import {
 
 import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';
-import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { contactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { MessageTemplate } from '../components.js';
-import { DEFAULT_CONTACT_CANDIDATE_MODAL, MODAL_CONST } from './constants.js';
+import {
+    DEFAULT_CONTACT_CANDIDATE_MODAL,
+    MODAL,
+    TEXTAREA,
+} from './constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -53,7 +57,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const { control, errors, handleSubmit, setValue } =
         useAppForm<ContactCandidateDto>({
             defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
-            validationSchema: ContactCandidateValidationSchema,
+            validationSchema: contactCandidateValidationSchema,
         });
 
     const { fields, append, remove } = useFieldArray({
@@ -196,7 +200,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                                 styles.button,
                                 styles.addLink,
                             )}
-                            isDisabled={fields.length === MODAL_CONST.MAX_LINKS}
+                            isDisabled={fields.length === MODAL.MAX_LINKS}
                             onClick={handleAddLink}
                             variant="text"
                             label="Add more links"
@@ -224,8 +228,8 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                             errors={errors}
                             name="message"
                             placeholder="Text"
-                            minRows={4}
-                            maxRows={7}
+                            minRows={TEXTAREA.minRows}
+                            maxRows={TEXTAREA.maxRows}
                         />
                         <ErrorMessage errors={errors} name={'message'} />
 
@@ -244,8 +248,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                         )}
                     </FormControl>
 
-                    {messageTemplates.length >
-                        MODAL_CONST.EMPTY_ARRAY_LENGTH && (
+                    {messageTemplates.length > MODAL.EMPTY_ARRAY_LENGTH && (
                         <Grid>
                             <Typography
                                 variant="body1"

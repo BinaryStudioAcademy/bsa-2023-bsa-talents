@@ -2,14 +2,15 @@ import React from 'react';
 
 import { logout } from '~/bundles/auth/store/actions';
 import {
-    Button,
+    CommunityIcon,
+    Pressable,
     ScrollView,
     StatusBar,
     Text,
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
@@ -19,8 +20,8 @@ import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ common }) => common);
     const dispatch = useAppDispatch();
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     const { isApproved } = onboardingData ?? {};
 
@@ -60,7 +61,7 @@ const EmployerProfile: React.FC = () => {
             <View
                 style={[
                     globalStyles.p25,
-                    globalStyles.pr15,
+                    globalStyles.pr10,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
@@ -68,19 +69,22 @@ const EmployerProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>My profile</Text>
-                {isApproved ? (
-                    <Button
-                        label="Logout"
-                        style={[
-                            globalStyles.ml5,
-                            globalStyles.ph10,
-                            globalStyles.pv5,
-                        ]}
-                        onPress={handleLogout}
-                    />
-                ) : (
-                    <VerificationMessage />
-                )}
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentFlexEnd,
+                        globalStyles.alignItemsCenter,
+                    ]}
+                >
+                    {!isApproved && <VerificationMessage />}
+                    <Pressable onPress={handleLogout}>
+                        <CommunityIcon
+                            name={IconName.LOGOUT}
+                            size={30}
+                            color={Color.TEXT2}
+                        />
+                    </Pressable>
+                </View>
             </View>
 
             <ScrollView

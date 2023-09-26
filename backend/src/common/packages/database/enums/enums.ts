@@ -7,5 +7,6 @@ export {
     TalentBadgesTableColumn,
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,
+    UserLMSDataTableColumn,
     UsersTableColumn,
 } from './table-columns/enums.js';

@@ -1,11 +1,8 @@
 import {
-    addMessage,
     createMessage,
     getAllChatsByUserId,
     getAllMessages,
     getAllMessagesByChatId,
-    joinRoom,
-    leaveRoom,
 } from './actions.js';
 import { actions } from './slice.js';
 
@@ -13,11 +10,8 @@ const allActions = {
     ...actions,
     createMessage,
     getAllChatsByUserId,
-    getAllMessagesByChatId,
     getAllMessages,
-    joinRoom,
-    leaveRoom,
-    addMessage,
+    getAllMessagesByChatId,
 };
 
 export { allActions as actions };

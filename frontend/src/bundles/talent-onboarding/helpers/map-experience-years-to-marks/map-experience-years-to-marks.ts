@@ -1,34 +1,22 @@
 import { mapToSliderMarks } from '~/bundles/common/helpers/helpers.js';
-import { ExperienceYears } from '~/bundles/talent-onboarding/enums/enums.js';
+import { experienceYears } from '~/bundles/talent-onboarding/enums/enums.js';
 
 const MAX_MARKS_VALUE = 100;
 const MIN_MARKS_VALUE = 0;
 const DEFAULT_EXPERIENCE = 0;
-const SINGLE_UNIT_VALUE = 1;
+const SINGLE_UNIT_VALUE = 18;
 
-const experienceYearsScaled = mapToSliderMarks(ExperienceYears);
+const markValueToOption = new Map([
+    [MAX_MARKS_VALUE, { value: MAX_MARKS_VALUE, label: '5+ years' }],
+    [MIN_MARKS_VALUE, { value: MIN_MARKS_VALUE, label: 'no' }],
+    [SINGLE_UNIT_VALUE, { value: SINGLE_UNIT_VALUE, label: '1 year' }],
+]);
+
+const experienceYearsScaled = mapToSliderMarks(experienceYears);
 
 const experienceYearsSliderMarks = experienceYearsScaled.map((mark) => {
-    if (mark.scaledValue == MAX_MARKS_VALUE) {
-        return {
-            value: mark.scaledValue,
-            label: '5+ years',
-        };
-    } else if (mark.scaledValue == MIN_MARKS_VALUE) {
-        return {
-            value: mark.scaledValue,
-            label: 'no',
-        };
-    } else if (mark.value === SINGLE_UNIT_VALUE) {
-        return {
-            value: mark.scaledValue,
-            label: mark.label + ' year',
-        };
-    }
-    return {
-        value: mark.scaledValue,
-        label: mark.label + ' years',
-    };
+    const option = markValueToOption.get(mark.scaledValue);
+    return option ?? { value: mark.scaledValue, label: mark.label + ' years' };
 });
 
 const roundNumber = (number: number): number => {

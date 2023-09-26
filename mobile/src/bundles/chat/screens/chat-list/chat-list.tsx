@@ -6,12 +6,18 @@ import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
-    Button,
+    CommunityIcon,
     FlatList,
+    Pressable,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    RootScreenName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
@@ -115,7 +121,7 @@ const ChatList: React.FC = () => {
             <View
                 style={[
                     globalStyles.p25,
-                    globalStyles.pr15,
+                    globalStyles.pr10,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
@@ -123,15 +129,13 @@ const ChatList: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Chat</Text>
-                <Button
-                    label="Logout"
-                    style={[
-                        globalStyles.ml5,
-                        globalStyles.ph10,
-                        globalStyles.pv5,
-                    ]}
-                    onPress={handleLogout}
-                />
+                <Pressable onPress={handleLogout}>
+                    <CommunityIcon
+                        name={IconName.LOGOUT}
+                        size={30}
+                        color={Color.TEXT2}
+                    />
+                </Pressable>
             </View>
             <View
                 style={[
