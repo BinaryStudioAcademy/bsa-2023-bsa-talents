@@ -7,6 +7,7 @@ import {
 
 import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { UserRole } from '~/bundles/users/users.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
@@ -42,15 +43,15 @@ const ADMIN_MENU: SideBarMenu = [
 
 const Sidebar: React.FC = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
-
-    const { role } = useAppSelector(({ auth }) => ({
-        role: auth.currentUser?.role,
-    }));
-
-    const { isApproved } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
+    const currentUser = useAppSelector(
+        (state: RootReducer) => state.auth.currentUser,
     );
-    const isAdmin = role === 'admin';
+    const { isApproved } = useAppSelector((state: RootReducer) =>
+        currentUser?.role == UserRole.TALENT
+            ? state.talentOnBoarding
+            : state.employerOnBoarding,
+    );
+    const isAdmin = currentUser?.role === 'admin';
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);

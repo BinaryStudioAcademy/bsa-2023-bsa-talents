@@ -5,12 +5,17 @@ import {
     Button,
     Chip,
     Grid,
+    Link,
     Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { BadgeColors } from '~/bundles/common/enums/enums.js';
+import { AppRoute, BadgeColors } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useCallback,
+    useNavigate,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/types.js';
 
 import { SummaryPreview } from '../summary-preview/summary-preview.js';
@@ -40,6 +45,11 @@ const ProfileFirstSection: React.FC<Properties> = ({
         );
     }, [candidateParameters.projectLinks]);
 
+    const navigate = useNavigate();
+    const handleReadMoreButton = useCallback((): void => {
+        navigate(AppRoute.CANDIDATES + `/${candidateParameters.userId}`);
+    }, [candidateParameters.userId, navigate]);
+
     const handleSummaryClick = useCallback((): void => {
         setIsExpanded(!isExpanded);
     }, [isExpanded]);
@@ -53,14 +63,19 @@ const ProfileFirstSection: React.FC<Properties> = ({
             )}
         >
             <Grid>
-                <Typography variant="h5" className={styles.candidatePosition}>
-                    {candidateParameters.profileName}
+                <Grid className={styles.candidatePosition}>
+                    <Link
+                        to={`/candidates/${candidateParameters.userId}`}
+                        className={styles.candidateLink}
+                    >
+                        {candidateParameters.profileName}
+                    </Link>
                     {isProfileCard && (
                         <Typography variant="input" className={styles.salary}>
                             ${candidateParameters.salaryExpectation}
                         </Typography>
                     )}
-                </Typography>
+                </Grid>
                 {isProfileCard && (
                     <Typography
                         variant="caption"
@@ -111,7 +126,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     Skills
                 </Typography>
                 <ul className={styles.skills}>
-                    {(candidateParameters.hardSkills ?? []).map((skill) => (
+                    {candidateParameters.talentHardSkills?.map((skill) => (
                         <li key={skill}>
                             <Chip label={skill} />
                         </li>
@@ -169,6 +184,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         label="Read more"
                         variant={'contained'}
                         className={styles.profileCardReadMoreButton}
+                        onClick={handleReadMoreButton}
                     />
                 </Grid>
             ) : (

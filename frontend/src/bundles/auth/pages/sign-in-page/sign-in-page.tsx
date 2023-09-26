@@ -3,7 +3,7 @@ import {
     SignInForm,
 } from '~/bundles/auth/components/components.js';
 import { actions as authActions } from '~/bundles/auth/store/auth.js';
-import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,

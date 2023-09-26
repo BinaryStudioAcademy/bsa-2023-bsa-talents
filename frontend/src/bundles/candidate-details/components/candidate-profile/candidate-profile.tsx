@@ -1,12 +1,15 @@
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
+import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppSelector,
+    useCallback,
     useEffect,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     ProfileFirstSection,
@@ -15,13 +18,13 @@ import {
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { trimZerosFromNumber } from '../../helpers/helpers.js';
+import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
     type TalentHardSkill,
     type UserDetailsGeneralCustom,
-} from '../../types/types.js';
+} from '../../../talent-onboarding/types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -41,6 +44,14 @@ const CandidateProfile: React.FC<Properties> = ({
     isProfileCard,
     candidateData,
 }) => {
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+    const handleCloseContactModal = useCallback(() => {
+        setIsContactModalOpen(false);
+    }, []);
+    const handleOpenContactModal = useCallback(() => {
+        setIsContactModalOpen(true);
+    }, []);
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
@@ -74,15 +85,17 @@ const CandidateProfile: React.FC<Properties> = ({
         .map((item) => item.label);
 
     const firstSectionCandidateDetails: FirstSectionDetails = {
+        userId: data.userId as string,
         profileName: data.profileName as string,
         salaryExpectation: data.salaryExpectation as unknown as string,
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
+        //badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
+        badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: hardskillsLabels,
+        talentHardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
     };
@@ -129,14 +142,24 @@ const CandidateProfile: React.FC<Properties> = ({
                         isProfileOpen={isProfileOpen}
                         isFifthStep={isFifthStep}
                         candidateParameters={secondSectionCandidateDetails}
+                        isContactModalOpen={isContactModalOpen}
+                        onContactModalClose={handleCloseContactModal}
+                        onContactModalOpen={handleOpenContactModal}
                     />
                 )}
             </Grid>
             {isContactButtonVisible && (
-                <Button
-                    label="Contact candidate"
-                    className={styles.contactButton}
-                />
+                <Grid className={styles.modalWrapper}>
+                    <CandidateModal
+                        isOpen={isContactModalOpen}
+                        onClose={handleCloseContactModal}
+                    />
+                    <Button
+                        label="Contact candidate"
+                        className={styles.contactButton}
+                        onClick={handleOpenContactModal}
+                    />
+                </Grid>
             )}
         </Grid>
     );

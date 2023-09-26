@@ -1,6 +1,7 @@
 .profileFirstSection {
     width: 70%;
     padding: 30px 35px;
+    word-break: break-word;
     border-right: 1px solid var(--botticelli);
 }
 
@@ -17,8 +18,19 @@
 .candidatePosition {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-weight: var(--font-weight-semi-bold);
     font-size: 22px;
+}
+
+.candidateLink {
+    align-items: unset;
+    width: unset;
+    color: var(--steel-gray);
+
+    &[aria-current="page"] {
+        color: var(--steel-gray);
+    }
 }
 
 .academyScore {
