@@ -4,10 +4,8 @@ import { ErrorMessage } from 'shared/build/index.js';
 import { type Repository } from '~/common/types/types.js';
 
 import { UserRole } from './enums/enums.js';
+import { applyFilters } from './helpers/apply-filters/apply-filters.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
-import { searchByColumnValues } from './helpers/search-by-column-values.js';
-import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
-import { searchUserByRelativeTable } from './helpers/search-user-by-relative-table.js';
 import {
     type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
@@ -135,77 +133,7 @@ class UserDetailsRepository implements Repository {
         payload: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
         const query = this.userDetailsModel.query().where((builder) => {
-            if (payload.searchValue) {
-                void builder.where(
-                    'profile_name',
-                    'ilike',
-                    `%${payload.searchValue}%`,
-                );
-            }
-
-            if (payload.searchType) {
-                void builder.where('searchType', payload.searchType);
-            }
-
-            if (payload.jobTitle && payload.jobTitle.length > 0) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'jobTitle',
-                        payload.jobTitle,
-                    );
-                });
-            }
-
-            if (payload.yearsOfExperience) {
-                void builder.where((subquery) => {
-                    searchByYearsOfExperience(
-                        subquery,
-                        payload.yearsOfExperience,
-                    );
-                });
-            }
-
-            if (payload.hardSkills && payload.hardSkills.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.hardSkills,
-                    columnName: 'hard_skill_id',
-                    relativeTable: 'talentHardSkills',
-                    alias: 'ths',
-                });
-            }
-
-            if (payload.location) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'location',
-                        payload.location,
-                    );
-                });
-            }
-
-            if (payload.englishLevel) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'englishLevel',
-                        payload.englishLevel,
-                    );
-                });
-            }
-
-            if (payload.employmentType && payload.employmentType.length > 0) {
-                void builder.whereRaw(
-                    `"employment_type" @> ARRAY[${payload.employmentType
-                        .map((type) => `'${type}'`)
-                        .join(', ')}]::text[]`,
-                );
-            }
-
-            // TODO add BSA characteristics
-            // TODO add BSA project name
+            applyFilters(builder, payload);
         });
 
         const sortingParameters = createSortingUsersParameters(payload.sortBy);

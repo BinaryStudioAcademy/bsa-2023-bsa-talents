@@ -1,17 +1,14 @@
 import { mapQueryValuesToArrays } from 'shared/build/index.js';
 
-import { type BSABadgesService } from '~/bundles/bsa-badges/bsa-badges.service.js';
 import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
-import { type BSABadgeEntity } from '../bsa-badges/bsa-badges.entity.js';
-import { type HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
-import { type HardSkillsService } from '../hard-skills/hard-skills.service.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
-import { type UserDetailsOptions } from '../talent-hard-skills/types/user-details-options.js';
+import { getUserBadges } from './helpers/get-user-badges.js';
+import { getUserHardSkills } from './helpers/get-user-hardskills.js';
 import {
     type TalentHardSkill,
     type UserDetailsCreateRequestDto,
@@ -34,15 +31,15 @@ class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
-    private hardSkillsService: HardSkillsService;
-    private bsaBadgesService: BSABadgesService;
 
-    public constructor(options: UserDetailsOptions) {
-        this.userDetailsRepository = options.userDetailsRepository;
-        this.talentBadgeService = options.talentBadgeService;
-        this.talentHardSkillsService = options.talentHardSkillsService;
-        this.hardSkillsService = options.hardSkillsService;
-        this.bsaBadgesService = options.bsaBadgesService;
+    public constructor(
+        userDetailsRepository: UserDetailsRepository,
+        talentBadgeService: TalentBadgeService,
+        talentHardSkillsService: TalentHardSkillsService,
+    ) {
+        this.userDetailsRepository = userDetailsRepository;
+        this.talentBadgeService = talentBadgeService;
+        this.talentHardSkillsService = talentHardSkillsService;
     }
 
     public async find(
@@ -130,44 +127,12 @@ class UserDetailsService implements Service {
         const userPromises = filteredUsers.map(async (user) => {
             const userDetails = user.toObject();
             const userDetailsId = userDetails.id as string;
-            const hardSkillsData =
-                await this.talentHardSkillsService.findByUserDetailsId(
-                    userDetailsId,
-                );
 
-            const userHardSkills: HardSkillsEntity[] = [];
+            const userHardSkills = await getUserHardSkills(userDetailsId);
 
-            for (const skill of hardSkillsData) {
-                if (skill.hardSkillId) {
-                    const hardSkill = await this.hardSkillsService.findById(
-                        skill.hardSkillId,
-                    );
-                    if (hardSkill) {
-                        userHardSkills.push(hardSkill);
-                    }
-                }
-            }
+            const userBadges = await getUserBadges(userDetailsId);
 
             userDetails.hardSkills = userHardSkills;
-
-            const badgesData =
-                await this.talentBadgeService.findByUserDetailsId(
-                    userDetailsId,
-                );
-
-            const userBadges: BSABadgeEntity[] = [];
-
-            for (const badge of badgesData) {
-                if (badge.badgeId) {
-                    const badges = await this.bsaBadgesService.findById(
-                        badge.badgeId,
-                    );
-                    if (badges) {
-                        userBadges.push(badges);
-                    }
-                }
-            }
-
             userDetails.badges = userBadges;
 
             return userDetails;
