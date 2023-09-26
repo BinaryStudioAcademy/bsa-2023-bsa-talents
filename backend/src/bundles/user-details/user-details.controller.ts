@@ -530,9 +530,9 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: isBaseSearch
+     *          name: searchType
      *          schema:
-     *            type: boolean
+     *            type: string
      *          description: Determines whether search type is base or extended
      *        - in: query
      *          name: isSearchActiveCandidatesOnly
@@ -562,15 +562,6 @@ class UserDetailsController extends ControllerBase {
      *          style: form
      *          explode: true
      *          description: Filter by hard skills (optional)
-     *        - in: query
-     *          name: BSABadges
-     *          schema:
-     *            type: array
-     *            items:
-     *              type: string
-     *          style: form
-     *          explode: true
-     *          description: Filter by BSA badges (optional)
      *        - in: query
      *          name: location
      *          schema:

@@ -18,10 +18,18 @@
     border: 1px solid var(--botticelli);
     border-radius: 4px;
     transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+        box-shadow 0.3s,
+        border 200ms;
 
-    & :global(.MuiInputAdornment-positionStart .MuiTypography-body1) {
+    &:hover {
+        border-color: var(--st-tropaz);
+    }
+
+    &:focus-within {
+        border-color: var(--st-tropaz);
+    }
+
+    &:global(.MuiInputAdornment-positionStart .MuiTypography-body1) {
         color: var(--text-primary-dark);
         font-size: var(--font-size-base);
     }
@@ -49,10 +57,6 @@
 
 .container :global(.MuiSelect-select):focus {
     background-color: transparent;
-}
-
-.container .input:hover {
-    border-color: var(--botticelli);
 }
 
 .input :global(.MuiSelect-select) {

@@ -1,6 +1,7 @@
 import { type FastifyInstance, type FastifyPluginCallback } from 'fastify';
 import fp from 'fastify-plugin';
 import { ErrorMessage } from 'shared/build/enums/enums.js';
+import { AuthApiPath } from 'shared/build/index.js';
 
 import { type UserService } from '~/bundles/users/users.js';
 import { SERVED_PAGE_PATH } from '~/common/constants/constants.js';
@@ -29,6 +30,13 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
             routerMethod,
             headers: { authorization },
         } = request;
+
+        if (
+            routerPath.includes(AuthApiPath.FORGOT_PASSWORD) ||
+            routerPath.includes(AuthApiPath.RESET_PASSWORD)
+        ) {
+            return;
+        }
 
         const isServedPagePath = routerPath === SERVED_PAGE_PATH;
 

@@ -4,9 +4,9 @@ import {
     type ChatItem,
 } from '../types/types.js';
 
-function chatMessageModelToChatDto(
+const chatMessageModelToChatDto = (
     payload: ChatMessageModel & AdditionalChatProperties,
-): ChatItem {
+): ChatItem => {
     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
         payload as ChatItem;
 
@@ -17,6 +17,6 @@ function chatMessageModelToChatDto(
         sender,
         receiver,
     };
-}
+};
 
 export { chatMessageModelToChatDto };

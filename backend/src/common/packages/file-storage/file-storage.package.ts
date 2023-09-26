@@ -51,7 +51,7 @@ class FileStorageBase implements FileStorage {
         return Promise.all(uploadPromises);
     }
 
-    public async upload({
+    public upload({
         fileName,
         file,
     }: {

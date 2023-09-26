@@ -32,7 +32,7 @@ import {
 
 import { actions as candidateActions } from '../../store/candidate.js';
 import { type ContactCandidateDto } from '../../types/types.js';
-import { ContactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { contactCandidateValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { MessageTemplate } from '../components.js';
 import {
     DEFAULT_CONTACT_CANDIDATE_MODAL,
@@ -57,7 +57,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const { control, errors, handleSubmit, setValue } =
         useAppForm<ContactCandidateDto>({
             defaultValues: DEFAULT_CONTACT_CANDIDATE_MODAL,
-            validationSchema: ContactCandidateValidationSchema,
+            validationSchema: contactCandidateValidationSchema,
         });
 
     const { fields, append, remove } = useFieldArray({

@@ -35,22 +35,18 @@ const Badge: React.FC<Properties> = ({
         getValidClassNames(classStandard, isSmall ? classSmall : '');
 
     let finalBadgeClass;
-    if (isRoundedIcon) {
-        finalBadgeClass = styles.roundedIconBadge;
-    } else {
-        finalBadgeClass = isFifthStep ? styles.bigIconBackground : styles.icon;
-    }
-
-    const badgeClass = setClass(finalBadgeClass, styles.iconSmall);
-
     let finalBadgeWrapperClass;
     if (isRoundedIcon) {
+        finalBadgeClass = styles.roundedIconBadge;
         finalBadgeWrapperClass = styles.roundedIconBadgeWrapper;
     } else {
+        finalBadgeClass = isFifthStep ? styles.bigIconBackground : styles.icon;
         finalBadgeWrapperClass = isFifthStep
             ? styles.middleBadge
             : styles.badgeSmall;
     }
+
+    const badgeClass = setClass(finalBadgeClass, styles.iconSmall);
 
     const badgeWrapperClass = setClass(styles.badge, finalBadgeWrapperClass);
 

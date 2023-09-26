@@ -1,17 +1,25 @@
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
+import { type State } from '~/bundles/auth/store/auth.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
 } from '~/bundles/talent-onboarding/components/components.js';
+import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { trimZerosFromNumber } from '../../helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
+    type TalentHardSkill,
     type UserDetailsGeneralCustom,
 } from '../../types/types.js';
 import styles from './styles.module.scss';
@@ -21,9 +29,11 @@ type Properties = {
     isFifthStep?: boolean;
     isProfileCard?: boolean;
     candidateData?: UserDetailsGeneralCustom & {
-        email: string;
+        email?: string;
     };
 };
+
+const getAuthState = (state: RootReducer): State => state.auth;
 
 const CandidateProfile: React.FC<Properties> = ({
     isProfileOpen,
@@ -31,12 +41,37 @@ const CandidateProfile: React.FC<Properties> = ({
     isProfileCard,
     candidateData,
 }) => {
+    const currentUser = useAppSelector(
+        (rootState) => getAuthState(rootState).currentUser,
+    );
+    const { hardSkillsOptions } = useCommonData();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
+
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
     }));
 
     const data = candidateData ?? reduxData;
+
+    const hardskillsLabels = hardSkillsOptions
+        .filter(
+            (item) =>
+                data.talentHardSkills?.some(
+                    (skill) =>
+                        (skill as unknown as TalentHardSkill).hardSkillId ===
+                        item.value,
+                ),
+        )
+        .map((item) => item.label);
 
     const firstSectionCandidateDetails: FirstSectionDetails = {
         profileName: data.profileName as string,
@@ -47,8 +82,9 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        hardSkills: data.hardSkills?.map((skill) => skill.label) as string[],
+        hardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        date: data.createdAt as string,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
