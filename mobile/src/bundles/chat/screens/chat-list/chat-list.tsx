@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
-    Button,
     FlatList,
+    LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
@@ -79,10 +78,6 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <View style={globalStyles.flex1}>
             <View
@@ -96,15 +91,7 @@ const ChatList: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Chat</Text>
-                <Button
-                    label="Logout"
-                    style={[
-                        globalStyles.ml5,
-                        globalStyles.ph10,
-                        globalStyles.pv5,
-                    ]}
-                    onPress={handleLogout}
-                />
+                <LogoutButton />
             </View>
             <View
                 style={[
