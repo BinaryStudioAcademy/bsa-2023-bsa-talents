@@ -27,6 +27,7 @@ type State = {
                   employerPosition: string | null;
                   about: string | null;
                   companyWebsite: string | null;
+                  employerId: string | null;
               }
             | Record<string, never>;
     };
@@ -46,6 +47,7 @@ const initialState: State = {
             employerPosition: '',
             about: '',
             companyWebsite: '',
+            employerId: '',
         },
     },
     onlineUsers: [],

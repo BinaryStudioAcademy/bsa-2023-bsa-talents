@@ -19,9 +19,10 @@ class ContactsRepository implements Repository {
     public async find(
         payload: ContactsFindRequestDto,
     ): Promise<ContactsEntity | null> {
-        const contact = await this.contactsModel
-            .query()
-            .findOne({ ...payload });
+        const contact = await this.contactsModel.query().findOne({
+            talentId: payload.talentId,
+            companyId: payload.companyId,
+        });
 
         if (!contact) {
             return null;
@@ -44,7 +45,8 @@ class ContactsRepository implements Repository {
         const details = await this.contactsModel
             .query()
             .insert({
-                ...payload,
+                talentId: payload.talentId,
+                companyId: payload.companyId,
             })
             .returning('*')
             .execute();

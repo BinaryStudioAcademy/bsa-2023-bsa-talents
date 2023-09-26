@@ -1,3 +1,4 @@
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -25,6 +26,7 @@ const CandidatePage: React.FC = () => {
                     userId,
                 }),
             );
+            void dispatch(candidateActions.getContactWithTalent(userId ?? ''));
         }
     }, [candidateDetails?.userId, dispatch, userId]);
     return (
@@ -32,7 +34,7 @@ const CandidatePage: React.FC = () => {
             <BreadCrumbs profileName={candidateDetails?.profileName} />
             {candidateDetails && (
                 <CandidateProfile
-                    isProfileOpen={false}
+                    isProfileOpen={candidateDetails.hasSharedContacts}
                     candidateData={candidateDetails}
                 />
             )}

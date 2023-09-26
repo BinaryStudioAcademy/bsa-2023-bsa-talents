@@ -51,12 +51,13 @@ class ContactsController extends ControllerBase {
             validation: {
                 body: contactsCreateValidationSchema,
             },
-            handler: (options) =>
-                this.create(
+            handler: (options) => {
+                return this.create(
                     options as ApiHandlerOptions<{
                         body: ContactsCreateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -65,7 +66,7 @@ class ContactsController extends ControllerBase {
             handler: (options) => {
                 return this.findContact(
                     options as ApiHandlerOptions<{
-                        params: ContactsFindRequestDto;
+                        query: ContactsFindRequestDto;
                     }>,
                 );
             },
@@ -156,12 +157,12 @@ class ContactsController extends ControllerBase {
      */
     private async findContact(
         options: ApiHandlerOptions<{
-            params: ContactsFindRequestDto;
+            query: ContactsFindRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.contactsService.find(options.params),
+            payload: await this.contactsService.find(options.query),
         };
     }
 }
