@@ -26,7 +26,7 @@ import { type RootReducer } from '~/framework/store/store.js';
 import { OnboardingStep } from '../../enums/enums.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
-import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { bsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
 const BadgesStep: React.FC = () => {
@@ -40,7 +40,7 @@ const BadgesStep: React.FC = () => {
     const { control, handleSubmit, errors, watch } =
         useAppForm<BsaBadgesStepDto>({
             defaultValues: { badges },
-            validationSchema: BsaBadgesStepValidationSchema,
+            validationSchema: bsaBadgesStepValidationSchema,
         });
 
     const { setSubmitForm } = useFormSubmit();

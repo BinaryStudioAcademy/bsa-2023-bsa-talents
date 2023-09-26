@@ -148,6 +148,40 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            SEND_GRID: {
+                MAIL_API_KEY: {
+                    doc: 'API key for sendGrid',
+                    format: String,
+                    env: 'MAIL_API_KEY',
+                    default: null,
+                },
+                MAIL_SENDER_DOMAIN: {
+                    doc: 'Mail sender domain',
+                    format: String,
+                    env: 'MAIL_SENDER_DOMAIN',
+                    default: null,
+                },
+                CLIENT_URL: {
+                    doc: 'Client URL',
+                    format: String,
+                    env: 'CLIENT_URL',
+                    default: null,
+                },
+            },
+            LMS_DATA_SERVER: {
+                LMS_X_TOKEN: {
+                    doc: 'X-Token key used in request header to access talent data from LMS server',
+                    format: String,
+                    env: 'LMS_X_TOKEN',
+                    default: null,
+                },
+                LMS_SERVER: {
+                    doc: 'lms server api url for GET requests of talent data',
+                    format: String,
+                    env: 'LMS_SERVER',
+                    default: null,
+                },
+            },
         });
     }
 }

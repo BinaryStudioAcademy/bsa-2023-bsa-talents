@@ -3,7 +3,7 @@ export {
     type ContactCandidateDto,
     ContactCandidateValidationMessage,
     ContactCandidateValidationRule,
-    ContactCandidateValidationSchema,
+    contactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
@@ -14,7 +14,7 @@ export {
 export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
-    ChatMessagesCreateValidationSchema,
+    chatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
     type ChatResponseDto,
     type MessageResponseDto,
@@ -29,31 +29,44 @@ export {
     type HardSkillsResponseDto,
 } from './bundles/gather-selected-data/gather-selected-data.js';
 export {
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataResponseDto,
+    type LMSDataServerResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
+    type UserLMSDataDto,
+} from './bundles/lms-data/lms-data.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationSchema,
+    bsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
-    ProfileStepValidationSchema,
+    profileStepValidationSchema,
     type SkillsStepDto,
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-    SkillsStepValidationSchema,
+    skillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     Country,
     EmploymentType,
     EnglishLevel,
-    Experience as ExperienceYears,
+    experienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -76,8 +89,17 @@ export {
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
+    userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
@@ -93,6 +115,8 @@ export {
     ContentType,
     ErrorMessage,
     FileUploadErrorMessage,
+    LMSDataApiPath,
+    NotificationMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
@@ -116,6 +140,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     mapQueryValuesToArrays,
+    parseLMSServerData,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

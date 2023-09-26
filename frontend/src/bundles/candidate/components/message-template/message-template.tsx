@@ -94,7 +94,7 @@ const MessageTemplate = <T extends FieldValues>({
     );
 
     return isEdit ? (
-        <Grid>
+        <>
             <Grid container justifyContent={'space-between'}>
                 <Input
                     className={getValidClassNames(
@@ -133,7 +133,7 @@ const MessageTemplate = <T extends FieldValues>({
                     {errorMessage}
                 </FormHelperText>
             )}
-        </Grid>
+        </>
     ) : (
         <Grid container justifyContent={'space-between'}>
             <Button

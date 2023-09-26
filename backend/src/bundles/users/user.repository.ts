@@ -2,6 +2,8 @@ import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type Repository } from '~/common/types/repository.type.js';
 
+import { type ResetToken } from './types/reset-token.js';
+
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
 
@@ -17,8 +19,8 @@ class UserRepository implements Repository {
         return user ? UserEntity.initialize(user) : undefined;
     }
 
-    public async findByToken(tokenString: string): Promise<UserEntity | null> {
-        const user = await this.userModel.query().findOne({ id: tokenString });
+    public async findById(id: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findById(id);
 
         return user ? UserEntity.initialize(user) : null;
     }
@@ -27,6 +29,12 @@ class UserRepository implements Repository {
         const users = await this.userModel.query().execute();
 
         return users.map((it) => UserEntity.initialize(it));
+    }
+
+    public async findByToken(tokenString: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findOne({ id: tokenString });
+
+        return user ? UserEntity.initialize(user) : null;
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
@@ -45,11 +53,17 @@ class UserRepository implements Repository {
         return UserEntity.initialize(item);
     }
 
-    public update(): ReturnType<Repository['update']> {
-        return Promise.resolve(null);
+    public async updateResetToken(resetToken: ResetToken): Promise<void> {
+        const { userId, ...rest } = resetToken;
+
+        await this.userModel.query().patchAndFetchById(userId, rest);
     }
 
     public delete(): ReturnType<Repository['delete']> {
+        return Promise.resolve(true);
+    }
+
+    public update(): ReturnType<Repository['update']> {
         return Promise.resolve(true);
     }
 }

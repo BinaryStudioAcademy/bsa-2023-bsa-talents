@@ -103,13 +103,13 @@ class FileController extends ControllerBase {
     ): Promise<ApiHandlerResponse> {
         const { files } = options.body.files;
 
-        const uploadRespone = await this.fileService.upload({
+        const uploadResponse = await this.fileService.upload({
             files,
         });
 
         return {
             status: HttpCode.OK,
-            payload: uploadRespone,
+            payload: uploadResponse,
         };
     }
 }
