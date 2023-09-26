@@ -54,7 +54,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
     const { messageTemplates, candidateId, employerId } = useAppSelector(
         ({ candidate, searchCandidates, auth }) => ({
             messageTemplates: candidate.messageTemplates,
-            candidateId: searchCandidates.currentCandidateDetails?.id,
+            candidateId: searchCandidates.currentCandidateDetails?.userId,
             employerId: auth.currentUser?.id,
         }),
     );
