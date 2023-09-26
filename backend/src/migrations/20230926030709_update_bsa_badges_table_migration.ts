@@ -8,6 +8,24 @@ const ColumnName = {
 } as const;
 
 async function up(knex: Knex): Promise<void> {
+    const result = await knex.raw(`
+        SELECT 1
+        FROM pg_constraint 
+        WHERE conname = 'bsa_badges_type_unique'
+    `);
+
+    if (result.rows.length > 0) {
+        await knex.schema.alterTable('bsa_badges', (table) => {
+            table.dropUnique([ColumnName.TYPE]);
+        });
+    }
+
+    return knex.schema.alterTable(TABLE_NAME, (table) => {
+        table.integer(ColumnName.MAX_SCORE).nullable().alter();
+    });
+}
+
+async function down(knex: Knex): Promise<void> {
     await knex.raw(`
     DELETE FROM ${TABLE_NAME}
     WHERE (id, ${ColumnName.TYPE}) NOT IN (
@@ -31,17 +49,9 @@ async function up(knex: Knex): Promise<void> {
 
     if (result.rows.length === 0) {
         return knex.schema.alterTable(TABLE_NAME, (table) => {
-            table.string(ColumnName.TYPE).unique().alter();
             table.integer(ColumnName.MAX_SCORE).notNullable().alter();
         });
     }
-}
-
-async function down(knex: Knex): Promise<void> {
-    return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.dropUnique([ColumnName.TYPE]);
-        table.integer(ColumnName.MAX_SCORE).nullable().alter();
-    });
 }
 
 export { down, up };

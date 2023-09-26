@@ -32,7 +32,7 @@ async function up(knex: Knex): Promise<void> {
             .unique()
             .notNullable()
             .defaultTo(knex.raw(UUID))
-            .primary(CONTRAINT_NAME);
+            .primary({ constraintName: CONTRAINT_NAME });
         table
             .uuid(ColumnName.TALENT_ID)
             .notNullable()
