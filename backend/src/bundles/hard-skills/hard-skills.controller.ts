@@ -36,7 +36,9 @@ class HardSkillsController extends ControllerBase {
         this.addRoute({
             path: HardSkillsApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: () => {
+                return this.findAll();
+            },
         });
     }
 

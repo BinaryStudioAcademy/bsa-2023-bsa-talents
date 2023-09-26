@@ -11,7 +11,8 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { MAX_MESSAGE_LENGTH } from '../../constants/constants.js';
+import { MAX_MESSAGE_LENGTH, ZERO_INDEX } from '../../constants/constants.js';
+import { INPUT } from './constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -57,7 +58,7 @@ const MessageInput: React.FC<Properties> = ({ className }) => {
         ): void => {
             const text =
                 event.target.value.length > MAX_MESSAGE_LENGTH
-                    ? event.target.value.slice(0, MAX_MESSAGE_LENGTH)
+                    ? event.target.value.slice(ZERO_INDEX, MAX_MESSAGE_LENGTH)
                     : event.target.value;
             setMessage(text);
         },
@@ -118,8 +119,8 @@ const MessageInput: React.FC<Properties> = ({ className }) => {
                 type="text"
                 placeholder="Type a message"
                 multiline={true}
-                minRows={1}
-                maxRows={3}
+                minRows={INPUT.minRows}
+                maxRows={INPUT.maxRows}
                 className={inputStyles}
                 onChange={handleInputChange}
                 onFocus={handleFocus}

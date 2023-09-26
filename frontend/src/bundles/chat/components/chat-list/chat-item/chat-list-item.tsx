@@ -2,6 +2,7 @@ import { Avatar, Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
+import { GRID_FLEX_GROW } from '../constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -43,7 +44,7 @@ const ChatListItem: React.FC<Properties> = ({
             onClick={handleClick}
         >
             <Avatar src={avatar} alt={username} />
-            <Grid flexGrow={1}>
+            <Grid flexGrow={GRID_FLEX_GROW}>
                 <div
                     className={getValidClassNames(
                         styles.headerText,

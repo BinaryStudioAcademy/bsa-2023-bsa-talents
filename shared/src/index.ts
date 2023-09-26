@@ -16,14 +16,18 @@ export {
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
 export {
+    type BadgesItem,
+    type BadgesResponseDto,
+    BsaBadgesTitle,
+    BsaBadgesTypeEnum,
+    type HardSkillsItem,
+    type HardSkillsResponseDto,
+} from './bundles/common-data/common-data.js';
+export {
     FileApiPath,
     type FileUploadResponse,
     type UploadedFile,
 } from './bundles/file/file.js';
-export {
-    type BadgesResponseDto,
-    type HardSkillsResponseDto,
-} from './bundles/gather-selected-data/gather-selected-data.js';
 export {
     type Details,
     type HrFeedback,
@@ -40,6 +44,8 @@ export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
+    BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
     bsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
@@ -133,6 +139,8 @@ export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
     getAvatarInitials,
+    getBadgeColor,
+    getBadgeIcon,
     getItemsWithSelected,
     getSearchedItems,
     mapQueryValuesToArrays,

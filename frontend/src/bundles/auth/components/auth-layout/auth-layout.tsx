@@ -7,6 +7,11 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';
 
+const GRID = {
+    xs: 12,
+    md: 6,
+};
+
 type Properties = {
     children?: React.ReactNode;
 };
@@ -14,7 +19,7 @@ type Properties = {
 const AuthLayout: React.FC<Properties> = ({ children }) => {
     return (
         <Grid container className={styles.container}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={GRID.xs} md={GRID.md}>
                 <Grid item className={styles.sellingPoint}>
                     <Logo className={styles.logo} hasLink />
                     <Typography
@@ -36,13 +41,13 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
                                 </span>
                             </span>
                             <span className={getValidClassNames(styles.text)}>
-                                Start your career easily.
+                                Start your career easily.{' '}
                             </span>
                         </Grid>
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid className={styles.formWrapper} item xs={12} md={6}>
+            <Grid className={styles.formWrapper} item xs={GRID.xs} md={GRID.md}>
                 <Grid item className={styles.wrapper}>
                     {children}
                 </Grid>
