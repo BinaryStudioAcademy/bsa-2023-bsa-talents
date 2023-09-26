@@ -13,11 +13,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    type StyleProp,
-    type ValueOf,
-    type ViewStyle,
-} from '~/bundles/common/types/types';
+import { type ValueOf } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
@@ -25,7 +21,6 @@ type BadgeName = ValueOf<typeof BsaBadgeStepBadgesTitle>;
 type TBadgeSize = ValueOf<typeof BadgeSize>;
 
 type BadgeProperties = {
-    style: StyleProp<ViewStyle>;
     ending: string;
     defaultValue: number | string;
 };
@@ -49,27 +44,22 @@ const Badge: React.FC<Properties> = ({
     const badges: Record<BadgeName, BadgeProperties> = useMemo(() => {
         return {
             [BsaBadgeStepBadgesTitle.LECTURE_SCORE]: {
-                style: styles.lectureScore,
                 ending: ' / 10',
                 defaultValue: 8,
             },
             [BsaBadgeStepBadgesTitle.PROJECT_SCORE]: {
-                style: styles.projectScore,
                 ending: ' / 5',
                 defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.COMMUNICATION_SCORE]: {
-                style: styles.communicationScore,
                 ending: ' / 5',
                 defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.TEAM_SCORE]: {
-                style: styles.workingWithTeamScore,
                 ending: ' / 5',
                 defaultValue: 4,
             },
             [BsaBadgeStepBadgesTitle.ENGLISH_LEVEL]: {
-                style: styles.englishLevel,
                 ending: '',
                 defaultValue: 'B+',
             },
@@ -94,7 +84,7 @@ const Badge: React.FC<Properties> = ({
                 style={[
                     globalStyles.p5,
                     globalStyles.borderRadius9,
-                    badges[badgeType].style,
+                    styles.iconBackgroundColor,
                     size === BadgeSize.SMALL && globalStyles.alignSelfFlexStart,
                 ]}
             >
