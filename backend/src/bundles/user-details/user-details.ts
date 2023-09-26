@@ -1,5 +1,6 @@
 import { logger } from '~/common/packages/packages.js';
 
+import { bsaBadgesService } from '../bsa-badges/bsa-badges.js';
 import { hardSkillsService } from '../hard-skills/hard-skills.js';
 import { talentBadgeService } from '../talent-badges/talent-badges.js';
 import { talentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.js';
@@ -14,6 +15,7 @@ const userDetailsService = new UserDetailsService({
     talentBadgeService,
     talentHardSkillsService,
     hardSkillsService,
+    bsaBadgesService,
 });
 const userDetailsController = new UserDetailsController(
     logger,

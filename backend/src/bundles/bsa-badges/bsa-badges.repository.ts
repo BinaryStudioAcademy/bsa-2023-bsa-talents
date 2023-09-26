@@ -15,6 +15,24 @@ class BSABadgesRepository implements Repository {
         return badges.map((it) => BSABadgeEntity.initialize(it));
     }
 
+    public async findById(id: string): Promise<BSABadgeEntity | null> {
+        const badgeData = await this.bsaBadgesModel
+            .query()
+            .where('id', id)
+            .first();
+
+        if (!badgeData) {
+            return null;
+        }
+
+        return BSABadgeEntity.initialize({
+            id: badgeData.id,
+            type: badgeData.type,
+            name: badgeData.name,
+            maxScore: badgeData.maxScore,
+        });
+    }
+
     public create(): Promise<BSABadgeEntity> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }

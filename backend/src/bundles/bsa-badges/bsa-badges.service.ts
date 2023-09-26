@@ -19,6 +19,10 @@ class BSABadgesService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
+    public findById(id: string): Promise<BSABadgeEntity | null> {
+        return this.bsaBadgesRepository.findById(id);
+    }
+
     public create(): Promise<BSABadgeEntity> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }

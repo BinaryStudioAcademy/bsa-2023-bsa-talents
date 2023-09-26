@@ -1,3 +1,4 @@
+import { type BSABadgeEntity } from '~/bundles/bsa-badges/bsa-badges.entity.js';
 import { type HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
 import { type ValueOf } from '~/common/types/types.js';
 
@@ -32,6 +33,7 @@ type UserDetailsProperties = {
     searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     hardSkills?: HardSkillsEntity[];
+    badges?: BSABadgeEntity[];
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

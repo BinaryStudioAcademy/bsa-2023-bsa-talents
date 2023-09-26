@@ -1,9 +1,11 @@
 import { mapQueryValuesToArrays } from 'shared/build/index.js';
 
+import { type BSABadgesService } from '~/bundles/bsa-badges/bsa-badges.service.js';
 import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
+import { type BSABadgeEntity } from '../bsa-badges/bsa-badges.entity.js';
 import { type HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
 import { type HardSkillsService } from '../hard-skills/hard-skills.service.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
@@ -33,12 +35,14 @@ class UserDetailsService implements Service {
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
     private hardSkillsService: HardSkillsService;
+    private bsaBadgesService: BSABadgesService;
 
     public constructor(options: UserDetailsOptions) {
         this.userDetailsRepository = options.userDetailsRepository;
         this.talentBadgeService = options.talentBadgeService;
         this.talentHardSkillsService = options.talentHardSkillsService;
         this.hardSkillsService = options.hardSkillsService;
+        this.bsaBadgesService = options.bsaBadgesService;
     }
 
     public async find(
@@ -130,6 +134,7 @@ class UserDetailsService implements Service {
                 await this.talentHardSkillsService.findByUserDetailsId(
                     userDetailsId,
                 );
+
             const userHardSkills: HardSkillsEntity[] = [];
 
             for (const skill of hardSkillsData) {
@@ -144,6 +149,27 @@ class UserDetailsService implements Service {
             }
 
             userDetails.hardSkills = userHardSkills;
+
+            const badgesData =
+                await this.talentBadgeService.findByUserDetailsId(
+                    userDetailsId,
+                );
+
+            const userBadges: BSABadgeEntity[] = [];
+
+            for (const badge of badgesData) {
+                if (badge.badgeId) {
+                    const badges = await this.bsaBadgesService.findById(
+                        badge.badgeId,
+                    );
+                    if (badges) {
+                        userBadges.push(badges);
+                    }
+                }
+            }
+
+            userDetails.badges = userBadges;
+
             return userDetails;
         });
 
