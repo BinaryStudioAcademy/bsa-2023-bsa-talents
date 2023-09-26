@@ -69,7 +69,6 @@ const ProfileCabinet: React.FC = () => {
     const { submitForm } = useFormSubmit();
     const dispatch = useAppDispatch();
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
-        currentUser: state.auth.currentUser,
         hasChanges: state.cabinet.hasChangesInDetails,
     }));
     const currentUser = useAppSelector(
