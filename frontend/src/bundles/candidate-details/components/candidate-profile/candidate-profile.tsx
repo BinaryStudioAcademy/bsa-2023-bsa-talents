@@ -1,6 +1,6 @@
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
-import { CandidateModal } from '~/bundles/candidate-components/components/components.js';
+import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
