@@ -7,7 +7,14 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useNavigate,
+} from '~/bundles/common/hooks/hooks.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
+import { actions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { STEPS_NUMBER, StepsList } from '../../constants/constants.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
@@ -26,6 +33,12 @@ const StepContent: React.FC<Properties> = ({
 }) => {
     const { submitForm } = useFormSubmit();
 
+    const navigate = useNavigate();
+
+    const dispatch = useAppDispatch();
+
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
     const handleNextClick = async (): Promise<void> => {
         if (submitForm) {
             const isSuccessful = await submitForm();
@@ -35,6 +48,15 @@ const StepContent: React.FC<Properties> = ({
         }
     };
 
+    const handlePublishNowClick = (): void => {
+        void dispatch(
+            actions.updateTalentPublishedDate({ userId: currentUser?.id }),
+        );
+    };
+
+    const handleSaveWithoutPublishing = (): void => {
+        navigate('/talent/my/profile');
+    };
     return (
         <Grid item className={styles.stepContent}>
             <Grid
@@ -80,7 +102,7 @@ const StepContent: React.FC<Properties> = ({
                         <Button
                             onClick={
                                 currentStep === STEPS_NUMBER
-                                    ? undefined
+                                    ? handleSaveWithoutPublishing
                                     : onPreviousStep
                             }
                             label={
@@ -101,7 +123,7 @@ const StepContent: React.FC<Properties> = ({
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER
-                                ? undefined
+                                ? handlePublishNowClick
                                 : handleNextClick
                         }
                         label={

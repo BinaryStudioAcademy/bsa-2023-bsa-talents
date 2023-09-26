@@ -36,6 +36,24 @@ class TalentOnBoardingApi extends HttpApiBase {
         return response.json<UserDetailsGeneralCustom>();
     }
 
+    public async updatePublishedData(
+        payload: Partial<UserDetailsGeneralCustom>,
+    ): Promise<UserDetailsGeneralCustom> {
+        const { userId = '' } = payload;
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.PUBLISH, {
+                userId,
+            }),
+            {
+                method: 'PATCH',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+                payload: JSON.stringify(payload),
+            },
+        );
+        return response.json<UserDetailsGeneralCustom>();
+    }
+
     public async createUserDetails(
         payload: UserDetailsGeneralCustom,
     ): Promise<UserDetailsGeneralCustom> {

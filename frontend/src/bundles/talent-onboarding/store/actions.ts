@@ -99,4 +99,19 @@ const getTalentDetails = createAsyncThunk<
     },
 );
 
-export { getTalentDetails, saveTalentDetails, updateTalentDetails };
+const updateTalentPublishedDate = createAsyncThunk<
+    UserDetailsGeneralCustom,
+    UserDetailsGeneralCustom,
+    AsyncThunkConfig
+>(`${sliceName}/update-publised-date`, (findPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    return talentOnBoardingApi.updatePublishedData(findPayload);
+});
+
+export {
+    getTalentDetails,
+    saveTalentDetails,
+    updateTalentDetails,
+    updateTalentPublishedDate,
+};
