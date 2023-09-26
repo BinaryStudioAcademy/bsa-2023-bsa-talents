@@ -7,11 +7,17 @@ const OldColumnName = {
 } as const;
 
 async function up(knex: Knex): Promise<void> {
+    const hasContentType = await knex.schema.hasColumn(
+        TABLE_NAME,
+        OldColumnName.CONTENT_TYPE,
+    );
     return knex.schema.table(TABLE_NAME, (table) => {
-        table
-            .string(OldColumnName.CONTENT_TYPE)
-            .defaultTo('multipart/form-data')
-            .alter();
+        if (hasContentType) {
+            table
+                .string(OldColumnName.CONTENT_TYPE)
+                .defaultTo('multipart/form-data')
+                .alter();
+        }
     });
 }
 
