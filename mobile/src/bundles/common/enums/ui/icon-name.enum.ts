@@ -6,6 +6,7 @@ const IconName = {
     CIRCLE_OUTLINE: 'circle-outline',
     CIRCLE: 'circle',
     CHECK_CIRCLE: 'check-circle',
+    LOGOUT: 'logout',
     PERSON: 'person',
     IMAGE: 'image',
     ADD: 'add',
