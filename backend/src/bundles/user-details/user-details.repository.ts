@@ -110,6 +110,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            publishedAt: details.publishedAt,
         });
     }
 
