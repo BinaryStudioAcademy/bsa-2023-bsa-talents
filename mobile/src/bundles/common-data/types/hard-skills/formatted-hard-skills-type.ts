@@ -1,7 +1,4 @@
-type FormattedHardSkillsItem = {
-    label: string;
-    value: string;
-};
+import { type FormattedHardSkillsItem } from './formatted-hard-skill-item';
 
 type FormattedHardSkills = {
     items: FormattedHardSkillsItem[];
