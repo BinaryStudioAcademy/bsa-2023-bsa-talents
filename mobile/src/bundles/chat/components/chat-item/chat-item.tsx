@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { EMPLOYER_ID } from '~/bundles/chat/constants/constants';
 import { Avatar, Text, View } from '~/bundles/common/components/components';
 import { PhotoType } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -18,7 +18,8 @@ const ChatItem: React.FC<Properties> = ({
     senderAvatar,
     message,
 }) => {
-    const isEmployer = senderId === EMPLOYER_ID;
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const isEmployer = senderId === currentUserData?.id;
 
     const avatar = (
         <Avatar
@@ -49,17 +50,6 @@ const ChatItem: React.FC<Properties> = ({
                 <View
                     style={[
                         globalStyles.flexDirectionRow,
-                        globalStyles.mr25,
-                        styles.messageContainer,
-                    ]}
-                >
-                    {avatar}
-                    {textMessage}
-                </View>
-            ) : (
-                <View
-                    style={[
-                        globalStyles.flexDirectionRow,
                         globalStyles.justifyContentFlexEnd,
                         globalStyles.ml25,
                         styles.messageContainer,
@@ -67,6 +57,17 @@ const ChatItem: React.FC<Properties> = ({
                 >
                     {textMessage}
                     {avatar}
+                </View>
+            ) : (
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.mr25,
+                        styles.messageContainer,
+                    ]}
+                >
+                    {avatar}
+                    {textMessage}
                 </View>
             )}
         </View>

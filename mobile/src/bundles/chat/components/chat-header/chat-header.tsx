@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { ChatBackButton } from '~/bundles/chat/components/components';
-import { EMPLOYER } from '~/bundles/chat/constants/constants';
 import { Avatar, Text, View } from '~/bundles/common/components/components';
 import { PhotoType, TextCategory } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
 const ChatHeader: React.FC = () => {
+    const { onboardingData } = useAppSelector(({ common }) => common);
+
     const avatar = (
         <Avatar
             avatarSize={PhotoType.MEDIUM}
@@ -27,7 +29,7 @@ const ChatHeader: React.FC = () => {
                 ellipsizeMode="tail"
                 style={styles.title}
             >
-                {EMPLOYER}
+                {onboardingData?.fullName}
             </Text>
             <View
                 style={[
