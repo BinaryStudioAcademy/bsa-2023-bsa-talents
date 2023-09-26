@@ -1,1 +1,1 @@
-export { ChatMessagesCreateValidationSchema } from 'shared/build/index.js';
+export { chatMessagesCreateValidationSchema } from 'shared/build/index.js';

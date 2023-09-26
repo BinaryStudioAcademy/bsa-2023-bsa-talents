@@ -66,6 +66,7 @@
     padding-left: 0;
     overflow: hidden;
     border: 1px solid var(--botticelli);
+    transition: border 200ms;
 
     &:hover {
         border-color: var(--st-tropaz);

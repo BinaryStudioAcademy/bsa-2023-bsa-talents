@@ -27,7 +27,7 @@ import {
     type BadgesFormDto,
     type BsaBadgesStepTypes,
 } from '~/bundles/talent/types/types';
-import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { BadgesGroup } from './badges-group/badges-group';
 import { styles } from './styles';
@@ -60,7 +60,7 @@ const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
 
     const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: BADGES_STEP_DEFAULT_VALUES,
-        validationSchema: BsaBadgesStepValidationSchema,
+        validationSchema: bsaBadgesStepValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {

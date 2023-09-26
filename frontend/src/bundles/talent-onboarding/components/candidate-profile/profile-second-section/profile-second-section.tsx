@@ -79,7 +79,7 @@ const ProfileSecondSection: React.FC<Properties> = ({
                     {isProfileOpen && (
                         <>
                             <CandidateParameter
-                                text={candidateParameters.email}
+                                text={candidateParameters.email ?? 'email'}
                             >
                                 <CandidateIcons.EMAIL className={styles.icon} />
                             </CandidateParameter>

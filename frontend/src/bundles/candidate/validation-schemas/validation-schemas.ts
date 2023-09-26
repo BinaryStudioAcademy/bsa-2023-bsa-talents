@@ -1,1 +1,1 @@
-export { ContactCandidateValidationSchema } from 'shared/build/index.js';
+export { contactCandidateValidationSchema } from 'shared/build/index.js';
