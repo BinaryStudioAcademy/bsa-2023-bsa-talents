@@ -14,7 +14,7 @@ const ErrorMessage = {
     USER_DETAILS_NOT_FOUND: 'User profile not found',
     TOKEN_INVALID_OR_EXPIRED: 'token invalid or expired.',
     NOT_FOUND_ON_LMS:
-        'User Not Found: To sign up, please use the same email address you used when registering with Binary Studio Academy',
+        'User Not Found! To complete the registration process, please use the same address as when registering at the Binary Studio Academy',
     FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 
