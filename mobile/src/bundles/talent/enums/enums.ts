@@ -7,6 +7,9 @@ export { ProfileFormType } from './profile-form.types/profile-form.enum';
 export { ProfileTab } from './profile-tab/profile-tab.enum';
 export {
     AuthApiPath,
+    type BadgeStepDto,
+    BsaBadgesStepUncontrolledBadges,
+    BsaBadgesTitle,
     Country,
     ProfileStepValidationRule,
     SkillsStepValidationRule,

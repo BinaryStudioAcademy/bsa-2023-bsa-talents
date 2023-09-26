@@ -5,6 +5,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { FormSubmitProvider } from '~/bundles/common/context/context.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -25,8 +26,8 @@ import {
     StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
+import { configureString } from '~/helpers/helpers.js';
 
 import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
@@ -56,7 +57,11 @@ const Onboarding: React.FC = () => {
                 }` as keyof typeof StepsRoute
             ];
 
-        navigate(getStepRoute(nextStepPath));
+        navigate(
+            configureString(AppRoute.TALENT_STEP, {
+                step: nextStepPath,
+            }),
+        );
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
@@ -69,7 +74,11 @@ const Onboarding: React.FC = () => {
                 }` as keyof typeof StepsRoute
             ];
 
-        navigate(getStepRoute(previousStepPath));
+        navigate(
+            configureString(AppRoute.TALENT_STEP, {
+                step: previousStepPath,
+            }),
+        );
     }, [currentStep, navigate]);
 
     useEffect(() => {

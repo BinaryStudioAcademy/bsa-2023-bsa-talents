@@ -6,11 +6,12 @@ import {
     softSkillsBadges,
 } from '~/seed-data/bsa-badges-seed-data.js';
 
-const TABLE_NAME = 'bsa_badges';
-
-const ColumnName = {
-    NAME: 'name',
-    TYPE: 'type',
+const SEED = {
+    TABLE_NAME: 'bsa_badges',
+    COLUMN_NAME: {
+        NAME: 'name',
+        TYPE: 'type',
+    },
 };
 
 const BadgesTypes = {
@@ -21,29 +22,29 @@ const BadgesTypes = {
 
 async function seed(knex: Knex): Promise<void> {
     await knex.transaction(async (trx) => {
-        await knex(TABLE_NAME).del();
+        await knex(SEED.TABLE_NAME).del();
 
         const scoreBadgesMappedSeed = scoreBadges.map((badge) => ({
             ...badge,
-            [ColumnName.TYPE]: BadgesTypes.BSA_SCORE,
+            [SEED.COLUMN_NAME.TYPE]: BadgesTypes.BSA_SCORE,
         }));
-        await trx(TABLE_NAME).insert(scoreBadgesMappedSeed);
+        await trx(SEED.TABLE_NAME).insert(scoreBadgesMappedSeed);
 
         const personalityBadgesMappedSeed = personalityBadges.map(
             (badgeName) => ({
-                [ColumnName.NAME]: badgeName,
-                [ColumnName.TYPE]: BadgesTypes.PERSONALITY,
+                [SEED.COLUMN_NAME.NAME]: badgeName,
+                [SEED.COLUMN_NAME.TYPE]: BadgesTypes.PERSONALITY,
             }),
         );
-        await trx(TABLE_NAME).insert(personalityBadgesMappedSeed);
+        await trx(SEED.TABLE_NAME).insert(personalityBadgesMappedSeed);
 
         const softSkillsBadgesMappedSeed = softSkillsBadges.map(
             (badgeName) => ({
-                [ColumnName.NAME]: badgeName,
-                [ColumnName.TYPE]: BadgesTypes.SOFT_SKILLS,
+                [SEED.COLUMN_NAME.NAME]: badgeName,
+                [SEED.COLUMN_NAME.TYPE]: BadgesTypes.SOFT_SKILLS,
             }),
         );
-        await trx(TABLE_NAME).insert(softSkillsBadgesMappedSeed);
+        await trx(SEED.TABLE_NAME).insert(softSkillsBadgesMappedSeed);
     });
 }
 

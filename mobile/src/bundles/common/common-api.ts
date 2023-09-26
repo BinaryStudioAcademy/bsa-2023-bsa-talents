@@ -64,6 +64,20 @@ class CommonApi extends HttpApiBase {
         );
         return response.json<UserDetailsResponseDto>();
     }
+
+    public async getTalents(
+        payload: string,
+    ): Promise<UserDetailsResponseDto[]> {
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.ROOT, payload, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserDetailsResponseDto[]>();
+    }
 }
 
 export { CommonApi };

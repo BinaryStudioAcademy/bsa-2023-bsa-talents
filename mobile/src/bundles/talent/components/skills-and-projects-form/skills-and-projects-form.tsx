@@ -14,15 +14,12 @@ import {
 } from '~/bundles/common/components/components';
 import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
 import {
-    useAppDispatch,
     useAppForm,
-    useAppSelector,
     useCallback,
-    useEffect,
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { getHardSkillsData } from '~/bundles/common-data/store/actions';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
@@ -51,8 +48,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: skillsStepValidationSchema,
     });
-    const dispatch = useAppDispatch();
-    const { hardSkillsData } = useAppSelector(({ commonData }) => commonData);
+    const { hardSkillsData } = useCommonData();
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -61,10 +57,6 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
-
-    useEffect(() => {
-        void dispatch(getHardSkillsData());
-    }, [dispatch]);
 
     return (
         <ScrollView
