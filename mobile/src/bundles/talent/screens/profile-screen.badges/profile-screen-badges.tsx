@@ -5,6 +5,7 @@ import { Loader, View } from '~/bundles/common/components/components';
 import { useAppDispatch, useMemo } from '~/bundles/common/hooks/hooks';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
+import { globalStyles } from '~/bundles/common/styles/styles';
 import { useCommonData } from '~/bundles/common-data/hooks/use-common-data/use-common-data';
 import { BadgesFormData } from '~/bundles/talent/components/badges-form-data/badges-form-data';
 import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
@@ -53,8 +54,8 @@ const ProfileScreenBadges: React.FC = () => {
         onboardingDataValues ?? badgesDataValues;
 
     return (
-        <View>
-            {onboardingData?.badges ? (
+        <View style={globalStyles.flex1}>
+            {onboardingData ? (
                 <WithProfileForm
                     validationSchema={bsaBadgesStepValidationSchema}
                     defaultValue={badgesFormData}

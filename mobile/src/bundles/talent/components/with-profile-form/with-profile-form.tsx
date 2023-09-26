@@ -58,8 +58,10 @@ const WithProfileForm = <T extends FieldValues>({
     }, [value, reset]);
 
     const handleFormSubmit = useCallback(() => {
-        void handleSubmit(onSubmit)();
-        setIsEditable(false);
+        void handleSubmit((data) => {
+            onSubmit(data);
+            setIsEditable(false);
+        })();
     }, [handleSubmit, onSubmit]);
 
     const handleFormReset = (): void => {
