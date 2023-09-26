@@ -4,7 +4,6 @@ const BsaBadgeStepBadgesTitle = {
     COMMUNICATION_SCORE: 'Communication score',
     TEAM_SCORE: 'Working with team score',
     ENGLISH_LEVEL: 'Level of english',
-    PUNCTUALITY: 'Punctuality',
 } as const;
 
 export { BsaBadgeStepBadgesTitle };
