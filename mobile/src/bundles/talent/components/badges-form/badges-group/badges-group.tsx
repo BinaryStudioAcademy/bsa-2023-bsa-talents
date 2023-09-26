@@ -1,63 +1,54 @@
 import React from 'react';
 
-import { DEFAULT_VALUE_IS_DISABLED } from '~/bundles/common/components/badge/constants/constants';
 import { Badge, Checkbox, View } from '~/bundles/common/components/components';
-import { type BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
-import { useCallback, useFormController } from '~/bundles/common/hooks/hooks';
+import { useCallback, useFieldArray } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import {
-    type Control,
-    type FieldPath,
-    type FieldValues,
-    type ValueOf,
-} from '~/bundles/common/types/types';
+import { type Control, type FieldPath } from '~/bundles/common/types/types';
+import { UNCONTROLLED_BADGES } from '~/bundles/talent/components/badges-form/constants/constants';
+import { type BadgeFormItem } from '~/bundles/talent/types/badge-form-item/badge-form-item';
+import { type BadgesFormDto } from '~/bundles/talent/types/badges-form-dto/badges-form-dto';
 
 import { styles } from '../styles';
 
-type Properties<T extends FieldValues> = {
-    name: FieldPath<T>;
-    control: Control<T, null>;
-    options: ValueOf<typeof BsaBadgeStepBadgesTitle>[];
+type Properties = {
+    name: FieldPath<BadgesFormDto>;
+    control: Control<BadgesFormDto, null>;
 };
 
-const BadgesGroup = <T extends FieldValues>({
-    name,
-    control,
-    options,
-}: Properties<T>): JSX.Element => {
-    const { field } = useFormController({ name, control });
-    const { value, onChange } = field;
+const BadgesGroup = ({ control }: Properties): JSX.Element => {
+    const { fields, update } = useFieldArray<BadgesFormDto>({
+        name: 'badges',
+        control,
+    });
 
     const handleToggleCheckbox = useCallback(
-        (selectedType: string) => {
-            const isCheckedBefore = value.includes(selectedType);
-            const updatedCheckboxGroup = isCheckedBefore
-                ? value.filter((type: string) => type !== selectedType)
-                : [...value, selectedType];
-
-            onChange(updatedCheckboxGroup);
+        (clickedBadge: BadgeFormItem, index: number) => {
+            update(index, {
+                ...clickedBadge,
+                isChecked: !clickedBadge.isChecked,
+            });
         },
-        [value, onChange],
+        [update],
     );
 
     return (
         <View style={styles.groupWrapper}>
-            {options.map((badge) => (
+            {fields.map((badge, index) => (
                 <View
-                    key={badge}
+                    key={badge.id}
                     style={[
                         globalStyles.flexDirectionRow,
                         globalStyles.alignItemsCenter,
                     ]}
                 >
                     <Checkbox
-                        isChecked={value?.includes(badge)}
+                        isChecked={badge.isChecked}
                         onChange={(): void => {
-                            handleToggleCheckbox(badge);
+                            handleToggleCheckbox(badge, index);
                         }}
-                        disabled={DEFAULT_VALUE_IS_DISABLED[badge]}
+                        disabled={UNCONTROLLED_BADGES.includes(badge.name)}
                     />
-                    <Badge badgeType={badge} />
+                    <Badge badge={badge} />
                 </View>
             ))}
         </View>

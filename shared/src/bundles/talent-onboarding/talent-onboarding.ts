@@ -1,5 +1,6 @@
 export {
     BSABadgeApiPath,
+    BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
@@ -11,6 +12,7 @@ export {
 export {
     type BadgeStepDto,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
     type ProfileStepDto,
     type SkillsStepDto,
 } from './types/types.js';

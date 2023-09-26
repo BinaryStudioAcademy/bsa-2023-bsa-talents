@@ -1,2 +1,2 @@
-export { type EmployeesFiltersDto } from './employees-filters-dto.type';
+export { type EmployeesFiltersForm } from './employees-filters-form.type';
 export { type EmployerOnboardingFormDto } from './employer-onboarding-form-dto.type';
