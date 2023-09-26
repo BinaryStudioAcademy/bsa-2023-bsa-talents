@@ -1,23 +1,16 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
-    CommunityIcon,
     FlatList,
-    Pressable,
+    LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    IconName,
-    RootScreenName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
@@ -85,10 +78,6 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <View style={globalStyles.flex1}>
             <View
@@ -102,13 +91,7 @@ const ChatList: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Chat</Text>
-                <Pressable onPress={handleLogout}>
-                    <CommunityIcon
-                        name={IconName.LOGOUT}
-                        size={30}
-                        color={Color.TEXT2}
-                    />
-                </Pressable>
+                <LogoutButton />
             </View>
             <View
                 style={[
