@@ -14,12 +14,12 @@ import {
     getBadgeById,
     getHardSkillByValue,
 } from '~/bundles/employer/helpers/helpers';
-import { type Candidate } from '~/bundles/employer/types/types';
+import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
 import { MaxValue } from './constants/constants';
 import { styles } from './styles';
 
-const CandidateCard: React.FC<Candidate> = ({
+const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
     fullName,
     salaryExpectation,
