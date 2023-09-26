@@ -29,6 +29,8 @@ export {
 } from './bundles/common-data/common-data.js';
 export {
     FileApiPath,
+    FileRole,
+    type FileRoleValue,
     type FileUploadResponse,
     type UploadedFile,
 } from './bundles/file/file.js';
