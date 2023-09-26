@@ -63,6 +63,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
+
         return response.json<UserDetailsGeneralCustom>();
     }
 }

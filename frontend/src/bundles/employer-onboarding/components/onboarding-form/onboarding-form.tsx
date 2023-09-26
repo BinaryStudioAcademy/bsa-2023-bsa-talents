@@ -52,6 +52,8 @@ const OnboardingForm: React.FC = () => {
         description,
         companyLogo,
         linkedinLink,
+        photoUrl,
+        companyLogoUrl,
     } = useAppSelector((rootState) => getEmployerOnBoardingState(rootState));
 
     const hasChangesInDetails = useAppSelector(
@@ -78,6 +80,8 @@ const OnboardingForm: React.FC = () => {
                 description,
                 companyLogo,
                 linkedinLink,
+                photoUrl,
+                companyLogoUrl,
             }),
             [
                 companyLogo,
@@ -174,6 +178,8 @@ const OnboardingForm: React.FC = () => {
         hasChangesInDetails,
         photo,
         companyLogo,
+        photoUrl,
+        companyLogoUrl,
     ]);
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
@@ -322,9 +328,12 @@ const OnboardingForm: React.FC = () => {
                         <Grid item className={styles.photoWrapper}>
                             {errors.photo ?? !watch('photo') ? null : (
                                 <img
-                                    src={URL.createObjectURL(
-                                        watch('photo') as Blob,
-                                    )}
+                                    src={
+                                        photoUrl ??
+                                        URL.createObjectURL(
+                                            watch('photo') as Blob,
+                                        )
+                                    }
                                     className={styles.photoElement}
                                     alt="Profile"
                                 />
