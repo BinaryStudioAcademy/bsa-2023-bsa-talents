@@ -74,8 +74,8 @@ const { reducer, actions, name } = createSlice({
 
             if (state.current.chatId === action.payload.chatId) {
                 state.current.messages = [
-                    ...state.current.messages,
                     action.payload,
+                    ...state.current.messages,
                 ];
             }
         },
@@ -109,6 +109,7 @@ const { reducer, actions, name } = createSlice({
                 state.dataStatus = DataStatus.FULFILLED;
                 state.current.chatId = action.payload.chatId;
                 state.current.messages = action.payload.messages;
+
                 state.current.employerDetails = action.payload.employerDetails;
             })
             .addCase(createMessage.fulfilled, (state, action) => {
@@ -122,8 +123,8 @@ const { reducer, actions, name } = createSlice({
                 });
 
                 state.current.messages = [
-                    ...state.current.messages,
                     action.payload,
+                    ...state.current.messages,
                 ];
             })
             .addMatcher(

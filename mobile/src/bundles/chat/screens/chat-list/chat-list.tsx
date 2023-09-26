@@ -52,7 +52,7 @@ const ChatList: React.FC = () => {
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
         });
-    }, [chats, searchQuery]);
+    }, [searchQuery, chats]);
 
     const sortedChats = useMemo(() => {
         return sortChatsByDate(filteredChats);
@@ -65,7 +65,7 @@ const ChatList: React.FC = () => {
     }): React.ReactElement => {
         return (
             <ChatListItem
-                key={item.lastMessageCreatedAt}
+                key={item.chatId}
                 item={item}
                 onSelect={handleChatSelect}
             />
@@ -127,7 +127,7 @@ const ChatList: React.FC = () => {
                     style={[globalStyles.pb15, styles.chatList]}
                     data={sortedChats}
                     renderItem={renderListItem}
-                    keyExtractor={(item): string => item.lastMessageCreatedAt}
+                    keyExtractor={(item): string => item.chatId}
                     showsVerticalScrollIndicator={false}
                 />
             </View>

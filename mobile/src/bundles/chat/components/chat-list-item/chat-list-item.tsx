@@ -23,8 +23,8 @@ type Properties = {
 
 const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
-
     const { chatId, participants, lastMessage, lastMessageCreatedAt } = item;
+
     const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageCreatedAt);
 
     const { partnerName, partnerAvatar, partnerId } = getPartnerInfo(
