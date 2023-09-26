@@ -5,6 +5,9 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     cursor: pointer;
+    transition:
+        all 0.1s ease,
+        box-shadow 0.2s;
 }
 
 .container:hover {
@@ -14,8 +17,9 @@
 .title {
     flex: 1 1 auto;
     margin: 16px 16px 5px;
+    color: #000000;
     font-size: clamp(
-        var(--font-size-h5),
+        var(--font-size-body),
         calc(5vw - var(--font-size-h3)),
         var(--font-size-h3)
     );

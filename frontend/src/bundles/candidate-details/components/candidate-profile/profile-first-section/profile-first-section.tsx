@@ -1,4 +1,4 @@
-import mockedProjectPicture from '~/assets/img/mocked-project-picture.png';
+// import mockedProjectPicture from '~/assets/img/mocked-project-picture.png';
 import { mockedHRComments } from '~/assets/mock-data/mock-data.js';
 import {
     Badge,
@@ -6,6 +6,7 @@ import {
     Chip,
     Grid,
     Link,
+    LinkPreview,
     Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -21,6 +22,17 @@ import { type FirstSectionDetails } from '~/bundles/talent-onboarding/types/type
 import { SummaryPreview } from '../summary-preview/summary-preview.js';
 import styles from './styles.module.scss';
 
+// TODO: connect lms
+const project = {
+    name: 'EasyMeets',
+    details: {
+        en: 'EasyMeets A planning platform for individual users. Includes a user room and integration with multiple calendars. There is a possibility to add a place for an event and has integration with Zoom as well as GMeet. Group collaboration is available (with the possibility to distribute time frames among different people in the organization) and the possibility to send a link with a choice of a convenient time.',
+        ua: 'EasyMeets Платформа планування для окремих користувачів. Включає кімнату користувача та інтеграцію з кількома календарями. Є можливість додати місце для події та має інтеграцію 3 Zoom, а також GMeet. Доступна групова співпраця (з можливістю розподілу часових рамок між різними людьми в організації) і можливість відправити посилання з вибором зручного часу.',
+    },
+    repositoryUrl:
+        'https://github.com/BinaryStudioAcademy/bsa-2022-easymeets.git',
+};
+
 type Properties = {
     candidateParameters: FirstSectionDetails;
     isProfileOpen?: boolean;
@@ -30,20 +42,14 @@ type Properties = {
 
 const ProfileFirstSection: React.FC<Properties> = ({
     candidateParameters,
-    isProfileOpen,
     isFifthStep,
     isProfileCard,
 }) => {
     const [isExpanded, setIsExpanded] = useState(true);
 
     const handleLinkClick = useCallback((): void => {
-        window.open(
-            candidateParameters.projectLinks
-                ? candidateParameters.projectLinks[0]
-                : '',
-            '_blank',
-        );
-    }, [candidateParameters.projectLinks]);
+        window.open(project.repositoryUrl, '_blank');
+    }, []);
 
     const navigate = useNavigate();
     const handleReadMoreButton = useCallback((): void => {
@@ -198,39 +204,24 @@ const ProfileFirstSection: React.FC<Properties> = ({
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
-                        Project
+                        {project.name}
                     </Typography>
                     <Typography
                         variant="body1"
                         className={styles.projectDescription}
                     >
-                        6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
-                        {isProfileOpen && candidateParameters.projectLinks && (
-                            <Tooltip
-                                title={candidateParameters.projectLinks[0]}
-                                arrow
-                            >
-                                <div className={styles.tooltipWrapper}>
-                                    <Button
-                                        label="Repository link"
-                                        variant="outlined"
-                                        className={styles.projectButton}
-                                        onClick={handleLinkClick}
-                                    />
-                                </div>
-                            </Tooltip>
-                        )}
+                        {project.details.en}
                     </Typography>
-                    <img
-                        src={mockedProjectPicture}
-                        className={styles.projectPicture}
-                        alt="project"
-                    />
+
+                    <Link
+                        to={project.repositoryUrl}
+                        className={styles.linkWrapper}
+                    >
+                        <LinkPreview url={project.repositoryUrl} />
+                    </Link>
+
                     {isFifthStep && candidateParameters.projectLinks && (
-                        <Tooltip
-                            title={candidateParameters.projectLinks[0]}
-                            arrow
-                        >
+                        <Tooltip title={project.repositoryUrl} arrow>
                             <div className={styles.tooltipWrapper}>
                                 <Button
                                     label="Repository link"
