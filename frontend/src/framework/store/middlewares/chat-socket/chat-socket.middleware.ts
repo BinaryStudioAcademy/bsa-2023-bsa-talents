@@ -22,7 +22,6 @@ const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParameters) => {
             dispatch(chatActions.addMessage(message));
         },
     );
-
     return (next) =>
         (action): void => {
             if (chatActions.joinRoom.match(action)) {

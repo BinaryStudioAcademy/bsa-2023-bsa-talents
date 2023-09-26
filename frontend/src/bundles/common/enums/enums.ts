@@ -10,6 +10,7 @@ export {
     AppEnvironment,
     ChatMessagesApiPath,
     ContentType,
+    HiringInfoApiPath,
     HttpCode,
     ServerErrorType,
     UserDetailsApiPath,
