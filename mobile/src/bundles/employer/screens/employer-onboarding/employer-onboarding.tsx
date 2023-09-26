@@ -22,6 +22,8 @@ const EmployerOnboarding: React.FC = () => {
     const dispatch = useAppDispatch();
     const { onboardingData } = useAppSelector(({ common }) => common);
 
+    // { isApproved } = onboardingData ?? {};
+
     const employerOnboardingData: EmployerOnboardingFormDto | null =
         onboardingData
             ? {

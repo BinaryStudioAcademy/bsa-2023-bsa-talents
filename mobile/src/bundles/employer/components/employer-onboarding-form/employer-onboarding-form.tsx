@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { actions } from '~/bundles/auth/store';
 import {
     AutocompleteSelector,
     Button,
@@ -9,10 +10,12 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
+    ButtonType,
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppForm,
     useCallback,
     useRoute,
@@ -45,14 +48,26 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
 
     const route = useRoute();
 
+    const dispatch = useAppDispatch();
+
+    //const { isRedirectToEmployerScreen } = useAppSelector(({ auth }) => auth);
+
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
-    const labelForSubmitButton =
-        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE
-            ? EmployerDataSubmitLabel.SAVE
-            : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
+    const handleRedirectToProfile = useCallback((): void => {
+        dispatch(actions.onChangeToEmployerScreen());
+    }, [dispatch]);
+
+    const isEmployerProfileScreen =
+        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE;
+
+    const labelForSubmitButton = employerOnboardingData
+        ? EmployerDataSubmitLabel.SAVE
+        : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
+
+    //console.log(isRedirectToEmployerScreen);
 
     return (
         <>
@@ -201,6 +216,15 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 onPress={handleFormSubmit}
                 style={globalStyles.mt25}
             />
+            {!isEmployerProfileScreen && (
+                <Button
+                    label="Go to the profile"
+                    onPress={handleRedirectToProfile}
+                    buttonType={ButtonType.OUTLINE}
+                    style={globalStyles.mt10}
+                    disabled={!employerOnboardingData}
+                />
+            )}
         </>
     );
 };

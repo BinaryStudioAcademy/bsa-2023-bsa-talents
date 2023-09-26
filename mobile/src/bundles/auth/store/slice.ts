@@ -10,18 +10,24 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     isSignedIn: boolean;
     currentUserData: UserFindResponseDto | null;
+    isRedirectToEmployerScreen: boolean;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
     currentUserData: null,
+    isRedirectToEmployerScreen: false,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'auth',
-    reducers: {},
+    reducers: {
+        onChangeToEmployerScreen: (state) => {
+            state.isRedirectToEmployerScreen = true;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(loadCurrentUser.pending, (state) => {
             state.dataStatus = DataStatus.CHECK_TOKEN;
@@ -33,6 +39,12 @@ const { reducer, actions, name } = createSlice({
             state.isSignedIn = false;
             state.currentUserData = null;
         });
+        builder.addMatcher(
+            isAnyOf(loadCurrentUser.fulfilled, signIn.fulfilled),
+            (state) => {
+                state.isRedirectToEmployerScreen = true;
+            },
+        );
         builder.addMatcher(
             isAnyOf(
                 signUp.fulfilled,

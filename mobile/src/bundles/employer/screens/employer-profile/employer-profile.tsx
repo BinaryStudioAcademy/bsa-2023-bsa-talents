@@ -76,7 +76,7 @@ const EmployerProfile: React.FC = () => {
                         globalStyles.alignItemsCenter,
                     ]}
                 >
-                    {!isApproved && <VerificationMessage />}
+                    {!isApproved && onboardingData && <VerificationMessage />}
                     <Pressable onPress={handleLogout}>
                         <CommunityIcon
                             name={IconName.LOGOUT}
