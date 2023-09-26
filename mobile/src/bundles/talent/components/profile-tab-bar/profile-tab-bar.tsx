@@ -1,7 +1,15 @@
 import React from 'react';
 
-import { Text, View } from '~/bundles/common/components/components';
+import {
+    Divider,
+    StatusBar,
+    Text,
+    VerificationMessage,
+    View,
+} from '~/bundles/common/components/components';
+import { Color } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/text-category.enum';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
 import { ProfileDetailsScreenName } from '~/bundles/talent/enums/enums';
 import { type MaterialTopTabBarProps } from '~/bundles/talent/types/types';
@@ -13,15 +21,34 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
     navigation,
     state,
 }) => {
+    const { isApproved } =
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
+
     return (
         <View style={styles.container}>
-            <Text category={TextCategory.H3} style={globalStyles.p25}>
-                Your Profile
-            </Text>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Color.BACKGROUND}
+            />
+            <View
+                style={[
+                    globalStyles.pv25,
+                    globalStyles.pl25,
+                    globalStyles.pr10,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                ]}
+            >
+                <Text category={TextCategory.H3}>Your profile</Text>
+                {!isApproved && <VerificationMessage />}
+            </View>
+            <Divider />
             <View
                 style={[
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentCenter,
+                    globalStyles.p15,
                     styles.navigations,
                 ]}
             >

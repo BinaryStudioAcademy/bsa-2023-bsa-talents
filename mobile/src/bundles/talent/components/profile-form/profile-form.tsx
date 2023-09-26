@@ -2,25 +2,29 @@ import React from 'react';
 
 import {
     AutocompleteSelector,
-    Button,
     CheckboxGroup,
     FormField,
     Input,
     ScrollView,
     Selector,
     Slider,
-    View,
 } from '~/bundles/common/components/components';
 import {
     useAppForm,
     useCallback,
     useEffect,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
+import { type ValueOf } from '~/bundles/common/types/types';
+import {
+    ProfileFormType,
+    ProfileStepValidationRule,
+} from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
+import { OnboardingButtons, ProfileScreenButtons } from '../components';
 import {
     EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
@@ -31,19 +35,28 @@ import {
 import { styles } from './styles';
 
 type Properties = {
-    profileStepData: ProfileStepDto | null;
+    usersData: ProfileStepDto | null;
     onSubmit: (payload: ProfileStepDto) => void;
+    formType: ValueOf<typeof ProfileFormType>;
+    isFormEditable?: boolean;
 };
 
-const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
+const ProfileForm: React.FC<Properties> = ({
+    usersData,
+    onSubmit,
+    formType,
+    isFormEditable = true,
+}) => {
+    const [isEditable, setIsEditable] = useState(isFormEditable);
+
     const { control, errors, handleSubmit, reset } = useAppForm({
-        defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
+        defaultValues: usersData ?? TALENT_PROFILE_DEFAULT_VALUES,
         validationSchema: profileStepValidationSchema,
     });
 
     useEffect(() => {
-        profileStepData && reset(profileStepData);
-    }, [profileStepData, reset]);
+        usersData && reset(usersData);
+    }, [usersData, reset]);
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
@@ -53,6 +66,17 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
             });
         })();
     }, [handleSubmit, onSubmit]);
+
+    const handleFormReset = (): void => {
+        reset(usersData as ProfileStepDto);
+        setIsEditable(false);
+    };
+
+    const handleFormEdit = (): void => {
+        setIsEditable(true);
+    };
+
+    const isOnboardingScreen = formType === ProfileFormType.ONBOARDING;
 
     return (
         <ScrollView
@@ -85,7 +109,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
-                    defaultValue={profileStepData?.salaryExpectation.toString()}
+                    defaultValue={usersData?.salaryExpectation.toString()}
                     value={undefined}
                 />
             </FormField>
@@ -165,9 +189,20 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     multiline={true}
                 />
             </FormField>
-            <View style={globalStyles.flexDirectionRow}>
-                <Button label="Next" onPress={handleFormSubmit} />
-            </View>
+
+            {isOnboardingScreen ? (
+                <OnboardingButtons
+                    currentStep={0}
+                    onFormSubmit={handleFormSubmit}
+                />
+            ) : (
+                <ProfileScreenButtons
+                    onFormEdit={handleFormEdit}
+                    isEditable={isEditable}
+                    onFormReset={handleFormReset}
+                    onFormSubmit={handleFormSubmit}
+                />
+            )}
         </ScrollView>
     );
 };
