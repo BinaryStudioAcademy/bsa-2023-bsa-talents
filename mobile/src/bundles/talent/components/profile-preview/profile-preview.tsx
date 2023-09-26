@@ -26,7 +26,7 @@ const ProfilePreview: React.FC = () => {
     }
 
     const {
-        jobTitle,
+        profileName,
         salaryExpectation,
         location,
         experienceYears,
@@ -39,7 +39,7 @@ const ProfilePreview: React.FC = () => {
     return (
         <>
             <Text category={TextCategory.H5} style={globalStyles.pb10}>
-                {jobTitle}
+                {profileName}
             </Text>
             <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
                 <Text
