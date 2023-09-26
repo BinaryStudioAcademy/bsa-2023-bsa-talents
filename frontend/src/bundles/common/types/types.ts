@@ -7,7 +7,7 @@ export {
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,
-    type UserRole,
+    UserRole,
     type ValidationSchema,
     type ValueOf,
 } from 'shared/build/index.js';

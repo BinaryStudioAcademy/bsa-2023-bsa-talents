@@ -10,7 +10,12 @@ const VerificationMessage: React.FC = () => {
     return (
         <Text
             category={TextCategory.CAPTION}
-            style={[styles.text, globalStyles.p5, globalStyles.ph10]}
+            style={[
+                styles.text,
+                globalStyles.p5,
+                globalStyles.ph10,
+                globalStyles.mh5,
+            ]}
         >
             Waiting for approval
         </Text>

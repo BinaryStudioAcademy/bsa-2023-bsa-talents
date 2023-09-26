@@ -10,6 +10,7 @@ type EmployerOnboardingDto = {
     location: string;
     description: string;
     linkedinLink: string;
+    isApproved: boolean;
 };
 
 export { type EmployerOnboardingDto };

@@ -1,30 +1,56 @@
 import { IconButton, Input as MuiInput, InputAdornment } from '@mui/material';
 
 import sendIcon from '~/assets/img/send-message.svg';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { Grid } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { MAX_MESSAGE_LENGTH, ZERO_INDEX } from '../../constants/constants.js';
 import { INPUT } from './constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onSend?: (message: string) => void;
     className?: string;
 };
 
-const MessageInput: React.FC<Properties> = ({ onSend, className }) => {
+const MessageInput: React.FC<Properties> = ({ className }) => {
+    const { user, chats, currentChatId } = useAppSelector(({ auth, chat }) => ({
+        user: auth.currentUser,
+        chats: chat.chats,
+        currentChatId: chat.current.chatId,
+    }));
+
+    const dispatch = useAppDispatch();
+
     const [message, setMessage] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [isShiftDown, setIsShiftDown] = useState(false);
 
     const sendMessage = useCallback((): void => {
-        if (onSend && message.trim()) {
-            onSend(message.trim());
+        if (message.trim()) {
+            const chat = chats.find((chat) => chat.chatId === currentChatId);
+            if (chat) {
+                const { receiver, sender } = chat.participants;
+                const messageRecipient =
+                    sender.id === user?.id ? receiver.id : sender.id;
+
+                const payload = {
+                    message,
+                    chatId: currentChatId as string,
+                    senderId: user?.id as string,
+                    receiverId: messageRecipient,
+                };
+                void dispatch(chatActions.createMessage(payload));
+            }
             setMessage('');
         }
-    }, [message, onSend]);
+    }, [message, chats, currentChatId, dispatch, user?.id]);
 
     const handleInputChange = useCallback(
         (

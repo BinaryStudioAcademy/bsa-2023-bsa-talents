@@ -179,6 +179,7 @@ const EmployerOnboardingValidationSchema = joi.object<
             'string.pattern.base':
                 EmployerOnboardingValidationMessage.LINKEDIN_LINK_WRONG_PATTERN,
         }),
+    isApproved: joi.boolean(),
 });
 
 export { EmployerOnboardingValidationSchema };
