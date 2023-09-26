@@ -1,4 +1,4 @@
-import { lmsDataService } from '~/bundles/lms-data/lms-data.js';
+import { type LMSDataService } from '~/bundles/lms-data/lms-data.service.js';
 import {
     type UserFindResponseDto,
     type UserForgotPasswordRequestDto,
@@ -18,10 +18,16 @@ import { TOKEN_EXPIRY } from './constants/constants.js';
 
 class AuthService {
     private userService: UserService;
+    private lmsDataService: LMSDataService;
     private encrypt: Encrypt;
 
-    public constructor(userService: UserService, encrypt: Encrypt) {
+    public constructor(
+        userService: UserService,
+        lmsDataService: LMSDataService,
+        encrypt: Encrypt,
+    ) {
         this.userService = userService;
+        this.lmsDataService = lmsDataService;
         this.encrypt = encrypt;
     }
 
@@ -50,10 +56,11 @@ class AuthService {
             });
         }
 
-        const isEmailExistOnLMS = await lmsDataService.isMailExistOnLMS(email);
+        const dataFromLMS =
+            await this.lmsDataService.getUserDataFromLMSServerbyEmail(email);
         const isUserTalent = role === UserRole.TALENT;
 
-        if (!isEmailExistOnLMS && isUserTalent) {
+        if (!dataFromLMS && isUserTalent) {
             throw new HttpError({
                 message: ErrorMessage.NOT_FOUND_ON_LMS,
                 status: HttpCode.BAD_REQUEST,
@@ -61,6 +68,8 @@ class AuthService {
         }
 
         const user = await this.userService.create(userRequestDto);
+
+        await this.lmsDataService.addUserLMSDataToDB(user.id, dataFromLMS);
 
         return {
             ...user,

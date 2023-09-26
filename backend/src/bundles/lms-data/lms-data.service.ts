@@ -40,27 +40,11 @@ class LMSDataService implements Service {
         const userEmail = user?.toObject().email;
 
         if (userEmail) {
-            const dataFromLMS = await this.findByUserEmailOnLMSServer(
+            const dataFromLMS = await this.getUserDataFromLMSServerbyEmail(
                 userEmail,
             );
             if (dataFromLMS) {
-                const parsedLMSData = parseLMSServerData(userId, dataFromLMS);
-
-                const newDBRecord = await this.lmsDataRepository.create(
-                    LMSDataEntity.initialize({
-                        ...parsedLMSData,
-                        userId: user.toObject().id,
-                        lectureDetails: JSON.stringify(
-                            parsedLMSData.lectureDetails,
-                        ),
-                        projectCoachesFeedback: JSON.stringify(
-                            parsedLMSData.projectCoachesFeedback,
-                        ),
-                        hrFeedback: JSON.stringify(parsedLMSData.hrFeedback),
-                        project: JSON.stringify(parsedLMSData.project),
-                    }),
-                );
-                return newDBRecord.toObject();
+                await this.addUserLMSDataToDB(user.toObject().id, dataFromLMS);
             }
 
             throw new HttpError({
@@ -75,7 +59,32 @@ class LMSDataService implements Service {
         });
     }
 
-    private async findByUserEmailOnLMSServer(
+    public async addUserLMSDataToDB(
+        userId: string,
+        dataFromLMS: LMSDataServerResponseDto | null,
+    ): Promise<UserLMSDataDto | null> {
+        if (!dataFromLMS) {
+            return null;
+        }
+
+        const parsedLMSData = parseLMSServerData(userId, dataFromLMS);
+
+        const newDBRecord = await this.lmsDataRepository.create(
+            LMSDataEntity.initialize({
+                ...parsedLMSData,
+                userId,
+                lectureDetails: JSON.stringify(parsedLMSData.lectureDetails),
+                projectCoachesFeedback: JSON.stringify(
+                    parsedLMSData.projectCoachesFeedback,
+                ),
+                hrFeedback: JSON.stringify(parsedLMSData.hrFeedback),
+                project: JSON.stringify(parsedLMSData.project),
+            }),
+        );
+        return newDBRecord.toObject();
+    }
+
+    public async getUserDataFromLMSServerbyEmail(
         email: string,
     ): Promise<LMSDataServerResponseDto | null> {
         const url = new URL(config.ENV.LMS_DATA_SERVER.LMS_SERVER);
@@ -92,11 +101,6 @@ class LMSDataService implements Service {
         }
 
         return data;
-    }
-
-    public async isMailExistOnLMS(email: string): Promise<boolean> {
-        const data = await this.findByUserEmailOnLMSServer(email);
-        return !!data;
     }
 
     public create(): ReturnType<Service['create']> {
