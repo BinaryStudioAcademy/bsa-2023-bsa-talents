@@ -4,6 +4,7 @@ export {
     ChatMessagesTableColumn,
     FilesTableColumn,
     HardSkillsTableColumn,
+    HiringInfoTableColumn,
     TalentBadgesTableColumn,
     TalentHardSkillsTableColumn,
     UserDetailsTableColumn,
