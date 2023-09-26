@@ -58,7 +58,6 @@ const { reducer, actions, name } = createSlice({
     reducers: {
         joinRoom: (state, action) => {
             action.payload;
-            state.chats = [];
         },
         leaveRoom: (state, action) => {
             action.payload;

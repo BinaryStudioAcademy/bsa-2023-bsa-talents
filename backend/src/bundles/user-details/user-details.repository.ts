@@ -82,6 +82,7 @@ class UserDetailsRepository implements Repository {
 
         return UserDetailsEntity.initialize({
             id: details.id,
+            createdAt: details.createdAt,
             userId: details.userId,
             isApproved: details.isApproved,
             deniedReason: details.deniedReason,
