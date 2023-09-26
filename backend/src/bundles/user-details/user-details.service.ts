@@ -4,14 +4,18 @@ import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
+import { type HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
+import { type HardSkillsService } from '../hard-skills/hard-skills.service.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
+import { type UserDetailsOptions } from '../talent-hard-skills/types/user-details-options.js';
 import {
     type TalentHardSkill,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,
@@ -28,15 +32,13 @@ class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
+    private hardSkillsService: HardSkillsService;
 
-    public constructor(
-        userDetailsRepository: UserDetailsRepository,
-        talentBadgeService: TalentBadgeService,
-        talentHardSkillsService: TalentHardSkillsService,
-    ) {
-        this.userDetailsRepository = userDetailsRepository;
-        this.talentBadgeService = talentBadgeService;
-        this.talentHardSkillsService = talentHardSkillsService;
+    public constructor(options: UserDetailsOptions) {
+        this.userDetailsRepository = options.userDetailsRepository;
+        this.talentBadgeService = options.talentBadgeService;
+        this.talentHardSkillsService = options.talentHardSkillsService;
+        this.hardSkillsService = options.hardSkillsService;
     }
 
     public async find(
@@ -107,16 +109,45 @@ class UserDetailsService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
-    public searchUsers(
+    public async searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',
             'searchType',
+            'searchStringType',
         ]);
 
-        return this.userDetailsRepository.searchUsers(preparedData);
+        const filteredUsers = await this.userDetailsRepository.searchUsers(
+            preparedData,
+        );
+
+        const userPromises = filteredUsers.map(async (user) => {
+            const userDetails = user.toObject();
+            const userDetailsId = userDetails.id as string;
+            const hardSkillsData =
+                await this.talentHardSkillsService.findByUserDetailsId(
+                    userDetailsId,
+                );
+            const userHardSkills: HardSkillsEntity[] = [];
+
+            for (const skill of hardSkillsData) {
+                if (skill.hardSkillId) {
+                    const hardSkill = await this.hardSkillsService.findById(
+                        skill.hardSkillId,
+                    );
+                    if (hardSkill) {
+                        userHardSkills.push(hardSkill);
+                    }
+                }
+            }
+
+            userDetails.hardSkills = userHardSkills;
+            return userDetails;
+        });
+
+        return await Promise.all(userPromises);
     }
 
     public async create(

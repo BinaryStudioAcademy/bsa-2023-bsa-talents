@@ -1,3 +1,4 @@
+import { type HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
@@ -30,6 +31,7 @@ type UserDetailsProperties = {
     preferredLanguages: ValueOf<typeof PreferredLanguage>[] | null;
     searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
+    hardSkills?: HardSkillsEntity[];
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

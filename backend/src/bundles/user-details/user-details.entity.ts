@@ -1,5 +1,6 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
+import { type HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
 import {
     type Country,
     type EmploymentType,
@@ -49,6 +50,8 @@ class UserDetailsEntity implements Entity {
 
     private 'projectLinks': string[] | null;
 
+    private 'hardSkills'?: HardSkillsEntity[];
+
     private 'photoId': string | null;
 
     private 'fullName': string | null;
@@ -92,6 +95,7 @@ class UserDetailsEntity implements Entity {
         preferredLanguages,
         searchType,
         projectLinks,
+        hardSkills,
         photoId,
         fullName,
         phone,
@@ -122,6 +126,7 @@ class UserDetailsEntity implements Entity {
         this.notConsidered = notConsidered;
         this.preferredLanguages = preferredLanguages;
         this.searchType = searchType;
+        this.hardSkills = hardSkills;
         this.projectLinks = projectLinks;
         this.photoId = photoId;
         this.fullName = fullName;
@@ -287,6 +292,7 @@ class UserDetailsEntity implements Entity {
             notConsidered: this.notConsidered,
             preferredLanguages: this.preferredLanguages,
             searchType: this.searchType,
+            hardSkills: this.hardSkills,
             projectLinks: this.projectLinks,
             photoId: this.photoId,
             fullName: this.fullName,

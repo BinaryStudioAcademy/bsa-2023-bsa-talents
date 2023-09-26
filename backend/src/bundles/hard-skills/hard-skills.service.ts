@@ -19,6 +19,10 @@ class HardSkillsService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
+    public findById(id: string): Promise<HardSkillsEntity | null> {
+        return this.hardSkillsRepository.findById(id);
+    }
+
     public create(): Promise<HardSkillsEntity> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }

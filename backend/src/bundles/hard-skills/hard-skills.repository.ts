@@ -23,6 +23,22 @@ class HardSkillsRepository implements Repository {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
+    public async findById(id: string): Promise<HardSkillsEntity | null> {
+        const skillData = await this.hardSkillsModel
+            .query()
+            .where('id', id)
+            .first();
+
+        if (!skillData) {
+            return null;
+        }
+
+        return HardSkillsEntity.initialize({
+            id: skillData.id,
+            name: skillData.name,
+        });
+    }
+
     public update(): Promise<HardSkillsEntity> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
