@@ -1,1 +1,1 @@
-export { contactsCreateValidationSchema } from './hiring-info-create.validation-schema.js';
+export { contactsCreateValidationSchema } from './contacts-create.validation-schema.js';
