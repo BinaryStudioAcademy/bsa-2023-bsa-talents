@@ -50,8 +50,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
 
     const dispatch = useAppDispatch();
 
-    //const { isRedirectToEmployerScreen } = useAppSelector(({ auth }) => auth);
-
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
@@ -63,11 +61,10 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     const isEmployerProfileScreen =
         route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE;
 
-    const labelForSubmitButton = employerOnboardingData
-        ? EmployerDataSubmitLabel.SAVE
-        : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
-
-    //console.log(isRedirectToEmployerScreen);
+    const labelForSubmitButton =
+        isEmployerProfileScreen && employerOnboardingData
+            ? EmployerDataSubmitLabel.SAVE
+            : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
 
     return (
         <>
@@ -211,11 +208,13 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     multiline={true}
                 />
             </FormField>
-            <Button
-                label={labelForSubmitButton}
-                onPress={handleFormSubmit}
-                style={globalStyles.mt25}
-            />
+            {(employerOnboardingData && !isEmployerProfileScreen) ?? (
+                <Button
+                    label={labelForSubmitButton}
+                    onPress={handleFormSubmit}
+                    style={globalStyles.mt25}
+                />
+            )}
             {!isEmployerProfileScreen && (
                 <Button
                     label="Go to the profile"
