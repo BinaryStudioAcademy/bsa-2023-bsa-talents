@@ -1,3 +1,4 @@
 const MAX_MESSAGE_LENGTH = 1000;
+const ZERO_INDEX = 0;
 
-export { MAX_MESSAGE_LENGTH };
+export { MAX_MESSAGE_LENGTH, ZERO_INDEX };

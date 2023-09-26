@@ -5,9 +5,14 @@ const DEFAULT_CONTACT_CANDIDATE_MODAL = {
     templateName: '',
 };
 
-const MODAL_CONST = {
+const MODAL = {
     EMPTY_ARRAY_LENGTH: 0,
     MAX_LINKS: 5,
 } as const;
 
-export { DEFAULT_CONTACT_CANDIDATE_MODAL, MODAL_CONST };
+const TEXTAREA = {
+    minRows: 3,
+    maxRows: 7,
+};
+
+export { DEFAULT_CONTACT_CANDIDATE_MODAL, MODAL, TEXTAREA };

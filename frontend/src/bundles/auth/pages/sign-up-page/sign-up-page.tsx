@@ -11,8 +11,8 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { UserRole, type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import { configureString } from '~/helpers/helpers.js';
 
 const SignUpPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -23,7 +23,11 @@ const SignUpPage: React.FC = () => {
         ({ role }: { role: ValueOf<typeof UserRole> }): void => {
             switch (role) {
                 case UserRole.TALENT: {
-                    navigate(getStepRoute(StepsRoute.STEP_01));
+                    navigate(
+                        configureString(AppRoute.TALENT_STEP, {
+                            step: StepsRoute.STEP_01,
+                        }),
+                    );
                     break;
                 }
                 case UserRole.EMPLOYER: {
