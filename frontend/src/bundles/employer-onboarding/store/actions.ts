@@ -57,6 +57,8 @@ const saveEmployerDetails = createAsyncThunk<
 
         try {
             const { photo, companyLogo, ...restPayload } = registerPayload;
+            delete restPayload.photoUrl;
+            delete restPayload.companyLogoUrl;
             const files: FileDto[] = [];
 
             if (photo) {
@@ -113,15 +115,24 @@ const getEmployerDetails = createAsyncThunk<
 >(
     `${sliceName}/get-employer-details`,
     async (findPayload, { extra, rejectWithValue }) => {
-        const { employerOnBoardingApi } = extra;
+        const { employerOnBoardingApi, fileUploadApi } = extra;
 
         try {
             const userDetails =
                 await employerOnBoardingApi.getUserDetailsByUserId({
                     userId: findPayload.userId,
                 });
-
-            return userDetails ?? null;
+            const photo = await fileUploadApi.getFileById({
+                id: userDetails?.photoId ?? '',
+            });
+            const companyLogo = await fileUploadApi.getFileById({
+                id: userDetails?.companyLogoId ?? '',
+            });
+            return {
+                ...userDetails,
+                photoUrl: photo?.url,
+                companyLogoUrl: companyLogo?.url,
+            };
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',
