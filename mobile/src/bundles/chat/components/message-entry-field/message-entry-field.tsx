@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { EMPLOYER, EMPLOYER_ID } from '~/bundles/chat/constants/constants';
 import {
-    type ChatDataRequestDto,
+    type ChatMessagesCreateRequestDto,
     type UserInformation,
 } from '~/bundles/chat/types/types';
 import {
@@ -12,7 +11,11 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import { Color, IconName } from '~/bundles/common/enums/enums';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -20,7 +23,7 @@ import { styles } from './styles';
 type Properties = {
     chatId: string;
     conversationPartner: UserInformation;
-    onSendMessage: (payload: ChatDataRequestDto) => void;
+    onSendMessage: (payload: ChatMessagesCreateRequestDto) => void;
 };
 
 const MessageEntryField: React.FC<Properties> = ({
@@ -28,26 +31,27 @@ const MessageEntryField: React.FC<Properties> = ({
     conversationPartner,
     onSendMessage,
 }) => {
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
     const [textMessage, setTextMessage] = useState('');
 
-    //TODO change when information about the conversation partner is known
     const handleSendMessage = useCallback(() => {
         if (!textMessage.trim()) {
             return;
         }
         onSendMessage({
-            id: new Date().toISOString(),
             chatId: chatId,
-            senderId: EMPLOYER_ID,
-            senderName: EMPLOYER,
+            senderId: currentUserData?.id ?? '',
             receiverId: conversationPartner?.id ?? '',
-            receiverAvatar: conversationPartner?.name,
-            receiverName: conversationPartner?.avatar,
             message: textMessage,
-            createdAt: new Date().toISOString(),
         });
         setTextMessage('');
-    }, [chatId, conversationPartner, onSendMessage, textMessage]);
+    }, [
+        chatId,
+        conversationPartner,
+        onSendMessage,
+        textMessage,
+        currentUserData?.id,
+    ]);
 
     return (
         <View

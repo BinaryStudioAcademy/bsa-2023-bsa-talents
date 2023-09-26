@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useRealTimeElapsed } from '~/bundles/chat/hooks/hooks';
-import { type ChatItem } from '~/bundles/chat/types/types';
+import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
     Avatar,
     Pressable,
@@ -16,18 +16,17 @@ import { type ChatNavigationProperties } from '~/bundles/common/types/types';
 import { styles } from './styles';
 
 type Properties = {
-    item: ChatItem;
+    item: ChatResponseDto;
     onSelect: (payload: ChatNavigationProperties) => void;
 };
 
 const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
-    const { chatId, senderName, senderAvatar, lastMessage, lastMessageDate } =
-        item;
-    const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageDate ?? '');
+    const { chatId, partner, lastMessage, lastMessageCreatedAt } = item;
+    const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageCreatedAt);
 
     const itemAvatar = (
         <Avatar
-            uri={senderAvatar}
+            uri={partner.avatarUrl ?? ''}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,
@@ -43,10 +42,10 @@ const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
                 ellipsizeMode="tail"
                 style={[globalStyles.mb5, styles.userName]}
             >
-                {senderName}
+                {chatId}
             </Text>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.message}>
-                {lastMessage ?? ''}
+                {lastMessage}
             </Text>
         </View>
     );

@@ -21,7 +21,6 @@ type State = {
         chatId: string | null;
         messages: MessageResponseDto[];
     };
-    chatData: Record<string, ChatResponseDto[]> | null;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
@@ -31,7 +30,6 @@ const initialState: State = {
         chatId: null,
         messages: [],
     },
-    chatData: null,
     dataStatus: DataStatus.IDLE,
 };
 
@@ -54,11 +52,6 @@ const { reducer, actions, name } = createSlice({
                     action.payload,
                 ];
             }
-
-            // state.current.messages = [
-            //     ...state.current.messages,
-            //     action.payload,
-            // ];
         },
         updateChatId: (state, action) => {
             state.current.chatId = action.payload.chatId;
@@ -97,15 +90,6 @@ const { reducer, actions, name } = createSlice({
                     ...state.current.messages,
                     action.payload,
                 ];
-                ////////////////
-                // const message = action.payload;
-                // const { chatId } = message;
-
-                // if (!state.chatData) {
-                //     state.chatData = {};
-                // }
-
-                // state.chatData[chatId].unshift(action.payload);
             })
             .addMatcher(
                 isAnyOf(
