@@ -180,24 +180,9 @@ const OnboardingForm: React.FC = () => {
 
     const handleFormSubmit = useCallback(
         (data: EmployerOnboardingDto): boolean => {
-            const {
-                fullName,
-                employerPosition,
-                companyName,
-                companyWebsite,
-                location,
-                description,
-                linkedinLink,
-            } = data;
             void dispatch(
                 employerActions.saveEmployerDetails({
-                    fullName,
-                    employerPosition,
-                    companyName,
-                    companyWebsite,
-                    location,
-                    description,
-                    linkedinLink,
+                    ...data,
                     userId: currentUser?.id,
                 }),
             );
