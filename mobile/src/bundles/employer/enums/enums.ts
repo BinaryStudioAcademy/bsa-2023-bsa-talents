@@ -3,4 +3,8 @@ export {
     EmployerOnboardingFormValidationRule,
 } from './employer-onboarding/employer-onboarding.enum';
 export { EmployerDataSubmitLabel } from './employer-profile/employer-profile.enum';
-export { ContactCandidateValidationRule } from 'shared/build/index.js';
+export {
+    ContactCandidateValidationRule,
+    UserSortCriteria,
+    YearsOfExperience,
+} from 'shared/build/index.js';

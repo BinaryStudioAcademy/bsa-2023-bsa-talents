@@ -41,7 +41,7 @@ const loadCurrentUser = createAsyncThunk<
 >(`${sliceName}${AuthApiPath.CURRENT_USER}`, async (_, { extra }) => {
     const { authApi, storage } = extra;
     try {
-        return authApi.getCurrentUser();
+        return await authApi.getCurrentUser();
     } catch (error) {
         await storage.drop(StorageKey.TOKEN);
         throw error;
