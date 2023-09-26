@@ -46,7 +46,9 @@ const Preview: React.FC = () => {
         );
     }, [dispatch, userId, completedOnboardingStep]);
 
-    //TODO add logic for "Publish now"
+    const handlePublishSubmit = useCallback((): void => {
+        void dispatch(commonActions.updatePublishedData({ userId }));
+    }, [dispatch, userId]);
 
     return (
         <View style={[globalStyles.flex1, globalStyles.mb25]}>
@@ -59,7 +61,6 @@ const Preview: React.FC = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <ProfilePreview />
-                {/* todo: add logic */}
                 <View>
                     <Button
                         label="Save without publishing"
@@ -67,7 +68,11 @@ const Preview: React.FC = () => {
                         style={globalStyles.mb10}
                         onPress={handlePreviewSubmit}
                     />
-                    <Button label="Publish now" style={globalStyles.mb25} />
+                    <Button
+                        label="Publish now"
+                        style={globalStyles.mb25}
+                        onPress={handlePublishSubmit}
+                    />
                 </View>
             </ScrollView>
         </View>
