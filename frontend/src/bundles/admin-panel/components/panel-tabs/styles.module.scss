@@ -1,0 +1,31 @@
+.button {
+    padding: unset;
+    color: var(--black);
+    font-size: 14px;
+    font-family: var(--font-family);
+    line-height: var(--line-height-maain);
+    text-transform: unset;
+    background-color: unset;
+    border: unset;
+    border-radius: unset;
+    box-shadow: unset;
+}
+
+.filters {
+    display: flex;
+}
+
+.tab {
+    padding: 15px;
+}
+
+.tab:hover {
+    background-color: unset;
+    background-color: var(--outline);
+    box-shadow: unset;
+}
+
+.tab.active {
+    color: var(--st-tropaz);
+    border-bottom: 2px solid var(--st-tropaz);
+}

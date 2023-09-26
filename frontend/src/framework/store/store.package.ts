@@ -8,6 +8,8 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { reducer as appReducer } from '~/app/store/app.js';
+import { adminApi } from '~/bundles/admin-panel/admin.js';
+import { reducer as adminReducer } from '~/bundles/admin-panel/store/admin.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { reducer as candidateReducer } from '~/bundles/candidate/store/candidate.js';
@@ -36,6 +38,7 @@ import { chatSocket, errorHandler } from './middlewares/middlewares.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
+    admin: ReturnType<typeof adminReducer>;
     talentOnBoarding: ReturnType<typeof talentOnBoardingReducer>;
     employer: ReturnType<typeof employerReducer>;
     employerOnBoarding: ReturnType<typeof employerOnboardingReducer>;
@@ -51,6 +54,7 @@ type RootReducer = {
 
 type ExtraArguments = {
     authApi: typeof authApi;
+    adminApi: typeof adminApi;
     chatApi: typeof chatApi;
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
@@ -65,6 +69,7 @@ type ExtraArguments = {
 
 const combinedReducer = combineReducers({
     auth: authReducer,
+    admin: adminReducer,
     lms: lmsReducer,
     chat: chatReducer,
     employerOnBoarding: employerOnboardingReducer,
@@ -116,6 +121,7 @@ class Store {
     public get extraArguments(): ExtraArguments {
         return {
             authApi,
+            adminApi,
             chatApi,
             fileUploadApi,
             talentOnBoardingApi,

@@ -21,13 +21,13 @@ import {
     CVAndContacts,
     Profile,
     VerificationList,
-} from './components/components.js';
-import { FIRST_INDEX, PreviewTab } from './constants/constants.js';
-import { employers, talents } from './mock-data/mock-data.js';
+} from '../../components/components.js';
+import { FIRST_INDEX, PreviewTab } from '../../constants/constants.js';
+import { employers, talents } from '../../mock-data/mock-data.js';
+import { type FilterValues, type TabValues } from '../../types/types.js';
 import styles from './styles.module.scss';
-import { type FilterValues, type TabValues } from './types/types.js';
 
-const AdminPanel: React.FC = () => {
+const AdminVerificationsPanel: React.FC = () => {
     const [filter, setFilter] = useState<FilterValues>('talents');
     const items = filter === 'talents' ? talents : employers;
     const theme = useTheme();
@@ -171,4 +171,4 @@ const AdminPanel: React.FC = () => {
     );
 };
 
-export { AdminPanel };
+export { AdminVerificationsPanel };
