@@ -7,6 +7,7 @@ export {
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    SearchType,
     UserDetailsApiPath,
     UserSortCriteria,
     YearsOfExperience,
