@@ -56,9 +56,11 @@ class AuthService {
             });
         }
 
-        const dataFromLMS =
-            await this.lmsDataService.getUserDataFromLMSServerbyEmail(email);
         const isUserTalent = role === UserRole.TALENT;
+
+        const dataFromLMS = isUserTalent
+            ? await this.lmsDataService.getUserDataFromLMSServerbyEmail(email)
+            : null;
 
         if (!dataFromLMS && isUserTalent) {
             throw new HttpError({
@@ -69,7 +71,9 @@ class AuthService {
 
         const user = await this.userService.create(userRequestDto);
 
-        await this.lmsDataService.addUserLMSDataToDB(user.id, dataFromLMS);
+        if (dataFromLMS && isUserTalent) {
+            await this.lmsDataService.addUserLMSDataToDB(user.id, dataFromLMS);
+        }
 
         return {
             ...user,
