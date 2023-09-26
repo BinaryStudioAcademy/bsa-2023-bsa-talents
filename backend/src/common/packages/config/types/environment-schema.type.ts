@@ -30,6 +30,11 @@ type EnvironmentSchema = {
         AWS_SECRET_ACCESS_KEY: string;
         AWS_BUCKET_NAME: string;
     };
+    SEND_GRID: {
+        MAIL_API_KEY: string;
+        MAIL_SENDER_DOMAIN: string;
+        CLIENT_URL: string;
+    };
     LMS_DATA_SERVER: {
         LMS_X_TOKEN: string;
         LMS_SERVER: string;

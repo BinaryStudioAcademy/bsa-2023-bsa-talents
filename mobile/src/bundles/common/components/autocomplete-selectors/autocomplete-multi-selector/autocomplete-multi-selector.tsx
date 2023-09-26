@@ -59,7 +59,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
         onChange(value);
     };
 
-    const handleItemDelete = (itemName: string): void => {
+    const handleItemDelete = (itemName: string | number): void => {
         onChange(
             value.filter(
                 ({ label }: AutocompleteMultiSelectorValue) =>

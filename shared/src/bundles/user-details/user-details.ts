@@ -2,7 +2,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
-    Experience,
+    experienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,

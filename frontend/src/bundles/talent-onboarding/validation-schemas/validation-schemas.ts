@@ -1,4 +1,4 @@
 export { ContactsCVStepValidationSchema } from './contacts-cv-step/contacts-cv-step.validation-schema.js';
-export { BsaBadgesStepValidationSchema } from 'shared/build/index.js';
-export { ProfileStepValidationSchema } from 'shared/build/index.js';
-export { SkillsStepValidationSchema } from 'shared/build/index.js';
+export { bsaBadgesStepValidationSchema } from 'shared/build/index.js';
+export { profileStepValidationSchema } from 'shared/build/index.js';
+export { skillsStepValidationSchema } from 'shared/build/index.js';

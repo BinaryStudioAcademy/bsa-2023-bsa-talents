@@ -36,6 +36,7 @@
         "@fastify/static": "6.10.2",
         "@fastify/swagger": "8.8.0",
         "@fastify/swagger-ui": "1.9.3",
+        "@sendgrid/mail": "^7.7.0",
         "aws-sdk": "2.1450.0",
         "bcrypt": "5.1.1",
         "convict": "6.2.4",

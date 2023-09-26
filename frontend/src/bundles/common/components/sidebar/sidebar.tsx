@@ -1,7 +1,14 @@
-import { EmailRounded, FolderShared, Home } from '@mui/icons-material';
+import {
+    EmailRounded,
+    FolderShared,
+    Home,
+    PeopleRounded,
+} from '@mui/icons-material';
 
 import { Grid, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { UserRole } from '~/bundles/users/users.js';
+import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { getValidClassNames } from '../../helpers/helpers.js';
 import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
@@ -24,24 +31,29 @@ const GENERAL_MENU: SideBarMenu = [
 
 const ADMIN_MENU: SideBarMenu = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.ADMIN_VERIFICATIONS_PANEL,
         name: 'Home',
         icon: <Home />,
+    },
+    {
+        link: AppRoute.ADMIN_CONNECTIONS_PANEL,
+        name: 'Connections',
+        icon: <PeopleRounded />,
     },
 ];
 
 const Sidebar: React.FC = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
+    const currentUser = useAppSelector(
+        (state: RootReducer) => state.auth.currentUser,
+    );
 
-    const { role } = useAppSelector(({ auth }) => ({
-        role: auth.currentUser?.role,
-    }));
-
+    const isAdmin = currentUser?.role === UserRole.ADMIN;
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
 
-    const menuItems = role === 'admin' ? ADMIN_MENU : GENERAL_MENU;
+    const menuItems = isAdmin ? ADMIN_MENU : GENERAL_MENU;
 
     return (
         <>

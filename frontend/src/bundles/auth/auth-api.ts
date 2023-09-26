@@ -1,6 +1,10 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import {
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -65,6 +69,36 @@ class AuthApi extends HttpApiBase {
         );
 
         return await response.json<UserSignInResponseDto>();
+    }
+
+    public async forgotPassword(
+        payload: UserForgotPasswordRequestDto,
+    ): Promise<UserForgotPasswordResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(AuthApiPath.FORGOT_PASSWORD, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: false,
+            },
+        );
+        return await response.json<UserForgotPasswordResponseDto>();
+    }
+
+    public async resetPassword(
+        payload: UserResetPasswordRequestDto,
+    ): Promise<UserResetPasswordResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(AuthApiPath.RESET_PASSWORD, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: false,
+            },
+        );
+        return await response.json<UserResetPasswordResponseDto>();
     }
 }
 
