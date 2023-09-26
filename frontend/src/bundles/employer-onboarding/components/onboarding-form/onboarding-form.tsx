@@ -361,7 +361,7 @@ const OnboardingForm: React.FC = () => {
                     <Grid container className={styles.photo}>
                         <Grid item className={styles.photoWrapper}>
                             <ImageDisplay
-                                file={photo}
+                                file={watch('photo')}
                                 url={photoUrl}
                                 alt="Profile"
                             />
@@ -377,7 +377,7 @@ const OnboardingForm: React.FC = () => {
                     <Grid container className={styles.photo}>
                         <Grid item className={styles.photoWrapper}>
                             <ImageDisplay
-                                file={companyLogo}
+                                file={watch('companyLogo')}
                                 url={companyLogoUrl}
                                 alt="Company logo"
                             />
