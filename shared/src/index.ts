@@ -7,15 +7,11 @@ export {
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
-    type ChatMessageCreateRequestDto,
-    type ChatMessageGetAllItemResponseDto,
-    type ChatMessageGetAllResponseDto,
-} from './bundles/chat/chat.js'; // TODO: compare with bundles/chat-messages/chat-messages.js
-export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
     chatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
+    type ChatParticipantDto,
     type ChatResponseDto,
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js

@@ -93,7 +93,10 @@ class ChatMessagesRepository implements Repository {
         const newChatMessage = await this.chatMessageModel
             .query()
             .insertAndFetch({
-                ...payload,
+                senderId: payload.senderId,
+                receiverId: payload.receiverId,
+                chatId: payload.chatId,
+                message: payload.message,
             });
 
         return ChatMessageEntity.initialize(newChatMessage);

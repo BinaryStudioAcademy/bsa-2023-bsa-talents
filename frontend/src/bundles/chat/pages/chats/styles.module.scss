@@ -103,3 +103,17 @@
     flex-basis: 350px;
     min-width: 350px;
 }
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-left: var(--border);
+}
+
+.hire {
+    margin-top: 15px;
+    font-size: var(--font-size-h4);
+}
