@@ -1,4 +1,9 @@
-import { EmailRounded, FolderShared, Home } from '@mui/icons-material';
+import {
+    EmailRounded,
+    FolderShared,
+    Home,
+    PeopleRounded,
+} from '@mui/icons-material';
 
 import { Grid, Link, Logo } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -24,9 +29,14 @@ const GENERAL_MENU: SideBarMenu = [
 
 const ADMIN_MENU: SideBarMenu = [
     {
-        link: AppRoute.ROOT,
+        link: AppRoute.ADMIN_VERIFICATIONS_PANEL,
         name: 'Home',
         icon: <Home />,
+    },
+    {
+        link: AppRoute.ADMIN_CONNECTIONS_PANEL,
+        name: 'Connections',
+        icon: <PeopleRounded />,
     },
 ];
 
@@ -40,12 +50,12 @@ const Sidebar: React.FC = () => {
     const { isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
-
+    const isAdmin = role === 'admin';
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
 
-    const menuItems = role === 'admin' ? ADMIN_MENU : GENERAL_MENU;
+    const menuItems = isAdmin ? ADMIN_MENU : GENERAL_MENU;
 
     return (
         <>
@@ -59,12 +69,16 @@ const Sidebar: React.FC = () => {
                 <ul className={styles.list}>
                     {menuItems.map((item) => (
                         <li
-                            key={item.link}
-                            className={isApproved ? '' : styles.listItem}
+                            key={item.name}
+                            className={
+                                isAdmin || isApproved ? '' : styles.listItem
+                            }
                         >
                             <Link
                                 to={`${
-                                    isApproved ? item.link : AppRoute.SAME_PAGE
+                                    isAdmin || isApproved
+                                        ? item.link
+                                        : AppRoute.SAME_PAGE
                                 }`}
                             >
                                 {item.icon}
