@@ -6,6 +6,7 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { BadgeIcon } from './components/components.js';
+import { GRID_FLEX_GROW } from './constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -80,7 +81,7 @@ const Badge: React.FC<Properties> = ({
             </Grid>
             <Grid
                 container
-                flexGrow={1}
+                flexGrow={GRID_FLEX_GROW}
                 flexDirection="column"
                 justifyContent="space-between"
                 flexWrap="nowrap"

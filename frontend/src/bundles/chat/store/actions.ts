@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -7,19 +7,7 @@ import {
     type ChatResponseDto,
     type MessageResponseDto,
 } from '../types/types.js';
-import { name as sliceName } from './slice.js';
-
-const joinRoom = createAction(`${sliceName}/join-room`, (chatId: string) => {
-    return {
-        payload: chatId,
-    };
-});
-
-const leaveRoom = createAction(`${sliceName}/leave-room`, (chatId: string) => {
-    return {
-        payload: chatId,
-    };
-});
+import { actions, name as sliceName } from './slice.js';
 
 const getAllMessages = createAsyncThunk<
     MessageResponseDto[],
@@ -48,15 +36,36 @@ const getAllMessagesByChatId = createAsyncThunk<
     {
         chatId: string;
         messages: MessageResponseDto[];
+        employerDetails: {
+            logoUrl: string;
+            companyName: string;
+            employerName: string;
+            employerPosition: string;
+            about: string;
+            companyWebsite: string;
+        };
     },
-    string,
+    { chatId: string; employerId: string },
     AsyncThunkConfig
->(`${sliceName}/get-messages-by-chat-id`, async (chatId, { extra }) => {
-    const { chatApi } = extra;
-    const messages = await chatApi.getAllMessagesByChatId(chatId);
+>(
+    `${sliceName}/get-messages-by-chat-id`,
+    async ({ chatId, employerId }, { extra, dispatch }) => {
+        const { chatApi, userDetailsApi } = extra;
+        dispatch(actions.updateChatId(chatId));
+        const messages = await chatApi.getAllMessagesByChatId(chatId);
+        const employer = await userDetailsApi.getUserDetailsById(employerId);
+        const employerDetails = {
+            logoUrl: employer?.companyLogoId ?? '',
+            companyName: employer?.companyName ?? '',
+            employerName: employer?.fullName ?? '',
+            employerPosition: employer?.employerPosition ?? '',
+            about: employer?.description ?? '',
+            companyWebsite: employer?.companyWebsite ?? '',
+        };
 
-    return { chatId, messages: messages.items };
-});
+        return { chatId, messages: messages.items, employerDetails };
+    },
+);
 
 const createMessage = createAsyncThunk<
     MessageResponseDto,
@@ -74,21 +83,9 @@ const createMessage = createAsyncThunk<
     });
 });
 
-const addMessage = createAction(
-    `${sliceName}/add-message`,
-    (message: MessageResponseDto) => {
-        return {
-            payload: message,
-        };
-    },
-);
-
 export {
-    addMessage,
     createMessage,
     getAllChatsByUserId,
     getAllMessages,
     getAllMessagesByChatId,
-    joinRoom,
-    leaveRoom,
 };

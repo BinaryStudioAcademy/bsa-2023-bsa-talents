@@ -1,10 +1,13 @@
-import { type PartnerDto } from './partner-dto.type.js';
+import { type ChatParticipantDto } from './chat-participant-dto.type.js';
 
 type ChatResponseDto = {
     chatId: string;
     lastMessageCreatedAt: string;
     lastMessage: string;
-    partner: PartnerDto;
+    participants: {
+        sender: ChatParticipantDto;
+        receiver: ChatParticipantDto;
+    };
 };
 
 export { type ChatResponseDto };

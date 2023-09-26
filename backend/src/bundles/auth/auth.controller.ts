@@ -53,12 +53,13 @@ class AuthController extends ControllerBase {
             validation: {
                 body: userSignUpValidationSchema,
             },
-            handler: (options) =>
-                this.signUp(
+            handler: (options) => {
+                return this.signUp(
                     options as ApiHandlerOptions<{
                         body: UserSignUpRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -67,12 +68,13 @@ class AuthController extends ControllerBase {
             validation: {
                 body: userSignInValidationSchema,
             },
-            handler: (options) =>
-                this.signIn(
+            handler: (options) => {
+                return this.signIn(
                     options as ApiHandlerOptions<{
                         body: UserSignInRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({

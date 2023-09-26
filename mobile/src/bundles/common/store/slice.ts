@@ -3,6 +3,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import {
     type UserDetailsGeneralResponseDto,
+    type UserDetailsResponseDto,
     type ValueOf,
 } from '~/bundles/common/types/types';
 
@@ -16,11 +17,13 @@ import {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     onboardingData: UserDetailsGeneralResponseDto | null;
+    talentsData: UserDetailsResponseDto[] | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     onboardingData: null,
+    talentsData: null,
 };
 
 const { reducer, actions, name } = createSlice({

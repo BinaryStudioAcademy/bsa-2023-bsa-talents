@@ -5,4 +5,8 @@ export { createDrawerNavigator } from '@react-navigation/drawer';
 export { createNativeStackNavigator } from '@react-navigation/native-stack';
 export { formatDistanceToNow, parseISO } from 'date-fns';
 export { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-export { getAvatarInitials } from 'shared/build/index.js';
+export {
+    getAvatarInitials,
+    getBadgeColor,
+    getBadgeIcon,
+} from 'shared/build/index.js';

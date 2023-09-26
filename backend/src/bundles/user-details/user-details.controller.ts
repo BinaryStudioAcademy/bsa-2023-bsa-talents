@@ -160,12 +160,13 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsCreateValidationSchema,
             },
-            handler: (options) =>
-                this.create(
+            handler: (options) => {
+                return this.create(
                     options as ApiHandlerOptions<{
                         body: UserDetailsCreateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -174,23 +175,25 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsUpdateValidationSchema,
             },
-            handler: (options) =>
-                this.update(
+            handler: (options) => {
+                return this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
             path: UserDetailsApiPath.APPROVE,
             method: 'PATCH',
-            handler: (options) =>
-                this.approve(
+            handler: (options) => {
+                return this.approve(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -199,13 +202,14 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsDenyValidationSchema,
             },
-            handler: (options) =>
-                this.deny(
+            handler: (options) => {
+                return this.deny(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                         body: UserDetailsDenyRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -228,6 +232,18 @@ class UserDetailsController extends ControllerBase {
             method: 'GET',
             handler: (options) => {
                 return this.findByUserId(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: `${UserDetailsApiPath.$ID}/company`,
+            method: 'GET',
+            handler: (options) => {
+                return this.findCompanyInfoByUserId(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                     }>,
@@ -701,6 +717,20 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    private async findCompanyInfoByUserId(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findCompanyInfoByUserId(
+                userId,
+            ),
         };
     }
 
