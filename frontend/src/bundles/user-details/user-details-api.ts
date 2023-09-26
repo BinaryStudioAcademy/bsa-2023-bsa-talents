@@ -3,6 +3,7 @@ import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
+import { type UserLMSDataDto } from '../lms/types/types.js';
 import { type UserDetailsGeneralCustom } from '../talent-onboarding/types/types.js';
 
 type Constructor = {
@@ -27,6 +28,19 @@ class UserDetailsApi extends HttpApiBase {
         });
 
         return await response.json<UserDetailsGeneralCustom>();
+    }
+
+    public async getTalentLmsDataById(
+        payload: string,
+    ): Promise<UserLMSDataDto | null> {
+        const path = '/:userId/lms-data'.replace(':userId', payload);
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
+
+        return await response.json<UserLMSDataDto>();
     }
 }
 

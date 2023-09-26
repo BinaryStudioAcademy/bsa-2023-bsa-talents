@@ -58,6 +58,10 @@ const CandidateProfile: React.FC<Properties> = ({
     const { hardSkillsOptions } = useCommonData();
     const dispatch = useAppDispatch();
 
+    // const dispatch = useAppDispatch();
+    // TODO: lms data
+    // const { lmsData } = useAppSelector((state: RootReducer) => state.lms);
+
     useEffect(() => {
         void dispatch(
             talentActions.getTalentDetails({
