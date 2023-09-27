@@ -33,7 +33,9 @@ const getFullUserDetails = createAsyncThunk<
 
 const approveUser = createAsyncThunk<
     Partial<UserDetailsFullResponseDto> | boolean,
-    Partial<UserDetailsFullResponseDto>,
+    {
+        userId: string;
+    },
     AsyncThunkConfig
 >(`${sliceName}/approve`, async (payload, { extra }) => {
     const { adminApi } = extra;

@@ -20,6 +20,7 @@ export {
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
 export {
+    type File,
     FileApiPath,
     type FileUploadResponse,
     type UploadedFile,

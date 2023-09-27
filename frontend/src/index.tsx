@@ -17,7 +17,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 
-import { AdminPanel } from './bundles/admin-panel/pages/admin-panel.js';
+import { AdminVerificationsPanel } from './bundles/admin-panel/pages/verifications/verifications-panel.js';
 import {
     ResetPasswordPage,
     SignInPage,
@@ -177,7 +177,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                                     avatarUrl=""
                                                     isOnline
                                                 >
-                                                    <AdminPanel />
+                                                    <AdminVerificationsPanel />
                                                 </PageLayout>
                                             </ProtectedRoute>
                                         ),

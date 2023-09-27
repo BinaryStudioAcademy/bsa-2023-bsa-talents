@@ -50,6 +50,7 @@ type UserDetailsResponseDto = {
         id: string | null;
         hardSkillId: string;
         userDetailsId: string;
+        name: string;
     }[];
     completedStep: ValueOf<typeof OnboardingStep> | null;
 };

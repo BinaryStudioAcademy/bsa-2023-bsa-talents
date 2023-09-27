@@ -23,22 +23,6 @@ class AdminApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    // public async getUserDetailsByUserId(
-    //     payload: Partial<UserDetailsFullResponseDto>,
-    // ): Promise<UserDetailsFullResponseDto | null> {
-    //     const { userId = '' } = payload;
-
-    //     const response = await this.load(
-    //         this.getFullEndpoint('/', userId, {}),
-    //         {
-    //             method: 'GET',
-    //             contentType: ContentType.JSON,
-    //             hasAuth: true,
-    //         },
-    //     );
-    //     return response.json<UserDetailsFullResponseDto>();
-    // }
-
     public async getShortUserDetailsByRole(payload: {
         role: 'talent' | 'employer';
     }): Promise<UserDetailsShortResponseDto[]> {
@@ -77,10 +61,8 @@ class AdminApi extends HttpApiBase {
         return response.json<UserDetailsFullResponseDto>();
     }
 
-    public async approve(
-        payload: Partial<UserDetailsFullResponseDto>,
-    ): Promise<boolean> {
-        const { userId = '' } = payload;
+    public async approve(payload: { userId: string }): Promise<boolean> {
+        const { userId } = payload;
 
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.APPROVE, { userId }),

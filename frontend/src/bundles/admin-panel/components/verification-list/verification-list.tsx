@@ -12,11 +12,11 @@ import styles from './styles.module.scss';
 type Properties = {
     items: UserDetailsShortResponseDto[];
     filter: string;
-    selectedId: string | undefined;
+    selectedId: string | null;
     isFilterOpen: boolean;
     isScreenMoreMd: boolean;
     setIsFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setSelectedId: React.Dispatch<React.SetStateAction<string | undefined>>;
+    setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;
     setFilter: React.Dispatch<React.SetStateAction<FilterValues>>;
 };
 

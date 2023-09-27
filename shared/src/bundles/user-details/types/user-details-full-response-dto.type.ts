@@ -1,13 +1,5 @@
+import { type File } from '../../../index.js';
 import { type UserDetailsResponseDto } from './types.js';
-
-type File = {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    url: string;
-    fileName: string;
-    etag: string;
-};
 
 type UserDetailsFullResponseDto = UserDetailsResponseDto & {
     photo: File | null;

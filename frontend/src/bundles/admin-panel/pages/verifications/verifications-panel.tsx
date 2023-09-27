@@ -25,17 +25,17 @@ import {
     DenyModal,
     Profile,
     VerificationList,
-} from '../components/components.js';
-import { PreviewTab } from '../constants/constants.js';
-import { actions as adminActions } from '../store/admin.js';
+} from '../../components/components.js';
+import { PreviewTab } from '../../constants/constants.js';
+import { actions as adminActions } from '../../store/admin.js';
 import {
     type FilterValues,
     type TabValues,
     type UserDetailsFullResponseDto,
-} from '../types/types.js';
+} from '../../types/types.js';
 import styles from './styles.module.scss';
 
-const AdminPanel: React.FC = () => {
+const AdminVerificationsPanel: React.FC = () => {
     const dispatch = useAppDispatch();
     const theme = useTheme();
 
@@ -45,7 +45,7 @@ const AdminPanel: React.FC = () => {
 
     const [filter, setFilter] = useState<FilterValues>('talent');
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-    const [selectedId, setSelectedId] = useState<string>();
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectedTab, setSelectedTab] = useState<TabValues>(
         PreviewTab.PROFILE,
     );
@@ -58,7 +58,7 @@ const AdminPanel: React.FC = () => {
     const denyUser = useCallback(
         (message: string) => {
             void dispatch(
-                adminActions.approveUser({
+                adminActions.denyUser({
                     userId: selectedId as string,
                     deniedReason: message,
                 }),
@@ -243,4 +243,4 @@ const AdminPanel: React.FC = () => {
     );
 };
 
-export { AdminPanel };
+export { AdminVerificationsPanel };

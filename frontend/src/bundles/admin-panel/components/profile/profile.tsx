@@ -159,9 +159,15 @@ const Profile: React.FC<Properties> = ({ userDetails }) => {
                     <Typography variant="body1" className={styles.title}>
                         Hard Skills
                     </Typography>
-                    <Chip label={'Java Script'} className={styles.chip} />
-                    <Chip label={'Node.js'} className={styles.chip} />
-                    <Chip label={'React'} className={styles.chip} />
+                    {userDetails.talentHardSkills.map((hardSkill) => {
+                        return (
+                            <Chip
+                                key={hardSkill.name}
+                                label={hardSkill.name}
+                                className={styles.chip}
+                            />
+                        );
+                    })}
                 </Grid>
             </Grid>
         </Grid>
