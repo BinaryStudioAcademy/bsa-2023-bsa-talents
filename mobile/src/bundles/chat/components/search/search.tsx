@@ -24,7 +24,7 @@ const Search: React.FC<Properties> = ({
             value={searchQuery}
             placeholder="Search messages"
             placeholderTextColor={Color.TEXT2}
-            style={[globalStyles.pl15, containerStyle]}
+            style={[globalStyles.pl15, globalStyles.Input, containerStyle]}
         />
     );
 };
