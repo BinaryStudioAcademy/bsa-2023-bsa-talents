@@ -54,7 +54,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
                 }}
             />
             <BottomTab.Screen
-                name={EmployerBottomTabScreenName.CHAT_ROOT}
+                name={EmployerBottomTabScreenName.CHAT_LIST}
                 component={ChatList}
                 options={{
                     tabBarIcon: ({ color = '#FFFFFF' }) => (

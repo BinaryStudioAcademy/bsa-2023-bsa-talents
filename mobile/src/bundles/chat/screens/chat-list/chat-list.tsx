@@ -11,7 +11,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    ChatScreenName,
+    RootScreenName,
     TextCategory,
     UserRole,
 } from '~/bundles/common/enums/enums';
@@ -26,9 +26,9 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
-    type ChatNavigationParameterList,
     type ChatNavigationProperties,
     type NavigationProp,
+    type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 
 import { styles } from './styles';
@@ -40,7 +40,7 @@ const ChatList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigation =
-        useNavigation<NavigationProp<ChatNavigationParameterList>>();
+        useNavigation<NavigationProp<RootNavigationParameterList>>();
 
     useEffect(() => {
         if (user) {
@@ -83,7 +83,7 @@ const ChatList: React.FC = () => {
 
     const handleChatSelect = useCallback(
         (payload: ChatNavigationProperties): void => {
-            navigation.navigate(ChatScreenName.CHAT, payload);
+            navigation.navigate(RootScreenName.CHAT, payload);
         },
         [navigation],
     );

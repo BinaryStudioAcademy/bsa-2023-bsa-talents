@@ -1,7 +1,6 @@
 export { DataStatus, TalentOnboardingStepState } from './app/app';
 export {
     AuthScreenName,
-    ChatScreenName,
     CompletedTalentOnboardingStep,
     EmployerBottomTabScreenName,
     RootScreenName,
