@@ -152,6 +152,7 @@ export {
     getBadgeIcon,
     getItemsWithSelected,
     getSearchedItems,
+    getURLWithQueryString,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';

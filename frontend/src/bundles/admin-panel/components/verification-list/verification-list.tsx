@@ -18,6 +18,7 @@ type Properties = {
     setIsFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;
     setFilter: React.Dispatch<React.SetStateAction<FilterValues>>;
+    handleResetTab: () => void;
 };
 
 const VerificationList: React.FC<Properties> = ({
@@ -29,16 +30,23 @@ const VerificationList: React.FC<Properties> = ({
     isScreenMoreMd,
     setSelectedId,
     setIsFilterOpen,
+    handleResetTab,
 }) => {
     const handleListSelect = useCallback(
         (id: string): void => {
             setSelectedId(id);
-
+            handleResetTab();
             if (!isScreenMoreMd && isFilterOpen) {
                 setIsFilterOpen(false);
             }
         },
-        [isFilterOpen, isScreenMoreMd, setIsFilterOpen, setSelectedId],
+        [
+            isFilterOpen,
+            isScreenMoreMd,
+            setIsFilterOpen,
+            setSelectedId,
+            handleResetTab,
+        ],
     );
 
     const handleFilterChange = useCallback(

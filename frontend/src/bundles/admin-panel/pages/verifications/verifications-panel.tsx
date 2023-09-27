@@ -135,6 +135,10 @@ const AdminVerificationsPanel: React.FC = () => {
         setIsFilterOpen((previous) => !previous);
     }, []);
 
+    const resetTab = useCallback((): void => {
+        setSelectedTab(PreviewTab.PROFILE);
+    }, []);
+
     useEffect(() => {
         if (isScreenMoreMD) {
             setIsFilterOpen(true);
@@ -172,6 +176,7 @@ const AdminVerificationsPanel: React.FC = () => {
                         isScreenMoreMd={isScreenMoreMD}
                         isFilterOpen={isFilterOpen}
                         setIsFilterOpen={setIsFilterOpen}
+                        handleResetTab={resetTab}
                     />
                 </Grid>
                 {fullDetails && selectedId ? (
@@ -202,7 +207,14 @@ const AdminVerificationsPanel: React.FC = () => {
                                 </Grid>
                             </>
                         ) : (
-                            <></>
+                            <>
+                                <Grid className={styles.tabs}>
+                                    {previewTabs[0]}
+                                </Grid>
+                                <Grid item className={styles.previewInfo}>
+                                    {tabComponents[PreviewTab.PROFILE]}
+                                </Grid>
+                            </>
                         )}
                         <Grid item className={styles.buttonGroup}>
                             <Button

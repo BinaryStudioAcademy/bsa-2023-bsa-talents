@@ -6,6 +6,7 @@ import {
 import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
+import { getURLWithQueryString } from '~/helpers/helpers.js';
 
 import { type UserDetailsGeneralCustom } from '../talent-onboarding/types/types.js';
 import {
@@ -18,7 +19,6 @@ type Constructor = {
     http: Http;
     storage: Storage;
 };
-
 class UserDetailsApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
@@ -39,29 +39,24 @@ class UserDetailsApi extends HttpApiBase {
     public async getShortUserDetailsByRole(payload: {
         role: 'talent' | 'employer';
     }): Promise<UserDetailsShortResponseDto[]> {
-        const { role = '' } = payload;
+        const { role } = payload;
+        const path = getURLWithQueryString(UserDetailsApiPath.SHORT, {
+            userType: role,
+        });
 
-        const response = await this.load(
-            this.getFullEndpoint(
-                UserDetailsApiPath.SHORT,
-                '?userType=',
-                role,
-                {},
-            ),
-            {
-                method: 'GET',
-                contentType: ContentType.JSON,
-                hasAuth: true,
-            },
-        );
+        const response = await this.load(this.getFullEndpoint(path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
 
         return response.json();
     }
 
-    public async getFullUserDetailsById(
-        payload: Partial<UserDetailsFullResponseDto>,
-    ): Promise<UserDetailsFullResponseDto> {
-        const { userId = '' } = payload;
+    public async getFullUserDetailsById(payload: {
+        userId: string;
+    }): Promise<UserDetailsFullResponseDto> {
+        const { userId } = payload;
 
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.FULL, { userId }),

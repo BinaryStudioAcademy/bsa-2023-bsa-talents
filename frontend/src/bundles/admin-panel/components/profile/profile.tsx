@@ -21,12 +21,12 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                 container
                 item
                 className={
-                    selectedRole === 'talents'
+                    selectedRole === 'talent'
                         ? styles.textInfo
                         : styles.employerTextInfo
                 }
             >
-                {selectedRole === 'talents' ? (
+                {selectedRole === 'talent' ? (
                     <>
                         <Grid className={styles.textInfo}>
                             <Grid container item className={styles.row}>
@@ -40,7 +40,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Maria
+                                    {userDetails.profileName}
                                 </Typography>
                             </Grid>
 
@@ -55,7 +55,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    1500$
+                                    {userDetails.salaryExpectation}$
                                 </Typography>
                             </Grid>
 
@@ -70,7 +70,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    JS Engineer
+                                    {userDetails.jobTitle}
                                 </Typography>
                             </Grid>
 
@@ -85,7 +85,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    1-2 years
+                                    {userDetails.experienceYears} years
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -102,7 +102,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Astana
+                                    {userDetails.location}
                                 </Typography>
                             </Grid>
 
@@ -117,7 +117,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Remote, Freelancer
+                                    {userDetails.employmentType?.join(',\n')}
                                 </Typography>
                             </Grid>
 
@@ -132,7 +132,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    B1
+                                    {userDetails.englishLevel}
                                 </Typography>
                             </Grid>
 
@@ -147,7 +147,8 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    -
+                                    {userDetails.notConsidered?.join(',\n') ??
+                                        '-'}
                                 </Typography>
                             </Grid>
 
@@ -162,7 +163,9 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    -
+                                    {userDetails.preferredLanguages?.join(
+                                        ',\n',
+                                    ) ?? '-'}
                                 </Typography>
                             </Grid>
 
@@ -173,9 +176,19 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                 >
                                     Project links
                                 </Typography>
-                                <a href="/" className={styles.valueLink}>
-                                    link to BSA project
-                                </a>
+                                <Grid className={styles.value}>
+                                    {userDetails.projectLinks?.map((link) => {
+                                        return (
+                                            <a
+                                                key={link}
+                                                href={link}
+                                                className={styles.valueLink}
+                                            >
+                                                link to BSA project
+                                            </a>
+                                        );
+                                    })}
+                                </Grid>
                             </Grid>
                         </Grid>
                     </>
@@ -277,10 +290,9 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                         </Grid>
                     </>
                 )}
-                ask/bt-701-create-component-for-employer-in-admin-user
             </Grid>
 
-            {selectedRole === 'talents' && (
+            {selectedRole === 'talent' && (
                 <Grid container item className={styles.labelsInfo}>
                     <Grid container item className={styles.bsaBadges}>
                         <Typography variant="body1" className={styles.title}>

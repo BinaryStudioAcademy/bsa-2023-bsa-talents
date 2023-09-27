@@ -26,7 +26,9 @@ const getShortUserDetails = createAsyncThunk<
 
 const getFullUserDetails = createAsyncThunk<
     UserDetailsFullResponseDto,
-    Partial<UserDetailsFullResponseDto>,
+    {
+        userId: string;
+    },
     AsyncThunkConfig
 >(`${sliceName}/get-full-details`, (payload, { extra }) => {
     const { userDetailsApi } = extra;

@@ -17,24 +17,16 @@ type Properties = {
 };
 
 const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
-    // TODO: Change with actual selected candidate's data:
-    const mockCandidate = {
-        phone: '+639709980196',
-        linkedInLink: 'https://www.linkedin.com/in/josuer-bague/',
-        cvLink: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/josuer-bague-cv.pdf',
-    };
+    const documents = mapDocumentForViewer(userDetails.cv?.url as string);
 
-    // TODO: Change with selected candidate's CV URI. DocViewer plugin requires array.
-    const documents = mapDocumentForViewer(mockCandidate.cvLink);
-
-    const browserUnsopportedFile =
+    const browserUnsupportedFile =
         'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/Unsupported.pdf';
 
-    const [cvUrl, setCvUrl] = useState<string>(mockCandidate.cvLink);
+    const [cvUrl, setCvUrl] = useState<string>(userDetails.cv?.url as string);
     const [extension] = cvUrl.split('.').reverse();
 
     if (extension !== 'pdf') {
-        setCvUrl(browserUnsopportedFile);
+        setCvUrl(browserUnsupportedFile);
     }
 
     return (
