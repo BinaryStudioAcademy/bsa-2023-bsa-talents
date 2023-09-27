@@ -17,9 +17,9 @@ const getAllHiringInfo = createAsyncThunk<
 >(`${sliceName}/get-all-hiring-info`, async (_, { extra }) => {
     const { hiringInfoApi } = extra;
 
-    const hiringInfo = await hiringInfoApi.getAllHiringInfo();
+    const { items } = await hiringInfoApi.getAllHiringInfo();
 
-    return hiringInfo.items;
+    return items;
 });
 
 const getHiringInfo = createAsyncThunk<

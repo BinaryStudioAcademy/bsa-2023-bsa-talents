@@ -7,6 +7,7 @@ import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
+const MIN_LENGTH = 0;
 const searchCandidates = createAsyncThunk<
     UserDetailsGeneralCustom[],
     UserDetailsSearchUsersRequestDto,
@@ -35,7 +36,7 @@ const getCandidateDetails = createAsyncThunk<
     async (findPayload, { extra, rejectWithValue, getState }) => {
         const { searchCandidates } = getState();
         const { talentOnBoardingApi } = extra;
-        if (searchCandidates.filteredCandidates.length > 0) {
+        if (searchCandidates.filteredCandidates.length > MIN_LENGTH) {
             return (
                 searchCandidates.filteredCandidates.find(
                     (candidate) => candidate.userId == findPayload.userId,
