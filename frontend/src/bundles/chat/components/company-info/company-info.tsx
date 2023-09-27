@@ -1,17 +1,24 @@
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     Avatar,
     Button,
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useAppSelector, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 const CompanyInfo: React.FC = () => {
-    const { company } = useAppSelector(({ chat }) => ({
+    const { company, hasSharedContacts } = useAppSelector(({ chat }) => ({
         company: chat.current.employerDetails,
+        hasSharedContacts: chat.current.talentHasSharedContacts,
     }));
+    const dispatch = useAppDispatch();
 
     const {
         logoUrl,
@@ -23,15 +30,14 @@ const CompanyInfo: React.FC = () => {
     } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
-        //TODO: Implement button click handler
-    }, []);
+        void dispatch(candidateActions.shareContactsWithCompany());
+    }, [dispatch]);
 
     const handleAlreadyHiredButtonClick = useCallback(() => {
         //TODO: Implement button click handler
     }, []);
 
     const aboutInfo = about ?? 'No information provided';
-
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.header}>
@@ -95,12 +101,14 @@ const CompanyInfo: React.FC = () => {
                         className={styles.mainBtn}
                         label="Share your contact and CV"
                         onClick={handleShareCVButtonClick}
+                        isDisabled={hasSharedContacts}
                     />
                     <Button
                         className={styles.btnSecondary}
                         variant="text"
                         label="The company already hired me"
                         onClick={handleAlreadyHiredButtonClick}
+                        isDisabled={false}
                     />
                 </Grid>
             </Grid>

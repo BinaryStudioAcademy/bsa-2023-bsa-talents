@@ -1,7 +1,6 @@
+export { type ContactsProperties } from './contacts-properties.type.js';
 export {
-    type ContactCandidateDto,
     type ContactsCreateRequestDto,
     type ContactsFindRequestDto,
     type ContactsResponseDto,
-    type MessageTemplateDto,
 } from 'shared/build/index.js';
