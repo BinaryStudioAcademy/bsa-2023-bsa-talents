@@ -78,6 +78,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     globalStyles.width100,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceAround,
+                    globalStyles.alignItemsCenter,
                     globalStyles.mb25,
                 ]}
             >
