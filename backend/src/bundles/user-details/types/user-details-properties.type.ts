@@ -1,4 +1,5 @@
 import { type HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
+import { type TalentBadgeModel } from '~/bundles/talent-badges/talent-badge.model.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
@@ -33,7 +34,7 @@ type UserDetailsProperties = {
     searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     hardSkills?: HardSkillsEntity[];
-    badges?: UserDetailsResponseBadgeDto[] | null;
+    badges?: UserDetailsResponseBadgeDto[] | TalentBadgeModel | null;
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

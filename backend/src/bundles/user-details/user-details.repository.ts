@@ -156,7 +156,6 @@ class UserDetailsRepository implements Repository {
         return searchResults.map((result) => {
             const userObject = UserDetailsEntity.initialize({
                 ...result,
-                badges: null,
                 email: result.user?.email,
             }).toObject();
 
