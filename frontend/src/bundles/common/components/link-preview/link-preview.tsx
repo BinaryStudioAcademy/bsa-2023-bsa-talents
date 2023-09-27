@@ -62,16 +62,12 @@ const LinkPreview: React.FC<Properties> = ({ url, withHeader = false }) => {
         ); // TODO: add loader or skeleton
     }
 
-    // if (!previewData) {
-    //     return <p>Failed to fetch link preview.</p>; // TODO: add broken card placeholder
-    // }
-
     return (
         <Grid container className={styles.container}>
             {withHeader && (
                 <>
                     <Typography variant="h3" className={styles.title}>
-                        {previewData ? previewData.title : 'Bad link'}
+                        {previewData ? previewData.title : 'Fetch problems'}
                     </Typography>
                     <Typography variant="body1" className={styles.description}>
                         {previewData ? previewData.description : 'Bad link'}
