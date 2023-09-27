@@ -7,8 +7,17 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    BadgeSize,
+    RootScreenName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
+import { useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type NavigationProp,
+    type RootNavigationParameterList,
+} from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import {
     getBadgeById,
@@ -19,19 +28,26 @@ import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 import { MaxValue } from './constants/constants';
 import { styles } from './styles';
 
-const CandidateCard: React.FC<UserDetailsResponseDto> = ({
-    userId,
-    fullName,
-    salaryExpectation,
-    jobTitle,
-    location,
-    experienceYears,
-    englishLevel,
-    description,
-    talentBadges,
-    talentHardSkills,
-}) => {
+const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
+    const {
+        fullName,
+        salaryExpectation,
+        jobTitle,
+        location,
+        experienceYears,
+        englishLevel,
+        description,
+        talentBadges,
+        talentHardSkills,
+    } = candidateInfo;
+
     const { badgesData, hardSkillsData } = useCommonData();
+    const navigation =
+        useNavigation<NavigationProp<RootNavigationParameterList>>();
+
+    const handleUserSelect = (): void => {
+        navigation.navigate(RootScreenName.CANDIDATE_DETAILS, candidateInfo);
+    };
 
     if (!badgesData || !hardSkillsData) {
         return null;
@@ -151,7 +167,7 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
             <Button
                 label="Read more"
                 style={[globalStyles.alignSelfFlexEnd, globalStyles.m10]}
-                onPress={(): string => userId} // TODO redirect to certain candidate
+                onPress={handleUserSelect}
             />
         </View>
     );

@@ -20,7 +20,11 @@ import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
-import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
+import {
+    CandidateDetails,
+    Candidates,
+    EmployerOnboarding,
+} from '~/bundles/employer/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -92,6 +96,14 @@ const Root: React.FC = () => {
                     }
                 />
                 <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+                <RootStack.Screen
+                    name={RootScreenName.CANDIDATES}
+                    component={Candidates}
+                />
+                <RootStack.Screen
+                    name={RootScreenName.CANDIDATE_DETAILS}
+                    component={CandidateDetails}
+                />
             </>
         ),
     };
@@ -100,9 +112,11 @@ const Root: React.FC = () => {
         if (isSignedIn && isProfileComplete) {
             return navigators.main;
         }
+
         if (isSignedIn && !isProfileComplete) {
             return navigators.onboarding;
         }
+
         return navigators.auth;
     };
 
