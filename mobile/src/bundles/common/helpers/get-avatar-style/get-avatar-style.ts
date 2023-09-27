@@ -1,9 +1,10 @@
-import { PhotoType, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    IconSize,
+    PhotoType,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-const SMALL_SIZE = 40;
-const MEDIUM_SIZE = 60;
-const LARGE_SIZE = 100;
 const DIVIDER = 2;
 
 type IconStyle = {
@@ -28,19 +29,19 @@ const getIconStyles = (iconSize: number): IconStyle => {
 
 const avatarStylesMap: Record<ValueOf<typeof PhotoType>, AvatarStyles> = {
     [PhotoType.SMALL]: {
-        size: getIconStyles(SMALL_SIZE),
+        size: getIconStyles(IconSize.SMALL),
         font: TextCategory.H6,
-        iconSize: SMALL_SIZE,
+        iconSize: IconSize.SMALL,
     },
     [PhotoType.MEDIUM]: {
-        size: getIconStyles(MEDIUM_SIZE),
+        size: getIconStyles(IconSize.MEDIUM),
         font: TextCategory.H3,
-        iconSize: MEDIUM_SIZE,
+        iconSize: IconSize.MEDIUM,
     },
     [PhotoType.LARGE]: {
-        size: getIconStyles(LARGE_SIZE),
+        size: getIconStyles(IconSize.LARGE),
         font: TextCategory.H1,
-        iconSize: LARGE_SIZE,
+        iconSize: IconSize.LARGE,
     },
 };
 

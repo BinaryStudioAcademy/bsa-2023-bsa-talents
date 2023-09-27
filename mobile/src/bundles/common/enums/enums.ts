@@ -9,7 +9,12 @@ export {
     TalentOnboardingScreenNumber,
     TalentOnboardingScreenNumberByStep,
 } from './navigation/navigation';
-export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
+export {
+    AlignmentValue,
+    FontFamily,
+    IconSize,
+    TextCategory,
+} from './styles/styles';
 export {
     BadgeSize,
     ButtonType,
