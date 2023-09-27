@@ -11,8 +11,12 @@ const getElapsedTime = (startDateString: string): string => {
     const distance = formatDistanceToNow(startDate, {
         addSuffix: true,
     });
-    const match = distance.match(/(\d+)\s*([A-Za-z]+)/);
 
+    if (distance.includes('less than a minute')) {
+        return 'now';
+    }
+
+    const match = distance.match(/(\d+)\s*([A-Za-z]+)/);
     if (match) {
         const [, number, unit] = match;
         const shortUnit = UNIT_MAP[unit] || unit.charAt(0);

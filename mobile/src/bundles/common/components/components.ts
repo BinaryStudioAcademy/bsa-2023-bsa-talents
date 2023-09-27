@@ -14,6 +14,7 @@ export { ImagePicker } from './image-picker/image-picker';
 export { Input } from './input/input';
 export { Link } from './link/link';
 export { Loader } from './loader/loader';
+export { LogoutButton } from './logout-button/logout-button';
 export { LostConnectionModal } from './lost-connection-modal/lost-connection-modal';
 export { ActiveModal, Modal } from './modals/modals';
 export { Overlay } from './overlay/overlay';
