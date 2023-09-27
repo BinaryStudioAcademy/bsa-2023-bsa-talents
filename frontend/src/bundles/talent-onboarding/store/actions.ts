@@ -45,7 +45,7 @@ const updateTalentDetails = createAsyncThunk<
         });
     }
 
-    if (files.length > 0) {
+    if (files.length > EMPTY_FILE_COUNT) {
         const response = await fileUploadApi.upload({ files });
         mapFilesToPayload({
             payload: restPayload,
