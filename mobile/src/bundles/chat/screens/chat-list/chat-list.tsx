@@ -64,7 +64,7 @@ const ChatList: React.FC = () => {
     }): React.ReactElement => {
         return (
             <ChatListItem
-                key={item.chatId}
+                key={item.lastMessageCreatedAt}
                 item={item}
                 onSelect={handleChatSelect}
             />
@@ -114,7 +114,7 @@ const ChatList: React.FC = () => {
                     style={[globalStyles.pb15, styles.chatList]}
                     data={sortedChats}
                     renderItem={renderListItem}
-                    keyExtractor={(item): string => item.chatId}
+                    keyExtractor={(item): string => item.lastMessageCreatedAt}
                     showsVerticalScrollIndicator={false}
                 />
             </View>
