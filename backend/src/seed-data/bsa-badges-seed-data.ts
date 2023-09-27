@@ -1,20 +1,13 @@
-const personalityBadges = ['Doer', 'Connector', 'Thinker'];
-
-const softSkillsBadges = [
-    'Communicative',
-    'Collaboration',
-    'Problem-solving',
-    'Leadership',
-    'Creative',
-    'Proactive',
+const bsaBadges = [
+    { type: 'project_score', name: 'Your average project score', maxScore: 5 },
+    {
+        type: 'lecture_score',
+        name: 'Your average lectures score',
+        maxScore: 10,
+    },
+    { type: 'communication_score', name: 'Communication score', maxScore: 5 },
+    { type: 'team_score', name: 'Working with team score', maxScore: 5 },
+    { type: 'english_level', name: 'Level of English' },
 ];
 
-const scoreBadges = [
-    { name: 'Your average project score', maxScore: 5 },
-    { name: 'Your average lectures score', maxScore: 10 },
-    { name: 'Communication score', maxScore: 5 },
-    { name: 'Working with team score', maxScore: 5 },
-    { name: 'Level of English' },
-];
-
-export { personalityBadges, scoreBadges, softSkillsBadges };
+export { bsaBadges };
