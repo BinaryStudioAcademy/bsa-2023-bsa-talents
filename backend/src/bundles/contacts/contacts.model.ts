@@ -17,7 +17,7 @@ class ContactsModel extends AbstractModel {
     public 'hiredTime': Date | null;
 
     public static override get tableName(): string {
-        return DatabaseTableName.HIRING_INFO;
+        return DatabaseTableName.CONTACTS;
     }
 
     public static override relationMappings = {

@@ -1,6 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { getContactWithTalent } from '~/bundles/candidate-details/store/actions.js';
+import {
+    getContactWithTalent,
+    shareContactsWithCompany,
+} from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
@@ -98,6 +101,10 @@ const { reducer, actions, name } = createSlice({
             })
             .addCase(getContactWithTalent.fulfilled, (state, action) => {
                 state.current.talentHasSharedContacts = action.payload;
+            })
+
+            .addCase(shareContactsWithCompany.fulfilled, (state) => {
+                state.current.talentHasSharedContacts = true;
             })
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
