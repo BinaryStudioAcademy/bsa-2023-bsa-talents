@@ -13,7 +13,6 @@ import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/ty
 import { notifications } from '~/framework/notifications/notifications';
 import { TalentProfileNavigator } from '~/navigations/talent-profile-navigator/talent-profile-navigator';
 
-// import { ChatNavigator } from '~/navigations/chat-navigator/chat-navigator';
 import { bottomTabStyles } from '../styles';
 
 const BottomTab =

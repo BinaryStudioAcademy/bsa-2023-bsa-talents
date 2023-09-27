@@ -16,7 +16,6 @@ import {
 } from '~/bundles/employer/screens/screens';
 import { notifications } from '~/framework/notifications/notifications';
 
-// import { ChatNavigator } from '~/navigations/chat-navigator/chat-navigator';
 import { bottomTabStyles } from '../styles';
 
 const BottomTab =
