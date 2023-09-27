@@ -17,7 +17,7 @@ const initialState: State = {
     dataStatus: DataStatus.IDLE,
     isSignedIn: false,
     currentUserData: null,
-    isRedirectToEmployerScreen: false,
+    isRedirectToEmployerScreen: true,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -39,8 +39,8 @@ const { reducer, actions, name } = createSlice({
             state.isSignedIn = false;
             state.currentUserData = null;
         });
-        builder.addCase(signIn.fulfilled, (state) => {
-            state.isRedirectToEmployerScreen = true;
+        builder.addCase(signUp.fulfilled, (state) => {
+            state.isRedirectToEmployerScreen = false;
         });
         builder.addMatcher(
             isAnyOf(

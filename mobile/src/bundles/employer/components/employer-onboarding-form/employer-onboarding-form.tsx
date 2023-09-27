@@ -208,7 +208,9 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     multiline={true}
                 />
             </FormField>
-            {(employerOnboardingData && !isEmployerProfileScreen) ?? (
+            {employerOnboardingData && !isEmployerProfileScreen ? (
+                ''
+            ) : (
                 <Button
                     label={labelForSubmitButton}
                     onPress={handleFormSubmit}

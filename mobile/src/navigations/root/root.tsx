@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { actions } from '~/bundles/auth/store';
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
 import { Chat } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
@@ -53,12 +52,6 @@ const Root: React.FC = () => {
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
-
-    useEffect(() => {
-        if (onboardingData) {
-            dispatch(actions.onChangeToEmployerScreen());
-        }
-    }, [dispatch, onboardingData]);
 
     useEffect(() => {
         if (!currentUserData) {
