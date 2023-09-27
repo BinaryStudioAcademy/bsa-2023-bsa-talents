@@ -2,7 +2,10 @@ import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
-import { type UserDetailsGeneralCustom } from '../types/types.js';
+import {
+    type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsGeneralCustom,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const createTalentDetails = createAsyncThunk<
@@ -101,7 +104,7 @@ const getTalentDetails = createAsyncThunk<
 
 const updateTalentPublishedDate = createAsyncThunk<
     UserDetailsGeneralCustom,
-    UserDetailsGeneralCustom,
+    UserDetailsFindByUserIdRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/update-publised-date`, (findPayload, { extra }) => {
     const { talentOnBoardingApi } = extra;

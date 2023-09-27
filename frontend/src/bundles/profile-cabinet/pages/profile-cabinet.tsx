@@ -70,17 +70,23 @@ const ProfileCabinet: React.FC = () => {
     }
     const [isWaitingForApproval, setIsWaitingForApproval] =
         useState<boolean>(false);
+
     const navigate = useNavigate();
+
     const { submitForm } = useFormSubmit();
+
     const dispatch = useAppDispatch();
+
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
         hasChanges: state.cabinet.hasChangesInDetails,
     }));
+
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
-    const { publishedAt } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
+
+    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
+        (state: RootReducer) => state,
     );
 
     useEffect(() => {
@@ -108,10 +114,28 @@ const ProfileCabinet: React.FC = () => {
     }, [currentUser?.id, dispatch, role]);
 
     useEffect(() => {
-        if (publishedAt) {
+        if (
+            (talentOnBoarding.publishedAt && !talentOnBoarding.isApproved) ??
+            (employerOnBoarding.publishedAt && !employerOnBoarding.isApproved)
+        ) {
             setIsWaitingForApproval(true);
         }
-    }, [publishedAt]);
+        if (talentOnBoarding.isApproved ?? employerOnBoarding.isApproved) {
+            setIsWaitingForApproval(false);
+            void dispatch(
+                storeActions.notify({
+                    type: NotificationType.SUCCESS,
+                    message: 'Profile was approved',
+                }),
+            );
+        }
+    }, [
+        dispatch,
+        employerOnBoarding.isApproved,
+        employerOnBoarding.publishedAt,
+        talentOnBoarding.isApproved,
+        talentOnBoarding.publishedAt,
+    ]);
 
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {
@@ -130,16 +154,18 @@ const ProfileCabinet: React.FC = () => {
     }, [dispatch, submitForm]);
 
     const handlePublishNowClick = useCallback(() => {
-        void dispatch(
-            talentActions.updateTalentPublishedDate({
-                userId: currentUser?.id,
-            }),
-        );
+        if (currentUser) {
+            void dispatch(
+                talentActions.updateTalentPublishedDate({
+                    userId: currentUser.id,
+                }),
+            );
+        }
 
         if (role === UserRole.TALENT) {
             navigate(`/${role}/onboarding/step/${StepsRoute.STEP_05}`);
         }
-    }, [currentUser?.id, dispatch, navigate, role]);
+    }, [currentUser, dispatch, navigate, role]);
 
     return (
         <PageLayout

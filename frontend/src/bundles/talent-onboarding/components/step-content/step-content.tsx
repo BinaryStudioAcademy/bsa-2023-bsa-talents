@@ -49,9 +49,11 @@ const StepContent: React.FC<Properties> = ({
     };
 
     const handlePublishNowClick = (): void => {
-        void dispatch(
-            actions.updateTalentPublishedDate({ userId: currentUser?.id }),
-        );
+        if (currentUser) {
+            void dispatch(
+                actions.updateTalentPublishedDate({ userId: currentUser.id }),
+            );
+        }
     };
 
     const handleSaveWithoutPublishing = (): void => {
