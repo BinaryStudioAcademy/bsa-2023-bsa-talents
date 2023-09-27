@@ -17,21 +17,33 @@ const applyAllFilters = (
     builder: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
     payload: UserDetailsSearchUsersRequestDto,
 ): void => {
-    applyProfileNameFilter(builder, payload.searchValue);
+    const {
+        employmentType,
+        englishLevel,
+        hardSkills,
+        jobTitle,
+        location,
+        searchStringType,
+        searchType,
+        searchValue,
+        yearsOfExperience,
+    } = payload;
 
-    applyTypeSearchFilter(builder, payload.searchType);
+    applyProfileNameFilter(builder, searchValue, searchStringType);
 
-    applyJobTitleFilter(builder, payload.jobTitle);
+    applyTypeSearchFilter(builder, searchType);
 
-    applyExperienceFilter(builder, payload.yearsOfExperience);
+    applyJobTitleFilter(builder, jobTitle);
 
-    applyHardSkillsFilter(builder, payload.hardSkills);
+    applyExperienceFilter(builder, yearsOfExperience);
 
-    applyLocationFilter(builder, payload.location);
+    applyHardSkillsFilter(builder, hardSkills);
 
-    applyEnglishLevelFilter(builder, payload.englishLevel);
+    applyLocationFilter(builder, location);
 
-    applyEmploymentTypeFilter(builder, payload.employmentType);
+    applyEnglishLevelFilter(builder, englishLevel);
+
+    applyEmploymentTypeFilter(builder, employmentType);
 };
 
 export { applyAllFilters };

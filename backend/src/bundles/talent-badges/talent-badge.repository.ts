@@ -43,16 +43,6 @@ class TalentBadgeRepository implements Repository {
         return badge ? TalentBadgeEntity.initialize(badge).toObject() : null;
     }
 
-    public async findByUserDetailsId(
-        userDetailsId: string,
-    ): Promise<TalentBadge[]> {
-        const skills = await this.talentBadgeModel
-            .query()
-            .where({ userDetailsId });
-
-        return skills.map((it) => TalentBadgeEntity.initialize(it).toObject());
-    }
-
     public async update({
         id,
         isShown,

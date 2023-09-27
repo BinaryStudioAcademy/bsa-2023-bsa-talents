@@ -50,12 +50,6 @@ class TalentBadgeService implements Service {
               });
     }
 
-    public async findByUserDetailsId(
-        userDetailsId: string,
-    ): Promise<TalentBadge[]> {
-        return this.talentBadgeRepository.findByUserDetailsId(userDetailsId);
-    }
-
     public delete(): Promise<boolean> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
