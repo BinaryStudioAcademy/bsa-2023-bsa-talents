@@ -1,6 +1,5 @@
 import { type MenuItemProps } from '@mui/base/MenuItem';
 import { Logout } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 
 import { actions as storeActions } from '~/app/store/app.js';
 import { actions as authActions } from '~/bundles/auth/store/auth.js';
@@ -14,6 +13,10 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
+    useLocation,
+    useNavigate,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { configureString } from '~/helpers/helpers.js';
 import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
@@ -44,10 +47,23 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
 
+    const location = useLocation();
+    const [isProfileDisabled, setIsProfileDisabled] = useState<boolean>(true);
+
+    useEffect(() => {
+        location.pathname.includes('onboarding') &&
+        !location.pathname.includes('preview')
+            ? setIsProfileDisabled(true)
+            : setIsProfileDisabled(false);
+    }, [location.pathname]);
+
     return (
         <Menu>
             {!isAdmin && (
-                <MenuItem onClick={handleCheckProfile}>
+                <MenuItem
+                    onClick={handleCheckProfile}
+                    disabled={isProfileDisabled}
+                >
                     <Typography variant="h6" className={styles.menuItem}>
                         My profile
                     </Typography>
