@@ -1,6 +1,6 @@
 const EmployerBottomTabScreenName = {
     EMPLOYER_PROFILE: 'Employer profile',
-    CHAT_LIST: 'Chat list',
+    MAIL: 'Mail',
     CANDIDATES: 'Candidates',
 } as const;
 

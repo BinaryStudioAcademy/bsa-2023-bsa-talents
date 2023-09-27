@@ -1,5 +1,4 @@
 export { BsaBadges } from './bsa-badges/bsa-badges';
-export { ChatUserDetails } from './chat-user-details/chat-user-details';
 export { CVAndContacts } from './cv-and-contacts/cv-and-contacts';
 export { Mail } from './mail/mail';
 export { Preview } from './preview/preview';

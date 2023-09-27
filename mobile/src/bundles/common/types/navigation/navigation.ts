@@ -1,4 +1,5 @@
 export { type AuthNavigationParameterList } from './auth-navigation-parameter-list.type';
+export { type ChatNavigationParameterList } from './chat-navigation-parameter-list.type';
 export { type ChatNavigationProperties } from './chat-navigation-properties.type';
 export { type EmployerBottomTabNavigationParameterList } from './employer-bottom-tab-navigation-parameter-list.type';
 export { type NavigationScreenProperties } from './navigation-screen-properties.type';

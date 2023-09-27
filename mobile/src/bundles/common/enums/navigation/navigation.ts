@@ -1,4 +1,5 @@
 export { AuthScreenName } from './auth-screen-name.enum';
+export { ChatScreenName } from './chat-screen-name.enum';
 export { CompletedTalentOnboardingStep } from './completed-talent-onboarding-step.enum';
 export { EmployerBottomTabScreenName } from './employer-bottom-tab-screen-name.enum';
 export { RootScreenName } from './root-screen-name.enum';

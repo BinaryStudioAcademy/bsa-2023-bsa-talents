@@ -1,6 +1,7 @@
 export { type AsyncThunkConfig } from './app/app';
 export {
     type AuthNavigationParameterList,
+    type ChatNavigationParameterList,
     type ChatNavigationProperties,
     type DrawerContentComponentProps,
     type DrawerNavigationProp,

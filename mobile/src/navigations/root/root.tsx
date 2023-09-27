@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { Chat } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -26,6 +25,7 @@ import {
     EmployerBottomTabNavigator,
     TalentBottomTabNavigator,
 } from '~/navigations/bottom-tab-navigator/bottom-tab-navigator';
+// import { ChatNavigator } from '~/navigations/chat-navigator/chat-navigator';
 import { TalentOnboardingNavigator } from '~/navigations/onboarding-navigator/onboarding-navigator';
 
 const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
@@ -91,7 +91,10 @@ const Root: React.FC = () => {
                             : EmployerBottomTabNavigator
                     }
                 />
-                <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+                {/* <RootStack.Screen
+                    name={RootScreenName.CHAT_ROOT_ROUTE}
+                    component={ChatNavigator}
+                /> */}
             </>
         ),
     };

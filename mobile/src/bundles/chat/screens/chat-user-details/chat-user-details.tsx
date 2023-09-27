@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CompanyInfo } from '~/bundles/talent/components/components';
+import { CompanyInfo } from '~/bundles/chat/components/components';
 
 // TODO replace with real data
 const companyInfo = {
