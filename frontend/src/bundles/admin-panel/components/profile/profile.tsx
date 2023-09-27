@@ -88,9 +88,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     {userDetails.experienceYears} years
                                 </Typography>
                             </Grid>
-                        </Grid>
 
-                        <Grid className={styles.textInfo}>
                             <Grid container item className={styles.row}>
                                 <Typography
                                     variant="body1"
@@ -195,7 +193,10 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                 ) : (
                     <>
                         <Grid className={styles.textInfo}>
-                            <Avatar className={styles.companyLogo} />
+                            <Avatar
+                                className={styles.companyLogo}
+                                src={userDetails.companyLogo?.url}
+                            />
 
                             <Grid container item className={styles.row}>
                                 <Typography
@@ -208,7 +209,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Position
+                                    {userDetails.employerPosition}
                                 </Typography>
                             </Grid>
 
@@ -223,11 +224,10 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Rickardo
+                                    {userDetails.companyName}
                                 </Typography>
                             </Grid>
-                        </Grid>
-                        <Grid className={styles.textInfo}>
+
                             <Grid container item className={styles.row}>
                                 <Typography
                                     variant="body1"
@@ -236,7 +236,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     Company website
                                 </Typography>
                                 <a
-                                    href="https://www.google.com"
+                                    href={userDetails.companyWebsite as string}
                                     className={styles.valueLink}
                                 >
                                     Website link
@@ -254,7 +254,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Ukraine
+                                    {userDetails.location}
                                 </Typography>
                             </Grid>
 
@@ -269,7 +269,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     variant="body1"
                                     className={styles.value}
                                 >
-                                    Description
+                                    {userDetails.description}
                                 </Typography>
                             </Grid>
 
@@ -281,7 +281,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     Linkedin Link
                                 </Typography>
                                 <a
-                                    href="https://www.google.com"
+                                    href={userDetails.linkedinLink as string}
                                     className={styles.valueLink}
                                 >
                                     Linkedin link

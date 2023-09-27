@@ -13,16 +13,16 @@ import styles from './styles.module.scss';
 const DocumentViewer = DocViewer as unknown as React.FC<DocViewerProps>;
 
 type Properties = {
-    userDetails: UserDetailsFullResponseDto;
+    userDetails?: UserDetailsFullResponseDto;
 };
 
 const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
-    const documents = mapDocumentForViewer(userDetails.cv?.url as string);
+    const documents = mapDocumentForViewer(userDetails?.cv?.url as string);
 
     const browserUnsupportedFile =
         'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/Unsupported.pdf';
 
-    const [cvUrl, setCvUrl] = useState<string>(userDetails.cv?.url as string);
+    const [cvUrl, setCvUrl] = useState<string>(userDetails?.cv?.url as string);
     const [extension] = cvUrl.split('.').reverse();
 
     if (extension !== 'pdf') {
@@ -35,7 +35,7 @@ const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
                 <Grid container item className={styles.row}>
                     <Phone className={styles.icon} />
                     <Typography className={styles.span} variant="body1">
-                        {userDetails.phone}
+                        {userDetails?.phone}
                     </Typography>
                 </Grid>
                 <Grid
@@ -48,7 +48,7 @@ const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
                         <a
                             className={styles.link}
                             target={'_blank'}
-                            href={userDetails.linkedinLink as string}
+                            href={userDetails?.linkedinLink as string}
                             rel="noreferrer"
                         >
                             LinkedIn Profile

@@ -171,7 +171,7 @@ const AdminConnectionsPanel: React.FC = () => {
                                             variant="body1"
                                             className={styles.name}
                                         >
-                                            {selected?.username ?? 'username'}
+                                            {selected?.fullName ?? 'username'}
                                         </Typography>
                                     </Grid>
                                     <Grid className={styles.tabs}>
