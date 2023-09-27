@@ -29,6 +29,7 @@ export {
     type PhotoProperties,
     type SliderProps,
 } from '~/bundles/common/types/components/components';
+export { type ObjectSchema } from 'joi';
 export {
     type Control,
     type DefaultValues,

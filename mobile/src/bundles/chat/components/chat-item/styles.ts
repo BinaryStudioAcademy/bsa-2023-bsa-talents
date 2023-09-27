@@ -9,10 +9,12 @@ const styles = StyleSheet.create({
     receiver: {
         backgroundColor: Color.BACKGROUND,
         maxWidth: '85%',
+        color: Color.TEXT,
     },
     sender: {
         backgroundColor: Color.TAG,
         maxWidth: '85%',
+        color: Color.TEXT,
     },
 });
 
