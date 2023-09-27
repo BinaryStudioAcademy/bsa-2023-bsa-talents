@@ -12,9 +12,9 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
     SkillsFormData,
+    WithProfileForm,
 } from '~/bundles/talent/components/components';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
-import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { stringsToUrlObjects } from '~/bundles/talent/helpers/helpers';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';

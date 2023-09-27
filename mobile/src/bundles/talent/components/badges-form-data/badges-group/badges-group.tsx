@@ -4,9 +4,11 @@ import { Badge, Checkbox, View } from '~/bundles/common/components/components';
 import { useCallback, useFieldArray } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Control, type FieldPath } from '~/bundles/common/types/types';
-import { UNCONTROLLED_BADGES } from '~/bundles/talent/screens/bsa-badges/constants/constants';
-import { type BadgeFormItem } from '~/bundles/talent/types/badge-form-item/badge-form-item';
-import { type BadgesFormDto } from '~/bundles/talent/types/badges-form-dto/badges-form-dto';
+import { BsaBadgesStepUncontrolledBadges } from '~/bundles/talent/enums/enums';
+import {
+    type BadgeFormItem,
+    type BadgesFormDto,
+} from '~/bundles/talent/types/types';
 
 import { styles } from '../styles';
 
@@ -21,6 +23,8 @@ const BadgesGroup = ({ control, isDisabled }: Properties): JSX.Element => {
         name: 'badges',
         control,
     });
+
+    const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
 
     const handleToggleCheckbox = useCallback(
         (clickedBadge: BadgeFormItem, index: number) => {
@@ -48,7 +52,7 @@ const BadgesGroup = ({ control, isDisabled }: Properties): JSX.Element => {
                             handleToggleCheckbox(badge, index);
                         }}
                         disabled={
-                            UNCONTROLLED_BADGES.includes(badge.name) ||
+                            uncontrolledBadges.includes(badge.name) ||
                             isDisabled
                         }
                     />

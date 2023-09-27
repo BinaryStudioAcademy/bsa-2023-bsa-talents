@@ -63,6 +63,7 @@ export {
 } from 'react-native-radio-buttons-group';
 export {
     type BadgesItem,
+    type BsaBadgesStepTypes,
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
