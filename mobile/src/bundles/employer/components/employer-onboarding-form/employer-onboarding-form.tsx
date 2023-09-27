@@ -128,7 +128,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
             </FormField>
             <FormField
                 errorMessage={errors.linkedinLink?.message}
-                label="Linkedin profile"
+                label="LinkedIn profile"
                 name="linkedinLink"
                 containerStyle={globalStyles.pb15}
                 required
