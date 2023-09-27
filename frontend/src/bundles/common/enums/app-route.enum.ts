@@ -1,9 +1,10 @@
 const AppRoute = {
     ADMIN: '/admin',
-    ADMIN_PANEL: '/admin/verification-panel',
+    ADMIN_VERIFICATIONS_PANEL: '/admin/verification-panel',
+    ADMIN_CONNECTIONS_PANEL: '/admin/connections-panel',
     ROOT: '/',
     CANDIDATES: '/candidates',
-    CANDIDATE: '/candidates/:candidate',
+    CANDIDATE: '/candidates/:userId',
     CHATS: '/chats',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
