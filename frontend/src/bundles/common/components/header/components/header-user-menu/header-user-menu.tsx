@@ -28,6 +28,9 @@ type Properties = MenuItemProps;
 const HeaderUserMenu: React.FC<Properties> = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const [isProfileDisabled, setIsProfileDisabled] = useState<boolean>(true);
 
     const handleSignOut = useCallback((): void => {
         void dispatch(authActions.signOut());
@@ -47,15 +50,11 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
 
-    const location = useLocation();
-    const [isProfileDisabled, setIsProfileDisabled] = useState<boolean>(true);
-
     useEffect(() => {
-        location.pathname.includes('onboarding') &&
-        !location.pathname.includes('preview')
+        pathname.includes('onboarding') && !pathname.includes('preview')
             ? setIsProfileDisabled(true)
             : setIsProfileDisabled(false);
-    }, [location.pathname]);
+    }, [pathname]);
 
     return (
         <Menu>
