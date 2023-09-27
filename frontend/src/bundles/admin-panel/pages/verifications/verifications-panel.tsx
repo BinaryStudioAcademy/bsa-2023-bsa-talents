@@ -49,6 +49,7 @@ const AdminVerificationsPanel: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<TabValues>(
         PreviewTab.PROFILE,
     );
+
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const toggleModal = useCallback(() => {
@@ -75,7 +76,10 @@ const AdminVerificationsPanel: React.FC = () => {
 
     const tabComponents = {
         [PreviewTab.PROFILE]: (
-            <Profile userDetails={fullDetails as UserDetailsFullResponseDto} />
+            <Profile
+                userDetails={fullDetails as UserDetailsFullResponseDto}
+                selectedRole={filter}
+            />
         ),
         [PreviewTab.CV]: (
             <CVAndContacts
