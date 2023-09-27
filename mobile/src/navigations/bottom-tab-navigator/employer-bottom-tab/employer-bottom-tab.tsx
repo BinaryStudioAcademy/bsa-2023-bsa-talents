@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type EmployerBottomTabNavigationParameterList } from '~/bundles/common/types/types';
 import {
+    CandidateDetails,
     Candidates,
     EmployerProfile,
 } from '~/bundles/employer/screens/screens';
@@ -87,6 +88,13 @@ const EmployerBottomTabNavigator: React.FC = () => {
                             color={color}
                         />
                     ),
+                }}
+            />
+            <BottomTab.Screen
+                name={EmployerBottomTabScreenName.CANDIDATE_DETAILS}
+                component={CandidateDetails}
+                options={{
+                    tabBarButton: () => null,
                 }}
             />
         </BottomTab.Navigator>

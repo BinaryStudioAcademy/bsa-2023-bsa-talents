@@ -21,7 +21,11 @@ import {
     IconName,
 } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
@@ -45,16 +49,19 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     onFilterClose,
     onSubmit,
 }) => {
+    const { talentsFilters } = useAppSelector(({ employees }) => employees);
+
     const { control, reset, handleSubmit } = useAppForm<EmployeesFiltersForm>({
-        defaultValues: DEFAULT_VALUES,
+        defaultValues: talentsFilters ?? DEFAULT_VALUES,
     });
+
     const { hardSkillsData } = useCommonData();
 
     const employmentTypeOptions = Object.values(EmploymentType);
     const englishLevels = Object.values(EnglishLevel);
 
     const handleClearFilters = (): void => {
-        reset();
+        reset(DEFAULT_VALUES);
     };
 
     const handleFormSubmit = useCallback((): void => {

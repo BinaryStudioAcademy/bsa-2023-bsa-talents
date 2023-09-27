@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { actions } from '~/bundles/auth/store';
 import {
     AutocompleteSelector,
     Button,
@@ -9,13 +10,16 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
+    ButtonType,
     Country,
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppForm,
     useCallback,
+    useEffect,
     useRoute,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -35,22 +39,34 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
 }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues:
             employerOnboardingData ?? EMPLOYER_ONBOARDING_DEFAULT_VALUES,
         validationSchema: EmployerOnboardingFormValidationSchema,
     });
 
+    useEffect(() => {
+        employerOnboardingData && reset(employerOnboardingData);
+    }, [employerOnboardingData, reset]);
+
     const route = useRoute();
 
     const locationOptions = Object.values(Country);
+    const dispatch = useAppDispatch();
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
+    const handleRedirectToProfile = useCallback((): void => {
+        dispatch(actions.onChangeToEmployerScreen());
+    }, [dispatch]);
+
+    const isEmployerProfileScreen =
+        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE;
+
     const labelForSubmitButton =
-        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE
+        isEmployerProfileScreen && employerOnboardingData
             ? EmployerDataSubmitLabel.SAVE
             : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
 
@@ -61,6 +77,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     globalStyles.width100,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceAround,
+                    globalStyles.alignItemsCenter,
                     globalStyles.mb25,
                 ]}
             >
@@ -196,11 +213,22 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     multiline={true}
                 />
             </FormField>
-            <Button
-                label={labelForSubmitButton}
-                onPress={handleFormSubmit}
-                style={globalStyles.mt25}
-            />
+            {!(employerOnboardingData && !isEmployerProfileScreen) && (
+                <Button
+                    label={labelForSubmitButton}
+                    onPress={handleFormSubmit}
+                    style={globalStyles.mt25}
+                />
+            )}
+            {!isEmployerProfileScreen && (
+                <Button
+                    label="Go to the profile"
+                    onPress={handleRedirectToProfile}
+                    buttonType={ButtonType.OUTLINE}
+                    style={globalStyles.mt10}
+                    disabled={!employerOnboardingData}
+                />
+            )}
         </>
     );
 };

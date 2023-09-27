@@ -6,11 +6,17 @@ import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
     FlatList,
+    Loader,
     LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    DataStatus,
+    RootScreenName,
+    TextCategory,
+    UserRole,
+} from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
@@ -32,7 +38,9 @@ import { styles } from './styles';
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
     const { currentUserData: user } = useAppSelector(({ auth }) => auth);
-    const { chats, current } = useAppSelector(({ chat }) => chat);
+    const { chats, current, dataStatus } = useAppSelector(({ chat }) => chat);
+
+    const isChatsLoading = dataStatus === DataStatus.PENDING;
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigation =
@@ -71,12 +79,22 @@ const ChatList: React.FC = () => {
         );
     };
 
+    const chatsPlaceHolder = `There are no active conversations yet${
+        user?.role === UserRole.EMPLOYER
+            ? ''
+            : '\n\n When employers want to contact you, all chats will be here'
+    }`;
+
     const handleChatSelect = useCallback(
         (payload: ChatNavigationProperties): void => {
             navigation.navigate(RootScreenName.CHAT, payload);
         },
         [navigation],
     );
+
+    if (isChatsLoading) {
+        return <Loader />;
+    }
 
     return (
         <View style={globalStyles.flex1}>
@@ -101,22 +119,35 @@ const ChatList: React.FC = () => {
                     styles.chatContainer,
                 ]}
             >
-                <Search
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    containerStyle={[
-                        globalStyles.borderRadius15,
-                        globalStyles.p15,
-                        styles.search,
-                    ]}
-                />
-                <FlatList
-                    style={[globalStyles.pb15, styles.chatList]}
-                    data={sortedChats}
-                    renderItem={renderListItem}
-                    keyExtractor={(item): string => item.lastMessageCreatedAt}
-                    showsVerticalScrollIndicator={false}
-                />
+                {chats.length > 0 ? (
+                    <View>
+                        <Search
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            containerStyle={[
+                                globalStyles.borderRadius15,
+                                globalStyles.p15,
+                                styles.search,
+                            ]}
+                        />
+                        <FlatList
+                            style={[globalStyles.pb15, styles.chatList]}
+                            data={sortedChats}
+                            renderItem={renderListItem}
+                            keyExtractor={(item): string =>
+                                item.lastMessageCreatedAt
+                            }
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </View>
+                ) : (
+                    <Text
+                        category={TextCategory.H4}
+                        style={[globalStyles.mt25, styles.chatsPlaceHolder]}
+                    >
+                        {chatsPlaceHolder}
+                    </Text>
+                )}
             </View>
         </View>
     );

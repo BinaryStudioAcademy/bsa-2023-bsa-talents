@@ -29,7 +29,7 @@ class FileRepository implements Repository {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
-    public async create(file: S3.ManagedUpload.SendData): Promise<FileModel> {
+    public create(file: S3.ManagedUpload.SendData): Promise<FileModel> {
         return this.fileModel
             .query()
             .insert({

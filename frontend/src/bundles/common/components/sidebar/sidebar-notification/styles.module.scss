@@ -1,0 +1,65 @@
+.notification {
+    position: absolute;
+    top: 0;
+    left: calc(var(--sidebar-width) + 10px);
+    z-index: 5;
+    width: 200px;
+    height: 45px;
+    padding: 5px 10px;
+    background-color: var(--sunglow);
+    border-radius: 5px;
+    transform: translateY(-40%);
+    opacity: 0;
+    transition:
+        width 0.5s,
+        opacity 0.5s;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 50%;
+        left: 0;
+        border-width: 7px 0 13px 25px;
+        border-style: solid;
+        border-color: transparent transparent var(--sunglow) transparent;
+        transform: translate(-100%, 50%);
+    }
+}
+
+.notification.shown {
+    animation: fade-in-out 0.4s ease-in-out forwards;
+}
+
+@keyframes fade-in-out {
+    0% {
+        transform: translate(-50%, -40%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0, -40%);
+        opacity: 1;
+    }
+}
+
+.notification.hidden {
+    width: 0;
+    opacity: 0;
+}
+
+.notification .message {
+    width: 95%;
+    height: 32px;
+    margin: 0;
+    overflow: hidden;
+    color: var(--midnight-black);
+    font-size: var(--font-size-caption);
+}
+
+.icon {
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    width: 15px;
+    cursor: pointer;
+}

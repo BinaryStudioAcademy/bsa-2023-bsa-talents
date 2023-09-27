@@ -84,7 +84,6 @@ const profileStep = joi.object<ProfileStepDto, true>({
         .string()
         .min(ProfileStepValidationRule.MIN_EXPERIENCE_DESCRIPTION_LENGTH)
         .max(ProfileStepValidationRule.MAX_EXPERIENCE_DESCRIPTION_LENGTH)
-        .regex(/^[\s\w!"#$%&'()*+,./:;<=>?@[\\\]^{|}-]*$/)
         .required()
         .messages({
             'string.base': ProfileStepValidationMessage.DESCRIPTION_NOT_STRING,

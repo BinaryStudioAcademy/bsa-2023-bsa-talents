@@ -70,6 +70,8 @@ class UserDetailsEntity implements Entity {
 
     private 'email'?: string | null;
 
+    private 'publishedAt': string | null;
+
     private constructor({
         id,
         userId,
@@ -100,6 +102,7 @@ class UserDetailsEntity implements Entity {
         completedStep,
         email,
         createdAt,
+        publishedAt,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -130,6 +133,7 @@ class UserDetailsEntity implements Entity {
         this.completedStep = completedStep;
         this.email = email;
         this.createdAt = createdAt;
+        this.publishedAt = publishedAt;
     }
 
     public static initialize({
@@ -162,6 +166,7 @@ class UserDetailsEntity implements Entity {
         completedStep,
         email,
         createdAt,
+        publishedAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -193,6 +198,7 @@ class UserDetailsEntity implements Entity {
             completedStep,
             email,
             createdAt,
+            publishedAt,
         });
     }
 
@@ -225,6 +231,7 @@ class UserDetailsEntity implements Entity {
         completedStep,
         email,
         createdAt,
+        publishedAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -256,6 +263,7 @@ class UserDetailsEntity implements Entity {
             completedStep,
             email,
             createdAt,
+            publishedAt,
         });
     }
 
@@ -290,6 +298,7 @@ class UserDetailsEntity implements Entity {
             completedStep: this.completedStep,
             email: this.email,
             createdAt: this.createdAt,
+            publishedAt: this.publishedAt,
         };
     }
 
@@ -324,6 +333,7 @@ class UserDetailsEntity implements Entity {
             completedStep: this.completedStep,
             email: this.email,
             createdAt: this.createdAt,
+            publishedAt: this.publishedAt,
         };
     }
 }
