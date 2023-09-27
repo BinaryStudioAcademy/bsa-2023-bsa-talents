@@ -1,4 +1,9 @@
 import {
+    AccountCircle as AccountCircleIcon,
+    Image as ImageIcon,
+} from '@mui/icons-material';
+
+import {
     ErrorMessage,
     FormControl,
     FormLabel,
@@ -334,17 +339,21 @@ const OnboardingForm: React.FC = () => {
 
                 <Grid className={styles.photoContainer}>
                     <Grid container className={styles.photo}>
-                        <Grid item className={styles.photoWrapper}>
-                            {errors.photo ?? !watch('photo') ? null : (
-                                <img
-                                    src={URL.createObjectURL(
-                                        watch('photo') as Blob,
-                                    )}
-                                    className={styles.photoElement}
-                                    alt="Profile"
-                                />
-                            )}
-                        </Grid>
+                        {watch('photo') ? (
+                            <Grid item className={styles.photoWrapper}>
+                                {errors.photo ?? !watch('photo') ? null : (
+                                    <img
+                                        src={URL.createObjectURL(
+                                            watch('photo') as Blob,
+                                        )}
+                                        className={styles.photoElement}
+                                        alt="Profile"
+                                    />
+                                )}
+                            </Grid>
+                        ) : (
+                            <AccountCircleIcon className={styles.iconWrapper} />
+                        )}
 
                         <EmployerFileUpload
                             label="Upload a photo"
@@ -354,19 +363,24 @@ const OnboardingForm: React.FC = () => {
                             clearErrors={clearErrors}
                         />
                     </Grid>
+
                     <Grid container className={styles.photo}>
-                        <Grid item className={styles.photoWrapper}>
-                            {errors.companyLogo ??
-                            !watch('companyLogo') ? null : (
-                                <img
-                                    src={URL.createObjectURL(
-                                        watch('companyLogo') as Blob,
-                                    )}
-                                    className={styles.photoElement}
-                                    alt="Company logo"
-                                />
-                            )}
-                        </Grid>
+                        {watch('companyLogo') ? (
+                            <Grid item className={styles.companyLogoWrapper}>
+                                {errors.companyLogo ??
+                                !watch('companyLogo') ? null : (
+                                    <img
+                                        src={URL.createObjectURL(
+                                            watch('companyLogo') as Blob,
+                                        )}
+                                        className={styles.photoElement}
+                                        alt="Company logo"
+                                    />
+                                )}
+                            </Grid>
+                        ) : (
+                            <ImageIcon className={styles.iconWrapper} />
+                        )}
 
                         <EmployerFileUpload
                             label="Upload a company logo"

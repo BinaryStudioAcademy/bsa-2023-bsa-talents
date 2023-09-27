@@ -50,17 +50,31 @@
 }
 
 .photoWrapper {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
+    margin: 15px;
     overflow: hidden;
-    background-color: var(--background-secondary);
     border-radius: 50%;
+}
+
+.companyLogoWrapper {
+    width: 135px;
+    height: 135px;
+    margin: 22.5px;
+    overflow: hidden;
+    border-radius: 16px;
 }
 
 .photoPlaceholder {
     width: 100%;
     height: 100%;
     background-color: var(--background-secondary);
+}
+
+.iconWrapper {
+    width: 180px;
+    height: 180px;
+    fill: var(--background-secondary);
 }
 
 .photoElement {
