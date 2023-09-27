@@ -10,6 +10,7 @@ type RootNavigationParameterList = {
     [RootScreenName.CHAT]: ChatNavigationProperties;
     [RootScreenName.CANDIDATE_FILTER]: undefined;
     [RootScreenName.CONTACT_CANDIDATE]: ContactTalentNavigationPropertiesType;
+    [RootScreenName.CHAT_USER_DETAILS]: undefined;
 };
 
 export { type RootNavigationParameterList };
