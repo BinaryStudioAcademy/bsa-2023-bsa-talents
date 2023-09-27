@@ -42,12 +42,26 @@
     border-radius: 10px;
 }
 
-.saveButton {
-    width: 104px;
+.profileButton {
+    width: 124px;
     height: 36px;
     font-weight: 500;
     font-size: 13px;
     text-transform: capitalize;
+}
+
+.saveButton {
+    color: var(--background-secondary);
+    border-color: var(--background-secondary);
+
+    &:hover {
+        border-color: var(--hover-primary);
+    }
+}
+
+.publishButton {
+    width: 134px;
+    text-transform: initial;
     background-color: var(--background-secondary);
 
     &:hover {

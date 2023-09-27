@@ -6,6 +6,15 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
     },
+    logoPlaceholder: {
+        width: 60,
+        height: 60,
+        backgroundColor: Color.PRIMARY,
+    },
+    backButton: {
+        position: 'absolute',
+        right: 20,
+    },
     supportingText: {
         color: Color.TEXTDARK,
     },

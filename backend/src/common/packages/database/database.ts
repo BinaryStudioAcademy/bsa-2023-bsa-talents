@@ -9,6 +9,7 @@ export { Abstract as AbstractModel } from './abstract.model.js';
 export {
     BSABadgesTableColumn,
     ChatMessagesTableColumn,
+    ContactsTableColumn,
     DatabaseTableName,
     FilesTableColumn,
     HardSkillsTableColumn,

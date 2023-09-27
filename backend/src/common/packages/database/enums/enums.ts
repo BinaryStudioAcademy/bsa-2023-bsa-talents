@@ -2,6 +2,7 @@ export { DatabaseTableName } from './database-table-name.enum.js';
 export {
     BSABadgesTableColumn,
     ChatMessagesTableColumn,
+    ContactsTableColumn,
     FilesTableColumn,
     HardSkillsTableColumn,
     HiringInfoTableColumn,

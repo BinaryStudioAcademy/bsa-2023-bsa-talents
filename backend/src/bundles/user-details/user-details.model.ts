@@ -83,7 +83,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'completedStep': ValueOf<typeof OnboardingStep>;
 
-    public 'publishedAt': Date;
+    public 'publishedAt': string;
 
     public 'user'?: UserModel;
 

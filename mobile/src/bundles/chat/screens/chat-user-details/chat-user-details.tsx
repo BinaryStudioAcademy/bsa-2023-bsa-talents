@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ChatBackButton } from '~/bundles/chat/components/components';
 import {
     ActiveModal,
     Button,
@@ -13,18 +14,14 @@ import {
 import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
+    useAppSelector,
     useCallback,
     useVisibility,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type RadioButtonProps } from '~/bundles/common/types/types';
-import { type CompanyInfoDto } from '~/bundles/talent/types/types';
 
 import { styles } from './styles';
-
-type Properties = {
-    companyInfo: CompanyInfoDto;
-};
 
 const radioButtons: RadioButtonProps[] = [
     {
@@ -37,16 +34,16 @@ const radioButtons: RadioButtonProps[] = [
     },
 ];
 
-const CompanyInfo: React.FC<Properties> = ({
-    companyInfo: {
+const ChatUserDetails: React.FC = () => {
+    const { employerDetails } = useAppSelector(({ chat }) => chat.current);
+    const {
+        companyWebsite,
         logoUrl,
-        companyName,
         employerName,
         employerPosition,
-        about = 'No information provided.',
-        companyWebsite,
-    },
-}) => {
+        about,
+        companyName,
+    } = employerDetails;
     const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     const { control, handleSubmit } = useAppForm({
@@ -73,7 +70,16 @@ const CompanyInfo: React.FC<Properties> = ({
                     globalStyles.alignItemsCenter,
                 ]}
             >
-                <Image source={{ uri: logoUrl }} style={styles.logo} />
+                {logoUrl ? (
+                    <Image source={{ uri: logoUrl }} style={styles.logo} />
+                ) : (
+                    <View
+                        style={[
+                            styles.logoPlaceholder,
+                            globalStyles.borderRadius10,
+                        ]}
+                    />
+                )}
                 <View style={globalStyles.ml10}>
                     <Text category={TextCategory.H3}>{companyName}</Text>
                     <Text
@@ -82,6 +88,9 @@ const CompanyInfo: React.FC<Properties> = ({
                     >
                         {employerName}, {employerPosition}
                     </Text>
+                </View>
+                <View style={styles.backButton}>
+                    <ChatBackButton />
                 </View>
             </View>
             <Divider />
@@ -138,4 +147,4 @@ const CompanyInfo: React.FC<Properties> = ({
     );
 };
 
-export { CompanyInfo };
+export { ChatUserDetails };
