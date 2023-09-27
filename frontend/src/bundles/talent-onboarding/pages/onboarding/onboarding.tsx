@@ -7,8 +7,6 @@ import {
 import { FormSubmitProvider } from '~/bundles/common/context/context.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
-    useAppDispatch,
-    useAppSelector,
     useCallback,
     useEffect,
     useLocation,
@@ -26,10 +24,8 @@ import {
     StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
 import { configureString } from '~/helpers/helpers.js';
 
-import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {
@@ -43,9 +39,6 @@ const Onboarding: React.FC = () => {
             slugs[FIRST_ELEMENT];
         return STEP_NUMBER_FROM_ROUTE[slug];
     });
-
-    const dispatch = useAppDispatch();
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + StepsList.ONE);
@@ -92,13 +85,6 @@ const Onboarding: React.FC = () => {
         updateStepFromLocation();
     }, [location.pathname]);
 
-    useEffect(() => {
-        void dispatch(
-            actions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
     return (
         <PageLayout avatarUrl="" isOnline={false}>
             <FormSubmitProvider>
