@@ -51,10 +51,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const [, token] = authorization?.split(' ') ?? [];
 
         if (!token) {
-            throw new HttpError({
-                message: ErrorMessage.UNAUTHORIZED_USER,
-                status: HttpCode.UNAUTHORIZED,
-            });
+            return;
         }
 
         const { userService, tokenService } = services;
