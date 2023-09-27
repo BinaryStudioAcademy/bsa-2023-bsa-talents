@@ -1,6 +1,6 @@
 const TalentBottomTabScreenName = {
     TALENT_PROFILE: 'Talent profile',
-    MAIL: 'Mail',
+    CHAT_ROOT: 'Chat Root',
 } as const;
 
 export { TalentBottomTabScreenName };
