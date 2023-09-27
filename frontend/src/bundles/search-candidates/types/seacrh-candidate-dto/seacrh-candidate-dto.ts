@@ -1,15 +1,12 @@
+import { type DataStatus } from '~/bundles/common/enums/enums.js';
 import {
+    type HardSkillsItem,
     type UserDetailsUpdateRequestDto,
     type ValueOf,
-} from 'shared/build/index.js';
-
-import { type DataStatus } from '~/bundles/common/enums/enums.js';
+} from '~/bundles/search-candidates/types/types.js';
 
 type SeacrhCandidateDto = UserDetailsUpdateRequestDto & {
-    hardSkills?: {
-        id: string;
-        name: string;
-    }[];
+    hardSkills?: HardSkillsItem[];
     badges?: string[];
     photo?: File | null;
     cv?: File | null;

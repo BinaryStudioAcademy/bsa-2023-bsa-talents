@@ -1,5 +1,7 @@
 import { type mockBadges } from '~/assets/mock-data/mock-data.js';
 
+import { type HardSkillsItem } from '../types.js';
+
 type FirstSectionDetails = {
     userId: string;
     profileName: string;
@@ -10,7 +12,7 @@ type FirstSectionDetails = {
     englishLevel: string;
     badges: typeof mockBadges;
     talentHardSkills?: string[];
-    hardSkills?: { id: string; name: string };
+    hardSkills?: HardSkillsItem;
     preferredLanguages: string[];
     description: string;
     date: string;
