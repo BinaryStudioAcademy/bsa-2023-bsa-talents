@@ -23,7 +23,6 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             chatMessages: chat.current.messages,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
-            // isLoading: chat.dataStatus
         }),
     );
 
@@ -82,7 +81,6 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
     ) : (
-        // !isLoading &&
         <Grid className={getValidClassNames(styles.messageList, styles.empty)}>
             <p className={styles.placeholder}>
                 There are no active conversations yet. When employers want to
