@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     search: {
         backgroundColor: Color.BACKGROUND,
     },
+    chatsPlaceHolder: {
+        textAlign: 'center',
+    },
 });
 
 export { styles };

@@ -5,14 +5,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flexGrow: 1,
     },
-    links: {
-        gap: 5,
-        position: 'relative',
-    },
-    linksBtn: {
-        position: 'absolute',
-        top: 5,
-        right: 5,
+    description: {
+        width: '80%',
     },
 });
 

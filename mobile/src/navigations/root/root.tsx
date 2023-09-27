@@ -35,6 +35,7 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
+    const { isRedirectToEmployerScreen } = useAppSelector(({ auth }) => auth);
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
@@ -43,8 +44,7 @@ const Root: React.FC = () => {
     //TODO change to onboardingData?.isApprove
     const isProfileComplete =
         onboardingData?.completedStep ===
-            CompletedTalentOnboardingStep.Preview ||
-        onboardingData?.companyName;
+            CompletedTalentOnboardingStep.Preview || isRedirectToEmployerScreen;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());

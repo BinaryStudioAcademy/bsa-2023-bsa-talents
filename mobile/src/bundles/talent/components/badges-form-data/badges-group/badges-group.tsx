@@ -4,7 +4,7 @@ import { Badge, Checkbox, View } from '~/bundles/common/components/components';
 import { useCallback, useFieldArray } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Control, type FieldPath } from '~/bundles/common/types/types';
-import { UNCONTROLLED_BADGES } from '~/bundles/talent/components/badges-form/constants/constants';
+import { UNCONTROLLED_BADGES } from '~/bundles/talent/screens/bsa-badges/constants/constants';
 import { type BadgeFormItem } from '~/bundles/talent/types/badge-form-item/badge-form-item';
 import { type BadgesFormDto } from '~/bundles/talent/types/badges-form-dto/badges-form-dto';
 
@@ -13,9 +13,10 @@ import { styles } from '../styles';
 type Properties = {
     name: FieldPath<BadgesFormDto>;
     control: Control<BadgesFormDto, null>;
+    isDisabled: boolean;
 };
 
-const BadgesGroup = ({ control }: Properties): JSX.Element => {
+const BadgesGroup = ({ control, isDisabled }: Properties): JSX.Element => {
     const { fields, update } = useFieldArray<BadgesFormDto>({
         name: 'badges',
         control,
@@ -46,7 +47,10 @@ const BadgesGroup = ({ control }: Properties): JSX.Element => {
                         onChange={(): void => {
                             handleToggleCheckbox(badge, index);
                         }}
-                        disabled={UNCONTROLLED_BADGES.includes(badge.name)}
+                        disabled={
+                            UNCONTROLLED_BADGES.includes(badge.name) ||
+                            isDisabled
+                        }
                     />
                     <Badge badge={badge} />
                 </View>

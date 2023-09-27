@@ -8,66 +8,48 @@ import {
     FormField,
     Input,
     Pressable,
-    ScrollView,
     Selector,
     View,
 } from '~/bundles/common/components/components';
 import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
-import {
-    useAppForm,
-    useCallback,
-    useFieldArray,
-} from '~/bundles/common/hooks/hooks';
+import { useFieldArray } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
-import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
-import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     ENGLISH_LEVELS,
     MAX_LINKS,
     NOT_CONSIDERED,
     PREFERRED_LANGUAGES,
-    SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    skillsStepData: SkillsStepDto | null;
-    onSubmit: (payload: SkillsStepDto) => void;
-    currentStep: number;
+    control: Control<SkillsStepDto>;
+    errors: FieldErrors<SkillsStepDto>;
+    isEditable: boolean;
 };
 
-const SkillsAndProjectsForm: React.FC<Properties> = ({
-    onSubmit,
-    skillsStepData,
-    currentStep,
+const SkillsFormData: React.FC<Properties> = ({
+    control,
+    errors,
+    isEditable,
 }) => {
-    const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
-        validationSchema: skillsStepValidationSchema,
-    });
     const { hardSkillsData } = useCommonData();
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
     });
 
-    const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
-
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-            showsVerticalScrollIndicator={false}
-        >
+        <>
             <FormField
                 errorMessage={errors.hardSkills?.message}
                 label="Hard Skills"
                 name="hardSkills"
-                required
+                required={isEditable}
             >
                 <AutocompleteMultiSelector
                     items={hardSkillsData?.items}
@@ -81,7 +63,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.englishLevel?.message?.toString()}
                 label="Level of English"
                 name="englishLevel"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
@@ -89,6 +71,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     control={control}
                     name="englishLevel"
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
 
@@ -109,7 +92,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 errorMessage={errors.preferredLanguages?.message}
                 label="Preferred language of communication"
                 name="preferredLanguages"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
@@ -118,6 +101,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     name="preferredLanguages"
                     isMultiSelect={true}
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
 
@@ -176,13 +160,8 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                     }}
                 />
             )}
-
-            <View style={globalStyles.flexDirectionRow}>
-                <OnboardingBackButton currentStep={currentStep} />
-                <Button label="Next" onPress={handleFormSubmit} />
-            </View>
-        </ScrollView>
+        </>
     );
 };
 
-export { SkillsAndProjectsForm };
+export { SkillsFormData };
