@@ -1,12 +1,23 @@
-import { getMessage, joinRoom, leaveRoom, sendMessage } from './actions';
+import {
+    clearChatStore,
+    createMessage,
+    getAllChatsByUserId,
+    getAllMessages,
+    getAllMessagesByChatId,
+    joinRoom,
+    leaveRoom,
+} from './actions';
 import { actions } from './slice';
 
 const allActions = {
     ...actions,
-    getMessage,
     joinRoom,
     leaveRoom,
-    sendMessage,
+    clearChatStore,
+    createMessage,
+    getAllChatsByUserId,
+    getAllMessages,
+    getAllMessagesByChatId,
 };
 
 export { allActions as actions };

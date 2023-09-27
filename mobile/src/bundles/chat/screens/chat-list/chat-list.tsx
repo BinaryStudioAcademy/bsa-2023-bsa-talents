@@ -1,26 +1,21 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
-import { type ChatItem } from '~/bundles/chat/types/types';
+import { actions as chatActions } from '~/bundles/chat/store';
+import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
-    CommunityIcon,
     FlatList,
-    Pressable,
+    LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import {
-    Color,
-    IconName,
-    RootScreenName,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
+import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
     useNavigation,
     useState,
@@ -36,36 +31,27 @@ import { styles } from './styles';
 
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { chatData } = useAppSelector(({ chat }) => chat);
+    const { currentUserData: user } = useAppSelector(({ auth }) => auth);
+    const { chats, current } = useAppSelector(({ chat }) => chat);
+    const [searchQuery, setSearchQuery] = useState('');
+
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
 
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const transformedChatData = useMemo(() => {
-        return chatData
-            ? Object.entries(chatData).map(([chatId, messages]) => {
-                  const lastMessage = messages[0];
-                  return {
-                      chatId: chatId,
-                      senderName: lastMessage.senderName,
-                      senderAvatar: lastMessage.senderAvatar,
-                      lastMessage: lastMessage.message,
-                      lastMessageDate: lastMessage.createdAt,
-                  };
-              })
-            : [];
-    }, [chatData]);
+    useEffect(() => {
+        if (user) {
+            void dispatch(chatActions.getAllChatsByUserId(user.id));
+        }
+    }, [dispatch, user, current.messages.length]);
 
     const filteredChats = useMemo(() => {
-        return transformedChatData.filter((chat) => {
-            const { lastMessage } = chat;
+        return chats.filter(({ lastMessage }) => {
             return lastMessage
                 .trim()
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
         });
-    }, [transformedChatData, searchQuery]);
+    }, [searchQuery, chats]);
 
     const sortedChats = useMemo(() => {
         return sortChatsByDate(filteredChats);
@@ -74,11 +60,11 @@ const ChatList: React.FC = () => {
     const renderListItem = ({
         item,
     }: {
-        item: ChatItem;
+        item: ChatResponseDto;
     }): React.ReactElement => {
         return (
             <ChatListItem
-                key={item.lastMessage}
+                key={item.lastMessageCreatedAt}
                 item={item}
                 onSelect={handleChatSelect}
             />
@@ -92,16 +78,12 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <View style={globalStyles.flex1}>
             <View
                 style={[
                     globalStyles.p25,
-                    globalStyles.pr10,
+                    globalStyles.pr15,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
@@ -109,13 +91,7 @@ const ChatList: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>Chat</Text>
-                <Pressable onPress={handleLogout}>
-                    <CommunityIcon
-                        name={IconName.LOGOUT}
-                        size={30}
-                        color={Color.TEXT2}
-                    />
-                </Pressable>
+                <LogoutButton />
             </View>
             <View
                 style={[
@@ -138,7 +114,7 @@ const ChatList: React.FC = () => {
                     style={[globalStyles.pb15, styles.chatList]}
                     data={sortedChats}
                     renderItem={renderListItem}
-                    keyExtractor={(item): string => item.chatId}
+                    keyExtractor={(item): string => item.lastMessageCreatedAt}
                     showsVerticalScrollIndicator={false}
                 />
             </View>

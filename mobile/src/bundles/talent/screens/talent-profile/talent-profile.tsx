@@ -1,28 +1,21 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import {
-    CommunityIcon,
-    Pressable,
+    LogoutButton,
     StatusBar,
     Text,
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
+import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './style';
 
 const TalentProfile: React.FC = () => {
-    const dispatch = useAppDispatch();
     const { isApproved } =
         useAppSelector(({ common }) => common.onboardingData) ?? {};
-
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
 
     return (
         <>
@@ -50,13 +43,7 @@ const TalentProfile: React.FC = () => {
                     ]}
                 >
                     {!isApproved && <VerificationMessage />}
-                    <Pressable onPress={handleLogout}>
-                        <CommunityIcon
-                            name={IconName.LOGOUT}
-                            size={30}
-                            color={Color.TEXT2}
-                        />
-                    </Pressable>
+                    <LogoutButton />
                 </View>
             </View>
         </>
