@@ -13,7 +13,7 @@ const SkillsStepValidationRule = {
     PREFERRED_LANGUAGES_MIN_LENGTH: 1,
     PROJECT_LINKS_MAX_LINKS: 5,
     PROJECT_LINKS_MIN_LENGTH: 5,
-    PROJECT_LINKS_MAX_LENGTH: 50,
+    PROJECT_LINKS_MAX_LENGTH: 250,
 } as const;
 
 export { SkillsStepValidationRule };

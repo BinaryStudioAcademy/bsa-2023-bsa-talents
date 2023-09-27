@@ -5,7 +5,10 @@ import { mapFilesToPayload } from '~/bundles/employer-onboarding/helpers/map-fil
 import { type FileDto } from '~/bundles/file-upload/types/file-dto.type.js';
 
 import { EMPTY_FILE_COUNT } from '../constants/constants.js';
-import { type UserDetailsGeneralCustom } from '../types/types.js';
+import {
+    type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsGeneralCustom,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const createTalentDetails = createAsyncThunk<
@@ -121,4 +124,19 @@ const getTalentDetails = createAsyncThunk<
     },
 );
 
-export { getTalentDetails, saveTalentDetails, updateTalentDetails };
+const updateTalentPublishedDate = createAsyncThunk<
+    UserDetailsGeneralCustom,
+    UserDetailsFindByUserIdRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-publised-date`, (findPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    return talentOnBoardingApi.updatePublishedData(findPayload);
+});
+
+export {
+    getTalentDetails,
+    saveTalentDetails,
+    updateTalentDetails,
+    updateTalentPublishedDate,
+};

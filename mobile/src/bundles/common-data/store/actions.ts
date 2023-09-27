@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiPath } from 'shared/build/index';
+import { type UserFindResponseDto } from 'shared/build/index';
 
+import { ApiPath } from '~/bundles/common/enums/enums';
+import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
@@ -29,4 +31,19 @@ const getBadgesData = createAsyncThunk<
     return commonDataApi.getBadgesData();
 });
 
-export { getBadgesData, getHardSkillsData };
+const loadAllPartners = createAsyncThunk<
+    { items: UserFindResponseDto[] },
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}${ApiPath.USERS}`, async (_, { extra }) => {
+    const { commonDataApi, notifications } = extra;
+    try {
+        return await commonDataApi.getAllUsers();
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
+});
+
+export { getBadgesData, getHardSkillsData, loadAllPartners };

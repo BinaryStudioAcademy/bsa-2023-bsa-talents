@@ -43,6 +43,7 @@ const getAllMessagesByChatId = createAsyncThunk<
             employerPosition: string;
             about: string;
             companyWebsite: string;
+            employerId: string;
         };
     },
     { chatId: string; employerId: string },
@@ -61,6 +62,7 @@ const getAllMessagesByChatId = createAsyncThunk<
             employerPosition: employer?.employerPosition ?? '',
             about: employer?.description ?? '',
             companyWebsite: employer?.companyWebsite ?? '',
+            employerId: employer?.userId ?? '',
         };
 
         return { chatId, messages: messages.items, employerDetails };
