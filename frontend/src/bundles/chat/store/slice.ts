@@ -1,5 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import {
+    getContactWithTalent,
+    shareContactsWithCompany,
+} from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
@@ -18,6 +22,7 @@ type State = {
     chats: ChatResponseDto[];
     current: {
         chatId: string | null;
+        talentHasSharedContacts: boolean;
         messages: MessageResponseDto[];
         employerDetails:
             | {
@@ -27,6 +32,7 @@ type State = {
                   employerPosition: string | null;
                   about: string | null;
                   companyWebsite: string | null;
+                  employerId: string | null;
               }
             | Record<string, never>;
     };
@@ -38,6 +44,7 @@ const initialState: State = {
     chats: [],
     current: {
         chatId: null,
+        talentHasSharedContacts: false,
         messages: [],
         employerDetails: {
             logoUrl: '',
@@ -46,6 +53,7 @@ const initialState: State = {
             employerPosition: '',
             about: '',
             companyWebsite: '',
+            employerId: '',
         },
     },
     onlineUsers: [],
@@ -63,6 +71,7 @@ const { reducer, actions, name } = createSlice({
             action.payload;
             state.current.chatId = null;
             state.current.messages = [];
+            state.current.talentHasSharedContacts = false;
         },
         addMessage: (state, action) => {
             const chat = state.chats.find(
@@ -89,6 +98,13 @@ const { reducer, actions, name } = createSlice({
             .addCase(getAllChatsByUserId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
                 state.chats = action.payload;
+            })
+            .addCase(getContactWithTalent.fulfilled, (state, action) => {
+                state.current.talentHasSharedContacts = action.payload;
+            })
+
+            .addCase(shareContactsWithCompany.fulfilled, (state) => {
+                state.current.talentHasSharedContacts = true;
             })
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;

@@ -25,17 +25,16 @@ const Chat: React.FC = () => {
     const dispatch = useAppDispatch();
     const { chatId, partnerName, partnerAvatar, partnerId } =
         route.params as ChatNavigationProperties;
-    const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { current } = useAppSelector(({ chat }) => chat);
 
     useEffect(() => {
         void dispatch(
             chatActions.getAllMessagesByChatId({
                 chatId,
-                employerId: currentUserData?.id ?? '',
+                employerId: partnerId,
             }),
         );
-    }, [dispatch, chatId, currentUserData?.id]);
+    }, [dispatch, chatId, partnerId]);
 
     const handleSendMessage = useCallback(
         (payload: ChatMessagesCreateRequestDto): void => {

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getContactWithTalent } from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
@@ -15,7 +16,11 @@ import {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
-    currentCandidateDetails: SeacrhCandidateDto | null;
+    currentCandidateDetails:
+        | (SeacrhCandidateDto & {
+              hasSharedContacts: boolean;
+          })
+        | null;
     filteredCandidates: SeacrhCandidateDto[];
 };
 
@@ -37,8 +42,16 @@ const { reducer, actions, name } = createSlice({
             state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(getCandidateDetails.fulfilled, (state, action) => {
-            state.currentCandidateDetails = action.payload;
+            if (action.payload) {
+                state.currentCandidateDetails = {
+                    ...action.payload,
+                    hasSharedContacts:
+                        state.currentCandidateDetails?.hasSharedContacts ??
+                        false,
+                };
+            }
         });
+
         builder.addCase(searchCandidates.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
@@ -48,6 +61,12 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(setFilters.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(getContactWithTalent.fulfilled, (state, action) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.hasSharedContacts =
+                    action.payload;
+            }
         });
     },
 });

@@ -70,6 +70,9 @@ const CandidateProfile: React.FC<Properties> = ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
     }));
+    const { publishedAt } = useAppSelector(
+        (state: RootReducer) => state.talentOnBoarding,
+    );
 
     const data = candidateData ?? reduxData;
 
@@ -124,7 +127,11 @@ const CandidateProfile: React.FC<Properties> = ({
         <Grid className={styles.wrapper}>
             {isFifthStep && (
                 <Button
-                    label="Your account is ready!"
+                    label={
+                        publishedAt
+                            ? 'Your account is waiting for the approval'
+                            : 'Your account is ready!'
+                    }
                     variant="text"
                     className={styles.accountReadyButton}
                 />

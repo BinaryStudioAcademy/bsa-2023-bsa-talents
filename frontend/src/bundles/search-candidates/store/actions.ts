@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
-import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import {
@@ -29,13 +28,22 @@ const setFilters = createAsyncThunk<
 
 const getCandidateDetails = createAsyncThunk<
     SeacrhCandidateDto | null,
-    UserDetailsGeneralCustom,
+    {
+        userId: string;
+    },
     AsyncThunkConfig
 >(
     `${sliceName}/get-candidate-details`,
-    async (findPayload, { extra, rejectWithValue }) => {
+    async (findPayload, { extra, rejectWithValue, getState }) => {
+        const { searchCandidates } = getState();
         const { talentOnBoardingApi } = extra;
-
+        if (searchCandidates.filteredCandidates.length > 0) {
+            return (
+                searchCandidates.filteredCandidates.find(
+                    (candidate) => candidate.userId == findPayload.userId,
+                ) ?? null
+            );
+        }
         try {
             return (await talentOnBoardingApi.getUserDetailsByUserId({
                 userId: findPayload.userId,

@@ -260,7 +260,9 @@ class UserDetailsService implements Service {
         return true;
     }
 
-    public async publish(payload: { userId: string }): Promise<string> {
+    public async publish(payload: {
+        userId: string;
+    }): Promise<UserDetailsEntity> {
         const { userId } = payload;
 
         const userDetails = await this.userDetailsRepository.find({ userId });

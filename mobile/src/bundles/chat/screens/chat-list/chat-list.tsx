@@ -6,11 +6,13 @@ import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
     FlatList,
+    Loader,
     LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
 import {
+    DataStatus,
     RootScreenName,
     TextCategory,
     UserRole,
@@ -36,7 +38,9 @@ import { styles } from './styles';
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
     const { currentUserData: user } = useAppSelector(({ auth }) => auth);
-    const { chats, current } = useAppSelector(({ chat }) => chat);
+    const { chats, current, dataStatus } = useAppSelector(({ chat }) => chat);
+
+    const isChatsLoading = dataStatus === DataStatus.PENDING;
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigation =
@@ -87,6 +91,10 @@ const ChatList: React.FC = () => {
         },
         [navigation],
     );
+
+    if (isChatsLoading) {
+        return <Loader />;
+    }
 
     return (
         <View style={globalStyles.flex1}>

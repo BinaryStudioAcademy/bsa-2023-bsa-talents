@@ -65,6 +65,7 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -112,6 +113,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -208,6 +210,7 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -250,16 +253,22 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
-    public async publish(payload: UserDetailsUpdateDto): Promise<string> {
+    public async publish(
+        payload: UserDetailsUpdateDto,
+    ): Promise<UserDetailsEntity> {
         const { id } = payload;
 
         const details = await this.userDetailsModel
             .query()
-            .patchAndFetchById(id as string, { publishedAt: new Date() });
-        return details.publishedAt.toLocaleString();
+            .patchAndFetchById(id as string, {
+                publishedAt: new Date().toISOString(),
+            });
+
+        return UserDetailsEntity.initialize(details);
     }
 
     public delete(): Promise<boolean> {
