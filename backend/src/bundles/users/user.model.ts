@@ -16,6 +16,10 @@ class UserModel extends AbstractModel {
 
     public 'passwordHash': string;
 
+    public 'resetToken': string | null;
+
+    public 'resetTokenExpiry': number | null;
+
     public static override get tableName(): string {
         return DatabaseTableName.USERS;
     }

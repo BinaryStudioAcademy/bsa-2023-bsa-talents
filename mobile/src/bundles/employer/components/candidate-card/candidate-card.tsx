@@ -9,26 +9,33 @@ import {
 } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type Candidate } from '~/bundles/employer/types/types';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
+import {
+    getBadgeById,
+    getHardSkillByValue,
+} from '~/bundles/employer/helpers/helpers';
+import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
 
+import { MaxValue } from './constants/constants';
 import { styles } from './styles';
 
-const maxSkills = 4;
-const maxBadges = 2;
-const maxCharCount = 150;
-
-const CandidateCard: React.FC<Candidate> = ({
+const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
+    profileName,
     salaryExpectation,
     jobTitle,
     location,
     experienceYears,
     englishLevel,
     description,
-    published,
-    hardSkills,
-    badges,
+    talentBadges,
+    talentHardSkills,
 }) => {
+    const { badgesData, hardSkillsData } = useCommonData();
+
+    if (!badgesData || !hardSkillsData) {
+        return null;
+    }
     return (
         <View
             style={[
@@ -45,9 +52,15 @@ const CandidateCard: React.FC<Candidate> = ({
                         globalStyles.justifyContentSpaceBetween,
                     ]}
                 >
-                    <Text category={TextCategory.H5} style={styles.title}>
-                        {jobTitle}
-                    </Text>
+                    <View>
+                        <Text category={TextCategory.H5} style={styles.title}>
+                            {profileName}
+                        </Text>
+                        <Text category={TextCategory.H5} style={styles.title}>
+                            {jobTitle}
+                        </Text>
+                    </View>
+
                     <Text category={TextCategory.H5} style={styles.salary}>
                         ${salaryExpectation}
                     </Text>
@@ -57,14 +70,15 @@ const CandidateCard: React.FC<Candidate> = ({
                         category={TextCategory.CAPTION}
                         style={styles.supportingText}
                     >
-                        {location} | Lviv | {experienceYears} year(s) of
-                        experience |
+                        {location} | {experienceYears} year(s) of experience |
                     </Text>
                     <Text
                         category={TextCategory.CAPTION}
                         style={styles.supportingText}
                     >
-                        {englishLevel} | {published}
+                        {
+                            englishLevel // TODO: add submitted at after fix backend
+                        }
                     </Text>
                 </View>
             </View>
@@ -77,15 +91,26 @@ const CandidateCard: React.FC<Candidate> = ({
                     styles.badgeContainer,
                 ]}
             >
-                {badges.slice(0, maxBadges).map((badge) => (
-                    <Badge
-                        key={badge.label}
-                        value={badge.value}
-                        badgeType={badge.label}
-                        size={BadgeSize.SMALL}
-                        iconSize={20}
-                    />
-                ))}
+                {talentBadges
+                    //TODO: remove after backend got badges values
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    ?.slice(0, MaxValue.BADGES)
+                    .map(
+                        ({ level, score, badgeId, isShown }) =>
+                            isShown && (
+                                <Badge
+                                    key={badgeId}
+                                    size={BadgeSize.SMALL}
+                                    iconSize={20}
+                                    score={score}
+                                    level={level}
+                                    badge={getBadgeById(
+                                        badgesData.items,
+                                        badgeId,
+                                    )}
+                                />
+                            ),
+                    )}
             </View>
             <View
                 style={[
@@ -102,13 +127,26 @@ const CandidateCard: React.FC<Candidate> = ({
                 >
                     Skills
                 </Text>
-                {hardSkills.slice(0, maxSkills).map((skill) => (
-                    <Tag key={skill} value={skill} />
-                ))}
+
+                {talentHardSkills
+                    //TODO: remove after backend got skills values
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    ?.slice(0, MaxValue.SKILLS)
+                    .map(({ hardSkillId }) => (
+                        <Tag
+                            key={hardSkillId}
+                            value={
+                                getHardSkillByValue(
+                                    hardSkillsData.items,
+                                    hardSkillId,
+                                ).label
+                            }
+                        />
+                    ))}
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>
-                    {description?.slice(0, maxCharCount)}...
+                    {description?.slice(0, MaxValue.CHAR_COUNT)}...
                 </Text>
             </View>
             <View style={[styles.divider, globalStyles.width100]} />

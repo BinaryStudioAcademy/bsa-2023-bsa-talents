@@ -6,6 +6,7 @@ import {
     TextInput,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -27,8 +28,6 @@ type Properties<T extends FieldValues> = TextInputProps & {
     iconSize?: number;
 };
 
-const defaultIconSize = 25;
-
 const Input = <T extends FieldValues>({
     editable = true,
     hasError,
@@ -37,7 +36,7 @@ const Input = <T extends FieldValues>({
     marker,
     multiline = false,
     iconName,
-    iconSize = defaultIconSize,
+    iconSize = ICON_SIZE,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
@@ -85,6 +84,7 @@ const Input = <T extends FieldValues>({
                 value={value}
                 onBlur={onBlur}
                 placeholderTextColor={Color.TEXT2}
+                multiline={multiline}
                 {...props}
                 style={[
                     globalStyles.flex1,
@@ -93,7 +93,7 @@ const Input = <T extends FieldValues>({
                     iconName ? styles.noLeftBorder : globalStyles.pl10,
                     styles.input,
                     multiline && styles.multiline,
-                    !editable && styles.disabled,
+                    !editable && styles.isDisabled,
                     hasError && styles.error,
                 ]}
             />

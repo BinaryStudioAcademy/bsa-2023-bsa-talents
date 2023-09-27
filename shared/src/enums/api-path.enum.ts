@@ -6,6 +6,9 @@ const ApiPath = {
     FILES: '/file',
     BSA_BADGES: '/bsa-badges',
     HARD_SKILLS: '/hard-skills',
+    HIRING_INFO: '/hiring-info',
+    EMPTY: '',
+    CHAT_MESSAGES: '/chat-messages',
 } as const;
 
 export { ApiPath };

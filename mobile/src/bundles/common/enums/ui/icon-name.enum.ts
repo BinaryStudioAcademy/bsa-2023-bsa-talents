@@ -1,12 +1,14 @@
 const IconName = {
+    ARROW_LEFT_CIRCLE: 'arrow-left-circle',
     ARROW_DROP_UP: 'arrow-drop-up',
     ARROW_DROP_DOWN: 'arrow-drop-down',
     CLOSE: 'close',
     CIRCLE_OUTLINE: 'circle-outline',
     CIRCLE: 'circle',
     CHECK_CIRCLE: 'check-circle',
+    LOGOUT: 'logout',
     PERSON: 'person',
-    AUTO_GRAPH: 'auto-graph',
+    IMAGE: 'image',
     ADD: 'add',
     FOLDER_SHARED: 'folder-shared',
     MAIL: 'mail',
@@ -19,6 +21,9 @@ const IconName = {
     EXPERIENCE: 'integration-instructions',
     FORUM: 'forum',
     NOT_CONSIDER: 'do-not-disturb-on',
+    SEND: 'send',
+    VISIBILITY: 'visibility',
+    VISIBILITY_OFF: 'visibility-off',
 } as const;
 
 export { IconName };

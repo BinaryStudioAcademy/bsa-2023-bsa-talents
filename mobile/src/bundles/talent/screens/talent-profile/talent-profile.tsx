@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    LogoutButton,
     StatusBar,
     Text,
     VerificationMessage,
@@ -13,8 +14,8 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './style';
 
 const TalentProfile: React.FC = () => {
-    //todo change to real data
-    const { isApproved } = useAppSelector(({ talents }) => talents);
+    const { isApproved } =
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     return (
         <>
@@ -22,10 +23,29 @@ const TalentProfile: React.FC = () => {
                 barStyle="dark-content"
                 backgroundColor={Color.BACKGROUND}
             />
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.pv25,
+                    globalStyles.pl25,
+                    globalStyles.pr10,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    styles.header,
+                ]}
+            >
                 <Text category={TextCategory.H3}>Your profile</Text>
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentFlexEnd,
+                        globalStyles.alignItemsCenter,
+                    ]}
+                >
+                    {!isApproved && <VerificationMessage />}
+                    <LogoutButton />
+                </View>
             </View>
-            <VerificationMessage isApproved={isApproved} />
         </>
     );
 };

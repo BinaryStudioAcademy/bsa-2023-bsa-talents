@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmployerOnboardingValidationMessage,
     EmployerOnboardingValidationRule,
 } from '../../enums/enums.js';
@@ -44,7 +44,7 @@ const EmployerOnboardingValidationSchema = joi.object<
                 EmployerOnboardingValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
-    position: joi
+    employerPosition: joi
         .string()
         .trim()
         .min(EmployerOnboardingValidationRule.MIN_POSITION_LENGTH)
@@ -80,14 +80,14 @@ const EmployerOnboardingValidationSchema = joi.object<
                 EmployerOnboardingValidationMessage.COMPANY_NAME_MIN_LENGTH,
             'string.max':
                 EmployerOnboardingValidationMessage.COMPANY_NAME_MAX_LENGTH,
-            'object.regex':
+            'string.pattern.base':
                 EmployerOnboardingValidationMessage.COMPANY_NAME_WRONG_PATTERN,
         }),
 
     companyWebsite: joi
         .string()
         .empty('')
-        .regex(/^(www\.|http:\/\/|https:\/\/)[^.]+(\..+)+$/)
+        .regex(EmployerOnboardingValidationRule.URL_REGEX_CONSTANT)
         .min(EmployerOnboardingValidationRule.MIN_LENGTH_COMPANY_WEBSITE)
         .max(EmployerOnboardingValidationRule.MAX_LENGTH_COMPANY_WEBSITE)
         .required()
@@ -117,7 +117,7 @@ const EmployerOnboardingValidationSchema = joi.object<
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': EmployerOnboardingValidationMessage.LOCATION_BASE,
@@ -132,19 +132,26 @@ const EmployerOnboardingValidationSchema = joi.object<
     description: joi
         .string()
         .trim()
+        .required()
         .min(EmployerOnboardingValidationRule.MIN_DESCRIPTION_LENGTH)
         .max(EmployerOnboardingValidationRule.MAX_DESCRIPTION_LENGTH)
         .regex(/^[\s\w!"#$%&'()*+,./:;<=>?@[\\\]^{|}-]*$/)
         .messages({
+            'any.required':
+                EmployerOnboardingValidationMessage.DESCRIPTION_REQUIRED,
             'string.base':
                 EmployerOnboardingValidationMessage.DESCRIPTION_NOT_STRING,
+            'string.empty':
+                EmployerOnboardingValidationMessage.DESCRIPTION_REQUIRED,
+            'string.min':
+                EmployerOnboardingValidationMessage.DESCRIPTION_MIN_LENGTH,
             'string.max':
                 EmployerOnboardingValidationMessage.DESCRIPTION_MAX_LENGTH,
-            'object.regex':
+            'string.pattern.base':
                 EmployerOnboardingValidationMessage.DESCRIPTION_WRONG_PATTERN,
         }),
 
-    linkedInLink: joi
+    linkedinLink: joi
         .string()
         .trim()
         .pattern(/^https:\/\/www\.linkedin\.com\/in\//)
@@ -163,6 +170,7 @@ const EmployerOnboardingValidationSchema = joi.object<
             'string.pattern.base':
                 EmployerOnboardingValidationMessage.LINKEDIN_LINK_WRONG_PATTERN,
         }),
+    isApproved: joi.boolean(),
 });
 
 export { EmployerOnboardingValidationSchema };

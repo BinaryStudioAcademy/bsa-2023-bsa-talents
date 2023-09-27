@@ -8,9 +8,20 @@ import {
     MessageInput,
     MessageList,
 } from '~/bundles/chat/components/components.js';
-import { Grid, Typography } from '~/bundles/common/components/components.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
+import {
+    type ChatListItemType,
+    type ChatResponseDto,
+} from '~/bundles/chat/types/types.js';
+import {
+    Grid,
+    Logo,
+    Typography,
+} from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useState,
@@ -20,12 +31,7 @@ import {
     ChatInfoIcon,
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
-import {
-    companyInfo,
-    currentUser,
-    items,
-    messages,
-} from '../../mock-data/mock-data.js';
+import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
@@ -36,7 +42,6 @@ const ChatsPage: React.FC = () => {
 
     const [isOpenChatList, setIsOpenChatList] = useState(false);
     const [isOpenInfo, setIsOpenInfo] = useState(false);
-    const [chatMessages, setChatMessages] = useState(messages);
 
     const handleOpenChatListButton = useCallback(() => {
         setIsOpenChatList(!isOpenChatList);
@@ -51,42 +56,100 @@ const ChatsPage: React.FC = () => {
         !isScreenLessLG && setIsOpenInfo(false);
     }, [isScreenLessMD, isScreenLessLG]);
 
-    // TODO: will be replaced by redux logic with server API
-    const [currentChat, setCurrentChat] = useState({
-        id: undefined,
-        userName: 'unset',
-        avatar: '',
-    });
+    const dispatch = useAppDispatch();
 
-    // TODO: will be replaced by send message logic
-    const sendMessage = useCallback(
-        (message: string) => {
-            setChatMessages([
-                ...chatMessages,
-                {
-                    ...currentUser,
-                    value: message,
-                    id: Date.now().toString(),
-                },
-            ]);
-        },
-        [chatMessages],
-    );
+    const { user, chats, currentChatId } = useAppSelector(({ auth, chat }) => ({
+        user: auth.currentUser,
+        chats: chat.chats,
+        currentChatId: chat.current.chatId,
+    }));
+
+    //  Get list of all chats this user is participating in and store:
+    useEffect(() => {
+        const id = user?.id;
+        const joinChats = async (): Promise<void> => {
+            const chatData = await dispatch(
+                chatActions.getAllChatsByUserId(id as string),
+            );
+            const userChats = chatData.payload as ChatResponseDto[];
+
+            for (const chat of userChats) {
+                void dispatch(
+                    chatActions.joinRoom({
+                        userId: user?.id,
+                        chatId: chat.chatId,
+                    }),
+                );
+            }
+        };
+
+        if (id) {
+            void joinChats();
+        }
+
+        /**
+         *  TODO: This is an issue that needs to be fixed.
+         *
+         * This exitChats cleanup function does not fire when navigating away
+         * from page using the address bar (url). This means that even though
+         * user has left page, in the server user is still connected to the rooms.
+         *
+         * However, this cleanup function works when navigating away from chats page
+         * using links / buttons located on the page.
+         */
+
+        const exitChats = async (): Promise<void> => {
+            const chatData = await dispatch(
+                chatActions.getAllChatsByUserId(id as string),
+            );
+            const userChats = chatData.payload as ChatResponseDto[];
+
+            for (const chat of userChats) {
+                void dispatch(
+                    chatActions.leaveRoom({
+                        userId: user?.id,
+                        chatId: chat.chatId,
+                    }),
+                );
+            }
+        };
+
+        return () => {
+            void exitChats();
+        };
+    }, [dispatch, user?.id]);
+
+    const { chatHeaderName, chatHeaderAvatar } = getChatHeaderProperties({
+        chats,
+        selectedId: currentChatId,
+        userId: user?.id,
+    });
 
     // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
-        (id: string) => {
+        (id: string, items: ChatListItemType[]) => {
             isOpenChatList && setIsOpenChatList(false);
-            const participant = items.find((item) => id === item.userId);
-            if (participant) {
-                setCurrentChat({
-                    ...currentChat,
-                    userName: participant.username,
-                    avatar: participant.avatar ?? '',
-                });
+            const room = items.find((item) => id === item.chatId);
+            const { sender, receiver } = room as ChatListItemType;
+
+            let employerId: string;
+
+            if (user?.role === 'employer') {
+                employerId = user.id;
+            } else {
+                employerId = user?.id === sender.id ? receiver.id : sender.id;
+            }
+
+            if (room) {
+                void dispatch(
+                    chatActions.getAllMessagesByChatId({
+                        chatId: room.chatId,
+                        employerId,
+                    }),
+                );
             }
         },
-        [isOpenChatList, currentChat],
+        [isOpenChatList, dispatch, user?.id, user?.role],
     );
 
     return (
@@ -110,10 +173,7 @@ const ChatsPage: React.FC = () => {
                             isOpenChatList && styles.componentOpenedSmallest,
                         )}
                     >
-                        <ChatList
-                            chatItems={items}
-                            onItemClick={handleItemClick}
-                        />
+                        <ChatList onItemClick={handleItemClick} />
                     </Grid>
                 )}
                 <Grid
@@ -140,19 +200,13 @@ const ChatsPage: React.FC = () => {
                         </div>
                     )}
                     <ChatHeader
-                        title={currentChat.userName}
+                        title={chatHeaderName}
                         isOnline
                         className={styles.chatHeader}
-                        avatarUrl={currentChat.avatar}
+                        avatarUrl={chatHeaderAvatar}
                     />
-                    <MessageList
-                        messages={chatMessages}
-                        className={styles.messageList}
-                    />
-                    <MessageInput
-                        className={styles.chatInput}
-                        onSend={sendMessage}
-                    />
+                    <MessageList className={styles.messageList} />
+                    <MessageInput className={styles.chatInput} />
                 </Grid>
                 {(!isScreenLessLG || isOpenInfo) && (
                     <Grid
@@ -162,7 +216,16 @@ const ChatsPage: React.FC = () => {
                             isScreenMoreMD && styles.chatInfoOpenedMD,
                         )}
                     >
-                        <CompanyInfo companyData={companyInfo} />
+                        {user?.role === 'talent' ? (
+                            <CompanyInfo />
+                        ) : (
+                            <div className={styles.placeholder}>
+                                <Logo isCollapsed />
+                                <span className={styles.hire}>
+                                    Hire someone today!
+                                </span>
+                            </div>
+                        )}
                     </Grid>
                 )}
             </Grid>

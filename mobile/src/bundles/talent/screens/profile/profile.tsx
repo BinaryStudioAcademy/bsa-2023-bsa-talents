@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { View } from '~/bundles/common/components/components';
+import { Loader, View } from '~/bundles/common/components/components';
 import {
+    DataStatus,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
@@ -17,7 +18,9 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData, dataStatus } = useAppSelector(
+        ({ common }) => common,
+    );
 
     const {
         profileName,
@@ -53,13 +56,19 @@ const Profile: React.FC = () => {
         void handleSubmit(payload);
     };
 
+    const isDataLoading = dataStatus === DataStatus.PENDING;
+
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <ProfileForm
-                profileStepData={profileStepData}
-                onSubmit={handleProfileSubmit}
-            />
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <ProfileForm
+                    profileStepData={profileStepData}
+                    onSubmit={handleProfileSubmit}
+                />
+            )}
         </View>
     );
 };

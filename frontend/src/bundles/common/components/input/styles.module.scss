@@ -3,6 +3,7 @@
     font-size: var(--font-size-base);
     background: var(--white);
     border: none;
+    transition: border 0.5s;
 
     & :global(.MuiOutlinedInput-notchedOutline) {
         border: none;
@@ -24,6 +25,7 @@
     padding-left: 0;
     overflow: hidden;
     border: 1px solid var(--botticelli);
+    transition: border 200ms;
 
     &:hover {
         border-color: var(--st-tropaz);
@@ -46,6 +48,14 @@
         color: var(--nepal);
         -webkit-text-fill-color: var(--nepal);
         opacity: 1;
+    }
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 100px var(--white) inset;
+    }
+
+    &::-ms-reveal {
+        display: none;
     }
 }
 

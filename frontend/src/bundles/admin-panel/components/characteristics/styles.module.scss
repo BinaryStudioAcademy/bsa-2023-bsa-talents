@@ -1,0 +1,43 @@
+.container {
+    flex-flow: column nowrap;
+    gap: 28px;
+    margin-bottom: var(--tabs-container-margin-bottom);
+}
+
+.feedback,
+.personalityType,
+.softSkills {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+    text-align: start;
+    column-gap: 8%;
+}
+
+.label {
+    flex: 0 1 100%;
+    max-width: 126px;
+    padding: 8px 0 0;
+    color: var(--midnight-black);
+}
+
+.body {
+    flex: 1 1 auto;
+}
+
+.feedback {
+    padding: 20px;
+    border: 1px solid #dce5ff;
+    border-radius: 8px;
+}
+
+.formControl {
+    flex: auto;
+    max-width: 329px;
+}
+
+@media screen and (width <=1200px) {
+    .feedback {
+        flex-direction: column;
+    }
+}

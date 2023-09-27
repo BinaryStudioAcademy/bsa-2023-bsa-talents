@@ -6,13 +6,13 @@ import {
 } from '../../enums/enums.js';
 import { type SkillsStepDto } from '../../types/skills-step/skills-step-dto.js';
 
-const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
+const skillsStep = joi.object<SkillsStepDto, true>({
     hardSkills: joi
         .array()
         .items(
             joi.object({
-                label: joi.string().pattern(/^[ '.A-Za-z-]+$/),
-                value: joi.string().pattern(/^[ '.A-Za-z-]+$/),
+                label: joi.string().pattern(/^[ '()+./A-Za-z-]+$/),
+                value: joi.string(),
             }),
         )
         .min(SkillsStepValidationRule.HARD_SKILLS_MIN_LENGTH)
@@ -102,4 +102,4 @@ const SkillsStepValidationSchema = joi.object<SkillsStepDto, true>({
         }),
 });
 
-export { SkillsStepValidationSchema };
+export { skillsStep };

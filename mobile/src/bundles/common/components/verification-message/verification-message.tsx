@@ -6,19 +6,16 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
 
-type Properties = {
-    isApproved: boolean;
-};
-
-const VerificationMessage: React.FC<Properties> = ({ isApproved }) => {
-    if (isApproved) {
-        return null;
-    }
-
+const VerificationMessage: React.FC = () => {
     return (
         <Text
             category={TextCategory.CAPTION}
-            style={[styles.text, globalStyles.p5, globalStyles.ph10]}
+            style={[
+                styles.text,
+                globalStyles.p5,
+                globalStyles.ph10,
+                globalStyles.mr5,
+            ]}
         >
             Waiting for approval
         </Text>

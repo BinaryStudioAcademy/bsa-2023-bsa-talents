@@ -36,13 +36,15 @@ class HardSkillsController extends ControllerBase {
         this.addRoute({
             path: HardSkillsApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: () => {
+                return this.findAll();
+            },
         });
     }
 
     /**
      * @swagger
-     * /hard-skills/:
+     * /hard-skills:
      *    get:
      *      tags: [Hard Skills]
      *      description: Returns an array of Hard Skills

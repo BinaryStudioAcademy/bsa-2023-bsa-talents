@@ -11,6 +11,7 @@ import {
     Input,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -22,12 +23,12 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
-import { OnboardingSteps } from '../../enums/enums.js';
-import { validateFileSize } from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { OnboardingStep } from '../../enums/enums.js';
+import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
 import { ContactsCVStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import {
@@ -40,9 +41,13 @@ const ContactsCVStep: React.FC = () => {
     const { fullName, phone, linkedinLink } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
 
     const {
         control,
+        getValues,
         handleSubmit,
         errors,
         setError,
@@ -75,16 +80,38 @@ const ContactsCVStep: React.FC = () => {
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
-    const onSubmit = useCallback(
-        async (data: ContactsCVStepDto): Promise<boolean> => {
-            const { fullName, phone, linkedinLink } = data;
-            await dispatch(
-                actions.updateTalentDetails({
-                    fullName,
-                    phone,
-                    linkedinLink,
+    const watchedValues = watch(['fullName', 'phone', 'linkedinLink']);
+
+    useEffect(() => {
+        const newValues = getValues(['fullName', 'phone', 'linkedinLink']);
+        const initialValues = {
+            fullName,
+            phone,
+            linkedinLink,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        dispatch,
+        fullName,
+        getValues,
+        hasChangesInDetails,
+        linkedinLink,
+        phone,
+        watchedValues,
+    ]);
+
+    const handleFormSubmit = useCallback(
+        (data: ContactsCVStepDto): boolean => {
+            void dispatch(
+                talentActions.updateTalentDetails({
+                    ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_04,
+                    completedStep: OnboardingStep.STEP_04,
                 }),
             );
             return true;
@@ -96,8 +123,8 @@ const ContactsCVStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -105,7 +132,7 @@ const ContactsCVStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const [photoURL, setPhotoURL] = useState<string>('');
 
@@ -183,6 +210,12 @@ const ContactsCVStep: React.FC = () => {
                         setError,
                         clearErrors,
                     });
+                    validateFileType({
+                        name: 'cv',
+                        file,
+                        setError,
+                        clearErrors,
+                    });
                     field.onChange(file);
                     return true;
                 } catch {
@@ -227,7 +260,7 @@ const ContactsCVStep: React.FC = () => {
     }, [photoURL]);
 
     return (
-        <FormControl className={styles.form}>
+        <>
             <Grid container className={styles.photo}>
                 <Grid
                     item
@@ -270,11 +303,10 @@ const ContactsCVStep: React.FC = () => {
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Full name
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -287,11 +319,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Phone number
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -304,11 +335,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         LinkedIn profile
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -323,14 +353,13 @@ const ContactsCVStep: React.FC = () => {
 
             <div>
                 <FormControl className={styles.formControl}>
-                    <FormLabel className={styles.label}>
+                    <FormLabel className={styles.label} required>
                         <Typography
                             variant="label"
                             className={styles.labelText}
                         >
                             CV
                         </Typography>
-                        <span className={styles.requiredField}>*</span>
                     </FormLabel>
                     <Controller
                         control={control}
@@ -339,7 +368,9 @@ const ContactsCVStep: React.FC = () => {
                     />
 
                     <FormHelperText className={styles.fileError}>
-                        {errors.cv?.type === 'fileSize' && errors.cv.message}
+                        {(errors.cv?.type === 'fileSize' ||
+                            errors.cv?.type === 'fileType') &&
+                            errors.cv.message}
                     </FormHelperText>
                 </FormControl>
 
@@ -354,7 +385,7 @@ const ContactsCVStep: React.FC = () => {
                 Job search is anonymous. This information will be seen only in
                 case you share it.
             </Typography>
-        </FormControl>
+        </>
     );
 };
 

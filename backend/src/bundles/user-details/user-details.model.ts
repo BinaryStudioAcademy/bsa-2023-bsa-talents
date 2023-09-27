@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model, type RelationMappings } from 'objection';
 
 import { FileModel } from '~/bundles/files/files.js';
 import { HardSkillsModel } from '~/bundles/hard-skills/hard-skills.model.js';
@@ -17,13 +17,13 @@ import {
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
-    type PreferredLanguages,
+    type OnboardingStep,
+    type PreferredLanguage,
 } from './enums/enums.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -43,7 +43,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    public 'location': ValueOf<typeof CountryList> | null;
+    public 'location': ValueOf<typeof Country> | null;
 
     public 'experienceYears': number | null;
 
@@ -55,7 +55,7 @@ class UserDetailsModel extends AbstractModel {
 
     public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    public 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
+    public 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
 
     public 'projectLinks': string[] | null;
 
@@ -81,13 +81,24 @@ class UserDetailsModel extends AbstractModel {
 
     public 'talentBadges': TalentBadgeModel[];
 
-    public 'completedStep': ValueOf<typeof OnboardingSteps>;
+    public 'completedStep': ValueOf<typeof OnboardingStep>;
 
+    public 'publishedAt': Date;
+
+    public 'user'?: UserModel;
+
+    public 'photo'?: FileModel;
+
+    public 'companyLogo'?: FileModel;
+
+    public override $afterFind(): void {
+        this.experienceYears = Number.parseFloat(String(this.experienceYears));
+    }
     public static override get tableName(): string {
         return DatabaseTableName.USER_DETAILS;
     }
 
-    public static override relationMappings = {
+    public static override relationMappings = (): RelationMappings => ({
         user: {
             relation: Model.HasOneRelation,
             modelClass: UserModel,
@@ -140,7 +151,7 @@ class UserDetailsModel extends AbstractModel {
                 to: `${DatabaseTableName.TALENT_BADGES}.${TalentBadgesTableColumn.USER_DETAILS_ID}`,
             },
         },
-    };
+    });
 }
 
 export { UserDetailsModel };

@@ -29,12 +29,13 @@ const ProfileStepValidationMessage = {
     EMPLOYMENT_TYPES_REQUIRED: 'At least one employment type must be selected',
     EMPLOYMENT_TYPES_BASE:
         'Please select valid employment types from the provided options',
-    DESCRIPTION_NOT_STRING: 'Description must be a string',
-    DESCRIPTION_REQUIRED: 'Description is required',
+    DESCRIPTION_NOT_STRING: 'Introduce yourself must be a string',
+    DESCRIPTION_REQUIRED: 'Introduce yourself is required',
     DESCRIPTION_MIN_LENGTH:
-        'Description must be at least {{#limit}} characters',
-    DESCRIPTION_MAX_LENGTH: 'Description must be at most {{#limit}} characters',
-    DESCRIPTION_EMPTY: 'Description can not be empty',
-};
+        'Introduce yourself must be at least {{#limit}} characters',
+    DESCRIPTION_MAX_LENGTH:
+        'Introduce yourself must be at most {{#limit}} characters',
+    DESCRIPTION_EMPTY: 'Introduce yourself can not be empty',
+} as const;
 
 export { ProfileStepValidationMessage };

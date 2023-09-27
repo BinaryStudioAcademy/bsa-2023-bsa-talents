@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PasswordVisibilityToggle } from '~/bundles/auth/components/components';
 import { type UserSignUpRequestDto } from '~/bundles/auth/types/types';
 import { userSignUpValidationSchema } from '~/bundles/auth/validation-schemas/validation-schemas';
 import {
@@ -16,7 +17,12 @@ import {
     TextCategory,
     UserRole,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback, useMemo } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useCallback,
+    useMemo,
+    useVisibility,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type RadioButtonProps } from '~/bundles/common/types/types';
 
@@ -49,6 +55,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         ],
         [],
     );
+
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     return (
         <View
@@ -87,12 +95,18 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="password"
                     required
                 >
-                    <Input
-                        control={control}
-                        name="password"
-                        placeholder="Enter your password"
-                        secureTextEntry
-                    />
+                    <View>
+                        <Input
+                            control={control}
+                            name="password"
+                            placeholder="Enter your password"
+                            secureTextEntry={!isVisible}
+                        />
+                        <PasswordVisibilityToggle
+                            isPasswordVisible={isVisible}
+                            onChangeVisibility={handleToggleVisibility}
+                        />
+                    </View>
                 </FormField>
                 <Button
                     label="Sign up"

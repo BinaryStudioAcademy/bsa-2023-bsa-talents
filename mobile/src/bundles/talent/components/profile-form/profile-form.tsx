@@ -12,25 +12,23 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
-    EmploymentType,
-    JobTitle,
-} from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+    useAppForm,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
-import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
+    EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
+    JOB_TITLE_OPTIONS,
+    LOCATION_OPTIONS,
     TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
-
-const jobTitleOptions = Object.values(JobTitle);
-const locationOptions = Object.values(CountryList);
-const employmentTypeOptions = Object.values(EmploymentType);
 
 type Properties = {
     profileStepData: ProfileStepDto | null;
@@ -38,10 +36,14 @@ type Properties = {
 };
 
 const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
-        validationSchema: ProfileStepValidationSchema,
+        validationSchema: profileStepValidationSchema,
     });
+
+    useEffect(() => {
+        profileStepData && reset(profileStepData);
+    }, [profileStepData, reset]);
 
     const handleFormSubmit = useCallback(() => {
         void handleSubmit((data) => {
@@ -95,7 +97,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={jobTitleOptions}
+                    options={JOB_TITLE_OPTIONS}
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
@@ -131,7 +133,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Option"
                 />
             </FormField>
@@ -145,12 +147,12 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={employmentTypeOptions}
+                    options={EMPLOYMENT_TYPE_OPTIONS}
                 />
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell employers about your experience"
+                label="Introduce yourself"
                 name="description"
                 required
                 containerStyle={globalStyles.pb25}
@@ -158,7 +160,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <Input
                     control={control}
                     name="description"
-                    placeholder="Text"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer"
                     numberOfLines={5}
                     multiline={true}
                 />

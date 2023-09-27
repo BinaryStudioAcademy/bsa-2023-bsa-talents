@@ -8,10 +8,11 @@ import {
 import {
     Badge,
     Checkbox,
+    ErrorMessage,
     FormControl,
-    FormHelperText,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -19,12 +20,13 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
-import { OnboardingSteps } from '../../enums/enums.js';
-import { actions } from '../../store/talent-onboarding.js';
+import { OnboardingStep } from '../../enums/enums.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type BsaBadgesStepDto } from '../../types/types.js';
-import { BsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { bsaBadgesStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
 const BadgesStep: React.FC = () => {
@@ -32,22 +34,34 @@ const BadgesStep: React.FC = () => {
         badges: state.talentOnBoarding.badges,
         bsaBadges: state.lms.bsaBadges,
     }));
-
-    const { control, handleSubmit, errors } = useAppForm<BsaBadgesStepDto>({
-        defaultValues: { badges },
-        validationSchema: BsaBadgesStepValidationSchema,
-    });
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, handleSubmit, errors, watch } =
+        useAppForm<BsaBadgesStepDto>({
+            defaultValues: { badges },
+            validationSchema: bsaBadgesStepValidationSchema,
+        });
 
     const { setSubmitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
+    const watchedBadges = watch('badges');
 
-    const onSubmit = useCallback(
-        async (data: BsaBadgesStepDto): Promise<boolean> => {
-            await dispatch(
-                actions.updateTalentDetails({
+    useEffect(() => {
+        const hasChanges =
+            JSON.stringify(watchedBadges) === JSON.stringify(badges);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [badges, dispatch, hasChangesInDetails, watchedBadges]);
+
+    const handleFormSubmit = useCallback(
+        (data: BsaBadgesStepDto): boolean => {
+            void dispatch(
+                talentActions.updateTalentDetails({
                     ...data,
-                    completedStep: OnboardingSteps.STEP_02,
+                    completedStep: OnboardingStep.STEP_02,
                 }),
             );
             return true;
@@ -59,8 +73,8 @@ const BadgesStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -68,7 +82,7 @@ const BadgesStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -133,7 +147,7 @@ const BadgesStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.formControl}>
+        <>
             <Typography className={styles.formLabel} variant={'h6'}>
                 Choose BSA badges you want to show in your profile
             </Typography>
@@ -144,12 +158,8 @@ const BadgesStep: React.FC = () => {
                     render={renderCheckboxes}
                 />
             </FormControl>
-            {errors.badges && (
-                <FormHelperText className={styles.hasError}>
-                    {errors.badges.message}
-                </FormHelperText>
-            )}
-        </FormControl>
+            <ErrorMessage errors={errors} name="badges" />
+        </>
     );
 };
 

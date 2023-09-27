@@ -1,15 +1,12 @@
+import { formatDistanceToNowStrict } from 'date-fns';
+
 import { Grid } from '~/bundles/common/components/components.js';
 import {
+    useAppSelector,
     useCallback,
-    useEffect,
-    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import {
-    type ChatListItemType,
-    getItemsWithSelected,
-    getSearchedItems,
-} from '~/helpers/helpers.js';
+import { type ChatListItemType, getSearchedItems } from '~/helpers/helpers.js';
 
 import { ChatListItem, ChatListSearch } from './components.js';
 import {
@@ -19,44 +16,56 @@ import {
 import styles from './styles.module.scss';
 
 type Properties = {
-    chatItems: ChatListItemType[];
-    onItemClick?: (id: string) => void;
+    onItemClick?: (id: string, items: ChatListItemType[]) => void;
 };
 
-const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
-    const [items, setItems] = useState(chatItems);
+const ChatList: React.FC<Properties> = ({ onItemClick }) => {
+    const { chats, user, currentChatId } = useAppSelector(({ chat, auth }) => ({
+        chats: chat.chats,
+        user: auth.currentUser,
+        currentChatId: chat.current.chatId,
+    }));
+
     const [searchValue, setSearchValue] = useState('');
 
-    const selectionHandler = useCallback(
+    const chatListMapped: ChatListItemType[] = chats.map((chat) => {
+        const timeSince = formatDistanceToNowStrict(
+            Date.parse(chat.lastMessageCreatedAt),
+        );
+
+        const { receiver, sender } = chat.participants;
+        const partner = user?.id === receiver.id ? sender : receiver;
+
+        return {
+            chatId: chat.chatId,
+            userId: user?.id as string,
+            username: partner.profileName ?? '',
+            lastMessage: chat.lastMessage,
+            lastMessageDate: `${timeSince} ago`,
+            avatar: partner.avatarUrl,
+            fullName: partner.profileName ?? '',
+            isSelected: currentChatId === chat.chatId,
+            receiver,
+            sender,
+        };
+    });
+
+    const chatList = getSearchedItems(chatListMapped, searchValue);
+
+    const handleSelection = useCallback(
         (id: string): void => {
-            setItems(getItemsWithSelected(items, id));
             if (onItemClick) {
-                onItemClick(id);
+                onItemClick(id, chatList);
             }
         },
-        [items, onItemClick],
+        [onItemClick, chatList],
     );
 
-    useEffect((): void => {
-        setItems(getSearchedItems(chatItems, searchValue));
-    }, [chatItems, searchValue]);
-
-    const renderChatItems = useMemo((): React.ReactElement[] => {
-        return items.length > EMPTY_ARRAY_LENGTH
-            ? items.map((item) => (
-                  <li key={item.userId}>
-                      <ChatListItem onClick={selectionHandler} {...item} />
-                  </li>
-              ))
-            : [
-                  <li
-                      key={NOT_FOUND_ELEM_KEY}
-                      className={styles.nothingWasFound}
-                  >
-                      {'Nothing was found'}
-                  </li>,
-              ];
-    }, [items, selectionHandler]);
+    const renderedChatItems = chatList.map((item) => (
+        <li key={item.chatId}>
+            <ChatListItem onClick={handleSelection} {...item} />
+        </li>
+    ));
 
     return (
         <Grid
@@ -77,7 +86,16 @@ const ChatList: React.FC<Properties> = ({ chatItems, onItemClick }) => {
                 wrap="nowrap"
                 className={styles.chatList}
             >
-                {renderChatItems}
+                {chatList.length > EMPTY_ARRAY_LENGTH ? (
+                    renderedChatItems
+                ) : (
+                    <li
+                        key={NOT_FOUND_ELEM_KEY}
+                        className={styles.nothingWasFound}
+                    >
+                        {'Nothing was found'}
+                    </li>
+                )}
             </Grid>
         </Grid>
     );

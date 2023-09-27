@@ -16,6 +16,8 @@
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
         "migrate:dev:down": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:down",
         "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
+        "seed:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:make -x ts",
+        "seed:dev:run": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:run",
         "build": "tsc && tsc-alias -p tsconfig.json && npm run build:copy",
         "build:copy": "cp -r package.json build",
         "prestart": "npm run migrate",
@@ -30,9 +32,11 @@
         "ts-paths-esm-loader": "1.4.3"
     },
     "dependencies": {
+        "@fastify/cors": "8.4.0",
         "@fastify/static": "6.10.2",
         "@fastify/swagger": "8.8.0",
         "@fastify/swagger-ui": "1.9.3",
+        "@sendgrid/mail": "^7.7.0",
         "aws-sdk": "2.1450.0",
         "bcrypt": "5.1.1",
         "convict": "6.2.4",
@@ -42,10 +46,12 @@
         "fastify-plugin": "4.5.1",
         "jose": "4.14.4",
         "knex": "2.5.1",
+        "node-fetch": "3.3.2",
         "objection": "3.1.1",
         "pg": "8.11.2",
         "pino": "8.15.0",
         "pino-pretty": "10.2.0",
+        "socket.io": "4.7.2",
         "swagger-jsdoc": "6.2.8",
         "tsc-alias": "1.6.11"
     }

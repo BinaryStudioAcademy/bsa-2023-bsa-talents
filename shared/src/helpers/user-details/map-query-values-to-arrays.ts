@@ -1,6 +1,9 @@
-function mapQueryValuesToArrays<
+const mapQueryValuesToArrays = <
     T extends Record<string, string | string[] | boolean | number | number[]>,
->(queryObject: T, exceptions: string[]): T {
+>(
+    queryObject: T,
+    exceptions: string[],
+): T => {
     const filteredObject: Record<
         string,
         string | string[] | boolean | number | number[]
@@ -20,6 +23,6 @@ function mapQueryValuesToArrays<
     }
 
     return { ...queryObject, ...filteredObject } as T;
-}
+};
 
 export { mapQueryValuesToArrays };

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
+import { Chat } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -14,6 +15,7 @@ import {
     useAppSelector,
     useEffect,
 } from '~/bundles/common/hooks/hooks';
+import { getUserDetails } from '~/bundles/common/store/actions';
 import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
@@ -36,27 +38,27 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { completedStep } =
-        useAppSelector(({ talents }) => talents.onboardingData) ?? {};
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
+    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
     const dispatch = useAppDispatch();
 
+    //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        completedStep === CompletedTalentOnboardingStep.Preview;
+        onboardingData?.completedStep ===
+            CompletedTalentOnboardingStep.Preview ||
+        onboardingData?.companyName;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
     }, [dispatch]);
 
-    const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
-
-    //TODO use when backend is ready
-    // useEffect(() => {
-    //     const payload: UserDetailsFindRequestDto = {
-    //         userId: currentUserData?.id,
-    //     };
-    //     void dispatch(talentActions.getTalentDetails(payload));
-    // }, [currentUserData?.id, dispatch]);
+    useEffect(() => {
+        if (!currentUserData) {
+            return;
+        }
+        void dispatch(getUserDetails({ userId: currentUserData.id }));
+    }, [currentUserData, currentUserData?.id, dispatch]);
 
     if (isPendingAuth) {
         return <Loader />;
@@ -80,14 +82,17 @@ const Root: React.FC = () => {
             />
         ),
         main: (
-            <RootStack.Screen
-                name={RootScreenName.MAIN_ROOT_ROUTE}
-                component={
-                    role === UserRole.TALENT
-                        ? TalentBottomTabNavigator
-                        : EmployerBottomTabNavigator
-                }
-            />
+            <>
+                <RootStack.Screen
+                    name={RootScreenName.MAIN_ROOT_ROUTE}
+                    component={
+                        role === UserRole.TALENT
+                            ? TalentBottomTabNavigator
+                            : EmployerBottomTabNavigator
+                    }
+                />
+                <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+            </>
         ),
     };
 
@@ -96,7 +101,6 @@ const Root: React.FC = () => {
             return navigators.main;
         }
         if (isSignedIn && !isProfileComplete) {
-            //TODO redirect to next after completedStep screen
             return navigators.onboarding;
         }
         return navigators.auth;

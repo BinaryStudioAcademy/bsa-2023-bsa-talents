@@ -1,5 +1,6 @@
 import { type FastifyRequest } from 'fastify';
 import { type File as MulterFile } from 'fastify-multer/lib/interfaces.js';
+import { type UserFindResponseDto } from 'shared/build/index.js';
 
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { type ServerAppRouteParameters } from '~/common/server-application/server-application.js';
@@ -51,20 +52,21 @@ class ControllerBase implements Controller {
     private mapRequest(
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
-        const requestWithFile = request as FastifyRequest & {
-            file?: MulterFile;
+        const requestWithFiles = request as FastifyRequest & {
+            files?: MulterFile[];
+            user?: UserFindResponseDto;
         };
-        const { body, query, params, headers, file } = requestWithFile;
-        if (file) {
+        const { body, query, params, headers, files, user } = requestWithFiles;
+        if (files) {
             return {
-                body: { ...(body as object), file },
+                body: { ...(body as object), files },
                 query,
                 params,
                 headers,
             };
         }
         return {
-            body: { ...(body as object), file },
+            body: { ...(body as object), user },
             query,
             params,
             headers,

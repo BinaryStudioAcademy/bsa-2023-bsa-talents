@@ -22,6 +22,7 @@ import {
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
     ...DEFAULT_PAYLOAD_BSA_BADGES_STEP,
+    isApproved: false,
     badges: mockBadges
         .filter((badge) => badge.type === 'service')
         .map((badge) => badge.id),
@@ -39,17 +40,12 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
-
             for (const key in action.payload) {
                 const typedKey = key as keyof UserDetailsUpdateRequestDto;
-                state[typedKey] = state[typedKey]
-                    ? action.payload[typedKey]
-                    : [];
+                if (typedKey in state) {
+                    state[typedKey] = action.payload[typedKey];
+                }
             }
-            state.hardSkills = [
-                { value: 'JavaScript', label: 'JavaScript' },
-                { value: 'HTML', label: 'HTML' },
-            ];
         });
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;

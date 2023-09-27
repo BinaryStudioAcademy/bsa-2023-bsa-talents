@@ -1,14 +1,15 @@
 import {
     Button,
+    FormControl,
     Grid,
     RouterOutlet,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
-import { STEP_ONE, STEPS_NUMBER } from '../../constants/constants.js';
-import { useFormSubmit } from '../../context/context.js';
+import { STEPS_NUMBER, StepsList } from '../../constants/constants.js';
 import { formatStepLabels } from '../../helpers/helpers.js';
 import styles from './styles.module.scss';
 
@@ -27,8 +28,8 @@ const StepContent: React.FC<Properties> = ({
 
     const handleNextClick = async (): Promise<void> => {
         if (submitForm) {
-            const success = await submitForm();
-            if (success) {
+            const isSuccessful = await submitForm();
+            if (isSuccessful) {
                 onNextStep();
             }
         }
@@ -36,7 +37,16 @@ const StepContent: React.FC<Properties> = ({
 
     return (
         <Grid item className={styles.stepContent}>
-            <Grid className={styles.stepTitle}>
+            <Grid
+                className={getValidClassNames(
+                    styles.stepTitle,
+                    currentStep === StepsList.ONE && styles.step1,
+                    currentStep === StepsList.TWO && styles.step2,
+                    currentStep === StepsList.THREE && styles.step3,
+                    currentStep === StepsList.FOUR && styles.step4,
+                    currentStep === StepsList.FIVE && styles.step5,
+                )}
+            >
                 <Typography variant="body1" className={styles.stepName}>
                     {formatStepLabels(
                         StepsRoute[
@@ -49,7 +59,16 @@ const StepContent: React.FC<Properties> = ({
                 </Typography>
             </Grid>
             <Grid className={styles.stepBody}>
-                <Grid className={styles.stepOutlet}>{<RouterOutlet />}</Grid>
+                <Grid className={styles.stepOutlet}>
+                    <FormControl
+                        className={getValidClassNames(
+                            styles.form,
+                            currentStep === STEPS_NUMBER ? styles.wideForm : '',
+                        )}
+                    >
+                        {<RouterOutlet />}
+                    </FormControl>
+                </Grid>
                 <Grid
                     className={getValidClassNames(
                         currentStep === STEPS_NUMBER
@@ -57,7 +76,7 @@ const StepContent: React.FC<Properties> = ({
                             : styles.stepButtons,
                     )}
                 >
-                    {currentStep !== STEP_ONE && (
+                    {currentStep !== StepsList.ONE && (
                         <Button
                             onClick={
                                 currentStep === STEPS_NUMBER
@@ -76,7 +95,7 @@ const StepContent: React.FC<Properties> = ({
                             )}
                         />
                     )}
-                    {currentStep === STEP_ONE && (
+                    {currentStep === StepsList.ONE && (
                         <Grid className={styles.buttonPlaceholder} />
                     )}
                     <Button

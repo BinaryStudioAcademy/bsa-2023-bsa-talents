@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { ChatList } from '~/bundles/chat/screens/screens';
 import { MaterialIcon } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
     IconName,
     TalentBottomTabScreenName,
@@ -8,7 +10,7 @@ import {
 import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { Mail, TalentProfile } from '~/bundles/talent/screens/screens';
+import { TalentProfile } from '~/bundles/talent/screens/screens';
 import { notifications } from '~/framework/notifications/notifications';
 
 import { bottomTabStyles } from '../styles';
@@ -16,11 +18,9 @@ import { bottomTabStyles } from '../styles';
 const BottomTab =
     createBottomTabNavigator<TalentBottomTabNavigationParameterList>();
 
-const iconSize = 24;
-
 const TalentBottomTabNavigator: React.FC = () => {
-    //todo change to real data
-    const { isApproved } = useAppSelector(({ talents }) => talents);
+    const { isApproved } =
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     return (
         <BottomTab.Navigator
@@ -29,12 +29,12 @@ const TalentBottomTabNavigator: React.FC = () => {
         >
             <BottomTab.Screen
                 name={TalentBottomTabScreenName.MAIL}
-                component={Mail}
+                component={ChatList}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),
@@ -54,10 +54,10 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
                 component={TalentProfile}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.PERSON}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={color}
                         />
                     ),

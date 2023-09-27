@@ -1,0 +1,76 @@
+.filtersSidebar {
+    max-width: var(--filters-sidebar-width);
+    background-color: var(--white);
+}
+
+.filtersWrapper {
+    flex-direction: column;
+    gap: 20px;
+    width: var(--filters-sidebar-width);
+    min-width: var(--filters-sidebar-width);
+    padding: 0 50px;
+    padding-bottom: 50px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 59px;
+    margin-bottom: 20px;
+    padding: 18px 50px;
+    border-bottom: 1px solid var(--botticelli);
+}
+
+.clearFiltersBtn {
+    font-size: var(--font-size-base);
+    text-transform: none;
+}
+
+.title {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    line-height: 28px;
+}
+
+.labels {
+    color: var(--text-primary-dark);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+}
+
+.checkboxContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 1px;
+
+    .MuiGrid-item {
+        padding-top: 0;
+    }
+}
+
+.checkbox {
+    margin-left: -9px;
+}
+
+.filtersMultiSelect {
+    :global(.MuiSelect-select) {
+        max-width: 280px;
+    }
+}
+
+@media screen and (width <=1000px) {
+    .filtersSidebar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: none;
+    }
+
+    .filtersWrapper {
+        width: 100%;
+        min-width: 0;
+        padding: 0 15px;
+    }
+}

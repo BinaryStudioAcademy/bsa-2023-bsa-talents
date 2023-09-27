@@ -5,6 +5,7 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -17,10 +18,8 @@ const mockUser = {
     PUBLISHED: 'Published today',
 };
 
-const iconSize = 24;
-
 const ProfilePreview: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
         return null;
@@ -64,7 +63,7 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.LANGUAGE}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -82,14 +81,15 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.EXPERIENCE}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
                             category={TextCategory.BODY1}
                             style={globalStyles.pl10}
                         >
-                            {experienceYears} year of experience
+                            {experienceYears && +experienceYears} year of
+                            experience
                         </Text>
                     </View>
                     <View
@@ -100,7 +100,7 @@ const ProfilePreview: React.FC = () => {
                     >
                         <MaterialIcon
                             name={IconName.FORUM}
-                            size={iconSize}
+                            size={ICON_SIZE}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -122,7 +122,7 @@ const ProfilePreview: React.FC = () => {
                                 >
                                     <MaterialIcon
                                         name={IconName.CHECK_CIRCLE}
-                                        size={iconSize}
+                                        size={ICON_SIZE}
                                         color={Color.PRIMARY}
                                     />
                                     <Text
@@ -135,24 +135,30 @@ const ProfilePreview: React.FC = () => {
                             );
                         })}
                     </View>
-                    <View
-                        style={[
-                            globalStyles.flexDirectionRow,
-                            globalStyles.pb15,
-                        ]}
-                    >
-                        <MaterialIcon
-                            name={IconName.NOT_CONSIDER}
-                            size={iconSize}
-                            color={Color.ERROR}
-                        />
-                        <Text
-                            category={TextCategory.BODY1}
-                            style={globalStyles.pl10}
-                        >
-                            Does’t consider: {notConsidered?.join(' ')}
-                        </Text>
-                    </View>
+                    {notConsidered?.map((item, index) => {
+                        return (
+                            <View
+                                key={item}
+                                style={[
+                                    globalStyles.flexDirectionRow,
+                                    globalStyles.pb15,
+                                ]}
+                            >
+                                <MaterialIcon
+                                    name={IconName.NOT_CONSIDER}
+                                    size={ICON_SIZE}
+                                    color={Color.ERROR}
+                                />
+                                <Text
+                                    category={TextCategory.BODY1}
+                                    style={globalStyles.pl10}
+                                >
+                                    {index === 0 && 'Does’t consider: '}
+                                    {item}
+                                </Text>
+                            </View>
+                        );
+                    })}
                 </View>
             </View>
             <Text category={TextCategory.CAPTION} style={globalStyles.pt5}>

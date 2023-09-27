@@ -1,12 +1,13 @@
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
     UserDetailsApiPath,
+    UserRole,
     UserSortCriteria,
     YearsOfExperience,
 } from 'shared/build/index.js';

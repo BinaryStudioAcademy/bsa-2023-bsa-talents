@@ -6,19 +6,30 @@ import {
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+} from '~/bundles/users/users.js';
 
+import { DEFAULT_RESET_PASSWORD_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
-const ResetPassword: React.FC = () => {
-    const { control, errors } = useAppForm<{ email: string }>({
-        defaultValues: {
-            email: '',
-        },
+type Properties = {
+    onSubmit: (payload: UserResetPasswordDto) => void;
+};
+
+const ResetPassword: React.FC<Properties> = ({ onSubmit }) => {
+    const { control, errors, handleSubmit } = useAppForm<UserResetPasswordDto>({
+        defaultValues: DEFAULT_RESET_PASSWORD_PAYLOAD,
+        validationSchema: userPasswordValidationSchema,
     });
 
-    const handleFormSubmit = useCallback((): void => {
-        // TODO: Handle password reset
-    }, []);
+    const handleFormSubmit = useCallback(
+        (event_: React.BaseSyntheticEvent): void => {
+            void handleSubmit(onSubmit)(event_);
+        },
+        [handleSubmit, onSubmit],
+    );
 
     return (
         <>
@@ -27,22 +38,23 @@ const ResetPassword: React.FC = () => {
                     className={getValidClassNames('header', styles.header)}
                     variant="h1"
                 >
-                    Reset Your Password
+                    Enter your new password
                 </Typography>
                 <FormControl
                     className={getValidClassNames(
                         'inputContainer',
-                        errors.email ? '' : 'email',
+                        errors.password ? '' : 'password',
                     )}
                 >
                     <Input
                         className={styles.input}
                         control={control}
                         errors={errors}
-                        placeholder="user@email.com"
-                        name="email"
+                        placeholder="****"
+                        name="password"
+                        type="password"
                     />
-                    <Button className="btn" label="Proceed" />
+                    <Button className="btn" label="Proceed" type="submit" />
                 </FormControl>
             </form>
         </>

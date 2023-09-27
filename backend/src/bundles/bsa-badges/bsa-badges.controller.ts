@@ -40,13 +40,15 @@ class BSABadgesController extends ControllerBase {
         this.addRoute({
             path: BSABadgeApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: () => {
+                return this.findAll();
+            },
         });
     }
 
     /**
      * @swagger
-     * /bsa-badges/:
+     * /bsa-badges:
      *    get:
      *      tags: [BSA Badges]
      *      description: Returns an array of BSA Badges

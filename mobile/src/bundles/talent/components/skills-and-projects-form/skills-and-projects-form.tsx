@@ -19,16 +19,16 @@ import {
     useFieldArray,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
-import { SkillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
-    ENGLISH_LEVEL,
-    HARD_SKILLS,
+    ENGLISH_LEVELS,
     MAX_LINKS,
     NOT_CONSIDERED,
-    PREFERRED_LANGUAGES_ARRAY,
+    PREFERRED_LANGUAGES,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
@@ -46,8 +46,9 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
-        validationSchema: SkillsStepValidationSchema,
+        validationSchema: skillsStepValidationSchema,
     });
+    const { hardSkillsData } = useCommonData();
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
         control,
@@ -69,7 +70,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 required
             >
                 <AutocompleteMultiSelector
-                    items={HARD_SKILLS}
+                    items={hardSkillsData?.items}
                     control={control}
                     name="hardSkills"
                     placeholder="Start typing and select skills"
@@ -84,7 +85,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={ENGLISH_LEVEL}
+                    options={ENGLISH_LEVELS}
                     control={control}
                     name="englishLevel"
                     placeholder="Option"
@@ -112,10 +113,10 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={PREFERRED_LANGUAGES_ARRAY}
+                    options={PREFERRED_LANGUAGES}
                     control={control}
                     name="preferredLanguages"
-                    multiSelect={true}
+                    isMultiSelect={true}
                     placeholder="Option"
                 />
             </FormField>

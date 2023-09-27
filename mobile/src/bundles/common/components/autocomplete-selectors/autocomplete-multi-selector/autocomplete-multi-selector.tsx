@@ -18,6 +18,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { Animated, globalStyles } from '~/bundles/common/styles/styles';
 import {
+    type AutocompleteMultiSelectorValue,
     type Control,
     type FieldPath,
     type FieldValues,
@@ -25,17 +26,12 @@ import {
 
 import { styles } from '../styles';
 
-type Options = {
-    label: string;
-    value: string;
-};
-
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
-    items: Options[];
     placeholder?: string;
+    control?: Control<T, null>;
+    hasError?: boolean;
+    items?: AutocompleteMultiSelectorValue[];
 };
 
 const AutocompleteMultiSelector = <T extends FieldValues>({
@@ -48,32 +44,40 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
     const [search, setSearch] = useState('');
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle } = useSelectorAnimations(isVisible);
     const handleSearch = (text: string): void => {
         setSearch(text);
     };
 
-    const handleItemSelect = (item: Options): void => {
+    const handleItemSelect = (item: AutocompleteMultiSelectorValue): void => {
         if (value.includes(item.value)) {
             return;
         }
-        toggleVisibility();
+        handleToggleVisibility();
         value.push(item);
         onChange(value);
     };
 
-    const handleItemDelete = (itemName: string): void => {
-        onChange(value.filter((item: Options) => item.label !== itemName));
+    const handleItemDelete = (itemName: string | number): void => {
+        onChange(
+            value.filter(
+                ({ label }: AutocompleteMultiSelectorValue) =>
+                    label !== itemName,
+            ),
+        );
     };
 
     const filteredItems = useMemo(() => {
-        return items.filter(
-            (item) =>
-                item.value.toLowerCase().includes(search.toLowerCase()) &&
-                !value.some((v: Options) => v.value === item.value),
+        return items?.filter(
+            ({ label }) =>
+                label.toLowerCase().includes(search.toLowerCase()) &&
+                !value.some(
+                    (v: AutocompleteMultiSelectorValue) =>
+                        v.label.toLowerCase() === label.toLowerCase(),
+                ),
         );
-    }, [search, value, items]);
+    }, [value, search, items]);
 
     return (
         <>
@@ -81,7 +85,7 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                 <TextInput
                     placeholder={placeholder}
                     onBlur={onBlur}
-                    onFocus={toggleVisibility}
+                    onFocus={handleToggleVisibility}
                     value={search}
                     onChangeText={handleSearch}
                     style={[
@@ -107,21 +111,26 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     ]}
                 >
                     <ScrollView nestedScrollEnabled persistentScrollbar>
-                        {filteredItems.map((item: Options) => (
-                            <TouchableOpacity
-                                key={item.value}
-                                onPress={(): void => {
-                                    handleItemSelect(item);
-                                }}
-                            >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={globalStyles.pv5}
+                        {filteredItems?.map(
+                            ({
+                                label,
+                                value,
+                            }: AutocompleteMultiSelectorValue) => (
+                                <TouchableOpacity
+                                    key={value}
+                                    onPress={(): void => {
+                                        handleItemSelect({ value, label });
+                                    }}
                                 >
-                                    {item.label}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
+                                    <Text
+                                        category={TextCategory.LABEL}
+                                        style={globalStyles.pv5}
+                                    >
+                                        {label}
+                                    </Text>
+                                </TouchableOpacity>
+                            ),
+                        )}
                     </ScrollView>
                 </Animated.View>
             </View>
@@ -132,15 +141,17 @@ const AutocompleteMultiSelector = <T extends FieldValues>({
                     styles.tagContainer,
                 ]}
             >
-                {value.map((item: Options) => (
-                    <Tag
-                        key={item.value}
-                        value={item.label}
-                        onPress={handleItemDelete}
-                        iconName={IconName.CLOSE}
-                        iconSize={15}
-                    />
-                ))}
+                {value?.map(
+                    ({ label, value }: AutocompleteMultiSelectorValue) => (
+                        <Tag
+                            key={value}
+                            value={label}
+                            onPress={handleItemDelete}
+                            iconName={IconName.CLOSE}
+                            iconSize={15}
+                        />
+                    ),
+                )}
             </View>
         </>
     );

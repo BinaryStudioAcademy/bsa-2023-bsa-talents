@@ -1,4 +1,4 @@
-const PreferredLanguages = {
+const PreferredLanguage = {
     ENGLISH: 'English',
     UKRAINIAN: 'Ukrainian',
     RUSSIAN: 'Russian',
@@ -9,4 +9,4 @@ const PreferredLanguages = {
     CHINESE_MANDARIN: 'Chinese (Mandarin)',
 } as const;
 
-export { PreferredLanguages };
+export { PreferredLanguage };

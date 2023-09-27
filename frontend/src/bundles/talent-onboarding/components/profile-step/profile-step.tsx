@@ -7,8 +7,8 @@ import {
 
 import {
     Checkbox,
+    ErrorMessage,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -17,6 +17,7 @@ import {
     Textarea,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -25,11 +26,12 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
-    OnboardingSteps,
+    OnboardingStep,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -37,18 +39,17 @@ import {
     sliderToRealValue,
 } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
-import { actions } from '../../store/talent-onboarding.js';
-import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
+import { profileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
 }));
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -68,8 +69,11 @@ const ProfileStep: React.FC = () => {
         description,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
 
-    const { control, handleSubmit, errors, reset } = useAppForm<ProfileStepDto>(
-        {
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<ProfileStepDto>({
             defaultValues: useMemo(
                 () => ({
                     profileName,
@@ -90,9 +94,63 @@ const ProfileStep: React.FC = () => {
                     description,
                 ],
             ),
-            validationSchema: ProfileStepValidationSchema,
-        },
-    );
+            validationSchema: profileStepValidationSchema,
+        });
+
+    const { setSubmitForm } = useFormSubmit();
+
+    const dispatch = useAppDispatch();
+
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+
+    const watchedValues = watch([
+        'profileName',
+        'salaryExpectation',
+        'jobTitle',
+        'location',
+        'experienceYears',
+        'employmentType',
+        'description',
+    ]);
+
+    useEffect(() => {
+        const newValues = getValues([
+            'profileName',
+            'salaryExpectation',
+            'jobTitle',
+            'location',
+            'experienceYears',
+            'employmentType',
+            'description',
+        ]);
+        const initialValues = {
+            profileName,
+            salaryExpectation,
+            jobTitle,
+            location,
+            experienceYears,
+            employmentType,
+            description,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        description,
+        dispatch,
+        employmentType,
+        experienceYears,
+        getValues,
+        hasChangesInDetails,
+        jobTitle,
+        location,
+        profileName,
+        salaryExpectation,
+        watchedValues,
+    ]);
 
     useEffect(() => {
         reset({
@@ -115,19 +173,13 @@ const ProfileStep: React.FC = () => {
         salaryExpectation,
     ]);
 
-    const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-
-    const onSubmit = useCallback(
-        async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(
-                actions.saveTalentDetails({
+    const handleFormSubmit = useCallback(
+        (data: ProfileStepDto): boolean => {
+            void dispatch(
+                talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_01,
+                    completedStep: OnboardingStep.STEP_01,
                 }),
             );
             return true;
@@ -139,8 +191,8 @@ const ProfileStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -148,7 +200,7 @@ const ProfileStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -232,8 +284,8 @@ const ProfileStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
-            <FormControl className={styles.formControl}>
+        <>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Profile name</Typography>
                 </FormLabel>
@@ -245,7 +297,7 @@ const ProfileStep: React.FC = () => {
                     name={'profileName'}
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
                         Salary expectations
@@ -260,7 +312,7 @@ const ProfileStep: React.FC = () => {
                     adornmentText="$"
                 />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Job title</Typography>
                 </FormLabel>
@@ -271,13 +323,9 @@ const ProfileStep: React.FC = () => {
                     options={jobTitleOptions}
                     placeholder="Option"
                 />
-                {errors.jobTitle && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.jobTitle.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="jobTitle" />
             </FormControl>
-            <FormControl className={styles.formControlSlider}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Experience</Typography>
                 </FormLabel>
@@ -286,13 +334,9 @@ const ProfileStep: React.FC = () => {
                     name="experienceYears"
                     render={renderSlider}
                 />
-                {errors.experienceYears && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.experienceYears.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="experienceYears" />
             </FormControl>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Current Location</Typography>
                 </FormLabel>
@@ -303,13 +347,9 @@ const ProfileStep: React.FC = () => {
                     options={locationOptions}
                     placeholder="Option"
                 />
-                {errors.location && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.location.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="location" />
             </FormControl>
-            <Grid className={styles.checkboxContainer}>
+            <Grid>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>Employment type</Typography>
                 </FormLabel>
@@ -320,33 +360,25 @@ const ProfileStep: React.FC = () => {
                         render={renderCheckboxes}
                     />
                 </FormControl>
-                {errors.employmentType && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.employmentType.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="employmentType" />
             </Grid>
-            <FormControl className={styles.formControl}>
+            <FormControl>
                 <FormLabel className={styles.formLabel} required>
                     <Typography variant={'label'}>
-                        Briefly tell employers about your experience
+                        Introduce yourself
                     </Typography>
                 </FormLabel>
                 <Textarea
-                    placeholder="Tell us a little bit about yourself"
+                    placeholder="Candidates who share more about their experience have higher chances of getting a job offer."
                     control={control}
                     errors={errors}
                     name={'description'}
                     minRows={7}
                     maxRows={9}
                 />
-                {errors.description && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.description.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="description" />
             </FormControl>
-        </FormControl>
+        </>
     );
 };
 

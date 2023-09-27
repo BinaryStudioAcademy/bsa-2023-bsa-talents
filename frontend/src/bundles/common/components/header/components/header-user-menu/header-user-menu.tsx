@@ -10,8 +10,13 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
-import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
+import { configureString } from '~/helpers/helpers.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 
@@ -23,6 +28,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
 
     const handleSignOut = useCallback((): void => {
         void dispatch(authActions.signOut());
+        void dispatch(storeActions.resetStore());
         void dispatch(
             storeActions.notify({
                 type: NotificationType.INFO,
@@ -32,8 +38,21 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         navigate(AppRoute.SIGN_IN);
     }, [dispatch, navigate]);
 
+    const role = useAppSelector((state) => state.auth.currentUser?.role);
+    const isAdmin = role === 'admin';
+    const handleCheckProfile = useCallback((): void => {
+        navigate(configureString('/:role/my/profile', { role }));
+    }, [navigate, role]);
+
     return (
         <Menu>
+            {!isAdmin && (
+                <MenuItem onClick={handleCheckProfile}>
+                    <Typography variant="h6" className={styles.menuItem}>
+                        My profile
+                    </Typography>
+                </MenuItem>
+            )}
             <MenuItem onClick={handleSignOut}>
                 <Logout fontSize="small" className={styles.signOutIcon} />
                 <Typography variant="h6" className={styles.signOut}>

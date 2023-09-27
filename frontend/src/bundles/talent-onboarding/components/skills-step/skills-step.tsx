@@ -1,15 +1,18 @@
-import { mockHardSkills } from '~/assets/mock-data/mock-data.js';
+import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Autocomplete,
     Checkbox,
     Controller,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Select,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
+import { useFormSubmit } from '~/bundles/common/context/context.js';
+import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
+import { type AutoselectOptions } from '~/bundles/common/data/types/autoselect-options.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -24,24 +27,25 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
+import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
     EnglishLevel,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
 } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
+import {
+    type SkillsStepDto,
+    type TalentHardSkill,
+    type UserDetailsGeneralCustom,
+} from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { useFormSubmit } from '../../context/context.js';
-import {
-    fromUrlLinks,
-    setEnglishLevelValue,
-    toUrlLinks,
-} from '../../helpers/helpers.js';
-import { actions } from '../../store/talent-onboarding.js';
-import { SkillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { fromUrlLinks, toUrlLinks } from '../../helpers/helpers.js';
+import { actions as talentActions } from '../../store/talent-onboarding.js';
+import { skillsStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import { SkillsProjectLinks } from './components/components.js';
+import { GRID } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
@@ -49,7 +53,7 @@ const englishLevelOptions = Object.values(EnglishLevel).map((level) => ({
     label: level,
 }));
 
-const preferredLanguagesOptions = Object.values(PreferredLanguages).map(
+const preferredLanguagesOptions = Object.values(PreferredLanguage).map(
     (language) => ({
         value: language,
         label: language,
@@ -60,43 +64,78 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
     label: option,
 }));
 
+const getAuthState = (state: RootReducer): State => state.auth;
+const getTalentOnBoardingState = (
+    state: RootReducer,
+): UserDetailsGeneralCustom => state.talentOnBoarding;
 const SkillsStep: React.FC = () => {
+    const currentUser = useAppSelector(
+        (rootState) => getAuthState(rootState).currentUser,
+    );
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+    }, [currentUser?.id, dispatch]);
+
     const {
-        hardSkills,
+        talentHardSkills,
         englishLevel,
         notConsidered,
         preferredLanguages,
         projectLinks,
-    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+    } = useAppSelector((rootState) => getTalentOnBoardingState(rootState));
 
-    const { control, handleSubmit, errors, reset } = useAppForm<SkillsStepDto>({
-        defaultValues: useMemo(
-            () => ({
-                hardSkills,
-                englishLevel: setEnglishLevelValue(englishLevel),
-                notConsidered,
-                preferredLanguages,
-                projectLinks: projectLinks?.length
-                    ? toUrlLinks(projectLinks)
-                    : [{ url: '' }],
-            }),
-            [
-                englishLevel,
-                hardSkills,
-                notConsidered,
-                preferredLanguages,
-                projectLinks,
-            ],
-        ),
-        validationSchema: SkillsStepValidationSchema,
-    });
+    const hasChangesInDetails = useAppSelector(
+        (state: RootReducer) => state.cabinet.hasChangesInDetails,
+    );
+
+    const { hardSkillsOptions } = useCommonData();
+
+    const hardSkills = useMemo((): AutoselectOptions => {
+        return hardSkillsOptions.filter((item) =>
+            (talentHardSkills as unknown as TalentHardSkill[]).some(
+                (skill) => skill.hardSkillId === item.value,
+            ),
+        );
+    }, [talentHardSkills, hardSkillsOptions]);
+
+    const { control, getValues, handleSubmit, errors, reset, watch } =
+        useAppForm<SkillsStepDto>({
+            defaultValues: useMemo(
+                () => ({
+                    hardSkills,
+                    englishLevel: englishLevel ?? '',
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks: projectLinks?.length
+                        ? toUrlLinks(projectLinks)
+                        : [{ url: '' }],
+                }),
+                [
+                    englishLevel,
+                    hardSkills,
+                    notConsidered,
+                    preferredLanguages,
+                    projectLinks,
+                ],
+            ),
+            validationSchema: skillsStepValidationSchema,
+        });
 
     useEffect(() => {
         reset({
             hardSkills,
-            englishLevel: setEnglishLevelValue(englishLevel),
+            englishLevel,
             notConsidered,
             preferredLanguages,
+            projectLinks: projectLinks?.length
+                ? toUrlLinks(projectLinks)
+                : [{ url: '' }],
         });
     }, [
         hardSkills,
@@ -109,39 +148,71 @@ const SkillsStep: React.FC = () => {
 
     const { setSubmitForm } = useFormSubmit();
 
-    const dispatch = useAppDispatch();
+    const watchedValues = watch([
+        'hardSkills',
+        'englishLevel',
+        'notConsidered',
+        'preferredLanguages',
+        'projectLinks',
+    ]);
 
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    useEffect(() => {
+        const newValues = getValues([
+            'hardSkills',
+            'englishLevel',
+            'notConsidered',
+            'preferredLanguages',
+            'projectLinks',
+        ]);
+        const initialValues = {
+            hardSkills,
+            englishLevel,
+            notConsidered,
+            preferredLanguages,
+            projectLinks,
+        };
+        const hasChanges =
+            JSON.stringify(Object.values(initialValues)) !==
+            JSON.stringify(newValues);
+        if (hasChangesInDetails !== hasChanges) {
+            dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
+        }
+    }, [
+        dispatch,
+        englishLevel,
+        getValues,
+        hardSkills,
+        hasChangesInDetails,
+        notConsidered,
+        preferredLanguages,
+        projectLinks,
+        watchedValues,
+    ]);
 
-    const onSubmit = useCallback(
-        async (data: SkillsStepDto): Promise<boolean> => {
+    const handleFormSubmit = useCallback(
+        (data: SkillsStepDto): boolean => {
             const {
                 englishLevel,
                 notConsidered,
                 preferredLanguages,
                 hardSkills,
+                projectLinks,
             } = data;
-            if (!data.projectLinks[0].url) {
-                await dispatch(
-                    actions.updateTalentDetails({
-                        englishLevel,
-                        notConsidered,
-                        preferredLanguages,
-                        userId: currentUser?.id,
-                        completedStep: OnboardingSteps.STEP_03,
-                    }),
-                );
-                return true;
-            }
 
-            await dispatch(
-                actions.updateTalentDetails({
+            const enteredLinks = projectLinks.filter((link) =>
+                Boolean(link.url),
+            );
+            const preparedLinks =
+                enteredLinks.length > 0 ? fromUrlLinks(enteredLinks) : null;
+
+            void dispatch(
+                talentActions.updateTalentDetails({
                     englishLevel,
                     notConsidered,
                     preferredLanguages,
                     userId: currentUser?.id,
-                    projectLinks: fromUrlLinks(data.projectLinks),
-                    completedStep: OnboardingSteps.STEP_03,
+                    projectLinks: preparedLinks,
+                    completedStep: OnboardingStep.STEP_03,
                     hardSkills,
                 }),
             );
@@ -154,8 +225,8 @@ const SkillsStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -163,7 +234,7 @@ const SkillsStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -190,13 +261,13 @@ const SkillsStep: React.FC = () => {
             return (
                 <Grid
                     container
-                    spacing={2}
+                    spacing={GRID.spacing}
                     className={styles.checkboxContainer}
                 >
                     {notConsideredOptions.map((option) => (
                         <Grid
                             item
-                            xs={6}
+                            xs={GRID.xs}
                             key={option.value}
                             className={styles['MuiGrid-item']}
                         >
@@ -225,19 +296,18 @@ const SkillsStep: React.FC = () => {
     );
 
     return (
-        <FormControl className={styles.form}>
+        <>
             <Autocomplete
                 name="hardSkills"
                 control={control}
-                options={mockHardSkills}
+                options={hardSkillsOptions}
                 placeholder="Start typing and select skills"
                 label="Hard Skills"
             />
 
             <FormControl>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant={'label'}>Level of English</Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Select
@@ -247,12 +317,7 @@ const SkillsStep: React.FC = () => {
                     name={'englishLevel'}
                     placeholder="Option"
                 />
-
-                {errors.englishLevel && (
-                    <FormHelperText className={styles.hasError}>
-                        {String(errors.englishLevel.message)}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'englishLevel'} />
             </FormControl>
             <FormControl className={styles.checkboxBlockWrapper}>
                 <FormLabel className={styles.label}>
@@ -271,11 +336,11 @@ const SkillsStep: React.FC = () => {
                         styles.label,
                         styles.labelMargin,
                     )}
+                    required
                 >
                     <Typography variant={'label'}>
                         Preferred language of communication
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
                 <Select
                     isMulti
@@ -285,14 +350,10 @@ const SkillsStep: React.FC = () => {
                     name={'preferredLanguages'}
                     options={preferredLanguagesOptions}
                 />
-                {errors.preferredLanguages && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.preferredLanguages.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name={'preferredLanguages'} />
             </FormControl>
-            <SkillsProjectLinks errors={errors} control={control} />
-        </FormControl>
+            <SkillsProjectLinks control={control} errors={errors} />
+        </>
     );
 };
 

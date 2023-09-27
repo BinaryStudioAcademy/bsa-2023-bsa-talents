@@ -23,7 +23,7 @@ const Checkbox: React.FC<Properties> = ({
     containerStyle,
     ...props
 }) => {
-    const toggleCheckbox = (): void => {
+    const handleToggleCheckbox = (): void => {
         onChange(!isChecked);
     };
 
@@ -39,7 +39,7 @@ const Checkbox: React.FC<Properties> = ({
         >
             <CheckBox
                 value={isChecked}
-                onValueChange={toggleCheckbox}
+                onValueChange={handleToggleCheckbox}
                 tintColors={{ true: checkboxColor, false: Color.INPUT }}
                 {...props}
             />

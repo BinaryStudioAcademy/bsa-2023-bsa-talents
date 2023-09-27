@@ -2,11 +2,13 @@ import { Grid, Link, Logo, Typography } from '../../components/components.js';
 import { AppRoute } from '../../enums/app-route.enum.js';
 import styles from './styles.module.scss';
 
+const NUM_CUBES = 6;
+
 const NotFoundPage: React.FC = () => {
     return (
         <Grid container className={styles.pageContainer}>
             <Grid container item className={styles.header}>
-                <Logo className={styles.logo} withLink />
+                <Logo className={styles.logo} hasLink />
             </Grid>
 
             <Grid container item className={styles.text}>
@@ -24,12 +26,9 @@ const NotFoundPage: React.FC = () => {
                 </Link>
             </Grid>
 
-            <div className={styles.cube}></div>
-            <div className={styles.cube}></div>
-            <div className={styles.cube}></div>
-            <div className={styles.cube}></div>
-            <div className={styles.cube}></div>
-            <div className={styles.cube}></div>
+            {Array.from({ length: NUM_CUBES }).map((_, index) => (
+                <div key={index} className={styles.cube}></div>
+            ))}
         </Grid>
     );
 };

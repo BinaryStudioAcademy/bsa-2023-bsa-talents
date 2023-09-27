@@ -9,6 +9,7 @@ import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
 import { MAX_LINKS } from '../../constants/constants.js';
 import styles from '../../styles.module.scss';
+import { CloseIconButton } from '../components.js';
 
 type Properties = {
     control: Control<SkillsStepDto>;
@@ -16,14 +17,21 @@ type Properties = {
 };
 
 const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: 'projectLinks',
     });
 
-    const appendLinks = useCallback((): void => {
+    const handleAppendLinks = useCallback((): void => {
         append({ url: '' });
     }, [append]);
+
+    const handleRemoveLink = useCallback(
+        (index: number): void => {
+            remove(index);
+        },
+        [remove],
+    );
 
     return (
         <FormControl>
@@ -44,6 +52,12 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                             placeholder="link to BSA project"
                             name={`projectLinks.${index}.url`}
                         />
+                        {index !== 0 && (
+                            <CloseIconButton
+                                index={index}
+                                onClick={handleRemoveLink}
+                            />
+                        )}
                     </Grid>
                 );
             })}
@@ -53,7 +67,7 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                     variant="text"
                     type="button"
                     label="+ Add more links"
-                    onClick={appendLinks}
+                    onClick={handleAppendLinks}
                     className={styles.buttonAddLink}
                 />
             )}

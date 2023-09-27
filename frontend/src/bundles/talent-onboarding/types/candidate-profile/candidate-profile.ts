@@ -1,16 +1,18 @@
 import { type mockBadges } from '~/assets/mock-data/mock-data.js';
 
 type FirstSectionDetails = {
+    userId: string;
     profileName: string;
     salaryExpectation: string;
     projectLinks?: string[];
     location: string;
-    experienceYears: string;
+    experienceYears: number;
     englishLevel: string;
     badges: typeof mockBadges;
-    hardSkills: string[];
+    talentHardSkills?: string[];
     preferredLanguages: string[];
     description: string;
+    date: string;
 };
 
 type SecondSectionDetails = {
@@ -19,10 +21,10 @@ type SecondSectionDetails = {
     photoId?: string;
     fullName: string;
     salaryExpectation: string;
-    email: string;
+    email?: string;
     phone: string;
     location: string;
-    experienceYears: string;
+    experienceYears: number;
     englishLevel: string;
     employmentType: string[];
     notConsidered: string[];

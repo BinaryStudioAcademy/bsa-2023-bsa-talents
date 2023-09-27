@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
 } from '../../../user-details/enums/enums.js';
@@ -11,7 +11,7 @@ import {
 } from '../../enums/enums.js';
 import { type ProfileStepDto } from '../../types/types.js';
 
-const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
+const profileStep = joi.object<ProfileStepDto, true>({
     profileName: joi
         .string()
         .min(ProfileStepValidationRule.MIN_PROFILE_NAME_LENGTH)
@@ -62,7 +62,7 @@ const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
 
     location: joi
         .string()
-        .valid(...Object.values(CountryList))
+        .valid(...Object.values(Country))
         .required()
         .messages({
             'any.only': ProfileStepValidationMessage.LOCATION_BASE,
@@ -95,4 +95,4 @@ const ProfileStepValidationSchema = joi.object<ProfileStepDto, true>({
         }),
 });
 
-export { ProfileStepValidationSchema };
+export { profileStep };

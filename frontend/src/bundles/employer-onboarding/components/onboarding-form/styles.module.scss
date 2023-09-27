@@ -1,15 +1,3 @@
-.container {
-    width: 100%;
-}
-
-.paragraph {
-    margin-bottom: 40px;
-
-    .body {
-        margin-top: 7px;
-    }
-}
-
 .formWrapper {
     width: 100%;
 }
@@ -30,18 +18,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 15px;
-
-    .requiredField {
-        color: var(--st-tropaz);
-    }
-}
-
-.formLabel {
-    display: block;
-    width: max-content;
-    margin-right: 10px;
 }
 
 .formInput {
@@ -75,15 +52,21 @@
 .photoWrapper {
     width: 180px;
     height: 180px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    overflow: hidden;
+    background-color: var(--background-secondary);
     border-radius: 50%;
 }
 
-.photoIcon {
+.photoPlaceholder {
     width: 100%;
     height: 100%;
+    background-color: var(--background-secondary);
+}
+
+.photoElement {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .fileError {
@@ -160,34 +143,6 @@
     color: var(--text-primary-dark);
     background-color: var(--solitude);
     border-radius: 4px;
-}
-
-.buttonRegistration {
-    width: fit-content;
-    height: 36px;
-    margin-top: 15px;
-    font-weight: 500;
-    font-size: 13px;
-    text-transform: none;
-}
-
-.previewButton {
-    margin-right: 10px;
-    color: var(--hover-primary);
-    border-color: var(--hover-primary);
-
-    &:disabled {
-        color: var(--aluminium);
-        background-color: var(--background-primary);
-    }
-}
-
-.submitButton {
-    background-color: var(--background-secondary);
-
-    &:hover {
-        background-color: var(--hover-primary);
-    }
 }
 
 @media screen and (width <=1240px) {

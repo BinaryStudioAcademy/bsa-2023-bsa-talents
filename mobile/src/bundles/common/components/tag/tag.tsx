@@ -11,17 +11,17 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { styles } from './styles';
 
 type Properties = {
-    value: string;
+    value: string | number;
     iconName?: string;
     iconSize?: number;
-    onPress?: (value: string) => void;
+    onPress?: (value: string | number) => void;
 };
-const iconDefaultSize = 12;
+const DEFAULT_ICON_SIZE = 12;
 
 const Tag: React.FC<Properties> = ({
     value,
     iconName,
-    iconSize = iconDefaultSize,
+    iconSize = DEFAULT_ICON_SIZE,
     onPress,
 }) => {
     return (

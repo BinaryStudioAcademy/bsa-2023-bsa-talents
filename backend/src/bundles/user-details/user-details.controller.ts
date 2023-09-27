@@ -10,13 +10,16 @@ import { ControllerBase } from '~/common/packages/packages.js';
 import { UserDetailsApiPath } from './enums/enums.js';
 import {
     type UserDetailsCreateRequestDto,
+    type UserDetailsDenyRequestDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsFindShortByRoleRequestDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsService } from './user-details.service.js';
 import {
     userDetailsCreateValidationSchema,
+    userDetailsDenyValidationSchema,
     userDetailsSearchValidationSchema,
     userDetailsUpdateValidationSchema,
 } from './validation-schemas/validation-schemas.js';
@@ -132,7 +135,16 @@ import {
  *                userDetailsId:
  *                  format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
  *                  type: string
- *
+ *      ShortUserDetails:
+ *        type: object
+ *        properties:
+ *          userId:
+ *            format: uuid #Example: '550e8400-e29b-41d4-a716-446655440000'
+ *            type: string
+ *          photoUrl:
+ *            type: string
+ *          fullName:
+ *            type: string
  */
 class UserDetailsController extends ControllerBase {
     private userDetailsService: UserDetailsService;
@@ -148,12 +160,13 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsCreateValidationSchema,
             },
-            handler: (options) =>
-                this.create(
+            handler: (options) => {
+                return this.create(
                     options as ApiHandlerOptions<{
                         body: UserDetailsCreateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -162,12 +175,41 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsUpdateValidationSchema,
             },
-            handler: (options) =>
-                this.update(
+            handler: (options) => {
+                return this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
                     }>,
-                ),
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.APPROVE,
+            method: 'PATCH',
+            handler: (options) => {
+                return this.approve(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.DENY,
+            method: 'PATCH',
+            validation: {
+                body: userDetailsDenyValidationSchema,
+            },
+            handler: (options) => {
+                return this.deny(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                        body: UserDetailsDenyRequestDto;
+                    }>,
+                );
+            },
         });
 
         this.addRoute({
@@ -176,12 +218,13 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 query: userDetailsSearchValidationSchema,
             },
-            handler: (options) =>
-                this.searchUsers(
+            handler: (options) => {
+                return this.searchUsers(
                     options as ApiHandlerOptions<{
                         query: UserDetailsSearchUsersRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -195,11 +238,47 @@ class UserDetailsController extends ControllerBase {
                 );
             },
         });
+
+        this.addRoute({
+            path: `${UserDetailsApiPath.$ID}/company`,
+            method: 'GET',
+            handler: (options) => {
+                return this.findCompanyInfoByUserId(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.SHORT,
+            method: 'GET',
+            handler: (options) => {
+                return this.findShort(
+                    options as ApiHandlerOptions<{
+                        query: UserDetailsFindShortByRoleRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UserDetailsApiPath.PUBLISH,
+            method: 'PATCH',
+            handler: (options) => {
+                return this.publish(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    post:
      *      tags:
      *        - User Details
@@ -310,7 +389,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    patch:
      *      tags:
      *        - User Details
@@ -444,7 +523,7 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
-     * /user-details/:
+     * /user-details:
      *    get:
      *      tags:
      *        - User Details
@@ -463,12 +542,12 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: isBaseSearch
+     *          name: searchType
      *          schema:
-     *            type: boolean
+     *            type: string
      *          description: Determines whether search type is base or extended
      *        - in: query
-     *          name: searchActiveCandidatesOnly
+     *          name: isSearchActiveCandidatesOnly
      *          schema:
      *            type: boolean
      *          description: Filter by active status (optional)
@@ -495,15 +574,6 @@ class UserDetailsController extends ControllerBase {
      *          style: form
      *          explode: true
      *          description: Filter by hard skills (optional)
-     *        - in: query
-     *          name: BSABadges
-     *          schema:
-     *            type: array
-     *            items:
-     *              type: string
-     *          style: form
-     *          explode: true
-     *          description: Filter by BSA badges (optional)
      *        - in: query
      *          name: location
      *          schema:
@@ -573,6 +643,47 @@ class UserDetailsController extends ControllerBase {
 
     /**
      * @swagger
+     * /user-details/short:
+     *    get:
+     *      tags: [User Details]
+     *      description: Returns short users details by user role
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: userType
+     *          required: true
+     *          description: The role to filter users by.
+     *          schema:
+     *            type: string
+     *            enum:
+     *              - talent
+     *              - employer
+     *          example: talent
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                   $ref: '#/components/schemas/ShortUserDetails'
+     */
+
+    private async findShort(
+        options: ApiHandlerOptions<{
+            query: UserDetailsFindShortByRoleRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userType } = options.query;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findShortByRole(userType),
+        };
+    }
+
+    /**
+     * @swagger
      * /user-details/{userId}:
      *    get:
      *      tags: [User Details]
@@ -606,6 +717,153 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    private async findCompanyInfoByUserId(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findCompanyInfoByUserId(
+                userId,
+            ),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/{userId}/deny:
+     *   patch:
+     *     tags:
+     *       - User Details
+     *     description: Deny user's details
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch details for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *     requestBody:
+     *       description: User detail deny object
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/UserDetailsDenyRequestDto'
+     *           examples:
+     *             default:
+     *               value:
+     *                 deniedReason: 'Write here reasons'
+     *     responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: boolean
+     * components:
+     *   schemas:
+     *     UserDetailsDenyRequestDto:
+     *       type: object
+     *       properties:
+     *         deniedReason:
+     *           type: string
+     */
+
+    private async deny(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+            body: UserDetailsDenyRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.deny(userId, options.body),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/{userId}/approve:
+     *    patch:
+     *      tags: [User Details]
+     *      description: Approve user's details
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to fetch details for
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *               type: boolean
+     */
+
+    private async approve(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.approve(userId),
+        };
+    }
+
+    /**
+     * @swagger
+     * /user-details/{userId}/publish:
+     *    patch:
+     *      tags: [User Details]
+     *      description: Publishes users data and returns publish time
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: path
+     *          name: userId
+     *          required: true
+     *          description: User ID to publish data
+     *          schema:
+     *            type: string
+     *            format: uuid # Example: '550e8400-e29b-41d4-a716-446655440000'
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: string
+     *                example: '2023-09-12T12:34:56.789Z'
+     */
+
+    private async publish(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.publish({ userId }),
         };
     }
 }

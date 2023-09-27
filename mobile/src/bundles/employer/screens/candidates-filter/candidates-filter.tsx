@@ -1,33 +1,56 @@
 import React from 'react';
 
-import { ScrollView } from '~/bundles/common/components/components';
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { Overlay, ScrollView } from '~/bundles/common/components/components';
+import { DataStatus } from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { CandidatesFilterForm } from '~/bundles/employer/components/components';
+import { transformCandidateFilterFormToQuery } from '~/bundles/employer/helpers/helpers';
+import { getTalents } from '~/bundles/employer/store/actions';
+import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const CandidatesFilter: React.FC = () => {
-    const handleFormSubmit = useCallback((): void => {
-        // TODO: handle submit
-    }, []);
+    const dispatch = useAppDispatch();
+
+    const handleFormSubmit = useCallback(
+        (payload: EmployeesFiltersForm): void => {
+            const queryString = transformCandidateFilterFormToQuery(payload);
+            void dispatch(getTalents(queryString));
+        },
+        [dispatch],
+    );
+    const commonDataStatus = useAppSelector(
+        ({ commonData }) => commonData.dataStatus,
+    );
 
     const handleFilterClose = useCallback((): void => {
         // TODO: navigate to Candidates page
     }, []);
 
+    const isCommonDataLoading = commonDataStatus === DataStatus.PENDING;
+
     return (
-        <ScrollView
-            style={[
-                globalStyles.defaultScreenPadding,
-                globalStyles.borderRadius10,
-                globalStyles.width100,
-                globalStyles.height100,
-            ]}
-        >
-            <CandidatesFilterForm
-                onSubmit={handleFormSubmit}
-                onFilterClose={handleFilterClose}
-            />
-        </ScrollView>
+        <>
+            <Overlay isActive={isCommonDataLoading} />
+            <ScrollView
+                persistentScrollbar
+                style={[
+                    globalStyles.defaultScreenPadding,
+                    globalStyles.borderRadius10,
+                    globalStyles.width100,
+                    globalStyles.height100,
+                ]}
+            >
+                <CandidatesFilterForm
+                    onSubmit={handleFormSubmit}
+                    onFilterClose={handleFilterClose}
+                />
+            </ScrollView>
+        </>
     );
 };
 
