@@ -141,7 +141,7 @@ const ProfileCabinet: React.FC = () => {
                             onClick={handleSaveClick}
                             label={'Save'}
                             variant={'contained'}
-                            isDisabled={!hasChanges}
+                            isDisabled={hasChanges}
                             className={styles.saveButton}
                         />
                     </FormControl>
