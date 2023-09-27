@@ -18,7 +18,7 @@ const setPartnerAvatar = (
             chat.participants.receiver,
         ];
 
-        participants.map((participant) => {
+        participants.map((participant, index) => {
             if (!partners[participant.id]) {
                 const avatarList = participant.companyName
                     ? EMPLOYER_AVATAR
@@ -27,7 +27,10 @@ const setPartnerAvatar = (
                 const randomIndex = Math.floor(
                     Math.random() * avatarList.length,
                 );
-                const avatarUrl = avatarList[randomIndex];
+                const avatarUrl =
+                    index < avatarList.length
+                        ? avatarList[index]
+                        : avatarList[randomIndex];
 
                 partners[participant.id] = avatarUrl;
             }
