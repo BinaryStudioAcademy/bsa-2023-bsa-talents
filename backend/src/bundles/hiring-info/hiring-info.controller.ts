@@ -9,7 +9,10 @@ import { ControllerBase } from '~/common/packages/packages.js';
 
 import { HiringInfoApiPath } from './enums/enums.js';
 import { type HiringInfoService } from './hiring-info.service.js';
-import { type HiringInfoCreateRequestDto } from './types/types.js';
+import {
+    type HiringInfoCreateRequestDto,
+    type HiringInfoFindRequestDto,
+} from './types/types.js';
 import { hiringInfoCreateValidationSchema } from './validation-schemas/validation-schemas.js';
 
 /**
@@ -60,10 +63,22 @@ class HiringInfoController extends ControllerBase {
         });
 
         this.addRoute({
-            path: HiringInfoApiPath.ROOT,
+            path: HiringInfoApiPath.ALL,
             method: 'GET',
             handler: () => {
                 return this.findAll();
+            },
+        });
+
+        this.addRoute({
+            path: HiringInfoApiPath.ROOT,
+            method: 'GET',
+            handler: (options) => {
+                return this.findHiringInfo(
+                    options as ApiHandlerOptions<{
+                        query: HiringInfoFindRequestDto;
+                    }>,
+                );
             },
         });
     }
@@ -126,7 +141,7 @@ class HiringInfoController extends ControllerBase {
 
     /**
      * @swagger
-     * /hiring-info:
+     * /hiring-info/all:
      *    get:
      *      tags: [Hiring Info]
      *      description: Returns all hiring info records
@@ -183,6 +198,43 @@ class HiringInfoController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.hiringInfoService.findAll(),
+        };
+    }
+
+    /**
+     * @swagger
+     * /hiring-info:
+     *    get:
+     *      tags: [Hiring Info]
+     *      description: Returns true if talent is hired
+     *      security:
+     *        - bearerAuth: []
+     *      parameters:
+     *        - in: query
+     *          name: talentId
+     *          schema:
+     *            type: uuid
+     *        - in: query
+     *          name: companyId
+     *          schema:
+     *            type: uuid
+     *      responses:
+     *       200:
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: boolean
+     *
+     */
+    private async findHiringInfo(
+        options: ApiHandlerOptions<{
+            query: HiringInfoFindRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.hiringInfoService.find(options.query),
         };
     }
 }
