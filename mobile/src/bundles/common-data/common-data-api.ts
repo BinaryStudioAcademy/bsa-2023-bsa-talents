@@ -1,3 +1,5 @@
+import { type UserFindResponseDto } from 'shared/build/index';
+
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import {
     type BadgesResponseDto,
@@ -40,6 +42,18 @@ class CommonDataApi extends HttpApiBase {
             },
         );
         return await response.json<HardSkillsResponseDto>();
+    }
+
+    public async getAllUsers(): Promise<{ items: UserFindResponseDto[] }> {
+        const response = await this.load(
+            this.getFullEndpoint(ApiPath.USERS, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<{ items: UserFindResponseDto[] }>();
     }
 }
 

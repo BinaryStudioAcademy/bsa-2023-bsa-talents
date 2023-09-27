@@ -10,11 +10,12 @@ const VerificationMessage: React.FC = () => {
     return (
         <Text
             category={TextCategory.CAPTION}
+            maxFontSizeMultiplier={1.1}
             style={[
                 styles.text,
                 globalStyles.p5,
                 globalStyles.ph10,
-                globalStyles.mh5,
+                globalStyles.mr5,
             ]}
         >
             Waiting for approval

@@ -21,7 +21,7 @@ import { styles } from './styles';
 
 const CandidateCard: React.FC<UserDetailsResponseDto> = ({
     userId,
-    fullName,
+    profileName,
     salaryExpectation,
     jobTitle,
     location,
@@ -53,7 +53,9 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = ({
                     ]}
                 >
                     <View>
-                        <Text category={TextCategory.H5}>{fullName}</Text>
+                        <Text category={TextCategory.H5} style={styles.title}>
+                            {profileName}
+                        </Text>
                         <Text category={TextCategory.H5} style={styles.title}>
                             {jobTitle}
                         </Text>

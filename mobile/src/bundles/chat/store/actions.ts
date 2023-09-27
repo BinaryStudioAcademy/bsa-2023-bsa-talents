@@ -1,19 +1,31 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type ChatDataRequestDto } from '~/bundles/chat/types/types';
+import {
+    type ChatMessagesCreateRequestDto,
+    type ChatResponseDto,
+    type CurrentChat,
+    type MessageResponseDto,
+} from '~/bundles/chat/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 
-import { name as sliceName } from './slice';
+import { actions, name as sliceName } from './slice';
 
-const sendMessage = createAsyncThunk<
-    ChatDataRequestDto,
-    ChatDataRequestDto,
+const createMessage = createAsyncThunk<
+    MessageResponseDto,
+    ChatMessagesCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sendMessage`, (sendMessagePayload, { extra }) => {
-    const { notifications } = extra;
+>(`${sliceName}/createMessage`, async (createMessagePayload, { extra }) => {
+    const { chatApi, notifications } = extra;
     try {
-        return sendMessagePayload;
+        const { message, senderId, receiverId, chatId } = createMessagePayload;
+
+        return await chatApi.createMessage({
+            message,
+            senderId,
+            receiverId,
+            chatId,
+        });
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -21,14 +33,65 @@ const sendMessage = createAsyncThunk<
     }
 });
 
-const getMessage = createAsyncThunk<
-    ChatDataRequestDto,
-    ChatDataRequestDto,
+const getAllMessages = createAsyncThunk<
+    MessageResponseDto[],
+    undefined,
     AsyncThunkConfig
->(`${sliceName}/getMessage`, (getMessagePayload, { extra }) => {
-    const { notifications } = extra;
+>(`${sliceName}/getAllMessages`, async (_, { extra }) => {
+    const { chatApi, notifications } = extra;
     try {
-        return getMessagePayload;
+        const messages = await chatApi.getAllMessages();
+
+        return messages.items;
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
+});
+
+const getAllMessagesByChatId = createAsyncThunk<
+    CurrentChat,
+    { chatId: string; employerId: string },
+    AsyncThunkConfig
+>(
+    `${sliceName}/getAllMessagesByChatId`,
+    async ({ chatId, employerId }, { extra, dispatch }) => {
+        const { chatApi, commonApi, notifications } = extra;
+        try {
+            dispatch(actions.updateChatId(chatId));
+            const messages = await chatApi.getAllMessagesByChatId(chatId);
+            const employer = await commonApi.getUserDetailsByUserId({
+                userId: employerId,
+            });
+            const employerDetails = {
+                logoUrl: employer?.companyLogoId ?? '',
+                companyName: employer?.companyName ?? '',
+                employerName: employer?.fullName ?? '',
+                employerPosition: employer?.employerPosition ?? '',
+                about: employer?.description ?? '',
+                companyWebsite: employer?.companyWebsite ?? '',
+            };
+
+            return { chatId, messages: messages.items, employerDetails };
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    },
+);
+
+const getAllChatsByUserId = createAsyncThunk<
+    ChatResponseDto[],
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/getAllChatsByUserId`, async (userId, { extra }) => {
+    const { chatApi, notifications } = extra;
+    try {
+        const chats = await chatApi.getAllChatsByUserId(userId);
+
+        return chats.items;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
@@ -56,4 +119,12 @@ const leaveRoom = createAction(
 
 const clearChatStore = createAction(`${sliceName}/clearChatStore`);
 
-export { clearChatStore, getMessage, joinRoom, leaveRoom, sendMessage };
+export {
+    clearChatStore,
+    createMessage,
+    getAllChatsByUserId,
+    getAllMessages,
+    getAllMessagesByChatId,
+    joinRoom,
+    leaveRoom,
+};
