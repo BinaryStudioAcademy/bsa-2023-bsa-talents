@@ -10,6 +10,7 @@ type FirstSectionDetails = {
     englishLevel: string;
     badges: typeof mockBadges;
     talentHardSkills?: string[];
+    hardSkills?: { id: string; name: string };
     preferredLanguages: string[];
     description: string;
     date: string;

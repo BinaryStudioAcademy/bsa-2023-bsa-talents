@@ -11,6 +11,7 @@ import {
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { type SeacrhCandidateDto } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
@@ -23,7 +24,6 @@ import {
     type FirstSectionDetails,
     type SecondSectionDetails,
     type TalentHardSkill,
-    type UserDetailsGeneralCustom,
 } from '../../../talent-onboarding/types/types.js';
 import styles from './styles.module.scss';
 
@@ -31,7 +31,7 @@ type Properties = {
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
-    candidateData?: UserDetailsGeneralCustom & {
+    candidateData?: SeacrhCandidateDto & {
         email?: string;
     };
 };
@@ -83,7 +83,6 @@ const CandidateProfile: React.FC<Properties> = ({
                 ),
         )
         .map((item) => item.label);
-
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,
         profileName: data.profileName as string,
@@ -95,7 +94,11 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        talentHardSkills: hardskillsLabels,
+        talentHardSkills: isProfileCard
+            ? (data.hardSkills as { id: string; name: string }[]).map(
+                  (item) => item.name,
+              )
+            : hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
     };

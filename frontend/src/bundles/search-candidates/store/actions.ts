@@ -4,11 +4,14 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
-import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
+import {
+    type SeacrhCandidateDto,
+    type UserDetailsSearchUsersRequestDto,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const searchCandidates = createAsyncThunk<
-    UserDetailsGeneralCustom[],
+    SeacrhCandidateDto[],
     UserDetailsSearchUsersRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/search-candidates`, async (filters, { extra }) => {
@@ -25,7 +28,7 @@ const setFilters = createAsyncThunk<
 });
 
 const getCandidateDetails = createAsyncThunk<
-    UserDetailsGeneralCustom | null,
+    SeacrhCandidateDto | null,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(
@@ -34,12 +37,9 @@ const getCandidateDetails = createAsyncThunk<
         const { talentOnBoardingApi } = extra;
 
         try {
-            const userDetails =
-                await talentOnBoardingApi.getUserDetailsByUserId({
-                    userId: findPayload.userId,
-                });
-
-            return userDetails ?? null;
+            return (await talentOnBoardingApi.getUserDetailsByUserId({
+                userId: findPayload.userId,
+            })) as SeacrhCandidateDto;
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',
