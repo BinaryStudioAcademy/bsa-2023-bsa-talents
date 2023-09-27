@@ -52,6 +52,11 @@ import { chatMessagesCreateValidationSchema } from './validation-schemas/validat
  *            type: boolean
  *            description: Indicates whether the message has been read (true) or not (false).
  *            example: true
+ *          createdAt:
+ *            type: string
+ *            format: date-time
+ *            description: The creation time of message
+ *            example: '2023-09-27T12:34:56Z'
  *      ChatResponseDto:
  *        type: object
  *        properties:

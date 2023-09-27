@@ -1,9 +1,11 @@
 import React from 'react';
 
 import {
+    LogoutButton,
     ScrollView,
     StatusBar,
     Text,
+    View,
 } from '~/bundles/common/components/components';
 import { Color, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
@@ -52,12 +54,19 @@ const EmployerOnboarding: React.FC = () => {
                     styles.container,
                 ]}
             >
-                <Text
-                    category={TextCategory.H4}
-                    style={[globalStyles.mb15, styles.title]}
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentSpaceBetween,
+                        globalStyles.alignItemsFlexEnd,
+                        globalStyles.mb15,
+                    ]}
                 >
-                    Create a profile to find a perfect match to your company
-                </Text>
+                    <Text category={TextCategory.H4} style={[styles.title]}>
+                        Create a profile to find a perfect match to your company
+                    </Text>
+                    <LogoutButton />
+                </View>
                 <Text category={TextCategory.H6} style={globalStyles.mb10}>
                     Please, fill out all the fields below, so we could verify
                     your company

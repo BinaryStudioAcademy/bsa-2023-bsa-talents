@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    LogoutButton,
     StatusBar,
     Text,
     VerificationMessage,
@@ -27,14 +28,23 @@ const TalentProfile: React.FC = () => {
                     globalStyles.pv25,
                     globalStyles.pl25,
                     globalStyles.pr10,
-                    styles.header,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
+                    styles.header,
                 ]}
             >
                 <Text category={TextCategory.H3}>Your profile</Text>
-                {!isApproved && <VerificationMessage />}
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentFlexEnd,
+                        globalStyles.alignItemsCenter,
+                    ]}
+                >
+                    {!isApproved && <VerificationMessage />}
+                    <LogoutButton />
+                </View>
             </View>
         </>
     );

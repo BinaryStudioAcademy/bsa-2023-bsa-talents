@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
-import { Button, Text, View } from '~/bundles/common/components/components';
+import {
+    LogoutButton,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
-import { useAppDispatch } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -13,16 +15,11 @@ type Properties = {
 };
 
 const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
-    const dispatch = useAppDispatch();
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <View
             style={[
                 globalStyles.p25,
-                globalStyles.pr15,
+                globalStyles.pr10,
                 globalStyles.flexDirectionRow,
                 globalStyles.justifyContentSpaceBetween,
                 globalStyles.alignItemsCenter,
@@ -52,11 +49,7 @@ const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
                     </Text>
                 )}
             </View>
-            <Button
-                label="Logout"
-                style={[globalStyles.ml5, globalStyles.ph10, globalStyles.pv5]}
-                onPress={handleLogout}
-            />
+            <LogoutButton />
         </View>
     );
 };

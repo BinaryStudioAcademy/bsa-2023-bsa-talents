@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    LogoutButton,
     ScrollView,
     StatusBar,
     Text,
@@ -53,7 +54,7 @@ const EmployerProfile: React.FC = () => {
             <View
                 style={[
                     globalStyles.p25,
-                    globalStyles.pr15,
+                    globalStyles.pr10,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
                     globalStyles.alignItemsCenter,
@@ -61,7 +62,16 @@ const EmployerProfile: React.FC = () => {
                 ]}
             >
                 <Text category={TextCategory.H3}>My profile</Text>
-                {!isApproved && <VerificationMessage />}
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentFlexEnd,
+                        globalStyles.alignItemsCenter,
+                    ]}
+                >
+                    {!isApproved && <VerificationMessage />}
+                    <LogoutButton />
+                </View>
             </View>
 
             <ScrollView
