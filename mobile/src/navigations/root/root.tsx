@@ -21,8 +21,8 @@ import {
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import {
-    CandidateDetails,
-    Candidates,
+    CandidatesFilter,
+    ContactCandidate,
     EmployerOnboarding,
 } from '~/bundles/employer/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
@@ -95,15 +95,15 @@ const Root: React.FC = () => {
                             : EmployerBottomTabNavigator
                     }
                 />
+                <RootStack.Screen
+                    name={RootScreenName.CANDIDATE_FILTER}
+                    component={CandidatesFilter}
+                />
+                <RootStack.Screen
+                    name={RootScreenName.CONTACT_CANDIDATE}
+                    component={ContactCandidate}
+                />
                 <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
-                <RootStack.Screen
-                    name={RootScreenName.CANDIDATES}
-                    component={Candidates}
-                />
-                <RootStack.Screen
-                    name={RootScreenName.CANDIDATE_DETAILS}
-                    component={CandidateDetails}
-                />
             </>
         ),
     };
