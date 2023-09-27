@@ -92,9 +92,21 @@
     gap: 15px;
     height: 100%;
     padding: 0 0 15px;
+}
+
+.scroll {
     overflow: hidden scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--scroll-bar-color) transparent;
+}
+
+.noResults {
+    margin: auto;
+}
+
+.noResultsText {
+    margin: 0 auto;
+    text-align: center;
 }
 
 @media screen and (width <=1120px) {
@@ -130,6 +142,7 @@
     }
 
     .searchResults {
+        min-height: 100%;
         overflow: unset;
     }
 
