@@ -125,7 +125,6 @@ const ChatsPage: React.FC = () => {
         userId: user?.id,
     });
 
-    // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
         (id: string, items: ChatListItemType[]) => {
             isOpenChatList && setIsOpenChatList(false);

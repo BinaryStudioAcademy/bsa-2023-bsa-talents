@@ -7,6 +7,7 @@ import {
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { NO_CHATS, NO_MESSAGES } from '../../constants/constants.js';
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
 
@@ -22,6 +23,7 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             chatMessages: chat.current.messages,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
+            // isLoading: chat.dataStatus
         }),
     );
 
@@ -58,14 +60,14 @@ const MessageList: React.FC<Properties> = ({ className }) => {
     });
 
     useEffect(() => {
-        if (messages.length > 0) {
+        if (messages.length > NO_MESSAGES) {
             autoScrollElement.current?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'end',
             });
         }
     }, [messages.length]);
-    return (
+    return chats.length > NO_CHATS ? (
         <Grid className={getValidClassNames(styles.messageList, className)}>
             {messages.map((message) => (
                 <MessageItem
@@ -78,6 +80,14 @@ const MessageList: React.FC<Properties> = ({ className }) => {
                 </MessageItem>
             ))}
             <div ref={autoScrollElement} className={styles.autoScrollElement} />
+        </Grid>
+    ) : (
+        // !isLoading &&
+        <Grid className={getValidClassNames(styles.messageList, styles.empty)}>
+            <p className={styles.placeholder}>
+                There are no active conversations yet. When employers want to
+                contact you, all chats will be here
+            </p>
         </Grid>
     );
 };
