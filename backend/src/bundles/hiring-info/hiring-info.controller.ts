@@ -73,6 +73,9 @@ class HiringInfoController extends ControllerBase {
         this.addRoute({
             path: HiringInfoApiPath.ROOT,
             method: 'GET',
+            validation: {
+                query: hiringInfoCreateValidationSchema,
+            },
             handler: (options) => {
                 return this.findHiringInfo(
                     options as ApiHandlerOptions<{
