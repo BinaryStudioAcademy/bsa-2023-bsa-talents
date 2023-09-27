@@ -15,15 +15,17 @@ type Properties = {
 
 const ChatItem: React.FC<Properties> = ({
     senderId,
-    senderAvatar,
+    // senderAvatar,
     message,
 }) => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { partners } = useAppSelector(({ chat }) => chat);
     const isEmployer = senderId === currentUserData?.id;
 
     const avatar = (
         <Avatar
-            uri={senderAvatar}
+            // uri={senderAvatar}
+            uri={partners[senderId]}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,
