@@ -22,7 +22,6 @@ import { type RootReducer } from '~/framework/store/store.js';
 import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
-    type LMSProject,
     type SecondSectionDetails,
     type TalentHardSkill,
     type UserDetailsGeneralCustom,
@@ -100,7 +99,7 @@ const CandidateProfile: React.FC<Properties> = ({
         talentHardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
-        lmsProject: reduxData.lmsProject as unknown as LMSProject,
+        lmsProject: reduxData.lmsProject,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,

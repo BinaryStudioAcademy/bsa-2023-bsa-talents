@@ -15,7 +15,7 @@ type FirstSectionDetails = {
     preferredLanguages: string[];
     description: string;
     date: string;
-    lmsProject: LMSProject;
+    lmsProject?: LMSProject;
 };
 
 type SecondSectionDetails = {

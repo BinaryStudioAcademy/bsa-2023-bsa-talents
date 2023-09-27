@@ -36,7 +36,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
     const [isExpanded, setIsExpanded] = useState(true);
 
     const handleLinkClick = useCallback((): void => {
-        if (!candidateParameters.lmsProject.repositoryUrl) {
+        if (!candidateParameters.lmsProject?.repositoryUrl) {
             return;
         }
         window.open(candidateParameters.lmsProject.repositoryUrl, '_blank');
@@ -195,23 +195,23 @@ const ProfileFirstSection: React.FC<Properties> = ({
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
-                        {candidateParameters.lmsProject.name ?? 'Project'}
+                        {candidateParameters.lmsProject?.name ?? 'Project'}
                     </Typography>
                     <Typography
                         variant="body1"
                         className={styles.projectDescription}
                     >
-                        {candidateParameters.lmsProject.details.en ??
+                        {candidateParameters.lmsProject?.details?.en ??
                             'Description...'}
                     </Typography>
 
                     <Link
-                        to={candidateParameters.lmsProject.repositoryUrl ?? ''}
+                        to={candidateParameters.lmsProject?.repositoryUrl ?? ''}
                         className={styles.linkWrapper}
                     >
                         <LinkPreview
                             url={
-                                candidateParameters.lmsProject.repositoryUrl ??
+                                candidateParameters.lmsProject?.repositoryUrl ??
                                 ''
                             }
                         />
@@ -220,7 +220,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     {isFifthStep && candidateParameters.projectLinks && (
                         <Tooltip
                             title={
-                                candidateParameters.lmsProject.repositoryUrl ??
+                                candidateParameters.lmsProject?.repositoryUrl ??
                                 'Broken link'
                             }
                             arrow

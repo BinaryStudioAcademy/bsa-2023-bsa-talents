@@ -3,7 +3,7 @@ type LMSProject = {
     details: {
         en: string | null;
         ua: string | null;
-    };
+    } | null;
     repositoryUrl: string | null;
 };
 
