@@ -64,6 +64,7 @@ const Chat: React.FC = () => {
             <ChatHeader
                 partnerName={partnerName}
                 partnerAvatar={partnerAvatar}
+                partnerId={partnerId}
             />
             <FlatList
                 style={[

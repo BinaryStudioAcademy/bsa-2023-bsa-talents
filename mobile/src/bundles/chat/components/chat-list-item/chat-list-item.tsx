@@ -23,6 +23,7 @@ type Properties = {
 
 const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { partners } = useAppSelector(({ chat }) => chat);
     const { chatId, participants, lastMessage, lastMessageCreatedAt } = item;
 
     const lastMessageTimeDelivery = useRealTimeElapsed(lastMessageCreatedAt);
@@ -36,7 +37,8 @@ const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
 
     const itemAvatar = (
         <Avatar
-            uri={ownerChat.avatarUrl}
+            // uri={ownerChat.avatarUrl}
+            uri={partners[ownerChat.id]}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,

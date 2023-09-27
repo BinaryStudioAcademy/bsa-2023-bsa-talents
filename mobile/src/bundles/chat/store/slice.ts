@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { setPartnerAvatar } from '~/bundles/chat/helpers/helpers';
 import {
     type ChatResponseDto,
     type MessageResponseDto,
@@ -31,6 +32,7 @@ type State = {
               }
             | Record<string, never>;
     };
+    partners: Record<string, string>;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
@@ -48,6 +50,7 @@ const initialState: State = {
             companyWebsite: '',
         },
     },
+    partners: {},
     dataStatus: DataStatus.IDLE,
 };
 
@@ -62,6 +65,7 @@ const { reducer, actions, name } = createSlice({
             action.payload;
             state.current.chatId = null;
             state.current.messages = [];
+            state.partners = {};
         },
         addMessage: (state, action) => {
             const chat = state.chats.find(
@@ -99,11 +103,13 @@ const { reducer, actions, name } = createSlice({
                     companyWebsite: '',
                 },
             };
+            state.partners = {};
         });
         builder
             .addCase(getAllChatsByUserId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
                 state.chats = action.payload;
+                state.partners = setPartnerAvatar(state.chats, state.partners);
             })
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
