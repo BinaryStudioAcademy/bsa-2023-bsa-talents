@@ -1,8 +1,15 @@
 import React from 'react';
 
-import { ChatBackButton } from '~/bundles/chat/components/components';
+import {
+    ChatBackButton,
+    ChatInfoButton,
+} from '~/bundles/chat/components/components';
 import { Avatar, Text, View } from '~/bundles/common/components/components';
-import { PhotoType, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    PhotoType,
+    TextCategory,
+    UserRole,
+} from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -16,7 +23,7 @@ type Properties = {
 
 const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
     const { partners } = useAppSelector(({ chat }) => chat);
-
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
     const avatar = (
         <Avatar
             uri={partners[partnerId]}
@@ -66,6 +73,7 @@ const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
                 {avatar}
                 {headerContent}
             </View>
+            {currentUserData?.role === UserRole.TALENT && <ChatInfoButton />}
             <ChatBackButton />
         </View>
     );

@@ -7,8 +7,18 @@ import {
     TextInput,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    RootScreenName,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
+import { useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type NavigationProp,
+    type RootNavigationParameterList,
+} from '~/bundles/common/types/types';
 
 import { styles } from './styles';
 
@@ -18,6 +28,13 @@ type Properties = {
 };
 
 const SearchTalents: React.FC<Properties> = ({ searchQuery, onSearch }) => {
+    const navigation =
+        useNavigation<NavigationProp<RootNavigationParameterList>>();
+
+    const handlePressFilters = (): void => {
+        navigation.navigate(RootScreenName.CANDIDATE_FILTER);
+    };
+
     return (
         <View
             style={[
@@ -65,6 +82,7 @@ const SearchTalents: React.FC<Properties> = ({ searchQuery, onSearch }) => {
                 />
             </View>
             <Pressable
+                onPress={handlePressFilters}
                 style={[
                     styles.filtersBtn,
                     globalStyles.borderRadius10,

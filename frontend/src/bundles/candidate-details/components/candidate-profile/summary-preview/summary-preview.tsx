@@ -4,7 +4,6 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { PREVIEW_CHAR_LIMIT } from '~/bundles/talent-onboarding/constants/constants.js';
-import { ProfileStepValidationRule } from '~/bundles/talent-onboarding/enums/enums.js';
 
 import styles from './styles.module.scss';
 
@@ -25,8 +24,7 @@ const SummaryPreview: React.FC<Properties> = ({
                 Summary
             </Typography>
 
-            {description.length ===
-            ProfileStepValidationRule.MIN_EXPERIENCE_DESCRIPTION_LENGTH ? (
+            {description.length < PREVIEW_CHAR_LIMIT ? (
                 <Typography variant="body1" className={styles.summaryText}>
                     {description}
                 </Typography>

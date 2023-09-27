@@ -24,6 +24,7 @@ const IconName = {
     SEND: 'send',
     VISIBILITY: 'visibility',
     VISIBILITY_OFF: 'visibility-off',
+    INFORMATION: 'information-outline',
 } as const;
 
 export { IconName };
