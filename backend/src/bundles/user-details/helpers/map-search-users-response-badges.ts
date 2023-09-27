@@ -8,7 +8,7 @@ const mapSearchUsersResponseBadges = (
 ): UserDetailsResponseBadgeDto[] | null => {
     const talentBadges = user.talentBadges.map((badge) => {
         if (badge.badge) {
-            return TalentBadgeEntity.initialize({
+            const basicBadge = TalentBadgeEntity.initialize({
                 id: badge.id,
                 userId: badge.userId,
                 score: badge.score,
@@ -16,14 +16,15 @@ const mapSearchUsersResponseBadges = (
                 badgeId: badge.badgeId,
                 isShown: badge.isShown,
                 userDetailsId: badge.userDetailsId,
-                badge: badge.badge,
             }).toObject();
+
+            return { ...basicBadge, badge: badge.badge };
         }
     });
 
     const formattedBadges = talentBadges.map((item) => {
         if (item) {
-            const itemBSABadge = item.badge?.toObject();
+            const itemBSABadge = item.badge;
             return {
                 id: item.id,
                 userId: item.userId,
@@ -32,9 +33,9 @@ const mapSearchUsersResponseBadges = (
                 badgeId: item.badgeId,
                 isShown: item.isShown,
                 userDetailsId: item.userDetailsId,
-                type: itemBSABadge?.type ?? null,
-                name: itemBSABadge?.name ?? null,
-                maxScore: itemBSABadge?.maxScore ?? null,
+                type: itemBSABadge.type,
+                name: itemBSABadge.name,
+                maxScore: itemBSABadge.maxScore,
             };
         }
     });

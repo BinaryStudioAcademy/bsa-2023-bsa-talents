@@ -52,7 +52,6 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-        badge,
     }: {
         id: string;
         userId: string;
@@ -61,7 +60,6 @@ class TalentBadgeEntity implements Entity {
         badgeId: string;
         isShown: boolean;
         userDetailsId: string | null;
-        badge?: BSABadgeEntity | null;
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
@@ -71,7 +69,6 @@ class TalentBadgeEntity implements Entity {
             badgeId,
             isShown,
             userDetailsId,
-            badge,
         });
     }
 
@@ -109,7 +106,6 @@ class TalentBadgeEntity implements Entity {
         badgeId: string;
         isShown: boolean;
         userDetailsId: string | null;
-        badge?: BSABadgeEntity | null;
     } {
         return {
             id: this.id as string,
