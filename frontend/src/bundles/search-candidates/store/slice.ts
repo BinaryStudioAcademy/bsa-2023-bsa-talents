@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
+import { type SeacrhCandidateDto } from '../types/types.js';
 import {
     getCandidateDetails,
     searchCandidates,
@@ -15,8 +15,8 @@ import {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
-    currentCandidateDetails: UserDetailsGeneralCustom | null;
-    filteredCandidates: UserDetailsGeneralCustom[];
+    currentCandidateDetails: SeacrhCandidateDto | null;
+    filteredCandidates: SeacrhCandidateDto[];
 };
 
 const initialState: State = {
