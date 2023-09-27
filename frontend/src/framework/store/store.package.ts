@@ -8,7 +8,6 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { reducer as appReducer } from '~/app/store/app.js';
-import { adminApi } from '~/bundles/admin-panel/admin.js';
 import { reducer as adminReducer } from '~/bundles/admin-panel/store/admin.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
@@ -28,6 +27,7 @@ import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
+import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -50,7 +50,6 @@ type RootReducer = {
 };
 
 type ExtraArguments = {
-    adminApi: typeof adminApi;
     authApi: typeof authApi;
     chatApi: typeof chatApi;
     fileUploadApi: typeof fileUploadApi;
@@ -60,6 +59,7 @@ type ExtraArguments = {
     storage: typeof storage;
     hardSkillsApi: typeof hardSkillsApi;
     bsaBadgesApi: typeof bsaBadgesApi;
+    userDetailsApi: typeof userDetailsApi;
 };
 
 const combinedReducer = combineReducers({
@@ -115,7 +115,6 @@ class Store {
 
     public get extraArguments(): ExtraArguments {
         return {
-            adminApi,
             authApi,
             chatApi,
             fileUploadApi,
@@ -125,6 +124,7 @@ class Store {
             storage,
             hardSkillsApi,
             bsaBadgesApi,
+            userDetailsApi,
         };
     }
 }

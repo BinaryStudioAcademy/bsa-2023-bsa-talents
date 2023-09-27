@@ -16,9 +16,9 @@ const getShortUserDetails = createAsyncThunk<
     },
     AsyncThunkConfig
 >(`${sliceName}/get-short-details`, (payload, { extra }) => {
-    const { adminApi } = extra;
+    const { userDetailsApi } = extra;
 
-    return adminApi.getShortUserDetailsByRole(payload);
+    return userDetailsApi.getShortUserDetailsByRole(payload);
 });
 
 const getFullUserDetails = createAsyncThunk<
@@ -26,9 +26,9 @@ const getFullUserDetails = createAsyncThunk<
     Partial<UserDetailsFullResponseDto>,
     AsyncThunkConfig
 >(`${sliceName}/get-full-details`, (payload, { extra }) => {
-    const { adminApi } = extra;
+    const { userDetailsApi } = extra;
 
-    return adminApi.getFullUserDetailsById(payload);
+    return userDetailsApi.getFullUserDetailsById(payload);
 });
 
 const approveUser = createAsyncThunk<
@@ -38,9 +38,9 @@ const approveUser = createAsyncThunk<
     },
     AsyncThunkConfig
 >(`${sliceName}/approve`, async (payload, { extra }) => {
-    const { adminApi } = extra;
+    const { userDetailsApi } = extra;
 
-    const response = await adminApi.approve(payload);
+    const response = await userDetailsApi.approve(payload);
     return response ? payload : response;
 });
 
@@ -52,9 +52,9 @@ const denyUser = createAsyncThunk<
     },
     AsyncThunkConfig
 >(`${sliceName}/deny`, async (payload, { extra }) => {
-    const { adminApi } = extra;
+    const { userDetailsApi } = extra;
 
-    const response = await adminApi.deny(payload);
+    const response = await userDetailsApi.deny(payload);
     return response ? payload : response;
 });
 

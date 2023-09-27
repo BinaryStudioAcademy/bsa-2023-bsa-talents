@@ -74,6 +74,7 @@ class UserDetailsRepository implements Repository {
             .where('user.role', role)
             .andWhere('isApproved', false)
             .whereNotNull('publishedAt')
+            .whereNull('deniedReason')
             .select('user_id', 'photo.url as photoUrl', 'full_name')
             .execute();
     }
