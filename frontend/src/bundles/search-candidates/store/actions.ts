@@ -26,13 +26,22 @@ const setFilters = createAsyncThunk<
 
 const getCandidateDetails = createAsyncThunk<
     UserDetailsGeneralCustom | null,
-    UserDetailsGeneralCustom,
+    {
+        userId: string;
+    },
     AsyncThunkConfig
 >(
     `${sliceName}/get-candidate-details`,
-    async (findPayload, { extra, rejectWithValue }) => {
+    async (findPayload, { extra, rejectWithValue, getState }) => {
+        const { searchCandidates } = getState();
         const { talentOnBoardingApi } = extra;
-
+        if (searchCandidates.filteredCandidates.length > 0) {
+            return (
+                searchCandidates.filteredCandidates.find(
+                    (candidate) => candidate.userId == findPayload.userId,
+                ) ?? null
+            );
+        }
         try {
             const userDetails =
                 await talentOnBoardingApi.getUserDetailsByUserId({

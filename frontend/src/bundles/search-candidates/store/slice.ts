@@ -42,11 +42,14 @@ const { reducer, actions, name } = createSlice({
             state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(getCandidateDetails.fulfilled, (state, action) => {
-            state.currentCandidateDetails = {
-                ...action.payload,
-                hasSharedContacts:
-                    state.currentCandidateDetails?.hasSharedContacts ?? false,
-            };
+            if (action.payload) {
+                state.currentCandidateDetails = {
+                    ...action.payload,
+                    hasSharedContacts:
+                        state.currentCandidateDetails?.hasSharedContacts ??
+                        false,
+                };
+            }
         });
 
         builder.addCase(searchCandidates.pending, (state) => {

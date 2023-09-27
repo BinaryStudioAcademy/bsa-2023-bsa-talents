@@ -26,7 +26,7 @@ const CandidatePage: React.FC = () => {
         if (userId !== candidateDetails?.userId) {
             void dispatch(
                 candidateSearchActions.getCandidateDetails({
-                    userId,
+                    userId: userId ?? '',
                 }),
             );
             void dispatch(
