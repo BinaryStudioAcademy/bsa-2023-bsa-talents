@@ -23,6 +23,7 @@ export { Selector } from './selector/selector';
 export { Slider } from './slider/slider';
 export { Switch } from './switch/switch';
 export { Tag } from './tag/tag';
+export { TalentInfoDetails } from './talent-info-details/talent-info-details';
 export { Text } from './text/text';
 export { VerificationMessage } from './verification-message/verification-message';
 export { default as CheckBox } from '@react-native-community/checkbox';
