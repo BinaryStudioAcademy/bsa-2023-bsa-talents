@@ -1,36 +1,27 @@
 import React from 'react';
+import { type SkillsStepDto } from 'shared/build/bundles/talent-onboarding/types/skills-step/skills-step-dto';
 
 import { Loader, View } from '~/bundles/common/components/components';
-import {
-    DataStatus,
-    type TalentOnboardingScreenName,
-    TalentOnboardingScreenNumber,
-} from '~/bundles/common/enums/enums';
-import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
-import { globalStyles } from '~/bundles/common/styles/styles';
-import { type ValueOf } from '~/bundles/common/types/types';
-import {
-    NewAccountHeader,
-    SkillsFormData,
-} from '~/bundles/talent/components/components';
+import { DataStatus } from '~/bundles/common/enums/enums';
+import { useAppDispatch } from '~/bundles/common/hooks/hooks';
+import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
+import { updateOnboardingData } from '~/bundles/common/store/actions';
+import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
+import { SkillsFormData } from '~/bundles/talent/components/skills-form-data/skills-form-data';
 import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
 import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
-import { stringsToUrlObjects } from '~/bundles/talent/helpers/helpers';
-import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
-import { type SkillsStepDto } from '~/bundles/talent/types/types';
+import {
+    stringsToUrlObjects,
+    urlObjectsToStrings,
+} from '~/bundles/talent/helpers/manage-projects-links/manage-projects-links';
+import { SKILLS_AND_PROJECTS_DEFAULT_VALUES } from '~/bundles/talent/screens/skills-and-projects/constants/constants';
 import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { SKILLS_AND_PROJECTS_DEFAULT_VALUES } from './constants/constants';
-
-const SkillsAndProjects: React.FC = () => {
-    const { name } = useAppRoute();
+const ProfileScreenSkills: React.FC = () => {
     const { onboardingData, dataStatus } = useAppSelector(
         ({ common }) => common,
     );
-    const commonDataStatus = useAppSelector(
-        ({ commonData }) => commonData.dataStatus,
-    );
-
+    const dispatch = useAppDispatch();
     const skillsStepData: SkillsStepDto | null = onboardingData
         ? {
               hardSkills: onboardingData.hardSkills ?? [],
@@ -41,22 +32,21 @@ const SkillsAndProjects: React.FC = () => {
           }
         : null;
 
-    const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
-    const stepNumber = TalentOnboardingScreenNumber[stepTitle];
-
-    const handleSubmit = useOnboardingFormSubmit({ stepTitle, stepNumber });
-
     const handleSkillsSubmit = (payload: SkillsStepDto): void => {
-        void handleSubmit(payload);
+        const updatedProjectLinks = urlObjectsToStrings(payload.projectLinks);
+        void dispatch(
+            updateOnboardingData({
+                ...payload,
+                projectLinks: updatedProjectLinks,
+                userId: onboardingData?.userId,
+            }),
+        );
     };
 
-    const isDataLoading =
-        dataStatus === DataStatus.PENDING ||
-        commonDataStatus === DataStatus.PENDING;
+    const isDataLoading = dataStatus === DataStatus.PENDING;
 
     return (
         <View style={globalStyles.flex1}>
-            <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
             {isDataLoading ? (
                 <Loader />
             ) : (
@@ -65,13 +55,13 @@ const SkillsAndProjects: React.FC = () => {
                     value={skillsStepData}
                     onSubmit={handleSkillsSubmit}
                     validationSchema={skillsStepValidationSchema}
-                    formType={TalentFormType.ONBOARDING}
+                    formType={TalentFormType.PROFILE_SCREEN}
                     renderedForm={SkillsFormData}
-                    currentStep={stepNumber}
+                    isFormEditable={false}
                 />
             )}
         </View>
     );
 };
 
-export { SkillsAndProjects };
+export { ProfileScreenSkills };

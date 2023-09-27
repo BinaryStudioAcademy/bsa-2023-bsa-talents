@@ -1,62 +1,46 @@
 import React from 'react';
 
 import {
-    Button,
     FilePicker,
     FormField,
     Input,
     PhotoPicker,
-    ScrollView,
-    Text,
-    View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { OnboardingBackButton } from '~/bundles/talent/components/components';
+import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
-import { cvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
-    cvAndContactsStepData: CvAndContactsFormDto | null;
-    onSubmit: (payload: CvAndContactsFormDto) => void;
-    currentStep: number;
+    control: Control<CvAndContactsFormDto>;
+    errors: FieldErrors<CvAndContactsFormDto>;
+    isEditable: boolean;
 };
 
-const CVAndContactsForm: React.FC<Properties> = ({
-    cvAndContactsStepData,
-    onSubmit,
-    currentStep,
+const ContactsFormData: React.FC<Properties> = ({
+    control,
+    errors,
+    isEditable,
 }) => {
-    const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: cvAndContactsStepData ?? CV_AND_CONTACTS_DEFAULT_VALUES,
-        validationSchema: cvAndContactsFormValidationSchema,
-    });
-
-    const handleFormSubmit = useCallback((): void => {
-        void handleSubmit(onSubmit)();
-    }, [handleSubmit, onSubmit]);
-
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-            showsVerticalScrollIndicator={false}
-        >
+        <>
             <FormField
                 errorMessage={errors.photo && 'Photo is required'}
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <PhotoPicker control={control} name="photo" />
+                <PhotoPicker
+                    shouldHideButton={!isEditable}
+                    control={control}
+                    name="photo"
+                />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}
                 label="Full name"
                 name="fullName"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -69,7 +53,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 errorMessage={errors.phone?.message}
                 label="Phone number"
                 name="phone"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -83,7 +67,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 errorMessage={errors.linkedinLink?.message}
                 label="Linkedin profile"
                 name="linkedinLink"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -97,7 +81,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 errorMessage={errors.cv && 'CV is required'}
                 label="CV"
                 name="cv"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <FilePicker
@@ -107,25 +91,8 @@ const CVAndContactsForm: React.FC<Properties> = ({
                     style={[globalStyles.borderRadius5, styles.buttonContainer]}
                 />
             </FormField>
-            <View
-                style={[
-                    globalStyles.p15,
-                    globalStyles.mb25,
-                    globalStyles.borderRadius5,
-                    styles.captionContainer,
-                ]}
-            >
-                <Text category={TextCategory.CAPTION}>
-                    Job search is anonymous. This information will be seen only
-                    in case you share it.
-                </Text>
-            </View>
-            <View style={globalStyles.flexDirectionRow}>
-                <OnboardingBackButton currentStep={currentStep} />
-                <Button label="Next" onPress={handleFormSubmit} />
-            </View>
-        </ScrollView>
+        </>
     );
 };
 
-export { CVAndContactsForm };
+export { ContactsFormData };

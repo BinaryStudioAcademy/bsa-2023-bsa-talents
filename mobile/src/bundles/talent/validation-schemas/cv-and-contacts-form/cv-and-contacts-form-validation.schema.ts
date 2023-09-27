@@ -6,7 +6,7 @@ import {
 } from '~/bundles/talent/enums/enums';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 
-const CvAndContactsFormValidationSchema = joi.object<
+const cvAndContactsFormValidationSchema = joi.object<
     CvAndContactsFormDto,
     true
 >({
@@ -60,4 +60,4 @@ const CvAndContactsFormValidationSchema = joi.object<
     cv: joi.object().required(),
 });
 
-export { CvAndContactsFormValidationSchema };
+export { cvAndContactsFormValidationSchema };

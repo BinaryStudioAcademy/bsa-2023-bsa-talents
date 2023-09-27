@@ -1,69 +1,46 @@
 import React from 'react';
+import { type ProfileStepDto } from 'shared/build/bundles/talent-onboarding/types/profile-step/profile-step-dto';
 
 import {
     AutocompleteSelector,
-    Button,
     CheckboxGroup,
     FormField,
     Input,
-    ScrollView,
     Selector,
     Slider,
-    View,
 } from '~/bundles/common/components/components';
-import {
-    useAppForm,
-    useCallback,
-    useEffect,
-} from '~/bundles/common/hooks/hooks';
+import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
-import { type ProfileStepDto } from '~/bundles/talent/types/types';
-import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
-    TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
-import { styles } from './styles';
 
 type Properties = {
-    profileStepData: ProfileStepDto | null;
-    onSubmit: (payload: ProfileStepDto) => void;
+    control: Control<ProfileStepDto>;
+    errors: FieldErrors<ProfileStepDto>;
+    isEditable: boolean;
 };
-
-const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
-    const { control, errors, handleSubmit, reset } = useAppForm({
-        defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
-        validationSchema: profileStepValidationSchema,
-    });
-
-    useEffect(() => {
-        profileStepData && reset(profileStepData);
-    }, [profileStepData, reset]);
-
-    const handleFormSubmit = useCallback(() => {
-        void handleSubmit((data) => {
-            onSubmit({
-                ...data,
-                salaryExpectation: +data.salaryExpectation,
-            });
-        })();
-    }, [handleSubmit, onSubmit]);
+const ProfileFormData: React.FC<Properties> = ({
+    control,
+    errors,
+    isEditable,
+}) => {
+    const { field } = useFormController({ name: 'salaryExpectation', control });
+    const { value: salaryExpectation } = field;
 
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-            showsVerticalScrollIndicator={false}
-        >
+        <>
             <FormField
                 errorMessage={errors.profileName?.message}
                 label="Profile name"
                 name="profileName"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -76,7 +53,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 errorMessage={errors.salaryExpectation?.message}
                 label="Salary expectations"
                 name="salaryExpectation"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -85,7 +62,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
-                    defaultValue={profileStepData?.salaryExpectation.toString()}
+                    defaultValue={salaryExpectation.toString()}
                     value={undefined}
                 />
             </FormField>
@@ -93,7 +70,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 errorMessage={errors.jobTitle?.message}
                 label="Job title"
                 name="jobTitle"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
@@ -101,13 +78,14 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
             <FormField
                 errorMessage={errors.experienceYears?.message}
                 label="Experience"
                 name="experienceYears"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Slider
@@ -127,7 +105,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 errorMessage={errors.location?.message}
                 label="Current location"
                 name="location"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <AutocompleteSelector
@@ -135,13 +113,14 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     name="location"
                     items={LOCATION_OPTIONS}
                     placeholder="Option"
+                    isIconShown={isEditable}
                 />
             </FormField>
             <FormField
                 errorMessage={errors.employmentType?.message}
                 label="Employment type"
                 name="employmentType"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <CheckboxGroup
@@ -154,7 +133,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 errorMessage={errors.description?.message}
                 label="Introduce yourself"
                 name="description"
-                required
+                required={isEditable}
                 containerStyle={globalStyles.pb25}
             >
                 <Input
@@ -165,11 +144,8 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                     multiline={true}
                 />
             </FormField>
-            <View style={globalStyles.flexDirectionRow}>
-                <Button label="Next" onPress={handleFormSubmit} />
-            </View>
-        </ScrollView>
+        </>
     );
 };
 
-export { ProfileForm };
+export { ProfileFormData };
