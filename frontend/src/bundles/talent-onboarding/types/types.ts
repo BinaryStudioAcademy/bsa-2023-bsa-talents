@@ -7,6 +7,7 @@ export { type UserDetailsGeneralCustom } from './general-update-user-details-req
 export {
     type BsaBadgesStepDto,
     type FileUploadResponse,
+    type LMSProject,
     type ProfileStepDto,
     type SkillsStepDto,
 } from 'shared/build/index.js';

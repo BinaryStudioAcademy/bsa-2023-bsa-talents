@@ -89,7 +89,7 @@ const LinkPreview: React.FC<Properties> = ({ url, withHeader = false }) => {
                 ) : (
                     <Grid container item className={styles.imagePlaceholder}>
                         <Typography variant="h3" className={styles.notFound}>
-                            Image not found
+                            Something went wrong...
                         </Typography>
                     </Grid>
                 )}

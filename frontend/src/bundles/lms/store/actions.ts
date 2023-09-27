@@ -3,19 +3,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { type UserLMSDataDto } from '../types/types.js';
-import { name as sliceName } from './slice.js';
 
 const getTalentLmsData = createAsyncThunk<
     UserLMSDataDto | null,
-    UserLMSDataDto,
+    { userId: string },
     AsyncThunkConfig
->(`${sliceName}/lms-data`, async (payload, { extra, rejectWithValue }) => {
-    const { userDetailsApi } = extra;
+>('lms/lms-data', async (payload, { extra, rejectWithValue }) => {
+    const { usersApi } = extra;
 
     try {
-        const lmsData = await userDetailsApi.getTalentLmsDataById(
-            payload.userId,
-        );
+        const lmsData = await usersApi.getTalentLmsDataById(payload.userId);
 
         return lmsData ?? null;
     } catch (error) {

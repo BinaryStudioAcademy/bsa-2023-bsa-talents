@@ -53,8 +53,12 @@
 .imagePlaceholder {
     justify-content: center;
     align-items: center;
+    min-width: clamp(240px, 50vw, 600px);
     min-height: clamp(120px, 40vw, 300px);
-    background-color: #c7c3cc;
+    color: #000000;
+    background-color: #ffffff6c;
+    border: 1px solid #b4b8bd;
+    border-radius: 10px;
 
     & .notFound {
         font-size: clamp(

@@ -1,5 +1,7 @@
 import { type mockBadges } from '~/assets/mock-data/mock-data.js';
 
+import { type LMSProject } from '../types.js';
+
 type FirstSectionDetails = {
     userId: string;
     profileName: string;
@@ -13,6 +15,7 @@ type FirstSectionDetails = {
     preferredLanguages: string[];
     description: string;
     date: string;
+    lmsProject: LMSProject;
 };
 
 type SecondSectionDetails = {

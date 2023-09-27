@@ -11,6 +11,7 @@ import {
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
@@ -21,6 +22,7 @@ import { type RootReducer } from '~/framework/store/store.js';
 import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
+    type LMSProject,
     type SecondSectionDetails,
     type TalentHardSkill,
     type UserDetailsGeneralCustom,
@@ -58,21 +60,17 @@ const CandidateProfile: React.FC<Properties> = ({
     const { hardSkillsOptions } = useCommonData();
     const dispatch = useAppDispatch();
 
-    // const dispatch = useAppDispatch();
-    // TODO: lms data
-    // const { lmsData } = useAppSelector((state: RootReducer) => state.lms);
-
     useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
+        const userId = currentUser?.id as string;
+
+        void dispatch(talentActions.getTalentDetails({ userId }));
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
     }, [currentUser?.id, dispatch]);
 
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
+        lmsProject: state.lms.lmsData?.project,
     }));
 
     const data = candidateData ?? reduxData;
@@ -102,6 +100,7 @@ const CandidateProfile: React.FC<Properties> = ({
         talentHardSkills: hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
+        lmsProject: reduxData.lmsProject as unknown as LMSProject,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
