@@ -64,6 +64,7 @@ const MessageEntryField: React.FC<Properties> = ({
                 style={[
                     globalStyles.flex1,
                     globalStyles.ph15,
+                    globalStyles.Input,
                     styles.textEntryField,
                 ]}
             />
