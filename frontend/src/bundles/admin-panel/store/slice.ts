@@ -36,6 +36,9 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(getFullUserDetails.fulfilled, (state, action) => {
             state.fullDetails = action.payload;
         });
+        builder.addCase(getAllHiringInfo.fulfilled, (state, action) => {
+            state.hiringInfo = action.payload;
+        });
         builder.addMatcher(
             isAnyOf(approveUser.fulfilled, denyUser.fulfilled),
             (state, action) => {
@@ -47,9 +50,6 @@ const { reducer, actions, name } = createSlice({
                 state.fullDetails = null;
             },
         );
-        builder.addCase(getAllHiringInfo.fulfilled, (state, action) => {
-            state.hiringInfo = action.payload;
-        });
     },
 });
 
