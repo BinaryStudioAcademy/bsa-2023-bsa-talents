@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { type UserFindResponseDto } from 'shared/build/index';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -7,18 +8,20 @@ import {
     type FormattedHardSkills,
 } from '~/bundles/common-data/types/types';
 
-import { getBadgesData, getHardSkillsData } from './actions';
+import { getBadgesData, getHardSkillsData, loadAllPartners } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     badgesData: BadgesResponseDto | null;
     hardSkillsData: FormattedHardSkills | null;
+    partners: UserFindResponseDto[] | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     badgesData: null,
     hardSkillsData: null,
+    partners: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -26,6 +29,20 @@ const { reducer, actions, name } = createSlice({
     name: 'common-data',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(loadAllPartners.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+            state.partners = null;
+        });
+        builder.addCase(loadAllPartners.fulfilled, (state, { payload }) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.partners = payload.items.filter(
+                (partner) => partner.role === 'talent',
+            );
+        });
+        builder.addCase(loadAllPartners.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.partners = null;
+        });
         builder.addCase(getBadgesData.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
             state.badgesData = null;
