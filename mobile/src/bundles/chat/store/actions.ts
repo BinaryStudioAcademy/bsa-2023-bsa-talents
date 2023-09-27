@@ -3,6 +3,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
     type ChatMessagesCreateRequestDto,
     type ChatResponseDto,
+    type CurrentChat,
     type MessageResponseDto,
 } from '~/bundles/chat/types/types';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
@@ -50,18 +51,7 @@ const getAllMessages = createAsyncThunk<
 });
 
 const getAllMessagesByChatId = createAsyncThunk<
-    {
-        chatId: string;
-        messages: MessageResponseDto[];
-        employerDetails: {
-            logoUrl: string;
-            companyName: string;
-            employerName: string;
-            employerPosition: string;
-            about: string;
-            companyWebsite: string;
-        };
-    },
+    CurrentChat,
     { chatId: string; employerId: string },
     AsyncThunkConfig
 >(

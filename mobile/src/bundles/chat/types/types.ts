@@ -1,3 +1,5 @@
+export { type CurrentChat } from './current-chat-type';
+export { type EmployerDetails } from './employer-details-type';
 export {
     type ChatListItemType,
     type ChatMessagesCreateRequestDto,

@@ -9,22 +9,17 @@ import { styles } from './styles';
 
 type Properties = {
     senderId: string;
-    senderAvatar: string;
+    senderAvatar?: string;
     message: string;
 };
 
-const ChatItem: React.FC<Properties> = ({
-    senderId,
-    // senderAvatar,
-    message,
-}) => {
+const ChatItem: React.FC<Properties> = ({ senderId, message }) => {
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { partners } = useAppSelector(({ chat }) => chat);
     const isEmployer = senderId === currentUserData?.id;
 
     const avatar = (
         <Avatar
-            // uri={senderAvatar}
             uri={partners[senderId]}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{

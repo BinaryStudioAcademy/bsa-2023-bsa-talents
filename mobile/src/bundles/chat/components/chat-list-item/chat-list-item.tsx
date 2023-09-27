@@ -37,7 +37,6 @@ const ChatListItem: React.FC<Properties> = ({ item, onSelect }) => {
 
     const itemAvatar = (
         <Avatar
-            // uri={ownerChat.avatarUrl}
             uri={partners[ownerChat.id]}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{

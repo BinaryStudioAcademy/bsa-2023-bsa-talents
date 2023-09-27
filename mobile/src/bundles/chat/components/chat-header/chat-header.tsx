@@ -10,20 +10,15 @@ import { styles } from './styles';
 
 type Properties = {
     partnerName: string;
-    partnerAvatar: string;
+    partnerAvatar?: string;
     partnerId: string;
 };
 
-const ChatHeader: React.FC<Properties> = ({
-    partnerName,
-    // partnerAvatar,
-    partnerId,
-}) => {
+const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
     const { partners } = useAppSelector(({ chat }) => chat);
 
     const avatar = (
         <Avatar
-            // uri={partnerAvatar}
             uri={partners[partnerId]}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{

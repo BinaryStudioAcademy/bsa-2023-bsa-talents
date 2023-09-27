@@ -3,7 +3,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { setPartnerAvatar } from '~/bundles/chat/helpers/helpers';
 import {
     type ChatResponseDto,
-    type MessageResponseDto,
+    type CurrentChat,
 } from '~/bundles/chat/types/types';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
@@ -18,20 +18,7 @@ import {
 
 type State = {
     chats: ChatResponseDto[];
-    current: {
-        chatId: string | null;
-        messages: MessageResponseDto[];
-        employerDetails:
-            | {
-                  logoUrl: string | null;
-                  companyName: string | null;
-                  employerName: string | null;
-                  employerPosition: string | null;
-                  about: string | null;
-                  companyWebsite: string | null;
-              }
-            | Record<string, never>;
-    };
+    current: CurrentChat;
     partners: Record<string, string>;
     dataStatus: ValueOf<typeof DataStatus>;
 };
@@ -114,7 +101,7 @@ const { reducer, actions, name } = createSlice({
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
                 state.current.chatId = action.payload.chatId;
-                state.current.messages = action.payload.messages;
+                state.current.messages = action.payload.messages.reverse();
 
                 state.current.employerDetails = action.payload.employerDetails;
             })
