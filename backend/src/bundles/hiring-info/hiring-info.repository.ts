@@ -4,7 +4,10 @@ import { type Repository } from '~/common/types/types.js';
 
 import { HiringInfoEntity } from './hiring-info.entity.js';
 import { type HiringInfoModel } from './hiring-info.model.js';
-import { type HiringInfoCreateRequestDto } from './types/types.js';
+import {
+    type HiringInfoCreateRequestDto,
+    type HiringInfoFindRequestDto,
+} from './types/types.js';
 
 class HiringInfoRepository implements Repository {
     private hiringInfoModel: typeof HiringInfoModel;
@@ -13,8 +16,24 @@ class HiringInfoRepository implements Repository {
         this.hiringInfoModel = hiringInfoModel;
     }
 
-    public find(): Promise<HiringInfoEntity | null> {
-        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
+    public async find(
+        payload: HiringInfoFindRequestDto,
+    ): Promise<HiringInfoEntity | null> {
+        const hiringInfo = await this.hiringInfoModel.query().findOne({
+            talentId: payload.talentId,
+            companyId: payload.companyId,
+        });
+
+        if (!hiringInfo) {
+            return null;
+        }
+
+        return HiringInfoEntity.initialize({
+            id: hiringInfo.id,
+            talentId: hiringInfo.talentId,
+            companyId: hiringInfo.companyId,
+            hiredTime: hiringInfo.hiredTime,
+        });
     }
 
     public async findAll(): Promise<HiringInfoEntity[]> {
@@ -49,7 +68,8 @@ class HiringInfoRepository implements Repository {
         const details = await this.hiringInfoModel
             .query()
             .insert({
-                ...payload,
+                talentId: payload.talentId,
+                companyId: payload.companyId,
             })
             .returning('*')
             .execute();

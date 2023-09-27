@@ -3,6 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getContactWithTalent } from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    getHiringInfo,
+    submitHiringInfo,
+} from '~/bundles/hiring-info/store/actions.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
@@ -19,6 +23,7 @@ type State = {
     currentCandidateDetails:
         | (SeacrhCandidateDto & {
               hasSharedContacts: boolean;
+              isHired: boolean;
           })
         | null;
     filteredCandidates: SeacrhCandidateDto[];
@@ -34,7 +39,11 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'searchCandidates',
-    reducers: {},
+    reducers: {
+        clearCurrentCandidate: (state) => {
+            state.currentCandidateDetails = null;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
@@ -45,6 +54,7 @@ const { reducer, actions, name } = createSlice({
             if (action.payload) {
                 state.currentCandidateDetails = {
                     ...action.payload,
+                    isHired: state.currentCandidateDetails?.isHired ?? false,
                     hasSharedContacts:
                         state.currentCandidateDetails?.hasSharedContacts ??
                         false,
@@ -66,6 +76,16 @@ const { reducer, actions, name } = createSlice({
             if (state.currentCandidateDetails) {
                 state.currentCandidateDetails.hasSharedContacts =
                     action.payload;
+            }
+        });
+        builder.addCase(getHiringInfo.fulfilled, (state, action) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.isHired = action.payload;
+            }
+        });
+        builder.addCase(submitHiringInfo.fulfilled, (state) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.isHired = true;
             }
         });
     },

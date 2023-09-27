@@ -95,6 +95,10 @@ const Candidates: React.FC = () => {
         }
     }, [debouncedDispatch, dispatch, filters, getValues, watchedValues]);
 
+    useEffect(() => {
+        void dispatch(searchCandidatesActions.clearCurrentCandidate());
+    }, [dispatch]);
+
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
