@@ -39,7 +39,9 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     }, [dispatch, navigate]);
 
     const role = useAppSelector((state) => state.auth.currentUser?.role);
+
     const isAdmin = role === 'admin';
+
     const handleCheckProfile = useCallback((): void => {
         navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);

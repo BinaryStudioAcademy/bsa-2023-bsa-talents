@@ -40,6 +40,7 @@ type UserDetailsProperties = {
     completedStep: ValueOf<typeof OnboardingStep> | null;
     createdAt: string | null;
     email?: string | null;
+    publishedAt: string | null;
 };
 
 export { type UserDetailsProperties };
