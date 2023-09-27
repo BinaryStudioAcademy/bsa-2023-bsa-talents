@@ -1,5 +1,4 @@
 .container {
-    display: flex;
     flex-flow: row nowrap;
     gap: 42px;
     margin-bottom: var(--tabs-container-margin-bottom);
@@ -31,7 +30,7 @@
 
     & .valueLink {
         align-items: flex-start;
-        width: 48%;
+        width: 42%;
         color: var(--st-tropaz);
         font-weight: 500;
         font-size: 13px;
@@ -43,7 +42,6 @@
 .labelsInfo {
     align-items: center;
     gap: 29px;
-    font-size: 13px;
 }
 
 .bsaBadges {
@@ -66,10 +64,6 @@
 .companyLogo {
     width: 130px;
     height: 130px;
-}
-
-.companyName {
-    margin-left: 10px;
 }
 
 @media screen and (width <=1100px) {
