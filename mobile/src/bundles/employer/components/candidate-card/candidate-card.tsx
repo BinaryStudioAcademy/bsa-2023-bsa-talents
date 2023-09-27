@@ -9,14 +9,14 @@ import {
 } from '~/bundles/common/components/components';
 import {
     BadgeSize,
-    RootScreenName,
+    EmployerBottomTabScreenName,
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { useNavigation } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
+    type EmployerBottomTabNavigationParameterList,
     type NavigationProp,
-    type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import {
@@ -43,10 +43,15 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
 
     const { badgesData, hardSkillsData } = useCommonData();
     const navigation =
-        useNavigation<NavigationProp<RootNavigationParameterList>>();
+        useNavigation<
+            NavigationProp<EmployerBottomTabNavigationParameterList>
+        >();
 
     const handleUserSelect = (): void => {
-        navigation.navigate(RootScreenName.CANDIDATE_DETAILS, candidateInfo);
+        navigation.navigate(
+            EmployerBottomTabScreenName.CANDIDATE_DETAILS,
+            candidateInfo,
+        );
     };
 
     if (!badgesData || !hardSkillsData) {
