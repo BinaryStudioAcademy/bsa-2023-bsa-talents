@@ -8,8 +8,12 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -97,7 +101,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                         >
                             <MaterialIcon
                                 name={IconName.ARROW_DROP_DOWN}
-                                size={ICON_SIZE}
+                                size={IconSize.GENERAL}
                                 color={Color.PRIMARY}
                             />
                         </Animated.View>

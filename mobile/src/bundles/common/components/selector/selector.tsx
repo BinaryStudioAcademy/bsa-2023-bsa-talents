@@ -8,8 +8,12 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useCallback,
     useFormController,
@@ -101,7 +105,7 @@ const Selector = <T extends FieldValues>({
                 <Animated.View style={iconAnimatedStyle}>
                     <MaterialIcon
                         name={IconName.ARROW_DROP_DOWN}
-                        size={ICON_SIZE}
+                        size={IconSize.GENERAL}
                         color={Color.PRIMARY}
                     />
                 </Animated.View>
