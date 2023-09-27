@@ -21,11 +21,9 @@ import {
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
-import {
-    EmployerBottomTabNavigator,
-    TalentBottomTabNavigator,
-} from '~/navigations/bottom-tab-navigator/bottom-tab-navigator';
 import { TalentOnboardingNavigator } from '~/navigations/onboarding-navigator/onboarding-navigator';
+
+import { ChatNavigator } from '../chat-navigator/chat-navigator';
 
 const RootStack = createNativeStackNavigator<RootNavigationParameterList>();
 
@@ -81,16 +79,10 @@ const Root: React.FC = () => {
             />
         ),
         main: (
-            <>
-                <RootStack.Screen
-                    name={RootScreenName.MAIN_ROOT_ROUTE}
-                    component={
-                        role === UserRole.TALENT
-                            ? TalentBottomTabNavigator
-                            : EmployerBottomTabNavigator
-                    }
-                />
-            </>
+            <RootStack.Screen
+                name={RootScreenName.MAIN_ROOT_ROUTE}
+                component={ChatNavigator}
+            />
         ),
     };
 

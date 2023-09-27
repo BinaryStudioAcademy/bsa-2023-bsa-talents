@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ChatList } from '~/bundles/chat/screens/screens';
 import { MaterialIcon } from '~/bundles/common/components/components';
 import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import {
@@ -14,8 +15,8 @@ import {
     EmployerProfile,
 } from '~/bundles/employer/screens/screens';
 import { notifications } from '~/framework/notifications/notifications';
-import { ChatNavigator } from '~/navigations/chat-navigator/chat-navigator';
 
+// import { ChatNavigator } from '~/navigations/chat-navigator/chat-navigator';
 import { bottomTabStyles } from '../styles';
 
 const BottomTab =
@@ -55,7 +56,7 @@ const EmployerBottomTabNavigator: React.FC = () => {
             />
             <BottomTab.Screen
                 name={EmployerBottomTabScreenName.MAIL}
-                component={ChatNavigator}
+                component={ChatList}
                 options={{
                     tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
