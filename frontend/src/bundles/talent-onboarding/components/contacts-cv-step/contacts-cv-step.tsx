@@ -1,4 +1,7 @@
-import { Add as PlusIcon } from '@mui/icons-material';
+import {
+    AccountCircle as AccountCircleIcon,
+    Add as PlusIcon,
+} from '@mui/icons-material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
@@ -262,14 +265,17 @@ const ContactsCVStep: React.FC = () => {
     return (
         <>
             <Grid container className={styles.photo}>
-                <Grid
-                    item
-                    className={styles.photoWrapper}
-                    style={{
-                        backgroundImage: `url(${photoURL})`,
-                    }}
-                ></Grid>
-
+                {photoURL ? (
+                    <Grid
+                        item
+                        className={styles.photoWrapper}
+                        style={{
+                            backgroundImage: `url(${photoURL})`,
+                        }}
+                    ></Grid>
+                ) : (
+                    <AccountCircleIcon className={styles.iconWrapper} />
+                )}
                 <FormControl
                     className={getValidClassNames(
                         styles.formControl,

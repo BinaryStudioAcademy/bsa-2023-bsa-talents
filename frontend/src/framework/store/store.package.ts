@@ -12,6 +12,7 @@ import { adminApi } from '~/bundles/admin-panel/admin.js';
 import { reducer as adminReducer } from '~/bundles/admin-panel/store/admin.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
+import { candidateApi } from '~/bundles/candidate-details/candidate.js';
 import { reducer as candidateReducer } from '~/bundles/candidate-details/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
@@ -55,6 +56,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     adminApi: typeof adminApi;
+    candidateApi: typeof candidateApi;
     chatApi: typeof chatApi;
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
@@ -122,6 +124,7 @@ class Store {
         return {
             authApi,
             adminApi,
+            candidateApi,
             chatApi,
             fileUploadApi,
             talentOnBoardingApi,

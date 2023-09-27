@@ -39,7 +39,7 @@ const Home: React.FC = () => {
             return <Navigate to={AppRoute.CANDIDATES} />;
         }
         default: {
-            return <Navigate to={AppRoute.NOT_FOUND} />;
+            return <Navigate to={AppRoute.SIGN_IN} />;
         }
     }
 };
