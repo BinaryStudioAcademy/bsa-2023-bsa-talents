@@ -33,8 +33,7 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
             />
             <View
                 style={[
-                    globalStyles.pv25,
-                    globalStyles.pl25,
+                    globalStyles.p25,
                     globalStyles.pr10,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceBetween,
@@ -42,8 +41,16 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
                 ]}
             >
                 <Text category={TextCategory.H3}>Your profile</Text>
-                {!isApproved && <VerificationMessage />}
-                <LogoutButton />
+                <View
+                    style={[
+                        globalStyles.flexDirectionRow,
+                        globalStyles.justifyContentFlexEnd,
+                        globalStyles.alignItemsCenter,
+                    ]}
+                >
+                    {!isApproved && <VerificationMessage />}
+                    <LogoutButton />
+                </View>
             </View>
             <Divider />
             <View

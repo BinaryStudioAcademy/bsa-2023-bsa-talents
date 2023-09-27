@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         borderColor: Color.INPUT,
     },
     title: {
-        textTransform: 'capitalize',
         fontFamily: FontFamily.INTER_BOLD,
     },
     supportingText: {
