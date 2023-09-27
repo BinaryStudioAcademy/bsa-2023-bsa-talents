@@ -1,18 +1,16 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import {
-    CommunityIcon,
     Divider,
-    Pressable,
+    LogoutButton,
     StatusBar,
     Text,
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
+import { Color } from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/text-category.enum';
-import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
 import { ProfileDetailsScreenName } from '~/bundles/talent/enums/enums';
 import { type MaterialTopTabBarProps } from '~/bundles/talent/types/types';
@@ -24,13 +22,8 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
     navigation,
     state,
 }) => {
-    const dispatch = useAppDispatch();
     const { isApproved } =
         useAppSelector(({ common }) => common.onboardingData) ?? {};
-
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
 
     return (
         <View style={styles.container}>
@@ -50,13 +43,7 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
             >
                 <Text category={TextCategory.H3}>Your profile</Text>
                 {!isApproved && <VerificationMessage />}
-                <Pressable onPress={handleLogout}>
-                    <CommunityIcon
-                        name={IconName.LOGOUT}
-                        size={30}
-                        color={Color.TEXT2}
-                    />
-                </Pressable>
+                <LogoutButton />
             </View>
             <Divider />
             <View
