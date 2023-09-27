@@ -10,6 +10,7 @@ const VerificationMessage: React.FC = () => {
     return (
         <Text
             category={TextCategory.CAPTION}
+            maxFontSizeMultiplier={1.1}
             style={[
                 styles.text,
                 globalStyles.p5,

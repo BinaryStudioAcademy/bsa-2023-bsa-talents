@@ -10,8 +10,8 @@ import {
 import { createBottomTabNavigator } from '~/bundles/common/helpers/helpers';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type TalentBottomTabNavigationParameterList } from '~/bundles/common/types/types';
-import { TalentProfile } from '~/bundles/talent/screens/screens';
 import { notifications } from '~/framework/notifications/notifications';
+import { TalentProfileNavigator } from '~/navigations/talent-profile-navigator/talent-profile-navigator';
 
 import { bottomTabStyles } from '../styles';
 
@@ -52,7 +52,7 @@ const TalentBottomTabNavigator: React.FC = () => {
             />
             <BottomTab.Screen
                 name={TalentBottomTabScreenName.TALENT_PROFILE}
-                component={TalentProfile}
+                component={TalentProfileNavigator}
                 options={{
                     tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon

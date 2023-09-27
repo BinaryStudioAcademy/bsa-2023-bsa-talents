@@ -72,14 +72,9 @@ const useOnboardingFormSubmit = ({
                 completedStep: completedOnboardingStep,
             };
 
-            const createdPayload = {
-                ...updatedPayload,
-                fullName: (payload as ProfileStepDto).profileName,
-            };
-
             const result = isNewTalentOnboardingData
                 ? await dispatch(
-                      commonActions.createUserDetails(createdPayload),
+                      commonActions.createUserDetails(updatedPayload),
                   )
                 : await dispatch(
                       commonActions.updateOnboardingData(updatedPayload),
