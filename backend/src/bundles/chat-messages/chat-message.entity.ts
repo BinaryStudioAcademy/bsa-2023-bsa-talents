@@ -9,6 +9,7 @@ class ChatMessageEntity implements Entity {
     private 'chatId': string;
     private 'message': string;
     private 'isRead': boolean;
+    private 'createdAt': string;
 
     private constructor({
         id,
@@ -17,6 +18,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        createdAt,
     }: ChatMessageProperties) {
         this.id = id;
         this.senderId = senderId;
@@ -24,6 +26,7 @@ class ChatMessageEntity implements Entity {
         this.chatId = chatId;
         this.message = message;
         this.isRead = isRead;
+        this.createdAt = createdAt;
     }
 
     public static initialize({
@@ -33,6 +36,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        createdAt,
     }: { id: string } & Omit<ChatMessageProperties, 'id'>): ChatMessageEntity {
         return new ChatMessageEntity({
             id,
@@ -41,6 +45,7 @@ class ChatMessageEntity implements Entity {
             chatId,
             message,
             isRead,
+            createdAt,
         });
     }
 
@@ -50,6 +55,7 @@ class ChatMessageEntity implements Entity {
         chatId,
         message,
         isRead,
+        createdAt,
     }: Omit<ChatMessageProperties, 'id'>): ChatMessageEntity {
         return new ChatMessageEntity({
             id: null,
@@ -58,6 +64,7 @@ class ChatMessageEntity implements Entity {
             chatId,
             message,
             isRead,
+            createdAt,
         });
     }
 
@@ -69,6 +76,7 @@ class ChatMessageEntity implements Entity {
             chatId: this.chatId,
             message: this.message,
             isRead: this.isRead,
+            createdAt: this.createdAt,
         };
     }
 
@@ -79,6 +87,7 @@ class ChatMessageEntity implements Entity {
             chatId: this.chatId,
             message: this.message,
             isRead: this.isRead,
+            createdAt: this.createdAt,
         };
     }
 }
