@@ -12,6 +12,16 @@ const DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD: EmployerOnboardingDto = {
     description: '',
     companyLogo: null,
     linkedinLink: '',
+    isApproved: false,
 };
 
-export { ACCEPTED_PHOTO_TYPES, DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD };
+const TEXTAREA = {
+    minRows: 7,
+    maxRows: 9,
+};
+
+export {
+    ACCEPTED_PHOTO_TYPES,
+    DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
+    TEXTAREA,
+};

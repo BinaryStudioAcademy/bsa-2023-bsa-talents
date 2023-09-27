@@ -1,44 +1,83 @@
 import React from 'react';
 
-import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/common/components/badge/constants/constants';
 import {
     Button,
     FormField,
+    Loader,
     ScrollView,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { BsaBadgeStepBadgesTitle } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import { DataStatus } from '~/bundles/common/enums/enums';
+import {
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+    useMemo,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
+import {
+    BADGES_STEP_DEFAULT_VALUES,
+    UNCONTROLLED_BADGES,
+} from '~/bundles/talent/components/badges-form/constants/constants';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
-import { type BsaBadgesStepDto } from '~/bundles/talent/types/types';
-import { BsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import {
+    type BadgesFormDto,
+    type BsaBadgesStepTypes,
+} from '~/bundles/talent/types/types';
+import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { BadgesGroup } from './badges-group/badges-group';
 import { styles } from './styles';
 
 type Properties = {
-    badgesStepData: BsaBadgesStepDto | null;
-    onSubmit: (payload: BsaBadgesStepDto) => void;
+    onSubmit: (payload: BsaBadgesStepTypes) => void;
     currentStep: number;
 };
 
-const options = Object.values(BsaBadgeStepBadgesTitle);
+const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
+    const { onboardingData } = useAppSelector(({ common }) => common);
+    const { badgesData, dataStatus } = useCommonData();
 
-const BsaBadgesForm: React.FC<Properties> = ({
-    badgesStepData,
-    onSubmit,
-    currentStep,
-}) => {
-    const { control, errors, handleSubmit } = useAppForm({
-        defaultValues: badgesStepData ?? BADGES_STEP_DEFAULT_VALUES,
-        validationSchema: BsaBadgesStepValidationSchema,
+    const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {
+        if (onboardingData?.badges) {
+            return { badges: onboardingData.badges };
+        }
+    }, [onboardingData]);
+
+    const badgesDataValues: BadgesFormDto = useMemo(() => {
+        if (badgesData?.items) {
+            const badges = badgesData.items.map((badge) => ({
+                ...badge,
+                isChecked: UNCONTROLLED_BADGES.includes(badge.name),
+            }));
+            return { badges };
+        }
+        return BADGES_STEP_DEFAULT_VALUES;
+    }, [badgesData]);
+
+    const { control, errors, handleSubmit, reset } = useAppForm({
+        defaultValues: BADGES_STEP_DEFAULT_VALUES,
+        validationSchema: bsaBadgesStepValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
+
+    const isFullDataLoading = dataStatus === DataStatus.FULFILLED;
+    const isDataLoading = dataStatus === DataStatus.PENDING;
+
+    const badgesFormData: BadgesFormDto =
+        onboardingDataValues ?? badgesDataValues;
+
+    useEffect(() => {
+        if (isFullDataLoading) {
+            reset(badgesFormData);
+        }
+    }, [badgesFormData, isFullDataLoading, reset]);
 
     return (
         <ScrollView
@@ -48,18 +87,19 @@ const BsaBadgesForm: React.FC<Properties> = ({
             <Text style={[globalStyles.pv15, styles.description]}>
                 Choose BSA badges you want to show in your profile
             </Text>
-            <FormField
-                errorMessage={errors.badges?.message}
-                name="badges"
-                required
-                containerStyle={globalStyles.pb25}
-            >
-                <BadgesGroup
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <FormField
+                    errorMessage={errors.badges?.message}
                     name="badges"
-                    control={control}
-                    options={options}
-                />
-            </FormField>
+                    required
+                    containerStyle={globalStyles.pb25}
+                >
+                    <BadgesGroup name="badges" control={control} />
+                </FormField>
+            )}
+
             <View
                 style={[
                     globalStyles.flexDirectionRow,

@@ -1,8 +1,13 @@
 import React from 'react';
 
 import { logout } from '~/bundles/auth/store/actions';
-import { Button, Text, View } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import {
+    CommunityIcon,
+    Pressable,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
+import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppDispatch } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
@@ -22,7 +27,7 @@ const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
         <View
             style={[
                 globalStyles.p25,
-                globalStyles.pr15,
+                globalStyles.pr10,
                 globalStyles.flexDirectionRow,
                 globalStyles.justifyContentSpaceBetween,
                 globalStyles.alignItemsCenter,
@@ -52,11 +57,13 @@ const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
                     </Text>
                 )}
             </View>
-            <Button
-                label="Logout"
-                style={[globalStyles.ml5, globalStyles.ph10, globalStyles.pv5]}
-                onPress={handleLogout}
-            />
+            <Pressable onPress={handleLogout}>
+                <CommunityIcon
+                    name={IconName.LOGOUT}
+                    size={30}
+                    color={Color.TEXT2}
+                />
+            </Pressable>
         </View>
     );
 };

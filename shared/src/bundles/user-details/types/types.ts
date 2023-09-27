@@ -1,3 +1,4 @@
+export { type TalentHardSkill } from './talent-hard-skill.js';
 export { type UserDetailsCreateDto } from './user-details-create-dto.type.js';
 export { type UserDetailsCreateRequestDto } from './user-details-create-request-dto.type.js';
 export { type UserDetailsDenyRequestDto } from './user-details-deny-request-dto.type.js';

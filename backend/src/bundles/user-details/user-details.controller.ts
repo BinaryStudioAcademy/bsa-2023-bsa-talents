@@ -160,12 +160,13 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsCreateValidationSchema,
             },
-            handler: (options) =>
-                this.create(
+            handler: (options) => {
+                return this.create(
                     options as ApiHandlerOptions<{
                         body: UserDetailsCreateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -174,23 +175,25 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsUpdateValidationSchema,
             },
-            handler: (options) =>
-                this.update(
+            handler: (options) => {
+                return this.update(
                     options as ApiHandlerOptions<{
                         body: UserDetailsUpdateRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
             path: UserDetailsApiPath.APPROVE,
             method: 'PATCH',
-            handler: (options) =>
-                this.approve(
+            handler: (options) => {
+                return this.approve(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -199,13 +202,14 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 body: userDetailsDenyValidationSchema,
             },
-            handler: (options) =>
-                this.deny(
+            handler: (options) => {
+                return this.deny(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                         body: UserDetailsDenyRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -214,12 +218,13 @@ class UserDetailsController extends ControllerBase {
             validation: {
                 query: userDetailsSearchValidationSchema,
             },
-            handler: (options) =>
-                this.searchUsers(
+            handler: (options) => {
+                return this.searchUsers(
                     options as ApiHandlerOptions<{
                         query: UserDetailsSearchUsersRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -227,6 +232,18 @@ class UserDetailsController extends ControllerBase {
             method: 'GET',
             handler: (options) => {
                 return this.findByUserId(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: `${UserDetailsApiPath.$ID}/company`,
+            method: 'GET',
+            handler: (options) => {
+                return this.findCompanyInfoByUserId(
                     options as ApiHandlerOptions<{
                         params: UserDetailsFindByUserIdRequestDto;
                     }>,
@@ -537,9 +554,9 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: isBaseSearch
+     *          name: searchType
      *          schema:
-     *            type: boolean
+     *            type: string
      *          description: Determines whether search type is base or extended
      *        - in: query
      *          name: isSearchActiveCandidatesOnly
@@ -569,15 +586,6 @@ class UserDetailsController extends ControllerBase {
      *          style: form
      *          explode: true
      *          description: Filter by hard skills (optional)
-     *        - in: query
-     *          name: BSABadges
-     *          schema:
-     *            type: array
-     *            items:
-     *              type: string
-     *          style: form
-     *          explode: true
-     *          description: Filter by BSA badges (optional)
      *        - in: query
      *          name: location
      *          schema:
@@ -734,6 +742,20 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findByUserId(userId),
+        };
+    }
+
+    private async findCompanyInfoByUserId(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findCompanyInfoByUserId(
+                userId,
+            ),
         };
     }
 

@@ -69,7 +69,6 @@ const ProfileCabinet: React.FC = () => {
     const { submitForm } = useFormSubmit();
     const dispatch = useAppDispatch();
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
-        currentUser: state.auth.currentUser,
         hasChanges: state.cabinet.hasChangesInDetails,
     }));
     const currentUser = useAppSelector(
@@ -118,9 +117,7 @@ const ProfileCabinet: React.FC = () => {
     return (
         <PageLayout avatarUrl="" isOnline>
             <Grid className={styles.pageTitle}>
-                <Typography variant="h4" className={''}>
-                    Your Profile
-                </Typography>
+                <Typography variant="h4">Your Profile</Typography>
             </Grid>
             <Grid className={styles.pageWrapper}>
                 <Grid className={styles.headNavigation}>

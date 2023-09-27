@@ -13,6 +13,7 @@
             ) - var(--preview-button-group-height) - 5px
     );
     --preview-tab-height: 72px;
+    --tabs-container-margin-bottom: 27px;
 }
 
 .pageWrapper {
@@ -71,7 +72,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 21px 0;
+    padding: 21px 27px;
 }
 
 .avatar {
@@ -80,15 +81,12 @@
 }
 
 .previewInfo {
-    display: flex;
-    align-items: center;
-
     // mobile
     height: 100%;
     max-height: calc(
         100% - var(--preview-header-height) - var(--preview-tab-height)
     );
-    padding: 10px;
+    padding: 4% 6%;
     overflow-y: scroll;
 }
 
@@ -103,6 +101,7 @@
             )
     );
     margin-top: 5px;
+    white-space: nowrap;
 }
 
 .filterWrapper:global(.hidden) {
@@ -189,8 +188,9 @@
     }
 }
 
-@media screen and (width >= 992px) {
+@media screen and (width >= 900px) {
     .filterWrapper {
+        width: 30%;
         max-width: 358px;
     }
 }

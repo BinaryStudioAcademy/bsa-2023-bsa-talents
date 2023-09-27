@@ -1,12 +1,14 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import {
+    type HiringInfoFindRequestDto,
     type UserDetailsFullResponseDto,
     type UserDetailsShortResponseDto,
 } from '../types/types.js';
 import {
     approveUser,
     denyUser,
+    getAllHiringInfo,
     getFullUserDetails,
     getShortUserDetails,
 } from './actions.js';
@@ -14,11 +16,13 @@ import {
 type InitialState = {
     shortDetails: UserDetailsShortResponseDto[];
     fullDetails: UserDetailsFullResponseDto | null;
+    hiringInfo: HiringInfoFindRequestDto[];
 };
 
 const initialState: InitialState = {
     shortDetails: [],
     fullDetails: null,
+    hiringInfo: [],
 };
 
 const { reducer, actions, name } = createSlice({
@@ -43,6 +47,9 @@ const { reducer, actions, name } = createSlice({
                 state.fullDetails = null;
             },
         );
+        builder.addCase(getAllHiringInfo.fulfilled, (state, action) => {
+            state.hiringInfo = action.payload;
+        });
     },
 });
 

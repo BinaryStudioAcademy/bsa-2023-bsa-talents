@@ -1,6 +1,8 @@
 import {
+    approveHiringInfo,
     approveUser,
     denyUser,
+    getAllHiringInfo,
     getFullUserDetails,
     getShortUserDetails,
 } from './actions.js';
@@ -12,6 +14,8 @@ const allActions = {
     denyUser,
     getFullUserDetails,
     getShortUserDetails,
+    approveHiringInfo,
+    getAllHiringInfo,
 };
 
 export { allActions as actions };

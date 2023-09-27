@@ -3,22 +3,26 @@ export {
     type ContactCandidateDto,
     ContactCandidateValidationMessage,
     ContactCandidateValidationRule,
-    ContactCandidateValidationSchema,
+    contactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
-    type ChatMessageCreateRequestDto,
-    type ChatMessageGetAllItemResponseDto,
-    type ChatMessageGetAllResponseDto,
-} from './bundles/chat/chat.js'; // TODO: compare with bundles/chat-messages/chat-messages.js
-export {
     ChatMessagesApiPath,
     type ChatMessagesCreateRequestDto,
-    ChatMessagesCreateValidationSchema,
+    chatMessagesCreateValidationSchema,
     type ChatMessagesPatchDto,
+    type ChatParticipantDto,
     type ChatResponseDto,
     type MessageResponseDto,
 } from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
+export {
+    type BadgesItem,
+    type BadgesResponseDto,
+    BsaBadgesTitle,
+    BsaBadgesTypeEnum,
+    type HardSkillsItem,
+    type HardSkillsResponseDto,
+} from './bundles/common-data/common-data.js';
 export {
     type File,
     FileApiPath,
@@ -26,35 +30,53 @@ export {
     type UploadedFile,
 } from './bundles/file/file.js';
 export {
-    type BadgesResponseDto,
-    type HardSkillsResponseDto,
-} from './bundles/gather-selected-data/gather-selected-data.js';
+    HiringInfoApiPath,
+    type HiringInfoCreateRequestDto,
+    type HiringInfoFindAllRequestDto,
+    type HiringInfoFindRequestDto,
+    type HiringInfoResponseDto,
+} from './bundles/hiring-info/hiring-info.js';
+export {
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataResponseDto,
+    type LMSDataServerResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
+    type UserLMSDataDto,
+} from './bundles/lms-data/lms-data.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
+    BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationSchema,
+    bsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
-    ProfileStepValidationSchema,
+    profileStepValidationSchema,
     type SkillsStepDto,
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-    SkillsStepValidationSchema,
+    skillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
     Country,
     EmploymentType,
     EnglishLevel,
-    Experience as ExperienceYears,
+    experienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -78,8 +100,17 @@ export {
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
+    userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
@@ -95,6 +126,8 @@ export {
     ContentType,
     ErrorMessage,
     FileUploadErrorMessage,
+    LMSDataApiPath,
+    NotificationMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
@@ -115,9 +148,12 @@ export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
     getAvatarInitials,
+    getBadgeColor,
+    getBadgeIcon,
     getItemsWithSelected,
     getSearchedItems,
     mapQueryValuesToArrays,
+    parseLMSServerData,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

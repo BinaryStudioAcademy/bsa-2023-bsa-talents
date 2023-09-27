@@ -19,7 +19,7 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
-import { ProfileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
     EMPLOYMENT_TYPE_OPTIONS,
@@ -38,7 +38,7 @@ type Properties = {
 const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
     const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
-        validationSchema: ProfileStepValidationSchema,
+        validationSchema: profileStepValidationSchema,
     });
 
     useEffect(() => {

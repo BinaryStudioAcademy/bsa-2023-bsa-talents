@@ -1,28 +1,28 @@
 import { type ChatItem, type ChatResponseDto } from '../types/types.js';
 
-function chatDtoToChatResponseDto(chat: ChatItem): ChatResponseDto {
+const chatDtoToChatResponseDto = (chat: ChatItem): ChatResponseDto => {
     const { chatId, lastMessageCreatedAt, lastMessage, sender, receiver } =
         chat;
-
-    const conversationPartner = chatId === sender.userId ? receiver : sender;
-
-    // Get necessary fields from user details model
-    const { userId: id, profileName, companyName, photo } = conversationPartner;
-
-    // Get necessary fields from file model
-    const avatarUrl = photo ? photo.url : null;
 
     return {
         chatId,
         lastMessageCreatedAt,
         lastMessage,
-        partner: {
-            id,
-            profileName,
-            companyName,
-            avatarUrl,
+        participants: {
+            sender: {
+                id: sender.userId,
+                profileName: sender.profileName,
+                companyName: sender.companyName,
+                avatarUrl: sender.photo ? sender.photo.url : '',
+            },
+            receiver: {
+                id: receiver.userId,
+                profileName: receiver.profileName,
+                companyName: receiver.companyName,
+                avatarUrl: receiver.photo ? receiver.photo.url : '',
+            },
         },
     };
-}
+};
 
 export { chatDtoToChatResponseDto };

@@ -38,12 +38,9 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
-    const { onboardingData, dataStatus: userOnboardingDataStatus } =
-        useAppSelector(({ common }) => common);
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
-    const isPendingOnboardingData =
-        userOnboardingDataStatus === DataStatus.IDLE;
     const dispatch = useAppDispatch();
 
     //TODO change to onboardingData?.isApprove
@@ -63,7 +60,7 @@ const Root: React.FC = () => {
         void dispatch(getUserDetails({ userId: currentUserData.id }));
     }, [currentUserData, currentUserData?.id, dispatch]);
 
-    if (isPendingAuth || isPendingOnboardingData) {
+    if (isPendingAuth) {
         return <Loader />;
     }
 

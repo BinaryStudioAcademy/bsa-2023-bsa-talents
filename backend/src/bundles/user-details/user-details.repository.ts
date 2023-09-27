@@ -3,6 +3,7 @@ import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { UserRole } from './enums/enums.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
@@ -57,6 +58,53 @@ class UserDetailsRepository implements Repository {
             linkedinLink: details.linkedinLink ?? '',
             companyName: details.companyName ?? '',
             companyLogoId: details.companyLogoId,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+            completedStep: details.completedStep,
+            createdAt: details.createdAt,
+        });
+    }
+
+    public async findCompanyInfoByUserId(
+        payload: UserDetailsFindRequestDto,
+    ): Promise<UserDetailsEntity | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ ...payload })
+            .withGraphFetched('[photo, companyLogo]');
+
+        if (!details) {
+            return null;
+        }
+        const companyLogo = details.companyLogo?.url ?? null;
+        const photo = details.photo?.url ?? null;
+
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            createdAt: details.createdAt,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            projectLinks: details.projectLinks ?? [],
+            photoId: photo,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: companyLogo,
             companyWebsite: details.companyWebsite ?? '',
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
@@ -149,15 +197,6 @@ class UserDetailsRepository implements Repository {
                 });
             }
 
-            if (payload.BSABadges && payload.BSABadges.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.BSABadges,
-                    columnName: 'badge_id',
-                    relativeTable: 'talentBadges',
-                });
-            }
-
             if (payload.location) {
                 void builder.where((subquery) => {
                     searchByColumnValues(
@@ -197,11 +236,16 @@ class UserDetailsRepository implements Repository {
             sortingParameters.direction,
         );
 
-        const searchResults = await query;
+        const searchResults = await query
+            .withGraphJoined('user')
+            .where('user.role', '=', UserRole.TALENT);
 
-        return searchResults.map((result) =>
-            UserDetailsEntity.initialize(result),
-        );
+        return searchResults.map((result) => {
+            return UserDetailsEntity.initialize({
+                ...result,
+                email: result.user?.email,
+            });
+        });
     }
 
     public async create(
@@ -243,6 +287,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 
@@ -283,6 +328,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
         });
     }
 

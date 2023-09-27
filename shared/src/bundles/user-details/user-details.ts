@@ -2,7 +2,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
-    Experience,
+    experienceYears,
     JobTitle,
     NotConsidered,
     OnboardingStep,
@@ -12,6 +12,7 @@ export {
     YearsOfExperience,
 } from './enums/enums.js';
 export {
+    type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
