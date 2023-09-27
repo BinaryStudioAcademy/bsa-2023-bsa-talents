@@ -30,6 +30,31 @@ class EmailService {
 
         await sgMail.send(message);
     }
+
+    public async sendAccountApprovalEmail(email: string): Promise<void> {
+        const message = {
+            to: email,
+            from: this.mailSenderDomain,
+            subject: 'Account verification',
+            text: 'Hello! Your account on bsa-talents.com has been approved',
+        };
+
+        await sgMail.send(message);
+    }
+
+    public async sendAccountDenialEmail(
+        email: string,
+        deniedReason: string,
+    ): Promise<void> {
+        const message = {
+            to: email,
+            from: this.mailSenderDomain,
+            subject: 'Account verification',
+            text: `Hello! Your account on bsa-talents.com has been denied - ${deniedReason}`,
+        };
+
+        await sgMail.send(message);
+    }
 }
 
 export { EmailService };
