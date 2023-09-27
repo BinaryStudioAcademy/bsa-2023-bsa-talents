@@ -3,11 +3,11 @@ const createNumberRangeArray = (
     max: number,
     step: number,
 ): number[] => {
-    const numbers = [];
+    const ranges = [];
     for (let index = min; index <= max + Number.EPSILON; index += step) {
-        numbers.push(index);
+        ranges.push(index);
     }
-    return numbers;
+    return ranges;
 };
 
 export { createNumberRangeArray };
