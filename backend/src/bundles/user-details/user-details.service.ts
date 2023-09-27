@@ -5,7 +5,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
-import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
+import { type TalentBadge } from '../talent-badges/types/types.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import {
     type TalentHardSkill,

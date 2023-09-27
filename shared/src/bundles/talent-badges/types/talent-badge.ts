@@ -5,7 +5,7 @@ type TalentBadge = {
     level: string | null;
     badgeId: string;
     isShown: boolean;
-    userDetailsId: string | null;
+    userDetailsId: string;
 };
 
 export { type TalentBadge };

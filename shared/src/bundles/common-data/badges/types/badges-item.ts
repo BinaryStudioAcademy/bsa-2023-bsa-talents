@@ -6,7 +6,7 @@ type BadgesItem = {
     id: string;
     type: ValueOf<typeof BsaBadgesTypeEnum>;
     name: ValueOf<typeof BsaBadgesTitle>;
-    maxScore: string | null;
+    maxScore: number | null;
 };
 
 export { type BadgesItem };

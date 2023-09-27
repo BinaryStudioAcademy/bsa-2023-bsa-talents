@@ -1,4 +1,5 @@
 import { ErrorMessage } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
 import { type TalentBadgeRepository } from './talent-badge.repository.js';
@@ -28,7 +29,6 @@ class TalentBadgeService implements Service {
     }
 
     public async update({
-        userDetailsId,
         badgeId,
         userId,
     }: TalentBadgeUpdate): Promise<TalentBadge> {
@@ -37,17 +37,17 @@ class TalentBadgeService implements Service {
             userId,
         });
 
-        return badge
-            ? this.talentBadgeRepository.update({
-                  ...badge,
-                  isShown: !badge.isShown,
-                  userDetailsId,
-              })
-            : this.talentBadgeRepository.create({
-                  badgeId,
-                  userId,
-                  userDetailsId,
-              });
+        if (!badge) {
+            throw new HttpError({
+                message: ErrorMessage.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        return this.talentBadgeRepository.update({
+            ...badge,
+            isShown: !badge.isShown,
+        });
     }
 
     public delete(): Promise<boolean> {

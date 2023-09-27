@@ -1,1 +1,1 @@
-export { parseLMSServerData } from 'shared/build/index.js';
+export { mapTalentBadges, parseLMSServerData } from 'shared/build/index.js';

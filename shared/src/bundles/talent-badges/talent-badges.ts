@@ -3,4 +3,4 @@ export {
     type TalentBadgeCreate,
     type TalentBadgePatchAndFetch,
     type TalentBadgeUpdate,
-} from 'shared/build/index.js';
+} from './types/types.js';

@@ -25,7 +25,7 @@ class TalentBadgeRepository implements Repository {
             .query()
             .insert({
                 ...badge,
-                isShown: true,
+                isShown: badge.isShown ?? true,
             })
             .returning('*')
             .execute();

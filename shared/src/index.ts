@@ -48,6 +48,12 @@ export {
     type UserLMSDataDto,
 } from './bundles/lms-data/lms-data.js';
 export {
+    type TalentBadge,
+    type TalentBadgeCreate,
+    type TalentBadgePatchAndFetch,
+    type TalentBadgeUpdate,
+} from './bundles/talent-badges/talent-badges.js';
+export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
@@ -151,6 +157,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     mapQueryValuesToArrays,
+    mapTalentBadges,
     parseLMSServerData,
 } from './helpers/helpers.js';
 export {

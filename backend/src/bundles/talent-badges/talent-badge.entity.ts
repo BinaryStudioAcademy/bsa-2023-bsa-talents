@@ -13,7 +13,7 @@ class TalentBadgeEntity implements Entity {
 
     private 'isShown': boolean;
 
-    private 'userDetailsId': string | null;
+    private 'userDetailsId': string;
 
     private constructor({
         id,
@@ -30,7 +30,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }) {
         this.id = id;
         this.userId = userId;
@@ -56,7 +56,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
@@ -82,7 +82,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id: null,
@@ -102,7 +102,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             id: this.id as string,
@@ -121,7 +121,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             userId: this.userId,

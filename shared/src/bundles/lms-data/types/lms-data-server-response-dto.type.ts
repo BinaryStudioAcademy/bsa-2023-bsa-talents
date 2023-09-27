@@ -19,7 +19,7 @@ type Result = {
 };
 
 type LectureDetail = {
-    grade: number | null;
+    grade: number;
     name: string;
     lectureId: string;
 };
