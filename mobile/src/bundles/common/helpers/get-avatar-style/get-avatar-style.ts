@@ -27,7 +27,7 @@ const getIconStyles = (iconSize: number): IconStyle => {
 };
 
 const getAvatarStyles = (
-    avatarSize: ValueOf<typeof PhotoType>,
+    avatarSize: ValueOf<typeof PhotoType> = PhotoType.MEDIUM,
 ): AvatarStyles => {
     switch (avatarSize) {
         case PhotoType.SMALL: {
