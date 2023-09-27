@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { Chat } from '~/bundles/chat/screens/screens';
+import { Chat, ChatUserDetails } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -92,6 +92,10 @@ const Root: React.FC = () => {
                     }
                 />
                 <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+                <RootStack.Screen
+                    name={RootScreenName.CHAT_USER_DETAILS}
+                    component={ChatUserDetails}
+                />
             </>
         ),
     };

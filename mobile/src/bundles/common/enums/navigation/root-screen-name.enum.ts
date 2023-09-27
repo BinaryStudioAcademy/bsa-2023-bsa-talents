@@ -3,6 +3,7 @@ const RootScreenName = {
     MAIN_ROOT_ROUTE: 'Main Root Route',
     ONBOARDING_ROOT_ROUTE: 'Onboarding Root Route',
     CHAT: 'Chat',
+    CHAT_USER_DETAILS: 'Chat User Details',
 } as const;
 
 export { RootScreenName };

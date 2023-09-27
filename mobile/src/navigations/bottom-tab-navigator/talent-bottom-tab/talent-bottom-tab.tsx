@@ -28,7 +28,7 @@ const TalentBottomTabNavigator: React.FC = () => {
             initialRouteName={TalentBottomTabScreenName.TALENT_PROFILE}
         >
             <BottomTab.Screen
-                name={TalentBottomTabScreenName.MAIL}
+                name={TalentBottomTabScreenName.CHAT_LIST}
                 component={ChatList}
                 options={{
                     tabBarIcon: ({ color = '#FFFFFF' }) => (
