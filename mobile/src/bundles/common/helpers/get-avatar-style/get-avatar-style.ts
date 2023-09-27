@@ -26,32 +26,28 @@ const getIconStyles = (iconSize: number): IconStyle => {
     };
 };
 
+const avatarStylesMap: Record<ValueOf<typeof PhotoType>, AvatarStyles> = {
+    [PhotoType.SMALL]: {
+        size: getIconStyles(SMALL_SIZE),
+        font: TextCategory.H6,
+        iconSize: SMALL_SIZE,
+    },
+    [PhotoType.MEDIUM]: {
+        size: getIconStyles(MEDIUM_SIZE),
+        font: TextCategory.H3,
+        iconSize: MEDIUM_SIZE,
+    },
+    [PhotoType.LARGE]: {
+        size: getIconStyles(LARGE_SIZE),
+        font: TextCategory.H1,
+        iconSize: LARGE_SIZE,
+    },
+};
+
 const getAvatarStyles = (
     avatarSize: ValueOf<typeof PhotoType> = PhotoType.MEDIUM,
 ): AvatarStyles => {
-    switch (avatarSize) {
-        case PhotoType.SMALL: {
-            return {
-                size: getIconStyles(SMALL_SIZE),
-                font: TextCategory.H6,
-                iconSize: SMALL_SIZE,
-            };
-        }
-        case PhotoType.MEDIUM: {
-            return {
-                size: getIconStyles(MEDIUM_SIZE),
-                font: TextCategory.H3,
-                iconSize: MEDIUM_SIZE,
-            };
-        }
-        case PhotoType.LARGE: {
-            return {
-                size: getIconStyles(LARGE_SIZE),
-                font: TextCategory.H1,
-                iconSize: LARGE_SIZE,
-            };
-        }
-    }
+    return avatarStylesMap[avatarSize];
 };
 
 export { getAvatarStyles };
