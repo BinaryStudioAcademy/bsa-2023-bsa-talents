@@ -11,6 +11,7 @@ import { mapSearchUsersResponseBadges } from './helpers/map-search-users-respons
 import {
     type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsUpdateDto,
 } from './types/types.js';
 import { UserDetailsEntity } from './user-details.entity.js';
@@ -133,7 +134,7 @@ class UserDetailsRepository implements Repository {
 
     public async searchUsers(
         payload: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const query = this.userDetailsModel.query().where((builder) => {
             applyAllFilters(builder, payload);
         });
@@ -146,20 +147,23 @@ class UserDetailsRepository implements Repository {
         );
 
         const searchResults = await query
-            .withGraphJoined('[user, talentBadges.[badge]]')
-            .withGraphJoined('[user, talentHardSkills]')
+            .withGraphJoined('[user, talentHardSkills, talentBadges.[badge]]')
             .where('user.role', '=', UserRole.TALENT)
             .andWhere('isApproved', true);
 
         return searchResults.map((result) => {
-            return UserDetailsEntity.initialize({
+            const userObject = UserDetailsEntity.initialize({
                 ...result,
-                badges: mapSearchUsersResponseBadges(result),
-                hardSkills: result.talentHardSkills.map((skill) =>
-                    HardSkillsEntity.initialize(skill),
-                ),
+                badges: null,
                 email: result.user?.email,
-            });
+            }).toObject();
+
+            userObject.badges = mapSearchUsersResponseBadges(result);
+            userObject.hardSkills = result.talentHardSkills.map((skill) =>
+                HardSkillsEntity.initialize(skill),
+            );
+
+            return userObject;
         });
     }
 

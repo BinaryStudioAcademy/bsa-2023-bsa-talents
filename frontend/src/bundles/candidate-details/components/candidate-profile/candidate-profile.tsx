@@ -94,11 +94,12 @@ const CandidateProfile: React.FC<Properties> = ({
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        talentHardSkills: isProfileCard
-            ? (data.hardSkills as { id: string; name: string }[]).map(
-                  (item) => item.name,
-              )
-            : hardskillsLabels,
+        talentHardSkills:
+            isProfileCard && data.hardSkills
+                ? (data.hardSkills as { id: string; name: string }[]).map(
+                      (item) => item.name,
+                  )
+                : hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
     };

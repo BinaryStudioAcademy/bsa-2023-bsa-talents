@@ -12,6 +12,7 @@ import {
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,
@@ -109,7 +110,7 @@ class UserDetailsService implements Service {
 
     public async searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',

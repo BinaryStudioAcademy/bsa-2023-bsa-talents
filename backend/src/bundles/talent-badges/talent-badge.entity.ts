@@ -17,8 +17,6 @@ class TalentBadgeEntity implements Entity {
 
     private 'userDetailsId': string | null;
 
-    private 'badge'?: BSABadgeEntity | null;
-
     private constructor({
         id,
         userId,
@@ -27,7 +25,6 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-        badge,
     }: {
         id: string | null;
         userId: string;
@@ -45,7 +42,6 @@ class TalentBadgeEntity implements Entity {
         this.badgeId = badgeId;
         this.isShown = isShown;
         this.userDetailsId = userDetailsId;
-        this.badge = badge;
     }
 
     public static initialize({
@@ -123,7 +119,6 @@ class TalentBadgeEntity implements Entity {
             badgeId: this.badgeId,
             isShown: this.isShown,
             userDetailsId: this.userDetailsId,
-            badge: this.badge,
         };
     }
 

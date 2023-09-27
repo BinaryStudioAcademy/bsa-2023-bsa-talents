@@ -1,6 +1,5 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
-import { type HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
 import {
     type Country,
     type EmploymentType,
@@ -11,10 +10,7 @@ import {
     type PreferredLanguage,
     type SearchType,
 } from './enums/enums.js';
-import {
-    type UserDetailsProperties,
-    type UserDetailsResponseBadgeDto,
-} from './types/types.js';
+import { type UserDetailsProperties } from './types/types.js';
 
 class UserDetailsEntity implements Entity {
     private 'id': string | null;
@@ -52,10 +48,6 @@ class UserDetailsEntity implements Entity {
     public 'searchType': ValueOf<typeof SearchType>;
 
     private 'projectLinks': string[] | null;
-
-    private 'hardSkills'?: HardSkillsEntity[];
-
-    private 'badges'?: UserDetailsResponseBadgeDto[] | null;
 
     private 'photoId': string | null;
 
@@ -100,8 +92,6 @@ class UserDetailsEntity implements Entity {
         preferredLanguages,
         searchType,
         projectLinks,
-        hardSkills,
-        badges,
         photoId,
         fullName,
         phone,
@@ -132,8 +122,6 @@ class UserDetailsEntity implements Entity {
         this.notConsidered = notConsidered;
         this.preferredLanguages = preferredLanguages;
         this.searchType = searchType;
-        this.hardSkills = hardSkills;
-        this.badges = badges;
         this.projectLinks = projectLinks;
         this.photoId = photoId;
         this.fullName = fullName;
@@ -167,8 +155,6 @@ class UserDetailsEntity implements Entity {
         notConsidered,
         preferredLanguages,
         searchType,
-        badges,
-        hardSkills,
         projectLinks,
         photoId,
         fullName,
@@ -201,8 +187,6 @@ class UserDetailsEntity implements Entity {
             notConsidered,
             preferredLanguages,
             searchType,
-            badges,
-            hardSkills,
             projectLinks,
             photoId,
             fullName,
@@ -303,8 +287,6 @@ class UserDetailsEntity implements Entity {
             notConsidered: this.notConsidered,
             preferredLanguages: this.preferredLanguages,
             searchType: this.searchType,
-            hardSkills: this.hardSkills,
-            badges: this.badges,
             projectLinks: this.projectLinks,
             photoId: this.photoId,
             fullName: this.fullName,
