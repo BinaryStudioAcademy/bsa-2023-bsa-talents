@@ -1,4 +1,4 @@
-export { applyFilters } from './apply-filters/apply-filters.js';
+export { applyAllFilters } from './apply-filters/apply-all-filters.js';
 export { createSortingUsersParameters } from './create-sorting-users-parameters.js';
 export { getUserBadges } from './get-user-badges.js';
 export { getUserHardSkills } from './get-user-hardskills.js';

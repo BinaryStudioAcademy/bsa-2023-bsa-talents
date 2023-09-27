@@ -1,15 +1,15 @@
 import { type QueryBuilder } from 'objection';
+import { type EmploymentType, type ValueOf } from 'shared/build/index.js';
 
-import { type UserDetailsSearchUsersRequestDto } from '../../../types/types.js';
 import { type UserDetailsModel } from '../../../user-details.model.js';
 
 const applyEmploymentTypeFilter = (
     builder: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
-    payload: UserDetailsSearchUsersRequestDto,
+    payload?: ValueOf<typeof EmploymentType>[],
 ): void => {
-    if (payload.employmentType && payload.employmentType.length > 0) {
+    if (payload && payload.length > 0) {
         void builder.whereRaw(
-            `"employment_type" @> ARRAY[${payload.employmentType
+            `"employment_type" @> ARRAY[${payload
                 .map((type) => `'${type}'`)
                 .join(', ')}]::text[]`,
         );

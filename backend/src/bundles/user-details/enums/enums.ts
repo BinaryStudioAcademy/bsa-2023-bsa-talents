@@ -10,5 +10,6 @@ export {
     UserDetailsApiPath,
     UserRole,
     UserSortCriteria,
+    type ValueOf,
     YearsOfExperience,
 } from 'shared/build/index.js';

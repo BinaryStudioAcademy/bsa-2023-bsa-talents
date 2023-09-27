@@ -1,16 +1,16 @@
 import { type QueryBuilder } from 'objection';
 
-import { type UserDetailsSearchUsersRequestDto } from '../../../types/types.js';
+import { type Country, type ValueOf } from '../../../enums/enums.js';
 import { type UserDetailsModel } from '../../../user-details.model.js';
 import { searchByColumnValues } from '../../search-by-column-values.js';
 
 const applyLocationFilter = (
     builder: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
-    payload: UserDetailsSearchUsersRequestDto,
+    payload?: ValueOf<typeof Country>[],
 ): void => {
-    if (payload.location) {
+    if (payload) {
         void builder.where((subquery) => {
-            searchByColumnValues(subquery, 'location', payload.location);
+            searchByColumnValues(subquery, 'location', payload);
         });
     }
 };

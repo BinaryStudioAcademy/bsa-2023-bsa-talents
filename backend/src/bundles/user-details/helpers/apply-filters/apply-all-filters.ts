@@ -13,25 +13,25 @@ import {
     applyTypeSearchFilter,
 } from './helpers/filters.js';
 
-const applyFilters = (
+const applyAllFilters = (
     builder: QueryBuilder<UserDetailsModel, UserDetailsModel[]>,
     payload: UserDetailsSearchUsersRequestDto,
 ): void => {
-    applyProfileNameFilter(builder, payload);
+    applyProfileNameFilter(builder, payload.searchValue);
 
-    applyTypeSearchFilter(builder, payload);
+    applyTypeSearchFilter(builder, payload.searchType);
 
-    applyJobTitleFilter(builder, payload);
+    applyJobTitleFilter(builder, payload.jobTitle);
 
-    applyExperienceFilter(builder, payload);
+    applyExperienceFilter(builder, payload.yearsOfExperience);
 
-    applyHardSkillsFilter(builder, payload);
+    applyHardSkillsFilter(builder, payload.hardSkills);
 
-    applyLocationFilter(builder, payload);
+    applyLocationFilter(builder, payload.location);
 
-    applyEnglishLevelFilter(builder, payload);
+    applyEnglishLevelFilter(builder, payload.englishLevel);
 
-    applyEmploymentTypeFilter(builder, payload);
+    applyEmploymentTypeFilter(builder, payload.employmentType);
 };
 
-export { applyFilters };
+export { applyAllFilters };

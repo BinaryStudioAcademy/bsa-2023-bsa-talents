@@ -4,7 +4,7 @@ import { ErrorMessage } from 'shared/build/index.js';
 import { type Repository } from '~/common/types/types.js';
 
 import { UserRole } from './enums/enums.js';
-import { applyFilters } from './helpers/apply-filters/apply-filters.js';
+import { applyAllFilters } from './helpers/apply-filters/apply-all-filters.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import {
     type UserDetailsCreateDto,
@@ -133,7 +133,7 @@ class UserDetailsRepository implements Repository {
         payload: UserDetailsSearchUsersRequestDto,
     ): Promise<UserDetailsEntity[]> {
         const query = this.userDetailsModel.query().where((builder) => {
-            applyFilters(builder, payload);
+            applyAllFilters(builder, payload);
         });
 
         const sortingParameters = createSortingUsersParameters(payload.sortBy);
