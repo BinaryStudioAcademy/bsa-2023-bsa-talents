@@ -15,7 +15,7 @@ import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
 import { type SideBarMenu } from './types/sidebar-menu.type.js';
 
-const generalMenuItems: SideBarMenu = [
+const GENERAL_MENU_ITEMS: SideBarMenu = [
     {
         link: AppRoute.CANDIDATES,
         name: 'Candidates',
@@ -28,7 +28,7 @@ const generalMenuItems: SideBarMenu = [
     },
 ];
 
-const adminMenuItems: SideBarMenu = [
+const ADMIN_MENU_ITEMS: SideBarMenu = [
     {
         link: AppRoute.ADMIN_VERIFICATIONS_PANEL,
         name: 'Home',
@@ -56,7 +56,7 @@ const Sidebar: React.FC = () => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
 
-    const menuItems = isAdmin ? adminMenuItems : generalMenuItems;
+    const menuItems = isAdmin ? ADMIN_MENU_ITEMS : GENERAL_MENU_ITEMS;
 
     return (
         <>
