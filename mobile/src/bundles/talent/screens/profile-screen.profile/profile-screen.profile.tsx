@@ -1,19 +1,12 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
-import {
-    Button,
-    Loader,
-    ScrollView,
-} from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/enums';
+import { Loader, ScrollView } from '~/bundles/common/components/components';
 import {
     useAppDispatch,
     useAppSelector,
     useMemo,
 } from '~/bundles/common/hooks/hooks';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
-import { globalStyles } from '~/bundles/common/styles/styles';
 import { ProfileFormData } from '~/bundles/talent/components/profile-form-data/profile-form-data';
 import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
 import { TalentFormType } from '~/bundles/talent/enums/enums';
@@ -34,10 +27,6 @@ const ProfileScreenProfile: React.FC = () => {
                 userId: onboardingData?.userId,
             }),
         );
-    };
-
-    const handleLogout = (): void => {
-        void dispatch(logout());
     };
 
     const profileValues = useMemo(() => {
@@ -67,13 +56,6 @@ const ProfileScreenProfile: React.FC = () => {
                         isFormEditable={false}
                         formType={TalentFormType.PROFILE_SCREEN}
                         renderedForm={ProfileFormData}
-                    />
-
-                    <Button
-                        label="Logout"
-                        buttonType={ButtonType.OUTLINE}
-                        style={[globalStyles.m25, styles.logout]}
-                        onPress={handleLogout}
                     />
                 </ScrollView>
             ) : (
