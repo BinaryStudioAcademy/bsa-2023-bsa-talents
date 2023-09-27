@@ -1,4 +1,5 @@
 import {
+    type TalentBadge,
     type UserDetailsUpdateRequestDto,
     type ValueOf,
 } from 'shared/build/index.js';
@@ -10,7 +11,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
         value: string;
         label: string;
     }[];
-    badges?: string[];
+    badges?: TalentBadge[];
     photo?: File | null;
     cv?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;

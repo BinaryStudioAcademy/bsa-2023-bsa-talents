@@ -1,4 +1,5 @@
-import { mockBadges } from '~/assets/mock-data/mock-data.js';
+import { type TalentBadge } from 'shared/build/index.js';
+
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
@@ -79,13 +80,18 @@ const CandidateProfile: React.FC<Properties> = ({
     const hardskillsLabels = hardSkillsOptions
         .filter(
             (item) =>
-                data.talentHardSkills?.some(
+                reduxData.talentHardSkills?.some(
                     (skill) =>
                         (skill as unknown as TalentHardSkill).hardSkillId ===
                         item.value,
                 ),
         )
         .map((item) => item.label);
+    const hardSkillsToShow =
+        !isFifthStep && candidateData?.hardSkills
+            ? candidateData.hardSkills.map((item) => item.name)
+            : hardskillsLabels;
+
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,
         profileName: data.profileName as string,
@@ -93,14 +99,10 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        //badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
-        badges: mockBadges,
+        badges: data.badges as TalentBadge[],
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        talentHardSkills:
-            isProfileCard && candidateData?.hardSkills
-                ? candidateData.hardSkills.map((item) => item.name)
-                : hardskillsLabels,
+        talentHardSkills: hardSkillsToShow,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
     };

@@ -83,6 +83,7 @@ export {
     OnboardingStep,
     PreferredLanguage,
     SearchType,
+    type TalentBadge,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,

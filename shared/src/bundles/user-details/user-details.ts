@@ -13,6 +13,7 @@ export {
     YearsOfExperience,
 } from './enums/enums.js';
 export {
+    type TalentBadge,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,

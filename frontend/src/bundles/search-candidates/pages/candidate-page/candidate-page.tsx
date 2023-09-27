@@ -36,7 +36,7 @@ const CandidatePage: React.FC = () => {
                 }),
             );
         }
-    }, [candidateDetails?.userId, companyId, dispatch, userId]);
+    }, [candidateDetails, companyId, dispatch, userId]);
     return (
         <>
             <BreadCrumbs profileName={candidateDetails?.profileName} />
