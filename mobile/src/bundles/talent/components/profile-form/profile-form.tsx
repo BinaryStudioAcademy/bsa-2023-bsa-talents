@@ -12,6 +12,11 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
+    Country,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/common/enums/enums';
+import {
     useAppForm,
     useCallback,
     useEffect,
@@ -22,10 +27,7 @@ import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
-    EMPLOYMENT_TYPE_OPTIONS,
     EXPERIENCE_YEARS,
-    JOB_TITLE_OPTIONS,
-    LOCATION_OPTIONS,
     TALENT_PROFILE_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
@@ -40,6 +42,10 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
         defaultValues: profileStepData ?? TALENT_PROFILE_DEFAULT_VALUES,
         validationSchema: profileStepValidationSchema,
     });
+
+    const jobTitleOptions = Object.values(JobTitle);
+    const locationOptions = Object.values(Country);
+    const employmentTypeOptions = Object.values(EmploymentType);
 
     useEffect(() => {
         profileStepData && reset(profileStepData);
@@ -97,7 +103,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={JOB_TITLE_OPTIONS}
+                    options={jobTitleOptions}
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
@@ -133,7 +139,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={LOCATION_OPTIONS}
+                    items={locationOptions}
                     placeholder="Option"
                 />
             </FormField>
@@ -147,7 +153,7 @@ const ProfileForm: React.FC<Properties> = ({ profileStepData, onSubmit }) => {
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={EMPLOYMENT_TYPE_OPTIONS}
+                    options={employmentTypeOptions}
                 />
             </FormField>
             <FormField

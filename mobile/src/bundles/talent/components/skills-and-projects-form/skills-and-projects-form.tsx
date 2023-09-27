@@ -12,7 +12,14 @@ import {
     Selector,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    Color,
+    EnglishLevel,
+    IconName,
+    NotConsidered,
+    PreferredLanguage,
+} from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
@@ -25,10 +32,7 @@ import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import {
-    ENGLISH_LEVELS,
     MAX_LINKS,
-    NOT_CONSIDERED,
-    PREFERRED_LANGUAGES,
     SKILLS_AND_PROJECTS_DEFAULT_VALUES,
 } from './constants/constants';
 import { styles } from './styles';
@@ -48,6 +52,11 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
         defaultValues: skillsStepData ?? SKILLS_AND_PROJECTS_DEFAULT_VALUES,
         validationSchema: skillsStepValidationSchema,
     });
+
+    const englishLevels = Object.values(EnglishLevel);
+    const preferredLanguages = Object.values(PreferredLanguage);
+    const notConsidered = Object.values(NotConsidered);
+
     const { hardSkillsData } = useCommonData();
     const { fields, append, remove } = useFieldArray({
         name: 'projectLinks',
@@ -85,7 +94,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={ENGLISH_LEVELS}
+                    options={englishLevels}
                     control={control}
                     name="englishLevel"
                     placeholder="Option"
@@ -101,7 +110,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 <CheckboxGroup
                     control={control}
                     name="notConsidered"
-                    options={NOT_CONSIDERED}
+                    options={notConsidered}
                 />
             </FormField>
 
@@ -113,7 +122,7 @@ const SkillsAndProjectsForm: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={PREFERRED_LANGUAGES}
+                    options={preferredLanguages}
                     control={control}
                     name="preferredLanguages"
                     isMultiSelect={true}

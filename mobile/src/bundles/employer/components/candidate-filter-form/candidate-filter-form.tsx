@@ -14,7 +14,12 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    EmploymentType,
+    EnglishLevel,
+    IconName,
+} from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -25,8 +30,6 @@ import {
     BSA_CHARACTERISTICS,
     BSA_PROJECTS,
     DEFAULT_VALUES,
-    EMPLOYMENT_TYPE_OPTIONS,
-    ENGLISH_LEVELS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
     SORT_VALUES,
@@ -46,6 +49,10 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
         defaultValues: DEFAULT_VALUES,
     });
     const { hardSkillsData } = useCommonData();
+
+    const employmentTypeOptions = Object.values(EmploymentType);
+    const englishLevels = Object.values(EnglishLevel);
+
     const handleClearFilters = (): void => {
         reset();
     };
@@ -194,7 +201,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={ENGLISH_LEVELS}
+                    options={englishLevels}
                 />
             </FormField>
             <FormField
@@ -205,7 +212,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={EMPLOYMENT_TYPE_OPTIONS}
+                    options={employmentTypeOptions}
                 />
             </FormField>
             <Button

@@ -18,11 +18,9 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
-import {
-    BADGES_STEP_DEFAULT_VALUES,
-    UNCONTROLLED_BADGES,
-} from '~/bundles/talent/components/badges-form/constants/constants';
+import { BADGES_STEP_DEFAULT_VALUES } from '~/bundles/talent/components/badges-form/constants/constants';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
+import { BsaBadgesStepUncontrolledBadges } from '~/bundles/talent/enums/enums';
 import {
     type BadgesFormDto,
     type BsaBadgesStepTypes,
@@ -41,6 +39,8 @@ const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { badgesData, dataStatus } = useCommonData();
 
+    const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
+
     const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {
         if (onboardingData?.badges) {
             return { badges: onboardingData.badges };
@@ -51,12 +51,12 @@ const BsaBadgesForm: React.FC<Properties> = ({ onSubmit, currentStep }) => {
         if (badgesData?.items) {
             const badges = badgesData.items.map((badge) => ({
                 ...badge,
-                isChecked: UNCONTROLLED_BADGES.includes(badge.name),
+                isChecked: uncontrolledBadges.includes(badge.name),
             }));
             return { badges };
         }
         return BADGES_STEP_DEFAULT_VALUES;
-    }, [badgesData]);
+    }, [badgesData, uncontrolledBadges]);
 
     const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: BADGES_STEP_DEFAULT_VALUES,

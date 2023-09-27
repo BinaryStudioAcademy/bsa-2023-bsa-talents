@@ -9,6 +9,7 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
+    Country,
     EmployerBottomTabScreenName,
     IconName,
 } from '~/bundles/common/enums/enums';
@@ -22,10 +23,7 @@ import { EmployerDataSubmitLabel } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
-import {
-    EMPLOYER_ONBOARDING_DEFAULT_VALUES,
-    LOCATION_OPTIONS,
-} from './constants/constants';
+import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
@@ -44,6 +42,8 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     });
 
     const route = useRoute();
+
+    const locationOptions = Object.values(Country);
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -177,7 +177,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={LOCATION_OPTIONS}
+                    items={locationOptions}
                     placeholder="Option"
                 />
             </FormField>
