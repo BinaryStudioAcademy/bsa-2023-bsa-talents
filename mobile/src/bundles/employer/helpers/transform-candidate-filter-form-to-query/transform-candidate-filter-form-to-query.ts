@@ -1,4 +1,4 @@
-import { UserSortCriteria } from '~/bundles/employer/enums/enums';
+import { SearchType, UserSortCriteria } from '~/bundles/employer/enums/enums';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
 const getSortSearchQuery = (label: string | undefined): string => {
@@ -37,7 +37,9 @@ const transformCandidateFilterFormToQuery = (
         ...multiSelectedData
     } = formData;
 
-    let result = `?searchType=${searchType}`;
+    let result = `?searchType=${
+        searchType ? SearchType.ACTIVE : SearchType.PASSIVE
+    }`;
     result += getFilterSearchQuery(englishLevel, 'englishLevel');
     result += getFilterSearchQuery(employmentType, 'employmentType');
     result += getSortSearchQuery(sortBy);
