@@ -18,11 +18,12 @@ type Properties = {
 const MessageList: React.FC<Properties> = ({ className }) => {
     const autoScrollElement = useRef<HTMLDivElement>(null);
 
-    const { chatMessages, chats, currentChatId } = useAppSelector(
+    const { chatMessages, chats, currentChatId, isLoading } = useAppSelector(
         ({ chat }) => ({
             chatMessages: chat.current.messages,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
+            isLoading: chat.dataStatus === 'pending',
         }),
     );
 
@@ -81,12 +82,16 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
     ) : (
-        <Grid className={getValidClassNames(styles.messageList, styles.empty)}>
-            <p className={styles.placeholder}>
-                There are no active conversations yet. When employers want to
-                contact you, all chats will be here
-            </p>
-        </Grid>
+        !isLoading && (
+            <Grid
+                className={getValidClassNames(styles.messageList, styles.empty)}
+            >
+                <p className={styles.placeholder}>
+                    There are no active conversations yet. When employers want
+                    to contact you, all chats will be here
+                </p>
+            </Grid>
+        )
     );
 };
 
