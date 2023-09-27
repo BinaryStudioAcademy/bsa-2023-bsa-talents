@@ -49,10 +49,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     return (
         <Menu>
             {!isAdmin && (
-                <MenuItem
-                    onClick={handleCheckProfile}
-                    className={styles.menuDis}
-                >
+                <MenuItem onClick={handleCheckProfile}>
                     <Typography variant="h6" className={styles.menuItem}>
                         My profile
                     </Typography>
