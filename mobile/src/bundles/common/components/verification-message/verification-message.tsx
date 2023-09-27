@@ -15,7 +15,7 @@ const VerificationMessage: React.FC = () => {
                 styles.text,
                 globalStyles.p5,
                 globalStyles.ph10,
-                globalStyles.mh5,
+                globalStyles.mr5,
             ]}
         >
             Waiting for approval
