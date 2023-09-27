@@ -18,6 +18,7 @@ import {
     useAppDispatch,
     useAppForm,
     useCallback,
+    useEffect,
     useRoute,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -40,11 +41,15 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
 }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues:
             employerOnboardingData ?? EMPLOYER_ONBOARDING_DEFAULT_VALUES,
         validationSchema: EmployerOnboardingFormValidationSchema,
     });
+
+    useEffect(() => {
+        employerOnboardingData && reset(employerOnboardingData);
+    }, [employerOnboardingData, reset]);
 
     const route = useRoute();
 
