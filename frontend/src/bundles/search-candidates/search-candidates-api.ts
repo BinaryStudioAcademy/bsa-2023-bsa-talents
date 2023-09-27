@@ -36,6 +36,19 @@ class SearchCandidatesApi extends HttpApiBase {
 
         return response.json<SeacrhCandidateDto[]>();
     }
+    public async getCandidateDetailsByUserId(payload: {
+        userId: string;
+    }): Promise<SeacrhCandidateDto | null> {
+        const response = await this.load(
+            this.getFullEndpoint('/', ':userId', payload),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<SeacrhCandidateDto>();
+    }
 }
 
 export { SearchCandidatesApi };

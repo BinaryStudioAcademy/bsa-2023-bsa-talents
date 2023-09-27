@@ -36,7 +36,7 @@ const getCandidateDetails = createAsyncThunk<
     `${sliceName}/get-candidate-details`,
     async (findPayload, { extra, rejectWithValue, getState }) => {
         const { searchCandidates } = getState();
-        const { talentOnBoardingApi } = extra;
+        const { searchCandidatesApi } = extra;
         if (searchCandidates.filteredCandidates.length > 0) {
             return (
                 searchCandidates.filteredCandidates.find(
@@ -45,9 +45,9 @@ const getCandidateDetails = createAsyncThunk<
             );
         }
         try {
-            return (await talentOnBoardingApi.getUserDetailsByUserId({
+            return await searchCandidatesApi.getCandidateDetailsByUserId({
                 userId: findPayload.userId,
-            })) as SeacrhCandidateDto;
+            });
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',

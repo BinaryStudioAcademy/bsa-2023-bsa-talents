@@ -98,10 +98,8 @@ const CandidateProfile: React.FC<Properties> = ({
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         talentHardSkills:
-            isProfileCard && data.hardSkills
-                ? (data.hardSkills as { id: string; name: string }[]).map(
-                      (item) => item.name,
-                  )
+            isProfileCard && candidateData?.hardSkills
+                ? candidateData.hardSkills.map((item) => item.name)
                 : hardskillsLabels,
         experienceYears: trimZerosFromNumber(data.experienceYears as number),
         date: data.createdAt as string,
