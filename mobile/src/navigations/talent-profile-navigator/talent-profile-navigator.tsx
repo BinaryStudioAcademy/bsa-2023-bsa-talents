@@ -6,7 +6,6 @@ import { ProfileDetailsScreenName } from '~/bundles/talent/enums/enums';
 import {
     ProfileScreenBadges,
     ProfileScreenContacts,
-    ProfileScreenHirings,
     ProfileScreenProfile,
     ProfileScreenSkills,
 } from '~/bundles/talent/screens/screens';
@@ -38,10 +37,6 @@ const TalentProfileNavigator: React.FC = () => {
             <Tab.Screen
                 name={ProfileDetailsScreenName.CONTACTS}
                 component={ProfileScreenContacts}
-            />
-            <Tab.Screen
-                name={ProfileDetailsScreenName.HIRINGS}
-                component={ProfileScreenHirings}
             />
         </Tab.Navigator>
     );

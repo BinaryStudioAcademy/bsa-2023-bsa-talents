@@ -6,7 +6,6 @@ export { Preview } from './preview/preview';
 export { Profile } from './profile/profile';
 export { ProfileScreenBadges } from './profile-screen.badges/profile-screen-badges';
 export { ProfileScreenContacts } from './profile-screen.contacts/profile-screen-contacts';
-export { ProfileScreenHirings } from './profile-screen.hirings/profile-screen-hirings';
 export { ProfileScreenProfile } from './profile-screen.profile/profile-screen.profile';
 export { ProfileScreenSkills } from './profile-screen.skills/profile-screen-skills';
 export { SkillsAndProjects } from './skills-and-projects/skills-and-projects';
