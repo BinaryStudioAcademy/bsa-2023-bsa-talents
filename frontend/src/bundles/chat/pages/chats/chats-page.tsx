@@ -1,6 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     ChatHeader,
     ChatList,
@@ -145,6 +146,12 @@ const ChatsPage: React.FC = () => {
                     chatActions.getAllMessagesByChatId({
                         chatId: room.chatId,
                         employerId,
+                    }),
+                );
+                void dispatch(
+                    candidateActions.getContactWithTalent({
+                        talentId: user?.id ?? '',
+                        companyId: employerId,
                     }),
                 );
             }

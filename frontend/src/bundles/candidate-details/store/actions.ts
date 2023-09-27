@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import {
+    type ContactsFindRequestDto,
     type ContactsResponseDto,
     type MessageTemplateDto,
 } from '../types/types.js';
@@ -53,26 +54,19 @@ const shareContactsWithCompany = createAsyncThunk<
 
 const getContactWithTalent = createAsyncThunk<
     boolean,
-    string,
+    ContactsFindRequestDto,
     AsyncThunkConfig
->(
-    `${sliceName}/get-contact-with-talent`,
-    async (talentId, { extra, getState }) => {
-        const { candidateApi } = extra;
-        const state = getState();
-        try {
-            if (!talentId || !state.auth.currentUser?.id) {
-                return false;
-            }
-            return await candidateApi.getContactWithTalent({
-                companyId: state.auth.currentUser.id,
-                talentId: talentId,
-            });
-        } catch {
+>(`${sliceName}/get-contact-with-talent`, async (payload, { extra }) => {
+    const { candidateApi } = extra;
+    try {
+        if (!payload.talentId || !payload.companyId) {
             return false;
         }
-    },
-);
+        return await candidateApi.getContactWithTalent(payload);
+    } catch {
+        return false;
+    }
+});
 
 export {
     addMessageTemplate,

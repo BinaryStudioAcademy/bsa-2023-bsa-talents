@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
+import { getContactWithTalent } from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
@@ -18,6 +19,7 @@ type State = {
     chats: ChatResponseDto[];
     current: {
         chatId: string | null;
+        talentHasSharedContacts: boolean;
         messages: MessageResponseDto[];
         employerDetails:
             | {
@@ -39,6 +41,7 @@ const initialState: State = {
     chats: [],
     current: {
         chatId: null,
+        talentHasSharedContacts: false,
         messages: [],
         employerDetails: {
             logoUrl: '',
@@ -65,6 +68,7 @@ const { reducer, actions, name } = createSlice({
             action.payload;
             state.current.chatId = null;
             state.current.messages = [];
+            state.current.talentHasSharedContacts = false;
         },
         addMessage: (state, action) => {
             const chat = state.chats.find(
@@ -91,6 +95,9 @@ const { reducer, actions, name } = createSlice({
             .addCase(getAllChatsByUserId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
                 state.chats = action.payload;
+            })
+            .addCase(getContactWithTalent.fulfilled, (state, action) => {
+                state.current.talentHasSharedContacts = action.payload;
             })
             .addCase(getAllMessagesByChatId.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;

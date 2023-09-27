@@ -1,6 +1,7 @@
 const ErrorMessage = {
     NOT_AUTHORIZED: 'You are not authorized to access this route.',
     USER_ALREADY_EXIST: 'User already exist.',
+    CONTACT_ALREADY_SHARED: 'Contact is already shared',
     INCORRECT_EMAIL: 'Incorrect email.',
     EMAIL_ALREADY_EXISTS: 'Email is already taken.',
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',

@@ -1,4 +1,5 @@
 import { ErrorMessage } from '~/common/enums/enums.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type ContactsRepository } from './contacts.repository.js';
@@ -28,6 +29,15 @@ class ContactsService implements Service {
     public async create(
         payload: ContactsCreateRequestDto,
     ): Promise<ContactsResponseDto> {
+        const hasSharedContact = await this.contactsRepository.find(payload);
+
+        if (hasSharedContact) {
+            throw new HttpError({
+                message: ErrorMessage.CONTACT_ALREADY_SHARED,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+
         const newContact = await this.contactsRepository.create(payload);
 
         return {
