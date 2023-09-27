@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ChatBackButton } from '~/bundles/chat/components/components';
 import {
     ActiveModal,
     Button,
@@ -18,12 +19,12 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type RadioButtonProps } from '~/bundles/common/types/types';
-import { type CompanyInfoDto } from '~/bundles/talent/types/types';
 
+import { type EmployerDetails } from '../../types/employer-details-type';
 import { styles } from './styles';
 
 type Properties = {
-    companyInfo: CompanyInfoDto;
+    companyInfo: EmployerDetails;
 };
 
 const radioButtons: RadioButtonProps[] = [
@@ -73,7 +74,16 @@ const CompanyInfo: React.FC<Properties> = ({
                     globalStyles.alignItemsCenter,
                 ]}
             >
-                <Image source={{ uri: logoUrl }} style={styles.logo} />
+                {logoUrl ? (
+                    <Image source={{ uri: logoUrl }} style={styles.logo} />
+                ) : (
+                    <View
+                        style={[
+                            styles.logoPlaceholder,
+                            globalStyles.borderRadius10,
+                        ]}
+                    />
+                )}
                 <View style={globalStyles.ml10}>
                     <Text category={TextCategory.H3}>{companyName}</Text>
                     <Text
@@ -82,6 +92,9 @@ const CompanyInfo: React.FC<Properties> = ({
                     >
                         {employerName}, {employerPosition}
                     </Text>
+                </View>
+                <View style={styles.backButton}>
+                    <ChatBackButton />
                 </View>
             </View>
             <Divider />

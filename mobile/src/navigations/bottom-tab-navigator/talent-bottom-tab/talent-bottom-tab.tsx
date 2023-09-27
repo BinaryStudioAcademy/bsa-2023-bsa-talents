@@ -31,6 +31,7 @@ const TalentBottomTabNavigator: React.FC = () => {
                 name={TalentBottomTabScreenName.MAIL}
                 component={ChatNavigator}
                 options={{
+                    // tabBarStyle: { display: 'none' },
                     tabBarIcon: ({ color = '#FFFFFF' }) => (
                         <MaterialIcon
                             name={IconName.MAIL}
