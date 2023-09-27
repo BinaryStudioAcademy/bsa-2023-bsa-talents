@@ -14,8 +14,6 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
-    useEffect,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { configureString } from '~/helpers/helpers.js';
 import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
@@ -40,31 +38,19 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         navigate(AppRoute.SIGN_IN);
     }, [dispatch, navigate]);
 
-    const [isProfileDisabled, setIsProfileDisabled] = useState<boolean>(true);
-
     const role = useAppSelector((state) => state.auth.currentUser?.role);
 
-    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
-        (state) => state,
-    );
     const isAdmin = role === 'admin';
 
     const handleCheckProfile = useCallback((): void => {
         navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
 
-    useEffect(() => {
-        talentOnBoarding.fullName ?? employerOnBoarding.fullName
-            ? setIsProfileDisabled(false)
-            : setIsProfileDisabled(true);
-    }, [employerOnBoarding.fullName, talentOnBoarding.fullName]);
-
     return (
         <Menu>
             {!isAdmin && (
                 <MenuItem
                     onClick={handleCheckProfile}
-                    disabled={isProfileDisabled}
                     className={styles.menuDis}
                 >
                     <Typography variant="h6" className={styles.menuItem}>
