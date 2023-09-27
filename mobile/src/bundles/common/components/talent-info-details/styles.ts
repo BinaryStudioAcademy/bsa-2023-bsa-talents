@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: Color.PRIMARY,
     },
+    salaryText: {
+        color: Color.TEXT2,
+    },
 });
 
 export { styles };

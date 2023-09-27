@@ -32,7 +32,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
 
     return (
         <>
-            <Text category={TextCategory.H5} style={globalStyles.pb10}>
+            <Text category={TextCategory.H3} style={globalStyles.pb10}>
                 {jobTitle}
             </Text>
             <View style={[styles.profileWrapper, globalStyles.borderRadius5]}>
@@ -40,7 +40,10 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                     category={TextCategory.H3}
                     style={[globalStyles.pv10, globalStyles.pl25]}
                 >
-                    $ {salaryExpectation} / mo
+                    $ {salaryExpectation}{' '}
+                    <Text category={TextCategory.H3} style={styles.salaryText}>
+                        / mo
+                    </Text>
                 </Text>
                 <View
                     style={[
