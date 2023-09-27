@@ -39,7 +39,11 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'searchCandidates',
-    reducers: {},
+    reducers: {
+        clearCurrentCandidate: (state) => {
+            state.currentCandidateDetails = null;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
