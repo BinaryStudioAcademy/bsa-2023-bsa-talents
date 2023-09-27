@@ -4,6 +4,7 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { mapFilesToPayload } from '~/bundles/employer-onboarding/helpers/map-files-to-payload.js';
 import { type FileDto } from '~/bundles/file-upload/types/file-dto.type.js';
 
+import { EMPTY_FILE_COUNT } from '../constants/constants.js';
 import { type UserDetailsGeneralCustom } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
