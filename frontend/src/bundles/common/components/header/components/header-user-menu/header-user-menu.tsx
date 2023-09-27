@@ -1,5 +1,5 @@
 import { type MenuItemProps } from '@mui/base/MenuItem';
-import { Logout } from '@mui/icons-material';
+import { Logout, Person } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 import { actions as storeActions } from '~/app/store/app.js';
@@ -39,7 +39,9 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     }, [dispatch, navigate]);
 
     const role = useAppSelector((state) => state.auth.currentUser?.role);
+
     const isAdmin = role === 'admin';
+
     const handleCheckProfile = useCallback((): void => {
         navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
@@ -48,6 +50,7 @@ const HeaderUserMenu: React.FC<Properties> = () => {
         <Menu>
             {!isAdmin && (
                 <MenuItem onClick={handleCheckProfile}>
+                    <Person fontSize="small" />
                     <Typography variant="h6" className={styles.menuItem}>
                         My profile
                     </Typography>

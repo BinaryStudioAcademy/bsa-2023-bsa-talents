@@ -19,6 +19,8 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useNavigate,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
 import { actions as employerActions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
@@ -66,14 +68,27 @@ const ProfileCabinet: React.FC = () => {
             break;
         }
     }
+    const [isWaitingForApproval, setIsWaitingForApproval] =
+        useState<boolean>(false);
+
+    const navigate = useNavigate();
+
     const { submitForm } = useFormSubmit();
+
     const dispatch = useAppDispatch();
+
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
         hasChanges: state.cabinet.hasChangesInDetails,
     }));
+
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
+
+    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
+        (state: RootReducer) => state,
+    );
+
     useEffect(() => {
         switch (role) {
             case UserRole.TALENT: {
@@ -98,6 +113,30 @@ const ProfileCabinet: React.FC = () => {
         }
     }, [currentUser?.id, dispatch, role]);
 
+    useEffect(() => {
+        if (
+            (talentOnBoarding.publishedAt && !talentOnBoarding.isApproved) ??
+            (employerOnBoarding.publishedAt && !employerOnBoarding.isApproved)
+        ) {
+            setIsWaitingForApproval(true);
+        }
+        if (talentOnBoarding.isApproved ?? employerOnBoarding.isApproved) {
+            setIsWaitingForApproval(false);
+            void dispatch(
+                storeActions.notify({
+                    type: NotificationType.SUCCESS,
+                    message: 'Profile was approved',
+                }),
+            );
+        }
+    }, [
+        dispatch,
+        employerOnBoarding.isApproved,
+        employerOnBoarding.publishedAt,
+        talentOnBoarding.isApproved,
+        talentOnBoarding.publishedAt,
+    ]);
+
     const handleSaveClick = useCallback(() => {
         void (async (): Promise<void> => {
             if (submitForm) {
@@ -114,8 +153,26 @@ const ProfileCabinet: React.FC = () => {
         })();
     }, [dispatch, submitForm]);
 
+    const handlePublishNowClick = useCallback(() => {
+        if (currentUser) {
+            void dispatch(
+                talentActions.updateTalentPublishedDate({
+                    userId: currentUser.id,
+                }),
+            );
+        }
+
+        if (role === UserRole.TALENT) {
+            navigate(`/${role}/onboarding/step/${StepsRoute.STEP_05}`);
+        }
+    }, [currentUser, dispatch, navigate, role]);
+
     return (
-        <PageLayout avatarUrl="" isOnline>
+        <PageLayout
+            avatarUrl=""
+            isOnline
+            isWaitingForApproval={isWaitingForApproval}
+        >
             <Grid className={styles.pageTitle}>
                 <Typography variant="h4">Your Profile</Typography>
             </Grid>
@@ -137,13 +194,35 @@ const ProfileCabinet: React.FC = () => {
                         ) : (
                             <OnboardingForm />
                         )}
-                        <Button
-                            onClick={handleSaveClick}
-                            label={'Save'}
-                            variant={'contained'}
-                            isDisabled={!hasChanges}
-                            className={styles.saveButton}
-                        />
+                        <Grid container spacing={2}>
+                            <Grid item>
+                                <Button
+                                    onClick={handleSaveClick}
+                                    label={'Save'}
+                                    variant={'outlined'}
+                                    isDisabled={!hasChanges}
+                                    className={getValidClassNames(
+                                        styles.profileButton,
+                                        styles.saveButton,
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    onClick={handlePublishNowClick}
+                                    label={
+                                        role === UserRole.TALENT
+                                            ? 'Publish now'
+                                            : 'Submit for varification'
+                                    }
+                                    variant={'contained'}
+                                    className={getValidClassNames(
+                                        styles.profileButton,
+                                        styles.publishButton,
+                                    )}
+                                />
+                            </Grid>
+                        </Grid>
                     </FormControl>
                 </Grid>
             </Grid>
