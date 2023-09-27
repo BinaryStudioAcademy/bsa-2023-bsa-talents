@@ -25,7 +25,7 @@ const Characteristics: React.FC = () => {
     });
 
     return (
-        <Grid container className={styles.container}>
+        <Grid container alignItems="center" className={styles.container}>
             <Grid container item className={styles.feedback}>
                 <Typography variant={'label'} className={styles.label}>
                     Feedback

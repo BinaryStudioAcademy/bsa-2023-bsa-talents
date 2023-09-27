@@ -10,6 +10,7 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 20px;
+    max-width: var(--wide-screens-container-max-width);
     text-align: start;
     column-gap: 8%;
 }

@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 const Profile: React.FC = () => {
     return (
-        <Grid container className={styles.container}>
+        <Grid container justifyContent="center" className={styles.container}>
             <Grid container item className={styles.textInfo}>
                 <Grid container item className={styles.row}>
                     <Typography variant="body1" className={styles.name}>

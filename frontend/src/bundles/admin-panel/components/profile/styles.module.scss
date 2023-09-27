@@ -6,6 +6,7 @@
 
 .textInfo {
     gap: 25px;
+    max-width: 300px;
 }
 
 .row {
@@ -40,6 +41,7 @@
 .labelsInfo {
     align-items: center;
     gap: 29px;
+    max-width: calc(var(--wide-screens-container-max-width) - 200px);
 }
 
 .bsaBadges {
