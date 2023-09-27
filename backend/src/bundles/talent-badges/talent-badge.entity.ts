@@ -1,5 +1,7 @@
 import { type Entity } from '~/common/types/types.js';
 
+import { type BSABadgeEntity } from '../bsa-badges/bsa-badges.entity.js';
+
 class TalentBadgeEntity implements Entity {
     private 'id': string | null;
 
@@ -15,6 +17,8 @@ class TalentBadgeEntity implements Entity {
 
     private 'userDetailsId': string | null;
 
+    private 'badge'?: BSABadgeEntity | null;
+
     private constructor({
         id,
         userId,
@@ -23,6 +27,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
+        badge,
     }: {
         id: string | null;
         userId: string;
@@ -31,6 +36,7 @@ class TalentBadgeEntity implements Entity {
         badgeId: string;
         isShown: boolean;
         userDetailsId: string | null;
+        badge?: BSABadgeEntity | null;
     }) {
         this.id = id;
         this.userId = userId;
@@ -39,6 +45,7 @@ class TalentBadgeEntity implements Entity {
         this.badgeId = badgeId;
         this.isShown = isShown;
         this.userDetailsId = userDetailsId;
+        this.badge = badge;
     }
 
     public static initialize({
@@ -49,6 +56,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
+        badge,
     }: {
         id: string;
         userId: string;
@@ -57,6 +65,7 @@ class TalentBadgeEntity implements Entity {
         badgeId: string;
         isShown: boolean;
         userDetailsId: string | null;
+        badge?: BSABadgeEntity | null;
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
@@ -66,6 +75,7 @@ class TalentBadgeEntity implements Entity {
             badgeId,
             isShown,
             userDetailsId,
+            badge,
         });
     }
 
@@ -103,6 +113,7 @@ class TalentBadgeEntity implements Entity {
         badgeId: string;
         isShown: boolean;
         userDetailsId: string | null;
+        badge?: BSABadgeEntity | null;
     } {
         return {
             id: this.id as string,
@@ -112,6 +123,7 @@ class TalentBadgeEntity implements Entity {
             badgeId: this.badgeId,
             isShown: this.isShown,
             userDetailsId: this.userDetailsId,
+            badge: this.badge,
         };
     }
 

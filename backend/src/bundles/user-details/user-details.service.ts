@@ -7,14 +7,11 @@ import { type Service } from '~/common/types/service.type.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
-import { getUserBadges } from './helpers/get-user-badges.js';
-import { getUserHardSkills } from './helpers/get-user-hardskills.js';
 import {
     type TalentHardSkill,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
-    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,
@@ -112,7 +109,7 @@ class UserDetailsService implements Service {
 
     public async searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsProperties[]> {
+    ): Promise<UserDetailsEntity[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',
@@ -120,25 +117,7 @@ class UserDetailsService implements Service {
             'searchStringType',
         ]);
 
-        const filteredUsers = await this.userDetailsRepository.searchUsers(
-            preparedData,
-        );
-
-        const userPromises = filteredUsers.map(async (user) => {
-            const userDetails = user.toObject();
-            const userDetailsId = userDetails.id as string;
-
-            const userHardSkills = await getUserHardSkills(userDetailsId);
-
-            const userBadges = await getUserBadges(userDetailsId);
-
-            userDetails.hardSkills = userHardSkills;
-            userDetails.badges = userBadges;
-
-            return userDetails;
-        });
-
-        return await Promise.all(userPromises);
+        return this.userDetailsRepository.searchUsers(preparedData);
     }
 
     public async create(

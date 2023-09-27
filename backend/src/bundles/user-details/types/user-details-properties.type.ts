@@ -1,4 +1,3 @@
-import { type BSABadgeEntity } from '~/bundles/bsa-badges/bsa-badges.entity.js';
 import { type HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
 import { type ValueOf } from '~/common/types/types.js';
 
@@ -12,6 +11,7 @@ import {
     type PreferredLanguage,
     type SearchType,
 } from '../enums/enums.js';
+import { type UserDetailsResponseBadgeDto } from './types.js';
 
 type UserDetailsProperties = {
     id: string | null;
@@ -33,7 +33,7 @@ type UserDetailsProperties = {
     searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     hardSkills?: HardSkillsEntity[];
-    badges?: BSABadgeEntity[];
+    badges?: UserDetailsResponseBadgeDto[] | null;
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

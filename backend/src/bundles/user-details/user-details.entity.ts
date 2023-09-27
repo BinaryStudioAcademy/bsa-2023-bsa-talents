@@ -11,7 +11,10 @@ import {
     type PreferredLanguage,
     type SearchType,
 } from './enums/enums.js';
-import { type UserDetailsProperties } from './types/types.js';
+import {
+    type UserDetailsProperties,
+    type UserDetailsResponseBadgeDto,
+} from './types/types.js';
 
 class UserDetailsEntity implements Entity {
     private 'id': string | null;
@@ -51,6 +54,8 @@ class UserDetailsEntity implements Entity {
     private 'projectLinks': string[] | null;
 
     private 'hardSkills'?: HardSkillsEntity[];
+
+    private 'badges'?: UserDetailsResponseBadgeDto[] | null;
 
     private 'photoId': string | null;
 
@@ -96,6 +101,7 @@ class UserDetailsEntity implements Entity {
         searchType,
         projectLinks,
         hardSkills,
+        badges,
         photoId,
         fullName,
         phone,
@@ -127,6 +133,7 @@ class UserDetailsEntity implements Entity {
         this.preferredLanguages = preferredLanguages;
         this.searchType = searchType;
         this.hardSkills = hardSkills;
+        this.badges = badges;
         this.projectLinks = projectLinks;
         this.photoId = photoId;
         this.fullName = fullName;
@@ -160,6 +167,8 @@ class UserDetailsEntity implements Entity {
         notConsidered,
         preferredLanguages,
         searchType,
+        badges,
+        hardSkills,
         projectLinks,
         photoId,
         fullName,
@@ -192,6 +201,8 @@ class UserDetailsEntity implements Entity {
             notConsidered,
             preferredLanguages,
             searchType,
+            badges,
+            hardSkills,
             projectLinks,
             photoId,
             fullName,
@@ -293,6 +304,7 @@ class UserDetailsEntity implements Entity {
             preferredLanguages: this.preferredLanguages,
             searchType: this.searchType,
             hardSkills: this.hardSkills,
+            badges: this.badges,
             projectLinks: this.projectLinks,
             photoId: this.photoId,
             fullName: this.fullName,

@@ -6,6 +6,7 @@ export { type UserDetailsFindByUserIdRequestDto } from './user-details-find-by-u
 export { type UserDetailsFindRequestDto } from './user-details-find-request-dto.type.js';
 export { type UserDetailsFindShortByRoleRequestDto } from './user-details-find-short-by-role-request-dto.type.js';
 export { type UserDetailsResponseDto } from './user-details-response-dto.type.js';
+export { type UserDetailsResponseBadgeDto } from './user-details-search-response-badge-dto.type.js';
 export { type UserDetailsSearchUsersRequestDto } from './user-details-search-users-request-dto.type.js';
 export { type UserDetailsShortResponseDto } from './user-details-short-response-dto.type.js';
 export { type UserDetailsUpdateDto } from './user-details-update-dto.type.js';

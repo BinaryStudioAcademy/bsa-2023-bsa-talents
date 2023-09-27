@@ -16,6 +16,7 @@ import {
 } from '~/common/packages/database/database.js';
 import { type ValueOf } from '~/common/types/types.js';
 
+import { type TalentBadgeEntity } from '../talent-badges/talent-badge.entity.js';
 import {
     type Country,
     type EmploymentType,
@@ -93,6 +94,8 @@ class UserDetailsModel extends AbstractModel {
     public 'photo'?: FileModel;
 
     public 'companyLogo'?: FileModel;
+
+    public 'badges'?: TalentBadgeEntity;
 
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));

@@ -7,6 +7,7 @@ import {
     TalentBadgesTableColumn,
 } from '~/common/packages/database/database.js';
 
+import { type BSABadgeEntity } from '../bsa-badges/bsa-badges.entity.js';
 import { BSABadgesModel } from '../bsa-badges/bsa-badges.model.js';
 
 class TalentBadgeModel extends AbstractModel {
@@ -21,6 +22,8 @@ class TalentBadgeModel extends AbstractModel {
     public 'badgeId': string;
 
     public 'userDetailsId': string | null;
+
+    public 'badge'?: BSABadgeEntity;
 
     public static override get tableName(): string {
         return DatabaseTableName.TALENT_BADGES;

@@ -1,6 +1,6 @@
 import { type QueryBuilder } from 'objection';
-import { type EmploymentType, type ValueOf } from 'shared/build/index.js';
 
+import { type EmploymentType, type ValueOf } from '../../../enums/enums.js';
 import { type UserDetailsModel } from '../../../user-details.model.js';
 
 const applyEmploymentTypeFilter = (

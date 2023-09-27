@@ -1,13 +1,13 @@
 import { type Entity } from '~/common/types/types.js';
 
 class BSABadgeEntity implements Entity {
-    private 'id': string | null;
+    public 'id': string | null;
 
-    private 'type': string;
+    public 'type': string;
 
-    private 'name': string;
+    public 'name': string;
 
-    private 'maxScore': number;
+    public 'maxScore': number;
 
     private constructor({
         id,

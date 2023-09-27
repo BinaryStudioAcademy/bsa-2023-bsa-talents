@@ -3,9 +3,11 @@ import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
 import { UserRole } from './enums/enums.js';
 import { applyAllFilters } from './helpers/apply-filters/apply-all-filters.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
+import { mapSearchUsersResponseBadges } from './helpers/map-search-users-response-badges.js';
 import {
     type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
@@ -144,13 +146,18 @@ class UserDetailsRepository implements Repository {
         );
 
         const searchResults = await query
-            .withGraphJoined('user')
+            .withGraphJoined('[user, talentBadges.[badge]]')
+            .withGraphJoined('[user, talentHardSkills]')
             .where('user.role', '=', UserRole.TALENT)
             .andWhere('isApproved', true);
 
         return searchResults.map((result) => {
             return UserDetailsEntity.initialize({
                 ...result,
+                badges: mapSearchUsersResponseBadges(result),
+                hardSkills: result.talentHardSkills.map((skill) =>
+                    HardSkillsEntity.initialize(skill),
+                ),
                 email: result.user?.email,
             });
         });
