@@ -4,6 +4,7 @@ import { Pressable, ScrollView } from '~/bundles/common/components/components';
 import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
     useNavigation,
@@ -49,12 +50,15 @@ const WithProfileForm = <T extends FieldValues>({
     isFormEditable = true,
 }: Properties<T>): JSX.Element => {
     const navigation = useNavigation();
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const [isEditable, setIsEditable] = useState(isFormEditable);
 
     const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues: value ?? defaultValue,
         validationSchema,
     });
+
+    const isPublished = Boolean(onboardingData?.publishedAt);
 
     useEffect(() => {
         value && reset(value);
@@ -107,6 +111,7 @@ const WithProfileForm = <T extends FieldValues>({
                     onFormReset={handleFormReset}
                     onFormSubmit={handleFormSubmit}
                     onPublish={handlePublish}
+                    isPublished={isPublished}
                 />
             )}
         </ScrollView>

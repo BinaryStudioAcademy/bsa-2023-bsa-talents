@@ -21,6 +21,7 @@ import {
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
 import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
+import { Preview } from '~/bundles/talent/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -90,6 +91,10 @@ const Root: React.FC = () => {
                             ? TalentBottomTabNavigator
                             : EmployerBottomTabNavigator
                     }
+                />
+                <RootStack.Screen
+                    name={RootScreenName.PREVIEW}
+                    component={Preview}
                 />
                 <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
             </>

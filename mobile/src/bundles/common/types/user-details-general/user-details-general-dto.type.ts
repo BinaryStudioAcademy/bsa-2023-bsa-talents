@@ -48,7 +48,8 @@ type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto> &
-    Partial<CompanyLogoDto>;
+    Partial<CompanyLogoDto> &
+    Partial<PublishedAt>;
 
 export {
     type CVDto,

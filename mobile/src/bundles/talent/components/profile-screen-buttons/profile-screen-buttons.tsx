@@ -8,6 +8,7 @@ import { styles } from './styles';
 
 type ProfileScreenButtonsProperties = {
     isEditable: boolean;
+    isPublished: boolean;
     onFormSubmit: () => void;
     onFormEdit: () => void;
     onFormReset: () => void;
@@ -16,6 +17,7 @@ type ProfileScreenButtonsProperties = {
 
 const ProfileScreenButtons: React.FC<ProfileScreenButtonsProperties> = ({
     isEditable,
+    isPublished,
     onFormEdit,
     onFormReset,
     onFormSubmit,
@@ -37,11 +39,13 @@ const ProfileScreenButtons: React.FC<ProfileScreenButtonsProperties> = ({
                         buttonType={ButtonType.GHOST}
                     />
                 )}
-                <Button
-                    label="Publish"
-                    style={globalStyles.ml25}
-                    onPress={onPublish}
-                />
+                {!isPublished && (
+                    <Button
+                        label="Publish"
+                        style={globalStyles.ml25}
+                        onPress={onPublish}
+                    />
+                )}
             </View>
         </>
     );
