@@ -175,16 +175,13 @@ const Candidates: React.FC = () => {
                                 />
                             ))
                         ) : (
-                            <Grid container item className={styles.noResults}>
-                                <Typography
-                                    className={styles.noResultsText}
-                                    variant="body1"
-                                >
-                                    {' '}
-                                    No candidates were found, try to change the
-                                    filtering{' '}
-                                </Typography>
-                            </Grid>
+                            <Typography
+                                className={styles.noResultsText}
+                                variant="body1"
+                            >
+                                No candidates were found, try to change the
+                                filtering
+                            </Typography>
                         )}
                     </Grid>
                 )}
