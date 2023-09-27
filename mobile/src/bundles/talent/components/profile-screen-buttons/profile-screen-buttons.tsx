@@ -11,6 +11,7 @@ type ProfileScreenButtonsProperties = {
     onFormSubmit: () => void;
     onFormEdit: () => void;
     onFormReset: () => void;
+    onPublish: () => void;
 };
 
 const ProfileScreenButtons: React.FC<ProfileScreenButtonsProperties> = ({
@@ -18,6 +19,7 @@ const ProfileScreenButtons: React.FC<ProfileScreenButtonsProperties> = ({
     onFormEdit,
     onFormReset,
     onFormSubmit,
+    onPublish,
 }) => {
     return (
         <>
@@ -35,6 +37,11 @@ const ProfileScreenButtons: React.FC<ProfileScreenButtonsProperties> = ({
                         buttonType={ButtonType.GHOST}
                     />
                 )}
+                <Button
+                    label="Publish"
+                    style={globalStyles.ml25}
+                    onPress={onPublish}
+                />
             </View>
         </>
     );

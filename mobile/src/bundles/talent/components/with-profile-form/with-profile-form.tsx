@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { Pressable, ScrollView } from '~/bundles/common/components/components';
+import { TalentOnboardingScreenName } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
     useEffect,
+    useNavigation,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
@@ -46,6 +48,7 @@ const WithProfileForm = <T extends FieldValues>({
     currentStep,
     isFormEditable = true,
 }: Properties<T>): JSX.Element => {
+    const navigation = useNavigation();
     const [isEditable, setIsEditable] = useState(isFormEditable);
 
     const { control, errors, handleSubmit, reset } = useAppForm({
@@ -71,6 +74,10 @@ const WithProfileForm = <T extends FieldValues>({
 
     const handleFormEdit = (): void => {
         setIsEditable(true);
+    };
+
+    const handlePublish = (): void => {
+        navigation.navigate(TalentOnboardingScreenName.PREVIEW as never);
     };
 
     const isOnboardingScreen = formType === TalentFormType.ONBOARDING;
@@ -99,6 +106,7 @@ const WithProfileForm = <T extends FieldValues>({
                     isEditable={isEditable}
                     onFormReset={handleFormReset}
                     onFormSubmit={handleFormSubmit}
+                    onPublish={handlePublish}
                 />
             )}
         </ScrollView>
