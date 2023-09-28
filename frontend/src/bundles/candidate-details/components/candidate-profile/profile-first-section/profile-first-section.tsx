@@ -108,7 +108,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                             <Badge
                                 isSmall
                                 isFifthStep={isFifthStep}
-                                color={badge.color}
+                                color={BadgeColors.YELLOW}
                                 primaryText={
                                     (badge.score ?? badge.level) as string
                                 }
