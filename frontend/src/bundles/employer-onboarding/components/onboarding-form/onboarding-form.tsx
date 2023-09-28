@@ -184,7 +184,7 @@ const OnboardingForm: React.FC = () => {
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleFormSubmit = useCallback(
-        (data: EmployerOnboardingDto): boolean => {
+        async (data: EmployerOnboardingDto): Promise<boolean> => {
             const {
                 fullName,
                 employerPosition,
@@ -194,7 +194,7 @@ const OnboardingForm: React.FC = () => {
                 description,
                 linkedinLink,
             } = data;
-            void dispatch(
+            await dispatch(
                 employerActions.saveEmployerDetails({
                     fullName,
                     employerPosition,
@@ -215,8 +215,8 @@ const OnboardingForm: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit((formData) => {
-                    result = handleFormSubmit(formData);
+                await handleSubmit(async (formData) => {
+                    result = await handleFormSubmit(formData);
                 })();
                 return result;
             };
