@@ -1,9 +1,4 @@
 import {
-    AccountCircle as AccountCircleIcon,
-    Image as ImageIcon,
-} from '@mui/icons-material';
-
-import {
     ErrorMessage,
     FormControl,
     FormLabel,
@@ -364,17 +359,14 @@ const OnboardingForm: React.FC = () => {
 
                 <Grid className={styles.photoContainer}>
                     <Grid container className={styles.photo}>
-                        {watch('photo') ? (
-                            <Grid item className={styles.photoWrapper}>
-                                <ImageDisplay
-                                    file={watch('photo')}
-                                    url={photoUrl}
-                                    alt="Profile"
-                                />
-                            </Grid>
-                        ) : (
-                            <AccountCircleIcon className={styles.iconWrapper} />
-                        )}
+                        <Grid item className={styles.photoWrapper}>
+                            <ImageDisplay
+                                file={watch('photo')}
+                                url={photoUrl}
+                                alt="Profile"
+                            />
+                        </Grid>
+
                         <EmployerFileUpload
                             label="Upload a photo"
                             control={control}
@@ -385,17 +377,14 @@ const OnboardingForm: React.FC = () => {
                     </Grid>
 
                     <Grid container className={styles.photo}>
-                        {watch('companyLogo') ? (
-                            <Grid item className={styles.photoWrapper}>
-                                <ImageDisplay
-                                    file={watch('companyLogo')}
-                                    url={companyLogoUrl}
-                                    alt="Company logo"
-                                />
-                            </Grid>
-                        ) : (
-                            <ImageIcon className={styles.iconWrapper} />
-                        )}
+                        <Grid item className={styles.photoWrapper}>
+                            <ImageDisplay
+                                file={watch('companyLogo')}
+                                url={companyLogoUrl}
+                                alt="Company logo"
+                            />
+                        </Grid>
+
                         <EmployerFileUpload
                             label="Upload a company logo"
                             control={control}
