@@ -111,7 +111,6 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        //badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,

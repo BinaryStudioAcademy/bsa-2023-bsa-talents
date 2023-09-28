@@ -14,39 +14,24 @@ const CandidatePage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { candidateDetails, companyId, candidateId } = useAppSelector(
+    const { candidateDetails, companyId } = useAppSelector(
         ({ searchCandidates, auth }) => ({
             candidateDetails: searchCandidates.currentCandidateDetails,
             companyId: auth.currentUser?.id,
-            candidateId: searchCandidates.currentCandidateDetails?.userId,
         }),
     );
 
     useEffect(() => {
-        const fetchInitialData = async (): Promise<void> => {
-            await dispatch(
+        if (companyId) {
+            void dispatch(
                 candidateSearchActions.getCandidateDetails({
                     userId: userId as string,
+                    companyId: companyId,
                 }),
             );
-        };
+        }
+    }, [userId, dispatch, companyId]);
 
-        void fetchInitialData();
-    }, [userId, dispatch]);
-    useEffect(() => {
-        const fetchData = async (): Promise<void> => {
-            if (userId !== candidateId) {
-                await dispatch(
-                    candidateActions.getContactWithTalent({
-                        talentId: userId ?? '',
-                        companyId: companyId ?? '',
-                    }),
-                );
-            }
-        };
-
-        void fetchData();
-    }, [candidateDetails?.userId, companyId, dispatch, userId, candidateId]);
     return (
         <>
             <BreadCrumbs profileName={candidateDetails?.profileName} />

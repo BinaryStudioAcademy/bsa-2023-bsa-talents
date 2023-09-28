@@ -28,8 +28,9 @@ const ChatHeader: React.FC<Properties> = ({
     title,
     userId,
 }) => {
-    const { role } = useAppSelector(({ auth }) => ({
+    const { role, isLoading } = useAppSelector(({ auth, chat }) => ({
         role: auth.currentUser?.role,
+        isLoading: chat.dataStatus === 'pending',
     }));
     const onlineIconClasses = getValidClassNames(
         styles.icon,
@@ -42,7 +43,7 @@ const ChatHeader: React.FC<Properties> = ({
     ) as ApplicationRoute;
 
     const talentHeaderTitle: JSX.Element = (
-        <Link to={infoLink} className={styles.candidateLink}>
+        <Link to={isLoading ? '#' : infoLink} className={styles.candidateLink}>
             {title}
         </Link>
     );

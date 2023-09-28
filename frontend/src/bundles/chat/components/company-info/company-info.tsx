@@ -37,7 +37,8 @@ const CompanyInfo: React.FC = () => {
     const handleShareCVButtonClick = useCallback(() => {
         void dispatch(
             chatActions.createMessage({
-                message: 'Talent has shared their contacts',
+                message:
+                    'Hello!\n I have shared my CV and information with you.',
                 senderId: talentId as string,
                 receiverId: employerId as string,
                 chatId: currentChatId as string,
