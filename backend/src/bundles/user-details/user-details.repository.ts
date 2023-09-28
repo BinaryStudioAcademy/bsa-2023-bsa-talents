@@ -3,14 +3,15 @@ import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { HardSkillsEntity } from '../hard-skills/hard-skills.entity.js';
 import { UserRole } from './enums/enums.js';
+import { applyAllFilters } from './helpers/apply-filters/apply-all-filters.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
-import { searchByColumnValues } from './helpers/search-by-column-values.js';
-import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
-import { searchUserByRelativeTable } from './helpers/search-user-by-relative-table.js';
+import { mapSearchUsersResponseBadges } from './helpers/map-search-users-response-badges.js';
 import {
     type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
     type UserDetailsWithFiles,
@@ -53,6 +54,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',
@@ -101,6 +103,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: photo,
             fullName: details.fullName ?? '',
@@ -125,6 +128,8 @@ class UserDetailsRepository implements Repository {
             .leftOuterJoinRelated('photo')
             .where('user.role', role)
             .andWhere('isApproved', false)
+            .whereNotNull('publishedAt')
+            .whereNull('deniedReason')
             .select('user_id', 'photo.url as photoUrl', 'full_name')
             .execute();
     }
@@ -133,85 +138,27 @@ class UserDetailsRepository implements Repository {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
+    public async findFullInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsModel | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ userId })
+            .withGraphFetched(
+                '[talentHardSkills, talentBadges.[badge], cv, photo, companyLogo]',
+            )
+            .execute();
+        if (!details) {
+            return null;
+        }
+        return details;
+    }
+
     public async searchUsers(
         payload: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const query = this.userDetailsModel.query().where((builder) => {
-            if (payload.searchValue) {
-                void builder.where(
-                    'profile_name',
-                    'ilike',
-                    `%${payload.searchValue}%`,
-                );
-            }
-
-            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
-            if (payload.isSearchActiveCandidatesOnly) {
-                void builder.where(
-                    'isHired',
-                    payload.isSearchActiveCandidatesOnly,
-                );
-            }
-
-            if (payload.jobTitle && payload.jobTitle.length > 0) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'jobTitle',
-                        payload.jobTitle,
-                    );
-                });
-            }
-
-            if (payload.yearsOfExperience) {
-                void builder.where((subquery) => {
-                    searchByYearsOfExperience(
-                        subquery,
-                        payload.yearsOfExperience,
-                    );
-                });
-            }
-
-            if (payload.hardSkills && payload.hardSkills.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.hardSkills,
-                    columnName: 'hard_skill_id',
-                    relativeTable: 'talentHardSkills',
-                    alias: 'ths',
-                });
-            }
-
-            if (payload.location) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'location',
-                        payload.location,
-                    );
-                });
-            }
-
-            if (payload.englishLevel) {
-                void builder.where((subquery) => {
-                    searchByColumnValues(
-                        subquery,
-                        'englishLevel',
-                        payload.englishLevel,
-                    );
-                });
-            }
-
-            if (payload.employmentType && payload.employmentType.length > 0) {
-                void builder.whereRaw(
-                    `"employment_type" @> ARRAY[${payload.employmentType
-                        .map((type) => `'${type}'`)
-                        .join(', ')}]::text[]`,
-                );
-            }
-
-            // TODO add BSA characteristics
-            // TODO add BSA project name
+            applyAllFilters(builder, payload);
         });
 
         const sortingParameters = createSortingUsersParameters(payload.sortBy);
@@ -222,14 +169,22 @@ class UserDetailsRepository implements Repository {
         );
 
         const searchResults = await query
-            .withGraphJoined('user')
-            .where('user.role', '=', UserRole.TALENT);
+            .withGraphJoined('[user, talentHardSkills, talentBadges.[badge]]')
+            .where('user.role', '=', UserRole.TALENT)
+            .andWhere('isApproved', true);
 
         return searchResults.map((result) => {
-            return UserDetailsEntity.initialize({
+            const userObject = UserDetailsEntity.initialize({
                 ...result,
                 email: result.user?.email,
-            });
+            }).toObject();
+
+            userObject.badges = mapSearchUsersResponseBadges(result);
+            userObject.hardSkills = result.talentHardSkills.map((skill) =>
+                HardSkillsEntity.initialize(skill),
+            );
+
+            return userObject;
         });
     }
 
@@ -267,6 +222,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',
@@ -322,6 +278,7 @@ class UserDetailsRepository implements Repository {
             englishLevel: details.englishLevel,
             notConsidered: details.notConsidered ?? [],
             preferredLanguages: details.preferredLanguages ?? [],
+            searchType: details.searchType,
             projectLinks: details.projectLinks ?? [],
             photoId: details.photoId,
             fullName: details.fullName ?? '',

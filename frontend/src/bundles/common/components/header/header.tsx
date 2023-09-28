@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 type Properties = {
     avatarUrl: string;
     isOnline: boolean;
+    isAdmin?: boolean;
     isWaitingForApproval?: boolean;
     className?: string;
 };
@@ -16,6 +17,7 @@ const Header: React.FC<Properties> = ({
     avatarUrl,
     isWaitingForApproval,
     isOnline,
+    isAdmin,
     className,
 }) => {
     return (
@@ -26,6 +28,7 @@ const Header: React.FC<Properties> = ({
                     <HeaderAvatar
                         src={avatarUrl}
                         isOnline={isOnline}
+                        isAdmin={isAdmin}
                         className={styles.avatar}
                     />
                 </MenuButton>

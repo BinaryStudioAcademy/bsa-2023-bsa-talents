@@ -1,5 +1,7 @@
 import { type Entity } from '~/common/types/types.js';
 
+import { type TalentBadgeCreateDto } from './types/types.js';
+
 class TalentBadgeEntity implements Entity {
     private 'id': string | null;
 
@@ -13,7 +15,7 @@ class TalentBadgeEntity implements Entity {
 
     private 'isShown': boolean;
 
-    private 'userDetailsId': string | null;
+    private 'userDetailsId': string;
 
     private constructor({
         id,
@@ -23,15 +25,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-    }: {
-        id: string | null;
-        userId: string;
-        score: number | null;
-        level: string | null;
-        badgeId: string;
-        isShown: boolean;
-        userDetailsId: string | null;
-    }) {
+    }: TalentBadgeCreateDto) {
         this.id = id;
         this.userId = userId;
         this.score = score;
@@ -49,15 +43,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-    }: {
-        id: string;
-        userId: string;
-        score: number | null;
-        level: string | null;
-        badgeId: string;
-        isShown: boolean;
-        userDetailsId: string | null;
-    }): TalentBadgeEntity {
+    }: TalentBadgeCreateDto): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
             userId,
@@ -82,7 +68,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     }): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id: null,
@@ -102,7 +88,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             id: this.id as string,
@@ -121,7 +107,7 @@ class TalentBadgeEntity implements Entity {
         level: string | null;
         badgeId: string;
         isShown: boolean;
-        userDetailsId: string | null;
+        userDetailsId: string;
     } {
         return {
             userId: this.userId,

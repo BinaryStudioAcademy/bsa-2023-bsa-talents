@@ -1,7 +1,7 @@
 type UserDetailsShortResponseDto = {
     userId: string;
-    photoUrl: string | null;
-    fullName: string | null;
+    photoUrl: string;
+    fullName: string;
 };
 
 export { type UserDetailsShortResponseDto };

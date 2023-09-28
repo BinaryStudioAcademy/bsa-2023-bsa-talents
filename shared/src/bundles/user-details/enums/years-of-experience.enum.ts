@@ -4,7 +4,7 @@ const YearsOfExperience = {
     FROM_1_TO_2: '1-2 years',
     FROM_2_TO_3: '2-3 years',
     FROM_3_TO_5: '3-5 years',
-    MORE_THAN_5: '5+ years',
+    MORE_THAN_5: 'More than 5 years',
 } as const;
 
 export { YearsOfExperience };

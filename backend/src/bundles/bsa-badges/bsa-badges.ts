@@ -9,5 +9,5 @@ const bsaBadgesRepository = new BSABadgesRepository(BSABadgesModel);
 const bsaBadgesService = new BSABadgesService(bsaBadgesRepository);
 const bsaBadgesController = new BSABadgesController(logger, bsaBadgesService);
 
-export { bsaBadgesController, bsaBadgesRepository };
+export { bsaBadgesController, bsaBadgesRepository, bsaBadgesService };
 export { BSABadgesModel } from './bsa-badges.model.js';

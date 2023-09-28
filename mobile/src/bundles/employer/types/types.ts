@@ -1,4 +1,6 @@
 export {
+    type CandidateDetailsType,
+    type CandidateHardSkill,
     type EmployeesFiltersForm,
     type EmployerOnboardingFormDto,
 } from './employer-types/employer-types';
