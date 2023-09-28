@@ -17,6 +17,7 @@ import {
     getTalentDetails,
     saveTalentDetails,
     updateTalentDetails,
+    updateTalentPublishedDate,
 } from './actions.js';
 
 const initialState: UserDetailsGeneralCustom = {
@@ -61,6 +62,16 @@ const { reducer, actions, name } = createSlice({
                 state[typedKey] = action.payload[typedKey];
             }
         });
+        builder.addCase(
+            updateTalentPublishedDate.fulfilled,
+            (state, action) => {
+                state.dataStatus = DataStatus.FULFILLED;
+                for (const key in action.payload) {
+                    const typedKey = key as keyof UserDetailsUpdateRequestDto;
+                    state[typedKey] = action.payload[typedKey];
+                }
+            },
+        );
         builder.addMatcher(
             isAnyOf(
                 getTalentDetails.pending,
