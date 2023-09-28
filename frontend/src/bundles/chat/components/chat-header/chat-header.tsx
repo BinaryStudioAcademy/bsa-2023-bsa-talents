@@ -11,25 +11,20 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { type ApplicationRoute } from '~/bundles/common/types/application-route.type.js';
 
+import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    avatarUrl?: string;
     className?: string;
     isOnline: boolean;
-    title: string;
     userId: string;
 };
 
-const ChatHeader: React.FC<Properties> = ({
-    avatarUrl,
-    className,
-    isOnline,
-    title,
-    userId,
-}) => {
-    const { role, isLoading, currentChatId } = useAppSelector(
+const ChatHeader: React.FC<Properties> = ({ className, isOnline, userId }) => {
+    const { role, isLoading, currentChatId, chats, user } = useAppSelector(
         ({ auth, chat }) => ({
+            user: auth.currentUser,
+            chats: chat.chats,
             role: auth.currentUser?.role,
             isLoading: chat.dataStatus === 'pending',
             currentChatId: chat.current.chatId,
@@ -39,6 +34,15 @@ const ChatHeader: React.FC<Properties> = ({
         styles.icon,
         isOnline ? styles.online : styles.offline,
     );
+
+    const { chatHeaderName: title, chatHeaderAvatar: avatarUrl } =
+        getChatHeaderProperties({
+            chats,
+            selectedId: currentChatId,
+            userId: user?.id,
+            userRole: user?.role,
+        });
+
     const infoLink: ApplicationRoute = AppRoute.CANDIDATE.replace(
         ':userId',
         userId,
