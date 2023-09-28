@@ -7,8 +7,10 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
-import { ProfileFormData } from '~/bundles/talent/components/profile-form-data/profile-form-data';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
+import {
+    ProfileFormData,
+    WithProfileForm,
+} from '~/bundles/talent/components/components';
 import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
 import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';

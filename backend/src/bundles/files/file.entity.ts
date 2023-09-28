@@ -1,5 +1,7 @@
 import { type Entity } from '~/common/types/types.js';
 
+import { type GetFileResponseDto } from './types/types.js';
+
 class FileEntity implements Entity {
     private 'id': string | null;
 
@@ -31,12 +33,7 @@ class FileEntity implements Entity {
         url,
         fileName,
         etag,
-    }: {
-        id: string;
-        url: string;
-        fileName: string;
-        etag: string;
-    }): FileEntity {
+    }: GetFileResponseDto): FileEntity {
         return new FileEntity({
             id,
             url,

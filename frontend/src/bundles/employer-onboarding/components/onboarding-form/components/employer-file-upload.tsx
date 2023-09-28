@@ -60,7 +60,6 @@ const EmployerFileUpload: React.FC<Properties> = ({
                         setError,
                         clearErrors,
                     });
-
                     field.onChange(file);
                     return;
                 } catch {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    Loader,
     LogoutButton,
     ScrollView,
     StatusBar,
@@ -8,7 +9,7 @@ import {
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { Color, DataStatus, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
@@ -18,7 +19,10 @@ import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
-    const { onboardingData } = useAppSelector(({ common }) => common);
+    const { onboardingData, dataStatus } = useAppSelector(
+        ({ common }) => common,
+    );
+    const isDataLoading = dataStatus === DataStatus.PENDING;
 
     const { isApproved } = onboardingData ?? {};
 
@@ -73,18 +77,21 @@ const EmployerProfile: React.FC = () => {
                     <LogoutButton />
                 </View>
             </View>
-
-            <ScrollView
-                contentContainerStyle={[
-                    styles.container,
-                    globalStyles.defaultScreenPadding,
-                ]}
-            >
-                <EmployerOnboardingForm
-                    employerOnboardingData={employerOnboardingData}
-                    onSubmit={handleEmployerDataSubmit}
-                />
-            </ScrollView>
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <ScrollView
+                    contentContainerStyle={[
+                        styles.container,
+                        globalStyles.defaultScreenPadding,
+                    ]}
+                >
+                    <EmployerOnboardingForm
+                        employerOnboardingData={employerOnboardingData}
+                        onSubmit={handleEmployerDataSubmit}
+                    />
+                </ScrollView>
+            )}
         </>
     );
 };

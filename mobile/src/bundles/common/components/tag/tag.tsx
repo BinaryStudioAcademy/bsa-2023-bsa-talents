@@ -5,7 +5,7 @@ import {
     Pressable,
     Text,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
+import { IconSize, TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -16,12 +16,11 @@ type Properties = {
     iconSize?: number;
     onPress?: (value: string | number) => void;
 };
-const DEFAULT_ICON_SIZE = 12;
 
 const Tag: React.FC<Properties> = ({
     value,
     iconName,
-    iconSize = DEFAULT_ICON_SIZE,
+    iconSize = IconSize.EXTRA_SMALL,
     onPress,
 }) => {
     return (
