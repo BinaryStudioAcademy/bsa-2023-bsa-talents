@@ -20,8 +20,9 @@ import {
 import { type UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
 
-type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
+type UserDetailsWithTalentSkills = UserDetailsEntity & {
     talentHardSkills: TalentHardSkill[];
+    talentBadges: TalentBadge[];
 };
 
 class UserDetailsService implements Service {
@@ -47,7 +48,7 @@ class UserDetailsService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<UserDetailsWithTalentHardSkills | null> {
+    ): Promise<UserDetailsWithTalentSkills | null> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -64,10 +65,15 @@ class UserDetailsService implements Service {
                 userDetailsId,
             );
 
+        const talentBadges = await this.talentBadgeService.findAllByUserId(
+            userId,
+        );
+
         return {
             ...userDetails,
             talentHardSkills,
-        } as UserDetailsWithTalentHardSkills;
+            talentBadges: talentBadges.items,
+        } as UserDetailsWithTalentSkills;
     }
 
     public async findCompanyInfoByUserId(
@@ -181,13 +187,10 @@ class UserDetailsService implements Service {
         let badgesResult: TalentBadge[] = [],
             hardSkillsResult: TalentHardSkill[] = [];
 
-        if (talentBadges) {
-            badgesResult = await Promise.all(
-                talentBadges.map((badgeId) =>
-                    this.talentBadgeService.update({
-                        id: badgeId,
-                    }),
-                ),
+        if (talentBadges && userId) {
+            badgesResult = await this.talentBadgeService.enableBadges(
+                talentBadges,
+                userId,
             );
         }
 

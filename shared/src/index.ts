@@ -108,6 +108,7 @@ export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetLMSDataById,
+    type UserGetTalentBadgesById,
     userPasswordValidationSchema,
     type UserResetPasswordDto,
     type UserResetPasswordRequestDto,

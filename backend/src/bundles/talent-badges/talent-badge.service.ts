@@ -74,6 +74,24 @@ class TalentBadgeService implements Service {
         }).toObject();
     }
 
+    public async enableBadges(
+        ids: string[],
+        userId: string,
+    ): Promise<TalentBadge[]> {
+        const talentBadges = await this.talentBadgeRepository.findAllByUserId(
+            userId,
+        );
+
+        const updatedBadges = talentBadges.map((badge) => {
+            return this.talentBadgeRepository.update({
+                ...badge,
+                isShown: ids.includes(badge.id),
+            });
+        });
+
+        return await Promise.all(updatedBadges);
+    }
+
     public delete(): Promise<boolean> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }

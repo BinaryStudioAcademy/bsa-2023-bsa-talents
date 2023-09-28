@@ -1,4 +1,5 @@
 import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import { type TalentBadge } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -32,17 +33,22 @@ const updateTalentDetails = createAsyncThunk<
         restPayload.cvId = document.id;
     }
 
-    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-    if ('badges' in updatePayload) {
-        return updatePayload;
-    }
-
-    const { hardSkills, ...data } = restPayload;
+    const { hardSkills, badges, ...data } = restPayload;
     const updatedData = {
         ...data,
         talentHardSkills: hardSkills?.map((item) => item.value),
+        talentBadges: badges,
     };
-    return await talentOnBoardingApi.updateUserDetails(updatedData);
+
+    const result = await talentOnBoardingApi.updateUserDetails(updatedData);
+
+    const talentBadgeObjects = result.talentBadges as TalentBadge[];
+
+    const selectedBadges = talentBadgeObjects
+        .filter((item) => item.isShown)
+        .map((item) => item.id);
+
+    return { ...result, badges: selectedBadges };
 });
 
 const saveTalentDetails = createAsyncThunk<
@@ -51,17 +57,11 @@ const saveTalentDetails = createAsyncThunk<
     AsyncThunkConfig
 >(
     `${sliceName}/save-talent-details`,
-    async (registerPayload, { getState, dispatch, rejectWithValue }) => {
-        const { talentOnBoarding } = getState();
-
+    async (registerPayload, { dispatch, rejectWithValue }) => {
         try {
-            const result = talentOnBoarding.completedStep
-                ? ((await dispatch(
-                      updateTalentDetails(registerPayload),
-                  )) as PayloadAction<UserDetailsGeneralCustom>)
-                : ((await dispatch(
-                      createTalentDetails(registerPayload),
-                  )) as PayloadAction<UserDetailsGeneralCustom>);
+            const result = (await dispatch(
+                updateTalentDetails(registerPayload),
+            )) as PayloadAction<UserDetailsGeneralCustom>;
 
             return result.payload;
         } catch {
@@ -88,6 +88,14 @@ const getTalentDetails = createAsyncThunk<
                     userId: findPayload.userId,
                 });
 
+            if (userDetails?.talentBadges) {
+                const talentBadgeObjects =
+                    userDetails.talentBadges as TalentBadge[];
+                userDetails.badges = talentBadgeObjects
+                    .filter((item) => item.isShown)
+                    .map((item) => item.id);
+            }
+
             return userDetails ?? null;
         } catch (error) {
             rejectWithValue({
@@ -99,4 +107,9 @@ const getTalentDetails = createAsyncThunk<
     },
 );
 
-export { getTalentDetails, saveTalentDetails, updateTalentDetails };
+export {
+    createTalentDetails,
+    getTalentDetails,
+    saveTalentDetails,
+    updateTalentDetails,
+};

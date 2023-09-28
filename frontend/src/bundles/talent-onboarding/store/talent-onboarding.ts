@@ -1,4 +1,5 @@
 import {
+    createTalentDetails,
     getTalentDetails,
     saveTalentDetails,
     updateTalentDetails,
@@ -7,6 +8,7 @@ import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
+    createTalentDetails,
     updateTalentDetails,
     getTalentDetails,
     saveTalentDetails,

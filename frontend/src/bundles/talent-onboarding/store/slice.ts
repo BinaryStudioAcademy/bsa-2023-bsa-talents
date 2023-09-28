@@ -1,10 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-    type UserDetailsFindRequestDto,
-    type UserDetailsUpdateRequestDto,
-} from 'shared/build/index.js';
 
-import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
@@ -23,9 +18,6 @@ const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
     ...DEFAULT_PAYLOAD_BSA_BADGES_STEP,
     isApproved: false,
-    badges: mockBadges
-        .filter((badge) => badge.type === 'service')
-        .map((badge) => badge.id),
     ...DEFAULT_PAYLOAD_SKILLS_STEP,
     projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
@@ -41,7 +33,8 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(updateTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
-                const typedKey = key as keyof UserDetailsUpdateRequestDto;
+                const typedKey = key as keyof UserDetailsGeneralCustom;
+
                 if (typedKey in state) {
                     state[typedKey] = action.payload[typedKey];
                 }
@@ -50,14 +43,14 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(getTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
-                const typedKey = key as keyof UserDetailsFindRequestDto;
+                const typedKey = key as keyof UserDetailsGeneralCustom;
                 state[typedKey] = action.payload[typedKey];
             }
         });
         builder.addCase(saveTalentDetails.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
             for (const key in action.payload) {
-                const typedKey = key as keyof UserDetailsUpdateRequestDto;
+                const typedKey = key as keyof UserDetailsGeneralCustom;
                 state[typedKey] = action.payload[typedKey];
             }
         });
