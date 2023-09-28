@@ -5,8 +5,12 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type UserDetailsResponseDto } from '~/bundles/common/types/types';
 
@@ -28,6 +32,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
         englishLevel,
         experienceYears,
         jobTitle,
+        userId,
     } = talent;
 
     return (
@@ -60,7 +65,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                     >
                         <MaterialIcon
                             name={IconName.LANGUAGE}
-                            size={ICON_SIZE}
+                            size={IconSize.GENERAL}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -78,7 +83,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                     >
                         <MaterialIcon
                             name={IconName.EXPERIENCE}
-                            size={ICON_SIZE}
+                            size={IconSize.GENERAL}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -97,7 +102,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                     >
                         <MaterialIcon
                             name={IconName.FORUM}
-                            size={ICON_SIZE}
+                            size={IconSize.GENERAL}
                             color={Color.PRIMARY}
                         />
                         <Text
@@ -119,7 +124,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                                 >
                                     <MaterialIcon
                                         name={IconName.CHECK_CIRCLE}
-                                        size={ICON_SIZE}
+                                        size={IconSize.GENERAL}
                                         color={Color.PRIMARY}
                                     />
                                     <Text
@@ -143,7 +148,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                             >
                                 <MaterialIcon
                                     name={IconName.NOT_CONSIDER}
-                                    size={ICON_SIZE}
+                                    size={IconSize.GENERAL}
                                     color={Color.ERROR}
                                 />
                                 <Text
@@ -164,7 +169,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {description}
             </Text>
-            <PreviewTabs />
+            <PreviewTabs userId={userId} />
         </>
     );
 };

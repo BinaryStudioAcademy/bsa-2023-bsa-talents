@@ -22,14 +22,16 @@ const CandidatePage: React.FC = () => {
     );
 
     useEffect(() => {
-        if (userId !== candidateDetails?.userId) {
+        if (companyId) {
             void dispatch(
                 candidateSearchActions.getCandidateDetails({
-                    userId: userId ?? '',
+                    userId: userId as string,
+                    companyId: companyId,
                 }),
             );
         }
-    }, [candidateDetails?.userId, companyId, dispatch, userId]);
+    }, [userId, dispatch, companyId]);
+
     return (
         <>
             <BreadCrumbs profileName={candidateDetails?.profileName} />

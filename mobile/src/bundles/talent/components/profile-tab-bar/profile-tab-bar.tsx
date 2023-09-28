@@ -22,7 +22,7 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
     navigation,
     state,
 }) => {
-    const { isApproved } =
+    const { isApproved, publishedAt } =
         useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     return (
@@ -48,7 +48,7 @@ const ProfileTabBar: React.FC<MaterialTopTabBarProps> = ({
                         globalStyles.alignItemsCenter,
                     ]}
                 >
-                    {!isApproved && <VerificationMessage />}
+                    {!isApproved && publishedAt && <VerificationMessage />}
                     <LogoutButton />
                 </View>
             </View>
