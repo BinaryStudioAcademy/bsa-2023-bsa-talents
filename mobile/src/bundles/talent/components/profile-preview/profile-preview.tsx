@@ -24,7 +24,6 @@ const ProfilePreview: React.FC = () => {
     if (!onboardingData) {
         return null;
     }
-
     const {
         jobTitle,
         salaryExpectation,

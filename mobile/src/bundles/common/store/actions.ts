@@ -15,8 +15,34 @@ const createUserDetails = createAsyncThunk<
     UserDetailsGeneralCreateRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/createUserDetails`, async (onboardingPayload, { extra }) => {
-    const { commonApi, notifications } = extra;
+    const { commonApi, notifications, fileUploadApi } = extra;
     const { photo, companyLogo, ...payload } = onboardingPayload;
+
+    if (photo) {
+        try {
+            const { image } = await fileUploadApi.upload({
+                files: [photo],
+            });
+            payload.photoId = image.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
+    if (companyLogo) {
+        try {
+            const { image } = await fileUploadApi.upload({
+                files: [companyLogo],
+            });
+            payload.companyLogoId = image.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
+
     try {
         const response = await commonApi.completeUserDetails(payload);
         return {
@@ -54,6 +80,31 @@ const updateOnboardingData = createAsyncThunk<
             throw error;
         }
     }
+    if (companyLogo) {
+        try {
+            const { image } = await fileUploadApi.upload({
+                files: [companyLogo],
+            });
+            payload.companyLogoId = image.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
+
+    // if (cv) {
+    //     try {
+    //         const { document } = await fileUploadApi.upload({
+    //             files: [cv],
+    //         });
+    //         payload.cvId = document.id;
+    //     } catch (error) {
+    //         const errorMessage = getErrorMessage(error);
+    //         notifications.showError({ title: errorMessage });
+    //         throw error;
+    //     }
+    // }
 
     if (Object.keys(payload).length === 0) {
         return stepPayload;
@@ -63,6 +114,7 @@ const updateOnboardingData = createAsyncThunk<
             ...payload,
             talentHardSkills: talentHardSkills,
         });
+
         return {
             ...response,
             //TODO remove when it is ready at the backend
