@@ -1,9 +1,10 @@
-import { type UserFindResponseDto } from 'shared/build/index';
-
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
+    type UserFindResponseDto,
+    type UserGetLMSDataById,
+    type UserLMSDataDto,
 } from '~/bundles/common-data/types/types';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -42,6 +43,20 @@ class CommonDataApi extends HttpApiBase {
             },
         );
         return await response.json<HardSkillsResponseDto>();
+    }
+
+    public async getDataFromLMS({
+        userId,
+    }: UserGetLMSDataById): Promise<UserLMSDataDto> {
+        const response = await this.load(
+            this.getFullEndpoint(ApiPath.USERS, `/${userId}/`, 'lms-data', {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return await response.json<UserLMSDataDto>();
     }
 
     public async getAllUsers(): Promise<{ items: UserFindResponseDto[] }> {

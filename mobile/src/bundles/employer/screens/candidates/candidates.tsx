@@ -57,7 +57,6 @@ const Candidates: React.FC = () => {
     const isDataLoading =
         employerDataStatus === DataStatus.PENDING ||
         commonDataStatus === DataStatus.PENDING;
-
     return (
         <>
             <StatusBar

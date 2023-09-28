@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type UserFindResponseDto } from 'shared/build/index';
 
 import { ApiPath } from '~/bundles/common/enums/enums';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
@@ -7,6 +6,9 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
+    type UserFindResponseDto,
+    type UserGetLMSDataById,
+    type UserLMSDataDto,
 } from '~/bundles/common-data/types/types';
 
 import { name as sliceName } from './slice';
@@ -46,4 +48,19 @@ const loadAllPartners = createAsyncThunk<
     }
 });
 
-export { getBadgesData, getHardSkillsData, loadAllPartners };
+const loadLMSData = createAsyncThunk<
+    UserLMSDataDto,
+    UserGetLMSDataById,
+    AsyncThunkConfig
+>(`${sliceName}${ApiPath.USERS}/LMS`, async (userId, { extra }) => {
+    const { commonDataApi, notifications } = extra;
+    try {
+        return await commonDataApi.getDataFromLMS(userId);
+    } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        notifications.showError({ title: errorMessage });
+        throw error;
+    }
+});
+
+export { getBadgesData, getHardSkillsData, loadAllPartners, loadLMSData };
