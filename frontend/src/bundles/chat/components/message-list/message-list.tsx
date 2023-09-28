@@ -28,12 +28,14 @@ const MessageList: React.FC<Properties> = ({ className }) => {
 
     let receiver: ChatParticipantDto = {
         id: '',
+        fullName: '',
         profileName: '',
         companyName: '',
         avatarUrl: '',
     };
     let sender: ChatParticipantDto = {
         id: '',
+        fullName: '',
         profileName: '',
         companyName: '',
         avatarUrl: '',
