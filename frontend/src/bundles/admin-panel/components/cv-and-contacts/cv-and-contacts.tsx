@@ -30,7 +30,7 @@ const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
     }
 
     return (
-        <Grid container className={styles.container}>
+        <Grid container justifyContent="center" className={styles.container}>
             <Grid container item className={styles.data}>
                 <Grid container item className={styles.row}>
                     <Phone className={styles.icon} />

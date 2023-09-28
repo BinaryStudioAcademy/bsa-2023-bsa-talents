@@ -7,11 +7,13 @@ import styles from './styles.module.scss';
 
 type Properties = AvatarProperties & {
     isOnline?: boolean;
+    isAdmin?: boolean;
 };
 
 const HeaderAvatar: React.FC<Properties> = ({
     className,
     isOnline,
+    isAdmin,
     ...props
 }) => {
     return (
@@ -25,7 +27,8 @@ const HeaderAvatar: React.FC<Properties> = ({
                 }}
                 overlap="circular"
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                variant="dot"
+                variant={isAdmin ? 'standard' : 'dot'}
+                badgeContent={isAdmin ? 'admin' : ''}
             >
                 <Avatar
                     isSmall
