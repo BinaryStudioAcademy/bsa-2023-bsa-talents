@@ -24,6 +24,15 @@ const EmployerOnboardingValidationSchema = joi.object<
             'any.invalid': EmployerOnboardingValidationMessage.PHOTO_MAX_SIZE,
         }),
 
+    companyLogoUrl: joi.string().allow(null).messages({
+        'any.invalid':
+            EmployerOnboardingValidationMessage.COMPANY_LOGO_MAX_SIZE,
+    }),
+
+    photoUrl: joi.string().allow(null).messages({
+        'any.invalid': EmployerOnboardingValidationMessage.PHOTO_MAX_SIZE,
+    }),
+
     fullName: joi
         .string()
         .trim()
