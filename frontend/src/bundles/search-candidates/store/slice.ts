@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getContactWithTalent } from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    getHiringInfo,
+    submitHiringInfo,
+} from '~/bundles/hiring-info/store/actions.js';
 import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
@@ -15,7 +20,12 @@ import {
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
-    currentCandidateDetails: UserDetailsGeneralCustom | null;
+    currentCandidateDetails:
+        | (UserDetailsGeneralCustom & {
+              hasSharedContacts: boolean;
+              isHired: boolean;
+          })
+        | null;
     filteredCandidates: UserDetailsGeneralCustom[];
 };
 
@@ -29,7 +39,11 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'searchCandidates',
-    reducers: {},
+    reducers: {
+        clearCurrentCandidate: (state) => {
+            state.currentCandidateDetails = null;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(searchCandidates.fulfilled, (state, action) => {
             state.dataStatus = DataStatus.FULFILLED;
@@ -37,8 +51,17 @@ const { reducer, actions, name } = createSlice({
             state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(getCandidateDetails.fulfilled, (state, action) => {
-            state.currentCandidateDetails = action.payload;
+            if (action.payload) {
+                state.currentCandidateDetails = {
+                    ...action.payload,
+                    isHired: state.currentCandidateDetails?.isHired ?? false,
+                    hasSharedContacts:
+                        state.currentCandidateDetails?.hasSharedContacts ??
+                        false,
+                };
+            }
         });
+
         builder.addCase(searchCandidates.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
@@ -48,6 +71,22 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(setFilters.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(getContactWithTalent.fulfilled, (state, action) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.hasSharedContacts =
+                    action.payload;
+            }
+        });
+        builder.addCase(getHiringInfo.fulfilled, (state, action) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.isHired = action.payload;
+            }
+        });
+        builder.addCase(submitHiringInfo.fulfilled, (state) => {
+            if (state.currentCandidateDetails) {
+                state.currentCandidateDetails.isHired = true;
+            }
         });
     },
 });

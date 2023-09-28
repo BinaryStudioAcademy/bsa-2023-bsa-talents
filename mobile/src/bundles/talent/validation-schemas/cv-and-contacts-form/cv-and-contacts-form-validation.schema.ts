@@ -31,7 +31,7 @@ const cvAndContactsFormValidationSchema = joi.object<
 
     phone: joi
         .string()
-        .pattern(/^\+\d{12}$/)
+        .pattern(/^\+(?:\d ?){10,12}\d$/)
         .required()
         .messages({
             'string.empty':

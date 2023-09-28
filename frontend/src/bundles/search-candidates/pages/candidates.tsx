@@ -95,6 +95,10 @@ const Candidates: React.FC = () => {
         }
     }, [debouncedDispatch, dispatch, filters, getValues, watchedValues]);
 
+    useEffect(() => {
+        void dispatch(searchCandidatesActions.clearCurrentCandidate());
+    }, [dispatch]);
+
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
@@ -108,7 +112,6 @@ const Candidates: React.FC = () => {
         void dispatch(searchCandidatesActions.searchCandidates(editedValues));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     return (
         <Grid className={styles.searchPageWrapper}>
             <Grid className={styles.mainContent}>
