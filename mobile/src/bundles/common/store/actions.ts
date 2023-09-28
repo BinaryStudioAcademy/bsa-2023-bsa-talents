@@ -148,15 +148,22 @@ const getUserDetails = createAsyncThunk<
         const photo = await fileUploadApi.getFileById({
             id: userDetails?.photoId ?? '',
         });
-        const companyLogo = await fileUploadApi.getFileById({
-            id: userDetails?.companyLogoId ?? '',
-        });
 
-        return {
-            ...userDetails,
-            photoUrl: photo?.url,
-            companyLogoUrl: companyLogo?.url,
-        };
+        if (userDetails?.companyLogoId) {
+            const companyLogo = await fileUploadApi.getFileById({
+                id: userDetails.companyLogoId,
+            });
+            return {
+                ...userDetails,
+                photoUrl: photo?.url,
+                companyLogoUrl: companyLogo?.url,
+            };
+        } else {
+            return {
+                ...userDetails,
+                photoUrl: photo?.url,
+            };
+        }
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
