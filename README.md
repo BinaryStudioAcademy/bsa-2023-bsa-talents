@@ -77,6 +77,8 @@ erDiagram
       varchar employer_position
       varchar cv_id FK
       enum completed_step "profile bsa-badges skills-and-projects cv-and-contacts preview"
+      dateTime published_at
+      enum search_type "active passive"
    }
 
   files {

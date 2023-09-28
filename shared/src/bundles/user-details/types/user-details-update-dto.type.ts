@@ -8,6 +8,7 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from '../user-details.js';
 
 type UserDetailsUpdateDto = {
@@ -34,6 +35,7 @@ type UserDetailsUpdateDto = {
     englishLevel?: ValueOf<typeof EnglishLevel>;
     notConsidered?: ValueOf<typeof NotConsidered>[];
     preferredLanguages?: ValueOf<typeof PreferredLanguage>[];
+    searchType?: ValueOf<typeof SearchType>;
 
     projectLinks?: string[] | null;
     photoId?: string;

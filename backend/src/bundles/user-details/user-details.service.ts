@@ -6,7 +6,7 @@ import { type Service } from '~/common/types/service.type.js';
 
 import { type EmailService } from '../email/email.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
-import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
+import { type TalentBadge } from '../talent-badges/types/types.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import { type UserService } from '../users/users.js';
 import {
@@ -14,6 +14,7 @@ import {
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,
@@ -123,12 +124,14 @@ class UserDetailsService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
-    public searchUsers(
+    public async searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',
+            'searchType',
+            'searchStringType',
         ]);
 
         return this.userDetailsRepository.searchUsers(preparedData);

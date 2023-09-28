@@ -26,13 +26,13 @@ const UserSortCriteria = {
     NEWEST: {
         label: 'newest',
         value: 'newest',
-        column: 'created_at',
+        column: 'published_at',
         direction: 'asc',
     },
     OLDEST: {
         label: 'oldest',
         value: 'oldest',
-        column: 'created_at',
+        column: 'published_at',
         direction: 'desc',
     },
 } as const;

@@ -542,15 +542,15 @@ class UserDetailsController extends ControllerBase {
      *            type: string
      *          description: Search query to filter by user's full name (optional)
      *        - in: query
-     *          name: searchType
+     *          name: searchStringType
      *          schema:
      *            type: string
      *          description: Determines whether search type is base or extended
      *        - in: query
-     *          name: isSearchActiveCandidatesOnly
+     *          name: searchType
      *          schema:
-     *            type: boolean
-     *          description: Filter by active status (optional)
+     *            type: string
+     *          description: Filter by active status (optional) can be active or passive
      *        - in: query
      *          name: jobTitle
      *          schema:

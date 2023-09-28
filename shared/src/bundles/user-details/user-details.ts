@@ -7,11 +7,14 @@ export {
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    SearchType,
     UserDetailsApiPath,
     UserSortCriteria,
     YearsOfExperience,
 } from './enums/enums.js';
 export {
+    type TalentBadge,
+    type TalentBadgeCreateDto,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,

@@ -24,6 +24,7 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from './enums/enums.js';
 
 class UserDetailsModel extends AbstractModel {
@@ -56,6 +57,8 @@ class UserDetailsModel extends AbstractModel {
     public 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
     public 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
+
+    public 'searchType': ValueOf<typeof SearchType>;
 
     public 'projectLinks': string[] | null;
 
@@ -90,6 +93,8 @@ class UserDetailsModel extends AbstractModel {
     public 'photo'?: FileModel;
 
     public 'companyLogo'?: FileModel;
+
+    public 'badges'?: TalentBadgeModel;
 
     public override $afterFind(): void {
         this.experienceYears = Number.parseFloat(String(this.experienceYears));

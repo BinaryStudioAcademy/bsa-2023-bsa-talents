@@ -1,9 +1,10 @@
+import { SearchType } from '../enums/enums.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 
 const DEFAULT_EMPLOYEES_FILTERS_PAYLOAD: EmployeesFiltersDto = {
-    searchType: 'Basic search',
+    searchStringType: 'Basic search',
     searchValue: '',
-    isSearchActiveCandidatesOnly: false,
+    searchType: SearchType.PASSIVE,
     jobTitle: [],
     yearsOfExperience: [],
     hardSkills: [],
