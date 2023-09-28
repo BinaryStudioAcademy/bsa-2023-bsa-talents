@@ -4,14 +4,14 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import {
-    type SeacrhCandidateDto,
+    type SeacrhCandidateResponse,
     type UserDetailsSearchUsersRequestDto,
 } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const MIN_LENGTH = 0;
 const searchCandidates = createAsyncThunk<
-    SeacrhCandidateDto[],
+    SeacrhCandidateResponse[],
     UserDetailsSearchUsersRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/search-candidates`, async (filters, { extra }) => {
@@ -28,7 +28,7 @@ const setFilters = createAsyncThunk<
 });
 
 const getCandidateDetails = createAsyncThunk<
-    SeacrhCandidateDto | null,
+    SeacrhCandidateResponse | null,
     {
         userId: string;
     },

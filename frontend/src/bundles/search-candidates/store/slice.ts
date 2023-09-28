@@ -10,7 +10,7 @@ import {
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../constants/constants.js';
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
-import { type SeacrhCandidateDto } from '../types/types.js';
+import { type SeacrhCandidateResponse } from '../types/types.js';
 import {
     getCandidateDetails,
     searchCandidates,
@@ -21,12 +21,12 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     filters: EmployeesFiltersDto;
     currentCandidateDetails:
-        | (SeacrhCandidateDto & {
+        | (SeacrhCandidateResponse & {
               hasSharedContacts: boolean;
               isHired: boolean;
           })
         | null;
-    filteredCandidates: SeacrhCandidateDto[];
+    filteredCandidates: SeacrhCandidateResponse[];
 };
 
 const initialState: State = {

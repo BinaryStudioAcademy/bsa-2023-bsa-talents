@@ -15,7 +15,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
-import { type SeacrhCandidateDto } from '~/bundles/search-candidates/types/types.js';
+import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
@@ -34,7 +34,7 @@ type Properties = {
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
-    candidateData?: SeacrhCandidateDto & {
+    candidateData?: SeacrhCandidateResponse & {
         email?: string;
     };
 };
@@ -69,7 +69,6 @@ const CandidateProfile: React.FC<Properties> = ({
     );
 
     const data = candidateData ?? reduxData;
-
     const hardskillsLabels = hardSkillsOptions
         .filter(
             (item) =>
