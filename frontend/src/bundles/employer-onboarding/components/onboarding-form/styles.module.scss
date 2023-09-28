@@ -5,7 +5,7 @@
 .form {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12.5%;
     width: 100%;
 }
 
@@ -23,6 +23,7 @@
 
 .formInput {
     width: 70%;
+    min-width: 70%;
 }
 
 .formTextarea {
@@ -143,6 +144,12 @@
     color: var(--text-primary-dark);
     background-color: var(--solitude);
     border-radius: 4px;
+}
+
+@media screen and (width >=1600px) {
+    .photoContainer {
+        margin: 0 auto;
+    }
 }
 
 @media screen and (width <=1240px) {
