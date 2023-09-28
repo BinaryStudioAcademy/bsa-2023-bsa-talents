@@ -12,7 +12,6 @@ import styles from './styles.module.scss';
 type Properties = {
     avatarUrl: string;
     isOnline: boolean;
-    isAdmin?: boolean;
     isWaitingForApproval?: boolean;
     children: React.ReactNode;
 };
@@ -21,7 +20,6 @@ const PageLayout: React.FC<Properties> = ({
     avatarUrl,
     isWaitingForApproval,
     isOnline,
-    isAdmin,
     children,
 }) => {
     const role = useAppSelector((state) => state.auth.currentUser?.role);
@@ -34,7 +32,7 @@ const PageLayout: React.FC<Properties> = ({
                 avatarUrl={avatarUrl}
                 isWaitingForApproval={isWaitingForApproval}
                 isOnline={isOnline}
-                isAdmin={isAdmin ?? isAdminUser}
+                isAdmin={isAdminUser}
                 className={styles.mainHeader}
             />
 
