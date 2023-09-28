@@ -112,7 +112,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 name="isSearchActiveCandidatesOnly"
             >
                 <Switch
-                    name="isSearchActiveCandidatesOnly"
+                    name="searchType"
                     control={control}
                     label="Active searching talents only"
                 />

@@ -8,6 +8,7 @@ import {
     JobTitle,
     NotConsidered,
     PreferredLanguage,
+    SearchType,
     UserDetailsUpdateValidationRule,
     UserDetailsValidationMessage,
 } from '../enums/enums.js';
@@ -220,6 +221,11 @@ const userDetailsUpdate = joi
                 'string.pattern.base':
                     UserDetailsValidationMessage.LINKEDIN_LINK_WRONG_PATTERN,
             }),
+
+        searchType: joi
+            .string()
+            .trim()
+            .valid(...Object.values(SearchType)),
 
         photoId: joi.string().trim(),
 

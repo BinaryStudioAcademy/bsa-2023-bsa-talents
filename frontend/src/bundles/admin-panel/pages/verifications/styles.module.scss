@@ -59,6 +59,12 @@
     border-radius: 8px;
 }
 
+.previewEmpty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .previewWrapper:global(.hidden) {
     display: none;
 }

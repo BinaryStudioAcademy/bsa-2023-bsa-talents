@@ -1,3 +1,5 @@
+import { type HardSkillsEntity } from '~/bundles/hard-skills/hard-skills.entity.js';
+import { type TalentBadgeModel } from '~/bundles/talent-badges/talent-badge.model.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 import {
@@ -8,7 +10,9 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from '../enums/enums.js';
+import { type TalentBadge } from './types.js';
 
 type UserDetailsProperties = {
     id: string | null;
@@ -27,7 +31,10 @@ type UserDetailsProperties = {
     englishLevel: ValueOf<typeof EnglishLevel> | null;
     notConsidered: ValueOf<typeof NotConsidered>[] | null;
     preferredLanguages: ValueOf<typeof PreferredLanguage>[] | null;
+    searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
+    hardSkills?: HardSkillsEntity[];
+    badges?: TalentBadge[] | TalentBadgeModel | null;
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

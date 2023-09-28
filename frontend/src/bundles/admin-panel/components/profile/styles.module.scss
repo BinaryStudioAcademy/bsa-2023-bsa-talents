@@ -27,11 +27,12 @@
         width: 42%;
         color: var(--slate-gray);
         font-style: normal;
+        white-space: pre-line;
     }
 
     & .valueLink {
         align-items: flex-start;
-        width: 42%;
+        width: auto;
         color: var(--st-tropaz);
         font-weight: 500;
         font-size: 13px;
