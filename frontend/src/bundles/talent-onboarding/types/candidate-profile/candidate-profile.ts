@@ -1,4 +1,4 @@
-import { type mockBadges } from '~/assets/mock-data/mock-data.js';
+import { type MappedBSABadge } from '~/bundles/lms/types/types.js';
 
 type FirstSectionDetails = {
     userId: string;
@@ -8,7 +8,7 @@ type FirstSectionDetails = {
     location: string;
     experienceYears: number;
     englishLevel: string;
-    badges: typeof mockBadges;
+    badges: MappedBSABadge[];
     talentHardSkills?: string[];
     preferredLanguages: string[];
     description: string;

@@ -112,7 +112,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                                 primaryText={
                                     (badge.score ?? badge.level) as string
                                 }
-                                description={badge.description}
+                                description={badge.name}
                                 secondText={
                                     badge.maxScore ? ` / ${badge.maxScore}` : ''
                                 }
