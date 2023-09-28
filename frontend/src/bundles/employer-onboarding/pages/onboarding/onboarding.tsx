@@ -49,7 +49,7 @@ const Onboarding: React.FC = () => {
                             </Typography>
                         </Grid>
                         <OnboardingForm />
-                        <Grid>
+                        <Grid className={styles.buttonContainer}>
                             <Button
                                 type="submit"
                                 variant="outlined"
