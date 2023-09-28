@@ -52,7 +52,7 @@ const bsaCharacteristics = Object.values(BsaCharacteristics).map(
     }),
 );
 
-const bsaProject = Object.values(BsaProject).map((project) => ({
+const bsaProjects = Object.values(BsaProject).map((project) => ({
     value: project,
     label: project,
 }));
@@ -252,7 +252,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                     <FormLabel className={styles.labels}>
                         BSA Project
                         <Select
-                            options={bsaProject}
+                            options={bsaProjects}
                             control={control}
                             errors={errors}
                             name="userBsaProject"

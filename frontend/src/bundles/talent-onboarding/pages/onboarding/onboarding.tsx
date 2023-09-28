@@ -26,10 +26,9 @@ import {
     StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 import { configureString } from '~/helpers/helpers.js';
 
-import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {
@@ -51,7 +50,6 @@ const Onboarding: React.FC = () => {
     const { publishedAt } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
-
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + StepsList.ONE);
 
@@ -98,12 +96,6 @@ const Onboarding: React.FC = () => {
     }, [location.pathname]);
 
     useEffect(() => {
-        void dispatch(
-            actions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-
         if (publishedAt) {
             setIsWaitingForApproval(true);
         }

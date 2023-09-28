@@ -23,7 +23,6 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
-import { actions as employerActions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
@@ -88,30 +87,6 @@ const ProfileCabinet: React.FC = () => {
     const { talentOnBoarding, employerOnBoarding } = useAppSelector(
         (state: RootReducer) => state,
     );
-
-    useEffect(() => {
-        switch (role) {
-            case UserRole.TALENT: {
-                void dispatch(
-                    talentActions.getTalentDetails({
-                        userId: currentUser?.id,
-                    }),
-                );
-                break;
-            }
-            case UserRole.EMPLOYER: {
-                void dispatch(
-                    employerActions.getEmployerDetails({
-                        userId: currentUser?.id,
-                    }),
-                );
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-    }, [currentUser?.id, dispatch, role]);
 
     useEffect(() => {
         if (
@@ -200,7 +175,7 @@ const ProfileCabinet: React.FC = () => {
                                     onClick={handleSaveClick}
                                     label={'Save'}
                                     variant={'outlined'}
-                                    isDisabled={!hasChanges}
+                                    isDisabled={hasChanges}
                                     className={getValidClassNames(
                                         styles.profileButton,
                                         styles.saveButton,
