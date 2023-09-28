@@ -1,9 +1,15 @@
+import { UserRole } from 'shared/build/index.js';
+
 import {
     Avatar,
     Grid,
+    Link,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { type ApplicationRoute } from '~/bundles/common/types/application-route.type.js';
 
 import styles from './styles.module.scss';
 
@@ -12,6 +18,7 @@ type Properties = {
     className?: string;
     isOnline: boolean;
     title: string;
+    userId: string;
 };
 
 const ChatHeader: React.FC<Properties> = ({
@@ -19,11 +26,28 @@ const ChatHeader: React.FC<Properties> = ({
     className,
     isOnline,
     title,
+    userId,
 }) => {
+    const { role } = useAppSelector(({ auth }) => ({
+        role: auth.currentUser?.role,
+    }));
     const onlineIconClasses = getValidClassNames(
         styles.icon,
         isOnline ? styles.online : styles.offline,
     );
+
+    const infoLink: ApplicationRoute = AppRoute.CANDIDATE.replace(
+        ':userId',
+        userId,
+    ) as ApplicationRoute;
+
+    const talentHeaderTitle: JSX.Element = (
+        <Link to={infoLink} className={styles.candidateLink}>
+            {title}
+        </Link>
+    );
+
+    const employerHeaderTitle: JSX.Element = <>{title}</>;
 
     return (
         <Grid className={getValidClassNames(styles.wrapper, className)}>
@@ -38,7 +62,9 @@ const ChatHeader: React.FC<Properties> = ({
                         styles.title,
                     )}
                 >
-                    {title}
+                    {role === UserRole.TALENT
+                        ? employerHeaderTitle
+                        : talentHeaderTitle}
                 </Typography>
                 <Grid className={styles.status}>
                     <Grid className={onlineIconClasses} />

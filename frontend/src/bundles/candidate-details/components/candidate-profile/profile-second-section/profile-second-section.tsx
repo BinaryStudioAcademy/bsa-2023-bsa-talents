@@ -3,11 +3,12 @@ import {
     Button,
     FormControl,
     Grid,
+    Loader,
     RadioGroup,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
 import { PLURAL_YEARS } from '~/bundles/talent-onboarding/constants/constants.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
@@ -47,6 +48,11 @@ const ProfileSecondSection: React.FC<Properties> = ({
     const { control } = useAppForm<{ hire: 'Yes' }>({
         defaultValues: { hire: 'Yes' },
     });
+
+    const { isLoading } = useAppSelector(({ searchCandidates }) => ({
+        isLoading: searchCandidates.dataStatus === 'pending',
+    }));
+
     return (
         <Grid className={styles.profileSecondSection}>
             <Grid className={styles.candidateInfo}>
@@ -167,23 +173,30 @@ const ProfileSecondSection: React.FC<Properties> = ({
                     )}
                 </>
             )}
-            {isProfileOpen && (
-                <FormControl className={styles.hireCandidates}>
-                    <Typography variant="label">
-                        Have you hired a candidates?
-                    </Typography>
-                    <RadioGroup
-                        control={control}
-                        options={options}
-                        name={'hire'}
-                        className={styles.radio}
-                    />
-                    <Button
-                        label="Submit"
-                        variant="outlined"
-                        className={styles.submit}
-                    />
-                </FormControl>
+
+            {isLoading ? (
+                <>
+                    <Loader />
+                </>
+            ) : (
+                isProfileOpen && (
+                    <FormControl className={styles.hireCandidates}>
+                        <Typography variant="label">
+                            Have you hired this candidate?
+                        </Typography>
+                        <RadioGroup
+                            control={control}
+                            options={options}
+                            name={'hire'}
+                            className={styles.radio}
+                        />
+                        <Button
+                            label="Submit"
+                            variant="outlined"
+                            className={styles.submit}
+                        />
+                    </FormControl>
+                )
             )}
         </Grid>
     );
