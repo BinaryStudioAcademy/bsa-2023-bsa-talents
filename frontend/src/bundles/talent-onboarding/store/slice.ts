@@ -7,7 +7,10 @@ import { DEFAULT_CONTACTS_CV_STEP_PAYLOAD } from '../components/contacts-cv-step
 import { DEFAULT_PAYLOAD_PROFILE_STEP } from '../components/profile-step/constants/default.constants.js';
 import { DEFAULT_PAYLOAD_SKILLS_STEP } from '../components/skills-step/constants/default.constants.js';
 import { fromUrlLinks } from '../helpers/helpers.js';
-import { type UserDetailsGeneralCustom } from '../types/types.js';
+import {
+    type UserDetailsGeneralCustom,
+    type UserDetailsUpdateRequestDto,
+} from '../types/types.js';
 import {
     getTalentDetails,
     saveTalentDetails,

@@ -10,5 +10,6 @@ export {
     type ProfileStepDto,
     type SkillsStepDto,
     type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsUpdateRequestDto,
 } from 'shared/build/index.js';
 export { type TalentHardSkill } from 'shared/build/index.js';

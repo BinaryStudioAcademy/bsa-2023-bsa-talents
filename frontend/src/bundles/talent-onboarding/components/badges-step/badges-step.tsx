@@ -144,7 +144,10 @@ const BadgesStep: React.FC = () => {
                                     key={badge.id}
                                     value={badge.id}
                                     isDisabled={badge.type == 'service'}
-                                    isChecked={field.value.includes(badge.id)}
+                                    isChecked={
+                                        field.value.includes(badge.id) ||
+                                        badge.type == 'service'
+                                    }
                                     onChange={handleCheckboxOnChange(
                                         field,
                                         badge.id,
