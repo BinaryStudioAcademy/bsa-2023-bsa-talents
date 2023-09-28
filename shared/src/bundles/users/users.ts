@@ -12,6 +12,7 @@ export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetLMSDataById,
+    type UserGetTalentBadgesById,
     type UserResetPasswordDto,
     type UserResetPasswordRequestDto,
     type UserResetPasswordResponseDto,

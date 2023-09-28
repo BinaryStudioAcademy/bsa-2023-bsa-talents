@@ -6,6 +6,7 @@ export {
     type UserForgotPasswordRequestDto,
     type UserGetAllResponseDto,
     type UserGetLMSDataById,
+    type UserGetTalentBadgesById,
     type UserResetPasswordRequestDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,

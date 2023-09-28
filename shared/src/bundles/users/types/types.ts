@@ -5,6 +5,7 @@ export { type UserForgotPasswordResponseDto } from './user-forgot-password-respo
 export { type UserGetAllItemResponseDto } from './user-get-all-item-response-dto.type.js';
 export { type UserGetAllResponseDto } from './user-get-all-response-dto.type.js';
 export { type UserGetLMSDataById } from './user-get-lms-data-by-id.js';
+export { type UserGetTalentBadgesById } from './user-get-talent-badges-by-id.js';
 export { type UserResetPasswordDto } from './user-reset-password-dto.js';
 export { type UserResetPasswordRequestDto } from './user-reset-password-request-dto.js';
 export { type UserResetPasswordResponseDto } from './user-reset-password-response-dto.js';

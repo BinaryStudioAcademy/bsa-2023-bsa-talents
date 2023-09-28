@@ -1,14 +1,15 @@
-import { BsaBadgesTypeEnum } from '../../bundles/common-data/badges/enums/bsa-badges-type.enum.js';
-import { type BadgesItem } from '../../bundles/common-data/badges/types/badges-item.js';
-import { type BadgesResponseDto } from '../../bundles/common-data/badges/types/badges-response-dto.js';
+import { type ValueOf } from '~/common/types/types.js';
+
+import { BsaBadgesTypeEnum } from '../enums/enums.js';
 import {
+    type BadgesItem,
+    type BadgesResponseDto,
     type LectureDetail,
     type LMSDataResponseDto,
     type Marks,
     type ProjectCoachesFeedback,
-} from '../../bundles/lms-data/types/lms-data-response-dto.type.js';
-import { type TalentBadgeCreate } from '../../bundles/talent-badges/types/talent-badge-create.js';
-import { type ValueOf } from '../../types/value-of.type.js';
+    type TalentBadgeCreate,
+} from '../types/types.js';
 
 const MOCK_SCORE = 4;
 const MAX_SCORE = 5;

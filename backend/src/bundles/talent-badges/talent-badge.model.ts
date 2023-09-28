@@ -22,6 +22,8 @@ class TalentBadgeModel extends AbstractModel {
 
     public 'userDetailsId': string;
 
+    public 'badge': BSABadgesModel | null;
+
     public static override get tableName(): string {
         return DatabaseTableName.TALENT_BADGES;
     }

@@ -1,4 +1,7 @@
+export { type TalentBadgeCreate } from '../../talent-badges/types/talent-badge-create.js';
 export {
+    type BadgesItem,
+    type BadgesResponseDto,
     type Details,
     type HrFeedback,
     type LectureDetail,

@@ -1,6 +1,4 @@
 export {
     type TalentBadge,
-    type TalentBadgeCreate,
-    type TalentBadgePatchAndFetch,
-    type TalentBadgeUpdate,
+    type TalentBadgeResponseDto,
 } from './types/types.js';
