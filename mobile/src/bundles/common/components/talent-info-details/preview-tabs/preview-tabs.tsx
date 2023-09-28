@@ -1,14 +1,22 @@
 import React from 'react';
 
 import {
+    Loader,
     Text,
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { TextCategory } from '~/bundles/common/enums/enums';
-import { useMemo, useState } from '~/bundles/common/hooks/hooks';
+import { DataStatus, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
+import { loadLMSData } from '~/bundles/common-data/store/actions';
 import {
     FeedbacksContainer,
     ProjectContainer,
@@ -22,8 +30,18 @@ type Tab = ValueOf<typeof ProfileTab>;
 
 const tabs = Object.values(ProfileTab);
 
-const PreviewTabs: React.FC = () => {
+type PreviewTabsProperties = {
+    userId?: string;
+};
+
+const PreviewTabs: React.FC<PreviewTabsProperties> = ({ userId = '' }) => {
     const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
+    const { dataStatus } = useAppSelector(({ commonData }) => commonData);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(loadLMSData({ userId }));
+    }, [dispatch, userId]);
 
     const selectTab = useMemo(() => {
         switch (tab) {
@@ -39,6 +57,8 @@ const PreviewTabs: React.FC = () => {
         }
     }, [tab]);
 
+    const isDataLoading = dataStatus === DataStatus.PENDING;
+
     return (
         <>
             <View
@@ -47,23 +67,27 @@ const PreviewTabs: React.FC = () => {
                     globalStyles.justifyContentSpaceBetween,
                 ]}
             >
-                {tabs.map((profileTab: Tab) => {
-                    return (
-                        <TouchableOpacity
-                            key={profileTab}
-                            onPress={(): void => {
-                                setTab(profileTab);
-                            }}
-                        >
-                            <Text
-                                category={TextCategory.LABEL}
-                                style={tab === profileTab && styles.active}
+                {isDataLoading ? (
+                    <Loader />
+                ) : (
+                    tabs.map((profileTab: Tab) => {
+                        return (
+                            <TouchableOpacity
+                                key={profileTab}
+                                onPress={(): void => {
+                                    setTab(profileTab);
+                                }}
                             >
-                                {profileTab}
-                            </Text>
-                        </TouchableOpacity>
-                    );
-                })}
+                                <Text
+                                    category={TextCategory.LABEL}
+                                    style={tab === profileTab && styles.active}
+                                >
+                                    {profileTab}
+                                </Text>
+                            </TouchableOpacity>
+                        );
+                    })
+                )}
             </View>
             <View
                 style={[
