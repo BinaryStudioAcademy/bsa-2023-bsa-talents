@@ -1,6 +1,6 @@
 import { type Entity } from '~/common/types/types.js';
 
-import { type TalentBadge } from './types/types.js';
+import { type TalentBadgeCreateDto } from './types/types.js';
 
 class TalentBadgeEntity implements Entity {
     private 'id': string | null;
@@ -25,7 +25,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-    }: TalentBadge) {
+    }: TalentBadgeCreateDto) {
         this.id = id;
         this.userId = userId;
         this.score = score;
@@ -43,7 +43,7 @@ class TalentBadgeEntity implements Entity {
         badgeId,
         isShown,
         userDetailsId,
-    }: TalentBadge): TalentBadgeEntity {
+    }: TalentBadgeCreateDto): TalentBadgeEntity {
         return new TalentBadgeEntity({
             id,
             userId,

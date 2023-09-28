@@ -89,6 +89,7 @@ export {
     PreferredLanguage,
     SearchType,
     type TalentBadge,
+    type TalentBadgeCreateDto,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,

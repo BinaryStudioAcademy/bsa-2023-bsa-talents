@@ -1,4 +1,5 @@
 export { type TalentBadge } from './talent-badge.js';
+export { type TalentBadgeCreateDto } from './talent-badge-create.js';
 export { type TalentHardSkill } from './talent-hard-skill.js';
 export { type UserDetailsCreateDto } from './user-details-create-dto.type.js';
 export { type UserDetailsCreateRequestDto } from './user-details-create-request-dto.type.js';

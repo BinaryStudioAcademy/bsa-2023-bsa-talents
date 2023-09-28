@@ -1,7 +1,7 @@
 import { type BadgesItem } from '~/index.js';
 
-type TalentBadge = {
-    id: string;
+type TalentBadgeCreateDto = {
+    id: string | null;
     userId: string;
     score: number | null;
     level: string | null;
@@ -11,4 +11,4 @@ type TalentBadge = {
     badge?: BadgesItem | null;
 };
 
-export { type TalentBadge };
+export { type TalentBadgeCreateDto };
