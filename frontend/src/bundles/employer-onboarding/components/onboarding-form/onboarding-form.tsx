@@ -1,4 +1,9 @@
 import {
+    AccountCircle as AccountCircleIcon,
+    Image as ImageIcon,
+} from '@mui/icons-material';
+
+import {
     ErrorMessage,
     FormControl,
     FormLabel,
@@ -236,16 +241,21 @@ const OnboardingForm: React.FC = () => {
         file,
         url,
         alt,
+        defaultIcon: DefaultIcon,
     }: {
         file?: File | null;
         url?: string | null;
         alt: string;
+        defaultIcon: JSX.Element;
     }): JSX.Element | null => {
         const source = getImageSource(file, url);
         return source ? (
             <img src={source} className={styles.photoElement} alt={alt} />
-        ) : null;
+        ) : (
+            DefaultIcon
+        );
     };
+
     return (
         <FormControl className={styles.formWrapper}>
             <Grid className={styles.form}>
@@ -364,6 +374,11 @@ const OnboardingForm: React.FC = () => {
                                 file={watch('photo')}
                                 url={photoUrl}
                                 alt="Profile"
+                                defaultIcon={
+                                    <AccountCircleIcon
+                                        className={styles.iconWrapper}
+                                    />
+                                }
                             />
                         </Grid>
 
@@ -382,6 +397,9 @@ const OnboardingForm: React.FC = () => {
                                 file={watch('companyLogo')}
                                 url={companyLogoUrl}
                                 alt="Company logo"
+                                defaultIcon={
+                                    <ImageIcon className={styles.iconWrapper} />
+                                }
                             />
                         </Grid>
 
