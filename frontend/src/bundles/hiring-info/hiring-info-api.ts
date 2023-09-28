@@ -10,6 +10,7 @@ import { type Storage } from '~/framework/storage/storage.js';
 import {
     type HiringInfoCreateRequestDto,
     type HiringInfoFindAllRequestDto,
+    type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
 } from './types/types.js';
 
@@ -19,14 +20,14 @@ type Constructor = {
     storage: Storage;
 };
 
-class AdminApi extends HttpApiBase {
+class HiringInfoApi extends HttpApiBase {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.HIRING_INFO, baseUrl, http, storage });
     }
 
     public async getAllHiringInfo(): Promise<HiringInfoFindAllRequestDto> {
         const response = await this.load(
-            this.getFullEndpoint(HiringInfoApiPath.ROOT, {}),
+            this.getFullEndpoint(HiringInfoApiPath.ALL, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
@@ -34,6 +35,26 @@ class AdminApi extends HttpApiBase {
             },
         );
         return response.json<HiringInfoFindAllRequestDto>();
+    }
+
+    public async getHiringInfo(
+        payload: HiringInfoFindRequestDto,
+    ): Promise<boolean> {
+        const queryParameters = Object.keys(payload).map((key) => `?${key}`);
+
+        const response = await this.load(
+            this.getFullEndpoint(
+                HiringInfoApiPath.ROOT,
+                ...queryParameters,
+                payload,
+            ),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<boolean>();
     }
 
     public async createHiringInfo(
@@ -52,4 +73,4 @@ class AdminApi extends HttpApiBase {
     }
 }
 
-export { AdminApi };
+export { HiringInfoApi };
