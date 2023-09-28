@@ -1,4 +1,3 @@
-import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     useAppDispatch,
     useAppSelector,
