@@ -3,6 +3,7 @@ import {
     createUserDetails,
     getUserDetails,
     updateOnboardingData,
+    updatePublishedData,
 } from './actions';
 import { actions } from './slice';
 
@@ -12,6 +13,7 @@ const allActions = {
     clearCommonStore,
     getUserDetails,
     updateOnboardingData,
+    updatePublishedData,
 };
 
 export { allActions as actions };

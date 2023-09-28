@@ -1,3 +1,4 @@
+export { getAvatarStyles } from './get-avatar-style/get-avatar-style';
 export { getErrorMessage } from './get-error-message/get-error-message';
 export { splitArrayInHalf } from './split-array-in-half/split-array-in-half';
 export { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

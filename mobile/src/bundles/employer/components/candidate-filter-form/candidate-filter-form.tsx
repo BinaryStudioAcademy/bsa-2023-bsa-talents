@@ -14,9 +14,18 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    EmploymentType,
+    EnglishLevel,
+    IconName,
+} from '~/bundles/common/enums/enums';
 import { TextCategory } from '~/bundles/common/enums/styles/styles';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppForm,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
@@ -25,8 +34,6 @@ import {
     BSA_CHARACTERISTICS,
     BSA_PROJECTS,
     DEFAULT_VALUES,
-    EMPLOYMENT_TYPE_OPTIONS,
-    ENGLISH_LEVELS,
     JOB_TITLE_OPTIONS,
     LOCATION_OPTIONS,
     SORT_VALUES,
@@ -38,16 +45,24 @@ type CandidatesFilterFormProperties = {
     onSubmit: (dto: EmployeesFiltersForm) => void;
     onFilterClose: () => void;
 };
+
+const employmentTypeOptions = Object.values(EmploymentType);
+const englishLevels = Object.values(EnglishLevel);
+
 const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     onFilterClose,
     onSubmit,
 }) => {
+    const { talentsFilters } = useAppSelector(({ employees }) => employees);
+
     const { control, reset, handleSubmit } = useAppForm<EmployeesFiltersForm>({
-        defaultValues: DEFAULT_VALUES,
+        defaultValues: talentsFilters ?? DEFAULT_VALUES,
     });
+
     const { hardSkillsData } = useCommonData();
+
     const handleClearFilters = (): void => {
-        reset();
+        reset(DEFAULT_VALUES);
     };
 
     const handleFormSubmit = useCallback((): void => {
@@ -194,7 +209,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="englishLevel"
-                    options={ENGLISH_LEVELS}
+                    options={englishLevels}
                 />
             </FormField>
             <FormField
@@ -205,7 +220,7 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={EMPLOYMENT_TYPE_OPTIONS}
+                    options={employmentTypeOptions}
                 />
             </FormField>
             <Button

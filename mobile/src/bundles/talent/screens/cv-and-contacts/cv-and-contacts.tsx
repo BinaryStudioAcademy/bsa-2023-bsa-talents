@@ -12,10 +12,10 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import {
     ContactsFormData,
     NewAccountHeader,
+    WithProfileForm,
 } from '~/bundles/talent/components/components';
 import { styles } from '~/bundles/talent/components/cv-and-contacts-form/styles';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
-import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 import { cvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';

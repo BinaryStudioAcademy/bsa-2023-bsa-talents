@@ -13,11 +13,16 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { useCommonData } from '~/bundles/common-data/hooks/use-common-data/use-common-data';
-import { BadgesFormData } from '~/bundles/talent/components/badges-form-data/badges-form-data';
-import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
-import { TalentFormType } from '~/bundles/talent/enums/enums';
+import { useCommonData } from '~/bundles/common-data/hooks/hooks';
+import {
+    BadgesFormData,
+    NewAccountHeader,
+    WithProfileForm,
+} from '~/bundles/talent/components/components';
+import {
+    BsaBadgesStepUncontrolledBadges,
+    TalentFormType,
+} from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import {
     type BadgesFormDto,
@@ -25,16 +30,16 @@ import {
 } from '~/bundles/talent/types/types';
 import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
-import {
-    BADGES_STEP_DEFAULT_VALUES,
-    UNCONTROLLED_BADGES,
-} from './constants/constants';
+import { BADGES_STEP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
+
+const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
 
 const BsaBadges: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { badgesData, dataStatus } = useCommonData();
+
     const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {
         if (onboardingData?.badges) {
             return { badges: onboardingData.badges };
@@ -45,7 +50,7 @@ const BsaBadges: React.FC = () => {
         if (badgesData?.items) {
             const badges = badgesData.items.map((badge) => ({
                 ...badge,
-                isChecked: UNCONTROLLED_BADGES.includes(badge.name),
+                isChecked: uncontrolledBadges.includes(badge.name),
             }));
             return { badges };
         }

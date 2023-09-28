@@ -26,10 +26,9 @@ import {
     StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { type RootReducer } from '~/framework/store/store.package.js';
+import { type RootReducer } from '~/framework/store/store.js';
 import { configureString } from '~/helpers/helpers.js';
 
-import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
 
 const Onboarding: React.FC = () => {
@@ -43,10 +42,14 @@ const Onboarding: React.FC = () => {
             slugs[FIRST_ELEMENT];
         return STEP_NUMBER_FROM_ROUTE[slug];
     });
+    const [isWaitingForApproval, setIsWaitingForApproval] =
+        useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-
+    const { publishedAt } = useAppSelector(
+        (state: RootReducer) => state.talentOnBoarding,
+    );
     const handleNextStep = useCallback((): void => {
         setCurrentStep(currentStep + StepsList.ONE);
 
@@ -93,14 +96,16 @@ const Onboarding: React.FC = () => {
     }, [location.pathname]);
 
     useEffect(() => {
-        void dispatch(
-            actions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
+        if (publishedAt) {
+            setIsWaitingForApproval(true);
+        }
+    }, [currentUser?.id, dispatch, publishedAt]);
     return (
-        <PageLayout avatarUrl="" isOnline={false}>
+        <PageLayout
+            avatarUrl=""
+            isOnline={false}
+            isWaitingForApproval={isWaitingForApproval}
+        >
             <FormSubmitProvider>
                 <Grid className={styles.careerWrapper}>
                     <Typography variant="h4" className={styles.header}>

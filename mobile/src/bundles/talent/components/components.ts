@@ -1,5 +1,4 @@
 export { BadgesFormData } from './badges-form-data/badges-form-data';
-export { CompanyInfo } from './company-info/company-info';
 export { ContactsFormData } from './contacts-form-data/contacts-form-data';
 export { CVAndContactsForm } from './cv-and-contacts-form/cv-and-contacts-form';
 export { FeedbacksContainer } from './feedbacks-container/feedbacks-container';
@@ -13,3 +12,4 @@ export { ProfileTabBar } from './profile-tab-bar/profile-tab-bar';
 export { ProjectContainer } from './project-container/project-container';
 export { ScoresAndSkillsContainer } from './scores-and-skills-container/scores-and-skills-container';
 export { SkillsFormData } from './skills-form-data/skills-form-data';
+export { WithProfileForm } from './with-profile-form/with-profile-form';
