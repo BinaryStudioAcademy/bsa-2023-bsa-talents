@@ -4,6 +4,7 @@
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
+    color: var(--st-tropaz);
     border-radius: 8px;
     cursor: pointer;
 }
@@ -11,4 +12,13 @@
 .menuItem:hover {
     color: var(--st-tropaz);
     background-color: var(--solitude);
+}
+
+.menuItem:global(.Mui-disabled) {
+    color: var(--gray-1);
+
+    &:hover {
+        color: var(--gray-1);
+        background-color: initial;
+    }
 }

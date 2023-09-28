@@ -22,6 +22,7 @@ type State = {
     chats: ChatResponseDto[];
     current: {
         chatId: string | null;
+        talentId: string | null;
         talentHasSharedContacts: boolean;
         messages: MessageResponseDto[];
         employerDetails:
@@ -44,6 +45,7 @@ const initialState: State = {
     chats: [],
     current: {
         chatId: null,
+        talentId: null,
         talentHasSharedContacts: false,
         messages: [],
         employerDetails: {
@@ -111,6 +113,7 @@ const { reducer, actions, name } = createSlice({
                 state.current.chatId = action.payload.chatId;
                 state.current.messages = action.payload.messages;
                 state.current.employerDetails = action.payload.employerDetails;
+                state.current.talentId = action.payload.talentId;
             })
             .addCase(createMessage.fulfilled, (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -129,8 +132,10 @@ const { reducer, actions, name } = createSlice({
             })
             .addCase(getAllMessagesByChatId.pending, (state) => {
                 state.dataStatus = DataStatus.PENDING;
+                state.current.chatId = null;
                 state.current.messages = [];
                 state.current.employerDetails = {};
+                state.current.talentId = null;
             })
             .addMatcher(
                 isAnyOf(

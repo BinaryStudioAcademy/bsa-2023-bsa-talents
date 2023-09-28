@@ -31,19 +31,25 @@ type UserDetailsGeneralCreateRequestDto = UserDetailsCreateRequestDto &
     Partial<PhotoDto> &
     Partial<CompanyLogoDto>;
 
+type PublishedAt = {
+    publishedAt?: string;
+};
+
 type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
     Partial<BsaBadgesStepTypes> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto> &
-    Partial<CompanyLogoDto>;
+    Partial<CompanyLogoDto> &
+    Partial<PublishedAt>;
 
 type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
     Partial<BsaBadgesStepTypes> &
     Partial<HardSkillsDto> &
     Partial<PhotoDto> &
     Partial<CVDto> &
-    Partial<CompanyLogoDto>;
+    Partial<CompanyLogoDto> &
+    Partial<PublishedAt>;
 
 export {
     type CVDto,

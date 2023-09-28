@@ -1,3 +1,4 @@
+export { type ApplicationRoute } from './application-route.type.js';
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
 export {
     type ControllerFieldState,

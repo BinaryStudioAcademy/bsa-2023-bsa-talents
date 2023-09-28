@@ -12,6 +12,7 @@ import {
     createUserDetails,
     getUserDetails,
     updateOnboardingData,
+    updatePublishedData,
 } from './actions';
 
 type State = {
@@ -41,6 +42,7 @@ const { reducer, actions, name } = createSlice({
                     createUserDetails.fulfilled.type,
                     updateOnboardingData.fulfilled.type,
                     getUserDetails.fulfilled.type,
+                    updatePublishedData.fulfilled.type,
                 ].includes(action.type),
             (state, action) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -55,6 +57,7 @@ const { reducer, actions, name } = createSlice({
                 createUserDetails.pending,
                 updateOnboardingData.pending,
                 getUserDetails.pending,
+                updatePublishedData.pending,
             ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
@@ -65,6 +68,7 @@ const { reducer, actions, name } = createSlice({
                 createUserDetails.rejected,
                 updateOnboardingData.rejected,
                 getUserDetails.rejected,
+                updatePublishedData.rejected,
             ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;

@@ -1,4 +1,9 @@
 import {
+    AccountCircle as AccountCircleIcon,
+    Image as ImageIcon,
+} from '@mui/icons-material';
+
+import {
     ErrorMessage,
     FormControl,
     FormLabel,
@@ -168,6 +173,7 @@ const OnboardingForm: React.FC = () => {
             'linkedinLink',
         ]);
         const initialValues = {
+            photo,
             photoUrl,
             fullName,
             employerPosition,
@@ -175,12 +181,14 @@ const OnboardingForm: React.FC = () => {
             companyWebsite,
             location,
             description,
+            companyLogo,
             companyLogoUrl,
             linkedinLink,
         };
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
+
         if (hasChangesInDetails !== hasChanges) {
             dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
         }
@@ -205,8 +213,8 @@ const OnboardingForm: React.FC = () => {
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleFormSubmit = useCallback(
-        (data: EmployerOnboardingDto): boolean => {
-            void dispatch(
+        async (data: EmployerOnboardingDto): Promise<boolean> => {
+            await dispatch(
                 employerActions.saveEmployerDetails({
                     ...data,
                     userId: currentUser?.id,
@@ -221,8 +229,8 @@ const OnboardingForm: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit((formData) => {
-                    result = handleFormSubmit(formData);
+                await handleSubmit(async (formData) => {
+                    result = await handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -236,16 +244,21 @@ const OnboardingForm: React.FC = () => {
         file,
         url,
         alt,
+        defaultIcon: DefaultIcon,
     }: {
         file?: File | null;
         url?: string | null;
         alt: string;
+        defaultIcon: JSX.Element;
     }): JSX.Element | null => {
         const source = getImageSource(file, url);
         return source ? (
             <img src={source} className={styles.photoElement} alt={alt} />
-        ) : null;
+        ) : (
+            DefaultIcon
+        );
     };
+
     return (
         <FormControl className={styles.formWrapper}>
             <Grid className={styles.form}>
@@ -364,8 +377,14 @@ const OnboardingForm: React.FC = () => {
                                 file={watch('photo')}
                                 url={photoUrl}
                                 alt="Profile"
+                                defaultIcon={
+                                    <AccountCircleIcon
+                                        className={styles.iconWrapper}
+                                    />
+                                }
                             />
                         </Grid>
+
                         <EmployerFileUpload
                             label="Upload a photo"
                             control={control}
@@ -374,14 +393,19 @@ const OnboardingForm: React.FC = () => {
                             clearErrors={clearErrors}
                         />
                     </Grid>
+
                     <Grid container className={styles.photo}>
                         <Grid item className={styles.photoWrapper}>
                             <ImageDisplay
                                 file={watch('companyLogo')}
                                 url={companyLogoUrl}
                                 alt="Company logo"
+                                defaultIcon={
+                                    <ImageIcon className={styles.iconWrapper} />
+                                }
                             />
                         </Grid>
+
                         <EmployerFileUpload
                             label="Upload a company logo"
                             control={control}

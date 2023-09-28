@@ -119,9 +119,6 @@ const StepContent: React.FC<Properties> = ({
                             )}
                         />
                     )}
-                    {currentStep === StepsList.ONE && (
-                        <Grid className={styles.buttonPlaceholder} />
-                    )}
                     <Button
                         onClick={
                             currentStep === STEPS_NUMBER

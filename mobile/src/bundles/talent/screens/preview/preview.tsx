@@ -8,6 +8,7 @@ import {
 import {
     ButtonType,
     CompletedTalentOnboardingStep,
+    TalentBottomTabScreenName,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
@@ -16,6 +17,7 @@ import {
     useAppRoute,
     useAppSelector,
     useCallback,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { actions as commonActions } from '~/bundles/common/store';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -30,9 +32,11 @@ import { styles } from './style';
 const Preview: React.FC = () => {
     const { name } = useAppRoute();
     const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { onboardingData } = useAppSelector(({ common }) => common);
     const userId = currentUserData?.id ?? '';
 
     const dispatch = useAppDispatch();
+    const navigation = useNavigation();
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];
     const completedOnboardingStep = CompletedTalentOnboardingStep[stepTitle];
@@ -46,7 +50,10 @@ const Preview: React.FC = () => {
         );
     }, [dispatch, userId, completedOnboardingStep]);
 
-    //TODO add logic for "Publish now"
+    const handlePublishSubmit = useCallback((): void => {
+        void dispatch(commonActions.updatePublishedData({ userId }));
+        navigation.navigate(TalentBottomTabScreenName.TALENT_PROFILE as never);
+    }, [dispatch, navigation, userId]);
 
     return (
         <View style={[globalStyles.flex1, globalStyles.mb25]}>
@@ -59,15 +66,20 @@ const Preview: React.FC = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <ProfilePreview />
-                {/* todo: add logic */}
                 <View>
+                    {onboardingData?.completedStep !== 'preview' && (
+                        <Button
+                            label="Save without publishing"
+                            buttonType={ButtonType.OUTLINE}
+                            style={globalStyles.mb10}
+                            onPress={handlePreviewSubmit}
+                        />
+                    )}
                     <Button
-                        label="Save without publishing"
-                        buttonType={ButtonType.OUTLINE}
-                        style={globalStyles.mb10}
-                        onPress={handlePreviewSubmit}
+                        label="Publish now"
+                        style={globalStyles.mb25}
+                        onPress={handlePublishSubmit}
                     />
-                    <Button label="Publish now" style={globalStyles.mb25} />
                 </View>
             </ScrollView>
         </View>
