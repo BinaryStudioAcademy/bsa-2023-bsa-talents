@@ -123,6 +123,7 @@ const getEmployerDetails = createAsyncThunk<
                 await employerOnBoardingApi.getUserDetailsByUserId({
                     userId: findPayload.userId,
                 });
+
             const photo = await fileUploadApi.getFileById({
                 id: userDetails?.photoId ?? '',
             });
