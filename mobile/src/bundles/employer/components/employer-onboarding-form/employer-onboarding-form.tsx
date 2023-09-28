@@ -96,6 +96,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             name="photo"
                             shouldHideButton
                             defaultIcon={IconName.PERSON}
+                            uri={employerOnboardingData?.photoUrl}
                         />
                     </FormField>
                 </View>

@@ -38,6 +38,7 @@ const EmployerProfile: React.FC = () => {
                   companyWebsite: onboardingData.companyWebsite ?? '',
                   location: onboardingData.location ?? '',
                   description: onboardingData.description ?? '',
+                  photoUrl: onboardingData.photoUrl ?? '',
               }
             : null;
 
