@@ -142,10 +142,9 @@ class UserDetailsRepository implements Repository {
             .query()
             .findOne({ userId })
             .withGraphFetched(
-                '[talentHardSkills, talentBadges, cv, photo, companyLogo]',
+                '[talentHardSkills, talentBadges.[badge], cv, photo, companyLogo]',
             )
             .execute();
-
         if (!details) {
             return null;
         }

@@ -5,6 +5,7 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getRandomBadgeColor } from '~/bundles/talent-onboarding/helpers/helpers.js';
 
 import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import styles from './styles.module.scss';
@@ -298,48 +299,30 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                         <Typography variant="body1" className={styles.title}>
                             BSA badges
                         </Typography>
-                        <Badge
-                            isSmall
-                            primaryText={'4.2'}
-                            secondText={'/5'}
-                            description={'Average project score1'}
-                            color={'#274f8d'}
-                        />
-                        <Badge
-                            isSmall
-                            primaryText={'4.2'}
-                            secondText={'/5'}
-                            description={'Average project score2'}
-                            color={'#EE2A64'}
-                        />
-                        <Badge
-                            isSmall
-                            primaryText={'4.2'}
-                            secondText={'/5'}
-                            description={'Average project score3'}
-                            color={'#FFD231'}
-                        />
-                        <Badge
-                            isSmall
-                            primaryText={'4.2'}
-                            secondText={'/5'}
-                            description={'Average project score4'}
-                            color={'#D32AEE'}
-                        />
-                        <Badge
-                            isSmall
-                            primaryText={'4.2'}
-                            secondText={'/5'}
-                            description={'Average project score5'}
-                            color={'#21BA67'}
-                        />
+                        {userDetails.talentBadges.map((it) => {
+                            const primaryText =
+                                it.level ?? String(it.score) + ' ';
+                            const secondText = it.level
+                                ? ''
+                                : '/ ' + String(it.badge.maxScore);
+                            return (
+                                <Badge
+                                    key={it.id}
+                                    isSmall
+                                    primaryText={primaryText}
+                                    secondText={secondText}
+                                    description={it.badge.name}
+                                    color={getRandomBadgeColor()}
+                                />
+                            );
+                        })}
                     </Grid>
 
                     <Grid container item className={styles.hardSkills}>
                         <Typography variant="body1" className={styles.title}>
                             Hard Skills
                         </Typography>
-                        {userDetails.talentHardSkills.map((hardSkill) => {
+                        {userDetails.talentHardSkills?.map((hardSkill) => {
                             return (
                                 <Chip
                                     key={hardSkill.name}
