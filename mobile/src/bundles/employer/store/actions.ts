@@ -13,8 +13,7 @@ const getTalents = createAsyncThunk<
 >(`${sliceName}/getTalentsData`, async (payload, { extra }) => {
     const { employerApi, notifications } = extra;
     try {
-        const users = await employerApi.getTalents(payload ?? '');
-        return users.filter((user) => user.cvId);
+        return await employerApi.getTalents(payload ?? '');
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });

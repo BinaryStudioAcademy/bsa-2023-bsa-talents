@@ -15,6 +15,7 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     cv?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;
     createdAt?: string;
+    publishedAt?: string;
 };
 
 export { type UserDetailsGeneralCustom };

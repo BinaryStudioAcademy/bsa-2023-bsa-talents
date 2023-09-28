@@ -43,10 +43,10 @@ const ProfileSecondSection: React.FC<Properties> = ({
             label: 'No',
         },
     ];
+
     const { control } = useAppForm<{ hire: 'Yes' }>({
         defaultValues: { hire: 'Yes' },
     });
-
     return (
         <Grid className={styles.profileSecondSection}>
             <Grid className={styles.candidateInfo}>

@@ -69,7 +69,7 @@ const EmployerProfile: React.FC = () => {
                         globalStyles.alignItemsCenter,
                     ]}
                 >
-                    {!isApproved && <VerificationMessage />}
+                    {!isApproved && onboardingData && <VerificationMessage />}
                     <LogoutButton />
                 </View>
             </View>

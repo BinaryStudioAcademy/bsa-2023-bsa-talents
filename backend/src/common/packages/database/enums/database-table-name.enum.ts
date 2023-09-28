@@ -10,6 +10,7 @@ const DatabaseTableName = {
     HARD_SKILLS: 'hard_skills',
     HIRING_INFO: 'hiring_info',
     CHAT_MESSAGES: 'chat_messages',
+    CONTACTS: 'contacts',
 } as const;
 
 export { DatabaseTableName };

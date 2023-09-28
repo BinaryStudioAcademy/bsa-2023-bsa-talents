@@ -24,6 +24,13 @@ export {
     type HardSkillsResponseDto,
 } from './bundles/common-data/common-data.js';
 export {
+    ContactsApiPath,
+    type ContactsCreateRequestDto,
+    type ContactsFindAllRequestDto,
+    type ContactsFindRequestDto,
+    type ContactsResponseDto,
+} from './bundles/contacts/contacts.js';
+export {
     FileApiPath,
     type FileUploadResponse,
     type UploadedFile,

@@ -1,4 +1,4 @@
-export { CvAndContactsFormValidationSchema } from './cv-and-contacts-form/cv-and-contacts-form.validation-schema';
+export { cvAndContactsFormValidationSchema } from './cv-and-contacts-form/cv-and-contacts-form-validation.schema';
 export {
     bsaBadgesStepValidationSchema,
     profileStepValidationSchema,
