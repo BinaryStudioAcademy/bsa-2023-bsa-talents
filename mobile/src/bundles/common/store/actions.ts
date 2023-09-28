@@ -20,22 +20,10 @@ const createUserDetails = createAsyncThunk<
 
     if (photo) {
         try {
-            const { image } = await fileUploadApi.upload({
+            const { rn } = await fileUploadApi.upload({
                 files: [photo],
             });
-            payload.photoId = image.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
-    }
-    if (companyLogo) {
-        try {
-            const { image } = await fileUploadApi.upload({
-                files: [companyLogo],
-            });
-            payload.companyLogoId = image.id;
+            payload.photoId = rn.id;
         } catch (error) {
             const errorMessage = getErrorMessage(error);
             notifications.showError({ title: errorMessage });
@@ -68,24 +56,14 @@ const updateOnboardingData = createAsyncThunk<
         stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
+    const cvDocument = cv;
+
     if (photo) {
         try {
-            const { image } = await fileUploadApi.upload({
+            const { rn } = await fileUploadApi.upload({
                 files: [photo],
             });
-            payload.photoId = image.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
-    }
-    if (companyLogo) {
-        try {
-            const { image } = await fileUploadApi.upload({
-                files: [companyLogo],
-            });
-            payload.companyLogoId = image.id;
+            payload.photoId = rn.id;
         } catch (error) {
             const errorMessage = getErrorMessage(error);
             notifications.showError({ title: errorMessage });
@@ -93,18 +71,18 @@ const updateOnboardingData = createAsyncThunk<
         }
     }
 
-    // if (cv) {
-    //     try {
-    //         const { document } = await fileUploadApi.upload({
-    //             files: [cv],
-    //         });
-    //         payload.cvId = document.id;
-    //     } catch (error) {
-    //         const errorMessage = getErrorMessage(error);
-    //         notifications.showError({ title: errorMessage });
-    //         throw error;
-    //     }
-    // }
+    if (cvDocument) {
+        try {
+            const { cv } = await fileUploadApi.upload({
+                files: [cvDocument],
+            });
+            payload.cvId = cv?.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
 
     if (Object.keys(payload).length === 0) {
         return stepPayload;
@@ -136,12 +114,21 @@ const getUserDetails = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
-    const { notifications, commonApi } = extra;
+    const { notifications, commonApi, fileUploadApi } = extra;
     try {
         const userDetails = await commonApi.getUserDetailsByUserId({
             userId: payload.userId,
         });
-        return userDetails ?? null;
+
+        const photo = await fileUploadApi.getFileById({
+            id: userDetails?.photoId ?? '',
+        });
+
+        return {
+            ...userDetails,
+            photoUrl: photo?.url,
+        };
+        //return userDetails ?? null;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
