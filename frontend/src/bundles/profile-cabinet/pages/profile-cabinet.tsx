@@ -205,7 +205,7 @@ const ProfileCabinet: React.FC = () => {
                                     label={
                                         role === UserRole.TALENT
                                             ? 'Publish now'
-                                            : 'Submit for varification'
+                                            : 'Submit for verification'
                                     }
                                     variant={'contained'}
                                     className={getValidClassNames(
