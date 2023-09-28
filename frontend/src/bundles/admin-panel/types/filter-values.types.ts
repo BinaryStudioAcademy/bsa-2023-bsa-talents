@@ -1,3 +1,3 @@
-type FilterValues = 'talents' | 'employers';
+type FilterValues = 'talent' | 'employer';
 
 export { type FilterValues };

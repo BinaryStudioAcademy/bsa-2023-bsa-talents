@@ -22,6 +22,7 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
+    type UserDetailsFullResponseDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,

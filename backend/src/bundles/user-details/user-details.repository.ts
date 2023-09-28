@@ -128,12 +128,30 @@ class UserDetailsRepository implements Repository {
             .leftOuterJoinRelated('photo')
             .where('user.role', role)
             .andWhere('isApproved', false)
+            .whereNotNull('publishedAt')
+            .whereNull('deniedReason')
             .select('user_id', 'photo.url as photoUrl', 'full_name')
             .execute();
     }
 
     public findAll(): ReturnType<Repository['findAll']> {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
+    }
+
+    public async findFullInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsModel | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ userId })
+            .withGraphFetched(
+                '[talentHardSkills, talentBadges.[badge], cv, photo, companyLogo]',
+            )
+            .execute();
+        if (!details) {
+            return null;
+        }
+        return details;
     }
 
     public async searchUsers(

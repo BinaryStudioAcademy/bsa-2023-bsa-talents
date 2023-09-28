@@ -31,6 +31,7 @@ export {
     type ContactsResponseDto,
 } from './bundles/contacts/contacts.js';
 export {
+    type File,
     FileApiPath,
     FileRole,
     type FileRoleValue,
@@ -100,6 +101,7 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
+    type UserDetailsFullResponseDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,
@@ -165,6 +167,7 @@ export {
     getBadgeIcon,
     getItemsWithSelected,
     getSearchedItems,
+    getURLWithQueryString,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';

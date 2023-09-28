@@ -1,12 +1,12 @@
 import { Grid } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
-import { type MockData } from '../../types/types.js';
+import { type UserDetailsShortResponseDto } from '../../types/types.js';
 import { VerificationListItem } from '../verification-list-item/verification-list-item.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    items: MockData[];
+    items: UserDetailsShortResponseDto[];
     selectedId: string;
     isFilterOpen: boolean;
     isScreenMoreMd: boolean;
@@ -39,8 +39,8 @@ const ChatList: React.FC<Properties> = ({
             isSelected={it.userId === selectedId}
             onSelect={handleListSelect}
             key={it.userId}
-            name={it.username}
-            imageSrc={it.avatar}
+            name={it.fullName}
+            imageSrc={it.photoUrl}
         />
     ));
 

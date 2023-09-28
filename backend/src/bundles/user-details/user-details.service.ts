@@ -21,6 +21,7 @@ import {
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
+import { type UserDetailsModel } from './user-details.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
 
 type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
@@ -94,6 +95,21 @@ class UserDetailsService implements Service {
             await this.userDetailsRepository.findCompanyInfoByUserId({
                 userId,
             });
+
+        if (!userDetails) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
+            });
+        }
+        return userDetails;
+    }
+
+    public async findFullInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsModel | null> {
+        const userDetails =
+            await this.userDetailsRepository.findFullInfoByUserId(userId);
 
         if (!userDetails) {
             throw new HttpError({

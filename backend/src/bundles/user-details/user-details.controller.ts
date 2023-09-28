@@ -264,6 +264,18 @@ class UserDetailsController extends ControllerBase {
         });
 
         this.addRoute({
+            path: UserDetailsApiPath.FULL,
+            method: 'GET',
+            handler: (options) => {
+                return this.findFull(
+                    options as ApiHandlerOptions<{
+                        params: UserDetailsFindByUserIdRequestDto;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
             path: UserDetailsApiPath.PUBLISH,
             method: 'PATCH',
             handler: (options) => {
@@ -679,6 +691,19 @@ class UserDetailsController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userDetailsService.findShortByRole(userType),
+        };
+    }
+
+    private async findFull(
+        options: ApiHandlerOptions<{
+            params: UserDetailsFindByUserIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userDetailsService.findFullInfoByUserId(userId),
         };
     }
 
