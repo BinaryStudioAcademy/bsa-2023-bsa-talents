@@ -28,27 +28,46 @@ const setFilters = createAsyncThunk<
 });
 
 const getCandidateDetails = createAsyncThunk<
-    SeacrhCandidateResponse | null,
+    (SeacrhCandidateResponse & { hasSharedContacts?: boolean }) | null,
     {
         userId: string;
+        companyId?: string;
     },
     AsyncThunkConfig
 >(
     `${sliceName}/get-candidate-details`,
-    async (findPayload, { extra, rejectWithValue, getState }) => {
+    async ({ userId, companyId }, { extra, rejectWithValue, getState }) => {
         const { searchCandidates } = getState();
-        const { searchCandidatesApi } = extra;
+
+        const { talentOnBoardingApi, candidateApi } = extra;
         if (searchCandidates.filteredCandidates.length > MIN_LENGTH) {
             return (
                 searchCandidates.filteredCandidates.find(
-                    (candidate) => candidate.userId == findPayload.userId,
+                    (candidate) => candidate.userId == userId,
                 ) ?? null
             );
         }
+
         try {
-            return await searchCandidatesApi.getCandidateDetailsByUserId({
-                userId: findPayload.userId,
-            });
+            const userDetails =
+                (await talentOnBoardingApi.getUserDetailsByUserId({
+                    userId,
+                })) as
+                    | (SeacrhCandidateResponse & {
+                          hasSharedContacts?: boolean;
+                      })
+                    | null;
+
+            if (userDetails) {
+                const hasContact = await candidateApi.getContactWithTalent({
+                    talentId: userId,
+                    companyId: companyId as string,
+                });
+
+                userDetails.hasSharedContacts = hasContact;
+            }
+
+            return userDetails ?? null;
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',

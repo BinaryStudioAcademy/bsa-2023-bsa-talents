@@ -29,6 +29,7 @@ import { FormSubmitProvider } from './bundles/common/context/context.js';
 import { Home } from './bundles/common/pages/home.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
+import { CompanyPage } from './bundles/employer/pages/company/company-page.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
 import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { CandidatePage } from './bundles/search-candidates/pages/candidate-page/candidate-page.js';
@@ -57,6 +58,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                             <PageLayout avatarUrl="" isOnline>
                                                 <CandidatePage />
                                             </PageLayout>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.COMPANY,
+                                        element: (
+                                            <ProtectedRoute>
+                                                <PageLayout
+                                                    avatarUrl=""
+                                                    isOnline
+                                                >
+                                                    <CompanyPage />
+                                                </PageLayout>
+                                            </ProtectedRoute>
                                         ),
                                     },
                                     {

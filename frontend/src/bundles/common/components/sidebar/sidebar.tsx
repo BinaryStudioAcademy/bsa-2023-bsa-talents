@@ -15,6 +15,7 @@ import { useAppSelector, useCallback, useState } from '../../hooks/hooks.js';
 import { SidebarItem } from './sidebar-item/sidebar-item.js';
 import styles from './styles.module.scss';
 import { type SideBarMenu } from './types/sidebar-menu.type.js';
+import { type SidebarMenuItem } from './types/sidebar-menu-item.type.js';
 
 const GENERAL_MENU_ITEMS: SideBarMenu = [
     {
@@ -48,12 +49,33 @@ const Sidebar: React.FC = () => {
         (state: RootReducer) => state.auth.currentUser,
     );
 
-    const isAdmin = currentUser?.role === UserRole.ADMIN;
     const handleToggleSidebar = useCallback(() => {
         setSidebarVisible(!isSidebarVisible);
     }, [isSidebarVisible]);
 
-    const menuItems = isAdmin ? ADMIN_MENU_ITEMS : GENERAL_MENU_ITEMS;
+    let menuItems: SideBarMenu = [];
+
+    switch (currentUser?.role) {
+        case UserRole.TALENT: {
+            menuItems = [
+                GENERAL_MENU_ITEMS.find(
+                    (item) => item.name === 'Chats',
+                ) as SidebarMenuItem,
+            ];
+            break;
+        }
+        case UserRole.EMPLOYER: {
+            menuItems = GENERAL_MENU_ITEMS;
+            break;
+        }
+        case UserRole.ADMIN: {
+            menuItems = ADMIN_MENU_ITEMS;
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 
     return (
         <>

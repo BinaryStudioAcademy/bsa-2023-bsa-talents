@@ -116,23 +116,7 @@ const ProfileCabinet: React.FC = () => {
         talentOnBoarding.publishedAt,
     ]);
 
-    const handleSaveClick = useCallback(() => {
-        void (async (): Promise<void> => {
-            if (submitForm) {
-                const isSuccessful = await submitForm();
-                if (isSuccessful) {
-                    void dispatch(
-                        storeActions.notify({
-                            type: NotificationType.SUCCESS,
-                            message: 'Profile was updated',
-                        }),
-                    );
-                }
-            }
-        })();
-    }, [dispatch, submitForm]);
-
-    const handlePublishNowClick = useCallback(() => {
+    const handlePublish = useCallback(() => {
         if (currentUser) {
             void dispatch(
                 talentActions.updateTalentPublishedDate({
@@ -160,6 +144,39 @@ const ProfileCabinet: React.FC = () => {
         },
         [currentUser?.id, dispatch],
     );
+
+    const handleClick = useCallback(
+        (publish: boolean) => {
+            void (async (): Promise<void> => {
+                if (!submitForm) {
+                    return;
+                }
+
+                const isSuccessful = await submitForm();
+                if (isSuccessful) {
+                    void dispatch(
+                        storeActions.notify({
+                            type: NotificationType.SUCCESS,
+                            message: 'Profile was updated',
+                        }),
+                    );
+                }
+
+                if (publish) {
+                    handlePublish();
+                }
+            })();
+        },
+        [dispatch, handlePublish, submitForm],
+    );
+
+    const handleSaveClick = useCallback(() => {
+        handleClick(false);
+    }, [handleClick]);
+
+    const handlePublishNowClick = useCallback(() => {
+        handleClick(true);
+    }, [handleClick]);
 
     return (
         <PageLayout
@@ -210,7 +227,7 @@ const ProfileCabinet: React.FC = () => {
                                     onClick={handleSaveClick}
                                     label={'Save'}
                                     variant={'outlined'}
-                                    isDisabled={hasChanges}
+                                    isDisabled={!hasChanges}
                                     className={getValidClassNames(
                                         styles.profileButton,
                                         styles.saveButton,
