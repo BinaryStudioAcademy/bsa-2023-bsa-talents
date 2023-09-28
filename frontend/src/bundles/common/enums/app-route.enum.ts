@@ -6,6 +6,7 @@ const AppRoute = {
     CANDIDATES: '/candidates',
     CANDIDATE: '/candidates/:userId',
     CHATS: '/chats',
+    COMPANY: '/company/:id',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     FORGOT_PASSWORD: '/forgot-password',
