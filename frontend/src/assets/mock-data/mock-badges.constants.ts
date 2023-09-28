@@ -8,7 +8,7 @@ const mockBadges = [
         maxScore: 5,
         description: 'Your average project score',
         type: BSABadgeType.CUSTOM,
-        color: BadgeColors.YELLOW,
+        color: BadgeColors.DARK_BLUE,
     },
     {
         id: '2',
@@ -16,7 +16,7 @@ const mockBadges = [
         maxScore: 10,
         description: 'Your average lectures score',
         type: BSABadgeType.SERVICE,
-        color: BadgeColors.YELLOW,
+        color: BadgeColors.RED,
     },
     {
         id: '3',
@@ -32,14 +32,14 @@ const mockBadges = [
         maxScore: 5,
         description: 'Working with team score',
         type: BSABadgeType.CUSTOM,
-        color: BadgeColors.YELLOW,
+        color: BadgeColors.PURPLE,
     },
     {
         id: '5',
         level: 'B+',
         description: 'Level of English',
         type: BSABadgeType.SERVICE,
-        color: BadgeColors.YELLOW,
+        color: BadgeColors.GREEN,
     },
 ];
 
