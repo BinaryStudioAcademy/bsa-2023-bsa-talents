@@ -4,7 +4,6 @@ import {
     type UserDetailsUpdateRequestDto,
 } from 'shared/build/index.js';
 
-import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 
 import { DEFAULT_PAYLOAD_BSA_BADGES_STEP } from '../components/badges-step/constants/constants.js';
@@ -24,9 +23,7 @@ const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_PAYLOAD_PROFILE_STEP,
     ...DEFAULT_PAYLOAD_BSA_BADGES_STEP,
     isApproved: false,
-    badges: mockBadges
-        .filter((badge) => badge.type === 'service')
-        .map((badge) => badge.id),
+    badges: [],
     ...DEFAULT_PAYLOAD_SKILLS_STEP,
     projectLinks: fromUrlLinks(DEFAULT_PAYLOAD_SKILLS_STEP.projectLinks),
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
