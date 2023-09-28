@@ -31,19 +31,18 @@ const createUserDetails = createAsyncThunk<
         }
     }
 
-    // if (companyLogo) {
-    //     try {
-    //         const { rn }= await fileUploadApi.upload({
-    //             files: [companyLogo],
-    //         });
-    //         payload.companyLogoId = rn?.id;
-
-    //     } catch (error) {
-    //         const errorMessage = getErrorMessage(error);
-    //         notifications.showError({ title: errorMessage });
-    //         throw error;
-    //     }
-    // }
+    if (companyLogo) {
+        try {
+            const { rn } = await fileUploadApi.upload({
+                files: [companyLogo],
+            });
+            payload.companyLogoId = rn.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
 
     try {
         const response = await commonApi.completeUserDetails(payload);
@@ -85,6 +84,19 @@ const updateOnboardingData = createAsyncThunk<
         }
     }
 
+    if (companyLogo) {
+        try {
+            const { rn } = await fileUploadApi.upload({
+                files: [companyLogo],
+            });
+            payload.companyLogoId = rn.id;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            notifications.showError({ title: errorMessage });
+            throw error;
+        }
+    }
+
     if (cvDocument) {
         try {
             const { cv } = await fileUploadApi.upload({
@@ -114,7 +126,6 @@ const updateOnboardingData = createAsyncThunk<
             ...(badges && { badges }),
             ...(photo && { photo }),
             ...(cv && { cv }),
-            ...(companyLogo && { companyLogo }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -137,10 +148,14 @@ const getUserDetails = createAsyncThunk<
         const photo = await fileUploadApi.getFileById({
             id: userDetails?.photoId ?? '',
         });
+        const companyLogo = await fileUploadApi.getFileById({
+            id: userDetails?.companyLogoId ?? '',
+        });
 
         return {
             ...userDetails,
             photoUrl: photo?.url,
+            companyLogoUrl: companyLogo?.url,
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
