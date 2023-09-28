@@ -87,7 +87,8 @@ const EmployerOnboardingFormValidationSchema = joi.object<
 
     companyWebsite: joi
         .string()
-        .uri()
+        .empty('')
+        .regex(/^((www\.)?|http:\/\/|https:\/\/)[^.]+(\..+)+$/)
         .min(
             EmployerOnboardingFormValidationRule.MIN_COMPANY_WEBSITE_LINK_LENGTH,
         )
@@ -96,13 +97,13 @@ const EmployerOnboardingFormValidationSchema = joi.object<
         )
         .required()
         .messages({
-            'string.empty':
+            'any.required':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_LINK_REQUIRED,
             'string.min':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_LENGTH,
             'string.max':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_MAX_LENGTH,
-            'string.uri':
+            'string.pattern.base':
                 EmployerOnboardingFormValidationMessage.COMPANY_WEBSITE_WRONG_PATTERN,
         }),
 

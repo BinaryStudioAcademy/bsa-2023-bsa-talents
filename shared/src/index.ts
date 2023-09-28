@@ -24,6 +24,13 @@ export {
     type HardSkillsResponseDto,
 } from './bundles/common-data/common-data.js';
 export {
+    ContactsApiPath,
+    type ContactsCreateRequestDto,
+    type ContactsFindAllRequestDto,
+    type ContactsFindRequestDto,
+    type ContactsResponseDto,
+} from './bundles/contacts/contacts.js';
+export {
     type File,
     FileApiPath,
     type FileUploadResponse,
@@ -34,6 +41,7 @@ export {
     type HiringInfoCreateRequestDto,
     type HiringInfoFindAllRequestDto,
     type HiringInfoFindRequestDto,
+    type HiringInfoFindResponseDto,
     type HiringInfoResponseDto,
 } from './bundles/hiring-info/hiring-info.js';
 export {

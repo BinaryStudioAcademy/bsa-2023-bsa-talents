@@ -7,7 +7,14 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
+import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
 import { PLURAL_YEARS } from '~/bundles/talent-onboarding/constants/constants.js';
 import { CandidateIcons } from '~/bundles/talent-onboarding/enums/enums.js';
@@ -43,9 +50,39 @@ const ProfileSecondSection: React.FC<Properties> = ({
             label: 'No',
         },
     ];
-    const { control } = useAppForm<{ hire: 'Yes' }>({
+
+    const { control, watch } = useAppForm<{ hire: 'Yes' | 'No' }>({
         defaultValues: { hire: 'Yes' },
     });
+
+    const dispatch = useAppDispatch();
+    const { companyId, talentId, isHired } = useAppSelector(
+        ({ auth, searchCandidates }) => ({
+            companyId: auth.currentUser?.id,
+            talentId: searchCandidates.currentCandidateDetails?.userId,
+            isHired: searchCandidates.currentCandidateDetails?.isHired,
+        }),
+    );
+
+    useEffect(() => {
+        void dispatch(
+            hiringInfoActions.getHiringInfo({
+                talentId: talentId ?? '',
+                companyId: companyId ?? '',
+            }),
+        );
+    }, [companyId, dispatch, talentId]);
+
+    const handleHireSubmit = useCallback((): void => {
+        if (watch('hire') === 'Yes') {
+            void dispatch(
+                hiringInfoActions.submitHiringInfo({
+                    talentId: talentId ?? '',
+                    companyId: companyId ?? '',
+                }),
+            );
+        }
+    }, [companyId, dispatch, talentId, watch]);
 
     return (
         <Grid className={styles.profileSecondSection}>
@@ -169,19 +206,30 @@ const ProfileSecondSection: React.FC<Properties> = ({
             )}
             {isProfileOpen && (
                 <FormControl className={styles.hireCandidates}>
-                    <Typography variant="label">
-                        Have you hired a candidates?
-                    </Typography>
-                    <RadioGroup
-                        control={control}
-                        options={options}
-                        name={'hire'}
-                        className={styles.radio}
-                    />
+                    {!isHired && (
+                        <>
+                            <Typography variant="label">
+                                Have you hired a candidate?
+                            </Typography>
+                            <RadioGroup
+                                control={control}
+                                options={options}
+                                name={'hire'}
+                                className={styles.radio}
+                            />
+                        </>
+                    )}
+                    {isHired && (
+                        <Typography variant="label">
+                            You have hired this candidate
+                        </Typography>
+                    )}
                     <Button
                         label="Submit"
                         variant="outlined"
                         className={styles.submit}
+                        onClick={handleHireSubmit}
+                        isDisabled={isHired}
                     />
                 </FormControl>
             )}

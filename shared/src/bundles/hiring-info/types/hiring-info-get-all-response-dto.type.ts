@@ -1,7 +1,7 @@
-import { type HiringInfoFindRequestDto } from './types.js';
+import { type HiringInfoFindResponseDto } from './types.js';
 
 type HiringInfoFindAllRequestDto = {
-    items: HiringInfoFindRequestDto[];
+    items: HiringInfoFindResponseDto[];
 };
 
 export { type HiringInfoFindAllRequestDto };

@@ -18,6 +18,7 @@ import {
     useState,
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as adminActions } from '~/bundles/hiring-info/store/hiring-info.js';
 
 import {
     Characteristics,
@@ -27,7 +28,6 @@ import {
     VerificationList,
 } from '../../components/components.js';
 import { PreviewTab } from '../../constants/constants.js';
-import { actions as adminActions } from '../../store/admin.js';
 import {
     type FilterValues,
     type TabValues,

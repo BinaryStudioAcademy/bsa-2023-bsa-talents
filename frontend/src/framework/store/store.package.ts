@@ -8,10 +8,9 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { reducer as appReducer } from '~/app/store/app.js';
-import { adminApi } from '~/bundles/admin-panel/admin.js';
-import { reducer as adminReducer } from '~/bundles/admin-panel/store/admin.js';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
+import { candidateApi } from '~/bundles/candidate-details/candidate.js';
 import { reducer as candidateReducer } from '~/bundles/candidate-details/store/candidate.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
@@ -23,6 +22,8 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
+import { hiringInfoApi } from '~/bundles/hiring-info/hiring-info.js';
+import { reducer as adminReducer } from '~/bundles/hiring-info/store/hiring-info.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { searchCandidatesApi } from '~/bundles/search-candidates/search-candidates.js';
@@ -54,7 +55,8 @@ type RootReducer = {
 
 type ExtraArguments = {
     authApi: typeof authApi;
-    adminApi: typeof adminApi;
+    hiringInfoApi: typeof hiringInfoApi;
+    candidateApi: typeof candidateApi;
     chatApi: typeof chatApi;
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
@@ -121,7 +123,8 @@ class Store {
     public get extraArguments(): ExtraArguments {
         return {
             authApi,
-            adminApi,
+            hiringInfoApi,
+            candidateApi,
             chatApi,
             fileUploadApi,
             talentOnBoardingApi,
