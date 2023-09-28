@@ -51,8 +51,10 @@ const Root: React.FC = () => {
 
     //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        onboardingData?.completedStep ===
-            CompletedTalentOnboardingStep.Preview || isRedirectToEmployerScreen;
+        currentUserData?.role === UserRole.TALENT
+            ? onboardingData?.completedStep ===
+              CompletedTalentOnboardingStep.Preview
+            : isRedirectToEmployerScreen;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());

@@ -52,13 +52,8 @@ const Preview: React.FC = () => {
 
     const handlePublishSubmit = useCallback((): void => {
         void dispatch(commonActions.updatePublishedData({ userId }));
-
-        if (onboardingData?.publishedAt) {
-            navigation.navigate(
-                TalentBottomTabScreenName.TALENT_PROFILE as never,
-            );
-        }
-    }, [dispatch, navigation, onboardingData?.publishedAt, userId]);
+        navigation.navigate(TalentBottomTabScreenName.TALENT_PROFILE as never);
+    }, [dispatch, navigation, userId]);
 
     return (
         <View style={[globalStyles.flex1, globalStyles.mb25]}>
@@ -72,12 +67,14 @@ const Preview: React.FC = () => {
             >
                 <ProfilePreview />
                 <View>
-                    <Button
-                        label="Save without publishing"
-                        buttonType={ButtonType.OUTLINE}
-                        style={globalStyles.mb10}
-                        onPress={handlePreviewSubmit}
-                    />
+                    {onboardingData?.completedStep !== 'preview' && (
+                        <Button
+                            label="Save without publishing"
+                            buttonType={ButtonType.OUTLINE}
+                            style={globalStyles.mb10}
+                            onPress={handlePreviewSubmit}
+                        />
+                    )}
                     <Button
                         label="Publish now"
                         style={globalStyles.mb25}
