@@ -169,6 +169,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     getURLWithQueryString,
+    makeLMSDataResponse,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';
