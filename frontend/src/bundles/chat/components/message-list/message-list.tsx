@@ -7,6 +7,7 @@ import {
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { NO_MESSAGES } from '../../constants/constants.js';
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
 
@@ -58,7 +59,7 @@ const MessageList: React.FC<Properties> = ({ className }) => {
     });
 
     useEffect(() => {
-        if (messages.length > 0) {
+        if (messages.length > NO_MESSAGES) {
             autoScrollElement.current?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'end',

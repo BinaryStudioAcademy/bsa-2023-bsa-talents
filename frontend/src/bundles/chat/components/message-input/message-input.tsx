@@ -112,35 +112,41 @@ const MessageInput: React.FC<Properties> = ({ className }) => {
     );
 
     return (
-        <Grid className={getValidClassNames(styles.wrapper, className)}>
-            <MuiInput
-                value={message}
-                name="message"
-                type="text"
-                placeholder="Type a message"
-                multiline={true}
-                minRows={INPUT.minRows}
-                maxRows={INPUT.maxRows}
-                className={inputStyles}
-                onChange={handleInputChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyDown}
-                onKeyUp={handleKeyUp}
-                disableUnderline={true}
-                endAdornment={
-                    <InputAdornment position="end" className={styles.adornment}>
-                        <IconButton
-                            aria-label="send message"
-                            onClick={handleSendClick}
-                            edge="end"
+        chats.length > 0 &&
+        currentChatId && (
+            <Grid className={getValidClassNames(styles.wrapper, className)}>
+                <MuiInput
+                    value={message}
+                    name="message"
+                    type="text"
+                    placeholder="Type a message"
+                    multiline={true}
+                    minRows={INPUT.minRows}
+                    maxRows={INPUT.maxRows}
+                    className={inputStyles}
+                    onChange={handleInputChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={handleKeyUp}
+                    disableUnderline={true}
+                    endAdornment={
+                        <InputAdornment
+                            position="end"
+                            className={styles.adornment}
                         >
-                            <img src={sendIcon} alt="send" />
-                        </IconButton>
-                    </InputAdornment>
-                }
-            />
-        </Grid>
+                            <IconButton
+                                aria-label="send message"
+                                onClick={handleSendClick}
+                                edge="end"
+                            >
+                                <img src={sendIcon} alt="send" />
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                />
+            </Grid>
+        )
     );
 };
 
