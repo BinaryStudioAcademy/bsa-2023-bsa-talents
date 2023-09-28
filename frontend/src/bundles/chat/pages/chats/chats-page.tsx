@@ -19,6 +19,7 @@ import {
     Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { UserRole } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -60,14 +61,15 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, currentChatId, isLoading } = useAppSelector(
-        ({ auth, chat }) => ({
+    const { user, chats, currentChatId, isLoading, employerId, talentId } =
+        useAppSelector(({ auth, chat }) => ({
             user: auth.currentUser,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
+            employerId: chat.current.employerDetails.employerId ?? '',
+            talentId: chat.current.talentId ?? '',
             isLoading: chat.dataStatus === 'pending',
-        }),
-    );
+        }));
 
     //  Get list of all chats this user is participating in and store:
     useEffect(() => {
@@ -129,6 +131,8 @@ const ChatsPage: React.FC = () => {
         selectedId: currentChatId,
         userId: user?.id,
     });
+    const headerUserId =
+        user?.role === UserRole.EMPLOYER ? talentId : employerId;
 
     const handleItemClick = useCallback(
         (id: string, items: ChatListItemType[]) => {
@@ -138,7 +142,7 @@ const ChatsPage: React.FC = () => {
 
             let employerId: string;
 
-            if (user?.role === 'employer') {
+            if (user?.role === UserRole.EMPLOYER) {
                 employerId = user.id;
             } else {
                 employerId = user?.id === sender.id ? receiver.id : sender.id;
@@ -214,6 +218,7 @@ const ChatsPage: React.FC = () => {
                                 </div>
                             )}
                             <ChatHeader
+                                userId={headerUserId}
                                 title={chatHeaderName}
                                 isOnline
                                 className={styles.chatHeader}
@@ -231,7 +236,7 @@ const ChatsPage: React.FC = () => {
                                     isScreenMoreMD && styles.chatInfoOpenedMD,
                                 )}
                             >
-                                {user?.role === 'talent' ? (
+                                {user?.role === UserRole.TALENT ? (
                                     <CompanyInfo />
                                 ) : (
                                     <div className={styles.placeholder}>
