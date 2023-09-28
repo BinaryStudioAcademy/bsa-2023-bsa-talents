@@ -1,7 +1,7 @@
 import { type TalentBottomTabScreenName } from '~/bundles/common/enums/enums';
 
 type TalentBottomTabNavigationParameterList = {
-    [TalentBottomTabScreenName.MAIL]: undefined;
+    [TalentBottomTabScreenName.CHAT_LIST]: undefined;
     [TalentBottomTabScreenName.TALENT_PROFILE]: undefined;
 };
 

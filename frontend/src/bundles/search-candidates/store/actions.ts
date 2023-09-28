@@ -7,6 +7,7 @@ import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
 import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
+const MIN_LENGTH = 0;
 const searchCandidates = createAsyncThunk<
     UserDetailsGeneralCustom[],
     UserDetailsSearchUsersRequestDto,
@@ -25,19 +26,43 @@ const setFilters = createAsyncThunk<
 });
 
 const getCandidateDetails = createAsyncThunk<
-    UserDetailsGeneralCustom | null,
-    UserDetailsGeneralCustom,
+    (UserDetailsGeneralCustom & { hasSharedContacts?: boolean }) | null,
+    {
+        userId: string;
+        companyId?: string;
+    },
     AsyncThunkConfig
 >(
     `${sliceName}/get-candidate-details`,
-    async (findPayload, { extra, rejectWithValue }) => {
-        const { talentOnBoardingApi } = extra;
+    async ({ userId, companyId }, { extra, rejectWithValue, getState }) => {
+        const { searchCandidates } = getState();
+        const { talentOnBoardingApi, candidateApi } = extra;
+        if (searchCandidates.filteredCandidates.length > MIN_LENGTH) {
+            return (
+                searchCandidates.filteredCandidates.find(
+                    (candidate) => candidate.userId == userId,
+                ) ?? null
+            );
+        }
 
         try {
             const userDetails =
-                await talentOnBoardingApi.getUserDetailsByUserId({
-                    userId: findPayload.userId,
+                (await talentOnBoardingApi.getUserDetailsByUserId({
+                    userId,
+                })) as
+                    | (UserDetailsGeneralCustom & {
+                          hasSharedContacts?: boolean;
+                      })
+                    | null;
+
+            if (userDetails) {
+                const hasContact = await candidateApi.getContactWithTalent({
+                    talentId: userId,
+                    companyId: companyId as string,
                 });
+
+                userDetails.hasSharedContacts = hasContact;
+            }
 
             return userDetails ?? null;
         } catch (error) {

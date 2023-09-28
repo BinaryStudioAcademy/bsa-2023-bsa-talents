@@ -1,6 +1,9 @@
+import { UserRole } from 'shared/build/index.js';
+
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -11,6 +14,7 @@ import {
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import {
     ProfileFirstSection,
@@ -19,7 +23,6 @@ import {
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
@@ -57,22 +60,41 @@ const CandidateProfile: React.FC<Properties> = ({
         (rootState) => getAuthState(rootState).currentUser,
     );
     const { hardSkillsOptions } = useCommonData();
+
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        const userId = currentUser?.id as string;
-
-        void dispatch(talentActions.getTalentDetails({ userId }));
-        void dispatch(lmsActions.getTalentLmsData({ userId }));
-    }, [currentUser?.id, dispatch]);
 
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
         lmsProject: state.lms.lmsData?.project,
     }));
+    const { publishedAt } = useAppSelector(
+        (state: RootReducer) => state.talentOnBoarding,
+    );
 
     const data = candidateData ?? reduxData;
+
+    useEffect(() => {
+        const userId = currentUser?.id as string;
+
+        void dispatch(talentActions.getTalentDetails({ userId }));
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
+
+        if (currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+            void dispatch(
+                candidateActions.getContactWithTalent({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+        }
+    }, [currentUser, data.userId, dispatch]);
 
     const hardskillsLabels = hardSkillsOptions
         .filter(
@@ -92,12 +114,11 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        //badges: mockBadges.filter((badge) => data.badges?.includes(badge.id)),
         badges: mockBadges,
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         talentHardSkills: hardskillsLabels,
-        experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        experienceYears: data.experienceYears as number,
         date: data.createdAt as string,
         lmsProject: reduxData.lmsProject,
     };
@@ -106,7 +127,7 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        experienceYears: data.experienceYears as number,
         jobTitle: data.jobTitle,
         fullName: data.fullName as string,
         email: data.email as string,
@@ -122,7 +143,11 @@ const CandidateProfile: React.FC<Properties> = ({
         <Grid className={styles.wrapper}>
             {isFifthStep && (
                 <Button
-                    label="Your account is ready!"
+                    label={
+                        publishedAt
+                            ? 'Your account is waiting for the approval'
+                            : 'Your account is ready!'
+                    }
                     variant="text"
                     className={styles.accountReadyButton}
                 />

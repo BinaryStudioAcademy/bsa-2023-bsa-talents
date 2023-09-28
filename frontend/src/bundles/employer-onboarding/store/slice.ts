@@ -14,6 +14,9 @@ import {
 const initialState: UserDetailsGeneralCustom = {
     ...DEFAULT_EMPLOYER_REGISTRATION_FORM_PAYLOAD,
     dataStatus: DataStatus.IDLE,
+    cvUrl: null,
+    photoUrl: null,
+    companyLogoUrl: null,
 };
 
 const { reducer, actions, name } = createSlice({

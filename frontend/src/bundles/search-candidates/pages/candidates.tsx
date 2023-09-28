@@ -95,6 +95,10 @@ const Candidates: React.FC = () => {
         }
     }, [debouncedDispatch, dispatch, filters, getValues, watchedValues]);
 
+    useEffect(() => {
+        void dispatch(searchCandidatesActions.clearCurrentCandidate());
+    }, [dispatch]);
+
     const handleFiltersClick = useCallback(() => {
         setIsFilterOpened(!isFilterOpened);
     }, [isFilterOpened]);
@@ -108,7 +112,6 @@ const Candidates: React.FC = () => {
         void dispatch(searchCandidatesActions.searchCandidates(editedValues));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     return (
         <Grid className={styles.searchPageWrapper}>
             <Grid className={styles.mainContent}>
@@ -162,16 +165,27 @@ const Candidates: React.FC = () => {
                     <Grid
                         className={getValidClassNames(
                             styles.searchResults,
+                            filteredCandidates.length > 0 && styles.scroll,
                             isFilterOpened ? styles.searchResultsHidden : '',
                         )}
                     >
-                        {filteredCandidates.map((candidate) => (
-                            <CandidateProfile
-                                key={candidate.id}
-                                isProfileCard
-                                candidateData={candidate}
-                            />
-                        ))}
+                        {filteredCandidates.length > 0 ? (
+                            filteredCandidates.map((candidate) => (
+                                <CandidateProfile
+                                    key={candidate.id}
+                                    isProfileCard
+                                    candidateData={candidate}
+                                />
+                            ))
+                        ) : (
+                            <Typography
+                                className={styles.noResultsText}
+                                variant="body1"
+                            >
+                                No candidates were found, try to change the
+                                filtering
+                            </Typography>
+                        )}
                     </Grid>
                 )}
             </Grid>

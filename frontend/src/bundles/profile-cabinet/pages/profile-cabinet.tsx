@@ -19,9 +19,10 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useNavigate,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
-import { actions as employerActions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
@@ -66,41 +67,72 @@ const ProfileCabinet: React.FC = () => {
             break;
         }
     }
+    const [isWaitingForApproval, setIsWaitingForApproval] =
+        useState<boolean>(false);
+
+    const navigate = useNavigate();
+
     const { submitForm } = useFormSubmit();
+
     const dispatch = useAppDispatch();
+
     const { hasChanges } = useAppSelector((state: RootReducer) => ({
         hasChanges: state.cabinet.hasChangesInDetails,
     }));
+
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
-    useEffect(() => {
-        switch (role) {
-            case UserRole.TALENT: {
-                void dispatch(
-                    talentActions.getTalentDetails({
-                        userId: currentUser?.id,
-                    }),
-                );
-                break;
-            }
-            case UserRole.EMPLOYER: {
-                void dispatch(
-                    employerActions.getEmployerDetails({
-                        userId: currentUser?.id,
-                    }),
-                );
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-    }, [currentUser?.id, dispatch, role]);
 
-    const handleSaveClick = useCallback(() => {
-        void (async (): Promise<void> => {
-            if (submitForm) {
+    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
+        (state: RootReducer) => state,
+    );
+
+    useEffect(() => {
+        if (
+            (talentOnBoarding.publishedAt && !talentOnBoarding.isApproved) ??
+            (employerOnBoarding.publishedAt && !employerOnBoarding.isApproved)
+        ) {
+            setIsWaitingForApproval(true);
+        }
+        if (talentOnBoarding.isApproved ?? employerOnBoarding.isApproved) {
+            setIsWaitingForApproval(false);
+            void dispatch(
+                storeActions.notify({
+                    type: NotificationType.SUCCESS,
+                    message: 'Profile was approved',
+                }),
+            );
+        }
+    }, [
+        dispatch,
+        employerOnBoarding.isApproved,
+        employerOnBoarding.publishedAt,
+        talentOnBoarding.isApproved,
+        talentOnBoarding.publishedAt,
+    ]);
+
+    const handlePublish = useCallback(() => {
+        if (currentUser) {
+            void dispatch(
+                talentActions.updateTalentPublishedDate({
+                    userId: currentUser.id,
+                }),
+            );
+        }
+
+        if (role === UserRole.TALENT) {
+            navigate(`/${role}/onboarding/step/${StepsRoute.STEP_05}`);
+        }
+    }, [currentUser, dispatch, navigate, role]);
+
+    const handleClick = useCallback(
+        (publish: boolean) => {
+            void (async (): Promise<void> => {
+                if (!submitForm) {
+                    return;
+                }
+
                 const isSuccessful = await submitForm();
                 if (isSuccessful) {
                     void dispatch(
@@ -110,12 +142,29 @@ const ProfileCabinet: React.FC = () => {
                         }),
                     );
                 }
-            }
-        })();
-    }, [dispatch, submitForm]);
+
+                if (publish) {
+                    handlePublish();
+                }
+            })();
+        },
+        [dispatch, handlePublish, submitForm],
+    );
+
+    const handleSaveClick = useCallback(() => {
+        handleClick(false);
+    }, [handleClick]);
+
+    const handlePublishNowClick = useCallback(() => {
+        handleClick(true);
+    }, [handleClick]);
 
     return (
-        <PageLayout avatarUrl="" isOnline>
+        <PageLayout
+            avatarUrl=""
+            isOnline
+            isWaitingForApproval={isWaitingForApproval}
+        >
             <Grid className={styles.pageTitle}>
                 <Typography variant="h4">Your Profile</Typography>
             </Grid>
@@ -137,13 +186,35 @@ const ProfileCabinet: React.FC = () => {
                         ) : (
                             <OnboardingForm />
                         )}
-                        <Button
-                            onClick={handleSaveClick}
-                            label={'Save'}
-                            variant={'contained'}
-                            isDisabled={!hasChanges}
-                            className={styles.saveButton}
-                        />
+                        <Grid container spacing={2}>
+                            <Grid item>
+                                <Button
+                                    onClick={handleSaveClick}
+                                    label={'Save'}
+                                    variant={'outlined'}
+                                    isDisabled={!hasChanges}
+                                    className={getValidClassNames(
+                                        styles.profileButton,
+                                        styles.saveButton,
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    onClick={handlePublishNowClick}
+                                    label={
+                                        role === UserRole.TALENT
+                                            ? 'Publish now'
+                                            : 'Submit for varification'
+                                    }
+                                    variant={'contained'}
+                                    className={getValidClassNames(
+                                        styles.profileButton,
+                                        styles.publishButton,
+                                    )}
+                                />
+                            </Grid>
+                        </Grid>
                     </FormControl>
                 </Grid>
             </Grid>
