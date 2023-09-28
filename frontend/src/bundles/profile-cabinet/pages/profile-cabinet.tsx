@@ -175,7 +175,7 @@ const ProfileCabinet: React.FC = () => {
                                     onClick={handleSaveClick}
                                     label={'Save'}
                                     variant={'outlined'}
-                                    isDisabled={!hasChanges}
+                                    isDisabled={hasChanges}
                                     className={getValidClassNames(
                                         styles.profileButton,
                                         styles.saveButton,
