@@ -173,6 +173,7 @@ const OnboardingForm: React.FC = () => {
             'linkedinLink',
         ]);
         const initialValues = {
+            photo,
             photoUrl,
             fullName,
             employerPosition,
@@ -180,12 +181,14 @@ const OnboardingForm: React.FC = () => {
             companyWebsite,
             location,
             description,
+            companyLogo,
             companyLogoUrl,
             linkedinLink,
         };
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
             JSON.stringify(newValues);
+
         if (hasChangesInDetails !== hasChanges) {
             dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
         }
