@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Overlay, View } from '~/bundles/common/components/components';
+import { Loader, View } from '~/bundles/common/components/components';
 import {
     DataStatus,
     type TalentOnboardingScreenName,
@@ -11,16 +11,21 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
-    SkillsAndProjectsForm,
+    SkillsFormData,
 } from '~/bundles/talent/components/components';
+import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
+import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
 import { stringsToUrlObjects } from '~/bundles/talent/helpers/helpers';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
+import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+
+import { SKILLS_AND_PROJECTS_DEFAULT_VALUES } from './constants/constants';
 
 const SkillsAndProjects: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData, dataStatus } = useAppSelector(
-        ({ talents }) => talents,
+        ({ common }) => common,
     );
     const commonDataStatus = useAppSelector(
         ({ commonData }) => commonData.dataStatus,
@@ -50,17 +55,22 @@ const SkillsAndProjects: React.FC = () => {
         commonDataStatus === DataStatus.PENDING;
 
     return (
-        <>
-            <Overlay isActive={isDataLoading} />
-            <View style={globalStyles.flex1}>
-                <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-                <SkillsAndProjectsForm
-                    skillsStepData={skillsStepData}
+        <View style={globalStyles.flex1}>
+            <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <WithProfileForm
+                    defaultValue={SKILLS_AND_PROJECTS_DEFAULT_VALUES}
+                    value={skillsStepData}
                     onSubmit={handleSkillsSubmit}
+                    validationSchema={skillsStepValidationSchema}
+                    formType={TalentFormType.ONBOARDING}
+                    renderedForm={SkillsFormData}
                     currentStep={stepNumber}
                 />
-            </View>
-        </>
+            )}
+        </View>
     );
 };
 

@@ -7,7 +7,10 @@ import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
-import { type UserDetailsGeneralCustom } from './types/types.js';
+import {
+    type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsGeneralCustom,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -26,11 +29,29 @@ class TalentOnBoardingApi extends HttpApiBase {
         const { userId = '' } = payload;
 
         const response = await this.load(
-            this.getFullEndpoint('/', userId, {}),
+            this.getFullEndpoint('/', ':userId', { userId }),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,
                 hasAuth: true,
+            },
+        );
+        return response.json<UserDetailsGeneralCustom>();
+    }
+
+    public async updatePublishedData(
+        payload: UserDetailsFindByUserIdRequestDto,
+    ): Promise<UserDetailsGeneralCustom> {
+        const { userId } = payload;
+        const response = await this.load(
+            this.getFullEndpoint(UserDetailsApiPath.PUBLISH, {
+                userId,
+            }),
+            {
+                method: 'PATCH',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+                payload: JSON.stringify(payload),
             },
         );
         return response.json<UserDetailsGeneralCustom>();

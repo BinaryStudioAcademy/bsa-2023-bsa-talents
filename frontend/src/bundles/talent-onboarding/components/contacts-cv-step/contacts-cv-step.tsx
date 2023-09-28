@@ -1,4 +1,7 @@
-import { Add as PlusIcon } from '@mui/icons-material';
+import {
+    AccountCircle as AccountCircleIcon,
+    Add as PlusIcon,
+} from '@mui/icons-material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
@@ -26,7 +29,7 @@ import {
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { OnboardingSteps } from '../../enums/enums.js';
+import { OnboardingStep } from '../../enums/enums.js';
 import { validateFileSize, validateFileType } from '../../helpers/helpers.js';
 import { actions as talentActions } from '../../store/talent-onboarding.js';
 import { type ContactsCVStepDto } from '../../types/types.js';
@@ -105,16 +108,13 @@ const ContactsCVStep: React.FC = () => {
         watchedValues,
     ]);
 
-    const onSubmit = useCallback(
-        async (data: ContactsCVStepDto): Promise<boolean> => {
-            const { fullName, phone, linkedinLink } = data;
-            await dispatch(
+    const handleFormSubmit = useCallback(
+        (data: ContactsCVStepDto): boolean => {
+            void dispatch(
                 talentActions.updateTalentDetails({
-                    fullName,
-                    phone,
-                    linkedinLink,
+                    ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_04,
+                    completedStep: OnboardingStep.STEP_04,
                 }),
             );
             return true;
@@ -126,8 +126,8 @@ const ContactsCVStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -135,7 +135,7 @@ const ContactsCVStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const [photoURL, setPhotoURL] = useState<string>('');
 
@@ -265,14 +265,17 @@ const ContactsCVStep: React.FC = () => {
     return (
         <>
             <Grid container className={styles.photo}>
-                <Grid
-                    item
-                    className={styles.photoWrapper}
-                    style={{
-                        backgroundImage: `url(${photoURL})`,
-                    }}
-                ></Grid>
-
+                {photoURL ? (
+                    <Grid
+                        item
+                        className={styles.photoWrapper}
+                        style={{
+                            backgroundImage: `url(${photoURL})`,
+                        }}
+                    ></Grid>
+                ) : (
+                    <AccountCircleIcon className={styles.iconWrapper} />
+                )}
                 <FormControl
                     className={getValidClassNames(
                         styles.formControl,
@@ -306,11 +309,10 @@ const ContactsCVStep: React.FC = () => {
             </Grid>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Full name
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -323,11 +325,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         Phone number
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -340,11 +341,10 @@ const ContactsCVStep: React.FC = () => {
             </FormControl>
 
             <FormControl className={styles.formControl}>
-                <FormLabel className={styles.label}>
+                <FormLabel className={styles.label} required>
                     <Typography variant="label" className={styles.labelText}>
                         LinkedIn profile
                     </Typography>
-                    <span className={styles.requiredField}>*</span>
                 </FormLabel>
 
                 <Input
@@ -359,14 +359,13 @@ const ContactsCVStep: React.FC = () => {
 
             <div>
                 <FormControl className={styles.formControl}>
-                    <FormLabel className={styles.label}>
+                    <FormLabel className={styles.label} required>
                         <Typography
                             variant="label"
                             className={styles.labelText}
                         >
                             CV
                         </Typography>
-                        <span className={styles.requiredField}>*</span>
                     </FormLabel>
                     <Controller
                         control={control}

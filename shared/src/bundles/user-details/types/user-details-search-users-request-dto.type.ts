@@ -2,7 +2,7 @@ import { type ValueOf } from '~/types/value-of.type.js';
 
 import { type UserSortCriteria } from '../enums/users-sort-criteria.enum.js';
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
@@ -10,15 +10,16 @@ import {
 } from '../user-details.js';
 
 type UserDetailsSearchUsersRequestDto = {
-    sortBy?: (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value'];
-    isBaseSearch?: boolean;
+    sortBy:
+        | (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value']
+        | '';
+    searchType?: string;
     searchValue: string;
-    searchActiveCandidatesOnly: boolean;
+    isSearchActiveCandidatesOnly: boolean;
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];
-    BSABadges?: string[];
-    location?: ValueOf<typeof CountryList>[];
+    location?: ValueOf<typeof Country>[];
     englishLevel?: ValueOf<typeof EnglishLevel>[];
     employmentType?: ValueOf<typeof EmploymentType>[];
     userBsaCharacteristics?: string[];

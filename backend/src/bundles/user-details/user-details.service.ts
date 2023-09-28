@@ -1,14 +1,14 @@
 import { mapQueryValuesToArrays } from 'shared/build/index.js';
 
-import { ErrorMessages } from '~/common/enums/enums.js';
+import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
-import { type TalentHardSkill } from '../talent-hard-skills/types/talent-hard-skill.js';
 import {
+    type TalentHardSkill,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
@@ -19,6 +19,10 @@ import {
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
+
+type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
+    talentHardSkills: TalentHardSkill[];
+};
 
 class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
@@ -43,13 +47,41 @@ class UserDetailsService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<UserDetailsEntity | null> {
+    ): Promise<UserDetailsWithTalentHardSkills | null> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
             throw new HttpError({
                 status: HttpCode.NOT_FOUND,
-                message: ErrorMessages.USER_DETAILS_NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        const talentHardSkills =
+            await this.talentHardSkillsService.findByUserDetailsId(
+                userDetailsId,
+            );
+
+        return {
+            ...userDetails,
+            talentHardSkills,
+        } as UserDetailsWithTalentHardSkills;
+    }
+
+    public async findCompanyInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsEntity | null> {
+        const userDetails =
+            await this.userDetailsRepository.findCompanyInfoByUserId({
+                userId,
+            });
+
+        if (!userDetails) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
             });
         }
         return userDetails;
@@ -72,7 +104,7 @@ class UserDetailsService implements Service {
     }
 
     public findAll(): Promise<{ items: unknown[] }> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public searchUsers(
@@ -139,7 +171,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -185,7 +217,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -209,7 +241,7 @@ class UserDetailsService implements Service {
 
         if (!userDetails) {
             throw new HttpError({
-                message: ErrorMessages.NOT_FOUND,
+                message: ErrorMessage.NOT_FOUND,
                 status: HttpCode.NOT_FOUND,
             });
         }
@@ -225,8 +257,27 @@ class UserDetailsService implements Service {
         return true;
     }
 
+    public async publish(payload: {
+        userId: string;
+    }): Promise<UserDetailsEntity> {
+        const { userId } = payload;
+
+        const userDetails = await this.userDetailsRepository.find({ userId });
+
+        if (!userDetails) {
+            throw new HttpError({
+                message: ErrorMessage.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
+        const userDetailsId = userDetails.toObject().id as string;
+
+        return this.userDetailsRepository.publish({ id: userDetailsId });
+    }
+
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

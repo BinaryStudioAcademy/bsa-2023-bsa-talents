@@ -3,46 +3,86 @@ export {
     type ContactCandidateDto,
     ContactCandidateValidationMessage,
     ContactCandidateValidationRule,
-    ContactCandidateValidationSchema,
+    contactCandidateValidationSchema,
     type MessageTemplateDto,
 } from './bundles/candidate/candidate.js';
 export {
-    type ChatMessageCreateRequestDto,
-    type ChatMessageGetAllItemResponseDto,
-    type ChatMessageGetAllResponseDto,
-} from './bundles/chat/chat.js';
-export { FileApiPath } from './bundles/file/file.js';
+    ChatMessagesApiPath,
+    type ChatMessagesCreateRequestDto,
+    chatMessagesCreateValidationSchema,
+    type ChatMessagesPatchDto,
+    type ChatParticipantDto,
+    type ChatResponseDto,
+    type MessageResponseDto,
+} from './bundles/chat-messages/chat-messages.js'; // TODO: compare with bundles/chat/chat.js
 export {
+    type BadgesItem,
     type BadgesResponseDto,
+    BsaBadgesTitle,
+    BsaBadgesTypeEnum,
+    type HardSkillsItem,
     type HardSkillsResponseDto,
-} from './bundles/gather-selected-data/gather-selected-data.js';
+} from './bundles/common-data/common-data.js';
+export {
+    ContactsApiPath,
+    type ContactsCreateRequestDto,
+    type ContactsFindAllRequestDto,
+    type ContactsFindRequestDto,
+    type ContactsResponseDto,
+} from './bundles/contacts/contacts.js';
+export {
+    FileApiPath,
+    type FileUploadResponse,
+    type UploadedFile,
+} from './bundles/file/file.js';
+export {
+    HiringInfoApiPath,
+    type HiringInfoCreateRequestDto,
+    type HiringInfoFindAllRequestDto,
+    type HiringInfoFindRequestDto,
+    type HiringInfoResponseDto,
+} from './bundles/hiring-info/hiring-info.js';
+export {
+    type Details,
+    type HrFeedback,
+    type LectureDetail,
+    type LMSDataResponseDto,
+    type LMSDataServerResponseDto,
+    type Marks,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Result,
+    type UserLMSDataDto,
+} from './bundles/lms-data/lms-data.js';
 export {
     type BadgeStepDto,
     BSABadgeApiPath,
     type BsaBadgesStepDto,
+    type BsaBadgesStepTypes,
+    BsaBadgesStepUncontrolledBadges,
     BsaBadgesStepValidationMessage,
-    BsaBadgesStepValidationRule,
-    BsaBadgesStepValidationSchema,
+    bsaBadgesStepValidationSchema,
     BsaBadgeStepBadgesTitle,
     HardSkillsApiPath,
     type ProfileStepDto,
     ProfileStepValidationMessage,
     ProfileStepValidationRule,
-    ProfileStepValidationSchema,
+    profileStepValidationSchema,
     type SkillsStepDto,
     SkillsStepValidationMessage,
     SkillsStepValidationRule,
-    SkillsStepValidationSchema,
+    skillsStepValidationSchema,
 } from './bundles/talent-onboarding/talent-onboarding.js';
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    experienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
+    type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -65,8 +105,17 @@ export {
 export {
     type UserCreateResponseDto,
     type UserFindResponseDto,
+    type UserForgotPasswordRequestDto,
+    type UserForgotPasswordResponseDto,
+    userForgotPasswordValidationSchema,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetLMSDataById,
+    userPasswordValidationSchema,
+    type UserResetPasswordDto,
+    type UserResetPasswordRequestDto,
+    type UserResetPasswordResponseDto,
+    userResetPasswordValidationSchema,
     UserRole,
     UsersApiPath,
     type UserSignInRequestDto,
@@ -80,8 +129,10 @@ export {
     ApiPath,
     AppEnvironment,
     ContentType,
-    ErrorMessages,
+    ErrorMessage,
     FileUploadErrorMessage,
+    LMSDataApiPath,
+    NotificationMessages,
     ServerErrorType,
 } from './enums/enums.js';
 export { type Config } from './framework/config/config.js';
@@ -102,10 +153,12 @@ export { type Storage } from './framework/storage/storage.js';
 export {
     configureString,
     getAvatarInitials,
+    getBadgeColor,
+    getBadgeIcon,
     getItemsWithSelected,
-    getNestedProperty,
     getSearchedItems,
     mapQueryValuesToArrays,
+    parseLMSServerData,
 } from './helpers/helpers.js';
 export {
     type ChatListItemType,

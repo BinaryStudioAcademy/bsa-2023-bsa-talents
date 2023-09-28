@@ -13,14 +13,20 @@
 }
 
 .photoWrapper {
-    width: 50%;
-    margin-right: 10px;
-    padding-top: 50%;
+    width: 141px;
+    height: 141px;
+    margin: 14px;
     background-color: var(--background-secondary);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     border-radius: 50%;
+}
+
+.iconWrapper {
+    width: 170px;
+    height: 170px;
+    fill: var(--background-secondary);
 }
 
 .fileError {
@@ -49,10 +55,6 @@
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     line-height: var(--line-height-main);
-
-    .requiredField {
-        color: var(--st-tropaz);
-    }
 }
 
 .labelText {

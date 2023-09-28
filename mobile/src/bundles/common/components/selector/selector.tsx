@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useCallback,
@@ -23,16 +24,16 @@ import {
     type FieldValues,
 } from '~/bundles/common/types/types';
 
-import { ICON_SIZE } from './constants/constants';
 import { styles } from './styles';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
     options: string[];
+    isIconShown?: boolean;
+    hasError?: boolean;
     placeholder?: string;
-    multiSelect?: boolean;
+    isMultiSelect?: boolean;
     onSelect?: (item: string) => void;
 };
 
@@ -41,20 +42,21 @@ const Selector = <T extends FieldValues>({
     control,
     hasError,
     options,
-    multiSelect = false,
+    isMultiSelect = false,
     placeholder,
+    isIconShown = true,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
     const { heightAnimatedStyle, iconAnimatedStyle } =
         useSelectorAnimations(isVisible);
     const NO_SELECTED = 0;
 
     const handlePressItem = useCallback(
         (option: string): void => {
-            toggleVisibility();
-            if (multiSelect) {
+            handleToggleVisibility();
+            if (isMultiSelect) {
                 if (value.includes(option)) {
                     onChange(value.filter((item: string) => item !== option));
                 } else {
@@ -64,7 +66,7 @@ const Selector = <T extends FieldValues>({
                 onChange(option);
             }
         },
-        [toggleVisibility, multiSelect, value, onChange],
+        [handleToggleVisibility, isMultiSelect, value, onChange],
     );
     const selectedOptions = useMemo(
         () =>
@@ -91,7 +93,7 @@ const Selector = <T extends FieldValues>({
                     styles.dropdownButton,
                     hasError && styles.error,
                 ]}
-                onPress={toggleVisibility}
+                onPress={handleToggleVisibility}
             >
                 <Text category={TextCategory.INPUT} style={placeHolderStyle}>
                     {selectedOptions.length > NO_SELECTED
@@ -99,11 +101,13 @@ const Selector = <T extends FieldValues>({
                         : placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>
-                    <MaterialIcon
-                        name={IconName.ARROW_DROP_DOWN}
-                        size={ICON_SIZE}
-                        color={Color.PRIMARY}
-                    />
+                    {isIconShown && (
+                        <MaterialIcon
+                            name={IconName.ARROW_DROP_DOWN}
+                            size={ICON_SIZE}
+                            color={Color.PRIMARY}
+                        />
+                    )}
                 </Animated.View>
             </Pressable>
             <Animated.View

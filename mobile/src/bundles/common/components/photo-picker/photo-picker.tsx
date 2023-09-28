@@ -46,6 +46,7 @@ type PhotoPickerProperties<T extends FieldValues> = {
     shouldHideButton?: boolean;
     defaultIcon?: ValueOf<typeof IconName>;
     customPhotoStyle?: CustomPhotoStyle;
+    isDisabled?: boolean;
 } & PhotoProperties;
 
 const PhotoPicker = <T extends FieldValues>({
@@ -63,7 +64,7 @@ const PhotoPicker = <T extends FieldValues>({
     const { value, onChange } = field;
 
     const [avatar, setAvatar] = useState<undefined | string>(uri ?? value?.uri);
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     const getLoadedImage = useCallback(
         async (payload: Promise<ImagePickerResponse>) => {
@@ -115,7 +116,7 @@ const PhotoPicker = <T extends FieldValues>({
         <View style={[globalStyles.alignItemsCenter, containerStyle]}>
             {shouldHideButton ? (
                 <>
-                    <Pressable onPress={toggleVisibility}>
+                    <Pressable onPress={handleToggleVisibility}>
                         <Avatar
                             {...props}
                             uri={avatar}
@@ -128,7 +129,7 @@ const PhotoPicker = <T extends FieldValues>({
                         <ImagePicker
                             onImageLoad={imageLoadHandler}
                             shouldHideButton={shouldHideButton}
-                            toggleImagePickerVisibility={toggleVisibility}
+                            toggleImagePickerVisibility={handleToggleVisibility}
                             containerStyle={buttonStyle}
                         />
                     )}

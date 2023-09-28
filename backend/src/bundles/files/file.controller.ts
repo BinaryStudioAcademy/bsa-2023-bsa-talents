@@ -16,19 +16,25 @@ import { type FileService } from './file.service.js';
  * @swagger
  * components:
  *    schemas:
- *      File:
+ *      FileUploadResponse:
  *        type: object
  *        properties:
- *          id:
- *            type: string
- *            format: uuid
- *          url:
- *            type: string
- *            format: url
- *          filename:
- *            type: string
- *          etag:
- *            type: string
+ *          document:
+ *            type: object
+ *            properties:
+ *               id:
+ *                  type: string
+ *                  format: uuid
+ *               url:
+ *                  type: string
+ *          image:
+ *            type: object
+ *            properties:
+ *               id:
+ *                  type: string
+ *                  format: uuid
+ *               url:
+ *                  type: string
  * */
 class FileController extends ControllerBase {
     private fileService: FileService;
@@ -40,16 +46,19 @@ class FileController extends ControllerBase {
 
         this.addRoute({
             path: FileApiPath.UPLOAD,
-            preHandler: uploadFile.single('document'),
+            preHandler: uploadFile.fields([{ name: 'files' }]),
             method: 'POST',
-            handler: (options) =>
-                this.upload(
+            handler: (options) => {
+                return this.upload(
                     options as ApiHandlerOptions<{
                         body: {
-                            file: MulterFile;
+                            files: {
+                                files: MulterFile[];
+                            };
                         };
                     }>,
-                ),
+                );
+            },
         });
     }
 
@@ -58,42 +67,49 @@ class FileController extends ControllerBase {
      * /file/upload:
      *    post:
      *      tags: [File]
-     *      description: Uploads a file to S3 bucket and saves details to database
+     *      description: Uploads a document or image to S3 bucket and saves details to database
      *      security:
      *        - bearerAuth: []
      *      requestBody:
      *        description: Request body with file
      *        required: true
      *        content:
-     *          application/json:
+     *          multipart/form-data:
      *            schema:
      *              type: object
      *              properties:
-     *                file:
-     *                  type: buffer
+     *                document:
+     *                  type: string
+     *                  format: binary
+     *                image:
+     *                  type: string
+     *                  format: binary
      *      responses:
      *        200:
      *          description: Successful operation
      *          content:
      *            application/json:
      *              schema:
-     *                $ref: '#/components/schemas/File'
+     *                $ref: '#/components/schemas/FileUploadResponse'
      */
     private async upload(
         options: ApiHandlerOptions<{
             body: {
-                file: MulterFile;
+                files: {
+                    files: MulterFile[];
+                };
             };
         }>,
     ): Promise<ApiHandlerResponse> {
-        const file = await this.fileService.create({
-            file: options.body.file.buffer as Buffer,
-            newFileName: options.body.file.originalname,
+        const { files } = options.body.files;
+
+        const uploadResponse = await this.fileService.upload({
+            files,
         });
 
         return {
             status: HttpCode.OK,
-            payload: file,
+            payload: uploadResponse,
         };
     }
 }

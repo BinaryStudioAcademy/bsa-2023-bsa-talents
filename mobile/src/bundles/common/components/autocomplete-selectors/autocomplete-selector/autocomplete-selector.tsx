@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
+import { ICON_SIZE } from '~/bundles/common/constants/constants';
 import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
 import {
     useFormController,
@@ -23,14 +24,14 @@ import {
 } from '~/bundles/common/types/types';
 
 import { styles } from '../styles';
-import { ICON_SIZE } from './constants/constants';
 
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
     items: string[];
+    hasError?: boolean;
+    control?: Control<T, null>;
     placeholder?: string;
+    isIconShown?: boolean;
 };
 
 const AutocompleteSelector = <T extends FieldValues>({
@@ -39,10 +40,11 @@ const AutocompleteSelector = <T extends FieldValues>({
     hasError,
     items,
     placeholder,
+    isIconShown = true,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
-    const { isVisible, toggleVisibility } = useVisibility(false);
+    const { isVisible, handleToggleVisibility } = useVisibility(false);
 
     const handleSearch = (text: string): void => {
         onChange(text);
@@ -50,7 +52,7 @@ const AutocompleteSelector = <T extends FieldValues>({
 
     const handleItemSelect = (item: string): void => {
         onChange(item);
-        toggleVisibility();
+        handleToggleVisibility();
     };
 
     const filteredItems = useMemo(() => {
@@ -74,7 +76,7 @@ const AutocompleteSelector = <T extends FieldValues>({
                     <TextInput
                         placeholder={placeholder}
                         onBlur={onBlur}
-                        onFocus={toggleVisibility}
+                        onFocus={handleToggleVisibility}
                         value={value}
                         maxLength={100}
                         onChangeText={handleSearch}
@@ -91,15 +93,17 @@ const AutocompleteSelector = <T extends FieldValues>({
                         ]}
                         placeholderTextColor={Color.TEXT2}
                     />
-                    <TouchableOpacity onPress={toggleVisibility}>
+                    <TouchableOpacity onPress={handleToggleVisibility}>
                         <Animated.View
                             style={[iconAnimatedStyle, styles.dropdownButton]}
                         >
-                            <MaterialIcon
-                                name={IconName.ARROW_DROP_DOWN}
-                                size={ICON_SIZE}
-                                color={Color.PRIMARY}
-                            />
+                            {isIconShown && (
+                                <MaterialIcon
+                                    name={IconName.ARROW_DROP_DOWN}
+                                    size={ICON_SIZE}
+                                    color={Color.PRIMARY}
+                                />
+                            )}
                         </Animated.View>
                     </TouchableOpacity>
                 </View>

@@ -1,8 +1,9 @@
 import { type UserDetailsSearchUsersRequestDto } from 'shared/build/index.js';
-import { ErrorMessages } from 'shared/build/index.js';
+import { ErrorMessage } from 'shared/build/index.js';
 
 import { type Repository } from '~/common/types/types.js';
 
+import { UserRole } from './enums/enums.js';
 import { createSortingUsersParameters } from './helpers/create-sorting-users-parameters.js';
 import { searchByColumnValues } from './helpers/search-by-column-values.js';
 import { searchByYearsOfExperience } from './helpers/search-by-years-of-experience.js';
@@ -61,6 +62,55 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
+        });
+    }
+
+    public async findCompanyInfoByUserId(
+        payload: UserDetailsFindRequestDto,
+    ): Promise<UserDetailsEntity | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findOne({ ...payload })
+            .withGraphFetched('[photo, companyLogo]');
+
+        if (!details) {
+            return null;
+        }
+        const companyLogo = details.companyLogo?.url ?? null;
+        const photo = details.photo?.url ?? null;
+
+        return UserDetailsEntity.initialize({
+            id: details.id,
+            createdAt: details.createdAt,
+            userId: details.userId,
+            isApproved: details.isApproved,
+            deniedReason: details.deniedReason,
+            isHired: details.isHired,
+            profileName: details.profileName,
+            salaryExpectation: details.salaryExpectation,
+            hiredSalary: details.hiredSalary,
+            jobTitle: details.jobTitle,
+            location: details.location,
+            experienceYears: details.experienceYears,
+            employmentType: details.employmentType ?? [],
+            description: details.description ?? '',
+            englishLevel: details.englishLevel,
+            notConsidered: details.notConsidered ?? [],
+            preferredLanguages: details.preferredLanguages ?? [],
+            projectLinks: details.projectLinks ?? [],
+            photoId: photo,
+            fullName: details.fullName ?? '',
+            phone: details.phone ?? '',
+            linkedinLink: details.linkedinLink ?? '',
+            companyName: details.companyName ?? '',
+            companyLogoId: companyLogo,
+            companyWebsite: details.companyWebsite ?? '',
+            employerPosition: details.employerPosition ?? '',
+            cvId: details.cvId,
+            completedStep: details.completedStep,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -78,7 +128,7 @@ class UserDetailsRepository implements Repository {
     }
 
     public findAll(): ReturnType<Repository['findAll']> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
     public async searchUsers(
@@ -93,11 +143,11 @@ class UserDetailsRepository implements Repository {
                 );
             }
 
-            //TODO change column name for searchActiveCandidatesOnly when it will be created
-            if (payload.searchActiveCandidatesOnly) {
+            //TODO change column name for isSearchActiveCandidatesOnly when it will be created
+            if (payload.isSearchActiveCandidatesOnly) {
                 void builder.where(
                     'isHired',
-                    payload.searchActiveCandidatesOnly,
+                    payload.isSearchActiveCandidatesOnly,
                 );
             }
 
@@ -127,15 +177,6 @@ class UserDetailsRepository implements Repository {
                     columnName: 'hard_skill_id',
                     relativeTable: 'talentHardSkills',
                     alias: 'ths',
-                });
-            }
-
-            if (payload.BSABadges && payload.BSABadges.length > 0) {
-                searchUserByRelativeTable({
-                    builder,
-                    values: payload.BSABadges,
-                    columnName: 'badge_id',
-                    relativeTable: 'talentBadges',
                 });
             }
 
@@ -178,11 +219,16 @@ class UserDetailsRepository implements Repository {
             sortingParameters.direction,
         );
 
-        const searchResults = await query;
+        const searchResults = await query
+            .withGraphJoined('user')
+            .where('user.role', '=', UserRole.TALENT);
 
-        return searchResults.map((result) =>
-            UserDetailsEntity.initialize(result),
-        );
+        return searchResults.map((result) => {
+            return UserDetailsEntity.initialize({
+                ...result,
+                email: result.user?.email,
+            });
+        });
     }
 
     public async create(
@@ -224,6 +270,8 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -264,11 +312,27 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
+    public async publish(
+        payload: UserDetailsUpdateDto,
+    ): Promise<UserDetailsEntity> {
+        const { id } = payload;
+
+        const details = await this.userDetailsModel
+            .query()
+            .patchAndFetchById(id as string, {
+                publishedAt: new Date().toISOString(),
+            });
+
+        return UserDetailsEntity.initialize(details);
+    }
+
     public delete(): Promise<boolean> {
-        throw new Error(ErrorMessages.NOT_IMPLEMENTED);
+        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 }
 

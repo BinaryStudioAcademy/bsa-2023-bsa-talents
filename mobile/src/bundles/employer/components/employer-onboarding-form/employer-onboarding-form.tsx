@@ -1,128 +1,121 @@
 import React from 'react';
 
+import { actions } from '~/bundles/auth/store';
 import {
     AutocompleteSelector,
     Button,
     FormField,
     Input,
     PhotoPicker,
-    ScrollView,
-    Text,
     View,
 } from '~/bundles/common/components/components';
 import {
-    CountryList,
+    ButtonType,
+    EmployerBottomTabScreenName,
     IconName,
-    TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useAppForm,
+    useCallback,
+    useEffect,
+    useRoute,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { EmployerDataSubmitLabel } from '~/bundles/employer/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { EmployerOnboardingFormValidationSchema } from '~/bundles/employer/validation-schemas/validation-schemas';
 
-import { EMPLOYER_ONBOARDING_DEFAULT_VALUES } from './constants/constants';
+import {
+    EMPLOYER_ONBOARDING_DEFAULT_VALUES,
+    LOCATION_OPTIONS,
+} from './constants/constants';
 import { styles } from './styles';
-
-const locationOptions = Object.values(CountryList);
 
 type Properties = {
     employerOnboardingData: EmployerOnboardingFormDto | null;
-    onSubmit: () => void;
+    onSubmit: (payload: EmployerOnboardingFormDto) => void;
 };
 
 const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
 }) => {
-    const { control, errors, handleSubmit } = useAppForm({
+    const { control, errors, handleSubmit, reset } = useAppForm({
         defaultValues:
             employerOnboardingData ?? EMPLOYER_ONBOARDING_DEFAULT_VALUES,
         validationSchema: EmployerOnboardingFormValidationSchema,
     });
 
-    const handleFormSubmit = useCallback(() => {
-        //TODO logic saving employer data
-        void handleSubmit(() => {
-            onSubmit();
-        })();
+    useEffect(() => {
+        employerOnboardingData && reset(employerOnboardingData);
+    }, [employerOnboardingData, reset]);
+
+    const route = useRoute();
+
+    const dispatch = useAppDispatch();
+
+    const handleFormSubmit = useCallback((): void => {
+        void handleSubmit(onSubmit)();
     }, [handleSubmit, onSubmit]);
 
+    const handleRedirectToProfile = useCallback((): void => {
+        dispatch(actions.onChangeToEmployerScreen());
+    }, [dispatch]);
+
+    const isEmployerProfileScreen =
+        route.name === EmployerBottomTabScreenName.EMPLOYER_PROFILE;
+
+    const labelForSubmitButton =
+        isEmployerProfileScreen && employerOnboardingData
+            ? EmployerDataSubmitLabel.SAVE
+            : EmployerDataSubmitLabel.SUBMIT_FOR_VERIFICATION;
+
     return (
-        <ScrollView
-            contentContainerStyle={[globalStyles.p25, styles.container]}
-        >
-            <Text
-                category={TextCategory.H4}
-                style={[globalStyles.mb15, styles.title]}
-            >
-                Create a profile to find a perfect match to your company
-            </Text>
-            <Text category={TextCategory.H6} style={globalStyles.mb10}>
-                Please, fill out all the fields below, so we could verify your
-                company
-            </Text>
+        <>
             <View
                 style={[
                     globalStyles.width100,
                     globalStyles.flexDirectionRow,
                     globalStyles.justifyContentSpaceAround,
+                    globalStyles.alignItemsCenter,
                     globalStyles.mb25,
                 ]}
             >
-                <View>
+                <View style={styles.photoContainer}>
                     <FormField
                         errorMessage={
-                            errors.profilePhoto && 'Profile photo is required'
+                            errors.photo && 'Profile photo is required'
                         }
-                        name="profilePhoto"
+                        name="photo"
                         containerStyle={globalStyles.alignItemsCenter}
+                        label="Profile photo"
+                        required
                     >
                         <PhotoPicker
                             control={control}
-                            name="profilePhoto"
+                            name="photo"
                             shouldHideButton
                             defaultIcon={IconName.PERSON}
-                            customPhotoStyle={{
-                                defaultPhotoContainer: [
-                                    styles.defaultContainer,
-                                    styles.employerProfileContainer,
-                                ],
-                                defaultPhoto: [
-                                    styles.defaultPhoto,
-                                    styles.employerPhoto,
-                                ],
-                            }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Profile photo</Text>
                 </View>
-                <View>
+                <View style={styles.photoContainer}>
                     <FormField
-                        errorMessage={
-                            errors.companyLogo && 'Company logo is required'
-                        }
                         name="companyLogo"
+                        label="Company logo"
                         containerStyle={globalStyles.alignItemsCenter}
                     >
                         <PhotoPicker
                             control={control}
                             name="companyLogo"
                             shouldHideButton
-                            defaultIcon={IconName.AUTO_GRAPH}
+                            defaultIcon={IconName.IMAGE}
                             customPhotoStyle={{
-                                defaultPhotoContainer: [
-                                    styles.defaultContainer,
-                                    styles.companyLogoContainer,
-                                ],
-                                defaultPhoto: [
-                                    styles.defaultPhoto,
-                                    styles.companyLogo,
-                                ],
-                                photoShape: styles.photoShape,
+                                photoShape: globalStyles.borderRadius15,
                             }}
                         />
                     </FormField>
-                    <Text category={TextCategory.H6}>Company logo</Text>
                 </View>
             </View>
             <FormField
@@ -139,24 +132,24 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 />
             </FormField>
             <FormField
-                errorMessage={errors.position?.message}
+                errorMessage={errors.employerPosition?.message}
                 label="Your position"
-                name="position"
+                name="employerPosition"
                 required
                 containerStyle={globalStyles.pb15}
             >
                 <Input
                     control={control}
-                    name="position"
+                    name="employerPosition"
                     placeholder="Add text"
                 />
             </FormField>
             <FormField
                 errorMessage={errors.linkedinLink?.message}
-                label="Linkedin profile"
+                label="LinkedIn profile"
                 name="linkedinLink"
-                required
                 containerStyle={globalStyles.pb15}
+                required
             >
                 <Input
                     control={control}
@@ -202,15 +195,16 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={locationOptions}
+                    items={LOCATION_OPTIONS}
                     placeholder="Option"
                 />
             </FormField>
             <FormField
                 errorMessage={errors.description?.message}
-                label="Briefly tell about your companyand its values"
+                label="Briefly tell about your company and its values"
                 name="description"
                 containerStyle={globalStyles.pb25}
+                required
             >
                 <Input
                     control={control}
@@ -220,12 +214,23 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                     multiline={true}
                 />
             </FormField>
-            <Button
-                label="Submit for verification"
-                onPress={handleFormSubmit}
-                style={globalStyles.mt25}
-            />
-        </ScrollView>
+            {!(employerOnboardingData && !isEmployerProfileScreen) && (
+                <Button
+                    label={labelForSubmitButton}
+                    onPress={handleFormSubmit}
+                    style={globalStyles.mt25}
+                />
+            )}
+            {!isEmployerProfileScreen && (
+                <Button
+                    label="Go to the profile"
+                    onPress={handleRedirectToProfile}
+                    buttonType={ButtonType.OUTLINE}
+                    style={globalStyles.mt10}
+                    disabled={!employerOnboardingData}
+                />
+            )}
+        </>
     );
 };
 

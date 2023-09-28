@@ -1,13 +1,13 @@
 import { type Entity, type ValueOf } from '~/common/types/types.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type OnboardingSteps,
-    type PreferredLanguages,
+    type OnboardingStep,
+    type PreferredLanguage,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
 
@@ -30,7 +30,7 @@ class UserDetailsEntity implements Entity {
 
     private 'jobTitle': ValueOf<typeof JobTitle> | null;
 
-    private 'location': ValueOf<typeof CountryList> | null;
+    private 'location': ValueOf<typeof Country> | null;
 
     private 'experienceYears': number | null;
 
@@ -42,7 +42,7 @@ class UserDetailsEntity implements Entity {
 
     private 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
-    private 'preferredLanguages': ValueOf<typeof PreferredLanguages>[] | null;
+    private 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
 
     private 'projectLinks': string[] | null;
 
@@ -64,7 +64,13 @@ class UserDetailsEntity implements Entity {
 
     private 'cvId': string | null;
 
-    private 'completedStep': ValueOf<typeof OnboardingSteps> | null;
+    private 'completedStep': ValueOf<typeof OnboardingStep> | null;
+
+    private 'createdAt': string | null;
+
+    private 'email'?: string | null;
+
+    private 'publishedAt': string | null;
 
     private constructor({
         id,
@@ -94,6 +100,9 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
+        publishedAt,
     }: UserDetailsProperties) {
         this.id = id;
         this.userId = userId;
@@ -122,6 +131,9 @@ class UserDetailsEntity implements Entity {
         this.employerPosition = employerPosition;
         this.cvId = cvId;
         this.completedStep = completedStep;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.publishedAt = publishedAt;
     }
 
     public static initialize({
@@ -152,6 +164,9 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
+        publishedAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id,
@@ -181,6 +196,9 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            email,
+            createdAt,
+            publishedAt,
         });
     }
 
@@ -211,6 +229,9 @@ class UserDetailsEntity implements Entity {
         employerPosition,
         cvId,
         completedStep,
+        email,
+        createdAt,
+        publishedAt,
     }: UserDetailsProperties): UserDetailsEntity {
         return new UserDetailsEntity({
             id: null,
@@ -240,6 +261,9 @@ class UserDetailsEntity implements Entity {
             employerPosition,
             cvId,
             completedStep,
+            email,
+            createdAt,
+            publishedAt,
         });
     }
 
@@ -272,6 +296,9 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            email: this.email,
+            createdAt: this.createdAt,
+            publishedAt: this.publishedAt,
         };
     }
 
@@ -304,6 +331,9 @@ class UserDetailsEntity implements Entity {
             employerPosition: this.employerPosition,
             cvId: this.cvId,
             completedStep: this.completedStep,
+            email: this.email,
+            createdAt: this.createdAt,
+            publishedAt: this.publishedAt,
         };
     }
 }

@@ -5,6 +5,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { FormSubmitProvider } from '~/bundles/common/context/context.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -21,12 +22,12 @@ import {
 import {
     FIRST_ELEMENT,
     STEP_NUMBER_FROM_ROUTE,
-    STEP_ONE,
     STEPS_NUMBER,
+    StepsList,
 } from '~/bundles/talent-onboarding/constants/constants.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
-import { getStepRoute } from '~/bundles/talent-onboarding/helpers/helpers.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
+import { configureString } from '~/helpers/helpers.js';
 
 import { actions } from '../../store/talent-onboarding.js';
 import styles from './styles.module.scss';
@@ -42,30 +43,47 @@ const Onboarding: React.FC = () => {
             slugs[FIRST_ELEMENT];
         return STEP_NUMBER_FROM_ROUTE[slug];
     });
+    const [isWaitingForApproval, setIsWaitingForApproval] =
+        useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
+    const { publishedAt } = useAppSelector(
+        (state: RootReducer) => state.talentOnBoarding,
+    );
 
     const handleNextStep = useCallback((): void => {
-        setCurrentStep(currentStep + STEP_ONE);
+        setCurrentStep(currentStep + StepsList.ONE);
 
         const nextStepPath =
             StepsRoute[
-                `STEP_0${currentStep + STEP_ONE}` as keyof typeof StepsRoute
+                `STEP_0${
+                    currentStep + StepsList.ONE
+                }` as keyof typeof StepsRoute
             ];
 
-        navigate(getStepRoute(nextStepPath));
+        navigate(
+            configureString(AppRoute.TALENT_STEP, {
+                step: nextStepPath,
+            }),
+        );
     }, [currentStep, navigate]);
 
     const handlePreviousStep = useCallback((): void => {
-        setCurrentStep(currentStep - STEP_ONE);
+        setCurrentStep(currentStep - StepsList.ONE);
 
         const previousStepPath =
             StepsRoute[
-                `STEP_0${currentStep - STEP_ONE}` as keyof typeof StepsRoute
+                `STEP_0${
+                    currentStep - StepsList.ONE
+                }` as keyof typeof StepsRoute
             ];
 
-        navigate(getStepRoute(previousStepPath));
+        navigate(
+            configureString(AppRoute.TALENT_STEP, {
+                step: previousStepPath,
+            }),
+        );
     }, [currentStep, navigate]);
 
     useEffect(() => {
@@ -85,9 +103,17 @@ const Onboarding: React.FC = () => {
                 userId: currentUser?.id,
             }),
         );
-    }, [currentUser?.id, dispatch]);
+
+        if (publishedAt) {
+            setIsWaitingForApproval(true);
+        }
+    }, [currentUser?.id, dispatch, publishedAt]);
     return (
-        <PageLayout avatarUrl="" isOnline={false}>
+        <PageLayout
+            avatarUrl=""
+            isOnline={false}
+            isWaitingForApproval={isWaitingForApproval}
+        >
             <FormSubmitProvider>
                 <Grid className={styles.careerWrapper}>
                     <Typography variant="h4" className={styles.header}>

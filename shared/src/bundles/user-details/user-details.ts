@@ -1,17 +1,18 @@
 export {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
-    ExperienceYears,
+    experienceYears,
     JobTitle,
     NotConsidered,
-    OnboardingSteps,
-    PreferredLanguages,
+    OnboardingStep,
+    PreferredLanguage,
     UserDetailsApiPath,
     UserSortCriteria,
     YearsOfExperience,
 } from './enums/enums.js';
 export {
+    type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,

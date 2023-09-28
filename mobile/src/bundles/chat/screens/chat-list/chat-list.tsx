@@ -2,12 +2,26 @@ import React from 'react';
 
 import { ChatListItem, Search } from '~/bundles/chat/components/components';
 import { sortChatsByDate } from '~/bundles/chat/helpers/helpers';
-import { type ChatItem } from '~/bundles/chat/types/types';
-import { FlatList, Text, View } from '~/bundles/common/components/components';
-import { RootScreenName, TextCategory } from '~/bundles/common/enums/enums';
+import { actions as chatActions } from '~/bundles/chat/store';
+import { type ChatResponseDto } from '~/bundles/chat/types/types';
 import {
+    FlatList,
+    Loader,
+    LogoutButton,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
+import {
+    DataStatus,
+    RootScreenName,
+    TextCategory,
+    UserRole,
+} from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
     useNavigation,
     useState,
@@ -22,36 +36,30 @@ import {
 import { styles } from './styles';
 
 const ChatList: React.FC = () => {
-    const { chatData } = useAppSelector(({ chat }) => chat);
+    const dispatch = useAppDispatch();
+    const { currentUserData: user } = useAppSelector(({ auth }) => auth);
+    const { chats, current, dataStatus } = useAppSelector(({ chat }) => chat);
+
+    const isChatsLoading = dataStatus === DataStatus.PENDING;
+    const [searchQuery, setSearchQuery] = useState('');
+
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
 
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const transformedChatData = useMemo(() => {
-        return chatData
-            ? Object.entries(chatData).map(([chatId, messages]) => {
-                  const lastMessage = messages[0];
-                  return {
-                      chatId: chatId,
-                      senderName: lastMessage.senderName,
-                      senderAvatar: lastMessage.senderAvatar,
-                      lastMessage: lastMessage.message,
-                      lastMessageDate: lastMessage.createdAt,
-                  };
-              })
-            : [];
-    }, [chatData]);
+    useEffect(() => {
+        if (user) {
+            void dispatch(chatActions.getAllChatsByUserId(user.id));
+        }
+    }, [dispatch, user, current.messages.length]);
 
     const filteredChats = useMemo(() => {
-        return transformedChatData.filter((chat) => {
-            const { lastMessage } = chat;
+        return chats.filter(({ lastMessage }) => {
             return lastMessage
                 .trim()
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
         });
-    }, [transformedChatData, searchQuery]);
+    }, [searchQuery, chats]);
 
     const sortedChats = useMemo(() => {
         return sortChatsByDate(filteredChats);
@@ -60,16 +68,22 @@ const ChatList: React.FC = () => {
     const renderListItem = ({
         item,
     }: {
-        item: ChatItem;
+        item: ChatResponseDto;
     }): React.ReactElement => {
         return (
             <ChatListItem
-                key={item.lastMessage}
+                key={item.lastMessageCreatedAt}
                 item={item}
                 onSelect={handleChatSelect}
             />
         );
     };
+
+    const chatsPlaceHolder = `There are no active conversations yet${
+        user?.role === UserRole.EMPLOYER
+            ? ''
+            : '\n\n When employers want to contact you, all chats will be here'
+    }`;
 
     const handleChatSelect = useCallback(
         (payload: ChatNavigationProperties): void => {
@@ -78,10 +92,24 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
+    if (isChatsLoading) {
+        return <Loader />;
+    }
+
     return (
         <View style={globalStyles.flex1}>
-            <View style={[globalStyles.p25, styles.header]}>
+            <View
+                style={[
+                    globalStyles.p25,
+                    globalStyles.pr15,
+                    globalStyles.flexDirectionRow,
+                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.alignItemsCenter,
+                    styles.header,
+                ]}
+            >
                 <Text category={TextCategory.H3}>Chat</Text>
+                <LogoutButton />
             </View>
             <View
                 style={[
@@ -91,22 +119,35 @@ const ChatList: React.FC = () => {
                     styles.chatContainer,
                 ]}
             >
-                <Search
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    containerStyle={[
-                        globalStyles.borderRadius15,
-                        globalStyles.p15,
-                        styles.search,
-                    ]}
-                />
-                <FlatList
-                    style={[globalStyles.pb15, styles.chatList]}
-                    data={sortedChats}
-                    renderItem={renderListItem}
-                    keyExtractor={(item): string => item.chatId}
-                    showsVerticalScrollIndicator={false}
-                />
+                {chats.length > 0 ? (
+                    <View>
+                        <Search
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            containerStyle={[
+                                globalStyles.borderRadius15,
+                                globalStyles.p15,
+                                styles.search,
+                            ]}
+                        />
+                        <FlatList
+                            style={[globalStyles.pb15, styles.chatList]}
+                            data={sortedChats}
+                            renderItem={renderListItem}
+                            keyExtractor={(item): string =>
+                                item.lastMessageCreatedAt
+                            }
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </View>
+                ) : (
+                    <Text
+                        category={TextCategory.H4}
+                        style={[globalStyles.mt25, styles.chatsPlaceHolder]}
+                    >
+                        {chatsPlaceHolder}
+                    </Text>
+                )}
             </View>
         </View>
     );

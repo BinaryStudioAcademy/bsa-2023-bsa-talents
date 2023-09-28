@@ -23,10 +23,6 @@
     font-size: var(--font-size-base);
     line-height: var(--line-height-main);
 
-    .requiredField {
-        color: var(--st-tropaz);
-    }
-
     .Mui-focused {
         color: var(--text-primary-dark);
     }
@@ -123,9 +119,11 @@
     font-weight: var(--font-weight-semi-bold);
     font-size: var(--font-size-base);
     text-transform: none;
+    transition: color 200ms;
 }
 
 .buttonAddLink:hover {
+    color: var(--vivid);
     background-color: transparent;
 }
 

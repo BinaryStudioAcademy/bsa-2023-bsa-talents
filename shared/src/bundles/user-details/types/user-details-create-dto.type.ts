@@ -1,12 +1,12 @@
 import { type ValueOf } from '~/types/value-of.type.js';
 
 import {
-    type CountryList,
+    type Country,
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
     type NotConsidered,
-    type PreferredLanguages,
+    type PreferredLanguage,
 } from '../user-details.js';
 
 type UserDetailsCreateDto = {
@@ -18,7 +18,7 @@ type UserDetailsCreateDto = {
     hiredSalary?: number;
 
     jobTitle?: ValueOf<typeof JobTitle>;
-    location?: ValueOf<typeof CountryList>;
+    location?: ValueOf<typeof Country>;
 
     experienceYears?: number;
     employmentType?: ValueOf<typeof EmploymentType>[];
@@ -27,7 +27,7 @@ type UserDetailsCreateDto = {
 
     englishLevel?: ValueOf<typeof EnglishLevel>;
     notConsidered?: ValueOf<typeof NotConsidered>[];
-    preferredLanguages?: ValueOf<typeof PreferredLanguages>[];
+    preferredLanguages?: ValueOf<typeof PreferredLanguage>[];
 
     projectLinks?: string[];
     photoId?: string;

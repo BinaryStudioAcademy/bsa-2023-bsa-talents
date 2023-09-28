@@ -5,6 +5,6 @@ const AllowedExtensions = {
     JPEG: 'jpeg',
     JPG: 'jpg',
     PNG: 'png',
-};
+} as const;
 
 export { AllowedExtensions };

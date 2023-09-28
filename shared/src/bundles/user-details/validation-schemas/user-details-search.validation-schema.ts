@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import {
-    CountryList,
+    Country,
     EmploymentType,
     EnglishLevel,
     JobTitle,
@@ -19,11 +19,11 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
             ),
         ),
 
-    isBaseSearch: joi.boolean(),
+    searchType: joi.string(),
 
     searchValue: joi.string().trim(),
 
-    searchActiveCandidatesOnly: joi.boolean(),
+    isSearchActiveCandidatesOnly: joi.boolean(),
 
     jobTitle: joi.alternatives().try(
         joi.array().items(
@@ -50,21 +50,17 @@ const userDetailsSearch = joi.object<UserDetailsSearchUsersRequestDto>({
         .alternatives()
         .try(joi.array().items(joi.string().trim()), joi.string().trim()),
 
-    BSABadges: joi
-        .alternatives()
-        .try(joi.array().items(joi.string().trim()), joi.string().trim()),
-
     location: joi.alternatives().try(
         joi.array().items(
             joi
                 .string()
                 .trim()
-                .valid(...Object.values(CountryList)),
+                .valid(...Object.values(Country)),
         ),
         joi
             .string()
             .trim()
-            .valid(...Object.values(CountryList)),
+            .valid(...Object.values(Country)),
     ),
     englishLevel: joi.alternatives().try(
         joi.array().items(

@@ -6,8 +6,9 @@ const IconName = {
     CIRCLE_OUTLINE: 'circle-outline',
     CIRCLE: 'circle',
     CHECK_CIRCLE: 'check-circle',
+    LOGOUT: 'logout',
     PERSON: 'person',
-    AUTO_GRAPH: 'auto-graph',
+    IMAGE: 'image',
     ADD: 'add',
     FOLDER_SHARED: 'folder-shared',
     MAIL: 'mail',
@@ -23,6 +24,7 @@ const IconName = {
     SEND: 'send',
     VISIBILITY: 'visibility',
     VISIBILITY_OFF: 'visibility-off',
+    INFORMATION: 'information-outline',
 } as const;
 
 export { IconName };

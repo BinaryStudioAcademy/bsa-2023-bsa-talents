@@ -2,7 +2,10 @@ import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
-import { type UserDetailsGeneralCustom } from '../types/types.js';
+import {
+    type UserDetailsFindByUserIdRequestDto,
+    type UserDetailsGeneralCustom,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const createTalentDetails = createAsyncThunk<
@@ -19,22 +22,31 @@ const updateTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
->(
-    `${sliceName}/update-talent-details`,
-    async (updatePayload, { extra, getState }) => {
-        const { talentOnBoardingApi } = extra;
-        if ('badges' in updatePayload) {
-            return updatePayload;
-        }
-        //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-        const { hardSkills, ...otherDetails } = updatePayload;
-        const { talentOnBoarding } = getState();
-        return {
-            ...(await talentOnBoardingApi.updateUserDetails(otherDetails)),
-            hardSkills: hardSkills ?? talentOnBoarding.hardSkills,
-        };
-    },
-);
+>(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
+    const { talentOnBoardingApi, fileUploadApi } = extra;
+    const { cv, photo, ...restPayload } = updatePayload;
+
+    if (cv && photo) {
+        const { document, image } = await fileUploadApi.upload({
+            files: [cv, photo],
+        });
+
+        restPayload.photoId = image.id;
+        restPayload.cvId = document.id;
+    }
+
+    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
+    if ('badges' in updatePayload) {
+        return updatePayload;
+    }
+
+    const { hardSkills, ...data } = restPayload;
+    const updatedData = {
+        ...data,
+        talentHardSkills: hardSkills?.map((item) => item.value),
+    };
+    return await talentOnBoardingApi.updateUserDetails(updatedData);
+});
 
 const saveTalentDetails = createAsyncThunk<
     UserDetailsGeneralCustom,
@@ -90,4 +102,19 @@ const getTalentDetails = createAsyncThunk<
     },
 );
 
-export { getTalentDetails, saveTalentDetails, updateTalentDetails };
+const updateTalentPublishedDate = createAsyncThunk<
+    UserDetailsGeneralCustom,
+    UserDetailsFindByUserIdRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-publised-date`, (findPayload, { extra }) => {
+    const { talentOnBoardingApi } = extra;
+
+    return talentOnBoardingApi.updatePublishedData(findPayload);
+});
+
+export {
+    getTalentDetails,
+    saveTalentDetails,
+    updateTalentDetails,
+    updateTalentPublishedDate,
+};

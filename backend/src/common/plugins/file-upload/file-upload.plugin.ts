@@ -4,52 +4,65 @@ import {
     type File as MulterFile,
     type FileFilterCallback,
 } from 'fastify-multer/lib/interfaces.js';
-import { FileUploadErrorMessage } from 'shared/build/index.js';
+import { FileUploadErrorMessage, type ValueOf } from 'shared/build/index.js';
 
 import {
     AllowedExtensions,
     AllowedMimeTypes,
-    FileGroups,
     FileSize,
 } from './enums/enums.js';
 
 const storage = multer.memoryStorage();
+const imageExtensionFilter = new Set<ValueOf<typeof AllowedExtensions>>([
+    AllowedExtensions.JPG,
+    AllowedExtensions.JPEG,
+    AllowedExtensions.PNG,
+]);
+const documentExtensionFilter = new Set<ValueOf<typeof AllowedExtensions>>([
+    AllowedExtensions.DOC,
+    AllowedExtensions.DOCX,
+    AllowedExtensions.PDF,
+]);
+
+const imageMimeTypesFilter = new Set<ValueOf<typeof AllowedMimeTypes>>([
+    AllowedMimeTypes.JPEG,
+    AllowedMimeTypes.PNG,
+]);
+
+const documentMimeTypesFilter = new Set<ValueOf<typeof AllowedMimeTypes>>([
+    AllowedMimeTypes.PDF,
+    AllowedMimeTypes.DOC,
+    AllowedMimeTypes.DOCX,
+]);
 
 const fileFilter = (
-    request: FastifyRequest,
+    _request: FastifyRequest,
     file: MulterFile,
     callback: FileFilterCallback,
 ): void => {
     const fileExtension =
         file.originalname.split('.').pop()?.toLowerCase() ?? '';
-
     let isValidMimeType = false;
-    let isValidExtension = false;
 
-    switch (file.fieldname) {
-        case FileGroups.DOCUMENT: {
-            isValidMimeType = [
-                AllowedMimeTypes.PDF,
-                AllowedMimeTypes.DOC,
-                AllowedMimeTypes.DOCX,
-            ].includes(file.mimetype);
-            isValidExtension = [
-                AllowedExtensions.PDF,
-                AllowedExtensions.DOCX,
-                AllowedExtensions.DOC,
-            ].includes(fileExtension);
+    const isDocument = documentExtensionFilter.has(
+        fileExtension as ValueOf<typeof AllowedExtensions>,
+    );
+    const isImage = imageExtensionFilter.has(
+        fileExtension as ValueOf<typeof AllowedExtensions>,
+    );
+    const isValidExtension = isDocument || isImage;
+
+    switch (true) {
+        case isDocument: {
+            isValidMimeType = documentMimeTypesFilter.has(
+                file.mimetype as ValueOf<typeof AllowedMimeTypes>,
+            );
             break;
         }
-        case FileGroups.IMAGE: {
-            isValidMimeType = [
-                AllowedMimeTypes.JPEG,
-                AllowedMimeTypes.PNG,
-            ].includes(file.mimetype);
-            isValidExtension = [
-                AllowedExtensions.JPEG,
-                AllowedExtensions.JPG,
-                AllowedExtensions.PNG,
-            ].includes(fileExtension);
+        case isImage: {
+            isValidMimeType = imageMimeTypesFilter.has(
+                file.mimetype as ValueOf<typeof AllowedMimeTypes>,
+            );
             break;
         }
         default: {
@@ -60,7 +73,6 @@ const fileFilter = (
             return;
         }
     }
-
     if (isValidMimeType && isValidExtension) {
         callback(null, true);
     } else {

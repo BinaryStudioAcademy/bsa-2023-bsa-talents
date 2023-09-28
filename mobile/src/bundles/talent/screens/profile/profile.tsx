@@ -1,23 +1,29 @@
 import React from 'react';
 
-import { View } from '~/bundles/common/components/components';
+import { Loader, View } from '~/bundles/common/components/components';
 import {
+    DataStatus,
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
 import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import {
-    NewAccountHeader,
-    ProfileForm,
-} from '~/bundles/talent/components/components';
+import { NewAccountHeader } from '~/bundles/talent/components/components';
+import { ProfileFormData } from '~/bundles/talent/components/profile-form-data/profile-form-data';
+import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+
+import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
-    const { onboardingData } = useAppSelector(({ talents }) => talents);
+    const { onboardingData, dataStatus } = useAppSelector(
+        ({ common }) => common,
+    );
 
     const {
         profileName,
@@ -53,13 +59,23 @@ const Profile: React.FC = () => {
         void handleSubmit(payload);
     };
 
+    const isDataLoading = dataStatus === DataStatus.PENDING;
+
     return (
         <View style={globalStyles.flex1}>
             <NewAccountHeader title={stepTitle} currentStep={stepNumber} />
-            <ProfileForm
-                profileStepData={profileStepData}
-                onSubmit={handleProfileSubmit}
-            />
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <WithProfileForm
+                    validationSchema={profileStepValidationSchema}
+                    defaultValue={TALENT_PROFILE_DEFAULT_VALUES}
+                    value={profileStepData}
+                    onSubmit={handleProfileSubmit}
+                    formType={TalentFormType.ONBOARDING}
+                    renderedForm={ProfileFormData}
+                />
+            )}
         </View>
     );
 };

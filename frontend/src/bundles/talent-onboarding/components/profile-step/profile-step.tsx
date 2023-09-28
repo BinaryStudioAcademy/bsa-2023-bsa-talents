@@ -7,8 +7,8 @@ import {
 
 import {
     Checkbox,
+    ErrorMessage,
     FormControl,
-    FormHelperText,
     FormLabel,
     Grid,
     Input,
@@ -28,10 +28,10 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
-    CountryList,
+    Country,
     EmploymentType,
     JobTitle,
-    OnboardingSteps,
+    OnboardingStep,
 } from '~/bundles/talent-onboarding/enums/enums.js';
 import {
     experienceYearsSliderMarks,
@@ -42,14 +42,14 @@ import { type ProfileStepDto } from '~/bundles/talent-onboarding/types/types.js'
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { actions as talentActions } from '../../store/talent-onboarding.js';
-import { ProfileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
+import { profileStepValidationSchema } from '../../validation-schemas/validation-schemas.js';
 import styles from './styles.module.scss';
 
 const jobTitleOptions = Object.values(JobTitle).map((title) => ({
     value: title,
     label: title,
 }));
-const locationOptions = Object.values(CountryList).map((country) => ({
+const locationOptions = Object.values(Country).map((country) => ({
     value: country,
     label: country,
 }));
@@ -94,7 +94,7 @@ const ProfileStep: React.FC = () => {
                     description,
                 ],
             ),
-            validationSchema: ProfileStepValidationSchema,
+            validationSchema: profileStepValidationSchema,
         });
 
     const { setSubmitForm } = useFormSubmit();
@@ -173,13 +173,13 @@ const ProfileStep: React.FC = () => {
         salaryExpectation,
     ]);
 
-    const onSubmit = useCallback(
-        async (data: ProfileStepDto): Promise<boolean> => {
-            await dispatch(
+    const handleFormSubmit = useCallback(
+        (data: ProfileStepDto): boolean => {
+            void dispatch(
                 talentActions.saveTalentDetails({
                     ...data,
                     userId: currentUser?.id,
-                    completedStep: OnboardingSteps.STEP_01,
+                    completedStep: OnboardingStep.STEP_01,
                 }),
             );
             return true;
@@ -191,8 +191,8 @@ const ProfileStep: React.FC = () => {
         setSubmitForm(() => {
             return async () => {
                 let result = false;
-                await handleSubmit(async (formData) => {
-                    result = await onSubmit(formData);
+                await handleSubmit((formData) => {
+                    result = handleFormSubmit(formData);
                 })();
                 return result;
             };
@@ -200,7 +200,7 @@ const ProfileStep: React.FC = () => {
         return () => {
             setSubmitForm(null);
         };
-    }, [handleSubmit, onSubmit, setSubmitForm]);
+    }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
     const handleCheckboxOnChange = useCallback(
         (
@@ -323,11 +323,7 @@ const ProfileStep: React.FC = () => {
                     options={jobTitleOptions}
                     placeholder="Option"
                 />
-                {errors.jobTitle && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.jobTitle.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="jobTitle" />
             </FormControl>
             <FormControl>
                 <FormLabel className={styles.formLabel} required>
@@ -338,11 +334,7 @@ const ProfileStep: React.FC = () => {
                     name="experienceYears"
                     render={renderSlider}
                 />
-                {errors.experienceYears && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.experienceYears.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="experienceYears" />
             </FormControl>
             <FormControl>
                 <FormLabel className={styles.formLabel} required>
@@ -355,11 +347,7 @@ const ProfileStep: React.FC = () => {
                     options={locationOptions}
                     placeholder="Option"
                 />
-                {errors.location && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.location.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="location" />
             </FormControl>
             <Grid>
                 <FormLabel className={styles.formLabel} required>
@@ -372,11 +360,7 @@ const ProfileStep: React.FC = () => {
                         render={renderCheckboxes}
                     />
                 </FormControl>
-                {errors.employmentType && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.employmentType.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="employmentType" />
             </Grid>
             <FormControl>
                 <FormLabel className={styles.formLabel} required>
@@ -392,11 +376,7 @@ const ProfileStep: React.FC = () => {
                     minRows={7}
                     maxRows={9}
                 />
-                {errors.description && (
-                    <FormHelperText className={styles.hasError}>
-                        {errors.description.message}
-                    </FormHelperText>
-                )}
+                <ErrorMessage errors={errors} name="description" />
             </FormControl>
         </>
     );

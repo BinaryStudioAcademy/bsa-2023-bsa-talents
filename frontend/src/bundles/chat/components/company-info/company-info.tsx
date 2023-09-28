@@ -1,40 +1,51 @@
-import { type CompanyInfoDto } from '~/bundles/chat/types/types.js';
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     Avatar,
     Button,
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
-type Properties = {
-    companyData: CompanyInfoDto;
-};
+const CompanyInfo: React.FC = () => {
+    const { company, hasSharedContacts } = useAppSelector(({ chat }) => ({
+        company: chat.current.employerDetails,
+        hasSharedContacts: chat.current.talentHasSharedContacts,
+    }));
+    const dispatch = useAppDispatch();
 
-const CompanyInfo: React.FC<Properties> = ({
-    companyData: {
+    const {
         logoUrl,
         companyName,
         employerName,
         employerPosition,
-        about = 'No information provided.',
+        about,
         companyWebsite,
-    },
-}) => {
+    } = company;
+
     const handleShareCVButtonClick = useCallback(() => {
-        //TODO: Implement button click handler
-    }, []);
+        void dispatch(candidateActions.shareContactsWithCompany());
+    }, [dispatch]);
 
     const handleAlreadyHiredButtonClick = useCallback(() => {
         //TODO: Implement button click handler
     }, []);
 
+    const aboutInfo = about ?? 'No information provided';
     return (
         <Grid className={styles.wrapper}>
             <Grid className={styles.header}>
-                <Avatar alt={companyName} src={logoUrl} isSmall />
+                <Avatar
+                    alt={companyName ?? 'company name'}
+                    src={logoUrl ?? ''}
+                    isSmall
+                />
                 <Grid className={styles.headerInfo}>
                     <Typography className={styles.companyName} variant="h3">
                         {companyName}
@@ -43,7 +54,7 @@ const CompanyInfo: React.FC<Properties> = ({
                         className={styles.companyRepresentative}
                         variant="body1"
                     >
-                        {employerName}, {employerPosition ?? employerPosition}
+                        {employerName}, {employerPosition}
                     </Typography>
                 </Grid>
             </Grid>
@@ -54,7 +65,7 @@ const CompanyInfo: React.FC<Properties> = ({
                         About {companyName}
                     </Typography>
                     <Typography className={styles.about} variant="body1">
-                        {about}
+                        {aboutInfo}
                     </Typography>
                     {companyWebsite && (
                         <>
@@ -90,12 +101,14 @@ const CompanyInfo: React.FC<Properties> = ({
                         className={styles.mainBtn}
                         label="Share your contact and CV"
                         onClick={handleShareCVButtonClick}
+                        isDisabled={hasSharedContacts}
                     />
                     <Button
                         className={styles.btnSecondary}
                         variant="text"
                         label="The company already hired me"
                         onClick={handleAlreadyHiredButtonClick}
+                        isDisabled={false}
                     />
                 </Grid>
             </Grid>

@@ -1,13 +1,13 @@
-function createNumberRangeArray(
+const createNumberRangeArray = (
     min: number,
     max: number,
     step: number,
-): number[] {
-    const rangeArray = [];
+): number[] => {
+    const range = [];
     for (let index = min; index <= max + Number.EPSILON; index += step) {
-        rangeArray.push(index);
+        range.push(index);
     }
-    return rangeArray;
-}
+    return range;
+};
 
 export { createNumberRangeArray };

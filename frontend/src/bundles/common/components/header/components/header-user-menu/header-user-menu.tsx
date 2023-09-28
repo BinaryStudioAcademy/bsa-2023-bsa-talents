@@ -1,5 +1,5 @@
 import { type MenuItemProps } from '@mui/base/MenuItem';
-import { Logout } from '@mui/icons-material';
+import { Logout, Person } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 import { actions as storeActions } from '~/app/store/app.js';
@@ -15,8 +15,8 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { getStepRoute } from '~/bundles/profile-cabinet/helpers/helpers.js';
-import { NotificationType } from '~/services/notification/enums/notification-types.enum.js';
+import { configureString } from '~/helpers/helpers.js';
+import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 
@@ -40,17 +40,22 @@ const HeaderUserMenu: React.FC<Properties> = () => {
 
     const role = useAppSelector((state) => state.auth.currentUser?.role);
 
+    const isAdmin = role === 'admin';
+
     const handleCheckProfile = useCallback((): void => {
-        navigate(getStepRoute('profile', role));
+        navigate(configureString('/:role/my/profile', { role }));
     }, [navigate, role]);
 
     return (
         <Menu>
-            <MenuItem onClick={handleCheckProfile}>
-                <Typography variant="h6" className={styles.menuItem}>
-                    My profile
-                </Typography>
-            </MenuItem>
+            {!isAdmin && (
+                <MenuItem onClick={handleCheckProfile}>
+                    <Person fontSize="small" />
+                    <Typography variant="h6" className={styles.menuItem}>
+                        My profile
+                    </Typography>
+                </MenuItem>
+            )}
             <MenuItem onClick={handleSignOut}>
                 <Logout fontSize="small" className={styles.signOutIcon} />
                 <Typography variant="h6" className={styles.signOut}>
