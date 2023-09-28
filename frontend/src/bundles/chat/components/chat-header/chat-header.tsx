@@ -1,5 +1,6 @@
 import { UserRole } from 'shared/build/index.js';
 
+import { getChatHeaderProps as getChatHeaderProperties } from '~/bundles/chat/helpers/get-chat-header-props.js';
 import {
     Avatar,
     Grid,
@@ -11,7 +12,6 @@ import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { type ApplicationRoute } from '~/bundles/common/types/application-route.type.js';
 
-import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
 type Properties = {
