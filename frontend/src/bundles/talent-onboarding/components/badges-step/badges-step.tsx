@@ -39,7 +39,7 @@ const BadgesStep: React.FC = () => {
     );
     const { control, handleSubmit, errors, watch } =
         useAppForm<BsaBadgesStepDto>({
-            defaultValues: { badges },
+            defaultValues: { badges: badges?.map((item) => item.id) },
             validationSchema: bsaBadgesStepValidationSchema,
         });
 
@@ -60,13 +60,15 @@ const BadgesStep: React.FC = () => {
         (data: BsaBadgesStepDto): boolean => {
             void dispatch(
                 talentActions.updateTalentDetails({
-                    ...data,
+                    badges: badges?.filter((item) =>
+                        data.badges.includes(item.id),
+                    ),
                     completedStep: OnboardingStep.STEP_02,
                 }),
             );
             return true;
         },
-        [dispatch],
+        [badges, dispatch],
     );
 
     useEffect(() => {

@@ -1,3 +1,4 @@
+export { type BsaBadgesStepDto as BsaBadgesStepDto1 } from './badges-step/badges-step-dto.js';
 export {
     type FirstSectionDetails,
     type SecondSectionDetails,
