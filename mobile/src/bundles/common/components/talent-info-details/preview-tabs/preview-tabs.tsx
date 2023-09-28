@@ -1,15 +1,13 @@
 import React from 'react';
 
 import {
-    Loader,
     Text,
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { DataStatus, TextCategory } from '~/bundles/common/enums/enums';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
-    useAppSelector,
     useEffect,
     useMemo,
     useState,
@@ -17,6 +15,7 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { loadLMSData } from '~/bundles/common-data/store/actions';
+import { type CandidateHardSkill } from '~/bundles/employer/types/types';
 import {
     FeedbacksContainer,
     ProjectContainer,
@@ -32,11 +31,14 @@ const tabs = Object.values(ProfileTab);
 
 type PreviewTabsProperties = {
     userId?: string;
+    candidateHardSkill?: CandidateHardSkill;
 };
 
-const PreviewTabs: React.FC<PreviewTabsProperties> = ({ userId = '' }) => {
+const PreviewTabs: React.FC<PreviewTabsProperties> = ({
+    userId = '',
+    candidateHardSkill,
+}) => {
     const [tab, setTab] = useState<Tab>(ProfileTab.SCORES_SKILLS);
-    const { dataStatus } = useAppSelector(({ commonData }) => commonData);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -52,12 +54,14 @@ const PreviewTabs: React.FC<PreviewTabsProperties> = ({ userId = '' }) => {
                 return <ProjectContainer />;
             }
             default: {
-                return <ScoresAndSkillsContainer />;
+                return (
+                    <ScoresAndSkillsContainer
+                        candidateHardSkill={candidateHardSkill}
+                    />
+                );
             }
         }
-    }, [tab]);
-
-    const isDataLoading = dataStatus === DataStatus.PENDING;
+    }, [candidateHardSkill, tab]);
 
     return (
         <>
@@ -67,27 +71,23 @@ const PreviewTabs: React.FC<PreviewTabsProperties> = ({ userId = '' }) => {
                     globalStyles.justifyContentSpaceBetween,
                 ]}
             >
-                {isDataLoading ? (
-                    <Loader />
-                ) : (
-                    tabs.map((profileTab: Tab) => {
-                        return (
-                            <TouchableOpacity
-                                key={profileTab}
-                                onPress={(): void => {
-                                    setTab(profileTab);
-                                }}
+                {tabs.map((profileTab: Tab) => {
+                    return (
+                        <TouchableOpacity
+                            key={profileTab}
+                            onPress={(): void => {
+                                setTab(profileTab);
+                            }}
+                        >
+                            <Text
+                                category={TextCategory.LABEL}
+                                style={tab === profileTab && styles.active}
                             >
-                                <Text
-                                    category={TextCategory.LABEL}
-                                    style={tab === profileTab && styles.active}
-                                >
-                                    {profileTab}
-                                </Text>
-                            </TouchableOpacity>
-                        );
-                    })
-                )}
+                                {profileTab}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
             <View
                 style={[

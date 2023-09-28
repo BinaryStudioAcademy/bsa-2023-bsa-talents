@@ -1,18 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums';
+import { type PayloadAction, type ValueOf } from '~/bundles/common/types/types';
 import {
-    type PayloadAction,
-    type UserDetailsResponseDto,
-    type ValueOf,
-} from '~/bundles/common/types/types';
-import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
+    type CandidateDetailsType,
+    type EmployeesFiltersForm,
+} from '~/bundles/employer/types/types';
 
 import { getTalents } from './actions';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    talentsData: UserDetailsResponseDto[] | null;
+    talentsData: CandidateDetailsType[] | null;
     talentsFilters: EmployeesFiltersForm | null;
 };
 
