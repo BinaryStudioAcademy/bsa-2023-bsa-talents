@@ -1,3 +1,4 @@
+import { type ChangeEvent } from 'react';
 import { SearchType, UserRole } from 'shared/build/index.js';
 
 import { actions as storeActions } from '~/app/store/app.js';
@@ -78,8 +79,9 @@ const ProfileCabinet: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { hasChanges } = useAppSelector((state: RootReducer) => ({
+    const { hasChanges, searchType } = useAppSelector((state: RootReducer) => ({
         hasChanges: state.cabinet.hasChangesInDetails,
+        searchType: state.talentOnBoarding.searchType,
     }));
 
     const currentUser = useAppSelector(
@@ -144,13 +146,20 @@ const ProfileCabinet: React.FC = () => {
         }
     }, [currentUser, dispatch, navigate, role]);
 
-    const handleCheckboxOnChange = useCallback((): void => {
-        // if (talentOnBoarding.searchType === SearchType.ACTIVE) {
-        //     //todo
-        // } else {
-        //    //todo
-        // }
-    }, []);
+    const handleSearchTypeCheckboxOnChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>): void => {
+            const newSearchType = event.target.checked
+                ? SearchType.ACTIVE
+                : SearchType.PASSIVE;
+            void dispatch(
+                talentActions.updateTalentDetails({
+                    searchType: newSearchType,
+                    userId: currentUser?.id,
+                }),
+            );
+        },
+        [currentUser?.id, dispatch],
+    );
 
     return (
         <PageLayout
@@ -163,19 +172,16 @@ const ProfileCabinet: React.FC = () => {
                 {role == UserRole.TALENT && (
                     <Grid className={styles.activeSearch}>
                         <Checkbox
-                            onChange={handleCheckboxOnChange}
-                            isChecked={
-                                talentOnBoarding.searchType ===
-                                SearchType.ACTIVE
-                            }
+                            onChange={handleSearchTypeCheckboxOnChange}
+                            isChecked={searchType == SearchType.ACTIVE}
                             className={styles.checkbox}
                         />
                         <Typography variant="h6">Active search</Typography>
-                        <Tooltip title="BSA" className={styles.tooltip}>
-                            <Typography variant="h6">
-                                {' '}
-                                {' [some text] '}
-                            </Typography>
+                        <Tooltip
+                            title="BSA Talents shows you as an active candidate for all employers"
+                            className={styles.tooltip}
+                        >
+                            <div>{' [?] '}</div>
                         </Tooltip>
                     </Grid>
                 )}

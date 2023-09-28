@@ -19,8 +19,12 @@
     display: flex;
     align-items: center;
 
+    & .tooltip {
+        margin-left: 5px;
+    }
+
     & .tooltip:hover {
-        background-color: red;
+        background-color: var(--solitude);
         cursor: pointer;
     }
 }
