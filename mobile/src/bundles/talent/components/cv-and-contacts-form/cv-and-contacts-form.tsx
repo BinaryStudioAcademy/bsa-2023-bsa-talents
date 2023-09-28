@@ -53,7 +53,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 <PhotoPicker
                     control={control}
                     name="photo"
-                    uri={cvAndContactsStepData?.uri}
+                    uri={cvAndContactsStepData?.photoUrl}
                 />
             </FormField>
             <FormField

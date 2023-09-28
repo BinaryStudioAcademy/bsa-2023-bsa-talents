@@ -12,6 +12,8 @@ import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
 
 import { styles } from './styles';
 
+//import { useAppSelector } from '~/bundles/common/hooks/hooks';
+
 type Properties = {
     control: Control<CvAndContactsFormDto>;
     errors: FieldErrors<CvAndContactsFormDto>;
@@ -23,6 +25,8 @@ const ContactsFormData: React.FC<Properties> = ({
     errors,
     isEditable,
 }) => {
+    //const { photoUrl } = useAppSelector(({ common }) => common.onboardingData) ?? {};
+
     return (
         <>
             <FormField
@@ -34,6 +38,7 @@ const ContactsFormData: React.FC<Properties> = ({
                     shouldHideButton={!isEditable}
                     control={control}
                     name="photo"
+                    // uri={photoUrl as string}
                 />
             </FormField>
             <FormField
