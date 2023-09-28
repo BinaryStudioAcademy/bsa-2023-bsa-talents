@@ -22,7 +22,7 @@ const CandidatePage: React.FC = () => {
     );
 
     useEffect(() => {
-        if (userId !== candidateDetails?.userId) {
+        if (!candidateDetails) {
             void dispatch(
                 candidateSearchActions.getCandidateDetails({
                     userId: userId as string,

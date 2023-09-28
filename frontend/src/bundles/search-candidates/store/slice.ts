@@ -56,6 +56,9 @@ const { reducer, actions, name } = createSlice({
                 state.currentCandidateDetails = {
                     ...action.payload,
                     isHired: state.currentCandidateDetails?.isHired ?? false,
+                    hasSharedContacts:
+                        state.currentCandidateDetails?.hasSharedContacts ??
+                        false,
                 };
             }
         });
