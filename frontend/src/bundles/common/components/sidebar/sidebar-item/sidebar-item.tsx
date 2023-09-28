@@ -26,13 +26,16 @@ const SidebarItem: React.FC<Properties> = ({ link, icon, name }) => {
     );
 
     const isApproved =
-        talentOnBoarding.isApproved ?? employerOnBoarding.isApproved;
+        (typeof talentOnBoarding.isApproved === 'boolean' &&
+            talentOnBoarding.isApproved) ||
+        (typeof employerOnBoarding.isApproved === 'boolean' &&
+            employerOnBoarding.isApproved);
 
     const handleToggleNotification = useCallback(() => {
         if (!isApproved) {
             setNotificationVisible(!isNotificationVisible);
         }
-    }, [isNotificationVisible, isApproved]);
+    }, [isApproved, isNotificationVisible]);
 
     return (
         <li className={isApproved ? '' : styles.listItem}>
