@@ -5,7 +5,7 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { getRandomBadgeColor } from '~/bundles/talent-onboarding/helpers/helpers.js';
+import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 
 import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import styles from './styles.module.scss';
@@ -278,7 +278,7 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                                     primaryText={primaryText}
                                     secondText={secondText}
                                     description={it.badge.name}
-                                    color={getRandomBadgeColor()}
+                                    color={BadgeColors.YELLOW}
                                 />
                             );
                         })}
