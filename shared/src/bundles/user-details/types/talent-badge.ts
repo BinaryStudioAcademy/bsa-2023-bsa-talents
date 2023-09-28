@@ -1,14 +1,14 @@
+import { type BadgesItem } from '~/index.js';
+
 type TalentBadge = {
     id: string;
     userId: string;
-    name: string;
     score: number | null;
-    maxScore: number | null;
     level: string | null;
     badgeId: string;
     isShown: boolean;
     userDetailsId: string;
-    type: string;
+    badge?: BadgesItem | null;
 };
 
 export { type TalentBadge };

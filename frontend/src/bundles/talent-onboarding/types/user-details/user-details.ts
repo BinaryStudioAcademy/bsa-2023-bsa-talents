@@ -6,16 +6,17 @@ import {
     type ValueOf,
 } from '~/bundles/search-candidates/types/types.js';
 
-type SeacrhCandidateResponse = UserDetailsUpdateRequestDto & {
+type UserDetails = UserDetailsUpdateRequestDto & {
     hardSkills?: {
         value: string;
         label: string;
     }[];
-    badges?: TalentBadge[];
+    badges?: string[] | null;
+    talentBadges?: TalentBadge[];
     photo?: File | null;
     cv?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;
     createdAt?: string;
 };
 
-export { type SeacrhCandidateResponse };
+export { type UserDetails };
