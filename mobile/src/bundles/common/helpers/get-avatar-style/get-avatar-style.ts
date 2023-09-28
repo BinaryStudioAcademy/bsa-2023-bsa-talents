@@ -5,8 +5,6 @@ import {
 } from '~/bundles/common/enums/enums';
 import { type ValueOf } from '~/bundles/common/types/types';
 
-const DIVIDER = 2;
-
 type IconStyle = {
     width: number;
     height: number;
@@ -18,6 +16,8 @@ type AvatarStyles = {
     font: ValueOf<typeof TextCategory>;
     iconSize: number;
 };
+
+const DIVIDER = 2;
 
 const getIconStyles = (iconSize: number): IconStyle => {
     return {
