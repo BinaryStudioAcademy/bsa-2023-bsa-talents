@@ -12,3 +12,4 @@ export { ProfileTabBar } from './profile-tab-bar/profile-tab-bar';
 export { ProjectContainer } from './project-container/project-container';
 export { ScoresAndSkillsContainer } from './scores-and-skills-container/scores-and-skills-container';
 export { SkillsFormData } from './skills-form-data/skills-form-data';
+export { WithProfileForm } from './with-profile-form/with-profile-form';

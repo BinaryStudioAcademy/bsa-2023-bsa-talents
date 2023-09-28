@@ -9,9 +9,11 @@ import {
 import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { NewAccountHeader } from '~/bundles/talent/components/components';
-import { ProfileFormData } from '~/bundles/talent/components/profile-form-data/profile-form-data';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
+import {
+    NewAccountHeader,
+    ProfileFormData,
+    WithProfileForm,
+} from '~/bundles/talent/components/components';
 import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';

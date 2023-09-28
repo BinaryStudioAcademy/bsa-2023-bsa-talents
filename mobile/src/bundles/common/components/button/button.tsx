@@ -5,7 +5,11 @@ import {
     Pressable,
     Text,
 } from '~/bundles/common/components/components';
-import { ButtonType, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
@@ -34,13 +38,11 @@ type Properties = {
     iconSize?: number;
 } & PressableProps;
 
-const DEFAULT_ICON_SIZE = 32;
-
 const Button: React.FC<Properties> = ({
     label,
     style: pressableStyle,
     iconName,
-    iconSize = DEFAULT_ICON_SIZE,
+    iconSize = IconSize.BUTTON,
     buttonType = ButtonType.FILLED,
     disabled = false,
     ...props

@@ -6,8 +6,7 @@ import {
     TextInput,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, TextCategory } from '~/bundles/common/enums/enums';
+import { Color, IconSize, TextCategory } from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import {
@@ -36,7 +35,7 @@ const Input = <T extends FieldValues>({
     marker,
     multiline = false,
     iconName,
-    iconSize = ICON_SIZE,
+    iconSize = IconSize.GENERAL,
     ...props
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });

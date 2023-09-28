@@ -15,6 +15,7 @@ export {
     ButtonType,
     Color,
     IconName,
+    IconSize,
     LoaderSize,
     PhotoType,
 } from './ui/ui';

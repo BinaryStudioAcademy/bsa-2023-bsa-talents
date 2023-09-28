@@ -32,7 +32,11 @@ export {
 } from './bundles/contacts/contacts.js';
 export {
     FileApiPath,
+    FileRole,
+    type FileRoleValue,
     type FileUploadResponse,
+    type GetFileRequestDto,
+    type GetFileResponseDto,
     type UploadedFile,
 } from './bundles/file/file.js';
 export {
