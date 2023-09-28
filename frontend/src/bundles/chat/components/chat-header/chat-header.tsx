@@ -28,15 +28,17 @@ const ChatHeader: React.FC<Properties> = ({
     title,
     userId,
 }) => {
-    const { role, isLoading } = useAppSelector(({ auth, chat }) => ({
-        role: auth.currentUser?.role,
-        isLoading: chat.dataStatus === 'pending',
-    }));
+    const { role, isLoading, currentChatId } = useAppSelector(
+        ({ auth, chat }) => ({
+            role: auth.currentUser?.role,
+            isLoading: chat.dataStatus === 'pending',
+            currentChatId: chat.current.chatId,
+        }),
+    );
     const onlineIconClasses = getValidClassNames(
         styles.icon,
         isOnline ? styles.online : styles.offline,
     );
-
     const infoLink: ApplicationRoute = AppRoute.CANDIDATE.replace(
         ':userId',
         userId,
@@ -50,7 +52,7 @@ const ChatHeader: React.FC<Properties> = ({
 
     const employerHeaderTitle: JSX.Element = <>{title}</>;
 
-    return (
+    return currentChatId ? (
         <Grid className={getValidClassNames(styles.wrapper, className)}>
             <Grid className={styles.logo}>
                 <Avatar isSmall={true} src={avatarUrl} alt={title} />
@@ -75,6 +77,8 @@ const ChatHeader: React.FC<Properties> = ({
                 </Grid>
             </Grid>
         </Grid>
+    ) : (
+        <Grid className={getValidClassNames(styles.wrapper, className)}></Grid>
     );
 };
 

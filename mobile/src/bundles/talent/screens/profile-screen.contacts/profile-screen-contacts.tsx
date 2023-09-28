@@ -1,16 +1,20 @@
 import React from 'react';
 
 import { Loader, ScrollView } from '~/bundles/common/components/components';
-import { useMemo } from '~/bundles/common/hooks/hooks';
-import { useAppDispatch } from '~/bundles/common/hooks/use-app-dispatch/use-app-dispatch.hook';
-import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useMemo,
+} from '~/bundles/common/hooks/hooks';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
-import { ContactsFormData } from '~/bundles/talent/components/contacts-form-data/contacts-form-data';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
-import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
+import {
+    ContactsFormData,
+    WithProfileForm,
+} from '~/bundles/talent/components/components';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { styles } from '~/bundles/talent/screens/profile-screen.profile/styles';
-import { type CvAndContactsFormDto } from '~/bundles/talent/types/cv-and-contacts-form/cv-and-contacts-form-dto.type';
-import { cvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/cv-and-contacts-form/cv-and-contacts-form-validation.schema';
+import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
+import { cvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 const ProfileScreenContacts: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);

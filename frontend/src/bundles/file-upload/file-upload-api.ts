@@ -4,7 +4,12 @@ import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
 import { FileApiPath } from './enums/enums.js';
-import { type FileUploadResponse } from './types/types.js';
+import {
+    type FileDto,
+    type FileUploadResponse,
+    type GetFileRequestDto,
+    type GetFileResponseDto,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -18,11 +23,13 @@ class FileUploadApi extends HttpApiBase {
     }
 
     public async upload(payload: {
-        files: File[];
+        files: FileDto[];
     }): Promise<FileUploadResponse> {
         const formData = new FormData();
-        for (const file of payload.files) {
-            formData.append('files', file);
+        for (const fileData of payload.files) {
+            const { role, extension, file } = fileData;
+            const newFileName = `${role}.${extension}`;
+            formData.append('files', file, newFileName);
         }
 
         const response = await this.load(
@@ -36,6 +43,22 @@ class FileUploadApi extends HttpApiBase {
         );
 
         return response.json<FileUploadResponse>();
+    }
+
+    public async getFileById(
+        payload: GetFileRequestDto,
+    ): Promise<GetFileResponseDto | null> {
+        const { id } = payload;
+
+        const response = await this.load(
+            this.getFullEndpoint('/', ':id', { id }),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<GetFileResponseDto>();
     }
 }
 

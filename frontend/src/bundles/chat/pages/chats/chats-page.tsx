@@ -33,6 +33,7 @@ import {
     ChatInfoIcon,
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
+import { NO_CHATS } from '../../constants/constants.js';
 import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
@@ -60,15 +61,15 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, currentChatId, employerId, talentId } = useAppSelector(
-        ({ auth, chat }) => ({
+    const { user, chats, currentChatId, isLoading, employerId, talentId } =
+        useAppSelector(({ auth, chat }) => ({
             user: auth.currentUser,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
             employerId: chat.current.employerDetails.employerId ?? '',
             talentId: chat.current.talentId ?? '',
-        }),
-    );
+            isLoading: chat.dataStatus === 'pending',
+        }));
 
     //  Get list of all chats this user is participating in and store:
     useEffect(() => {
@@ -133,7 +134,6 @@ const ChatsPage: React.FC = () => {
     const headerUserId =
         user?.role === UserRole.EMPLOYER ? talentId : employerId;
 
-    // TODO: will be replaced by redux logic with server API
     const handleItemClick = useCallback(
         (id: string, items: ChatListItemType[]) => {
             isOpenChatList && setIsOpenChatList(false);
@@ -168,82 +168,104 @@ const ChatsPage: React.FC = () => {
 
     return (
         <Grid container direction="column">
-            <Typography variant="h4" className={styles.header}>
-                Chats
-            </Typography>
-            <Grid
-                container
-                wrap="nowrap"
-                className={getValidClassNames(
-                    styles.chatWrapper,
-                    isOpenChatList && styles.chatWrapperOnChatListOpened,
-                )}
-            >
-                {(!isScreenLessMD || isOpenChatList) && (
+            {chats.length > NO_CHATS ? (
+                <>
+                    <Typography variant="h4" className={styles.header}>
+                        Chats
+                    </Typography>
                     <Grid
+                        container
+                        wrap="nowrap"
                         className={getValidClassNames(
-                            styles.chatList,
-                            isScreenLessLG && styles.chatListSmall,
-                            isOpenChatList && styles.componentOpenedSmallest,
+                            styles.chatWrapper,
+                            isOpenChatList &&
+                                styles.chatWrapperOnChatListOpened,
                         )}
                     >
-                        <ChatList onItemClick={handleItemClick} />
-                    </Grid>
-                )}
-                <Grid
-                    container
-                    flexGrow={1}
-                    direction="column"
-                    className={styles.chatWindow}
-                >
-                    {isScreenLessLG && (
-                        <div className={styles.smallScreenButtonGroup}>
-                            {isScreenLessMD && !isOpenInfo && (
-                                <ChatListIcon
-                                    onClick={handleOpenChatListButton}
-                                    isOpen={isOpenChatList}
-                                />
-                            )}
+                        {(!isScreenLessMD || isOpenChatList) && (
+                            <Grid
+                                className={getValidClassNames(
+                                    styles.chatList,
+                                    isScreenLessLG && styles.chatListSmall,
+                                    isOpenChatList &&
+                                        styles.componentOpenedSmallest,
+                                )}
+                            >
+                                <ChatList onItemClick={handleItemClick} />
+                            </Grid>
+                        )}
+                        <Grid
+                            container
+                            flexGrow={1}
+                            direction="column"
+                            className={styles.chatWindow}
+                        >
+                            {isScreenLessLG && (
+                                <div className={styles.smallScreenButtonGroup}>
+                                    {isScreenLessMD && !isOpenInfo && (
+                                        <ChatListIcon
+                                            onClick={handleOpenChatListButton}
+                                            isOpen={isOpenChatList}
+                                        />
+                                    )}
 
-                            {!isOpenChatList && (
-                                <ChatInfoIcon
-                                    onClick={handleOpenInfoButton}
-                                    isOpen={isOpenInfo}
-                                />
+                                    {!isOpenChatList && (
+                                        <ChatInfoIcon
+                                            onClick={handleOpenInfoButton}
+                                            isOpen={isOpenInfo}
+                                        />
+                                    )}
+                                </div>
                             )}
-                        </div>
-                    )}
-                    <ChatHeader
-                        userId={headerUserId}
-                        title={chatHeaderName}
-                        isOnline
-                        className={styles.chatHeader}
-                        avatarUrl={chatHeaderAvatar}
-                    />
-                    <MessageList className={styles.messageList} />
-                    <MessageInput className={styles.chatInput} />
-                </Grid>
-                {(!isScreenLessLG || isOpenInfo) && (
-                    <Grid
-                        className={getValidClassNames(
-                            styles.chatCompanyInfo,
-                            isOpenInfo && styles.componentOpenedSmallest,
-                            isScreenMoreMD && styles.chatInfoOpenedMD,
-                        )}
-                    >
-                        {user?.role === UserRole.TALENT ? (
-                            <CompanyInfo />
-                        ) : (
-                            <div className={styles.placeholder}>
-                                <Logo isCollapsed />
-                                <span className={styles.hire}>
-                                    Hire someone today!
-                                </span>
-                            </div>
+                            <ChatHeader
+                                userId={headerUserId}
+                                title={chatHeaderName}
+                                isOnline
+                                className={styles.chatHeader}
+                                avatarUrl={chatHeaderAvatar}
+                            />
+                            <MessageList className={styles.messageList} />
+                            <MessageInput className={styles.chatInput} />
+                        </Grid>
+                        {(!isScreenLessLG || isOpenInfo) && (
+                            <Grid
+                                className={getValidClassNames(
+                                    styles.chatCompanyInfo,
+                                    isOpenInfo &&
+                                        styles.componentOpenedSmallest,
+                                    isScreenMoreMD && styles.chatInfoOpenedMD,
+                                )}
+                            >
+                                {user?.role === UserRole.TALENT ? (
+                                    <CompanyInfo />
+                                ) : (
+                                    <div className={styles.placeholder}>
+                                        <Logo isCollapsed />
+                                        <span className={styles.hire}>
+                                            Hire someone today!
+                                        </span>
+                                    </div>
+                                )}
+                            </Grid>
                         )}
                     </Grid>
-                )}
-            </Grid>
+                </>
+            ) : (
+                !isLoading && (
+                    <Grid
+                        className={getValidClassNames(
+                            styles.chatWrapper,
+                            styles.empty,
+                        )}
+                    >
+                        <p className={styles.noChatsPlaceholder}>
+                            There are no active conversations yet. When
+                            employers want to contact you, all chats will be
+                            here
+                        </p>
+                    </Grid>
+                )
+            )}
         </Grid>
     );
 };

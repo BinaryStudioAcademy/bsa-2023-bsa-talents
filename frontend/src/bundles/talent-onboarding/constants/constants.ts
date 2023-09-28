@@ -1,5 +1,6 @@
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
 
+const EMPTY_FILE_COUNT = 0;
 const FIRST_ELEMENT = 0;
 const LAST_TWO_CHARS = -2;
 const StepsList = {
@@ -21,6 +22,7 @@ const STEP_NUMBER_FROM_ROUTE = Object.fromEntries(
 );
 
 export {
+    EMPTY_FILE_COUNT,
     FIRST_ELEMENT,
     PLURAL_YEARS,
     PREVIEW_CHAR_LIMIT,
