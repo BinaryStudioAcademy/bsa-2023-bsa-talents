@@ -33,7 +33,8 @@ const CandidateDetails: React.FC = () => {
 
     const handleContactToTalent = useCallback(() => {
         navigation.navigate(RootScreenName.CONTACT_CANDIDATE, {
-            talendId: talent.userId,
+            talentId: talent.userId,
+            profileName: talent.profileName ?? '',
         });
     }, [navigation, talent]);
 

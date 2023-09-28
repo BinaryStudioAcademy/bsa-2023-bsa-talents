@@ -5,7 +5,10 @@
 }
 
 .textInfo {
+    display: flex;
+    flex-direction: column;
     gap: 25px;
+    max-width: 300px;
 }
 
 .row {
@@ -40,6 +43,7 @@
 .labelsInfo {
     align-items: center;
     gap: 29px;
+    max-width: calc(var(--wide-screens-container-max-width) - 200px);
 }
 
 .bsaBadges {
@@ -57,6 +61,11 @@
 
 .title {
     width: 100%;
+}
+
+.companyLogo {
+    width: 130px;
+    height: 130px;
 }
 
 @media screen and (width <=1100px) {

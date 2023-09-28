@@ -1,0 +1,125 @@
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: var(--white);
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+}
+
+.body {
+    width: 70%;
+    padding: 40px;
+    border-right: 1px solid var(--botticelli);
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 30%;
+    padding: 40px;
+}
+
+.secondaryText,
+.locationIcon {
+    color: var(--nepal);
+}
+
+.locationIcon {
+    width: 14px;
+    height: 14px;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.photo {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.companyName {
+    margin: 20px;
+    text-align: center;
+}
+
+.description {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.descriptionBody,
+.employerPosition {
+    color: var(--slate-gray);
+    white-space: pre-line;
+}
+
+.websiteLabel {
+    margin-top: 20px;
+}
+
+.websiteUrl {
+    display: flex;
+    align-items: start;
+    width: auto;
+    color: var(--azure);
+    font-size: 14px;
+}
+
+@media screen and (width <= 1000px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .aside {
+        display: flex;
+        flex-direction: row;
+        order: -1;
+        border-bottom: 1px solid var(--botticelli);
+    }
+
+    .body {
+        border: none;
+    }
+
+    .logo {
+        margin-right: 20px;
+    }
+
+    .aside,
+    .body {
+        width: 100%;
+    }
+}
+
+@media screen and (width <= 425px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .aside {
+        display: flex;
+        flex-direction: column;
+        order: -1;
+        border-bottom: 1px solid var(--botticelli);
+    }
+
+    .body {
+        border: none;
+    }
+
+    .logo {
+        margin-right: 0;
+    }
+
+    .aside,
+    .body {
+        width: 100%;
+    }
+}

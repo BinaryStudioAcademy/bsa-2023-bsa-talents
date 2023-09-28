@@ -1,14 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
-import { type AppRoute } from '~/bundles/common/enums/enums.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
-
-type RoutePattern<T extends string> = T extends `${infer Start}:${string}`
-    ? `${Start}${string}`
-    : T;
+import { type ApplicationRoute } from '~/bundles/common/types/types.js';
 
 type Properties = {
-    to: RoutePattern<ValueOf<typeof AppRoute>>;
+    to: ApplicationRoute;
     children: React.ReactNode;
     className?:
         | string

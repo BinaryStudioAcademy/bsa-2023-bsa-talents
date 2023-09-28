@@ -19,6 +19,7 @@ import { reducer as bsaBadgesReducer } from '~/bundles/common/data/bsa-badges/st
 import { hardSkillsApi } from '~/bundles/common/data/hard-skills/hard-skills.js';
 import { reducer as hardSkillsReducer } from '~/bundles/common/data/hard-skills/store/hard-skills.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { reducer as employerReducer } from '~/bundles/employer/store/employer.js';
 import { employerOnBoardingApi } from '~/bundles/employer-onboarding/employer-onboarding.js';
 import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
 import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
@@ -52,6 +53,7 @@ type RootReducer = {
     bsaBadges: ReturnType<typeof bsaBadgesReducer>;
     cabinet: ReturnType<typeof cabinetReducer>;
     chat: ReturnType<typeof chatReducer>;
+    employer: ReturnType<typeof employerReducer>;
 };
 
 type ExtraArguments = {
@@ -84,6 +86,7 @@ const combinedReducer = combineReducers({
     cabinet: cabinetReducer,
     bsaBadges: bsaBadgesReducer,
     hardSkills: hardSkillsReducer,
+    employer: employerReducer,
 });
 
 type RootState = ReturnType<typeof combinedReducer>;

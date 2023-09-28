@@ -17,7 +17,6 @@ const setPartnerAvatar = (
             chat.participants.sender,
             chat.participants.receiver,
         ];
-
         participants.map((participant) => {
             if (!partners[participant.id]) {
                 const avatarList = participant.companyName

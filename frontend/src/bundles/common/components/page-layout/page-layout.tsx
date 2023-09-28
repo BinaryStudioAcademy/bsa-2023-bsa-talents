@@ -1,8 +1,11 @@
+import { UserRole } from 'shared/build/index.js';
+
 import {
     Grid,
     Header,
     Sidebar,
 } from '~/bundles/common/components/components.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -19,6 +22,8 @@ const PageLayout: React.FC<Properties> = ({
     isOnline,
     children,
 }) => {
+    const role = useAppSelector((state) => state.auth.currentUser?.role);
+    const isAdminUser = role === UserRole.ADMIN;
     return (
         <Grid container className={styles.pageContainer}>
             <Sidebar />
@@ -27,6 +32,7 @@ const PageLayout: React.FC<Properties> = ({
                 avatarUrl={avatarUrl}
                 isWaitingForApproval={isWaitingForApproval}
                 isOnline={isOnline}
+                isAdmin={isAdminUser}
                 className={styles.mainHeader}
             />
 
