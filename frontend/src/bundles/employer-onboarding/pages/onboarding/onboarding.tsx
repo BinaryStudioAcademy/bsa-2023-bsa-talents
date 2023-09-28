@@ -15,6 +15,7 @@ import {
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
+// import { actions as userActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import { OnboardingForm } from '../../components/onboarding-form/onboarding-form.js';
@@ -47,7 +48,25 @@ const Onboarding: React.FC = () => {
                     throw error;
                 });
         }
+        // if(currentUser){
+        //     void dispatch(userActions.updateTalentPublishedDate({ userId: currentUser.id }));
+        // }
     }, [navigate, submitForm]);
+
+    const handleSaveDraft = useCallback((): void => {
+        if (submitForm) {
+            submitForm()
+                .then((isSuccessful) => {
+                    if (isSuccessful) {
+                        navigate(AppRoute.MY_PROFILE_EMPLOYER);
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+        }
+    }, [navigate, submitForm]);
+
     return (
         <PageLayout avatarUrl="" isOnline>
             <Grid className={styles.careerWrapper}>
@@ -71,8 +90,8 @@ const Onboarding: React.FC = () => {
                             <Button
                                 type="submit"
                                 variant="outlined"
-                                onClick={undefined}
-                                label="Preview"
+                                onClick={handleSaveDraft}
+                                label="Save draft"
                                 className={getValidClassNames(
                                     styles.buttonRegistration,
                                     styles.previewButton,
