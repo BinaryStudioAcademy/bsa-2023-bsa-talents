@@ -71,7 +71,7 @@ const AdminVerificationsPanel: React.FC = () => {
     const renderSelectedTab = (): JSX.Element => {
         switch (selectedTab) {
             case PreviewTab.PROFILE: {
-                return <Profile />;
+                return <Profile selectedRole={filter} />;
             }
             case PreviewTab.CV: {
                 return <CVAndContacts />;
@@ -140,10 +140,14 @@ const AdminVerificationsPanel: React.FC = () => {
                                 src={selected?.avatar}
                             />
                             <Typography variant="body1" className={styles.name}>
-                                {selected?.username ?? 'username'}
+                                {selected?.username ?? 'Maria Rock'}
                             </Typography>
                         </Grid>
-                        <Grid className={styles.tabs}>{previewTabs}</Grid>
+                        <Grid className={styles.tabs}>
+                            {filter === 'talents'
+                                ? previewTabs
+                                : previewTabs[0]}
+                        </Grid>
                         <Grid item className={styles.previewInfo}>
                             {renderSelectedTab()}
                         </Grid>
