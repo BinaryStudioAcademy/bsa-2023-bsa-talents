@@ -1,5 +1,6 @@
 type ContactTalentNavigationPropertiesType = {
-    talendId: string;
+    talentId: string;
+    profileName: string;
 };
 
 export { type ContactTalentNavigationPropertiesType };

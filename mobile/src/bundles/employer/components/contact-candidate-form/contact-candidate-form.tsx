@@ -150,7 +150,7 @@ const ContactCandidateForm: React.FC<ContactCandidateFormProperties> = ({
 
             <FormField
                 errorMessage={errors.message?.message}
-                label="Briefly tell employers about your experience"
+                label="Write a message"
                 name="message"
                 required
                 containerStyle={globalStyles.pv15}
