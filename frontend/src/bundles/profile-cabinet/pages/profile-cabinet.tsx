@@ -1,15 +1,17 @@
-import { UserRole } from 'shared/build/index.js';
+import { SearchType, UserRole } from 'shared/build/index.js';
 
 import { actions as storeActions } from '~/app/store/app.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Button,
+    Checkbox,
     FormControl,
     Grid,
     PageLayout,
     RouterOutlet,
     Tab,
     Tabs,
+    Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
@@ -142,6 +144,14 @@ const ProfileCabinet: React.FC = () => {
         }
     }, [currentUser, dispatch, navigate, role]);
 
+    const handleCheckboxOnChange = useCallback((): void => {
+        // if (talentOnBoarding.searchType === SearchType.ACTIVE) {
+        //     //todo
+        // } else {
+        //    //todo
+        // }
+    }, []);
+
     return (
         <PageLayout
             avatarUrl=""
@@ -150,6 +160,25 @@ const ProfileCabinet: React.FC = () => {
         >
             <Grid className={styles.pageTitle}>
                 <Typography variant="h4">Your Profile</Typography>
+                {role == UserRole.TALENT && (
+                    <Grid className={styles.activeSearch}>
+                        <Checkbox
+                            onChange={handleCheckboxOnChange}
+                            isChecked={
+                                talentOnBoarding.searchType ===
+                                SearchType.ACTIVE
+                            }
+                            className={styles.checkbox}
+                        />
+                        <Typography variant="h6">Active search</Typography>
+                        <Tooltip title="BSA" className={styles.tooltip}>
+                            <Typography variant="h6">
+                                {' '}
+                                {' [some text] '}
+                            </Typography>
+                        </Tooltip>
+                    </Grid>
+                )}
             </Grid>
             <Grid className={styles.pageWrapper}>
                 <Grid className={styles.headNavigation}>

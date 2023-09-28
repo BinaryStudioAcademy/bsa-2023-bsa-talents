@@ -9,8 +9,20 @@
 }
 
 .pageTitle {
+    display: flex;
+    justify-content: space-between;
     padding: 20px 50px;
     border-bottom: 1px solid var(--solitude);
+}
+
+.activeSearch {
+    display: flex;
+    align-items: center;
+
+    & .tooltip:hover {
+        background-color: red;
+        cursor: pointer;
+    }
 }
 
 .form {
