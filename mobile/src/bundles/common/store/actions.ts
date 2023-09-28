@@ -42,6 +42,20 @@ const updateOnboardingData = createAsyncThunk<
         stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
+    // if (cv && photo) {
+
+    //     try {
+    //         const { document, image } = await fileUploadApi.upload({
+    //             files: [cv, photo],
+    //         });
+    //         payload.photoId = image.id;
+    //         payload.cvId = document.id;
+    //     } catch (error) {
+    //         console.log(error);
+
+    //     }
+    // }
+
     if (Object.keys(payload).length === 0) {
         return stepPayload;
     }

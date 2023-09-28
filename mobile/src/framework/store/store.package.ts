@@ -16,6 +16,7 @@ import { commonDataApi } from '~/bundles/common-data/common-data';
 import { reducer as commonDataReducer } from '~/bundles/common-data/store';
 import { employerApi } from '~/bundles/employer/employer';
 import { reducer as employeesReducer } from '~/bundles/employer/store';
+import { fileUploadApi } from '~/bundles/file-upload/file-upload';
 import { type Config } from '~/framework/config/config';
 import { notifications } from '~/framework/notifications/notifications';
 import { socketMiddleware, storage } from '~/framework/storage/storage';
@@ -35,6 +36,7 @@ type ExtraArguments = {
     storage: typeof storage;
     employerApi: typeof employerApi;
     commonDataApi: typeof commonDataApi;
+    fileUploadApi: typeof fileUploadApi;
 };
 
 class Store {
@@ -84,6 +86,7 @@ class Store {
             notifications,
             storage,
             commonDataApi,
+            fileUploadApi,
         };
     }
 }
