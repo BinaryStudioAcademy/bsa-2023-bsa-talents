@@ -68,7 +68,9 @@ const Steps: React.FC<DrawerContentComponentProps> = (props) => {
             if (stepNumber === activeStepNumber) {
                 return TalentOnboardingStepState.FOCUSED;
             }
-            return TalentOnboardingStepState.COMPLETED;
+            return stepNumber > activeStepNumber
+                ? TalentOnboardingStepState.DISABLED
+                : TalentOnboardingStepState.COMPLETED;
         },
         [activeStepNumber],
     );
