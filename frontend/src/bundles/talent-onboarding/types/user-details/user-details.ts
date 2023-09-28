@@ -15,8 +15,13 @@ type UserDetails = UserDetailsUpdateRequestDto & {
     talentBadges?: TalentBadge[];
     photo?: File | null;
     cv?: File | null;
+    companyLogo?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;
     createdAt?: string;
+    publishedAt?: string;
+    cvUrl?: string | null;
+    companyLogoUrl?: string | null;
+    photoUrl?: string | null;
 };
 
 export { type UserDetails };
