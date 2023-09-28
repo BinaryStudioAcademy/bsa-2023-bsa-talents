@@ -1,7 +1,4 @@
-import { Country } from '~/bundles/common/enums/enums';
 import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
-
-const LOCATION_OPTIONS = Object.values(Country);
 
 const EMPLOYER_ONBOARDING_DEFAULT_VALUES: EmployerOnboardingFormDto = {
     photo: null,
@@ -15,4 +12,4 @@ const EMPLOYER_ONBOARDING_DEFAULT_VALUES: EmployerOnboardingFormDto = {
     description: '',
 };
 
-export { EMPLOYER_ONBOARDING_DEFAULT_VALUES, LOCATION_OPTIONS };
+export { EMPLOYER_ONBOARDING_DEFAULT_VALUES };

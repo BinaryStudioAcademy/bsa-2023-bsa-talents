@@ -4,7 +4,7 @@ import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
 import {
-    type SeacrhCandidateDto,
+    type SeacrhCandidateResponse,
     type UserDetailsSearchUsersRequestDto,
 } from './types/types.js';
 
@@ -21,7 +21,7 @@ class SearchCandidatesApi extends HttpApiBase {
 
     public async searchUserDetails(
         payload: Partial<UserDetailsSearchUsersRequestDto>,
-    ): Promise<SeacrhCandidateDto[]> {
+    ): Promise<SeacrhCandidateResponse[]> {
         const queryParameters = Object.keys(payload).map((key) => `?${key}`);
 
         const response = await this.load(
@@ -34,11 +34,11 @@ class SearchCandidatesApi extends HttpApiBase {
             },
         );
 
-        return response.json<SeacrhCandidateDto[]>();
+        return response.json<SeacrhCandidateResponse[]>();
     }
     public async getCandidateDetailsByUserId(payload: {
         userId: string;
-    }): Promise<SeacrhCandidateDto | null> {
+    }): Promise<SeacrhCandidateResponse | null> {
         const response = await this.load(
             this.getFullEndpoint('/', ':userId', payload),
             {
@@ -47,7 +47,7 @@ class SearchCandidatesApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<SeacrhCandidateDto>();
+        return response.json<SeacrhCandidateResponse>();
     }
 }
 

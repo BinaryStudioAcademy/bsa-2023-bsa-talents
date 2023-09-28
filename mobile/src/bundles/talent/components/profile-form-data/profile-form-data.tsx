@@ -9,23 +9,28 @@ import {
     Selector,
     Slider,
 } from '~/bundles/common/components/components';
+import {
+    Country,
+    EmploymentType,
+    JobTitle,
+} from '~/bundles/common/enums/enums';
 import { useFormController } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { ProfileStepValidationRule } from '~/bundles/talent/enums/enums';
 
-import {
-    EMPLOYMENT_TYPE_OPTIONS,
-    EXPERIENCE_YEARS,
-    JOB_TITLE_OPTIONS,
-    LOCATION_OPTIONS,
-} from './constants/constants';
+import { EXPERIENCE_YEARS } from './constants/constants';
 
 type Properties = {
     control: Control<ProfileStepDto>;
     errors: FieldErrors<ProfileStepDto>;
     isEditable: boolean;
 };
+
+const jobTitleOptions = Object.values(JobTitle);
+const locationOptions = Object.values(Country);
+const employmentTypeOptions = Object.values(EmploymentType);
+
 const ProfileFormData: React.FC<Properties> = ({
     control,
     errors,
@@ -74,7 +79,7 @@ const ProfileFormData: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={JOB_TITLE_OPTIONS}
+                    options={jobTitleOptions}
                     control={control}
                     name="jobTitle"
                     placeholder="Option"
@@ -111,7 +116,7 @@ const ProfileFormData: React.FC<Properties> = ({
                 <AutocompleteSelector
                     control={control}
                     name="location"
-                    items={LOCATION_OPTIONS}
+                    items={locationOptions}
                     placeholder="Option"
                     isIconShown={isEditable}
                 />
@@ -126,7 +131,7 @@ const ProfileFormData: React.FC<Properties> = ({
                 <CheckboxGroup
                     control={control}
                     name="employmentType"
-                    options={EMPLOYMENT_TYPE_OPTIONS}
+                    options={employmentTypeOptions}
                 />
             </FormField>
             <FormField

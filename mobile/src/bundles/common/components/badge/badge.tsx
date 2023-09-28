@@ -5,7 +5,11 @@ import {
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    BadgeSize,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import { getBadgeColor, getBadgeIcon } from '~/bundles/common/helpers/helpers';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type BadgesItem, type ValueOf } from '~/bundles/common/types/types';
@@ -22,13 +26,11 @@ type Properties = {
     size?: TBadgeSize;
 };
 
-const DEFAULT_ICON_SIZE = 40;
-
 const Badge: React.FC<Properties> = ({
     badge,
     score,
     level,
-    iconSize = DEFAULT_ICON_SIZE,
+    iconSize = IconSize.SMALL,
     size = BadgeSize.LARGE,
 }) => {
     const valueFontSize =

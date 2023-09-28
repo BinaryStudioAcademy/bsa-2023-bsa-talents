@@ -32,7 +32,11 @@ export {
 } from './bundles/contacts/contacts.js';
 export {
     FileApiPath,
+    FileRole,
+    type FileRoleValue,
     type FileUploadResponse,
+    type GetFileRequestDto,
+    type GetFileResponseDto,
     type UploadedFile,
 } from './bundles/file/file.js';
 export {
@@ -85,6 +89,7 @@ export {
     PreferredLanguage,
     SearchType,
     type TalentBadge,
+    type TalentBadgeCreateDto,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
@@ -95,7 +100,6 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
-    type UserDetailsResponseBadgeDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,

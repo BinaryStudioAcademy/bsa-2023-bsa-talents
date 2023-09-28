@@ -7,6 +7,7 @@ import { HttpApiBase } from '~/framework/api/api.js';
 import { type Http } from '~/framework/http/http.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
+import { type SeacrhCandidateResponse } from '../search-candidates/types/types.js';
 import {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsGeneralCustom,
@@ -25,7 +26,7 @@ class TalentOnBoardingApi extends HttpApiBase {
 
     public async getUserDetailsByUserId(
         payload: Partial<UserDetailsGeneralCustom>,
-    ): Promise<UserDetailsGeneralCustom | null> {
+    ): Promise<SeacrhCandidateResponse | null> {
         const { userId = '' } = payload;
 
         const response = await this.load(
@@ -36,7 +37,7 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsGeneralCustom>();
+        return response.json<SeacrhCandidateResponse>();
     }
 
     public async updatePublishedData(
@@ -59,7 +60,7 @@ class TalentOnBoardingApi extends HttpApiBase {
 
     public async createUserDetails(
         payload: UserDetailsGeneralCustom,
-    ): Promise<UserDetailsGeneralCustom> {
+    ): Promise<SeacrhCandidateResponse> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -69,12 +70,12 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsGeneralCustom>();
+        return response.json<SeacrhCandidateResponse>();
     }
 
     public async updateUserDetails(
         payload: UserDetailsGeneralCustom,
-    ): Promise<UserDetailsGeneralCustom> {
+    ): Promise<SeacrhCandidateResponse> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -84,7 +85,8 @@ class TalentOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return response.json<UserDetailsGeneralCustom>();
+
+        return response.json<SeacrhCandidateResponse>();
     }
 }
 

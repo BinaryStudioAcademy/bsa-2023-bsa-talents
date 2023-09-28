@@ -5,7 +5,7 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
-import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
+import { type TalentBadge } from '../talent-badges/types/types.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
 import {
     type TalentHardSkill,
@@ -130,7 +130,7 @@ class UserDetailsService implements Service {
             userDetails,
         );
 
-        const userDetailsId = newUserDetails.toObject().id as string;
+        const userDetailsId = newUserDetails.id as string;
 
         let badgesResult: TalentBadge[] = [],
             hardSkillsResult: TalentHardSkill[] = [];
@@ -159,7 +159,7 @@ class UserDetailsService implements Service {
         }
 
         return {
-            ...newUserDetails.toObject(),
+            ...newUserDetails,
             talentBadges: badgesResult,
             talentHardSkills: hardSkillsResult,
         };
@@ -209,7 +209,7 @@ class UserDetailsService implements Service {
         });
 
         return {
-            ...updatedUserDetails.toObject(),
+            ...updatedUserDetails,
             talentBadges: badgesResult,
             talentHardSkills: hardSkillsResult,
         };

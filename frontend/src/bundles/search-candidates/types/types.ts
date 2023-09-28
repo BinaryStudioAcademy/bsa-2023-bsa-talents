@@ -1,4 +1,4 @@
-export { type SeacrhCandidateDto } from './seacrh-candidate-dto/seacrh-candidate-dto.js';
+export { type SeacrhCandidateResponse } from './seacrh-candidate-response/seacrh-candidate-response.js';
 export {
     type HardSkillsItem,
     type UserDetailsSearchUsersRequestDto,

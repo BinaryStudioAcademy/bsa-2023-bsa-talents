@@ -1,7 +1,11 @@
 import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
+import { mapFilesToPayload } from '~/bundles/employer-onboarding/helpers/map-files-to-payload.js';
+import { type FileDto } from '~/bundles/file-upload/types/file-dto.type.js';
+import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 
+import { EMPTY_FILE_COUNT } from '../constants/constants.js';
 import {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsGeneralCustom,
@@ -9,7 +13,7 @@ import {
 import { name as sliceName } from './slice.js';
 
 const createTalentDetails = createAsyncThunk<
-    UserDetailsGeneralCustom,
+    SeacrhCandidateResponse,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(`${sliceName}/create-talent-details`, (registerPayload, { extra }) => {
@@ -19,25 +23,39 @@ const createTalentDetails = createAsyncThunk<
 });
 
 const updateTalentDetails = createAsyncThunk<
-    UserDetailsGeneralCustom,
+    SeacrhCandidateResponse,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi, fileUploadApi } = extra;
     const { cv, photo, ...restPayload } = updatePayload;
 
-    if (cv && photo) {
-        const { document, image } = await fileUploadApi.upload({
-            files: [cv, photo],
-        });
+    const files: FileDto[] = [];
 
-        restPayload.photoId = image.id;
-        restPayload.cvId = document.id;
+    if (cv) {
+        const [extension] = cv.name.split('.').reverse();
+        files.push({
+            role: 'cv',
+            extension,
+            file: cv,
+        });
     }
 
-    //TODO: remove this lines of code when task 'connect badges & hard skills saving for user details' will be done
-    if ('badges' in updatePayload) {
-        return updatePayload;
+    if (photo) {
+        const [extension] = photo.name.split('.').reverse();
+        files.push({
+            role: 'talentPhoto',
+            extension,
+            file: photo,
+        });
+    }
+
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        mapFilesToPayload({
+            payload: restPayload,
+            files: response,
+        });
     }
 
     const { hardSkills, ...data } = restPayload;
@@ -49,7 +67,7 @@ const updateTalentDetails = createAsyncThunk<
 });
 
 const saveTalentDetails = createAsyncThunk<
-    UserDetailsGeneralCustom,
+    SeacrhCandidateResponse,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(
@@ -61,10 +79,10 @@ const saveTalentDetails = createAsyncThunk<
             const result = talentOnBoarding.completedStep
                 ? ((await dispatch(
                       updateTalentDetails(registerPayload),
-                  )) as PayloadAction<UserDetailsGeneralCustom>)
+                  )) as PayloadAction<SeacrhCandidateResponse>)
                 : ((await dispatch(
                       createTalentDetails(registerPayload),
-                  )) as PayloadAction<UserDetailsGeneralCustom>);
+                  )) as PayloadAction<SeacrhCandidateResponse>);
 
             return result.payload;
         } catch {
@@ -77,7 +95,7 @@ const saveTalentDetails = createAsyncThunk<
 );
 
 const getTalentDetails = createAsyncThunk<
-    UserDetailsGeneralCustom | null,
+    SeacrhCandidateResponse | null,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(

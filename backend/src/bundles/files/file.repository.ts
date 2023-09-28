@@ -9,8 +9,11 @@ import { type Repository } from '~/common/types/repository.type.js';
 
 import { FileEntity } from './file.entity.js';
 import { type FileModel } from './file.model.js';
-import { getFileType } from './helpers/get-file-type.helper.js';
-import { type FileUploadResponse } from './types/types.js';
+import { getFileRole } from './helpers/helpers.js';
+import {
+    type FileUploadResponse,
+    type GetFileRequestDto,
+} from './types/types.js';
 
 class FileRepository implements Repository {
     private fileModel: typeof FileModel;
@@ -21,8 +24,13 @@ class FileRepository implements Repository {
         this.fileStorage = fileStorage;
     }
 
-    public find(): Promise<unknown> {
-        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
+    public async find(payload: GetFileRequestDto): Promise<FileEntity | null> {
+        const file = await this.fileModel.query().findOne({ ...payload });
+
+        if (!file) {
+            return null;
+        }
+        return FileEntity.initialize(file);
     }
 
     public findAll(): Promise<unknown[]> {
@@ -49,9 +57,9 @@ class FileRepository implements Repository {
 
         for (const file of response) {
             const data = await this.create(file);
-            const type = getFileType(file.Key);
+            const role = getFileRole(file.Key);
             const entity = FileEntity.initialize(data).toObject();
-            uploadedFiles[type as keyof typeof uploadedFiles] = {
+            uploadedFiles[role as keyof typeof uploadedFiles] = {
                 id: entity.id,
                 url: entity.url,
             };

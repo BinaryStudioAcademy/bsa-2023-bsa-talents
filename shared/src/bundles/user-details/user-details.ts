@@ -14,6 +14,7 @@ export {
 } from './enums/enums.js';
 export {
     type TalentBadge,
+    type TalentBadgeCreateDto,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
@@ -21,7 +22,6 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
-    type UserDetailsResponseBadgeDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,

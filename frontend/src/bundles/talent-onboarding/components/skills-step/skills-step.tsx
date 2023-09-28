@@ -37,7 +37,7 @@ import {
 import {
     type SkillsStepDto,
     type TalentHardSkill,
-    type UserDetailsGeneralCustom,
+    type UserDetails,
 } from '~/bundles/talent-onboarding/types/types.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
@@ -65,9 +65,8 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
 }));
 
 const getAuthState = (state: RootReducer): State => state.auth;
-const getTalentOnBoardingState = (
-    state: RootReducer,
-): UserDetailsGeneralCustom => state.talentOnBoarding;
+const getTalentOnBoardingState = (state: RootReducer): UserDetails =>
+    state.talentOnBoarding;
 const SkillsStep: React.FC = () => {
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,

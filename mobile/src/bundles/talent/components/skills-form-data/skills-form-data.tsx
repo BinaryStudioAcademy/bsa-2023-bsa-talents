@@ -11,19 +11,21 @@ import {
     Selector,
     View,
 } from '~/bundles/common/components/components';
-import { ButtonType, Color, IconName } from '~/bundles/common/enums/enums';
+import {
+    ButtonType,
+    Color,
+    EnglishLevel,
+    IconName,
+    NotConsidered,
+    PreferredLanguage,
+} from '~/bundles/common/enums/enums';
 import { useFieldArray } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
 import { type SkillsStepDto } from '~/bundles/talent/types/types';
 
-import {
-    ENGLISH_LEVELS,
-    MAX_LINKS,
-    NOT_CONSIDERED,
-    PREFERRED_LANGUAGES,
-} from './constants/constants';
+import { MAX_LINKS } from './constants/constants';
 import { styles } from './styles';
 
 type Properties = {
@@ -31,6 +33,10 @@ type Properties = {
     errors: FieldErrors<SkillsStepDto>;
     isEditable: boolean;
 };
+
+const englishLevels = Object.values(EnglishLevel);
+const preferredLanguages = Object.values(PreferredLanguage);
+const notConsidered = Object.values(NotConsidered);
 
 const SkillsFormData: React.FC<Properties> = ({
     control,
@@ -67,7 +73,7 @@ const SkillsFormData: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={ENGLISH_LEVELS}
+                    options={englishLevels}
                     control={control}
                     name="englishLevel"
                     placeholder="Option"
@@ -84,7 +90,7 @@ const SkillsFormData: React.FC<Properties> = ({
                 <CheckboxGroup
                     control={control}
                     name="notConsidered"
-                    options={NOT_CONSIDERED}
+                    options={notConsidered}
                 />
             </FormField>
 
@@ -96,7 +102,7 @@ const SkillsFormData: React.FC<Properties> = ({
                 containerStyle={globalStyles.pb25}
             >
                 <Selector
-                    options={PREFERRED_LANGUAGES}
+                    options={preferredLanguages}
                     control={control}
                     name="preferredLanguages"
                     isMultiSelect={true}
