@@ -31,6 +31,20 @@ const createUserDetails = createAsyncThunk<
         }
     }
 
+    // if (companyLogo) {
+    //     try {
+    //         const { rn }= await fileUploadApi.upload({
+    //             files: [companyLogo],
+    //         });
+    //         payload.companyLogoId = rn?.id;
+
+    //     } catch (error) {
+    //         const errorMessage = getErrorMessage(error);
+    //         notifications.showError({ title: errorMessage });
+    //         throw error;
+    //     }
+    // }
+
     try {
         const response = await commonApi.completeUserDetails(payload);
         return {
@@ -128,7 +142,6 @@ const getUserDetails = createAsyncThunk<
             ...userDetails,
             photoUrl: photo?.url,
         };
-        //return userDetails ?? null;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
