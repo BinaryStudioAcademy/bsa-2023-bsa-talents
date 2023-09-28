@@ -3,6 +3,7 @@ import { type Entity } from '~/common/types/types.js';
 import { type UserLMSDataDto } from './types/types.js';
 
 class LMSDataEntity implements Entity {
+    public userId: string;
     public talent: string; // JSON
     public averageProjectScore: number | null;
     public averageLectureScore: number | null;
@@ -12,6 +13,7 @@ class LMSDataEntity implements Entity {
     public project: string; // JSON
 
     private constructor(userLMSDataDto: UserLMSDataDto) {
+        this.userId = userLMSDataDto.userId;
         this.talent = userLMSDataDto.talent;
         this.averageProjectScore = userLMSDataDto.averageProjectScore;
         this.averageLectureScore = userLMSDataDto.averageLectureScore;
@@ -23,6 +25,7 @@ class LMSDataEntity implements Entity {
 
     public static initialize(userLMSDataDto: UserLMSDataDto): LMSDataEntity {
         return new LMSDataEntity({
+            userId: userLMSDataDto.userId,
             talent: userLMSDataDto.talent,
             averageProjectScore: userLMSDataDto.averageProjectScore,
             averageLectureScore: userLMSDataDto.averageLectureScore,
@@ -35,6 +38,7 @@ class LMSDataEntity implements Entity {
 
     public toObject(): UserLMSDataDto {
         return {
+            userId: this.userId,
             talent: this.talent,
             averageProjectScore: this.averageProjectScore,
             averageLectureScore: this.averageLectureScore,

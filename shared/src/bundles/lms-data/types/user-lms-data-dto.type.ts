@@ -1,5 +1,5 @@
 type UserLMSDataDto = {
-    userId: string; // JSON
+    userId: string;
     talent: string; // JSON
     averageProjectScore: number | null;
     averageLectureScore: number | null;
