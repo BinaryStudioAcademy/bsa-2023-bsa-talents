@@ -7,7 +7,7 @@ import {
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { NO_CHATS, NO_MESSAGES } from '../../constants/constants.js';
+import { NO_MESSAGES } from '../../constants/constants.js';
 import { MessageItem } from '../components.js';
 import styles from './styles.module.scss';
 
@@ -18,12 +18,11 @@ type Properties = {
 const MessageList: React.FC<Properties> = ({ className }) => {
     const autoScrollElement = useRef<HTMLDivElement>(null);
 
-    const { chatMessages, chats, currentChatId, isLoading } = useAppSelector(
+    const { chatMessages, chats, currentChatId } = useAppSelector(
         ({ chat }) => ({
             chatMessages: chat.current.messages,
             chats: chat.chats,
             currentChatId: chat.current.chatId,
-            isLoading: chat.dataStatus === 'pending',
         }),
     );
 
@@ -67,7 +66,7 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             });
         }
     }, [messages.length]);
-    return chats.length > NO_CHATS ? (
+    return (
         <Grid className={getValidClassNames(styles.messageList, className)}>
             {messages.map((message) => (
                 <MessageItem
@@ -81,17 +80,6 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             ))}
             <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
-    ) : (
-        !isLoading && (
-            <Grid
-                className={getValidClassNames(styles.messageList, styles.empty)}
-            >
-                <p className={styles.placeholder}>
-                    There are no active conversations yet. When employers want
-                    to contact you, all chats will be here
-                </p>
-            </Grid>
-        )
     );
 };
 
