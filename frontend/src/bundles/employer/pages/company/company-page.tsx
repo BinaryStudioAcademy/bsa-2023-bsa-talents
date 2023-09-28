@@ -23,9 +23,9 @@ const CompanyPage: React.FC = () => {
     const companyData = employers.find((it) => it.userId === id);
 
     useEffect(() => {
-        // if (!companyData) {
-        void dispatch(employersActon.getEmployerData(id as string));
-        // }
+        if (!companyData) {
+            void dispatch(employersActon.getEmployerData(id as string));
+        }
     }, [companyData, dispatch, id]);
 
     return companyData ? (
