@@ -9,5 +9,6 @@ export {
     type FileUploadResponse,
     type ProfileStepDto,
     type SkillsStepDto,
+    type UserDetailsFindByUserIdRequestDto,
 } from 'shared/build/index.js';
 export { type TalentHardSkill } from 'shared/build/index.js';

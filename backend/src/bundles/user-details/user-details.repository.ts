@@ -11,7 +11,9 @@ import { searchUserByRelativeTable } from './helpers/search-user-by-relative-tab
 import {
     type UserDetailsCreateDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsResponseDto,
     type UserDetailsUpdateDto,
+    type UserDetailsWithFiles,
 } from './types/types.js';
 import { UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsModel } from './user-details.model.js';
@@ -63,6 +65,7 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -109,6 +112,7 @@ class UserDetailsRepository implements Repository {
             employerPosition: details.employerPosition ?? '',
             cvId: details.cvId,
             completedStep: details.completedStep,
+            publishedAt: details.publishedAt,
         });
     }
 
@@ -231,7 +235,7 @@ class UserDetailsRepository implements Repository {
 
     public async create(
         payload: UserDetailsCreateDto,
-    ): Promise<UserDetailsEntity> {
+    ): Promise<UserDetailsResponseDto> {
         const details = await this.userDetailsModel
             .query()
             .insert({
@@ -240,7 +244,13 @@ class UserDetailsRepository implements Repository {
             .returning('*')
             .execute();
 
-        return UserDetailsEntity.initialize({
+        const files = (await this.userDetailsModel
+            .query()
+            .findById(details.id)
+            .withGraphFetched('[cv, photo, companyLogo]')
+            .execute()) as UserDetailsWithFiles;
+
+        const detailsWithFiles = UserDetailsEntity.initialize({
             id: details.id,
             userId: details.userId,
             isApproved: details.isApproved,
@@ -269,19 +279,33 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
-        });
+            publishedAt: details.publishedAt,
+        }).toObject();
+
+        return {
+            ...detailsWithFiles,
+            cvUrl: files.cv?.url ?? null,
+            photoUrl: files.photo?.url ?? null,
+            companyLogoUrl: files.companyLogo?.url ?? null,
+        };
     }
 
     public async update(
         payload: UserDetailsUpdateDto,
-    ): Promise<UserDetailsEntity> {
+    ): Promise<UserDetailsResponseDto> {
         const { id, ...rest } = payload;
 
         const details = await this.userDetailsModel
             .query()
             .patchAndFetchById(id as string, rest);
 
-        return UserDetailsEntity.initialize({
+        const files = (await this.userDetailsModel
+            .query()
+            .findById(details.id)
+            .withGraphFetched('[cv, photo, companyLogo]')
+            .execute()) as UserDetailsWithFiles;
+
+        const detailsWithFiles = UserDetailsEntity.initialize({
             id: details.id,
             userId: details.userId,
             isApproved: details.isApproved,
@@ -310,16 +334,29 @@ class UserDetailsRepository implements Repository {
             cvId: details.cvId,
             completedStep: details.completedStep,
             createdAt: details.createdAt,
-        });
+            publishedAt: details.publishedAt,
+        }).toObject();
+
+        return {
+            ...detailsWithFiles,
+            cvUrl: files.cv?.url ?? null,
+            photoUrl: files.photo?.url ?? null,
+            companyLogoUrl: files.companyLogo?.url ?? null,
+        };
     }
 
-    public async publish(payload: UserDetailsUpdateDto): Promise<string> {
+    public async publish(
+        payload: UserDetailsUpdateDto,
+    ): Promise<UserDetailsEntity> {
         const { id } = payload;
 
         const details = await this.userDetailsModel
             .query()
-            .patchAndFetchById(id as string, { publishedAt: new Date() });
-        return details.publishedAt.toLocaleString();
+            .patchAndFetchById(id as string, {
+                publishedAt: new Date().toISOString(),
+            });
+
+        return UserDetailsEntity.initialize(details);
     }
 
     public delete(): Promise<boolean> {

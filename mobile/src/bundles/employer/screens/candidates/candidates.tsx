@@ -4,6 +4,7 @@ import {
     FlatList,
     Loader,
     StatusBar,
+    Text,
     View,
 } from '~/bundles/common/components/components';
 import { Color, DataStatus } from '~/bundles/common/enums/enums';
@@ -57,7 +58,6 @@ const Candidates: React.FC = () => {
     const isDataLoading =
         employerDataStatus === DataStatus.PENDING ||
         commonDataStatus === DataStatus.PENDING;
-
     return (
         <>
             <StatusBar
@@ -83,6 +83,12 @@ const Candidates: React.FC = () => {
                         data={filteredCandidates}
                         renderItem={renderCandidateCard}
                         keyExtractor={(item): string => item.userId}
+                        ListEmptyComponent={
+                            <Text style={globalStyles.m25}>
+                                No candidates were found, try to change the
+                                filtering
+                            </Text>
+                        }
                     />
                 )}
             </View>

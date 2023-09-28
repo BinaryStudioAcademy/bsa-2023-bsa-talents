@@ -149,6 +149,15 @@ const getUserDetails = createAsyncThunk<
     }
 });
 
+const updatePublishedData = createAsyncThunk<
+    UserDetailsGeneralRequestDto,
+    UserDetailsGeneralRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-published-data`, (payload, { extra }) => {
+    const { commonApi } = extra;
+    return commonApi.updatePublishedData(payload);
+});
+
 const clearCommonStore = createAction(`${sliceName}/clearCommonStore`);
 
 export {
@@ -156,4 +165,5 @@ export {
     createUserDetails,
     getUserDetails,
     updateOnboardingData,
+    updatePublishedData,
 };

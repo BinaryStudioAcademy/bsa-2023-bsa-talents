@@ -60,6 +60,18 @@ class FileController extends ControllerBase {
                 );
             },
         });
+
+        this.addRoute({
+            path: FileApiPath.$ID,
+            method: 'GET',
+            handler: (options) => {
+                return this.findById(
+                    options as ApiHandlerOptions<{
+                        params: { id: string };
+                    }>,
+                );
+            },
+        });
     }
 
     /**
@@ -110,6 +122,19 @@ class FileController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: uploadResponse,
+        };
+    }
+
+    private async findById(
+        options: ApiHandlerOptions<{
+            params: { id: string };
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { id } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.fileService.findById(id),
         };
     }
 }

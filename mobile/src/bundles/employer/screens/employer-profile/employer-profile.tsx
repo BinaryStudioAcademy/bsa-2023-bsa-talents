@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import {
-    CommunityIcon,
-    Pressable,
+    Loader,
+    LogoutButton,
     ScrollView,
     StatusBar,
     Text,
     VerificationMessage,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
+import { Color, DataStatus, TextCategory } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { EmployerOnboardingForm } from '~/bundles/employer/components/components';
 import { useEmployerFormSubmit } from '~/bundles/employer/hooks/hooks';
@@ -20,8 +19,10 @@ import { type EmployerOnboardingFormDto } from '~/bundles/employer/types/types';
 import { styles } from './styles';
 
 const EmployerProfile: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const { onboardingData } = useAppSelector(({ common }) => common);
+    const { onboardingData, dataStatus } = useAppSelector(
+        ({ common }) => common,
+    );
+    const isDataLoading = dataStatus === DataStatus.PENDING;
 
     const { isApproved } = onboardingData ?? {};
 
@@ -48,10 +49,6 @@ const EmployerProfile: React.FC = () => {
         void handleSubmit(payload);
     };
 
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <>
             <StatusBar
@@ -76,28 +73,25 @@ const EmployerProfile: React.FC = () => {
                         globalStyles.alignItemsCenter,
                     ]}
                 >
-                    {!isApproved && <VerificationMessage />}
-                    <Pressable onPress={handleLogout}>
-                        <CommunityIcon
-                            name={IconName.LOGOUT}
-                            size={30}
-                            color={Color.TEXT2}
-                        />
-                    </Pressable>
+                    {!isApproved && onboardingData && <VerificationMessage />}
+                    <LogoutButton />
                 </View>
             </View>
-
-            <ScrollView
-                contentContainerStyle={[
-                    styles.container,
-                    globalStyles.defaultScreenPadding,
-                ]}
-            >
-                <EmployerOnboardingForm
-                    employerOnboardingData={employerOnboardingData}
-                    onSubmit={handleEmployerDataSubmit}
-                />
-            </ScrollView>
+            {isDataLoading ? (
+                <Loader />
+            ) : (
+                <ScrollView
+                    contentContainerStyle={[
+                        styles.container,
+                        globalStyles.defaultScreenPadding,
+                    ]}
+                >
+                    <EmployerOnboardingForm
+                        employerOnboardingData={employerOnboardingData}
+                        onSubmit={handleEmployerDataSubmit}
+                    />
+                </ScrollView>
+            )}
         </>
     );
 };

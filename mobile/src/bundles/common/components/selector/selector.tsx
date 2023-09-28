@@ -8,8 +8,12 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useCallback,
     useFormController,
@@ -29,8 +33,9 @@ import { styles } from './styles';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
     options: string[];
+    isIconShown?: boolean;
+    hasError?: boolean;
     placeholder?: string;
     isMultiSelect?: boolean;
     onSelect?: (item: string) => void;
@@ -43,6 +48,7 @@ const Selector = <T extends FieldValues>({
     options,
     isMultiSelect = false,
     placeholder,
+    isIconShown = true,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onChange } = field;
@@ -99,11 +105,13 @@ const Selector = <T extends FieldValues>({
                         : placeholder}
                 </Text>
                 <Animated.View style={iconAnimatedStyle}>
-                    <MaterialIcon
-                        name={IconName.ARROW_DROP_DOWN}
-                        size={ICON_SIZE}
-                        color={Color.PRIMARY}
-                    />
+                    {isIconShown && (
+                        <MaterialIcon
+                            name={IconName.ARROW_DROP_DOWN}
+                            size={IconSize.GENERAL}
+                            color={Color.PRIMARY}
+                        />
+                    )}
                 </Animated.View>
             </Pressable>
             <Animated.View

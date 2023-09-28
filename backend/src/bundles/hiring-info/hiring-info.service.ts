@@ -1,10 +1,10 @@
 import { ErrorMessage } from '~/common/enums/enums.js';
 import { type Service } from '~/common/types/service.type.js';
 
-import { type HiringInfoEntity } from './hiring-info.entity.js';
 import { type HiringInfoRepository } from './hiring-info.repository.js';
 import {
     type HiringInfoCreateRequestDto,
+    type HiringInfoFindRequestDto,
     type HiringInfoResponseDto,
 } from './types/types.js';
 
@@ -15,8 +15,10 @@ class HiringInfoService implements Service {
         this.hiringInfoRepository = hiringInfoRepository;
     }
 
-    public find(): Promise<HiringInfoEntity | null> {
-        throw new Error(ErrorMessage.NOT_IMPLEMENTED);
+    public async find(payload: HiringInfoFindRequestDto): Promise<boolean> {
+        const hiringInfo = await this.hiringInfoRepository.find({ ...payload });
+
+        return !!hiringInfo;
     }
 
     public async findAll(): Promise<{ items: HiringInfoResponseDto[] }> {

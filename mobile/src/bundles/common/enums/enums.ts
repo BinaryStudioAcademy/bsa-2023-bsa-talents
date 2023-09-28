@@ -15,6 +15,7 @@ export {
     ButtonType,
     Color,
     IconName,
+    IconSize,
     LoaderSize,
     PhotoType,
 } from './ui/ui';
@@ -22,7 +23,7 @@ export {
     ApiPath,
     AppEnvironment,
     BsaBadgeStepBadgesTitle,
-    BsaBadgesTypeEnum,
+    ChatMessagesApiPath,
     ContentType,
     Country,
     EmploymentType,

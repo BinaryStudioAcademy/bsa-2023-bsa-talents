@@ -8,8 +8,12 @@ import {
     TouchableOpacity,
     View,
 } from '~/bundles/common/components/components';
-import { ICON_SIZE } from '~/bundles/common/constants/constants';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
+import {
+    Color,
+    IconName,
+    IconSize,
+    TextCategory,
+} from '~/bundles/common/enums/enums';
 import {
     useFormController,
     useMemo,
@@ -26,11 +30,12 @@ import {
 import { styles } from '../styles';
 
 type Properties<T extends FieldValues> = {
-    control?: Control<T, null>;
     name: FieldPath<T>;
-    hasError?: boolean;
     items: string[];
+    hasError?: boolean;
+    control?: Control<T, null>;
     placeholder?: string;
+    isIconShown?: boolean;
 };
 
 const AutocompleteSelector = <T extends FieldValues>({
@@ -39,6 +44,7 @@ const AutocompleteSelector = <T extends FieldValues>({
     hasError,
     items,
     placeholder,
+    isIconShown = true,
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
     const { value, onBlur, onChange } = field;
@@ -95,11 +101,13 @@ const AutocompleteSelector = <T extends FieldValues>({
                         <Animated.View
                             style={[iconAnimatedStyle, styles.dropdownButton]}
                         >
-                            <MaterialIcon
-                                name={IconName.ARROW_DROP_DOWN}
-                                size={ICON_SIZE}
-                                color={Color.PRIMARY}
-                            />
+                            {isIconShown && (
+                                <MaterialIcon
+                                    name={IconName.ARROW_DROP_DOWN}
+                                    size={IconSize.GENERAL}
+                                    color={Color.PRIMARY}
+                                />
+                            )}
                         </Animated.View>
                     </TouchableOpacity>
                 </View>

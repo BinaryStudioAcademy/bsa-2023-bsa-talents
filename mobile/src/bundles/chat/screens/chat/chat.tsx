@@ -5,21 +5,15 @@ import {
     ChatItem,
     MessageEntryField,
 } from '~/bundles/chat/components/components';
-import {
-    EMPLOYER_ID,
-    INTERVAL,
-    NEW_MESSAGE_FOR_CHAT_1,
-    NEW_MESSAGE_FOR_CHAT_2,
-} from '~/bundles/chat/constants/constants';
-import { findUserInChat } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
-import { type ChatDataRequestDto } from '~/bundles/chat/types/types';
+import { type ChatMessagesCreateRequestDto } from '~/bundles/chat/types/types';
 import { FlatList, View } from '~/bundles/common/components/components';
 import {
     useAppDispatch,
     useAppRoute,
     useAppSelector,
     useCallback,
+    useEffect,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ChatNavigationProperties } from '~/bundles/common/types/types';
@@ -28,41 +22,23 @@ import { styles } from './styles';
 
 const Chat: React.FC = () => {
     const route = useAppRoute();
-    const { chatId } = route.params as ChatNavigationProperties;
-    const { chatData } = useAppSelector(({ chat }) => chat);
     const dispatch = useAppDispatch();
-    const chatMessages = chatData ? chatData[chatId] : [];
+    const { chatId, partnerName, partnerAvatar, partnerId } =
+        route.params as ChatNavigationProperties;
+    const { current } = useAppSelector(({ chat }) => chat);
 
-    //TODO delete when information about the conversation partner is known
-    const conversationPartner = findUserInChat(chatMessages, EMPLOYER_ID);
+    useEffect(() => {
+        void dispatch(
+            chatActions.getAllMessagesByChatId({
+                chatId,
+                employerId: partnerId,
+            }),
+        );
+    }, [dispatch, chatId, partnerId]);
 
     const handleSendMessage = useCallback(
-        (payload: ChatDataRequestDto): void => {
-            void dispatch(chatActions.sendMessage(payload));
-
-            //TODO delete after demonstration
-            setTimeout(
-                () =>
-                    void dispatch(
-                        chatActions.sendMessage({
-                            ...NEW_MESSAGE_FOR_CHAT_1,
-                            id: new Date().toISOString(),
-                            createdAt: new Date().toISOString(),
-                        }),
-                    ),
-                INTERVAL,
-            );
-            setTimeout(
-                () =>
-                    void dispatch(
-                        chatActions.sendMessage({
-                            ...NEW_MESSAGE_FOR_CHAT_2,
-                            id: new Date().toISOString(),
-                            createdAt: new Date().toISOString(),
-                        }),
-                    ),
-                INTERVAL,
-            );
+        (payload: ChatMessagesCreateRequestDto): void => {
+            void dispatch(chatActions.createMessage(payload));
         },
         [dispatch],
     );
@@ -70,13 +46,13 @@ const Chat: React.FC = () => {
     const renderMessageItem = ({
         item,
     }: {
-        item: ChatDataRequestDto;
+        item: ChatMessagesCreateRequestDto;
     }): React.ReactElement => {
         return (
             <ChatItem
-                key={item.id}
+                key={item.chatId}
                 senderId={item.senderId}
-                senderAvatar={item.senderAvatar ?? ''}
+                senderAvatar={current.employerDetails.logoUrl ?? ''}
                 message={item.message}
             />
         );
@@ -84,7 +60,11 @@ const Chat: React.FC = () => {
 
     return (
         <View style={[globalStyles.flex1, styles.chatContainer]}>
-            <ChatHeader />
+            <ChatHeader
+                partnerName={partnerName}
+                partnerAvatar={partnerAvatar}
+                partnerId={partnerId}
+            />
             <FlatList
                 style={[
                     globalStyles.flex1,
@@ -92,7 +72,7 @@ const Chat: React.FC = () => {
                     globalStyles.mh15,
                     styles.chatList,
                 ]}
-                data={chatMessages}
+                data={current.messages}
                 keyExtractor={(item): string => item.id}
                 renderItem={renderMessageItem}
                 inverted={true}
@@ -100,7 +80,7 @@ const Chat: React.FC = () => {
             />
             <MessageEntryField
                 chatId={chatId}
-                conversationPartner={conversationPartner}
+                partnerId={partnerId}
                 onSendMessage={handleSendMessage}
             />
         </View>

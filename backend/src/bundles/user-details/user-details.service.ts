@@ -127,7 +127,7 @@ class UserDetailsService implements Service {
             userDetails,
         );
 
-        const userDetailsId = newUserDetails.toObject().id as string;
+        const userDetailsId = newUserDetails.id as string;
 
         let badgesResult: TalentBadge[] = [],
             hardSkillsResult: TalentHardSkill[] = [];
@@ -156,7 +156,7 @@ class UserDetailsService implements Service {
         }
 
         return {
-            ...newUserDetails.toObject(),
+            ...newUserDetails,
             talentBadges: badgesResult,
             talentHardSkills: hardSkillsResult,
         };
@@ -206,7 +206,7 @@ class UserDetailsService implements Service {
         });
 
         return {
-            ...updatedUserDetails.toObject(),
+            ...updatedUserDetails,
             talentBadges: badgesResult,
             talentHardSkills: hardSkillsResult,
         };
@@ -257,7 +257,9 @@ class UserDetailsService implements Service {
         return true;
     }
 
-    public async publish(payload: { userId: string }): Promise<string> {
+    public async publish(payload: {
+        userId: string;
+    }): Promise<UserDetailsEntity> {
         const { userId } = payload;
 
         const userDetails = await this.userDetailsRepository.find({ userId });

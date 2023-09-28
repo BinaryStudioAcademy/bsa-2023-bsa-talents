@@ -1,35 +1,54 @@
 import React from 'react';
 
 import { Overlay, ScrollView } from '~/bundles/common/components/components';
-import { DataStatus } from '~/bundles/common/enums/enums';
+import {
+    DataStatus,
+    EmployerBottomTabScreenName,
+} from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useNavigation,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import {
+    type EmployerBottomTabNavigationParameterList,
+    type NavigationProp,
+} from '~/bundles/common/types/types';
 import { CandidatesFilterForm } from '~/bundles/employer/components/components';
 import { transformCandidateFilterFormToQuery } from '~/bundles/employer/helpers/helpers';
+import { actions } from '~/bundles/employer/store/';
 import { getTalents } from '~/bundles/employer/store/actions';
 import { type EmployeesFiltersForm } from '~/bundles/employer/types/types';
 
+import { styles } from './styles';
+
 const CandidatesFilter: React.FC = () => {
     const dispatch = useAppDispatch();
-
-    const handleFormSubmit = useCallback(
-        (payload: EmployeesFiltersForm): void => {
-            const queryString = transformCandidateFilterFormToQuery(payload);
-            void dispatch(getTalents(queryString));
-        },
-        [dispatch],
-    );
+    const { setTalentsFilters } = actions;
     const commonDataStatus = useAppSelector(
         ({ commonData }) => commonData.dataStatus,
     );
 
+    const navigation =
+        useNavigation<
+            NavigationProp<EmployerBottomTabNavigationParameterList>
+        >();
+
     const handleFilterClose = useCallback((): void => {
-        // TODO: navigate to Candidates page
-    }, []);
+        navigation.navigate(EmployerBottomTabScreenName.CANDIDATES);
+    }, [navigation]);
+
+    const handleFormSubmit = useCallback(
+        (payload: EmployeesFiltersForm): void => {
+            dispatch(setTalentsFilters(payload));
+            const queryString = transformCandidateFilterFormToQuery(payload);
+            void dispatch(getTalents(queryString));
+            handleFilterClose();
+        },
+        [setTalentsFilters, handleFilterClose, dispatch],
+    );
 
     const isCommonDataLoading = commonDataStatus === DataStatus.PENDING;
 
@@ -43,6 +62,7 @@ const CandidatesFilter: React.FC = () => {
                     globalStyles.borderRadius10,
                     globalStyles.width100,
                     globalStyles.height100,
+                    styles.container,
                 ]}
             >
                 <CandidatesFilterForm

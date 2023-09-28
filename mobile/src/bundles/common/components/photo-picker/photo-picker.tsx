@@ -46,6 +46,7 @@ type PhotoPickerProperties<T extends FieldValues> = {
     shouldHideButton?: boolean;
     defaultIcon?: ValueOf<typeof IconName>;
     customPhotoStyle?: CustomPhotoStyle;
+    isDisabled?: boolean;
 } & PhotoProperties;
 
 const PhotoPicker = <T extends FieldValues>({

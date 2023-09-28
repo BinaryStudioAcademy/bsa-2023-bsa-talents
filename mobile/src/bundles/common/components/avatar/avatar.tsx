@@ -5,12 +5,11 @@ import {
     MaterialIcon,
     Text,
 } from '~/bundles/common/components/components';
+import { IconName, PhotoType } from '~/bundles/common/enums/enums';
 import {
-    IconName,
-    PhotoType,
-    TextCategory,
-} from '~/bundles/common/enums/enums';
-import { getAvatarInitials } from '~/bundles/common/helpers/helpers';
+    getAvatarInitials,
+    getAvatarStyles,
+} from '~/bundles/common/helpers/helpers';
 import { useMemo } from '~/bundles/common/hooks/hooks';
 import {
     type CustomPhotoStyle,
@@ -34,24 +33,7 @@ const Avatar: React.FC<Properties> = ({
 }) => {
     const { photoShape } = customPhotoStyle ?? {};
     const avatarStyles = useMemo(
-        () =>
-            ({
-                [PhotoType.SMALL]: {
-                    size: styles.small,
-                    font: TextCategory.H6,
-                    iconSize: 40,
-                },
-                [PhotoType.MEDIUM]: {
-                    size: styles.medium,
-                    font: TextCategory.H3,
-                    iconSize: 60,
-                },
-                [PhotoType.LARGE]: {
-                    size: styles.large,
-                    font: TextCategory.H1,
-                    iconSize: 100,
-                },
-            })[avatarSize],
+        () => getAvatarStyles(avatarSize),
         [avatarSize],
     );
 

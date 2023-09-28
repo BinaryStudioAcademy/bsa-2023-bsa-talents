@@ -40,6 +40,16 @@ const getEmployerOnBoardingState = (
     state: RootReducer,
 ): UserDetailsGeneralCustom => state.employerOnBoarding;
 
+const getImageSource = (
+    file?: File | null,
+    url?: string | null,
+): string | null => {
+    if (file) {
+        return URL.createObjectURL(file);
+    }
+    return url ?? null;
+};
+
 const OnboardingForm: React.FC = () => {
     const { setSubmitForm } = useFormSubmit();
     const {
@@ -52,6 +62,8 @@ const OnboardingForm: React.FC = () => {
         description,
         companyLogo,
         linkedinLink,
+        photoUrl,
+        companyLogoUrl,
     } = useAppSelector((rootState) => getEmployerOnBoardingState(rootState));
 
     const hasChangesInDetails = useAppSelector(
@@ -78,9 +90,12 @@ const OnboardingForm: React.FC = () => {
                 description,
                 companyLogo,
                 linkedinLink,
+                photoUrl,
+                companyLogoUrl,
             }),
             [
                 companyLogo,
+                companyLogoUrl,
                 companyName,
                 companyWebsite,
                 description,
@@ -89,6 +104,7 @@ const OnboardingForm: React.FC = () => {
                 linkedinLink,
                 location,
                 photo,
+                photoUrl,
             ],
         ),
         validationSchema: EmployerOnboardingValidationSchema,
@@ -96,13 +112,15 @@ const OnboardingForm: React.FC = () => {
     useEffect(() => {
         reset({
             photo,
+            companyLogo,
             fullName,
             employerPosition,
             companyName,
             companyWebsite,
             location,
             description,
-            companyLogo,
+            photoUrl,
+            companyLogoUrl,
             linkedinLink,
         });
     }, [
@@ -116,11 +134,14 @@ const OnboardingForm: React.FC = () => {
         description,
         companyLogo,
         reset,
+        companyLogoUrl,
+        photoUrl,
     ]);
     const dispatch = useAppDispatch();
 
     const watchedValues = watch([
         'photo',
+        'photoUrl',
         'fullName',
         'employerPosition',
         'companyName',
@@ -128,12 +149,14 @@ const OnboardingForm: React.FC = () => {
         'location',
         'description',
         'companyLogo',
+        'companyLogoUrl',
         'linkedinLink',
     ]);
 
     useEffect(() => {
         const newValues = getValues([
             'photo',
+            'photoUrl',
             'fullName',
             'employerPosition',
             'companyName',
@@ -141,17 +164,18 @@ const OnboardingForm: React.FC = () => {
             'location',
             'description',
             'companyLogo',
+            'companyLogoUrl',
             'linkedinLink',
         ]);
         const initialValues = {
-            photo,
+            photoUrl,
             fullName,
             employerPosition,
             companyName,
             companyWebsite,
             location,
             description,
-            companyLogo,
+            companyLogoUrl,
             linkedinLink,
         };
         const hasChanges =
@@ -174,30 +198,17 @@ const OnboardingForm: React.FC = () => {
         hasChangesInDetails,
         photo,
         companyLogo,
+        photoUrl,
+        companyLogoUrl,
     ]);
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const handleFormSubmit = useCallback(
         (data: EmployerOnboardingDto): boolean => {
-            const {
-                fullName,
-                employerPosition,
-                companyName,
-                companyWebsite,
-                location,
-                description,
-                linkedinLink,
-            } = data;
             void dispatch(
                 employerActions.saveEmployerDetails({
-                    fullName,
-                    employerPosition,
-                    companyName,
-                    companyWebsite,
-                    location,
-                    description,
-                    linkedinLink,
+                    ...data,
                     userId: currentUser?.id,
                 }),
             );
@@ -221,6 +232,20 @@ const OnboardingForm: React.FC = () => {
         };
     }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
+    const ImageDisplay = ({
+        file,
+        url,
+        alt,
+    }: {
+        file?: File | null;
+        url?: string | null;
+        alt: string;
+    }): JSX.Element | null => {
+        const source = getImageSource(file, url);
+        return source ? (
+            <img src={source} className={styles.photoElement} alt={alt} />
+        ) : null;
+    };
     return (
         <FormControl className={styles.formWrapper}>
             <Grid className={styles.form}>
@@ -335,17 +360,12 @@ const OnboardingForm: React.FC = () => {
                 <Grid className={styles.photoContainer}>
                     <Grid container className={styles.photo}>
                         <Grid item className={styles.photoWrapper}>
-                            {errors.photo ?? !watch('photo') ? null : (
-                                <img
-                                    src={URL.createObjectURL(
-                                        watch('photo') as Blob,
-                                    )}
-                                    className={styles.photoElement}
-                                    alt="Profile"
-                                />
-                            )}
+                            <ImageDisplay
+                                file={watch('photo')}
+                                url={photoUrl}
+                                alt="Profile"
+                            />
                         </Grid>
-
                         <EmployerFileUpload
                             label="Upload a photo"
                             control={control}
@@ -356,18 +376,12 @@ const OnboardingForm: React.FC = () => {
                     </Grid>
                     <Grid container className={styles.photo}>
                         <Grid item className={styles.photoWrapper}>
-                            {errors.companyLogo ??
-                            !watch('companyLogo') ? null : (
-                                <img
-                                    src={URL.createObjectURL(
-                                        watch('companyLogo') as Blob,
-                                    )}
-                                    className={styles.photoElement}
-                                    alt="Company logo"
-                                />
-                            )}
+                            <ImageDisplay
+                                file={watch('companyLogo')}
+                                url={companyLogoUrl}
+                                alt="Company logo"
+                            />
                         </Grid>
-
                         <EmployerFileUpload
                             label="Upload a company logo"
                             control={control}

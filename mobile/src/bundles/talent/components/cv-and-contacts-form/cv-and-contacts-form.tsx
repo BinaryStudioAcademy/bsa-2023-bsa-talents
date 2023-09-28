@@ -15,7 +15,7 @@ import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { OnboardingBackButton } from '~/bundles/talent/components/components';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
-import { CvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+import { cvAndContactsFormValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
@@ -33,7 +33,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
 }) => {
     const { control, errors, handleSubmit } = useAppForm({
         defaultValues: cvAndContactsStepData ?? CV_AND_CONTACTS_DEFAULT_VALUES,
-        validationSchema: CvAndContactsFormValidationSchema,
+        validationSchema: cvAndContactsFormValidationSchema,
     });
 
     const handleFormSubmit = useCallback((): void => {

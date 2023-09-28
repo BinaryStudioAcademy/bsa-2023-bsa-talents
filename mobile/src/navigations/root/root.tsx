@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { loadCurrentUser } from '~/bundles/auth/store/actions';
-import { Chat } from '~/bundles/chat/screens/screens';
+import { Chat, ChatUserDetails } from '~/bundles/chat/screens/screens';
 import { Loader } from '~/bundles/common/components/components';
 import {
     CompletedTalentOnboardingStep,
@@ -20,7 +20,12 @@ import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
-import { EmployerOnboarding } from '~/bundles/employer/screens/screens';
+import {
+    CandidatesFilter,
+    ContactCandidate,
+    EmployerOnboarding,
+} from '~/bundles/employer/screens/screens';
+import { Preview } from '~/bundles/talent/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -38,6 +43,7 @@ const Root: React.FC = () => {
     const { isSignedIn, dataStatus, currentUserData } = useAppSelector(
         ({ auth }) => auth,
     );
+    const { isRedirectToEmployerScreen } = useAppSelector(({ auth }) => auth);
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { role } = currentUserData ?? {};
     const isPendingAuth = dataStatus === DataStatus.CHECK_TOKEN;
@@ -45,9 +51,10 @@ const Root: React.FC = () => {
 
     //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        onboardingData?.completedStep ===
-            CompletedTalentOnboardingStep.Preview ||
-        onboardingData?.companyName;
+        currentUserData?.role === UserRole.TALENT
+            ? onboardingData?.completedStep ===
+              CompletedTalentOnboardingStep.Preview
+            : isRedirectToEmployerScreen;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
@@ -91,7 +98,23 @@ const Root: React.FC = () => {
                             : EmployerBottomTabNavigator
                     }
                 />
+                <RootStack.Screen
+                    name={RootScreenName.PREVIEW}
+                    component={Preview}
+                />
+                <RootStack.Screen
+                    name={RootScreenName.CANDIDATE_FILTER}
+                    component={CandidatesFilter}
+                />
+                <RootStack.Screen
+                    name={RootScreenName.CONTACT_CANDIDATE}
+                    component={ContactCandidate}
+                />
                 <RootStack.Screen name={RootScreenName.CHAT} component={Chat} />
+                <RootStack.Screen
+                    name={RootScreenName.CHAT_USER_DETAILS}
+                    component={ChatUserDetails}
+                />
             </>
         ),
     };
@@ -100,9 +123,11 @@ const Root: React.FC = () => {
         if (isSignedIn && isProfileComplete) {
             return navigators.main;
         }
+
         if (isSignedIn && !isProfileComplete) {
             return navigators.onboarding;
         }
+
         return navigators.auth;
     };
 

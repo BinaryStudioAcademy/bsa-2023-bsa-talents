@@ -15,7 +15,7 @@ const socketMiddleware: Middleware = ({ dispatch }: Properties) => {
     const socket = io(EnvConfig.API_URL as string);
 
     socket.on(SocketEvent.GET_MESSAGE, (message) => {
-        void dispatch(chatActions.getMessage(message));
+        void dispatch(chatActions.addMessage(message));
     });
 
     return (next) => (action: AnyAction) => {
@@ -28,7 +28,7 @@ const socketMiddleware: Middleware = ({ dispatch }: Properties) => {
                 socket.emit(SocketEvent.LEAVE_ROOM, action.payload);
                 break;
             }
-            case chatActions.sendMessage: {
+            case chatActions.createMessage: {
                 socket.emit(SocketEvent.SEND_MESSAGE, action.payload);
                 break;
             }

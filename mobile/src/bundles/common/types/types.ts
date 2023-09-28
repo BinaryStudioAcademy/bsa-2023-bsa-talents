@@ -2,6 +2,7 @@ export { type AsyncThunkConfig } from './app/app';
 export {
     type AuthNavigationParameterList,
     type ChatNavigationProperties,
+    type ContactTalentNavigationPropertiesType,
     type DrawerContentComponentProps,
     type DrawerNavigationProp,
     type EmployerBottomTabNavigationParameterList,
@@ -20,6 +21,7 @@ export {
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
 } from './user-details-general/user-details-general-dto.type';
+export { type PayloadAction } from '@reduxjs/toolkit';
 export {
     type AutocompleteMultiSelectorValue,
     type CheckBoxProps,
@@ -27,6 +29,7 @@ export {
     type PhotoProperties,
     type SliderProps,
 } from '~/bundles/common/types/components/components';
+export { type ObjectSchema } from 'joi';
 export {
     type Control,
     type DefaultValues,
@@ -60,9 +63,11 @@ export {
 } from 'react-native-radio-buttons-group';
 export {
     type BadgesItem,
+    type BsaBadgesStepTypes,
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
+    type Project as TalentInfoProject,
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,

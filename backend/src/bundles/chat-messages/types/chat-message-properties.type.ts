@@ -5,6 +5,7 @@ type ChatMessageProperties = {
     chatId: string;
     message: string;
     isRead: boolean;
+    createdAt: string;
 };
 
 export { type ChatMessageProperties };

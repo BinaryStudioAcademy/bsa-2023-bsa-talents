@@ -10,6 +10,10 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     companyLogo?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;
     createdAt?: string;
+    publishedAt?: string;
+    cvUrl?: string | null;
+    companyLogoUrl?: string | null;
+    photoUrl?: string | null;
 };
 
 export { type UserDetailsGeneralCustom };

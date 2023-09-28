@@ -1,6 +1,7 @@
 const ErrorMessage = {
     NOT_AUTHORIZED: 'You are not authorized to access this route.',
     USER_ALREADY_EXIST: 'User already exist.',
+    CONTACT_ALREADY_SHARED: 'Contact is already shared',
     INCORRECT_EMAIL: 'Incorrect email.',
     EMAIL_ALREADY_EXISTS: 'Email is already taken.',
     PASSWORDS_NOT_MATCH: 'Passwords do not match.',
@@ -13,7 +14,8 @@ const ErrorMessage = {
     NOT_IMPLEMENTED: 'Not implemented.',
     USER_DETAILS_NOT_FOUND: 'User profile not found',
     TOKEN_INVALID_OR_EXPIRED: 'token invalid or expired.',
-    NOT_FOUND_ON_LMS: 'User not found on LMS server',
+    NOT_FOUND_ON_LMS:
+        'User Not Found! To complete the registration process, please use the same address as when registering at the Binary Studio Academy',
     FILE_UPLOAD_ERROR: 'Failed to upload file.',
 } as const;
 

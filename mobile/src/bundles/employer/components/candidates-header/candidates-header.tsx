@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { logout } from '~/bundles/auth/store/actions';
 import {
-    CommunityIcon,
-    Pressable,
+    LogoutButton,
     Text,
     View,
 } from '~/bundles/common/components/components';
-import { Color, IconName, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppDispatch } from '~/bundles/common/hooks/hooks';
+import { TextCategory } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
 
 import { styles } from './styles';
@@ -18,11 +15,6 @@ type Properties = {
 };
 
 const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
-    const dispatch = useAppDispatch();
-    const handleLogout = (): void => {
-        void dispatch(logout());
-    };
-
     return (
         <View
             style={[
@@ -57,13 +49,7 @@ const CandidatesHeader: React.FC<Properties> = ({ numberOfUsers }) => {
                     </Text>
                 )}
             </View>
-            <Pressable onPress={handleLogout}>
-                <CommunityIcon
-                    name={IconName.LOGOUT}
-                    size={30}
-                    color={Color.TEXT2}
-                />
-            </Pressable>
+            <LogoutButton />
         </View>
     );
 };

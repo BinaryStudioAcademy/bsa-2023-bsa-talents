@@ -11,10 +11,15 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
     NewAccountHeader,
-    ProfileForm,
+    ProfileFormData,
+    WithProfileForm,
 } from '~/bundles/talent/components/components';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import { useOnboardingFormSubmit } from '~/bundles/talent/hooks/hooks';
 import { type ProfileStepDto } from '~/bundles/talent/types/types';
+import { profileStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
+
+import { TALENT_PROFILE_DEFAULT_VALUES } from './constants/constants';
 
 const Profile: React.FC = () => {
     const { name } = useAppRoute();
@@ -64,9 +69,13 @@ const Profile: React.FC = () => {
             {isDataLoading ? (
                 <Loader />
             ) : (
-                <ProfileForm
-                    profileStepData={profileStepData}
+                <WithProfileForm
+                    validationSchema={profileStepValidationSchema}
+                    defaultValue={TALENT_PROFILE_DEFAULT_VALUES}
+                    value={profileStepData}
                     onSubmit={handleProfileSubmit}
+                    formType={TalentFormType.ONBOARDING}
+                    renderedForm={ProfileFormData}
                 />
             )}
         </View>
