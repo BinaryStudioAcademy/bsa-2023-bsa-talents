@@ -11,7 +11,7 @@ const TABLE_NAME = 'user_lms_data';
 const ColumnName = {
     ID: 'id',
     USER_ID: 'user_id',
-    ENGLISH: 'english',
+    TALENT: 'talent',
     AVERAGE_PROJECT_SCORE: 'average_project_score',
     AVERAGE_LECTURE_SCORE: 'average_lecture_score',
     LECTURE_DETAILS: 'lecture_details',
@@ -55,7 +55,7 @@ async function up(knex: Knex): Promise<void> {
             .inTable(TableName.USERS)
             .onUpdate(RelationRule.CASCADE)
             .onDelete(RelationRule.CASCADE);
-        table.string(ColumnName.ENGLISH);
+        table.json(ColumnName.TALENT);
         table.float(
             ColumnName.AVERAGE_PROJECT_SCORE,
             FloatNumber.PRESISION,
