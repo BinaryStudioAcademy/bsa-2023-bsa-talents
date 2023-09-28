@@ -2,7 +2,6 @@ import { ManageSearch } from '@mui/icons-material';
 
 import { type BodyRow } from '~/bundles/common/components/components.js';
 import {
-    Button,
     Grid,
     IconButton,
     Table,
@@ -20,16 +19,11 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as adminActions } from '~/bundles/hiring-info/store/hiring-info.js';
 
-import { ChatList } from '../../components/chat-list/chat-list.js';
-import { CVAndContacts } from '../../components/components.js';
 import {
     type AdminTab,
     PanelTab,
 } from '../../components/panel-tabs/panel-tab.js';
-import { FIRST_INDEX, PreviewTab } from '../../constants/constants.js';
 import { HiringTableColumnNames } from '../../enums/enums.js';
-import { talents } from '../../mock-data/mock-data.js';
-import { type TabValues } from '../../types/types.js';
 import styles from './styles.module.scss';
 
 const tabs = [
@@ -53,30 +47,6 @@ const AdminConnectionsPanel: React.FC = () => {
         void dispatch(adminActions.getAllHiringInfo());
     }, [dispatch]);
 
-    const [selectedChatTab, setSelectedChatTab] = useState<TabValues>(
-        PreviewTab.PROFILE,
-    );
-    const handleSelectTab = useCallback(
-        (_event: React.MouseEvent<HTMLSpanElement>): void => {
-            const button = _event.target as HTMLSpanElement;
-            setSelectedChatTab(button.textContent as TabValues);
-        },
-        [],
-    );
-
-    const previewTabs = Object.values(PreviewTab).map((tab) => (
-        <Button
-            key={tab}
-            onClick={handleSelectTab}
-            className={getValidClassNames(
-                styles.tab,
-                selectedChatTab === tab ? 'selected' : '',
-            )}
-            disableRipple={true}
-        >
-            {tab}
-        </Button>
-    ));
     const hiringInfo = useAppSelector((state) => state.admin.hiringInfo);
 
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -84,12 +54,6 @@ const AdminConnectionsPanel: React.FC = () => {
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
     const isTogglePreviewAllowed = !isScreenMoreMD && isFilterOpen;
 
-    const items = talents;
-    const [selectedId, setSelectedId] = useState<string>(
-        items[FIRST_INDEX]?.userId,
-    );
-
-    const selected = items.find((it) => it.userId === selectedId);
     const handleFilterShow = useCallback((): void => {
         setIsFilterOpen((previous) => !previous);
     }, []);
@@ -131,16 +95,7 @@ const AdminConnectionsPanel: React.FC = () => {
                             styles.filterWrapper,
                             isFilterOpen ? '' : 'hidden',
                         )}
-                    >
-                        <ChatList
-                            items={items}
-                            selectedId={selectedId}
-                            setSelectedId={setSelectedId}
-                            isScreenMoreMd={isScreenMoreMD}
-                            isFilterOpen={isFilterOpen}
-                            setIsFilterOpen={setIsFilterOpen}
-                        />
-                    </Grid>
+                    ></Grid>
                     {
                         <Grid
                             container
@@ -150,39 +105,20 @@ const AdminConnectionsPanel: React.FC = () => {
                                 isTogglePreviewAllowed ? 'hidden' : '',
                             )}
                         >
-                            {activeTab == 'Hirings' ? (
-                                <Grid
-                                    item
-                                    className={getValidClassNames(
-                                        styles.previewInfo,
-                                        styles.previewInfoTable,
-                                    )}
-                                >
-                                    <Table
-                                        headRow={HiringTableColumnNames}
-                                        bodyRows={
-                                            hiringInfo as unknown as BodyRow[]
-                                        }
-                                    />
-                                </Grid>
-                            ) : (
-                                <>
-                                    <Grid className={styles.previewHeader}>
-                                        <Typography
-                                            variant="body1"
-                                            className={styles.name}
-                                        >
-                                            {selected?.fullName ?? 'username'}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid className={styles.tabs}>
-                                        {previewTabs}
-                                    </Grid>
-                                    <Grid item className={styles.previewInfo}>
-                                        <CVAndContacts />
-                                    </Grid>
-                                </>
-                            )}
+                            <Grid
+                                item
+                                className={getValidClassNames(
+                                    styles.previewInfo,
+                                    styles.previewInfoTable,
+                                )}
+                            >
+                                <Table
+                                    headRow={HiringTableColumnNames}
+                                    bodyRows={
+                                        hiringInfo as unknown as BodyRow[]
+                                    }
+                                />
+                            </Grid>
                             {/* TODO: hire approve from admin page
                              <Grid item className={styles.buttonGroup}>
                                 <Button
