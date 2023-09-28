@@ -29,9 +29,6 @@ const Onboarding: React.FC = () => {
                     throw error;
                 });
         }
-        // if(currentUser){
-        //     void dispatch(userActions.updateTalentPublishedDate({ userId: currentUser.id }));
-        // }
     }, [navigate, submitForm]);
 
     const handleSaveDraft = useCallback((): void => {
