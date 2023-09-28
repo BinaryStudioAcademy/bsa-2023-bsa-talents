@@ -33,7 +33,11 @@ export {
 export {
     type File,
     FileApiPath,
+    FileRole,
+    type FileRoleValue,
     type FileUploadResponse,
+    type GetFileRequestDto,
+    type GetFileResponseDto,
     type UploadedFile,
 } from './bundles/file/file.js';
 export {

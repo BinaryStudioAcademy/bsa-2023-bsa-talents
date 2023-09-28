@@ -37,7 +37,7 @@ type UserDetailsResponseDto = {
     companyWebsite: string | null;
     employerPosition: string | null;
     cvId: string | null;
-    talentBadges: {
+    talentBadges?: {
         id: string | null;
         userId: string;
         score: number | null;
@@ -46,13 +46,16 @@ type UserDetailsResponseDto = {
         isShown: boolean;
         userDetailsId: string | null;
     }[];
-    talentHardSkills: {
+    talentHardSkills?: {
         id: string | null;
         hardSkillId: string;
         userDetailsId: string;
         name?: string;
     }[];
     completedStep: ValueOf<typeof OnboardingStep> | null;
+    cvUrl?: string | null;
+    photoUrl?: string | null;
+    companyLogoUrl?: string | null;
 };
 
 export { type UserDetailsResponseDto };

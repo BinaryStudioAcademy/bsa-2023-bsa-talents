@@ -47,6 +47,7 @@ class EmployerOnBoardingApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
+
         return response.json<UserDetailsGeneralCustom>();
     }
 

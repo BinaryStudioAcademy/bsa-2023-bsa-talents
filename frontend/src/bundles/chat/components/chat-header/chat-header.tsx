@@ -4,6 +4,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -20,12 +21,15 @@ const ChatHeader: React.FC<Properties> = ({
     isOnline,
     title,
 }) => {
+    const { currentChatId } = useAppSelector(({ chat }) => ({
+        currentChatId: chat.current.chatId,
+    }));
     const onlineIconClasses = getValidClassNames(
         styles.icon,
         isOnline ? styles.online : styles.offline,
     );
 
-    return (
+    return currentChatId ? (
         <Grid className={getValidClassNames(styles.wrapper, className)}>
             <Grid className={styles.logo}>
                 <Avatar isSmall={true} src={avatarUrl} alt={title} />
@@ -48,6 +52,8 @@ const ChatHeader: React.FC<Properties> = ({
                 </Grid>
             </Grid>
         </Grid>
+    ) : (
+        <Grid className={getValidClassNames(styles.wrapper, className)}></Grid>
     );
 };
 
