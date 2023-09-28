@@ -18,6 +18,7 @@ import {
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
     useRoute,
@@ -53,6 +54,9 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
 
     const route = useRoute();
     const dispatch = useAppDispatch();
+
+    const { photoUrl } =
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     const handleFormSubmit = useCallback((): void => {
         void handleSubmit(onSubmit)();
@@ -96,7 +100,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             name="photo"
                             shouldHideButton
                             defaultIcon={IconName.PERSON}
-                            uri={employerOnboardingData?.photoUrl}
+                            uri={photoUrl as string}
                         />
                     </FormField>
                 </View>
