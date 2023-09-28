@@ -23,7 +23,7 @@ import {
     SearchTalents,
 } from '~/bundles/employer/components/components';
 import { getTalents } from '~/bundles/employer/store/actions';
-import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
+import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 
 const Candidates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -39,7 +39,7 @@ const Candidates: React.FC = () => {
     const renderCandidateCard = ({
         item,
     }: {
-        item: UserDetailsResponseDto;
+        item: CandidateDetailsType;
     }): React.ReactElement => <CandidateCard key={item.userId} {...item} />;
 
     // TODO: replace if backend search will be finished

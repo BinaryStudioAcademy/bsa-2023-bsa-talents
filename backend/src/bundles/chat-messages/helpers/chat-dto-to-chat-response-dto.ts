@@ -11,12 +11,14 @@ const chatDtoToChatResponseDto = (chat: ChatItem): ChatResponseDto => {
         participants: {
             sender: {
                 id: sender.userId,
+                fullName: sender.fullName,
                 profileName: sender.profileName,
                 companyName: sender.companyName,
                 avatarUrl: sender.photo ? sender.photo.url : '',
             },
             receiver: {
                 id: receiver.userId,
+                fullName: receiver.fullName,
                 profileName: receiver.profileName,
                 companyName: receiver.companyName,
                 avatarUrl: receiver.photo ? receiver.photo.url : '',

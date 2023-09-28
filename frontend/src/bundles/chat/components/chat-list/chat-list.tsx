@@ -1,4 +1,5 @@
 import { formatDistanceToNowStrict } from 'date-fns';
+import { UserRole } from 'shared/build/index.js';
 
 import { Grid } from '~/bundles/common/components/components.js';
 import {
@@ -35,15 +36,18 @@ const ChatList: React.FC<Properties> = ({ onItemClick }) => {
 
         const { receiver, sender } = chat.participants;
         const partner = user?.id === receiver.id ? sender : receiver;
+        const isEmployer = user?.role === UserRole.EMPLOYER;
 
         return {
             chatId: chat.chatId,
             userId: user?.id as string,
-            username: partner.profileName ?? '',
+            username: isEmployer
+                ? (partner.profileName as string)
+                : (partner.fullName as string),
             lastMessage: chat.lastMessage,
             lastMessageDate: `${timeSince} ago`,
             avatar: partner.avatarUrl,
-            fullName: partner.profileName ?? '',
+            fullName: isEmployer ? partner.profileName : partner.fullName,
             isSelected: currentChatId === chat.chatId,
             receiver,
             sender,

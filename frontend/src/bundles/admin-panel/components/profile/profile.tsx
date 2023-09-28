@@ -15,7 +15,7 @@ type Properties = {
 
 const Profile: React.FC<Properties> = ({ selectedRole }) => {
     return (
-        <Grid container className={styles.container}>
+        <Grid container justifyContent="center" className={styles.container}>
             <Grid container item className={styles.textInfo}>
                 {selectedRole === 'talents' ? (
                     <Grid className={styles.textInfo}>

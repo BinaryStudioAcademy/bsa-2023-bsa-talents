@@ -22,7 +22,7 @@ type State = {
     filters: EmployeesFiltersDto;
     currentCandidateDetails:
         | (SeacrhCandidateResponse & {
-              hasSharedContacts: boolean;
+              hasSharedContacts?: boolean;
               isHired: boolean;
           })
         | null;

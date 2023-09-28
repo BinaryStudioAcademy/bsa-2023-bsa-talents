@@ -52,6 +52,7 @@
 .preview {
     display: none;
     width: 100%;
+    max-width: var(--wide-screens-container-max-width);
     height: 50%;
     padding-bottom: 5px;
     overflow: hidden;
