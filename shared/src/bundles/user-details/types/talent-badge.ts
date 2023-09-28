@@ -1,4 +1,4 @@
-import { type BadgesItem } from '~/index.js';
+import { type BadgesItem } from '~/bundles/common-data/common-data.js';
 
 type TalentBadge = {
     id: string;

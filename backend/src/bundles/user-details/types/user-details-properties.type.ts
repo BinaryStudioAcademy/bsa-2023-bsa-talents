@@ -12,7 +12,7 @@ import {
     type PreferredLanguage,
     type SearchType,
 } from '../enums/enums.js';
-import { type UserDetailsResponseBadgeDto } from './types.js';
+import { type TalentBadge } from './types.js';
 
 type UserDetailsProperties = {
     id: string | null;
@@ -34,7 +34,7 @@ type UserDetailsProperties = {
     searchType: ValueOf<typeof SearchType>;
     projectLinks: string[] | null;
     hardSkills?: HardSkillsEntity[];
-    badges?: UserDetailsResponseBadgeDto[] | TalentBadgeModel | null;
+    badges?: TalentBadge[] | TalentBadgeModel | null;
     photoId: string | null;
     fullName: string | null;
     phone: string | null;

@@ -100,7 +100,6 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
-    type UserDetailsResponseBadgeDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,

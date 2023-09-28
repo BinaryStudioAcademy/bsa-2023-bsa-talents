@@ -1,11 +1,11 @@
 import { TalentBadgeEntity } from '~/bundles/talent-badges/talent-badge.entity.js';
 
-import { type UserDetailsResponseBadgeDto } from '../types/types.js';
+import { type TalentBadge } from '../types/types.js';
 import { type UserDetailsModel } from '../user-details.model.js';
 
 const mapSearchUsersResponseBadges = (
     user: UserDetailsModel,
-): UserDetailsResponseBadgeDto[] | null => {
+): TalentBadge[] | null => {
     const talentBadges = user.talentBadges.map((badge) => {
         if (badge.badge) {
             const basicBadge = TalentBadgeEntity.initialize({
@@ -22,27 +22,7 @@ const mapSearchUsersResponseBadges = (
         }
     });
 
-    const formattedBadges = talentBadges.map((item) => {
-        if (item) {
-            const itemBSABadge = item.badge;
-            return {
-                id: item.id,
-                userId: item.userId,
-                score: item.score,
-                level: item.level,
-                badgeId: item.badgeId,
-                isShown: item.isShown,
-                userDetailsId: item.userDetailsId,
-                type: itemBSABadge.type,
-                name: itemBSABadge.name,
-                maxScore: itemBSABadge.maxScore,
-            };
-        }
-    });
-
-    const filteredBadges = formattedBadges.filter(
-        Boolean,
-    ) as UserDetailsResponseBadgeDto[];
+    const filteredBadges = talentBadges.filter(Boolean) as TalentBadge[];
 
     if (filteredBadges.length === 0) {
         return null;
