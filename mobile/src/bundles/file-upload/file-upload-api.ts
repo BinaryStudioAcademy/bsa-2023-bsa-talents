@@ -4,7 +4,11 @@ import { type Http } from '~/framework/http/http';
 import { type Storage } from '~/framework/storage/storage';
 
 import { FileApiPath } from './enums/enums';
-import { type FileUploadResponse } from './types/types';
+import {
+    type FileUploadResponse,
+    type GetFileRequestDto,
+    type GetFileResponseDto,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -36,6 +40,22 @@ class FileUploadApi extends HttpApiBase {
         );
 
         return response.json<FileUploadResponse>();
+    }
+
+    public async getFileById(
+        payload: GetFileRequestDto,
+    ): Promise<GetFileResponseDto | null> {
+        const { id } = payload;
+
+        const response = await this.load(
+            this.getFullEndpoint('/', ':id', { id }),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+        return response.json<GetFileResponseDto>();
     }
 }
 
