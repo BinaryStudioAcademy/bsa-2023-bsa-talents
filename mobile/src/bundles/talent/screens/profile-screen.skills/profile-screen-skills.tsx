@@ -1,20 +1,21 @@
 import React from 'react';
-import { type SkillsStepDto } from 'shared/build/bundles/talent-onboarding/types/skills-step/skills-step-dto';
 
 import { Loader, View } from '~/bundles/common/components/components';
 import { DataStatus } from '~/bundles/common/enums/enums';
-import { useAppDispatch } from '~/bundles/common/hooks/hooks';
-import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
+import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
-import { SkillsFormData } from '~/bundles/talent/components/skills-form-data/skills-form-data';
-import { WithProfileForm } from '~/bundles/talent/components/with-profile-form/with-profile-form';
-import { TalentFormType } from '~/bundles/talent/enums/talent-form-type/talent-form-type.enum';
+import {
+    SkillsFormData,
+    WithProfileForm,
+} from '~/bundles/talent/components/components';
+import { TalentFormType } from '~/bundles/talent/enums/enums';
 import {
     stringsToUrlObjects,
     urlObjectsToStrings,
-} from '~/bundles/talent/helpers/manage-projects-links/manage-projects-links';
+} from '~/bundles/talent/helpers/helpers';
 import { SKILLS_AND_PROJECTS_DEFAULT_VALUES } from '~/bundles/talent/screens/skills-and-projects/constants/constants';
+import { type SkillsStepDto } from '~/bundles/talent/types/types';
 import { skillsStepValidationSchema } from '~/bundles/talent/validation-schemas/validation-schemas';
 
 const ProfileScreenSkills: React.FC = () => {
