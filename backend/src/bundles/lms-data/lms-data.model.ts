@@ -12,13 +12,13 @@ import {
 
 class LMSDataModel extends AbstractModel {
     public 'userId': string;
-    public 'english': string;
+    public 'talent': string; // JSON
     public 'averageProjectScore': number | null;
     public 'averageLectureScore': number | null;
-    public 'lectureDetails': string;
-    public 'projectCoachesFeedback': string;
-    public 'hrFeedback': string;
-    public 'project': string;
+    public 'lectureDetails': string; // JSON
+    public 'projectCoachesFeedback': string; // JSON
+    public 'hrFeedback': string; // JSON
+    public 'project': string; // JSON
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_LMS_DATA;

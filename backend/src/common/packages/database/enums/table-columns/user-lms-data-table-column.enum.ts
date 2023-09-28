@@ -1,6 +1,6 @@
 const UserLMSDataTableColumn = {
     USER_ID: 'user_id',
-    ENGLISH: 'english',
+    TALENT: 'talent',
     AVERAGE_PROJECT_SCORE: 'average_project_score',
     AVERAGE_LECTURE_SCORE: 'average_lecture_score',
     LECTURE_DETAILS: 'lecture_details',
