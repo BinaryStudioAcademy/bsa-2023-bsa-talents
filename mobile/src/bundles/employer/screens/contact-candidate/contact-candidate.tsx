@@ -3,6 +3,7 @@ import React from 'react';
 
 import { getPartnerInfo } from '~/bundles/chat/helpers/helpers';
 import { actions as chatActions } from '~/bundles/chat/store';
+import { getAllChatsByUserId } from '~/bundles/chat/store/actions';
 import { Overlay, ScrollView } from '~/bundles/common/components/components';
 import { DataStatus } from '~/bundles/common/enums/enums';
 import { RootScreenName } from '~/bundles/common/enums/navigation/root-screen-name.enum';
@@ -35,6 +36,12 @@ const ContactCandidate: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const startedChat = chats.find((chat) => chat.chatId === talentId);
+
+    useEffect(() => {
+        if (currentUserData?.id) {
+            void dispatch(getAllChatsByUserId(currentUserData.id));
+        }
+    }, [currentUserData, dispatch]);
 
     useEffect(() => {
         if (startedChat) {
