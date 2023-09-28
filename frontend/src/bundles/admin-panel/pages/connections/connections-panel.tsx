@@ -1,6 +1,5 @@
 import { ManageSearch } from '@mui/icons-material';
 
-import { actions as adminActions } from '~/bundles/admin-panel/store/admin.js';
 import { type BodyRow } from '~/bundles/common/components/components.js';
 import {
     Button,
@@ -19,6 +18,7 @@ import {
     useState,
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as adminActions } from '~/bundles/hiring-info/store/hiring-info.js';
 
 import { ChatList } from '../../components/chat-list/chat-list.js';
 import { CVAndContacts } from '../../components/components.js';
@@ -33,10 +33,11 @@ import { type TabValues } from '../../types/types.js';
 import styles from './styles.module.scss';
 
 const tabs = [
-    {
-        label: 'Chats',
-        labelItemCount: 1,
-    },
+    //TODO: add here hiring info chats talent-company
+    // {
+    //     label: 'Chats',
+    //     labelItemCount: 1,
+    // },
     {
         label: 'Hirings',
         labelItemCount: 1,
@@ -44,7 +45,7 @@ const tabs = [
 ] as AdminTab[];
 
 const AdminConnectionsPanel: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<string>('Chats');
+    const [activeTab, setActiveTab] = useState<string>('Hirings');
     const theme = useTheme();
 
     const dispatch = useAppDispatch();
@@ -182,7 +183,8 @@ const AdminConnectionsPanel: React.FC = () => {
                                     </Grid>
                                 </>
                             )}
-                            <Grid item className={styles.buttonGroup}>
+                            {/* TODO: hire approve from admin page
+                             <Grid item className={styles.buttonGroup}>
                                 <Button
                                     className={getValidClassNames(
                                         styles.button,
@@ -190,7 +192,7 @@ const AdminConnectionsPanel: React.FC = () => {
                                     )}
                                     label="Approve"
                                 />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     }
                 </Grid>

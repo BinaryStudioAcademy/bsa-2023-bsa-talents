@@ -3,5 +3,6 @@ export {
     type HiringInfoCreateRequestDto,
     type HiringInfoFindAllRequestDto,
     type HiringInfoFindRequestDto,
+    type HiringInfoFindResponseDto,
     type HiringInfoResponseDto,
 } from './types/types.js';

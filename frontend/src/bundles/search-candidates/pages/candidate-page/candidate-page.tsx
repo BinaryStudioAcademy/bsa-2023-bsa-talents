@@ -1,4 +1,3 @@
-import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -27,12 +26,6 @@ const CandidatePage: React.FC = () => {
             void dispatch(
                 candidateSearchActions.getCandidateDetails({
                     userId: userId ?? '',
-                }),
-            );
-            void dispatch(
-                candidateActions.getContactWithTalent({
-                    talentId: userId ?? '',
-                    companyId: companyId ?? '',
                 }),
             );
         }

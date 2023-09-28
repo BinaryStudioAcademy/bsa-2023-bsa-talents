@@ -7,16 +7,7 @@ import {
 import { useFormSubmit } from '~/bundles/common/context/context.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import {
-    useAppDispatch,
-    useAppSelector,
-    useCallback,
-    useEffect,
-    useNavigate,
-} from '~/bundles/common/hooks/hooks.js';
-import { actions } from '~/bundles/employer-onboarding/store/employer-onboarding.js';
-// import { actions as userActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
-import { type RootReducer } from '~/framework/store/store.js';
+import { useCallback, useNavigate } from '~/bundles/common/hooks/hooks.js';
 
 import { OnboardingForm } from '../../components/onboarding-form/onboarding-form.js';
 import styles from './styles.module.scss';
@@ -24,17 +15,7 @@ import styles from './styles.module.scss';
 const Onboarding: React.FC = () => {
     const { submitForm } = useFormSubmit();
 
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-
-    useEffect(() => {
-        void dispatch(
-            actions.getEmployerDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
 
     const handleFormSubmit = useCallback((): void => {
         if (submitForm) {

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { type HiringInfoFindRequestDto } from '../types/types.js';
+import { type HiringInfoFindResponseDto } from '../types/types.js';
 import { getAllHiringInfo } from './actions.js';
 
 type State = {
-    hiringInfo: HiringInfoFindRequestDto[];
+    hiringInfo: HiringInfoFindResponseDto[];
 };
 
 const initialState: State = {

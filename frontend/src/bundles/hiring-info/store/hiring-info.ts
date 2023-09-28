@@ -1,10 +1,15 @@
-import { approveHiringInfo, getAllHiringInfo } from './actions.js';
+import {
+    getAllHiringInfo,
+    getHiringInfo,
+    submitHiringInfo,
+} from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    approveHiringInfo,
+    submitHiringInfo,
     getAllHiringInfo,
+    getHiringInfo,
 };
 
 export { allActions as actions };

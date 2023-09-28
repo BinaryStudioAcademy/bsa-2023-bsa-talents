@@ -2,12 +2,12 @@ import { config } from '~/framework/config/config.js';
 import { http } from '~/framework/http/http.js';
 import { storage } from '~/framework/storage/storage.js';
 
-import { AdminApi } from './admin-api.js';
+import { HiringInfoApi } from './hiring-info-api.js';
 
-const adminApi = new AdminApi({
+const hiringInfoApi = new HiringInfoApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
     storage,
     http,
 });
 
-export { adminApi };
+export { hiringInfoApi };

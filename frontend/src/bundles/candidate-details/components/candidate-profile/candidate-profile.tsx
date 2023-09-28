@@ -1,6 +1,9 @@
+import { UserRole } from 'shared/build/index.js';
+
 import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
+import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -11,6 +14,7 @@ import {
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
@@ -18,7 +22,6 @@ import {
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
-import { trimZerosFromNumber } from '../../../talent-onboarding/helpers/helpers.js';
 import {
     type FirstSectionDetails,
     type SecondSectionDetails,
@@ -56,15 +59,6 @@ const CandidateProfile: React.FC<Properties> = ({
         (rootState) => getAuthState(rootState).currentUser,
     );
     const { hardSkillsOptions } = useCommonData();
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
 
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
@@ -87,6 +81,29 @@ const CandidateProfile: React.FC<Properties> = ({
         )
         .map((item) => item.label);
 
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+        if (currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId: data.userId ?? '',
+                    companyId: currentUser.id,
+                }),
+            );
+            void dispatch(
+                candidateActions.getContactWithTalent({
+                    talentId: data.userId ?? '',
+                    companyId: currentUser.id,
+                }),
+            );
+        }
+    }, [currentUser, data.userId, dispatch]);
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,
         profileName: data.profileName as string,
@@ -99,7 +116,7 @@ const CandidateProfile: React.FC<Properties> = ({
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         talentHardSkills: hardskillsLabels,
-        experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        experienceYears: data.experienceYears as number,
         date: data.createdAt as string,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
@@ -107,7 +124,7 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        experienceYears: trimZerosFromNumber(data.experienceYears as number),
+        experienceYears: data.experienceYears as number,
         jobTitle: data.jobTitle,
         fullName: data.fullName as string,
         email: data.email as string,
