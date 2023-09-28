@@ -20,7 +20,7 @@ class TalentBadgeModel extends AbstractModel {
 
     public 'badgeId': string;
 
-    public 'userDetailsId': string | null;
+    public 'userDetailsId': string;
 
     public 'badge'?: BSABadgesModel;
 
