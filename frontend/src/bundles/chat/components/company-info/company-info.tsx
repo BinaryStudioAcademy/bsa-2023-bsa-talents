@@ -1,4 +1,5 @@
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import {
     Avatar,
     Button,
@@ -14,10 +15,14 @@ import {
 import styles from './styles.module.scss';
 
 const CompanyInfo: React.FC = () => {
-    const { company, hasSharedContacts } = useAppSelector(({ chat }) => ({
-        company: chat.current.employerDetails,
-        hasSharedContacts: chat.current.talentHasSharedContacts,
-    }));
+    const { company, hasSharedContacts, talentId, employerId, currentChatId } =
+        useAppSelector(({ chat }) => ({
+            company: chat.current.employerDetails,
+            hasSharedContacts: chat.current.talentHasSharedContacts,
+            talentId: chat.current.talentId,
+            employerId: chat.current.employerDetails.employerId,
+            currentChatId: chat.current.chatId,
+        }));
     const dispatch = useAppDispatch();
 
     const {
@@ -30,8 +35,17 @@ const CompanyInfo: React.FC = () => {
     } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
+        void dispatch(
+            chatActions.createMessage({
+                message:
+                    'Hello!\n I have shared my CV and information with you.',
+                senderId: talentId as string,
+                receiverId: employerId as string,
+                chatId: currentChatId as string,
+            }),
+        );
         void dispatch(candidateActions.shareContactsWithCompany());
-    }, [dispatch]);
+    }, [dispatch, currentChatId, employerId, talentId]);
 
     const handleAlreadyHiredButtonClick = useCallback(() => {
         //TODO: Implement button click handler

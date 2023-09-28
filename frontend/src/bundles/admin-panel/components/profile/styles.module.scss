@@ -5,6 +5,8 @@
 }
 
 .textInfo {
+    display: flex;
+    flex-direction: column;
     gap: 25px;
 }
 
@@ -57,6 +59,11 @@
 
 .title {
     width: 100%;
+}
+
+.companyLogo {
+    width: 130px;
+    height: 130px;
 }
 
 @media screen and (width <=1100px) {

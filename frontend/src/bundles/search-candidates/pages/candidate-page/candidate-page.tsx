@@ -25,11 +25,13 @@ const CandidatePage: React.FC = () => {
         if (userId !== candidateDetails?.userId) {
             void dispatch(
                 candidateSearchActions.getCandidateDetails({
-                    userId: userId ?? '',
+                    userId: userId as string,
+                    companyId: companyId,
                 }),
             );
         }
     }, [candidateDetails, companyId, dispatch, userId]);
+
     return (
         <>
             <BreadCrumbs profileName={candidateDetails?.profileName} />

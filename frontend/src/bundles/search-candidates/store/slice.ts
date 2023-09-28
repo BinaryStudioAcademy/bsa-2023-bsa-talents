@@ -22,7 +22,7 @@ type State = {
     filters: EmployeesFiltersDto;
     currentCandidateDetails:
         | (SeacrhCandidateResponse & {
-              hasSharedContacts: boolean;
+              hasSharedContacts?: boolean;
               isHired: boolean;
           })
         | null;
@@ -51,15 +51,17 @@ const { reducer, actions, name } = createSlice({
             state.filteredCandidates.push(...action.payload);
         });
         builder.addCase(getCandidateDetails.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
             if (action.payload) {
                 state.currentCandidateDetails = {
                     ...action.payload,
                     isHired: state.currentCandidateDetails?.isHired ?? false,
-                    hasSharedContacts:
-                        state.currentCandidateDetails?.hasSharedContacts ??
-                        false,
                 };
             }
+        });
+
+        builder.addCase(getCandidateDetails.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
         });
 
         builder.addCase(searchCandidates.pending, (state) => {
@@ -80,7 +82,10 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(getHiringInfo.fulfilled, (state, action) => {
             if (state.currentCandidateDetails) {
-                state.currentCandidateDetails.isHired = action.payload;
+                state.currentCandidateDetails = {
+                    ...state.currentCandidateDetails,
+                    isHired: action.payload,
+                };
             }
         });
         builder.addCase(submitHiringInfo.fulfilled, (state) => {
