@@ -9,7 +9,6 @@ import { TextCategory } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useEffect,
-    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
@@ -17,7 +16,6 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import { loadLMSData } from '~/bundles/common-data/store/actions';
 import { type CandidateHardSkill } from '~/bundles/employer/types/types';
 import {
-    FeedbacksContainer,
     ProjectContainer,
     ScoresAndSkillsContainer,
 } from '~/bundles/talent/components/components';
@@ -45,30 +43,19 @@ const PreviewTabs: React.FC<PreviewTabsProperties> = ({
         void dispatch(loadLMSData({ userId }));
     }, [dispatch, userId]);
 
-    const selectTab = useMemo(() => {
-        switch (tab) {
-            case ProfileTab.FEEDBACKS: {
-                return <FeedbacksContainer />;
-            }
-            case ProfileTab.PROJECT: {
-                return <ProjectContainer />;
-            }
-            default: {
-                return (
-                    <ScoresAndSkillsContainer
-                        candidateHardSkill={candidateHardSkill}
-                    />
-                );
-            }
-        }
-    }, [candidateHardSkill, tab]);
+    const selectTab =
+        tab === ProfileTab.SCORES_SKILLS ? (
+            <ScoresAndSkillsContainer candidateHardSkill={candidateHardSkill} />
+        ) : (
+            <ProjectContainer />
+        );
 
     return (
         <>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
-                    globalStyles.justifyContentSpaceBetween,
+                    globalStyles.justifyContentSpaceAround,
                 ]}
             >
                 {tabs.map((profileTab: Tab) => {
