@@ -28,20 +28,28 @@ const ContactCandidate: React.FC = () => {
     const route = useAppRoute();
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const { chats, dataStatus } = useAppSelector(({ chat }) => chat);
-    const { talentId, profileName } =
-        route.params as ContactTalentNavigationPropertiesType;
+    const isLoading = dataStatus === DataStatus.PENDING;
 
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
+
     const dispatch = useAppDispatch();
 
-    const startedChat = chats.find((chat) => chat.chatId === talentId);
+    const { talentId } = route.params as ContactTalentNavigationPropertiesType;
+
+    const startedChat = chats.find(({ participants }) => {
+        const { sender, receiver } = participants;
+        return (
+            (sender.id === currentUserData?.id && receiver.id === talentId) ||
+            (receiver.id === currentUserData?.id && sender.id === talentId)
+        );
+    });
 
     useEffect(() => {
         if (currentUserData?.id) {
             void dispatch(getAllChatsByUserId(currentUserData.id));
         }
-    }, [currentUserData, dispatch]);
+    }, [currentUserData?.id, dispatch, talentId]);
 
     useEffect(() => {
         if (startedChat) {
@@ -61,37 +69,26 @@ const ContactCandidate: React.FC = () => {
                 }),
             );
         }
-    }, [navigation, startedChat]);
+    }, [navigation, chats, startedChat]);
 
     const handleFormSubmit = useCallback(
         (payload: ContactCandidateDto): void => {
             if (currentUserData?.id && talentId) {
                 void dispatch(
                     chatActions.createMessage({
-                        chatId: talentId,
                         senderId: currentUserData.id,
                         receiverId: talentId,
                         message: payload.message,
                     }),
                 );
-
-                navigation.dispatch(
-                    StackActions.replace(RootScreenName.CHAT, {
-                        partnerName: profileName,
-                        partnerId: talentId,
-                        chatId: talentId,
-                    }),
-                );
             }
         },
-        [profileName, navigation, dispatch, currentUserData?.id, talentId],
+        [dispatch, currentUserData?.id, talentId],
     );
 
     const handleContactClose = useCallback((): void => {
         navigation.goBack();
     }, [navigation]);
-
-    const isLoading = dataStatus === DataStatus.PENDING;
 
     return (
         <>
