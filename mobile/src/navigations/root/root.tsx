@@ -25,6 +25,7 @@ import {
     ContactCandidate,
     EmployerOnboarding,
 } from '~/bundles/employer/screens/screens';
+import { Preview } from '~/bundles/talent/screens/screens';
 import { AuthNavigator } from '~/navigations/auth-navigator/auth-navigator';
 import {
     EmployerBottomTabNavigator,
@@ -50,8 +51,10 @@ const Root: React.FC = () => {
 
     //TODO change to onboardingData?.isApprove
     const isProfileComplete =
-        onboardingData?.completedStep ===
-            CompletedTalentOnboardingStep.Preview || isRedirectToEmployerScreen;
+        currentUserData?.role === UserRole.TALENT
+            ? onboardingData?.completedStep ===
+              CompletedTalentOnboardingStep.Preview
+            : isRedirectToEmployerScreen;
 
     useEffect(() => {
         void dispatch(loadCurrentUser());
@@ -94,6 +97,10 @@ const Root: React.FC = () => {
                             ? TalentBottomTabNavigator
                             : EmployerBottomTabNavigator
                     }
+                />
+                <RootStack.Screen
+                    name={RootScreenName.PREVIEW}
+                    component={Preview}
                 />
                 <RootStack.Screen
                     name={RootScreenName.CANDIDATE_FILTER}
