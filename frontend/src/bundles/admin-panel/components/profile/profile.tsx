@@ -3,21 +3,31 @@ import {
     Badge,
     Chip,
     Grid,
-    Link,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 
+import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
+    userDetails: UserDetailsFullResponseDto;
     selectedRole: string;
 };
 
-const Profile: React.FC<Properties> = ({ selectedRole }) => {
+const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
     return (
-        <Grid container justifyContent="center" className={styles.container}>
-            <Grid container item className={styles.textInfo}>
-                {selectedRole === 'talents' ? (
+        <Grid container className={styles.container}>
+            <Grid
+                container
+                item
+                className={
+                    selectedRole === 'talent'
+                        ? styles.textInfo
+                        : styles.employerTextInfo
+                }
+            >
+                {selectedRole === 'talent' ? (
                     <Grid className={styles.textInfo}>
                         <Grid container item className={styles.row}>
                             <Typography variant="body1" className={styles.name}>
@@ -27,7 +37,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                Maria
+                                {userDetails.profileName}
                             </Typography>
                         </Grid>
 
@@ -39,7 +49,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                1500$
+                                {userDetails.salaryExpectation}$
                             </Typography>
                         </Grid>
 
@@ -51,7 +61,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                JS Engineer
+                                {userDetails.jobTitle}
                             </Typography>
                         </Grid>
 
@@ -63,7 +73,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                1-2 years
+                                {userDetails.experienceYears} years
                             </Typography>
                         </Grid>
 
@@ -75,7 +85,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                Astana
+                                {userDetails.location}
                             </Typography>
                         </Grid>
 
@@ -87,7 +97,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                Remote, Freelancer
+                                {userDetails.employmentType?.join(',\n')}
                             </Typography>
                         </Grid>
 
@@ -99,7 +109,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                B1
+                                {userDetails.englishLevel}
                             </Typography>
                         </Grid>
 
@@ -111,7 +121,7 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                -
+                                {userDetails.notConsidered?.join(',\n') ?? '-'}
                             </Typography>
                         </Grid>
 
@@ -123,7 +133,8 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                                 variant="body1"
                                 className={styles.value}
                             >
-                                -
+                                {userDetails.preferredLanguages?.join(',\n') ??
+                                    '-'}
                             </Typography>
                         </Grid>
 
@@ -131,157 +142,164 @@ const Profile: React.FC<Properties> = ({ selectedRole }) => {
                             <Typography variant="body1" className={styles.name}>
                                 Project links
                             </Typography>
-                            <Link to="/" className={styles.valueLink}>
-                                link to BSA project
-                            </Link>
+                            <Grid className={styles.value}>
+                                {userDetails.projectLinks?.map((link) => {
+                                    return (
+                                        <a
+                                            key={link}
+                                            href={link}
+                                            className={styles.valueLink}
+                                        >
+                                            link to BSA project
+                                        </a>
+                                    );
+                                })}
+                            </Grid>
                         </Grid>
                     </Grid>
                 ) : (
-                    <Grid className={styles.textInfo}>
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Employer position
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.value}
-                            >
-                                Position
-                            </Typography>
-                        </Grid>
+                    <Grid>
+                        <Grid className={styles.textInfo}>
+                            <Avatar
+                                className={styles.companyLogo}
+                                src={userDetails.companyLogo?.url}
+                            />
 
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Company name
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.value}
-                            >
-                                Rickardo
-                            </Typography>
-                        </Grid>
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Employer position
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.value}
+                                >
+                                    {userDetails.employerPosition}
+                                </Typography>
+                            </Grid>
 
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Company website
-                            </Typography>
-                            <a
-                                href="https://www.google.com"
-                                className={styles.valueLink}
-                            >
-                                Website link
-                            </a>
-                        </Grid>
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Company name
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.value}
+                                >
+                                    {userDetails.companyName}
+                                </Typography>
+                            </Grid>
 
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Location
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.value}
-                            >
-                                Ukraine
-                            </Typography>
-                        </Grid>
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Company website
+                                </Typography>
+                                <a
+                                    href={userDetails.companyWebsite as string}
+                                    className={styles.valueLink}
+                                >
+                                    Website link
+                                </a>
+                            </Grid>
 
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Description
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.value}
-                            >
-                                Description
-                            </Typography>
-                        </Grid>
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Location
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.value}
+                                >
+                                    {userDetails.location}
+                                </Typography>
+                            </Grid>
 
-                        <Grid container item className={styles.row}>
-                            <Typography variant="body1" className={styles.name}>
-                                Linkedin Link
-                            </Typography>
-                            <a
-                                href="https://www.google.com"
-                                className={styles.valueLink}
-                            >
-                                Linkedin link
-                            </a>
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Description
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.value}
+                                >
+                                    {userDetails.description}
+                                </Typography>
+                            </Grid>
+
+                            <Grid container item className={styles.row}>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.name}
+                                >
+                                    Linkedin Link
+                                </Typography>
+                                <a
+                                    href={userDetails.linkedinLink as string}
+                                    className={styles.valueLink}
+                                >
+                                    Linkedin link
+                                </a>
+                            </Grid>
                         </Grid>
                     </Grid>
                 )}
             </Grid>
 
-            <Grid
-                container
-                item
-                className={selectedRole === 'talents' ? styles.labelsInfo : ''}
-            >
-                {selectedRole === 'talents' ? (
-                    <>
-                        <Grid container item className={styles.bsaBadges}>
-                            <Typography
-                                variant="body1"
-                                className={styles.title}
-                            >
-                                BSA badges
-                            </Typography>
-                            <Badge
-                                isSmall
-                                primaryText={'4.2'}
-                                secondText={'/5'}
-                                description={'Average project score1'}
-                                color={'#274f8d'}
-                            />
-                            <Badge
-                                isSmall
-                                primaryText={'4.2'}
-                                secondText={'/5'}
-                                description={'Average project score2'}
-                                color={'#EE2A64'}
-                            />
-                            <Badge
-                                isSmall
-                                primaryText={'4.2'}
-                                secondText={'/5'}
-                                description={'Average project score3'}
-                                color={'#FFD231'}
-                            />
-                            <Badge
-                                isSmall
-                                primaryText={'4.2'}
-                                secondText={'/5'}
-                                description={'Average project score4'}
-                                color={'#D32AEE'}
-                            />
-                            <Badge
-                                isSmall
-                                primaryText={'4.2'}
-                                secondText={'/5'}
-                                description={'Average project score5'}
-                                color={'#21BA67'}
-                            />
-                        </Grid>
-                        <Grid container item className={styles.hardSkills}>
-                            <Typography
-                                variant="body1"
-                                className={styles.title}
-                            >
-                                Hard Skills
-                            </Typography>
-                            <Chip
-                                label={'Java Script'}
-                                className={styles.chip}
-                            />
-                            <Chip label={'Node.js'} className={styles.chip} />
-                            <Chip label={'React'} className={styles.chip} />
-                        </Grid>
-                    </>
-                ) : (
-                    <Avatar className={styles.companyLogo} />
-                )}
-            </Grid>
+            {selectedRole === 'talent' && (
+                <Grid container item className={styles.labelsInfo}>
+                    <Grid container item className={styles.bsaBadges}>
+                        <Typography variant="body1" className={styles.title}>
+                            BSA badges
+                        </Typography>
+                        {userDetails.talentBadges.map((it) => {
+                            const primaryText =
+                                it.level ?? String(it.score) + ' ';
+                            const secondText = it.level
+                                ? ''
+                                : '/ ' + String(it.badge.maxScore);
+                            return (
+                                <Badge
+                                    key={it.id}
+                                    isSmall
+                                    primaryText={primaryText}
+                                    secondText={secondText}
+                                    description={it.badge.name}
+                                    color={BadgeColors.YELLOW}
+                                />
+                            );
+                        })}
+                    </Grid>
+
+                    <Grid container item className={styles.hardSkills}>
+                        <Typography variant="body1" className={styles.title}>
+                            Hard Skills
+                        </Typography>
+                        {userDetails.talentHardSkills?.map((hardSkill) => {
+                            return (
+                                <Chip
+                                    key={hardSkill.name}
+                                    label={hardSkill.name as string}
+                                    className={styles.chip}
+                                />
+                            );
+                        })}
+                    </Grid>
+                </Grid>
+            )}
         </Grid>
     );
 };

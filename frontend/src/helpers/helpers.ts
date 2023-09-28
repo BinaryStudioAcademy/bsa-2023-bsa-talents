@@ -1,6 +1,7 @@
-export { configureString } from 'shared/build/index.js';
 export {
     type ChatListItemType,
+    configureString,
     getItemsWithSelected,
     getSearchedItems,
+    getURLWithQueryString,
 } from 'shared/build/index.js';

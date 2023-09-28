@@ -5,6 +5,7 @@ const UserDetailsApiPath = {
     DENY: '/:userId/deny',
     SHORT: '/short',
     PUBLISH: '/:userId/publish',
+    FULL: '/full/:userId',
 } as const;
 
 export { UserDetailsApiPath };

@@ -1,17 +1,17 @@
 .formWrapper {
-    width: 100%;
+    width: 65vw;
 }
 
 .form {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12.5%;
     width: 100%;
 }
 
 .formFields {
     gap: 10px;
-    width: 50%;
+    width: 60%;
 }
 
 .formField {
@@ -23,6 +23,7 @@
 
 .formInput {
     width: 70%;
+    min-width: 70%;
 }
 
 .formTextarea {
@@ -150,9 +151,19 @@
     border-radius: 4px;
 }
 
+@media screen and (width >=1600px) {
+    .photoContainer {
+        margin: 0 auto;
+    }
+}
+
 @media screen and (width <=1240px) {
     .formInput {
         width: 60%;
+    }
+
+    .formWrapper {
+        width: 70vw;
     }
 }
 

@@ -1,6 +1,6 @@
+import { type TalentBadge } from 'shared/build/index.js';
 import { UserRole } from 'shared/build/index.js';
 
-import { mockBadges } from '~/assets/mock-data/mock-data.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
@@ -15,6 +15,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
@@ -26,7 +27,6 @@ import {
     type FirstSectionDetails,
     type SecondSectionDetails,
     type TalentHardSkill,
-    type UserDetailsGeneralCustom,
 } from '../../../talent-onboarding/types/types.js';
 import styles from './styles.module.scss';
 
@@ -34,7 +34,7 @@ type Properties = {
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
-    candidateData?: UserDetailsGeneralCustom & {
+    candidateData?: SeacrhCandidateResponse & {
         email?: string;
     };
 };
@@ -69,17 +69,20 @@ const CandidateProfile: React.FC<Properties> = ({
     );
 
     const data = candidateData ?? reduxData;
-
     const hardskillsLabels = hardSkillsOptions
         .filter(
             (item) =>
-                data.talentHardSkills?.some(
+                reduxData.talentHardSkills?.some(
                     (skill) =>
                         (skill as unknown as TalentHardSkill).hardSkillId ===
                         item.value,
                 ),
         )
         .map((item) => item.label);
+    const hardSkillsToShow =
+        !isFifthStep && candidateData?.hardSkills
+            ? candidateData.hardSkills.map((item) => item.name)
+            : hardskillsLabels;
 
     const dispatch = useAppDispatch();
 
@@ -111,10 +114,10 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        badges: mockBadges,
+        badges: data.badges as TalentBadge[],
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
-        talentHardSkills: hardskillsLabels,
+        talentHardSkills: hardSkillsToShow,
         experienceYears: data.experienceYears as number,
         date: data.createdAt as string,
     };

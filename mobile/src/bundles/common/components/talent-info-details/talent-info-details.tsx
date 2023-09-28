@@ -12,13 +12,13 @@ import {
     TextCategory,
 } from '~/bundles/common/enums/enums';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type UserDetailsResponseDto } from '~/bundles/common/types/types';
+import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 
 import { PreviewTabs } from './preview-tabs/preview-tabs';
 import { styles } from './styles';
 
 type TalentInfoDetailsProperties = {
-    talent: Partial<UserDetailsResponseDto>;
+    talent: Partial<CandidateDetailsType>;
 };
 const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
     talent,
@@ -33,6 +33,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
         experienceYears,
         jobTitle,
         userId,
+        hardSkills,
     } = talent;
 
     return (
@@ -169,7 +170,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {description}
             </Text>
-            <PreviewTabs userId={userId} />
+            <PreviewTabs candidateHardSkill={hardSkills} userId={userId} />
         </>
     );
 };

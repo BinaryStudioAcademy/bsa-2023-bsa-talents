@@ -7,6 +7,7 @@ import {
     JobTitle,
     NotConsidered,
     PreferredLanguage,
+    SearchType,
 } from '../enums/enums.js';
 import { type UserDetailsUpdateRequestDto } from '../types/types.js';
 import { URL_REGEX_CONSTANT } from './constants/constants.js';
@@ -60,6 +61,11 @@ const userDetailsUpdate = joi
                 .trim()
                 .valid(...Object.values(PreferredLanguage)),
         ),
+
+        searchType: joi
+            .string()
+            .trim()
+            .valid(...Object.values(SearchType)),
 
         projectLinks: joi.alternatives().try(
             joi.array().items(

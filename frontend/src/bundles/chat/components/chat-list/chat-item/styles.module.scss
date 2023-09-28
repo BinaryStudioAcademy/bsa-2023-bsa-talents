@@ -38,3 +38,15 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+@media screen and (width >= 900px) {
+    .date {
+        display: none;
+    }
+}
+
+@media screen and (width >= 1200px) {
+    .date {
+        display: unset;
+    }
+}
