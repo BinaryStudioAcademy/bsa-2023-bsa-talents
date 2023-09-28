@@ -88,7 +88,7 @@ const EmployerOnboardingFormValidationSchema = joi.object<
     companyWebsite: joi
         .string()
         .empty('')
-        .regex(/^((www\.)?|http:\/\/|https:\/\/)[^.]+(\..+)+$/)
+        .regex(/^(https?|https):\/\/.+?\..+$/)
         .min(
             EmployerOnboardingFormValidationRule.MIN_COMPANY_WEBSITE_LINK_LENGTH,
         )
