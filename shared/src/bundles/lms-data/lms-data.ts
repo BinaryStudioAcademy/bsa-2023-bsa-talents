@@ -8,5 +8,6 @@ export {
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type Talent,
     type UserLMSDataDto,
 } from './types/types.js';
