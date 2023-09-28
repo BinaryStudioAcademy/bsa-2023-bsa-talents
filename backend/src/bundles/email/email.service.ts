@@ -32,11 +32,20 @@ class EmailService {
     }
 
     public async sendAccountApprovalEmail(email: string): Promise<void> {
+        const templateId = 'd-6166c58a5cd644b383956e09300cb8d7';
+
         const message = {
-            to: email,
-            from: this.mailSenderDomain,
-            subject: 'Account verification',
-            text: 'Hello! Your account on bsa-talents.com has been approved',
+            from: {
+                email: this.mailSenderDomain,
+            },
+            personalizations: [
+                {
+                    to: {
+                        email,
+                    },
+                },
+            ],
+            templateId,
         };
 
         await sgMail.send(message);
@@ -46,11 +55,23 @@ class EmailService {
         email: string,
         deniedReason: string,
     ): Promise<void> {
+        const templateId = 'd-5668bcd663f943e0836ad83e4698e119';
+
         const message = {
-            to: email,
-            from: this.mailSenderDomain,
-            subject: 'Account verification',
-            text: `Hello! Your account on bsa-talents.com has been denied - ${deniedReason}`,
+            from: {
+                email: this.mailSenderDomain,
+            },
+            personalizations: [
+                {
+                    to: {
+                        email,
+                    },
+                    dynamicTemplateData: {
+                        deniedReason,
+                    },
+                },
+            ],
+            templateId,
         };
 
         await sgMail.send(message);
