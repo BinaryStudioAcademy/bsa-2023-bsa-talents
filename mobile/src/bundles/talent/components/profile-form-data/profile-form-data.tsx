@@ -26,6 +26,11 @@ type Properties = {
     errors: FieldErrors<ProfileStepDto>;
     isEditable: boolean;
 };
+
+const jobTitleOptions = Object.values(JobTitle);
+const locationOptions = Object.values(Country);
+const employmentTypeOptions = Object.values(EmploymentType);
+
 const ProfileFormData: React.FC<Properties> = ({
     control,
     errors,
@@ -33,10 +38,6 @@ const ProfileFormData: React.FC<Properties> = ({
 }) => {
     const { field } = useFormController({ name: 'salaryExpectation', control });
     const { value: salaryExpectation } = field;
-
-    const jobTitleOptions = Object.values(JobTitle);
-    const locationOptions = Object.values(Country);
-    const employmentTypeOptions = Object.values(EmploymentType);
 
     return (
         <>

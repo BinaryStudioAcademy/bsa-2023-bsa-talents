@@ -34,6 +34,10 @@ type Properties = {
     isEditable: boolean;
 };
 
+const englishLevels = Object.values(EnglishLevel);
+const preferredLanguages = Object.values(PreferredLanguage);
+const notConsidered = Object.values(NotConsidered);
+
 const SkillsFormData: React.FC<Properties> = ({
     control,
     errors,
@@ -44,10 +48,6 @@ const SkillsFormData: React.FC<Properties> = ({
         name: 'projectLinks',
         control,
     });
-
-    const englishLevels = Object.values(EnglishLevel);
-    const preferredLanguages = Object.values(PreferredLanguage);
-    const notConsidered = Object.values(NotConsidered);
 
     return (
         <>

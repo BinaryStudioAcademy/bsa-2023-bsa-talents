@@ -23,11 +23,11 @@ import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schem
 
 import { BADGES_STEP_DEFAULT_VALUES } from './constants/constants';
 
+const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
+
 const ProfileScreenBadges: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { badgesData } = useCommonData();
-
-    const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
 
     const dispatch = useAppDispatch();
     const handleSubmit = (payload: BsaBadgesStepTypes): void => {
@@ -57,7 +57,7 @@ const ProfileScreenBadges: React.FC = () => {
             return { badges };
         }
         return BADGES_STEP_DEFAULT_VALUES;
-    }, [badgesData, uncontrolledBadges]);
+    }, [badgesData]);
 
     const badgesFormData: BadgesFormDto =
         onboardingDataValues ?? badgesDataValues;

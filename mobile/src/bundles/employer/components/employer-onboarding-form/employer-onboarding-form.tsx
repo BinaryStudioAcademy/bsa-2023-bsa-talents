@@ -35,6 +35,8 @@ type Properties = {
     onSubmit: (payload: EmployerOnboardingFormDto) => void;
 };
 
+const locationOptions = Object.values(Country);
+
 const EmployerOnboardingForm: React.FC<Properties> = ({
     employerOnboardingData,
     onSubmit,
@@ -50,8 +52,6 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     }, [employerOnboardingData, reset]);
 
     const route = useRoute();
-
-    const locationOptions = Object.values(Country);
     const dispatch = useAppDispatch();
 
     const handleFormSubmit = useCallback((): void => {

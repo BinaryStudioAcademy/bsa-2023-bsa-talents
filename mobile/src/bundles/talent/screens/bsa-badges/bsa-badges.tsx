@@ -33,12 +33,12 @@ import { bsaBadgesStepValidationSchema } from '~/bundles/talent/validation-schem
 import { BADGES_STEP_DEFAULT_VALUES } from './constants/constants';
 import { styles } from './styles';
 
+const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
+
 const BsaBadges: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData } = useAppSelector(({ common }) => common);
     const { badgesData, dataStatus } = useCommonData();
-
-    const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
 
     const onboardingDataValues: BadgesFormDto | undefined = useMemo(() => {
         if (onboardingData?.badges) {
@@ -55,7 +55,7 @@ const BsaBadges: React.FC = () => {
             return { badges };
         }
         return BADGES_STEP_DEFAULT_VALUES;
-    }, [badgesData, uncontrolledBadges]);
+    }, [badgesData]);
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];

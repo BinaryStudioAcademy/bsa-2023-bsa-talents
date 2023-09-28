@@ -18,13 +18,13 @@ type Properties = {
     isDisabled: boolean;
 };
 
+const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
+
 const BadgesGroup = ({ control, isDisabled }: Properties): JSX.Element => {
     const { fields, update } = useFieldArray<BadgesFormDto>({
         name: 'badges',
         control,
     });
-
-    const uncontrolledBadges = Object.values(BsaBadgesStepUncontrolledBadges);
 
     const handleToggleCheckbox = useCallback(
         (clickedBadge: BadgeFormItem, index: number) => {

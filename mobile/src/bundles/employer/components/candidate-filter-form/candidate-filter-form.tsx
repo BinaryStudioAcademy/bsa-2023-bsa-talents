@@ -45,6 +45,10 @@ type CandidatesFilterFormProperties = {
     onSubmit: (dto: EmployeesFiltersForm) => void;
     onFilterClose: () => void;
 };
+
+const employmentTypeOptions = Object.values(EmploymentType);
+const englishLevels = Object.values(EnglishLevel);
+
 const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     onFilterClose,
     onSubmit,
@@ -56,9 +60,6 @@ const CandidatesFilterForm: React.FC<CandidatesFilterFormProperties> = ({
     });
 
     const { hardSkillsData } = useCommonData();
-
-    const employmentTypeOptions = Object.values(EmploymentType);
-    const englishLevels = Object.values(EnglishLevel);
 
     const handleClearFilters = (): void => {
         reset(DEFAULT_VALUES);
