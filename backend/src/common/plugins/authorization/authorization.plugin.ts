@@ -28,7 +28,7 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
         const {
             routerPath,
             routerMethod,
-            headers: { authorization },
+            headers: { authorization, referer },
         } = request;
 
         if (
@@ -50,8 +50,19 @@ const authorizationPlugin: FastifyPluginCallback<AuthOptions> = (
 
         const [, token] = authorization?.split(' ') ?? [];
 
-        if (!token) {
+        const isAuthPage =
+            referer &&
+            (referer.endsWith('/sign-in') || referer.endsWith('/sign-up'));
+
+        if (!token && isAuthPage) {
             return;
+        }
+
+        if (!token && !isAuthPage) {
+            throw new HttpError({
+                message: ErrorMessage.UNAUTHORIZED_USER,
+                status: HttpCode.UNAUTHORIZED,
+            });
         }
 
         const { userService, tokenService } = services;
