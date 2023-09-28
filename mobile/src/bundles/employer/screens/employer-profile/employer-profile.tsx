@@ -39,6 +39,7 @@ const EmployerProfile: React.FC = () => {
                   location: onboardingData.location ?? '',
                   description: onboardingData.description ?? '',
                   photoUrl: onboardingData.photoUrl ?? '',
+                  companyLogoUrl: onboardingData.companyLogoUrl ?? ',',
               }
             : null;
 

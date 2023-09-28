@@ -9,6 +9,7 @@ type EmployerOnboardingFormDto = {
     location: string;
     description: string;
     photoUrl: string;
+    companyLogoUrl: string;
 };
 
 export { type EmployerOnboardingFormDto };
