@@ -118,6 +118,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             customPhotoStyle={{
                                 photoShape: globalStyles.borderRadius15,
                             }}
+                            uri={employerOnboardingData?.companyLogoUrl}
                         />
                     </FormField>
                 </View>
