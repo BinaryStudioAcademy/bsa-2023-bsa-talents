@@ -55,7 +55,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
     const route = useRoute();
     const dispatch = useAppDispatch();
 
-    const { photoUrl } =
+    const { photoUrl, companyLogoUrl } =
         useAppSelector(({ common }) => common.onboardingData) ?? {};
 
     const handleFormSubmit = useCallback((): void => {
@@ -118,7 +118,7 @@ const EmployerOnboardingForm: React.FC<Properties> = ({
                             customPhotoStyle={{
                                 photoShape: globalStyles.borderRadius15,
                             }}
-                            uri={employerOnboardingData?.companyLogoUrl}
+                            uri={companyLogoUrl as string}
                         />
                     </FormField>
                 </View>
