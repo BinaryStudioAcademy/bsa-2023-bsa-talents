@@ -27,6 +27,7 @@ import {
     EmploymentType,
     EnglishLevel,
     JobTitle,
+    SearchType,
     YearsOfExperience,
 } from '../../enums/enums.js';
 import { type EmployeesFiltersDto } from '../../types/employees-filters-dto.js';
@@ -86,8 +87,11 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             selectedValue?: string,
         ) =>
             (): void => {
-                if ('boolean' === typeof field.value) {
-                    field.onChange(!field.value);
+                if (field.value === SearchType.ACTIVE) {
+                    field.onChange(SearchType.PASSIVE);
+                    return;
+                } else if (field.value === SearchType.PASSIVE) {
+                    field.onChange(SearchType.ACTIVE);
                     return;
                 }
 
@@ -108,7 +112,9 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                 const updatedValue = field.value.includes(
                     selectedValue as string,
                 )
-                    ? field.value.filter((item) => item !== selectedValue)
+                    ? field.value.filter(
+                          (item: string) => item !== selectedValue,
+                      )
                     : [...field.value, selectedValue];
                 field.onChange(updatedValue);
             },
@@ -129,7 +135,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             return field.name === CheckboxesFields.ACTIVE_SEARCHING_ONLY ? (
                 <Checkbox
                     onChange={handleCheckboxOnChange(field, field.name)}
-                    isChecked={fieldValue as boolean}
+                    isChecked={fieldValue === SearchType.ACTIVE}
                     className={styles.checkbox}
                 />
             ) : (
@@ -183,7 +189,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
             <Grid container className={styles.filtersWrapper}>
                 <Grid>
                     <Controller
-                        name="isSearchActiveCandidatesOnly"
+                        name="searchType"
                         control={control}
                         render={renderCheckboxes}
                     />

@@ -12,7 +12,6 @@ import {
     useAppForm,
     useAppSelector,
     useCallback,
-    useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import { CandidateParameter } from '~/bundles/talent-onboarding/components/components.js';
@@ -63,15 +62,6 @@ const ProfileSecondSection: React.FC<Properties> = ({
             isHired: searchCandidates.currentCandidateDetails?.isHired,
         }),
     );
-
-    useEffect(() => {
-        void dispatch(
-            hiringInfoActions.getHiringInfo({
-                talentId: talentId ?? '',
-                companyId: companyId ?? '',
-            }),
-        );
-    }, [companyId, dispatch, talentId]);
 
     const handleHireSubmit = useCallback((): void => {
         if (watch('hire') === 'Yes') {

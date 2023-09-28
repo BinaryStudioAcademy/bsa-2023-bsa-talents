@@ -100,18 +100,19 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         isFifthStep ? styles.bigBadgeList : '',
                     )}
                 >
-                    {candidateParameters.badges.map((badge, index) => (
+                    {candidateParameters.badges?.map((badge, index) => (
                         <li key={index}>
                             <Badge
                                 isSmall
                                 isFifthStep={isFifthStep}
-                                color={badge.color}
                                 primaryText={
                                     (badge.score ?? badge.level) as string
                                 }
-                                description={badge.description}
+                                description={badge.badge?.name}
                                 secondText={
-                                    badge.maxScore ? ` / ${badge.maxScore}` : ''
+                                    badge.badge?.maxScore
+                                        ? ` / ${badge.badge?.maxScore}`
+                                        : ''
                                 }
                             />
                         </li>

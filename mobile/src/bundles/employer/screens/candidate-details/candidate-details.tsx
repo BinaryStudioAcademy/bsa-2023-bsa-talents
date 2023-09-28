@@ -20,14 +20,14 @@ import { globalStyles } from '~/bundles/common/styles/styles';
 import {
     type NavigationProp,
     type RootNavigationParameterList,
-    type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
+import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
 const CandidateDetails: React.FC = () => {
     const route = useAppRoute();
-    const talent = route.params as UserDetailsResponseDto;
+    const talent = route.params as CandidateDetailsType;
     const navigation =
         useNavigation<NavigationProp<RootNavigationParameterList>>();
 

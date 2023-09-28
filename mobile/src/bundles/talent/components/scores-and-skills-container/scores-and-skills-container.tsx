@@ -4,10 +4,17 @@ import { Badge, Tag, Text, View } from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { type CandidateHardSkill } from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
-const ScoresAndSkillsContainer: React.FC = () => {
+type ScoresAndSkillsContainerProperties = {
+    candidateHardSkill?: CandidateHardSkill;
+};
+
+const ScoresAndSkillsContainer: React.FC<
+    ScoresAndSkillsContainerProperties
+> = ({ candidateHardSkill }) => {
     const { onboardingData } = useAppSelector(({ common }) => common);
 
     if (!onboardingData) {
@@ -53,9 +60,13 @@ const ScoresAndSkillsContainer: React.FC = () => {
                     styles.tagsWrapper,
                 ]}
             >
-                {hardSkills?.map((skill) => {
-                    return <Tag key={skill.label} value={skill.label} />;
-                })}
+                {candidateHardSkill
+                    ? candidateHardSkill.map((skill) => (
+                          <Tag key={skill.id} value={skill.name} />
+                      ))
+                    : hardSkills?.map((skill) => (
+                          <Tag key={skill.label} value={skill.label} />
+                      ))}
             </View>
         </View>
     );
