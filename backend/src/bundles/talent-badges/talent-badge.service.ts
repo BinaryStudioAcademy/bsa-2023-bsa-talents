@@ -51,13 +51,9 @@ class TalentBadgeService implements Service {
         }).toObject();
     }
 
-    public async update({
-        badgeId,
-        userId,
-    }: TalentBadgeUpdate): Promise<TalentBadge> {
+    public async update({ id }: TalentBadgeUpdate): Promise<TalentBadge> {
         const badge = await this.talentBadgeRepository.find({
-            badgeId,
-            userId,
+            id,
         });
 
         if (!badge) {

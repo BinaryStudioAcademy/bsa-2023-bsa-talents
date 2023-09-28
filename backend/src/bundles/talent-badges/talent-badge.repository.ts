@@ -46,14 +46,10 @@ class TalentBadgeRepository implements Repository {
     public async update({
         id,
         isShown,
-        userDetailsId,
     }: TalentBadgePatchAndFetch): Promise<TalentBadgeModel> {
-        return await this.talentBadgeModel
-            .query()
-            .patchAndFetchById(id as string, {
-                isShown,
-                userDetailsId,
-            });
+        return await this.talentBadgeModel.query().patchAndFetchById(id, {
+            isShown,
+        });
     }
 
     public delete(): Promise<boolean> {

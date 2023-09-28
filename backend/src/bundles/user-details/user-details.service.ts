@@ -185,9 +185,7 @@ class UserDetailsService implements Service {
             badgesResult = await Promise.all(
                 talentBadges.map((badgeId) =>
                     this.talentBadgeService.update({
-                        badgeId,
-                        userId: userId as string,
-                        userDetailsId,
+                        id: badgeId,
                     }),
                 ),
             );

@@ -1,9 +1,6 @@
 type TalentBadgePatchAndFetch = {
-    id: string | null;
-    userId: string;
-    badgeId: string;
-    isShown?: boolean;
-    userDetailsId: string;
+    id: string;
+    isShown: boolean;
 };
 
 export { type TalentBadgePatchAndFetch };
