@@ -5,6 +5,7 @@ import {
     Link,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 
 import styles from './styles.module.scss';
 
@@ -112,35 +113,35 @@ const Profile: React.FC = () => {
                         primaryText={'4.2'}
                         secondText={'/5'}
                         description={'Average project score1'}
-                        color={'#274f8d'}
+                        color={BadgeColors.YELLOW}
                     />{' '}
                     <Badge
                         isSmall
                         primaryText={'4.2'}
                         secondText={'/5'}
                         description={'Average project score2'}
-                        color={'#EE2A64'}
+                        color={BadgeColors.YELLOW}
                     />{' '}
                     <Badge
                         isSmall
                         primaryText={'4.2'}
                         secondText={'/5'}
                         description={'Average project score3'}
-                        color={'#FFD231'}
+                        color={BadgeColors.YELLOW}
                     />{' '}
                     <Badge
                         isSmall
                         primaryText={'4.2'}
                         secondText={'/5'}
                         description={'Average project score4'}
-                        color={'#D32AEE'}
+                        color={BadgeColors.YELLOW}
                     />{' '}
                     <Badge
                         isSmall
                         primaryText={'4.2'}
                         secondText={'/5'}
                         description={'Average project score5'}
-                        color={'#21BA67'}
+                        color={BadgeColors.YELLOW}
                     />
                 </Grid>
                 <Grid container item className={styles.hardSkills}>
