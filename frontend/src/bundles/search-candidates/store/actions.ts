@@ -39,7 +39,6 @@ const getCandidateDetails = createAsyncThunk<
     async ({ userId, companyId }, { extra, rejectWithValue, getState }) => {
         const { searchCandidates } = getState();
         const { talentOnBoardingApi, candidateApi } = extra;
-
         if (searchCandidates.filteredCandidates.length > MIN_LENGTH) {
             return (
                 searchCandidates.filteredCandidates.find(
