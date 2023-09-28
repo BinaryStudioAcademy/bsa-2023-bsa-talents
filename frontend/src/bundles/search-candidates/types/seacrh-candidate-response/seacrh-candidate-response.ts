@@ -8,8 +8,8 @@ import {
 
 type SeacrhCandidateResponse = UserDetailsUpdateRequestDto & {
     hardSkills?: {
-        value: string;
-        label: string;
+        id: string;
+        name: string;
     }[];
     badges?: TalentBadge[];
     photo?: File | null;
