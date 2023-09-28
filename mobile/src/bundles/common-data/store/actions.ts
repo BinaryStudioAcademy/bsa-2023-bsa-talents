@@ -6,9 +6,9 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
+    type LMSDataResponseDto,
     type UserFindResponseDto,
     type UserGetLMSDataById,
-    type UserLMSDataDto,
 } from '~/bundles/common-data/types/types';
 
 import { name as sliceName } from './slice';
@@ -49,7 +49,7 @@ const loadAllPartners = createAsyncThunk<
 });
 
 const loadLMSData = createAsyncThunk<
-    UserLMSDataDto,
+    LMSDataResponseDto,
     UserGetLMSDataById,
     AsyncThunkConfig
 >(`${sliceName}${ApiPath.USERS}/LMS`, async (userId, { extra }) => {

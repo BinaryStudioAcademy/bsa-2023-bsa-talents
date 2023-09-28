@@ -5,8 +5,8 @@ import { type ValueOf } from '~/bundles/common/types/types';
 import {
     type BadgesResponseDto,
     type FormattedHardSkills,
+    type LMSDataResponseDto,
     type UserFindResponseDto,
-    type UserLMSDataDto,
 } from '~/bundles/common-data/types/types';
 
 import {
@@ -20,7 +20,7 @@ type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     badgesData: BadgesResponseDto | null;
     hardSkillsData: FormattedHardSkills | null;
-    lmsData: UserLMSDataDto | null;
+    lmsData: LMSDataResponseDto | null;
     partners: UserFindResponseDto[] | null;
 };
 

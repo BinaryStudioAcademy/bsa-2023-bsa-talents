@@ -66,6 +66,7 @@ export {
     type HardSkillsResponseDto,
     type ServerErrorDetail,
     type ServerErrorResponse,
+    type Project as TalentInfoProject,
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,

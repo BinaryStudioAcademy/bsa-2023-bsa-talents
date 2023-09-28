@@ -28,6 +28,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
         englishLevel,
         experienceYears,
         jobTitle,
+        userId,
     } = talent;
 
     return (
@@ -164,7 +165,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {description}
             </Text>
-            <PreviewTabs />
+            <PreviewTabs userId={userId} />
         </>
     );
 };
