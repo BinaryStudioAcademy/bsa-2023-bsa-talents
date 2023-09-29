@@ -99,15 +99,6 @@ const ProfileCabinet: React.FC = () => {
         ) {
             setIsWaitingForApproval(true);
         }
-        if (talentOnBoarding.isApproved ?? employerOnBoarding.isApproved) {
-            setIsWaitingForApproval(false);
-            void dispatch(
-                storeActions.notify({
-                    type: NotificationType.SUCCESS,
-                    message: 'Profile was approved',
-                }),
-            );
-        }
     }, [
         dispatch,
         employerOnBoarding.isApproved,
@@ -115,6 +106,12 @@ const ProfileCabinet: React.FC = () => {
         talentOnBoarding.isApproved,
         talentOnBoarding.publishedAt,
     ]);
+
+    useEffect(() => {
+        if (talentOnBoarding.isApproved ?? employerOnBoarding.isApproved) {
+            setIsWaitingForApproval(false);
+        }
+    }, [dispatch, employerOnBoarding.isApproved, talentOnBoarding.isApproved]);
 
     const handlePublish = useCallback(() => {
         if (currentUser) {

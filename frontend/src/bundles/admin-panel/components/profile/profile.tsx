@@ -258,7 +258,6 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                     </Grid>
                 )}
             </Grid>
-
             {selectedRole === 'talent' && (
                 <Grid container item className={styles.labelsInfo}>
                     <Grid container item className={styles.bsaBadges}>

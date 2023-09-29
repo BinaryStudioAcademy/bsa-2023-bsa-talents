@@ -4,6 +4,9 @@ type ContactsCVStepDto = {
     phone: string;
     linkedinLink: string;
     cv: File | null;
+    photoUrl?: string | null;
+    cvUrl?: string | null;
+    cvName?: string;
 };
 
 export { type ContactsCVStepDto };
