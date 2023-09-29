@@ -28,7 +28,6 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
-// import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
@@ -56,11 +55,6 @@ const ContactsCVStep: React.FC = () => {
         cvUrl,
         cvName,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
-
-    // useEffect(() => {
-    //     const userId = currentUser?.id as string;
-    //     void dispatch(lmsActions.getTalentLmsData({ userId }));
-    // }, [currentUser?.id, dispatch]);
 
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
