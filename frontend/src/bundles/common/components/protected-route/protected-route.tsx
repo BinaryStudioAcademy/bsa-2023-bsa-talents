@@ -14,7 +14,6 @@ import { UserRole } from '~/bundles/users/users.js';
 import { type RootReducer } from '~/framework/store/store.package.js';
 
 import { DataStatus } from '../../enums/enums.js';
-import { Loader } from '../components.js';
 
 type Properties = {
     children: ReactNode;
@@ -25,9 +24,6 @@ const getAuthState = (state: RootReducer): State => state.auth;
 const ProtectedRoute: FC<Properties> = ({ children }) => {
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
-    );
-    const dataStatusAuth = useAppSelector(
-        (rootState) => getAuthState(rootState).dataStatus,
     );
 
     const hasUser = Boolean(currentUser);
@@ -63,13 +59,6 @@ const ProtectedRoute: FC<Properties> = ({ children }) => {
             }
         }
     }, [currentUser, dataStatusUserDetails, dispatch, hasUser]);
-
-    if (
-        dataStatusAuth === DataStatus.IDLE ||
-        dataStatusAuth === DataStatus.PENDING
-    ) {
-        return <Loader />;
-    }
 
     if (hasUser) {
         return children;

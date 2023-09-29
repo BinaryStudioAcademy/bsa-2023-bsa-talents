@@ -10,6 +10,8 @@ import {
     UsersTableColumn,
 } from '~/common/packages/database/database.js';
 
+import { type LMSProject } from './types/types.js';
+
 class LMSDataModel extends AbstractModel {
     public 'userId': string;
     public 'talent': string; // JSON
@@ -18,7 +20,7 @@ class LMSDataModel extends AbstractModel {
     public 'lectureDetails': string; // JSON
     public 'projectCoachesFeedback': string; // JSON
     public 'hrFeedback': string; // JSON
-    public 'project': string; // JSON
+    public 'project': LMSProject;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_LMS_DATA;

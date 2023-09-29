@@ -1,6 +1,6 @@
 import { type TalentBadge } from 'shared/build/index.js';
 
-import { type HardSkillsItem } from '../types.js';
+import { type HardSkillsItem, type LMSProject } from '../types.js';
 
 type FirstSectionDetails = {
     userId: string;
@@ -16,6 +16,7 @@ type FirstSectionDetails = {
     preferredLanguages: string[];
     description: string;
     date: string;
+    lmsProject?: LMSProject;
 };
 
 type SecondSectionDetails = {

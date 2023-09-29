@@ -32,6 +32,7 @@ import { reducer as searchCandidatesReducer } from '~/bundles/search-candidates/
 import { reducer as talentOnBoardingReducer } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { talentOnBoardingApi } from '~/bundles/talent-onboarding/talent-onboarding.js';
 import { userDetailsApi } from '~/bundles/user-details/user-details.js';
+import { usersApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { notification } from '~/services/services.js';
 
@@ -69,6 +70,7 @@ type ExtraArguments = {
     hardSkillsApi: typeof hardSkillsApi;
     bsaBadgesApi: typeof bsaBadgesApi;
     userDetailsApi: typeof userDetailsApi;
+    usersApi: typeof usersApi;
 };
 
 const combinedReducer = combineReducers({
@@ -138,6 +140,7 @@ class Store {
             hardSkillsApi,
             bsaBadgesApi,
             userDetailsApi,
+            usersApi,
         };
     }
 }

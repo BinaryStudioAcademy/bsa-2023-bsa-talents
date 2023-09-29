@@ -15,6 +15,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
@@ -60,15 +61,41 @@ const CandidateProfile: React.FC<Properties> = ({
     );
     const { hardSkillsOptions } = useCommonData();
 
+    const dispatch = useAppDispatch();
+
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
+        lmsProject: state.lms.lmsData?.project,
     }));
-    const { publishedAt } = useAppSelector(
+    const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
     const data = candidateData ?? reduxData;
+
+    useEffect(() => {
+        const userId = currentUser?.id as string;
+
+        void dispatch(talentActions.getTalentDetails({ userId }));
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
+
+        if (currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+            void dispatch(
+                candidateActions.getContactWithTalent({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+        }
+    }, [currentUser, data.userId, dispatch]);
+
     const hardskillsLabels = hardSkillsOptions
         .filter(
             (item) =>
@@ -84,29 +111,6 @@ const CandidateProfile: React.FC<Properties> = ({
             ? candidateData.hardSkills.map((item) => item.name)
             : hardskillsLabels;
 
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-        if (currentUser?.role == UserRole.EMPLOYER) {
-            void dispatch(
-                hiringInfoActions.getHiringInfo({
-                    talentId: data.userId ?? '',
-                    companyId: currentUser.id,
-                }),
-            );
-            void dispatch(
-                candidateActions.getContactWithTalent({
-                    talentId: data.userId ?? '',
-                    companyId: currentUser.id,
-                }),
-            );
-        }
-    }, [currentUser, data.userId, dispatch]);
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,
         profileName: data.profileName as string,
@@ -120,6 +124,7 @@ const CandidateProfile: React.FC<Properties> = ({
         talentHardSkills: hardSkillsToShow,
         experienceYears: data.experienceYears as number,
         date: data.createdAt as string,
+        lmsProject: reduxData.lmsProject,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
@@ -143,7 +148,7 @@ const CandidateProfile: React.FC<Properties> = ({
             {isFifthStep && (
                 <Button
                     label={
-                        publishedAt
+                        publishedAt && !isApproved
                             ? 'Your account is waiting for the approval'
                             : 'Your account is ready!'
                     }

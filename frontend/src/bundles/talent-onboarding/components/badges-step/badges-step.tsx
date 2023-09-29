@@ -13,6 +13,7 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
+import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -137,7 +138,7 @@ const BadgesStep: React.FC = () => {
                                     primaryText={primaryText}
                                     secondText={secondText}
                                     description={badge.description}
-                                    color={badge.color}
+                                    color={BadgeColors.YELLOW}
                                 />
                             </div>
                         );

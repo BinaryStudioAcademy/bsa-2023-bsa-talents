@@ -10,6 +10,7 @@ export {
     type BsaBadgesStepDto,
     type FileUploadResponse,
     type HardSkillsItem,
+    type LMSProject,
     type ProfileStepDto,
     type SkillsStepDto,
     type UserDetailsFindByUserIdRequestDto,

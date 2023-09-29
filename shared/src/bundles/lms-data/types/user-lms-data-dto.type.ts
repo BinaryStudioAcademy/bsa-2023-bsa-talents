@@ -1,3 +1,5 @@
+import { type LMSProject } from './lms-project.type.js';
+
 type UserLMSDataDto = {
     userId: string;
     talent: string; // JSON
@@ -6,7 +8,7 @@ type UserLMSDataDto = {
     lectureDetails: string; // JSON
     projectCoachesFeedback: string; // JSON
     hrFeedback: string; // JSON
-    project: string; // JSON
+    project: LMSProject;
 };
 
 export { type UserLMSDataDto };

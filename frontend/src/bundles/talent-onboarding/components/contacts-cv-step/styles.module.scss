@@ -101,3 +101,15 @@
     background-color: var(--solitude);
     border-radius: 4px;
 }
+
+.cv {
+    display: flex;
+    align-items: center;
+}
+
+.cvLink {
+    margin: 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.21;
+}

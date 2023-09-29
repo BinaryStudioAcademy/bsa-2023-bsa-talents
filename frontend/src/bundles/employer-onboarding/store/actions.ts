@@ -123,11 +123,14 @@ const getEmployerDetails = createAsyncThunk<
                 await employerOnBoardingApi.getUserDetailsByUserId({
                     userId: findPayload.userId,
                 });
+            if (!userDetails) {
+                return null;
+            }
             const photo = await fileUploadApi.getFileById({
-                id: userDetails?.photoId ?? '',
+                id: userDetails.photoId ?? '',
             });
             const companyLogo = await fileUploadApi.getFileById({
-                id: userDetails?.companyLogoId ?? '',
+                id: userDetails.companyLogoId ?? '',
             });
             return {
                 ...userDetails,

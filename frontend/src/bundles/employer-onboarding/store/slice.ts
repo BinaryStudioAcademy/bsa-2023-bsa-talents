@@ -17,6 +17,7 @@ const initialState: UserDetailsGeneralCustom = {
     cvUrl: null,
     photoUrl: null,
     companyLogoUrl: null,
+    publishedAt: '',
 };
 
 const { reducer, actions, name } = createSlice({
