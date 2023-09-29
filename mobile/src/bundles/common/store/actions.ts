@@ -47,7 +47,7 @@ const createUserDetails = createAsyncThunk<
             file: companyLogo,
         });
         const { rn } = await fileUploadApi.upload({ files });
-        payload.companyLogoId = rn.id;
+        payload.companyLogoId = rn?.id;
     }
 
     try {
