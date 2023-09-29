@@ -129,12 +129,6 @@ const CandidateProfile: React.FC<Properties> = ({
             : hardskillsLabels;
 
     useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-
         if (currentUser?.role == UserRole.TALENT) {
             void dispatch(lmsActions.getTalentBadges(currentUser.id));
         }

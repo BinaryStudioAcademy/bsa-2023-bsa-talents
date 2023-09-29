@@ -73,14 +73,6 @@ const SkillsStep: React.FC = () => {
     );
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-    }, [currentUser?.id, dispatch]);
-
     const {
         talentHardSkills,
         englishLevel,
