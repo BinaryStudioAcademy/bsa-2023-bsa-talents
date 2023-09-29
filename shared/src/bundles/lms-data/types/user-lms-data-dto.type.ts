@@ -1,14 +1,20 @@
-import { type LMSProject } from './lms-project.type.js';
+import {
+    type HrFeedback,
+    type LectureDetail,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Talent,
+} from './types.js';
 
 type UserLMSDataDto = {
     userId: string;
-    talent: string; // JSON
+    talent: Talent;
     averageProjectScore: number | null;
     averageLectureScore: number | null;
-    lectureDetails: string; // JSON
-    projectCoachesFeedback: string; // JSON
-    hrFeedback: string; // JSON
-    project: LMSProject;
+    lectureDetails: LectureDetail[];
+    projectCoachesFeedback: ProjectCoachesFeedback[];
+    hrFeedback: HrFeedback;
+    project: Project;
 };
 
 export { type UserLMSDataDto };

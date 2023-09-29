@@ -54,7 +54,6 @@ export {
     type LectureDetail,
     type LMSDataResponseDto,
     type LMSDataServerResponseDto,
-    type LMSProject,
     type Marks,
     type Project,
     type ProjectCoachesFeedback,
