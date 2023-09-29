@@ -4,6 +4,7 @@ import {
     Avatar,
     Button,
     Grid,
+    Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
@@ -11,10 +12,15 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 
 import styles from './styles.module.scss';
 
-const CompanyInfo: React.FC = () => {
+type Properties = {
+    className?: string;
+};
+
+const CompanyInfo: React.FC<Properties> = ({ className }) => {
     const { company, hasSharedContacts, talentId, employerId, currentChatId } =
         useAppSelector(({ chat }) => ({
             company: chat.current.employerDetails,
@@ -35,16 +41,30 @@ const CompanyInfo: React.FC = () => {
     } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
-        void dispatch(
-            chatActions.createMessage({
-                message:
-                    'Hello!\n I have shared my CV and information with you.',
-                senderId: talentId as string,
-                receiverId: employerId as string,
-                chatId: currentChatId as string,
-            }),
-        );
-        void dispatch(candidateActions.shareContactsWithCompany());
+        const createNotificationMessage = async (): Promise<void> => {
+            const userDetails = await userDetailsApi.getFullUserDetailsById({
+                userId: talentId as string,
+            });
+
+            const cvUrl = userDetails.cv?.url;
+            const baseUrl = window.location.toString().replace('/chats', '');
+
+            void dispatch(
+                chatActions.createMessage({
+                    message:
+                        'Hello!\n I have shared my CV and information with you.\n\n ' +
+                        `CV_&_${cvUrl} ` +
+                        `Profile_&_${baseUrl}/candidates/${talentId} `,
+                    senderId: talentId as string,
+                    receiverId: employerId as string,
+                    chatId: currentChatId as string,
+                }),
+            );
+
+            void dispatch(candidateActions.shareContactsWithCompany());
+        };
+
+        void createNotificationMessage();
     }, [dispatch, currentChatId, employerId, talentId]);
 
     const handleAlreadyHiredButtonClick = useCallback(() => {
@@ -52,7 +72,7 @@ const CompanyInfo: React.FC = () => {
     }, []);
 
     const aboutInfo = about ?? 'No information provided';
-    return (
+    return currentChatId ? (
         <Grid className={styles.wrapper}>
             <Grid className={styles.header}>
                 <Avatar
@@ -126,6 +146,13 @@ const CompanyInfo: React.FC = () => {
                     />
                 </Grid>
             </Grid>
+        </Grid>
+    ) : (
+        <Grid className={className}>
+            <Logo isCollapsed />
+            <span className={styles.hire}>
+                Where great talent meets great opportunities
+            </span>
         </Grid>
     );
 };

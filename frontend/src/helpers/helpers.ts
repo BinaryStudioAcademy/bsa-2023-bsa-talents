@@ -1,3 +1,4 @@
+export { parseMessage } from './parse-messages.helper.js';
 export {
     type ChatListItemType,
     configureString,

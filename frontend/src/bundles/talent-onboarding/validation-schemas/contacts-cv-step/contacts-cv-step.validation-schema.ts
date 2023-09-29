@@ -7,7 +7,23 @@ import {
 import { type ContactsCVStepDto } from '../../types/types.js';
 
 const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
-    photo: joi.object().instance(File).required(),
+    photo: joi.object().instance(File).allow(null),
+    photoUrl: joi.string().allow(null).when('photo', {
+        is: null,
+        then: joi.required(),
+        otherwise: joi.optional(),
+    }),
+
+    cv: joi.object().instance(File).allow(null),
+    cvUrl: joi.string().allow(null).when('cv', {
+        is: null,
+        then: joi.required(),
+        otherwise: joi.optional(),
+    }),
+    cvName: joi.string().messages({
+        'any.invalid': ContactsCVStepValidationMessages.CV_REQUIRED,
+    }),
+
     fullName: joi
         .string()
         .trim()
@@ -51,7 +67,6 @@ const ContactsCVStepValidationSchema = joi.object<ContactsCVStepDto, true>({
             'string.pattern.base':
                 ContactsCVStepValidationMessages.LINKEDIN_LINK_WRONG_PATTERN,
         }),
-    cv: joi.object().instance(File).required(),
 });
 
 export { ContactsCVStepValidationSchema };

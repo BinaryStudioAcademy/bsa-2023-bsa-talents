@@ -14,6 +14,8 @@ const ContactsCVStepValidationMessages = {
         'LinkedIn link must be at least {{#limit}} characters',
     LINKEDIN_LINK_MAX_LENGTH:
         'LinkedIn link must be at most {{#limit}} characters',
+    PHOTO_REQUIRED: 'Photo is required',
+    CV_REQUIRED: 'CV is required',
 } as const;
 
 export { ContactsCVStepValidationMessages };

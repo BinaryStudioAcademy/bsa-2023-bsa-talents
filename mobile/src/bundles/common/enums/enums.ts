@@ -14,11 +14,13 @@ export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export {
     BadgeSize,
     ButtonType,
+    CandidateTab,
     Color,
     IconName,
     IconSize,
     LoaderSize,
     PhotoType,
+    ProfileTab,
 } from './ui/ui';
 export {
     ApiPath,

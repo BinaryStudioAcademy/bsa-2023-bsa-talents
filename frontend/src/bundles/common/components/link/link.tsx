@@ -1,9 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
-import { type ApplicationRoute } from '~/bundles/common/types/types.js';
-
 type Properties = {
-    to: ApplicationRoute;
+    to: string;
+
     children: React.ReactNode;
     className?:
         | string

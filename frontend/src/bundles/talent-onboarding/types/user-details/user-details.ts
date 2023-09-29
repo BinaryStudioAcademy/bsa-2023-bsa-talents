@@ -20,6 +20,7 @@ type UserDetails = UserDetailsUpdateRequestDto & {
     createdAt?: string;
     publishedAt?: string;
     cvUrl?: string | null;
+    cvName?: string;
     companyLogoUrl?: string | null;
     photoUrl?: string | null;
 };
