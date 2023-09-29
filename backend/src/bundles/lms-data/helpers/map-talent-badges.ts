@@ -12,7 +12,7 @@ import {
     type TalentBadgeCreateDto,
 } from '../types/types.js';
 
-const MOCK_SCORE = 4;
+const MOCK_SCORE = 3;
 const MAX_SCORE = 5;
 const DECIMAL_PLACES = 2;
 
@@ -30,12 +30,16 @@ const findScoreForCommunicationAndTeam = (
     property: keyof Marks,
 ): number => {
     let totalScore = 0;
+    let totalLenght = 0;
 
     for (const week of projectCoachesFeedback) {
-        totalScore += week.marks[property];
+        if (typeof week.marks[property] === 'number') {
+            totalScore += week.marks[property];
+            totalLenght++;
+        }
     }
 
-    const averageScore = totalScore / projectCoachesFeedback.length;
+    const averageScore = totalScore / totalLenght;
 
     return isNumber(averageScore) ? averageScore : getRandomScore();
 };
@@ -106,13 +110,10 @@ const mapTalentBadges = (
         switch (badgeType) {
             case BsaBadgesTypeEnum.COMMUNICATION_SCORE:
             case BsaBadgesTypeEnum.TEAM_SCORE: {
-                const averageScore = findScoreForCommunicationAndTeam(
+                score = findScoreForCommunicationAndTeam(
                     lmsData.projectCoachesFeedback,
                     property as keyof Marks,
                 );
-                score = Number.isNaN(averageScore)
-                    ? getRandomScore()
-                    : averageScore;
                 break;
             }
             case BsaBadgesTypeEnum.BEST_LECTURE_SCORE: {
