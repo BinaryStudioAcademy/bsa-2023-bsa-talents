@@ -65,11 +65,15 @@ const updateOnboardingData = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { commonApi, notifications, fileUploadApi } = extra;
-    const { badges, hardSkills, photo, cv, companyLogo, ...payload } =
-        stepPayload;
+    const {
+        badges,
+        hardSkills,
+        photo,
+        cv: cvDocument,
+        companyLogo,
+        ...payload
+    } = stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
-
-    const cvDocument = cv;
 
     if (photo) {
         try {
@@ -124,8 +128,6 @@ const updateOnboardingData = createAsyncThunk<
             //TODO remove when it is ready at the backend
             ...(hardSkills && { hardSkills }),
             ...(badges && { badges }),
-            ...(photo && { photo }),
-            ...(cv && { cv }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
