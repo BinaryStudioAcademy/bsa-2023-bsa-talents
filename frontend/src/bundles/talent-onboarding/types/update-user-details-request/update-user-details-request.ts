@@ -12,7 +12,10 @@ type UserDetailsGeneralCustom = UserDetailsUpdateRequestDto & {
     }[];
     badges?: string[];
     photo?: File | null;
+    photoUrl?: string | null;
     cv?: File | null;
+    cvUrl?: string | null;
+    cvName?: string;
     dataStatus?: ValueOf<typeof DataStatus>;
     createdAt?: string;
     publishedAt?: string;

@@ -5,6 +5,7 @@ import {
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
+    Button,
     Controller,
     FileUpload,
     FormControl,
@@ -12,6 +13,7 @@ import {
     FormLabel,
     Grid,
     Input,
+    Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
@@ -41,9 +43,16 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
-    const { fullName, phone, linkedinLink } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
-    );
+    const {
+        fullName,
+        phone,
+        linkedinLink,
+        photo,
+        photoUrl,
+        cv,
+        cvUrl,
+        cvName,
+    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
@@ -63,8 +72,13 @@ const ContactsCVStep: React.FC = () => {
                 fullName,
                 phone,
                 linkedinLink,
+                photo,
+                photoUrl,
+                cv,
+                cvUrl,
+                cvName,
             }),
-            [fullName, linkedinLink, phone],
+            [cv, cvName, cvUrl, fullName, linkedinLink, phone, photo, photoUrl],
         ),
         validationSchema: ContactsCVStepValidationSchema,
     });
@@ -74,8 +88,23 @@ const ContactsCVStep: React.FC = () => {
             fullName,
             phone,
             linkedinLink,
+            photo,
+            photoUrl,
+            cv,
+            cvName,
+            cvUrl,
         });
-    }, [fullName, phone, linkedinLink, reset]);
+    }, [
+        fullName,
+        phone,
+        linkedinLink,
+        reset,
+        photo,
+        photoUrl,
+        cv,
+        cvUrl,
+        cvName,
+    ]);
 
     const { setSubmitForm } = useFormSubmit();
 
@@ -83,14 +112,37 @@ const ContactsCVStep: React.FC = () => {
 
     const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
-    const watchedValues = watch(['fullName', 'phone', 'linkedinLink']);
+    const watchedValues = watch([
+        'fullName',
+        'phone',
+        'linkedinLink',
+        'photo',
+        'photoUrl',
+        'cv',
+        'cvUrl',
+        'cvName',
+    ]);
 
     useEffect(() => {
-        const newValues = getValues(['fullName', 'phone', 'linkedinLink']);
+        const newValues = getValues([
+            'fullName',
+            'phone',
+            'linkedinLink',
+            'photo',
+            'photoUrl',
+            'cv',
+            'cvUrl',
+            'cvName',
+        ]);
         const initialValues = {
             fullName,
             phone,
             linkedinLink,
+            photo,
+            photoUrl,
+            cv,
+            cvUrl,
+            cvName,
         };
         const hasChanges =
             JSON.stringify(Object.values(initialValues)) !==
@@ -99,12 +151,17 @@ const ContactsCVStep: React.FC = () => {
             dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
         }
     }, [
+        cv,
+        cvName,
+        cvUrl,
         dispatch,
         fullName,
         getValues,
         hasChangesInDetails,
         linkedinLink,
         phone,
+        photo,
+        photoUrl,
         watchedValues,
     ]);
 
@@ -137,7 +194,17 @@ const ContactsCVStep: React.FC = () => {
         };
     }, [handleSubmit, handleFormSubmit, setSubmitForm]);
 
-    const [photoURL, setPhotoURL] = useState<string>('');
+    const [photoURL, setPhotoURL] = useState<string>(photoUrl ?? '');
+    const [cvURL, setCvURL] = useState<string>(cvUrl ?? '');
+
+    useEffect(() => {
+        if (photoUrl) {
+            setPhotoURL(photoUrl);
+        }
+        if (cvUrl) {
+            setCvURL(cvUrl);
+        }
+    }, [photoUrl, cvUrl, cvName]);
 
     const handlePhotoFileChange = useCallback(
         (field: ControllerRenderProps<ContactsCVStepDto, 'photo'>) =>
@@ -157,8 +224,8 @@ const ContactsCVStep: React.FC = () => {
                     });
 
                     setPhotoURL(URL.createObjectURL(file));
-
                     field.onChange(file);
+                    clearErrors('photoUrl');
                     return true;
                 } catch {
                     setPhotoURL('');
@@ -186,13 +253,19 @@ const ContactsCVStep: React.FC = () => {
                     label: 'Choose photo',
                     className: getValidClassNames(
                         styles.uploadPhotoBtn,
-                        errors.photo?.message ? styles.btnError : '',
+                        errors.photoUrl?.message ?? errors.photo?.message
+                            ? styles.btnError
+                            : '',
                     ),
                 }}
                 onChange={handlePhotoFileChange(field)}
             />
         ),
-        [errors.photo?.message, handlePhotoFileChange],
+        [
+            errors.photo?.message,
+            errors.photoUrl?.message,
+            handlePhotoFileChange,
+        ],
     );
 
     const handleCVFileChange = useCallback(
@@ -219,9 +292,12 @@ const ContactsCVStep: React.FC = () => {
                         setError,
                         clearErrors,
                     });
+                    setCvURL(URL.createObjectURL(file));
                     field.onChange(file);
+                    clearErrors('cvUrl');
                     return true;
                 } catch {
+                    setCvURL('');
                     return false;
                 }
             },
@@ -246,21 +322,28 @@ const ContactsCVStep: React.FC = () => {
                     label: 'Choose file',
                     className: getValidClassNames(
                         styles.uploadCVBtn,
-                        errors.cv?.message ? styles.btnError : '',
+                        errors.cv?.message ?? errors.cvUrl?.message
+                            ? styles.btnError
+                            : '',
                     ),
                     startIcon: <PlusIcon />,
                 }}
                 onChange={handleCVFileChange(field)}
             />
         ),
-        [errors.cv?.message, handleCVFileChange],
+        [errors.cv?.message, errors.cvUrl?.message, handleCVFileChange],
     );
+
+    const handleLinkClick = useCallback((): void => {
+        window.open(cvURL, '_blank');
+    }, [cvURL]);
 
     useEffect(() => {
         return () => {
             URL.revokeObjectURL(photoURL);
+            URL.revokeObjectURL(cvURL);
         };
-    }, [photoURL]);
+    }, [photoURL, cvURL]);
 
     return (
         <>
@@ -380,10 +463,22 @@ const ContactsCVStep: React.FC = () => {
                     </FormHelperText>
                 </FormControl>
 
-                {watch('cv') && (
-                    <Typography variant="caption">
-                        Attached file: {watch('cv')?.name}
-                    </Typography>
+                {(watch('cv') ?? cvName) && (
+                    <Grid className={styles.cv}>
+                        <Typography variant="caption">
+                            Attached file:
+                        </Typography>
+                        <Tooltip title={cvURL}>
+                            <div>
+                                <Button
+                                    label={watch('cv')?.name ?? cvName}
+                                    variant="text"
+                                    className={styles.cvLink}
+                                    onClick={handleLinkClick}
+                                />
+                            </div>
+                        </Tooltip>
+                    </Grid>
                 )}
             </div>
 

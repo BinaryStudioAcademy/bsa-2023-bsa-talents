@@ -29,7 +29,9 @@ const updateTalentDetails = createAsyncThunk<
 >(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi, fileUploadApi } = extra;
     const { cv, photo, ...restPayload } = updatePayload;
-
+    delete restPayload.photoUrl;
+    delete restPayload.cvUrl;
+    delete restPayload.cvName;
     const files: FileDto[] = [];
 
     if (cv) {
@@ -101,7 +103,7 @@ const getTalentDetails = createAsyncThunk<
 >(
     `${sliceName}/get-talent-details`,
     async (findPayload, { extra, rejectWithValue }) => {
-        const { talentOnBoardingApi } = extra;
+        const { fileUploadApi, talentOnBoardingApi } = extra;
 
         try {
             const userDetails =
@@ -109,7 +111,18 @@ const getTalentDetails = createAsyncThunk<
                     userId: findPayload.userId,
                 });
 
-            return userDetails ?? null;
+            const photo = await fileUploadApi.getFileById({
+                id: userDetails?.photoId ?? '',
+            });
+            const cv = await fileUploadApi.getFileById({
+                id: userDetails?.cvId ?? '',
+            });
+            return {
+                ...userDetails,
+                photoUrl: photo?.url,
+                cvUrl: cv?.url,
+                cvName: cv?.fileName,
+            };
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',
