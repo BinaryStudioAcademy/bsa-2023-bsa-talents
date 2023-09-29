@@ -41,6 +41,7 @@ type Properties = {
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
+    isCandidatePage?: boolean;
     candidateData?: SeacrhCandidateResponse & {
         email?: string;
     };
@@ -54,6 +55,7 @@ const CandidateProfile: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
     candidateData,
+    isCandidatePage = false,
     hasSentAlreadyFirstMessage = false,
 }) => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -105,11 +107,18 @@ const CandidateProfile: React.FC<Properties> = ({
     const userId = currentUser?.id;
 
     useEffect(() => {
-        if (!userId) {
+        if ((!userId || isProfileCard) ?? isCandidatePage) {
             return;
         }
         void dispatch(talentActions.getTalentDetails({ userId: data.userId }));
-        if (currentUser.role == UserRole.EMPLOYER) {
+
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser.id,
+            }),
+        );
+
+        if (!isFifthStep && currentUser.role == UserRole.EMPLOYER) {
             void dispatch(
                 hiringInfoActions.getHiringInfo({
                     talentId: data.userId ?? '',
@@ -124,7 +133,15 @@ const CandidateProfile: React.FC<Properties> = ({
             );
             void dispatch(chatActions.getAllChatsByUserId(currentUser.id));
         }
-    }, [currentUser, data.userId, dispatch, userId]);
+    }, [
+        currentUser,
+        data.userId,
+        dispatch,
+        isCandidatePage,
+        isFifthStep,
+        isProfileCard,
+        userId,
+    ]);
 
     const { chats } = useAppSelector(({ chat }) => ({
         chats: chat.chats,
@@ -141,6 +158,11 @@ const CandidateProfile: React.FC<Properties> = ({
             void dispatch(chatActions.updateChatId(chatWithCandidate.chatId));
         }
     }, [chats, data.userId, dispatch, hasSentAlreadyFirstMessage]);
+    useEffect(() => {
+        if (currentUser?.role == UserRole.TALENT) {
+            void dispatch(lmsActions.getTalentBadges(currentUser.id));
+        }
+    }, [currentUser, data.userId, dispatch]);
 
     const hardskillsLabels = hardSkillsOptions
         .filter(
@@ -156,33 +178,6 @@ const CandidateProfile: React.FC<Properties> = ({
         !isFifthStep && candidateData?.hardSkills
             ? candidateData.hardSkills.map((item) => item.name)
             : hardskillsLabels;
-
-    useEffect(() => {
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser?.id,
-            }),
-        );
-
-        if (currentUser?.role == UserRole.TALENT) {
-            void dispatch(lmsActions.getTalentBadges(currentUser.id));
-        }
-
-        if (currentUser?.role == UserRole.EMPLOYER) {
-            void dispatch(
-                hiringInfoActions.getHiringInfo({
-                    talentId: data.userId ?? '',
-                    companyId: currentUser.id,
-                }),
-            );
-            void dispatch(
-                candidateActions.getContactWithTalent({
-                    talentId: data.userId ?? '',
-                    companyId: currentUser.id,
-                }),
-            );
-        }
-    }, [currentUser, data.userId, dispatch]);
 
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,

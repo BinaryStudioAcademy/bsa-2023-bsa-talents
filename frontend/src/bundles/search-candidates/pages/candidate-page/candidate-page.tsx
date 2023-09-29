@@ -57,6 +57,7 @@ const CandidatePage: React.FC = () => {
                     isProfileOpen={candidateDetails.hasSharedContacts}
                     candidateData={candidateDetails}
                     hasSentAlreadyFirstMessage={hasSentAlreadyFirstMessage}
+                    isCandidatePage={true}
                 />
             )}
         </>
