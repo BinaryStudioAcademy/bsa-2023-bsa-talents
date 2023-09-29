@@ -37,7 +37,7 @@
     display: flex;
     flex-direction: column;
     gap: 26px;
-    width: 100%;
+    min-width: max-content;
     max-width: var(--talent-profile-form-width);
     padding: 40px;
     background-color: var(--white);
@@ -91,19 +91,11 @@
 }
 
 .stepContainer {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    width: 65vw;
+    margin: 0 auto;
 }
 
 @media screen and (width <=760px) {
-    .stepContainer {
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        align-items: center;
-        width: 100%;
+    .form {
+        min-width: 100%;
     }
 }
