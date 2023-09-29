@@ -4,39 +4,57 @@ import { ErrorMessage } from '~/common/enums/enums.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/service.type.js';
 
+import { type EmailService } from '../email/email.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
-import { type TalentBadge } from '../talent-badges/types/talent-badge.js';
+import { type TalentBadge } from '../talent-badges/types/types.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
+import { type UserService } from '../users/users.js';
 import {
     type TalentHardSkill,
     type UserDetailsCreateRequestDto,
     type UserDetailsDenyRequestDto,
     type UserDetailsFindRequestDto,
+    type UserDetailsProperties,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     type UserDetailsShortResponseDto,
     type UserDetailsUpdateRequestDto,
 } from './types/types.js';
 import { type UserDetailsEntity } from './user-details.entity.js';
+import { type UserDetailsModel } from './user-details.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
 
 type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
     talentHardSkills: TalentHardSkill[];
 };
 
+type Services = {
+    userDetailsRepository: UserDetailsRepository;
+    talentBadgeService: TalentBadgeService;
+    talentHardSkillsService: TalentHardSkillsService;
+    emailService: EmailService;
+    userService: UserService;
+};
+
 class UserDetailsService implements Service {
     private userDetailsRepository: UserDetailsRepository;
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
+    private emailService: EmailService;
+    private userService: UserService;
 
-    public constructor(
-        userDetailsRepository: UserDetailsRepository,
-        talentBadgeService: TalentBadgeService,
-        talentHardSkillsService: TalentHardSkillsService,
-    ) {
+    public constructor({
+        emailService,
+        talentBadgeService,
+        talentHardSkillsService,
+        userDetailsRepository,
+        userService,
+    }: Services) {
         this.userDetailsRepository = userDetailsRepository;
         this.talentBadgeService = talentBadgeService;
         this.talentHardSkillsService = talentHardSkillsService;
+        this.emailService = emailService;
+        this.userService = userService;
     }
 
     public async find(
@@ -87,6 +105,21 @@ class UserDetailsService implements Service {
         return userDetails;
     }
 
+    public async findFullInfoByUserId(
+        userId: string,
+    ): Promise<UserDetailsModel | null> {
+        const userDetails =
+            await this.userDetailsRepository.findFullInfoByUserId(userId);
+
+        if (!userDetails) {
+            throw new HttpError({
+                status: HttpCode.NOT_FOUND,
+                message: ErrorMessage.USER_DETAILS_NOT_FOUND,
+            });
+        }
+        return userDetails;
+    }
+
     public async findShortByRole(
         role: 'talent' | 'employer',
     ): Promise<UserDetailsShortResponseDto[]> {
@@ -107,12 +140,14 @@ class UserDetailsService implements Service {
         throw new Error(ErrorMessage.NOT_IMPLEMENTED);
     }
 
-    public searchUsers(
+    public async searchUsers(
         searchData: UserDetailsSearchUsersRequestDto,
-    ): Promise<UserDetailsEntity[]> {
+    ): Promise<UserDetailsProperties[]> {
         const preparedData = mapQueryValuesToArrays(searchData, [
             'searchValue',
             'sortBy',
+            'searchType',
+            'searchStringType',
         ]);
 
         return this.userDetailsRepository.searchUsers(preparedData);
@@ -230,6 +265,17 @@ class UserDetailsService implements Service {
             id: userDetailsId,
         });
 
+        const user = await this.userService.findById(userId);
+
+        if (user) {
+            await this.emailService.sendAccountApprovalEmail(user.email);
+        } else {
+            throw new HttpError({
+                message: ErrorMessage.USER_NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+
         return true;
     }
 
@@ -253,6 +299,20 @@ class UserDetailsService implements Service {
             isApproved: false,
             id: userDetailsId,
         });
+
+        const user = await this.userService.findById(userId);
+
+        if (user) {
+            await this.emailService.sendAccountDenialEmail(
+                user.email,
+                payload.deniedReason,
+            );
+        } else {
+            throw new HttpError({
+                message: ErrorMessage.USER_NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
 
         return true;
     }

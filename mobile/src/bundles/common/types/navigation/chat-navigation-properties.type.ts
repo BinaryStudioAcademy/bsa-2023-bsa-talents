@@ -1,8 +1,8 @@
 type ChatNavigationProperties = {
     chatId: string;
     partnerName: string;
-    partnerAvatar: string;
     partnerId: string;
+    partnerAvatar?: string;
 };
 
 export { type ChatNavigationProperties };

@@ -12,7 +12,6 @@ import {
     View,
 } from '~/bundles/common/components/components';
 import {
-    DataStatus,
     RootScreenName,
     TextCategory,
     UserRole,
@@ -38,9 +37,8 @@ import { styles } from './styles';
 const ChatList: React.FC = () => {
     const dispatch = useAppDispatch();
     const { currentUserData: user } = useAppSelector(({ auth }) => auth);
-    const { chats, current, dataStatus } = useAppSelector(({ chat }) => chat);
-
-    const isChatsLoading = dataStatus === DataStatus.PENDING;
+    const { chats, current } = useAppSelector(({ chat }) => chat);
+    const [isDataLoaded, setDataLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigation =
@@ -48,7 +46,13 @@ const ChatList: React.FC = () => {
 
     useEffect(() => {
         if (user) {
-            void dispatch(chatActions.getAllChatsByUserId(user.id));
+            void dispatch(chatActions.getAllChatsByUserId(user.id)).then(() => {
+                setDataLoaded(true);
+            });
+
+            return () => {
+                setDataLoaded(false);
+            };
         }
     }, [dispatch, user, current.messages.length]);
 
@@ -92,7 +96,7 @@ const ChatList: React.FC = () => {
         [navigation],
     );
 
-    if (isChatsLoading) {
+    if (!isDataLoaded) {
         return <Loader />;
     }
 

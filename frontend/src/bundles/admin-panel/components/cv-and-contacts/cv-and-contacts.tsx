@@ -6,39 +6,36 @@ import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { useState } from '~/bundles/common/hooks/hooks.js';
 
+import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import { mapDocumentForViewer } from './helpers/map-document-for-viewer.helper.js';
 import styles from './styles.module.scss';
 
 const DocumentViewer = DocViewer as unknown as React.FC<DocViewerProps>;
 
-const CVAndContacts: React.FC = () => {
-    // TODO: Change with actual selected candidate's data:
-    const mockCandidate = {
-        phone: '+639709980196',
-        linkedInLink: 'https://www.linkedin.com/in/josuer-bague/',
-        cvLink: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/josuer-bague-cv.pdf',
-    };
+type Properties = {
+    userDetails?: UserDetailsFullResponseDto;
+};
 
-    // TODO: Change with selected candidate's CV URI. DocViewer plugin requires array.
-    const documents = mapDocumentForViewer(mockCandidate.cvLink);
+const CVAndContacts: React.FC<Properties> = ({ userDetails }) => {
+    const documents = mapDocumentForViewer(userDetails?.cv?.url as string);
 
-    const browserUnsopportedFile =
+    const browserUnsupportedFile =
         'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com/Unsupported.pdf';
 
-    const [cvUrl, setCvUrl] = useState<string>(mockCandidate.cvLink);
+    const [cvUrl, setCvUrl] = useState<string>(userDetails?.cv?.url as string);
     const [extension] = cvUrl.split('.').reverse();
 
     if (extension !== 'pdf') {
-        setCvUrl(browserUnsopportedFile);
+        setCvUrl(browserUnsupportedFile);
     }
 
     return (
-        <Grid container className={styles.container}>
+        <Grid container justifyContent="center" className={styles.container}>
             <Grid container item className={styles.data}>
                 <Grid container item className={styles.row}>
                     <Phone className={styles.icon} />
                     <Typography className={styles.span} variant="body1">
-                        +639709980196
+                        {userDetails?.phone}
                     </Typography>
                 </Grid>
                 <Grid
@@ -51,7 +48,7 @@ const CVAndContacts: React.FC = () => {
                         <a
                             className={styles.link}
                             target={'_blank'}
-                            href={'https://www.linkedin.com/in/josuer-bague/'}
+                            href={userDetails?.linkedinLink as string}
                             rel="noreferrer"
                         >
                             LinkedIn Profile

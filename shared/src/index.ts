@@ -31,6 +31,7 @@ export {
     type ContactsResponseDto,
 } from './bundles/contacts/contacts.js';
 export {
+    type File,
     FileApiPath,
     FileRole,
     type FileRoleValue,
@@ -87,6 +88,9 @@ export {
     NotConsidered,
     OnboardingStep,
     PreferredLanguage,
+    SearchType,
+    type TalentBadge,
+    type TalentBadgeCreateDto,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
@@ -97,6 +101,7 @@ export {
     type UserDetailsFindByUserIdRequestDto,
     type UserDetailsFindRequestDto,
     type UserDetailsFindShortByRoleRequestDto,
+    type UserDetailsFullResponseDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,
     userDetailsSearchValidationSchema,
@@ -162,6 +167,7 @@ export {
     getBadgeIcon,
     getItemsWithSelected,
     getSearchedItems,
+    getURLWithQueryString,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';

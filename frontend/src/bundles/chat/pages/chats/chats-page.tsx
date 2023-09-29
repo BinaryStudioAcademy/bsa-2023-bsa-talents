@@ -5,6 +5,7 @@ import { actions as candidateActions } from '~/bundles/candidate-details/store/c
 import {
     ChatHeader,
     ChatList,
+    ChatPlaceholder,
     CompanyInfo,
     MessageInput,
     MessageList,
@@ -19,6 +20,7 @@ import {
     Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { UserRole } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -33,7 +35,6 @@ import {
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
 import { NO_CHATS } from '../../constants/constants.js';
-import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
@@ -60,11 +61,12 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, currentChatId, isLoading } = useAppSelector(
+    const { user, chats, isLoading, employerId, talentId } = useAppSelector(
         ({ auth, chat }) => ({
             user: auth.currentUser,
             chats: chat.chats,
-            currentChatId: chat.current.chatId,
+            employerId: chat.current.employerDetails.employerId ?? '',
+            talentId: chat.current.talentId ?? '',
             isLoading: chat.dataStatus === 'pending',
         }),
     );
@@ -124,11 +126,8 @@ const ChatsPage: React.FC = () => {
         };
     }, [dispatch, user?.id]);
 
-    const { chatHeaderName, chatHeaderAvatar } = getChatHeaderProperties({
-        chats,
-        selectedId: currentChatId,
-        userId: user?.id,
-    });
+    const headerUserId =
+        user?.role === UserRole.EMPLOYER ? talentId : employerId;
 
     const handleItemClick = useCallback(
         (id: string, items: ChatListItemType[]) => {
@@ -138,7 +137,7 @@ const ChatsPage: React.FC = () => {
 
             let employerId: string;
 
-            if (user?.role === 'employer') {
+            if (user?.role === UserRole.EMPLOYER) {
                 employerId = user.id;
             } else {
                 employerId = user?.id === sender.id ? receiver.id : sender.id;
@@ -214,10 +213,9 @@ const ChatsPage: React.FC = () => {
                                 </div>
                             )}
                             <ChatHeader
-                                title={chatHeaderName}
+                                userId={headerUserId}
                                 isOnline
                                 className={styles.chatHeader}
-                                avatarUrl={chatHeaderAvatar}
                             />
                             <MessageList className={styles.messageList} />
                             <MessageInput className={styles.chatInput} />
@@ -231,7 +229,7 @@ const ChatsPage: React.FC = () => {
                                     isScreenMoreMD && styles.chatInfoOpenedMD,
                                 )}
                             >
-                                {user?.role === 'talent' ? (
+                                {user?.role === UserRole.TALENT ? (
                                     <CompanyInfo />
                                 ) : (
                                     <div className={styles.placeholder}>
@@ -247,18 +245,12 @@ const ChatsPage: React.FC = () => {
                 </>
             ) : (
                 !isLoading && (
-                    <Grid
+                    <ChatPlaceholder
                         className={getValidClassNames(
                             styles.chatWrapper,
                             styles.empty,
                         )}
-                    >
-                        <p className={styles.noChatsPlaceholder}>
-                            There are no active conversations yet. When
-                            employers want to contact you, all chats will be
-                            here
-                        </p>
-                    </Grid>
+                    />
                 )
             )}
         </Grid>

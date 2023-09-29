@@ -36,6 +36,7 @@ const getAllMessagesByChatId = createAsyncThunk<
     {
         chatId: string;
         messages: MessageResponseDto[];
+        talentId: string;
         employerDetails: {
             logoUrl: string;
             companyName: string;
@@ -54,7 +55,10 @@ const getAllMessagesByChatId = createAsyncThunk<
         const { chatApi, userDetailsApi } = extra;
         dispatch(actions.updateChatId(chatId));
         const messages = await chatApi.getAllMessagesByChatId(chatId);
+        const { senderId, receiverId } = messages.items[0];
+        const talentId = senderId === employerId ? receiverId : senderId;
         const employer = await userDetailsApi.getUserDetailsById(employerId);
+
         const employerDetails = {
             logoUrl: employer?.companyLogoId ?? '',
             companyName: employer?.companyName ?? '',
@@ -65,7 +69,7 @@ const getAllMessagesByChatId = createAsyncThunk<
             employerId: employer?.userId ?? '',
         };
 
-        return { chatId, messages: messages.items, employerDetails };
+        return { chatId, messages: messages.items, employerDetails, talentId };
     },
 );
 

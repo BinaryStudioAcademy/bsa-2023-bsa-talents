@@ -1,6 +1,6 @@
 :root {
     --page-title-height: 82px;
-    --page-vertical-padding: 70px;
+    --page-vertical-padding: 52px;
     --content-padding-mobile: 0px 15px 0px;
     --content-padding-web: 20px 50px 0px 50px;
     --title-paddding-mobile: 26px 15px;
@@ -14,6 +14,7 @@
     );
     --preview-tab-height: 72px;
     --tabs-container-margin-bottom: 27px;
+    --wide-screens-container-max-width: 850px;
 }
 
 .pageWrapper {
@@ -52,10 +53,16 @@
     flex-flow: column nowrap;
     width: 100%;
     max-height: var(--preview-wrapper-max-height);
-    margin-top: 52px;
+    margin-top: var(--preview-button-group-height);
     overflow: hidden;
     background-color: var(--white);
     border-radius: 8px;
+}
+
+.previewEmpty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .previewWrapper:global(.hidden) {
@@ -86,12 +93,11 @@
 
 .filterWrapper {
     --page-title-height: 82px;
-    --page-vertical-padding: 70px;
 
     width: 100%;
     max-height: calc(
         100vh - var(--header-height) - var(--page-title-height) - var(
-                --page-vertical-padding
+                --preview-button-group-height
             )
     );
     margin-top: 5px;
@@ -135,6 +141,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
+    height: 45px;
     margin: 0 10px;
     background-color: var(--background-primary);
     border-radius: 4px;

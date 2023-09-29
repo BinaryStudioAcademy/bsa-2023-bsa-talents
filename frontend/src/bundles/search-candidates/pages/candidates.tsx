@@ -33,9 +33,9 @@ const FIELDS: [
     keyof EmployeesFiltersDto,
     ...(keyof EmployeesFiltersDto)[],
 ] = [
-    'searchType',
+    'searchStringType',
     'searchValue',
-    'isSearchActiveCandidatesOnly',
+    'searchType',
     'jobTitle',
     'yearsOfExperience',
     'hardSkills',
@@ -140,7 +140,7 @@ const Candidates: React.FC = () => {
                 </Grid>
                 <Grid className={styles.optionsWrapper}>
                     <RadioGroup
-                        name={'searchType'}
+                        name={'searchStringType'}
                         control={control}
                         row={true}
                         options={[
@@ -165,16 +165,27 @@ const Candidates: React.FC = () => {
                     <Grid
                         className={getValidClassNames(
                             styles.searchResults,
+                            filteredCandidates.length > 0 && styles.scroll,
                             isFilterOpened ? styles.searchResultsHidden : '',
                         )}
                     >
-                        {filteredCandidates.map((candidate) => (
-                            <CandidateProfile
-                                key={candidate.id}
-                                isProfileCard
-                                candidateData={candidate}
-                            />
-                        ))}
+                        {filteredCandidates.length > 0 ? (
+                            filteredCandidates.map((candidate) => (
+                                <CandidateProfile
+                                    key={candidate.id}
+                                    isProfileCard
+                                    candidateData={candidate}
+                                />
+                            ))
+                        ) : (
+                            <Typography
+                                className={styles.noResultsText}
+                                variant="body1"
+                            >
+                                No candidates were found, try to change the
+                                filtering
+                            </Typography>
+                        )}
                     </Grid>
                 )}
             </Grid>

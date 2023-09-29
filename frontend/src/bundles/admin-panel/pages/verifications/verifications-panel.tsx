@@ -5,46 +5,109 @@ import {
     Button,
     Grid,
     IconButton,
+    Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useMediaQuery,
     useState,
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as adminActions } from '~/bundles/hiring-info/store/hiring-info.js';
 
 import {
     Characteristics,
     CVAndContacts,
+    DenyModal,
     Profile,
     VerificationList,
 } from '../../components/components.js';
-import { FIRST_INDEX, PreviewTab } from '../../constants/constants.js';
-import { employers, talents } from '../../mock-data/mock-data.js';
-import { type FilterValues, type TabValues } from '../../types/types.js';
+import { PreviewTab } from '../../constants/constants.js';
+import {
+    type FilterValues,
+    type TabValues,
+    type UserDetailsFullResponseDto,
+} from '../../types/types.js';
 import styles from './styles.module.scss';
 
 const AdminVerificationsPanel: React.FC = () => {
-    const [filter, setFilter] = useState<FilterValues>('talents');
-    const items = filter === 'talents' ? talents : employers;
+    const dispatch = useAppDispatch();
     const theme = useTheme();
 
-    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-    const [selectedId, setSelectedId] = useState<string>(
-        items[FIRST_INDEX]?.userId,
+    const { shortDetails, fullDetails } = useAppSelector(
+        (state) => state.admin,
     );
+
+    const [filter, setFilter] = useState<FilterValues>('talent');
+    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectedTab, setSelectedTab] = useState<TabValues>(
         PreviewTab.PROFILE,
     );
 
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const toggleModal = useCallback(() => {
+        setIsModalOpen((previous) => !previous);
+    }, []);
+
+    const denyUser = useCallback(
+        (message: string) => {
+            void dispatch(
+                adminActions.denyUser({
+                    userId: selectedId as string,
+                    deniedReason: message,
+                }),
+            );
+        },
+        [selectedId, dispatch],
+    );
+
+    const approveUser = useCallback(() => {
+        void dispatch(
+            adminActions.approveUser({ userId: selectedId as string }),
+        );
+    }, [selectedId, dispatch]);
+
+    const tabComponents = {
+        [PreviewTab.PROFILE]: (
+            <Profile
+                userDetails={fullDetails as UserDetailsFullResponseDto}
+                selectedRole={filter}
+            />
+        ),
+        [PreviewTab.CV]: (
+            <CVAndContacts
+                userDetails={fullDetails as UserDetailsFullResponseDto}
+            />
+        ),
+        [PreviewTab.CHARACTERISTICS]: <Characteristics />,
+    };
+
+    useEffect(() => {
+        void dispatch(
+            adminActions.getShortUserDetails({
+                role: filter,
+            }),
+        );
+    }, [filter, dispatch]);
+
+    useEffect(() => {
+        if (selectedId) {
+            void dispatch(
+                adminActions.getFullUserDetails({
+                    userId: selectedId,
+                }),
+            );
+        }
+    }, [selectedId, dispatch]);
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
     const isTogglePreviewAllowed = !isScreenMoreMD && isFilterOpen;
-
-    // TODO: Change mock data to data from DB.
-    const selected = items.find((it) => it.userId === selectedId);
 
     const handleSelectTab = useCallback(
         (_event: React.MouseEvent<HTMLSpanElement>): void => {
@@ -68,22 +131,12 @@ const AdminVerificationsPanel: React.FC = () => {
         </Button>
     ));
 
-    const renderSelectedTab = (): JSX.Element => {
-        switch (selectedTab) {
-            case PreviewTab.PROFILE: {
-                return <Profile />;
-            }
-            case PreviewTab.CV: {
-                return <CVAndContacts />;
-            }
-            case PreviewTab.CHARACTERISTICS: {
-                return <Characteristics />;
-            }
-        }
-    };
-
     const handleFilterShow = useCallback((): void => {
         setIsFilterOpen((previous) => !previous);
+    }, []);
+
+    const resetTab = useCallback((): void => {
+        setSelectedTab(PreviewTab.PROFILE);
     }, []);
 
     useEffect(() => {
@@ -115,7 +168,7 @@ const AdminVerificationsPanel: React.FC = () => {
                     )}
                 >
                     <VerificationList
-                        items={items}
+                        items={shortDetails}
                         filter={filter}
                         setFilter={setFilter}
                         selectedId={selectedId}
@@ -123,9 +176,10 @@ const AdminVerificationsPanel: React.FC = () => {
                         isScreenMoreMd={isScreenMoreMD}
                         isFilterOpen={isFilterOpen}
                         setIsFilterOpen={setIsFilterOpen}
+                        handleResetTab={resetTab}
                     />
                 </Grid>
-                {
+                {fullDetails && selectedId ? (
                     <Grid
                         container
                         item
@@ -137,22 +191,38 @@ const AdminVerificationsPanel: React.FC = () => {
                         <Grid className={styles.previewHeader}>
                             <Avatar
                                 className={styles.avatar}
-                                src={selected?.avatar}
+                                src={fullDetails.photo?.url}
                             />
                             <Typography variant="body1" className={styles.name}>
-                                {selected?.username ?? 'username'}
+                                {fullDetails.fullName ?? 'username'}
                             </Typography>
                         </Grid>
-                        <Grid className={styles.tabs}>{previewTabs}</Grid>
-                        <Grid item className={styles.previewInfo}>
-                            {renderSelectedTab()}
-                        </Grid>
+                        {filter === 'talent' ? (
+                            <>
+                                <Grid className={styles.tabs}>
+                                    {previewTabs}
+                                </Grid>
+                                <Grid item className={styles.previewInfo}>
+                                    {tabComponents[selectedTab]}
+                                </Grid>
+                            </>
+                        ) : (
+                            <>
+                                <Grid className={styles.tabs}>
+                                    {previewTabs[0]}
+                                </Grid>
+                                <Grid item className={styles.previewInfo}>
+                                    {tabComponents[PreviewTab.PROFILE]}
+                                </Grid>
+                            </>
+                        )}
                         <Grid item className={styles.buttonGroup}>
                             <Button
                                 className={getValidClassNames(
                                     styles.button,
                                     styles.denyButton,
                                 )}
+                                onClick={toggleModal}
                                 label="Deny"
                                 variant="outlined"
                             />
@@ -161,11 +231,29 @@ const AdminVerificationsPanel: React.FC = () => {
                                     styles.button,
                                     styles.approveButton,
                                 )}
-                                label="Next Step"
+                                onClick={approveUser}
+                                label="Approve"
                             />
                         </Grid>
                     </Grid>
-                }
+                ) : (
+                    <Grid
+                        container
+                        item
+                        className={getValidClassNames(
+                            styles.previewWrapper,
+                            styles.previewEmpty,
+                            isTogglePreviewAllowed ? 'hidden' : '',
+                        )}
+                    >
+                        <Logo />
+                    </Grid>
+                )}
+                <DenyModal
+                    isOpen={isModalOpen}
+                    handleClose={toggleModal}
+                    onSubmit={denyUser}
+                />
             </Grid>
         </Grid>
     );

@@ -1,15 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
-import { type UserDetailsGeneralCustom } from '~/bundles/talent-onboarding/types/types.js';
 
 import { type EmployeesFiltersDto } from '../types/employees-filters-dto.js';
-import { type UserDetailsSearchUsersRequestDto } from '../types/types.js';
+import {
+    type SeacrhCandidateResponse,
+    type UserDetailsSearchUsersRequestDto,
+} from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const MIN_LENGTH = 0;
 const searchCandidates = createAsyncThunk<
-    UserDetailsGeneralCustom[],
+    SeacrhCandidateResponse[],
     UserDetailsSearchUsersRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/search-candidates`, async (filters, { extra }) => {
@@ -26,28 +28,43 @@ const setFilters = createAsyncThunk<
 });
 
 const getCandidateDetails = createAsyncThunk<
-    UserDetailsGeneralCustom | null,
+    (SeacrhCandidateResponse & { hasSharedContacts?: boolean }) | null,
     {
         userId: string;
+        companyId?: string;
     },
     AsyncThunkConfig
 >(
     `${sliceName}/get-candidate-details`,
-    async (findPayload, { extra, rejectWithValue, getState }) => {
+    async ({ userId, companyId }, { extra, rejectWithValue, getState }) => {
         const { searchCandidates } = getState();
-        const { talentOnBoardingApi } = extra;
+        const { talentOnBoardingApi, candidateApi } = extra;
         if (searchCandidates.filteredCandidates.length > MIN_LENGTH) {
             return (
                 searchCandidates.filteredCandidates.find(
-                    (candidate) => candidate.userId == findPayload.userId,
+                    (candidate) => candidate.userId == userId,
                 ) ?? null
             );
         }
+
         try {
             const userDetails =
-                await talentOnBoardingApi.getUserDetailsByUserId({
-                    userId: findPayload.userId,
+                (await talentOnBoardingApi.getUserDetailsByUserId({
+                    userId,
+                })) as
+                    | (SeacrhCandidateResponse & {
+                          hasSharedContacts?: boolean;
+                      })
+                    | null;
+
+            if (userDetails) {
+                const hasContact = await candidateApi.getContactWithTalent({
+                    talentId: userId,
+                    companyId: companyId as string,
                 });
+
+                userDetails.hasSharedContacts = hasContact;
+            }
 
             return userDetails ?? null;
         } catch (error) {

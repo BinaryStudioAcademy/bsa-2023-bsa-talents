@@ -71,3 +71,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.candidateLink {
+    display: unset;
+    color: var(--text-primary-dark);
+
+    &:visited {
+        color: var(--text-primary-dark);
+    }
+}

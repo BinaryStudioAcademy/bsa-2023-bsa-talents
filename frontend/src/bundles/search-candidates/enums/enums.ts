@@ -7,6 +7,7 @@ export {
     EmploymentType,
     EnglishLevel,
     JobTitle,
+    SearchType,
     UserSortCriteria,
     YearsOfExperience,
 } from 'shared/build/index.js';

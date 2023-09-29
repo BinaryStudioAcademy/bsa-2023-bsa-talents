@@ -1,15 +1,18 @@
-import { UserRole } from 'shared/build/index.js';
+import { type ChangeEvent } from 'react';
+import { SearchType, UserRole } from 'shared/build/index.js';
 
 import { actions as storeActions } from '~/app/store/app.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import {
     Button,
+    Checkbox,
     FormControl,
     Grid,
     PageLayout,
     RouterOutlet,
     Tab,
     Tabs,
+    Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
 import { useFormSubmit } from '~/bundles/common/context/context.js';
@@ -76,8 +79,9 @@ const ProfileCabinet: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { hasChanges } = useAppSelector((state: RootReducer) => ({
+    const { hasChanges, searchType } = useAppSelector((state: RootReducer) => ({
         hasChanges: state.cabinet.hasChangesInDetails,
+        searchType: state.talentOnBoarding.searchType,
     }));
 
     const currentUser = useAppSelector(
@@ -112,23 +116,7 @@ const ProfileCabinet: React.FC = () => {
         talentOnBoarding.publishedAt,
     ]);
 
-    const handleSaveClick = useCallback(() => {
-        void (async (): Promise<void> => {
-            if (submitForm) {
-                const isSuccessful = await submitForm();
-                if (isSuccessful) {
-                    void dispatch(
-                        storeActions.notify({
-                            type: NotificationType.SUCCESS,
-                            message: 'Profile was updated',
-                        }),
-                    );
-                }
-            }
-        })();
-    }, [dispatch, submitForm]);
-
-    const handlePublishNowClick = useCallback(() => {
+    const handlePublish = useCallback(() => {
         if (currentUser) {
             void dispatch(
                 talentActions.updateTalentPublishedDate({
@@ -142,6 +130,54 @@ const ProfileCabinet: React.FC = () => {
         }
     }, [currentUser, dispatch, navigate, role]);
 
+    const handleSearchTypeCheckboxOnChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>): void => {
+            const newSearchType = event.target.checked
+                ? SearchType.ACTIVE
+                : SearchType.PASSIVE;
+            void dispatch(
+                talentActions.updateTalentDetails({
+                    searchType: newSearchType,
+                    userId: currentUser?.id,
+                }),
+            );
+        },
+        [currentUser?.id, dispatch],
+    );
+
+    const handleClick = useCallback(
+        (publish: boolean) => {
+            void (async (): Promise<void> => {
+                if (!submitForm) {
+                    return;
+                }
+
+                const isSuccessful = await submitForm();
+                if (isSuccessful) {
+                    void dispatch(
+                        storeActions.notify({
+                            type: NotificationType.SUCCESS,
+                            message: 'Profile was updated',
+                        }),
+                    );
+                }
+
+                if (publish) {
+                    handlePublish();
+                }
+            })();
+        },
+        [dispatch, handlePublish, submitForm],
+    );
+
+    const handleSaveClick = useCallback(() => {
+        handleClick(false);
+    }, [handleClick]);
+
+    const handlePublishNowClick = useCallback(() => {
+        handleClick(true);
+    }, [handleClick]);
+
     return (
         <PageLayout
             avatarUrl=""
@@ -150,6 +186,22 @@ const ProfileCabinet: React.FC = () => {
         >
             <Grid className={styles.pageTitle}>
                 <Typography variant="h4">Your Profile</Typography>
+                {role == UserRole.TALENT && (
+                    <Grid className={styles.activeSearch}>
+                        <Checkbox
+                            onChange={handleSearchTypeCheckboxOnChange}
+                            isChecked={searchType == SearchType.ACTIVE}
+                            className={styles.checkbox}
+                        />
+                        <Typography variant="h6">Active search</Typography>
+                        <Tooltip
+                            title="BSA Talents shows you as an active candidate for all employers"
+                            className={styles.tooltip}
+                        >
+                            <div>{' [?] '}</div>
+                        </Tooltip>
+                    </Grid>
+                )}
             </Grid>
             <Grid className={styles.pageWrapper}>
                 <Grid className={styles.headNavigation}>
@@ -175,7 +227,7 @@ const ProfileCabinet: React.FC = () => {
                                     onClick={handleSaveClick}
                                     label={'Save'}
                                     variant={'outlined'}
-                                    isDisabled={hasChanges}
+                                    isDisabled={!hasChanges}
                                     className={getValidClassNames(
                                         styles.profileButton,
                                         styles.saveButton,
@@ -188,7 +240,7 @@ const ProfileCabinet: React.FC = () => {
                                     label={
                                         role === UserRole.TALENT
                                             ? 'Publish now'
-                                            : 'Submit for varification'
+                                            : 'Submit for verification'
                                     }
                                     variant={'contained'}
                                     className={getValidClassNames(

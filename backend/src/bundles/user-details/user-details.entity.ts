@@ -8,6 +8,7 @@ import {
     type NotConsidered,
     type OnboardingStep,
     type PreferredLanguage,
+    type SearchType,
 } from './enums/enums.js';
 import { type UserDetailsProperties } from './types/types.js';
 
@@ -43,6 +44,8 @@ class UserDetailsEntity implements Entity {
     private 'notConsidered': ValueOf<typeof NotConsidered>[] | null;
 
     private 'preferredLanguages': ValueOf<typeof PreferredLanguage>[] | null;
+
+    public 'searchType': ValueOf<typeof SearchType>;
 
     private 'projectLinks': string[] | null;
 
@@ -89,6 +92,7 @@ class UserDetailsEntity implements Entity {
         englishLevel,
         notConsidered,
         preferredLanguages,
+        searchType,
         projectLinks,
         photoId,
         fullName,
@@ -120,6 +124,7 @@ class UserDetailsEntity implements Entity {
         this.englishLevel = englishLevel;
         this.notConsidered = notConsidered;
         this.preferredLanguages = preferredLanguages;
+        this.searchType = searchType;
         this.projectLinks = projectLinks;
         this.photoId = photoId;
         this.fullName = fullName;
@@ -153,6 +158,7 @@ class UserDetailsEntity implements Entity {
         englishLevel,
         notConsidered,
         preferredLanguages,
+        searchType,
         projectLinks,
         photoId,
         fullName,
@@ -185,6 +191,7 @@ class UserDetailsEntity implements Entity {
             englishLevel,
             notConsidered,
             preferredLanguages,
+            searchType,
             projectLinks,
             photoId,
             fullName,
@@ -218,6 +225,7 @@ class UserDetailsEntity implements Entity {
         englishLevel,
         notConsidered,
         preferredLanguages,
+        searchType,
         projectLinks,
         photoId,
         fullName,
@@ -250,6 +258,7 @@ class UserDetailsEntity implements Entity {
             englishLevel,
             notConsidered,
             preferredLanguages,
+            searchType,
             projectLinks,
             photoId,
             fullName,
@@ -285,6 +294,7 @@ class UserDetailsEntity implements Entity {
             englishLevel: this.englishLevel,
             notConsidered: this.notConsidered,
             preferredLanguages: this.preferredLanguages,
+            searchType: this.searchType,
             projectLinks: this.projectLinks,
             photoId: this.photoId,
             fullName: this.fullName,
@@ -320,6 +330,7 @@ class UserDetailsEntity implements Entity {
             englishLevel: this.englishLevel,
             notConsidered: this.notConsidered,
             preferredLanguages: this.preferredLanguages,
+            searchType: this.searchType,
             projectLinks: this.projectLinks,
             photoId: this.photoId,
             fullName: this.fullName,
