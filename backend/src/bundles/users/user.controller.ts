@@ -37,6 +37,19 @@ import {
  *            format: email
  *          role:
  *            $ref: '#/components/schemas/RoleEnum'
+ *      Talent:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: string
+ *          fullName:
+ *            type: string
+ *          email:
+ *            type: string
+ *          phoneNumber:
+ *            type: string
+ *          english:
+ *            type: string
  *      Result:
  *        type: object
  *        properties:
@@ -44,7 +57,6 @@ import {
  *            type: string
  *          comment:
  *            type: string
- *
  *      HrFeedback:
  *        type: object
  *        properties:
@@ -52,7 +64,6 @@ import {
  *            $ref: '#/components/schemas/Result'
  *          comments:
  *            type: string
- *
  *      LectureDetail:
  *        type: object
  *        properties:
@@ -63,26 +74,26 @@ import {
  *            type: string
  *          lectureId:
  *            type: string
- *
  *      Details:
  *        type: object
  *        properties:
  *          en:
  *            type: string
+ *            nullable: true
  *          ua:
  *            type: string
- *
+ *            nullable: true
  *      Project:
  *        type: object
  *        properties:
  *          name:
  *            type: string
+ *            nullable: true
  *          details:
  *            $ref: '#/components/schemas/Details'
  *          repositoryUrl:
  *            type: string
  *            nullable: true
- *
  *      Marks:
  *        type: object
  *        properties:
@@ -96,7 +107,6 @@ import {
  *            type: number
  *          communication_result:
  *            type: number
- *
  *      ProjectCoachesFeedback:
  *        type: object
  *        properties:
@@ -107,14 +117,11 @@ import {
  *          feedback:
  *            type: string
  *            nullable: true
- *
  *      LMSDataResponseDto:
  *        type: object
  *        properties:
- *          userId:
- *            type: string
- *          english:
- *            type: string
+ *          talent:
+ *            $ref: '#/components/schemas/Talent'
  *          averageProjectScore:
  *            type: number
  *            nullable: true
