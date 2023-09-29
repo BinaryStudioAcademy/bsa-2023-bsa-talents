@@ -40,8 +40,6 @@ const App: React.FC = () => {
         },
     );
 
-    console.log(currentUser);
-
     const token = localStorage.getItem('token');
     useEffect(() => {
         if (token) {
@@ -72,8 +70,6 @@ const App: React.FC = () => {
             }
         }
     }, [dispatch, currentUser]);
-
-    console.log(isPending);
 
     if (isPending && token) {
         return <Loader />;

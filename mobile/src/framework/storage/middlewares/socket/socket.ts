@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-regexp-test */
 import { type AnyAction } from '@reduxjs/toolkit';
 import EnvConfig from 'react-native-config';
 import { type Middleware } from 'redux';
@@ -11,30 +12,23 @@ type Properties = {
     dispatch: typeof store.instance.dispatch;
 };
 
-const socketMiddleware: Middleware = ({ dispatch }: Properties) => {
-    const socket = io(EnvConfig.API_URL as string);
+const socket = io(`${EnvConfig.BASE_URL}/chat`);
 
+const socketMiddleware: Middleware = ({ dispatch }: Properties) => {
     socket.on(SocketEvent.GET_MESSAGE, (message) => {
         void dispatch(chatActions.addMessage(message));
     });
 
     return (next) => (action: AnyAction) => {
-        switch (action.type) {
-            case chatActions.joinRoom: {
-                socket.emit(SocketEvent.JOIN_ROOM, action.payload);
-                break;
-            }
-            case chatActions.leaveRoom: {
-                socket.emit(SocketEvent.LEAVE_ROOM, action.payload);
-                break;
-            }
-            case chatActions.createMessage: {
-                socket.emit(SocketEvent.SEND_MESSAGE, action.payload);
-                break;
-            }
-            default: {
-                break;
-            }
+        if (chatActions.joinRoom.match(action)) {
+            socket.emit(SocketEvent.JOIN_ROOM, action.payload);
+        }
+        if (chatActions.leaveRoom.match(action)) {
+            socket.emit(SocketEvent.LEAVE_ROOM, action.payload);
+        }
+
+        if (chatActions.createMessage.fulfilled.match(action)) {
+            socket.emit(SocketEvent.SEND_MESSAGE, action.payload);
         }
 
         return next(action);

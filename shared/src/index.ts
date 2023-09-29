@@ -84,6 +84,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
+    EnglishLevelLMS,
     experienceYears,
     JobTitle,
     NotConsidered,
