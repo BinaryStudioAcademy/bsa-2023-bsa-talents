@@ -1,6 +1,7 @@
 import { type ValueOf } from 'shared/build/index.js';
 
 import { type AppRoute, UserRole } from '~/bundles/common/enums/enums.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppSelector,
     useCallback,
@@ -16,20 +17,19 @@ type Properties = {
     link: ValueOf<typeof AppRoute>;
     icon: JSX.Element;
     name: string;
-    currentUser: string;
 };
 
-const SidebarItem: React.FC<Properties> = ({
-    link,
-    icon,
-    name,
-    currentUser,
-}) => {
+const SidebarItem: React.FC<Properties> = ({ link, icon, name }) => {
     const [isNotificationVisible, setNotificationVisible] = useState(false);
 
     const { talentOnBoarding, employerOnBoarding } = useAppSelector(
         (state: RootReducer) => state,
     );
+
+    const currentUser = useAppSelector(
+        (state: RootReducer) => state.auth.currentUser,
+    );
+    const isAdmin = currentUser?.role === UserRole.ADMIN;
 
     const isApproved =
         (typeof talentOnBoarding.isApproved === 'boolean' &&
@@ -38,25 +38,26 @@ const SidebarItem: React.FC<Properties> = ({
             employerOnBoarding.isApproved);
 
     const handleToggleNotification = useCallback(() => {
-        if (!isApproved) {
+        if (!isApproved && !isAdmin) {
             setNotificationVisible(!isNotificationVisible);
         }
-    }, [isApproved, isNotificationVisible]);
+    }, [isNotificationVisible, isAdmin, isApproved]);
+
+    const linkClasses = getValidClassNames(
+        currentUser?.role === UserRole.ADMIN
+            ? styles.adminSidebarIcons
+            : styles.link,
+    );
 
     return (
-        <li className={isApproved ? '' : styles.listItem}>
-            {!isApproved && (
+        <li className={styles.listItem}>
+            {!isApproved && !isAdmin && (
                 <button
                     className={styles.listButton}
                     onClick={handleToggleNotification}
                 ></button>
             )}
-            <Link
-                to={link}
-                className={`${
-                    currentUser === UserRole.ADMIN && styles.adminSidebarIcons
-                }`}
-            >
+            <Link to={link} className={linkClasses}>
                 {icon}
                 <p className={styles.title}>{name}</p>
             </Link>

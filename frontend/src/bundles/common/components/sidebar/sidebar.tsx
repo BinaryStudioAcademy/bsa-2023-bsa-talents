@@ -94,7 +94,6 @@ const Sidebar: React.FC = () => {
                             icon={item.icon}
                             link={item.link}
                             name={item.name}
-                            currentUser={currentUser?.role}
                         />
                     ))}
                 </ul>
