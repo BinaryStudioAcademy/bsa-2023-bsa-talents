@@ -17,16 +17,16 @@ import { styles } from './styles';
 
 type Properties = {
     partnerName: string;
-    partnerAvatar?: string;
+    partnerAvatar: string;
     partnerId: string;
 };
 
-const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
-    const { partners } = useAppSelector(({ chat }) => chat);
+const ChatHeader: React.FC<Properties> = ({ partnerName, partnerAvatar }) => {
+    // const { partners } = useAppSelector(({ chat }) => chat);
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const avatar = (
         <Avatar
-            uri={partners[partnerId]}
+            uri={partnerAvatar}
             avatarSize={PhotoType.MEDIUM}
             customPhotoStyle={{
                 photoShape: globalStyles.borderRadius15,
