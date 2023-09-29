@@ -43,6 +43,8 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
     const {
         fullName,
         phone,
@@ -53,9 +55,12 @@ const ContactsCVStep: React.FC = () => {
         cvUrl,
         cvName,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
+
+    const lmsData = useAppSelector((state: RootReducer) => state.lms.lmsData);
 
     const {
         control,
@@ -64,53 +69,37 @@ const ContactsCVStep: React.FC = () => {
         errors,
         setError,
         watch,
-        reset,
         clearErrors,
     } = useAppForm<ContactsCVStepDto>({
-        defaultValues: useMemo(
-            () => ({
-                fullName,
-                phone,
+        defaultValues: useMemo(() => {
+            const fullNameValue = fullName ?? lmsData?.talent.fullName;
+            const phoneValue = phone ?? lmsData?.talent.phoneNumber;
+
+            return {
+                fullName: fullNameValue,
+                phone: phoneValue,
                 linkedinLink,
                 photo,
                 photoUrl,
                 cv,
                 cvUrl,
                 cvName,
-            }),
-            [cv, cvName, cvUrl, fullName, linkedinLink, phone, photo, photoUrl],
-        ),
-        validationSchema: ContactsCVStepValidationSchema,
-    });
-
-    useEffect(() => {
-        reset({
-            fullName,
-            phone,
-            linkedinLink,
-            photo,
-            photoUrl,
+            };
+        }, [
             cv,
             cvName,
             cvUrl,
-        });
-    }, [
-        fullName,
-        phone,
-        linkedinLink,
-        reset,
-        photo,
-        photoUrl,
-        cv,
-        cvUrl,
-        cvName,
-    ]);
+            fullName,
+            linkedinLink,
+            phone,
+            photo,
+            photoUrl,
+            lmsData,
+        ]),
+        validationSchema: ContactsCVStepValidationSchema,
+    });
 
     const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const watchedValues = watch([
         'fullName',
