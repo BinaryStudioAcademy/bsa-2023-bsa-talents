@@ -14,4 +14,7 @@ type BSABadge = {
 };
 
 export { type BSABadge };
-export { type UserLMSDataDto } from 'shared/build/index.js';
+export {
+    type LMSDataServerResponseDto,
+    type UserLMSDataDto,
+} from 'shared/build/index.js';

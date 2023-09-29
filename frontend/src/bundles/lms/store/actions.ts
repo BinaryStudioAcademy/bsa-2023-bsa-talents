@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
-import { type UserLMSDataDto } from '../types/types.js';
+import { type LMSDataServerResponseDto } from './../types/types.js';
 
 const getTalentLmsData = createAsyncThunk<
-    UserLMSDataDto | null,
+    LMSDataServerResponseDto | null,
     { userId: string },
     AsyncThunkConfig
 >('lms/lms-data', async (payload, { extra, rejectWithValue }) => {
