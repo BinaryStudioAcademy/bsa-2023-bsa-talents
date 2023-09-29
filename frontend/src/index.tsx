@@ -110,7 +110,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: AppRoute.TALENT_STEP,
+                                        path: AppRoute.TALENT_ONBOARDING_STEP,
                                         element: (
                                             <ProtectedRoute>
                                                 <TalentOnboarding />

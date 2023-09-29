@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { StepsRoute } from '~/bundles/talent-onboarding/enums/enums.js';
+import { getNextStep } from '~/bundles/talent-onboarding/helpers/helpers.js';
 
 import { UserRole } from '../../enums/enums.js';
 import { configureString } from '../../helpers/helpers.js';
@@ -18,6 +19,17 @@ const PublicRoute: FC<Properties> = ({ children }) => {
         currentUser: auth.currentUser,
         dataStatus: auth.dataStatus,
     }));
+    const { isApproved, completedStep } = useAppSelector(
+        ({ talentOnBoarding, employerOnBoarding }) => {
+            return {
+                isApproved:
+                    talentOnBoarding.isApproved ||
+                    employerOnBoarding.isApproved,
+                completedStep: talentOnBoarding.completedStep,
+            };
+        },
+    );
+
     const hasUser = Boolean(currentUser);
 
     if (!hasUser) {
@@ -29,16 +41,26 @@ const PublicRoute: FC<Properties> = ({ children }) => {
             return <Navigate to={AppRoute.ADMIN_VERIFICATIONS_PANEL} />;
         }
         case UserRole.TALENT: {
-            return (
+            return isApproved ? (
                 <Navigate
                     to={configureString(AppRoute.MY_PROFILE_TALENT, {
                         step: StepsRoute.STEP_01,
                     })}
                 />
+            ) : (
+                <Navigate
+                    to={configureString(AppRoute.TALENT_ONBOARDING_STEP, {
+                        step: getNextStep(completedStep),
+                    })}
+                />
             );
         }
         case UserRole.EMPLOYER: {
-            return <Navigate to={AppRoute.MY_PROFILE_EMPLOYER} />;
+            return isApproved ? (
+                <Navigate to={AppRoute.MY_PROFILE_EMPLOYER} />
+            ) : (
+                <Navigate to={AppRoute.EMPLOYER_ONBOARDING} />
+            );
         }
     }
 };
