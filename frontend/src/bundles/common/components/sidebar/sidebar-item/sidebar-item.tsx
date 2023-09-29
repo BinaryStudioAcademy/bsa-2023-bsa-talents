@@ -1,6 +1,6 @@
 import { type ValueOf } from 'shared/build/index.js';
 
-import { type AppRoute } from '~/bundles/common/enums/enums.js';
+import { type AppRoute, UserRole } from '~/bundles/common/enums/enums.js';
 import {
     useAppSelector,
     useCallback,
@@ -25,15 +25,20 @@ const SidebarItem: React.FC<Properties> = ({ link, icon, name }) => {
         (state: RootReducer) => state.talentOnBoarding,
     );
 
+    const currentUser = useAppSelector(
+        (state: RootReducer) => state.auth.currentUser,
+    );
+    const isAdmin = currentUser?.role === UserRole.ADMIN;
+
     const handleToggleNotification = useCallback(() => {
-        if (!isApproved) {
+        if (!isApproved && !isAdmin) {
             setNotificationVisible(!isNotificationVisible);
         }
-    }, [isNotificationVisible, isApproved]);
+    }, [isNotificationVisible, isAdmin, isApproved]);
 
     return (
-        <li className={isApproved ? '' : styles.listItem}>
-            {!isApproved && (
+        <li className={isApproved ?? isAdmin ? '' : styles.listItem}>
+            {!isApproved && !isAdmin && (
                 <button
                     className={styles.listButton}
                     onClick={handleToggleNotification}
