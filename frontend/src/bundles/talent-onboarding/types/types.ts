@@ -10,8 +10,8 @@ export {
     type BsaBadgesStepDto,
     type FileUploadResponse,
     type HardSkillsItem,
-    type LMSProject,
     type ProfileStepDto,
+    type Project,
     type SkillsStepDto,
     type UserDetailsFindByUserIdRequestDto,
 } from 'shared/build/index.js';

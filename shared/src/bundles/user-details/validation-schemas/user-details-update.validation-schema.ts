@@ -54,7 +54,7 @@ const userDetailsUpdate = joi
             .number()
             .integer()
             .min(UserDetailsUpdateValidationRule.MIN_SALARY_EXPECTATION)
-            .max(UserDetailsUpdateValidationRule.MIN_SALARY_EXPECTATION)
+            .max(UserDetailsUpdateValidationRule.MAX_SALARY_EXPECTATION)
             .messages({
                 'number.base':
                     UserDetailsValidationMessage.SALARY_EXPECTATION_NOT_NUMBER,

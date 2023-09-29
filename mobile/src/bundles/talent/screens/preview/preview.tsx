@@ -52,8 +52,24 @@ const Preview: React.FC = () => {
 
     const handlePublishSubmit = useCallback((): void => {
         void dispatch(commonActions.updatePublishedData({ userId }));
-        navigation.navigate(TalentBottomTabScreenName.TALENT_PROFILE as never);
-    }, [dispatch, navigation, userId]);
+        void dispatch(
+            commonActions.updateOnboardingData({
+                userId: userId,
+                completedStep: completedOnboardingStep,
+            }),
+        );
+        if (onboardingData?.completedStep === 'preview') {
+            navigation.navigate(
+                TalentBottomTabScreenName.TALENT_PROFILE as never,
+            );
+        }
+    }, [
+        completedOnboardingStep,
+        dispatch,
+        navigation,
+        onboardingData?.completedStep,
+        userId,
+    ]);
 
     return (
         <View style={[globalStyles.flex1, globalStyles.mb25]}>
