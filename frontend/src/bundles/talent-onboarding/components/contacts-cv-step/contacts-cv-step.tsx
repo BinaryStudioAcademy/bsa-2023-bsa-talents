@@ -28,6 +28,7 @@ import {
     type ControllerRenderProps,
     type UseFormStateReturn,
 } from '~/bundles/common/types/types.js';
+// import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
@@ -43,6 +44,8 @@ import {
 import styles from './styles.module.scss';
 
 const ContactsCVStep: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
     const {
         fullName,
         phone,
@@ -53,10 +56,19 @@ const ContactsCVStep: React.FC = () => {
         cvUrl,
         cvName,
     } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+
+    // useEffect(() => {
+    //     const userId = currentUser?.id as string;
+    //     void dispatch(lmsActions.getTalentLmsData({ userId }));
+    // }, [currentUser?.id, dispatch]);
+
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
 
+    const talentLMSInfo = useAppSelector(
+        (state: RootReducer) => state.lms.lmsData?.talent,
+    );
     const {
         control,
         getValues,
@@ -64,13 +76,12 @@ const ContactsCVStep: React.FC = () => {
         errors,
         setError,
         watch,
-        reset,
         clearErrors,
     } = useAppForm<ContactsCVStepDto>({
         defaultValues: useMemo(
             () => ({
-                fullName,
-                phone,
+                fullName: fullName ?? talentLMSInfo?.fullName,
+                phone: phone ?? talentLMSInfo?.phoneNumber,
                 linkedinLink,
                 photo,
                 photoUrl,
@@ -78,39 +89,23 @@ const ContactsCVStep: React.FC = () => {
                 cvUrl,
                 cvName,
             }),
-            [cv, cvName, cvUrl, fullName, linkedinLink, phone, photo, photoUrl],
+            [
+                cv,
+                cvName,
+                cvUrl,
+                fullName,
+                linkedinLink,
+                phone,
+                photo,
+                photoUrl,
+                talentLMSInfo?.fullName,
+                talentLMSInfo?.phoneNumber,
+            ],
         ),
         validationSchema: ContactsCVStepValidationSchema,
     });
 
-    useEffect(() => {
-        reset({
-            fullName,
-            phone,
-            linkedinLink,
-            photo,
-            photoUrl,
-            cv,
-            cvName,
-            cvUrl,
-        });
-    }, [
-        fullName,
-        phone,
-        linkedinLink,
-        reset,
-        photo,
-        photoUrl,
-        cv,
-        cvUrl,
-        cvName,
-    ]);
-
     const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const watchedValues = watch([
         'fullName',
