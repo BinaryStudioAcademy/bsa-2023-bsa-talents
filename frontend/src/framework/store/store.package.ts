@@ -25,6 +25,7 @@ import { reducer as employerOnboardingReducer } from '~/bundles/employer-onboard
 import { fileUploadApi } from '~/bundles/file-upload/file-upload.js';
 import { hiringInfoApi } from '~/bundles/hiring-info/hiring-info.js';
 import { reducer as adminReducer } from '~/bundles/hiring-info/store/hiring-info.js';
+import { lmsApi } from '~/bundles/lms/lms.js';
 import { reducer as lmsReducer } from '~/bundles/lms/store/lms.js';
 import { reducer as cabinetReducer } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { searchCandidatesApi } from '~/bundles/search-candidates/search-candidates.js';
@@ -64,6 +65,7 @@ type ExtraArguments = {
     fileUploadApi: typeof fileUploadApi;
     talentOnBoardingApi: typeof talentOnBoardingApi;
     employerOnBoardingApi: typeof employerOnBoardingApi;
+    lmsApi: typeof lmsApi;
     searchCandidatesApi: typeof searchCandidatesApi;
     notification: typeof notification;
     storage: typeof storage;
@@ -136,6 +138,7 @@ class Store {
             employerOnBoardingApi,
             searchCandidatesApi,
             notification,
+            lmsApi,
             storage,
             hardSkillsApi,
             bsaBadgesApi,

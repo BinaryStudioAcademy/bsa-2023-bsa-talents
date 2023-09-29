@@ -80,9 +80,9 @@ const PhotoPicker = <T extends FieldValues>({
 
                 if (isSizeValid && isTypeValid) {
                     onChange({
-                        size: image.fileSize,
-                        uri: image.uri ?? uri,
-                        type: image.type,
+                        uri: `data:image/png;base64,${image.base64}`,
+                        name: image.fileName,
+                        type: 'image/jpeg',
                     });
                     setAvatar(image.uri ?? uri);
                 } else {
