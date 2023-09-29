@@ -17,7 +17,7 @@ import {
 } from '~/bundles/common/types/types';
 
 type Properties = {
-    chatId: string;
+    chatId?: string;
     userId?: string;
 };
 
@@ -29,12 +29,14 @@ const ChatBackButton: React.FC<Properties> = ({ chatId, userId }) => {
     const dispatch = useAppDispatch();
 
     const handlePreviousPress = useCallback(() => {
-        void dispatch(
-            chatActions.leaveRoom({
-                userId,
-                chatId,
-            }),
-        );
+        if (chatId) {
+            void dispatch(
+                chatActions.leaveRoom({
+                    userId,
+                    chatId,
+                }),
+            );
+        }
 
         goBack();
     }, [chatId, dispatch, goBack, userId]);
