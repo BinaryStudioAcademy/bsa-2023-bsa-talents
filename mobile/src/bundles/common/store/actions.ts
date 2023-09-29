@@ -8,7 +8,10 @@ import {
     type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
+import { type FileDto } from '~/bundles/file-upload/types/file-dto.type';
 
+import { EMPTY_FILE_COUNT } from '../constants/constants';
+import { mapFilesToPayload } from '../helpers/map-files-to-payload';
 import { name as sliceName } from './slice';
 
 const createUserDetails = createAsyncThunk<
@@ -16,8 +19,39 @@ const createUserDetails = createAsyncThunk<
     UserDetailsGeneralCreateRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/createUserDetails`, async (onboardingPayload, { extra }) => {
-    const { commonApi, notifications } = extra;
+    const { commonApi, notifications, fileUploadApi } = extra;
     const { photo, companyLogo, ...payload } = onboardingPayload;
+
+    const files: FileDto[] = [];
+
+    if (photo) {
+        const [extension] = photo.name.split('.').reverse();
+        files.push({
+            extension,
+            file: photo,
+        });
+    }
+
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        const filesToPayload = mapFilesToPayload({
+            payload: { ...payload },
+            files: response,
+        });
+        payload.photoId = filesToPayload.photoId;
+    }
+
+    if (companyLogo) {
+        const [extension] = companyLogo.name.split('.').reverse();
+        files.push({
+            role: 'companyLogo',
+            extension,
+            file: companyLogo,
+        });
+        const { rn } = await fileUploadApi.upload({ files });
+        payload.companyLogoId = rn?.id;
+    }
+
     try {
         const response = await commonApi.completeUserDetails(payload);
         return {
@@ -38,13 +72,58 @@ const updateOnboardingData = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
-    const { commonApi, notifications } = extra;
-    const { badges, photo, cv, companyLogo, ...payload } = stepPayload;
+    const { commonApi, notifications, fileUploadApi } = extra;
+    const {
+        badges,
+        photo,
+        cv: cvDocument,
+        companyLogo,
+        ...payload
+    } = stepPayload;
+
+    const files: FileDto[] = [];
+
+    if (photo) {
+        const [extension] = photo.name.split('.').reverse();
+        files.push({
+            extension,
+            file: photo,
+        });
+    }
+
+    if (cvDocument) {
+        const [extension] = cvDocument.name.split('.').reverse();
+        files.push({
+            role: 'cvDocument',
+            extension,
+            file: cvDocument,
+        });
+    }
+
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        const filesToPayload = mapFilesToPayload({
+            payload: { ...payload },
+            files: response,
+        });
+        payload.photoId = filesToPayload.photoId;
+        payload.cvId = filesToPayload.cvId;
+    }
+
+    if (companyLogo) {
+        const [extension] = companyLogo.name.split('.').reverse();
+        files.push({
+            role: 'companyLogo',
+            extension,
+            file: companyLogo,
+        });
+        const { rn } = await fileUploadApi.upload({ files });
+        payload.companyLogoId = rn?.id;
+    }
 
     // if (Object.keys(payload).length === 0) {
     //     return stepPayload;
     // }
-
     try {
         const response = await commonApi.completeOnboardingStep(payload);
 
@@ -52,9 +131,6 @@ const updateOnboardingData = createAsyncThunk<
             ...response,
             //TODO remove when it is ready at the backend
             ...(badges && { badges }),
-            ...(photo && { photo }),
-            ...(cv && { cv }),
-            ...(companyLogo && { companyLogo }),
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -68,12 +144,33 @@ const getUserDetails = createAsyncThunk<
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/getUserDetails`, async (payload, { extra }) => {
-    const { notifications, commonApi } = extra;
+    const { notifications, commonApi, fileUploadApi } = extra;
     try {
         const userDetails = await commonApi.getUserDetailsByUserId({
             userId: payload.userId,
         });
-        return userDetails ?? null;
+
+        const photo = await fileUploadApi.getFileById({
+            id: userDetails?.photoId ?? '',
+        });
+
+        const cv = await fileUploadApi.getFileById({
+            id: userDetails?.cvId ?? '',
+        });
+
+        const companyLogo = await fileUploadApi.getFileById({
+            id: userDetails?.companyLogoId ?? '',
+        });
+
+        if (userDetails) {
+            return {
+                ...userDetails,
+                companyLogoUrl: companyLogo?.url,
+                photoUrl: photo?.url,
+                cvUrl: cv?.url,
+            };
+        }
+        return userDetails;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
