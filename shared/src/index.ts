@@ -91,6 +91,7 @@ export {
     SearchType,
     type TalentBadge,
     type TalentBadgeCreateDto,
+    type TalentBadgeResponseDto,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,

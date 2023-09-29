@@ -1,4 +1,5 @@
 import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import { type TalentBadge } from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { mapFilesToPayload } from '~/bundles/employer-onboarding/helpers/map-files-to-payload.js';
@@ -11,16 +12,6 @@ import {
     type UserDetailsGeneralCustom,
 } from '../types/types.js';
 import { name as sliceName } from './slice.js';
-
-const createTalentDetails = createAsyncThunk<
-    SeacrhCandidateResponse,
-    UserDetailsGeneralCustom,
-    AsyncThunkConfig
->(`${sliceName}/create-talent-details`, (registerPayload, { extra }) => {
-    const { talentOnBoardingApi } = extra;
-
-    return talentOnBoardingApi.createUserDetails(registerPayload);
-});
 
 const updateTalentDetails = createAsyncThunk<
     SeacrhCandidateResponse,
@@ -59,30 +50,35 @@ const updateTalentDetails = createAsyncThunk<
     }
 
     const { hardSkills, ...data } = restPayload;
+
     const updatedData = {
         ...data,
         talentHardSkills: hardSkills?.map((item) => item.value),
     };
-    return await talentOnBoardingApi.updateUserDetails(updatedData);
+    const result = await talentOnBoardingApi.updateUserDetails(updatedData);
+    const badgesObjects = result.talentBadges as unknown as TalentBadge[];
+
+    const activeBadges = badgesObjects
+        .filter((item) => item.isShown)
+        .map((item) => item.id);
+
+    return {
+        ...result,
+        badges: activeBadges,
+    };
 });
 
 const saveTalentDetails = createAsyncThunk<
-    SeacrhCandidateResponse,
+    UserDetailsGeneralCustom,
     UserDetailsGeneralCustom,
     AsyncThunkConfig
 >(
     `${sliceName}/save-talent-details`,
-    async (registerPayload, { getState, dispatch, rejectWithValue }) => {
-        const { talentOnBoarding } = getState();
-
+    async (registerPayload, { dispatch, rejectWithValue }) => {
         try {
-            const result = talentOnBoarding.completedStep
-                ? ((await dispatch(
-                      updateTalentDetails(registerPayload),
-                  )) as PayloadAction<SeacrhCandidateResponse>)
-                : ((await dispatch(
-                      createTalentDetails(registerPayload),
-                  )) as PayloadAction<SeacrhCandidateResponse>);
+            const result = (await dispatch(
+                updateTalentDetails(registerPayload),
+            )) as PayloadAction<UserDetailsGeneralCustom>;
 
             return result.payload;
         } catch {
@@ -109,7 +105,20 @@ const getTalentDetails = createAsyncThunk<
                     userId: findPayload.userId,
                 });
 
-            return userDetails ?? null;
+            if (!userDetails) {
+                return null;
+            }
+
+            const badgesObjects =
+                userDetails.talentBadges as unknown as TalentBadge[];
+            const activeBadges = badgesObjects
+                .filter((item) => item.isShown)
+                .map((item) => item.id);
+
+            return {
+                ...userDetails,
+                badges: activeBadges,
+            };
         } catch (error) {
             rejectWithValue({
                 _type: 'rejected',

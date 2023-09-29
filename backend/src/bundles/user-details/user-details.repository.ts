@@ -302,6 +302,20 @@ class UserDetailsRepository implements Repository {
         };
     }
 
+    public async findEmailByDetailsId(id: string): Promise<string | null> {
+        const details = await this.userDetailsModel
+            .query()
+            .findById(id)
+            .withGraphFetched('user')
+            .execute();
+
+        if (!details) {
+            return null;
+        }
+
+        return details.user?.email ?? null;
+    }
+
     public async publish(
         payload: UserDetailsUpdateDto,
     ): Promise<UserDetailsEntity> {

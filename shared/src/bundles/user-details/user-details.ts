@@ -15,6 +15,7 @@ export {
 export {
     type TalentBadge,
     type TalentBadgeCreateDto,
+    type TalentBadgeResponseDto,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,

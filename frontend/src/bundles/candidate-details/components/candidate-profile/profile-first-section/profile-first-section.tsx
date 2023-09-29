@@ -103,23 +103,27 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         isFifthStep ? styles.bigBadgeList : '',
                     )}
                 >
-                    {candidateParameters.badges?.map((badge, index) => (
-                        <li key={index}>
-                            <Badge
-                                isSmall
-                                isFifthStep={isFifthStep}
-                                primaryText={
-                                    (badge.score ?? badge.level) as string
-                                }
-                                description={badge.badge?.name}
-                                secondText={
-                                    badge.badge?.maxScore
-                                        ? ` / ${badge.badge?.maxScore}`
-                                        : ''
-                                }
-                            />
-                        </li>
-                    ))}
+                    {candidateParameters.badges?.map((badge, index) => {
+                        const showScore = Boolean(badge.maxScore);
+                        const secondText = showScore
+                            ? ` / ${badge.maxScore}`
+                            : '';
+
+                        return (
+                            <li key={index}>
+                                <Badge
+                                    isSmall
+                                    isFifthStep={isFifthStep}
+                                    color={badge.color}
+                                    primaryText={
+                                        (badge.score ?? badge.level) as string
+                                    }
+                                    description={badge.name}
+                                    secondText={secondText}
+                                />
+                            </li>
+                        );
+                    })}
                 </ul>
             </Grid>
             <Grid className={isProfileCard ? styles.skillsWrapper : ''}>

@@ -20,6 +20,7 @@ import {
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
@@ -30,14 +31,16 @@ import { bsaBadgesStepValidationSchema } from '../../validation-schemas/validati
 import styles from './styles.module.scss';
 
 const BadgesStep: React.FC = () => {
-    const { badges, bsaBadges } = useAppSelector((state) => ({
+    const { badges, talentBadges, currentUser } = useAppSelector((state) => ({
+        currentUser: state.auth.currentUser,
         badges: state.talentOnBoarding.badges,
-        bsaBadges: state.lms.bsaBadges,
+        talentBadges: state.lms.talentBadges,
     }));
+
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
-    const { control, handleSubmit, errors, watch } =
+    const { control, handleSubmit, errors, watch, setValue } =
         useAppForm<BsaBadgesStepDto>({
             defaultValues: { badges: badges ?? [] },
             validationSchema: bsaBadgesStepValidationSchema,
@@ -49,8 +52,20 @@ const BadgesStep: React.FC = () => {
     const watchedBadges = watch('badges');
 
     useEffect(() => {
+        if (badges) {
+            setValue('badges', badges);
+        }
+    }, [badges, setValue]);
+
+    useEffect(() => {
+        if (talentBadges.length === 0 && currentUser?.id) {
+            void dispatch(lmsActions.getTalentBadges(currentUser.id));
+        }
+    }, [dispatch, talentBadges, currentUser?.id]);
+
+    useEffect(() => {
         const hasChanges =
-            JSON.stringify(watchedBadges) === JSON.stringify(badges);
+            JSON.stringify(watchedBadges) !== JSON.stringify(badges);
         if (hasChangesInDetails !== hasChanges) {
             dispatch(cabinetActions.setHasChangesInDetails(hasChanges));
         }
@@ -60,15 +75,14 @@ const BadgesStep: React.FC = () => {
         (data: BsaBadgesStepDto): boolean => {
             void dispatch(
                 talentActions.updateTalentDetails({
-                    badges: badges?.filter((item) =>
-                        data.badges.includes(item),
-                    ),
+                    userId: currentUser?.id,
+                    badges: data.badges,
                     completedStep: OnboardingStep.STEP_02,
                 }),
             );
             return true;
         },
-        [badges, dispatch],
+        [currentUser?.id, dispatch],
     );
 
     useEffect(() => {
@@ -112,7 +126,7 @@ const BadgesStep: React.FC = () => {
         }): React.ReactElement => {
             return (
                 <>
-                    {bsaBadges.map((badge) => {
+                    {talentBadges.map((badge) => {
                         const primaryText =
                             badge.level ?? String(badge.score) + ' ';
                         const secondText = badge.level
@@ -124,6 +138,7 @@ const BadgesStep: React.FC = () => {
                                 className={styles.badgeCheckboxContainer}
                             >
                                 <Checkbox
+                                    {...field}
                                     key={badge.id}
                                     value={badge.id}
                                     isDisabled={badge.type == 'service'}
@@ -136,7 +151,7 @@ const BadgesStep: React.FC = () => {
                                 <Badge
                                     primaryText={primaryText}
                                     secondText={secondText}
-                                    description={badge.description}
+                                    description={badge.name}
                                     color={badge.color}
                                 />
                             </div>
@@ -145,7 +160,7 @@ const BadgesStep: React.FC = () => {
                 </>
             );
         },
-        [bsaBadges, handleCheckboxOnChange],
+        [talentBadges, handleCheckboxOnChange],
     );
 
     return (

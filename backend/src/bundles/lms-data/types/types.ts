@@ -1,4 +1,6 @@
 export {
+    type BadgesItem,
+    type BadgesResponseDto,
     type Details,
     type HrFeedback,
     type LectureDetail,
@@ -8,6 +10,7 @@ export {
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type TalentBadgeCreateDto,
     type UserGetLMSDataById,
     type UserLMSDataDto,
 } from 'shared/build/index.js';
