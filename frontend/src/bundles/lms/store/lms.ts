@@ -1,8 +1,9 @@
-import { getTalentLmsData } from './actions.js';
+import { getTalentBadges, getTalentLmsData } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
+    getTalentBadges,
     getTalentLmsData,
 };
 

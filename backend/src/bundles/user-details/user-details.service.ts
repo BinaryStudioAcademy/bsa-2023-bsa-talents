@@ -8,7 +8,6 @@ import { type EmailService } from '../email/email.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type TalentBadge } from '../talent-badges/types/types.js';
 import { type TalentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.service.js';
-import { type UserService } from '../users/users.js';
 import {
     type TalentHardSkill,
     type UserDetailsCreateRequestDto,
@@ -24,8 +23,9 @@ import { type UserDetailsEntity } from './user-details.entity.js';
 import { type UserDetailsModel } from './user-details.js';
 import { type UserDetailsRepository } from './user-details.repository.js';
 
-type UserDetailsWithTalentHardSkills = UserDetailsEntity & {
+type UserDetailsExtended = UserDetailsEntity & {
     talentHardSkills: TalentHardSkill[];
+    talentBadges: TalentBadge[];
 };
 
 type Services = {
@@ -33,7 +33,6 @@ type Services = {
     talentBadgeService: TalentBadgeService;
     talentHardSkillsService: TalentHardSkillsService;
     emailService: EmailService;
-    userService: UserService;
 };
 
 class UserDetailsService implements Service {
@@ -41,20 +40,17 @@ class UserDetailsService implements Service {
     private talentBadgeService: TalentBadgeService;
     private talentHardSkillsService: TalentHardSkillsService;
     private emailService: EmailService;
-    private userService: UserService;
 
     public constructor({
         emailService,
         talentBadgeService,
         talentHardSkillsService,
         userDetailsRepository,
-        userService,
     }: Services) {
         this.userDetailsRepository = userDetailsRepository;
         this.talentBadgeService = talentBadgeService;
         this.talentHardSkillsService = talentHardSkillsService;
         this.emailService = emailService;
-        this.userService = userService;
     }
 
     public async find(
@@ -65,7 +61,7 @@ class UserDetailsService implements Service {
 
     public async findByUserId(
         userId: string,
-    ): Promise<UserDetailsWithTalentHardSkills | null> {
+    ): Promise<UserDetailsEntity | null> {
         const userDetails = await this.userDetailsRepository.find({ userId });
 
         if (!userDetails) {
@@ -74,6 +70,10 @@ class UserDetailsService implements Service {
                 message: ErrorMessage.USER_DETAILS_NOT_FOUND,
             });
         }
+
+        const talentBadges = await this.talentBadgeService.findAllByUserId(
+            userId,
+        );
 
         const userDetailsId = userDetails.toObject().id as string;
 
@@ -85,7 +85,8 @@ class UserDetailsService implements Service {
         return {
             ...userDetails,
             talentHardSkills,
-        } as UserDetailsWithTalentHardSkills;
+            talentBadges: talentBadges.items,
+        } as UserDetailsExtended;
     }
 
     public async findCompanyInfoByUserId(
@@ -200,7 +201,7 @@ class UserDetailsService implements Service {
     public async update(
         payload: UserDetailsUpdateRequestDto,
     ): Promise<UserDetailsResponseDto> {
-        const { userId, talentBadges, talentHardSkills, ...rest } = payload;
+        const { userId, talentHardSkills, badges, ...rest } = payload;
 
         const userDetails = await this.userDetailsRepository.find({ userId });
 
@@ -216,16 +217,18 @@ class UserDetailsService implements Service {
         let badgesResult: TalentBadge[] = [],
             hardSkillsResult: TalentHardSkill[] = [];
 
-        if (talentBadges) {
-            badgesResult = await Promise.all(
-                talentBadges.map((badgeId) =>
-                    this.talentBadgeService.update({
-                        badgeId,
-                        userId: userId as string,
-                        userDetailsId,
-                    }),
-                ),
-            );
+        if (userId) {
+            if (badges) {
+                badgesResult = await this.talentBadgeService.enableBadges(
+                    badges,
+                    userId,
+                );
+            } else {
+                const badges = await this.talentBadgeService.findAllByUserId(
+                    userId,
+                );
+                badgesResult = badges.items;
+            }
         }
 
         if (talentHardSkills) {
@@ -265,10 +268,12 @@ class UserDetailsService implements Service {
             id: userDetailsId,
         });
 
-        const user = await this.userService.findById(userId);
+        const email = await this.userDetailsRepository.findEmailByDetailsId(
+            userDetailsId,
+        );
 
-        if (user) {
-            await this.emailService.sendAccountApprovalEmail(user.email);
+        if (email) {
+            await this.emailService.sendAccountApprovalEmail(email);
         } else {
             throw new HttpError({
                 message: ErrorMessage.USER_NOT_FOUND,
@@ -300,11 +305,13 @@ class UserDetailsService implements Service {
             id: userDetailsId,
         });
 
-        const user = await this.userService.findById(userId);
+        const email = await this.userDetailsRepository.findEmailByDetailsId(
+            userDetailsId,
+        );
 
-        if (user) {
+        if (email) {
             await this.emailService.sendAccountDenialEmail(
-                user.email,
+                email,
                 payload.deniedReason,
             );
         } else {

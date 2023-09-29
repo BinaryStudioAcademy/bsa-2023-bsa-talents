@@ -1,4 +1,5 @@
 export { DataStatus, TalentOnboardingStepState } from './app/app';
+export { FileRole } from './file-role/file-role';
 export {
     AuthScreenName,
     CompletedTalentOnboardingStep,
@@ -13,11 +14,13 @@ export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export {
     BadgeSize,
     ButtonType,
+    CandidateTab,
     Color,
     IconName,
     IconSize,
     LoaderSize,
     PhotoType,
+    ProfileTab,
 } from './ui/ui';
 export {
     ApiPath,

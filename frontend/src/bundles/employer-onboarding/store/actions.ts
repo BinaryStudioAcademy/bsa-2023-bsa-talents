@@ -117,21 +117,24 @@ const getEmployerDetails = createAsyncThunk<
     `${sliceName}/get-employer-details`,
     async (findPayload, { extra, rejectWithValue }) => {
         const { employerOnBoardingApi, fileUploadApi } = extra;
+        let photo = null;
+        let companyLogo = null;
 
         try {
             const userDetails =
                 await employerOnBoardingApi.getUserDetailsByUserId({
                     userId: findPayload.userId,
                 });
-            if (!userDetails) {
-                return null;
+
+            if (userDetails) {
+                photo = await fileUploadApi.getFileById({
+                    id: userDetails.photoId ?? '',
+                });
+                companyLogo = await fileUploadApi.getFileById({
+                    id: userDetails.companyLogoId ?? '',
+                });
             }
-            const photo = await fileUploadApi.getFileById({
-                id: userDetails.photoId ?? '',
-            });
-            const companyLogo = await fileUploadApi.getFileById({
-                id: userDetails.companyLogoId ?? '',
-            });
+
             return {
                 ...userDetails,
                 photoUrl: photo?.url,

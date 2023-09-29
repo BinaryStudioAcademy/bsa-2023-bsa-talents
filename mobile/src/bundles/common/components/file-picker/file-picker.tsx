@@ -59,7 +59,7 @@ const FilePicker = <T extends FieldValues>({
             if (isSizeValid) {
                 onChange({
                     name: document.name,
-                    size: document.size,
+                    type: document.type,
                     uri: document.uri,
                 });
             } else {

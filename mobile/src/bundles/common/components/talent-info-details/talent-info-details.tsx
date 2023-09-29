@@ -19,9 +19,11 @@ import { styles } from './styles';
 
 type TalentInfoDetailsProperties = {
     talent: Partial<CandidateDetailsType>;
+    isPreview?: boolean;
 };
 const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
     talent,
+    isPreview = true,
 }) => {
     const {
         salaryExpectation,
@@ -170,7 +172,11 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
             <Text category={TextCategory.BODY1} style={globalStyles.pv25}>
                 {description}
             </Text>
-            <PreviewTabs candidateHardSkill={hardSkills} userId={userId} />
+            <PreviewTabs
+                isPreview={isPreview}
+                candidateHardSkill={hardSkills}
+                userId={userId}
+            />
         </>
     );
 };

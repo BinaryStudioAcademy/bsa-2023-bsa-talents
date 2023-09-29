@@ -9,7 +9,7 @@ type UserDetailsFullResponseDto = Omit<
     companyLogo: File | null;
     cv: File | null;
     talentBadges: {
-        id: string | null;
+        id: string;
         userId: string;
         score: number | null;
         level: string | null;

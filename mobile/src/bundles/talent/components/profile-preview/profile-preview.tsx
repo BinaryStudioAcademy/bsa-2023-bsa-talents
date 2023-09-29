@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { TalentInfoDetails } from '~/bundles/common/components/components';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    Loader,
+    TalentInfoDetails,
+} from '~/bundles/common/components/components';
+import { useAppSelector, useHardSkillData } from '~/bundles/common/hooks/hooks';
 import {
     type CandidateDetailsType,
     type CandidateHardSkill,
@@ -10,15 +13,20 @@ import {
 const ProfilePreview: React.FC = () => {
     const { onboardingData } = useAppSelector(({ common }) => common);
 
-    if (!onboardingData || !onboardingData.hardSkills) {
-        return null;
+    const hardSkills = useHardSkillData(onboardingData?.talentHardSkills);
+
+    if (!onboardingData?.talentHardSkills) {
+        return <Loader />;
     }
+
     // TODO: Change when backend shared values will fixed
-    const formattedHardSkills: CandidateHardSkill =
-        onboardingData.hardSkills.map((hardSkills) => ({
-            name: hardSkills.label,
-            id: hardSkills.value,
-        }));
+    const formattedHardSkills: CandidateHardSkill = hardSkills.map(
+        (skills) => ({
+            name: skills.label,
+            id: skills.value,
+        }),
+    );
+
     const talentData: CandidateDetailsType = {
         ...onboardingData,
         hardSkills: formattedHardSkills,
