@@ -26,6 +26,9 @@ const initialState: UserDetails = {
     ...DEFAULT_CONTACTS_CV_STEP_PAYLOAD,
     dataStatus: DataStatus.IDLE,
     completedStep: null,
+    cvUrl: null,
+    cvName: '',
+    photoUrl: null,
 };
 
 const { reducer, actions, name } = createSlice({
