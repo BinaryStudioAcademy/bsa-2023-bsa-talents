@@ -4,7 +4,6 @@ import { Tag, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { useLmsData } from '~/bundles/common-data/hooks/use-lms-data/use-lms-data';
 
 import { styles } from './styles';
 
@@ -21,8 +20,7 @@ const mockUser = {
 };
 
 const FeedbacksContainer = (): JSX.Element => {
-    const { currentUserData } = useAppSelector(({ auth }) => auth);
-    const lmsData = useLmsData(currentUserData?.id);
+    const { lmsData } = useAppSelector(({ commonData }) => commonData);
 
     return (
         <>
@@ -54,7 +52,7 @@ const FeedbacksContainer = (): JSX.Element => {
             </View>
             {lmsData?.hrFeedback.comments && (
                 <>
-                    <Text category={TextCategory.BODY1}>HR Feedback</Text>
+                    <Text category={TextCategory.BODY1}>HR Feedback: </Text>
                     <View
                         style={[
                             globalStyles.pt5,
@@ -63,7 +61,7 @@ const FeedbacksContainer = (): JSX.Element => {
                             styles.personalityWrapper,
                         ]}
                     >
-                        <Tag value={lmsData.hrFeedback.comments} />;
+                        <Text>{lmsData.hrFeedback.comments}</Text>
                     </View>
                 </>
             )}

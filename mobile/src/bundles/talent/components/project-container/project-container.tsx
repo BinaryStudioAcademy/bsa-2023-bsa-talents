@@ -11,19 +11,18 @@ import {
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { useLmsData } from '~/bundles/common-data/hooks/hooks';
 
 import { PROJECT_MOCK } from './constants/constants';
 import { styles } from './style';
 
 const ProjectContainer = (): JSX.Element => {
-    const { currentUserData } = useAppSelector(({ auth }) => auth);
-    const lmsData = useLmsData(currentUserData?.id);
+    const { lmsData } = useAppSelector(({ commonData }) => commonData);
+
     const projectData = lmsData?.project ?? PROJECT_MOCK;
     const { name, repositoryUrl, details } = projectData;
 
     const handleSitePress = (): void => {
-        repositoryUrl && void Linking.openURL(repositoryUrl);
+        void Linking.openURL(repositoryUrl ?? PROJECT_MOCK.repositoryUrl);
     };
 
     return (
@@ -35,7 +34,7 @@ const ProjectContainer = (): JSX.Element => {
                 category={TextCategory.CAPTION}
                 style={[styles.text, globalStyles.pb10]}
             >
-                {details?.en}
+                {details?.en ?? PROJECT_MOCK.details.en}
             </Text>
             <Pressable onPress={handleSitePress}>
                 <Image style={styles.image} source={projectImage} />
