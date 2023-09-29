@@ -10,11 +10,12 @@ import { type Service } from '~/common/types/types.js';
 import { type BSABadgesService } from '../bsa-badges/bsa-badges.service.js';
 import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { type UserDetailsService } from '../user-details/user-details.service.js';
-import { parseLMSServerData } from './helpers/helpers.js';
+import { makeLMSDataResponse, parseLMSServerData } from './helpers/helpers.js';
 import { mapTalentBadges } from './helpers/map-talent-badges.js';
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
 import {
+    type LMSDataResponseDto,
     type LMSDataServerResponseDto,
     type UserLMSDataDto,
 } from './types/types.js';
@@ -46,13 +47,13 @@ class LMSDataService implements Service {
         };
     }
 
-    public async findByUserId(userId: string): Promise<UserLMSDataDto> {
+    public async findByUserId(userId: string): Promise<LMSDataResponseDto> {
         const dataFromDB = await this.lmsDataRepository.findByUserId({
             userId,
         });
 
         if (dataFromDB) {
-            return dataFromDB.toObject();
+            return makeLMSDataResponse(dataFromDB.toObject());
         }
 
         const user = await userRepository.findById(userId);

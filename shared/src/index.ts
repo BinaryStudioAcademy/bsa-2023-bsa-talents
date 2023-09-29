@@ -58,6 +58,7 @@ export {
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type Talent,
     type UserLMSDataDto,
 } from './bundles/lms-data/lms-data.js';
 export {
@@ -169,6 +170,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     getURLWithQueryString,
+    makeLMSDataResponse,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';

@@ -7,7 +7,6 @@ import {
 import { FormSubmitProvider } from '~/bundles/common/context/context.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
-    useAppDispatch,
     useAppSelector,
     useCallback,
     useEffect,
@@ -45,9 +44,7 @@ const Onboarding: React.FC = () => {
     const [isWaitingForApproval, setIsWaitingForApproval] =
         useState<boolean>(false);
 
-    const dispatch = useAppDispatch();
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
-    const { publishedAt } = useAppSelector(
+    const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
     const handleNextStep = useCallback((): void => {
@@ -96,10 +93,16 @@ const Onboarding: React.FC = () => {
     }, [location.pathname]);
 
     useEffect(() => {
-        if (publishedAt) {
+        if (publishedAt && !isApproved) {
             setIsWaitingForApproval(true);
         }
-    }, [currentUser?.id, dispatch, publishedAt]);
+    }, [isApproved, publishedAt]);
+
+    useEffect(() => {
+        if (isApproved) {
+            setIsWaitingForApproval(false);
+        }
+    }, [isApproved]);
     return (
         <PageLayout
             avatarUrl=""

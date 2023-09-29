@@ -1,1 +1,1 @@
-export { parseLMSServerData } from 'shared/build/index.js';
+export { makeLMSDataResponse, parseLMSServerData } from 'shared/build/index.js';

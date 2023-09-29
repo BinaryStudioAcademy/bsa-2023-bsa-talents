@@ -1,4 +1,3 @@
-import mockedProjectPicture from '~/assets/img/mocked-project-picture.png';
 import { mockedHRComments } from '~/assets/mock-data/mock-data.js';
 import {
     Badge,
@@ -6,6 +5,7 @@ import {
     Chip,
     Grid,
     Link,
+    LinkPreview,
     Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -30,20 +30,17 @@ type Properties = {
 
 const ProfileFirstSection: React.FC<Properties> = ({
     candidateParameters,
-    isProfileOpen,
     isFifthStep,
     isProfileCard,
 }) => {
     const [isExpanded, setIsExpanded] = useState(true);
 
     const handleLinkClick = useCallback((): void => {
-        window.open(
-            candidateParameters.projectLinks
-                ? candidateParameters.projectLinks[0]
-                : '',
-            '_blank',
-        );
-    }, [candidateParameters.projectLinks]);
+        if (!candidateParameters.lmsProject?.repositoryUrl) {
+            return;
+        }
+        window.open(candidateParameters.lmsProject.repositoryUrl, '_blank');
+    }, [candidateParameters]);
 
     const navigate = useNavigate();
     const handleReadMoreButton = useCallback((): void => {
@@ -203,37 +200,34 @@ const ProfileFirstSection: React.FC<Properties> = ({
             {!isProfileCard && (
                 <Grid className={styles.project}>
                     <Typography variant="input" className={styles.title}>
-                        Project
+                        {candidateParameters.lmsProject?.name ?? 'Project'}
                     </Typography>
                     <Typography
                         variant="body1"
                         className={styles.projectDescription}
                     >
-                        6 weeks / 6 engineers, 2 QA / JS / Healthtech industry
-                        {isProfileOpen && candidateParameters.projectLinks && (
-                            <Tooltip
-                                title={candidateParameters.projectLinks[0]}
-                                arrow
-                            >
-                                <div className={styles.tooltipWrapper}>
-                                    <Button
-                                        label="Repository link"
-                                        variant="outlined"
-                                        className={styles.projectButton}
-                                        onClick={handleLinkClick}
-                                    />
-                                </div>
-                            </Tooltip>
-                        )}
+                        {candidateParameters.lmsProject?.details?.en ??
+                            'Description...'}
                     </Typography>
-                    <img
-                        src={mockedProjectPicture}
-                        className={styles.projectPicture}
-                        alt="project"
-                    />
+
+                    <Link
+                        to={candidateParameters.lmsProject?.repositoryUrl ?? ''}
+                        className={styles.linkWrapper}
+                    >
+                        <LinkPreview
+                            url={
+                                candidateParameters.lmsProject?.repositoryUrl ??
+                                ''
+                            }
+                        />
+                    </Link>
+
                     {isFifthStep && candidateParameters.projectLinks && (
                         <Tooltip
-                            title={candidateParameters.projectLinks[0]}
+                            title={
+                                candidateParameters.lmsProject?.repositoryUrl ??
+                                'Broken link'
+                            }
                             arrow
                         >
                             <div className={styles.tooltipWrapper}>

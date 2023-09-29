@@ -1,6 +1,6 @@
 import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
 
-import { type HardSkillsItem } from '../types.js';
+import { type HardSkillsItem, type Project } from '../types.js';
 
 type FirstSectionDetails = {
     userId: string;
@@ -16,6 +16,7 @@ type FirstSectionDetails = {
     preferredLanguages: string[];
     description: string;
     date: string;
+    lmsProject?: Project;
 };
 
 type SecondSectionDetails = {

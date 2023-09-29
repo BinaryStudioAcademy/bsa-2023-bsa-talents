@@ -63,15 +63,18 @@ const CandidateProfile: React.FC<Properties> = ({
     );
     const { hardSkillsOptions } = useCommonData();
 
+    const dispatch = useAppDispatch();
+
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
         talentBadges: state.lms.talentBadges,
+        lmsProject: state.lms.lmsData?.project,
     }));
 
     const data = candidateData ?? reduxData;
 
-    const { publishedAt } = useAppSelector(
+    const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
@@ -88,6 +91,28 @@ const CandidateProfile: React.FC<Properties> = ({
         );
     };
 
+    useEffect(() => {
+        const userId = currentUser?.id as string;
+
+        void dispatch(talentActions.getTalentDetails({ userId }));
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
+
+        if (currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+            void dispatch(
+                candidateActions.getContactWithTalent({
+                    talentId: data.userId ?? '',
+                    companyId: userId,
+                }),
+            );
+        }
+    }, [currentUser, data.userId, dispatch]);
+
     const hardskillsLabels = hardSkillsOptions
         .filter(
             (item) =>
@@ -102,8 +127,6 @@ const CandidateProfile: React.FC<Properties> = ({
         !isFifthStep && candidateData?.hardSkills
             ? candidateData.hardSkills.map((item) => item.name)
             : hardskillsLabels;
-
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         void dispatch(
@@ -145,6 +168,7 @@ const CandidateProfile: React.FC<Properties> = ({
         talentHardSkills: hardSkillsToShow,
         experienceYears: data.experienceYears as number,
         date: data.createdAt as string,
+        lmsProject: reduxData.lmsProject,
     };
     const secondSectionCandidateDetails: SecondSectionDetails = {
         salaryExpectation: data.salaryExpectation as unknown as string,
@@ -168,7 +192,7 @@ const CandidateProfile: React.FC<Properties> = ({
             {isFifthStep && (
                 <Button
                     label={
-                        publishedAt
+                        publishedAt && !isApproved
                             ? 'Your account is waiting for the approval'
                             : 'Your account is ready!'
                     }

@@ -11,6 +11,7 @@ export {
     type FileUploadResponse,
     type HardSkillsItem,
     type ProfileStepDto,
+    type Project,
     type SkillsStepDto,
     type UserDetailsFindByUserIdRequestDto,
 } from 'shared/build/index.js';

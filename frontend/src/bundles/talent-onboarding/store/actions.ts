@@ -20,7 +20,9 @@ const updateTalentDetails = createAsyncThunk<
 >(`${sliceName}/update-talent-details`, async (updatePayload, { extra }) => {
     const { talentOnBoardingApi, fileUploadApi } = extra;
     const { cv, photo, ...restPayload } = updatePayload;
-
+    delete restPayload.photoUrl;
+    delete restPayload.cvUrl;
+    delete restPayload.cvName;
     const files: FileDto[] = [];
 
     if (cv) {
@@ -97,7 +99,7 @@ const getTalentDetails = createAsyncThunk<
 >(
     `${sliceName}/get-talent-details`,
     async (findPayload, { extra, rejectWithValue }) => {
-        const { talentOnBoardingApi } = extra;
+        const { fileUploadApi, talentOnBoardingApi } = extra;
 
         try {
             const userDetails =
@@ -111,13 +113,25 @@ const getTalentDetails = createAsyncThunk<
 
             const badgesObjects =
                 userDetails.talentBadges as unknown as TalentBadge[];
+
             const activeBadges = badgesObjects
                 .filter((item) => item.isShown)
                 .map((item) => item.id);
 
+            const photo = await fileUploadApi.getFileById({
+                id: userDetails.photoId ?? '',
+            });
+
+            const cv = await fileUploadApi.getFileById({
+                id: userDetails.cvId ?? '',
+            });
+
             return {
                 ...userDetails,
                 badges: activeBadges,
+                photoUrl: photo?.url,
+                cvUrl: cv?.url,
+                cvName: cv?.fileName,
             };
         } catch (error) {
             rejectWithValue({

@@ -10,6 +10,7 @@ export {
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type Talent,
     type TalentBadgeCreateDto,
     type UserGetLMSDataById,
     type UserLMSDataDto,

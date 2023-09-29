@@ -122,7 +122,7 @@ const mapTalentBadges = (
             }
             case BsaBadgesTypeEnum.ENGLISH_LEVEL: {
                 score = null;
-                level = lmsData[property as keyof LMSDataResponseDto] as string;
+                level = lmsData.talent.english;
                 break;
             }
             case BsaBadgesTypeEnum.LECTURE_SCORE:
@@ -134,7 +134,7 @@ const mapTalentBadges = (
         }
 
         return {
-            userId: lmsData.userId,
+            userId: lmsData.talent.id,
             badgeId: getBadgeId(
                 bsaBadges.items,
                 badgeType as ValueOf<typeof BsaBadgesTypeEnum>,

@@ -1,12 +1,20 @@
+import {
+    type HrFeedback,
+    type LectureDetail,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Talent,
+} from './types.js';
+
 type UserLMSDataDto = {
     userId: string;
-    english: string;
+    talent: Talent;
     averageProjectScore: number | null;
     averageLectureScore: number | null;
-    lectureDetails: string;
-    projectCoachesFeedback: string;
-    hrFeedback: string;
-    project: string;
+    lectureDetails: LectureDetail[];
+    projectCoachesFeedback: ProjectCoachesFeedback[];
+    hrFeedback: HrFeedback;
+    project: Project;
 };
 
 export { type UserLMSDataDto };

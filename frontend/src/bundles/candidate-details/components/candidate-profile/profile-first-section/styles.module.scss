@@ -136,6 +136,11 @@
     display: inline-block;
 }
 
+.linkWrapper {
+    width: fit-content;
+    height: fit-content;
+}
+
 @media screen and (width <= 1300px) {
     .profileFirstSection {
         display: flex;

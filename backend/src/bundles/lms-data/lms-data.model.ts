@@ -10,15 +10,23 @@ import {
     UsersTableColumn,
 } from '~/common/packages/database/database.js';
 
+import {
+    type HrFeedback,
+    type LectureDetail,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Talent,
+} from './types/types.js';
+
 class LMSDataModel extends AbstractModel {
     public 'userId': string;
-    public 'english': string;
+    public 'talent': Talent;
     public 'averageProjectScore': number | null;
     public 'averageLectureScore': number | null;
-    public 'lectureDetails': string;
-    public 'projectCoachesFeedback': string;
-    public 'hrFeedback': string;
-    public 'project': string;
+    public 'lectureDetails': LectureDetail[];
+    public 'projectCoachesFeedback': ProjectCoachesFeedback[];
+    public 'hrFeedback': HrFeedback;
+    public 'project': Project;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_LMS_DATA;
