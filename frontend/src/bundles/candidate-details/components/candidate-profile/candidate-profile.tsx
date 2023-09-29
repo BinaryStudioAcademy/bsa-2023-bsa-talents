@@ -23,7 +23,6 @@ import {
     ProfileFirstSection,
     ProfileSecondSection,
 } from '~/bundles/talent-onboarding/components/components.js';
-import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import {
@@ -94,7 +93,6 @@ const CandidateProfile: React.FC<Properties> = ({
     useEffect(() => {
         const userId = currentUser?.id as string;
 
-        void dispatch(talentActions.getTalentDetails({ userId }));
         void dispatch(lmsActions.getTalentLmsData({ userId }));
 
         if (currentUser?.role == UserRole.EMPLOYER) {
