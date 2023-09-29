@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Badge, Tag, Text, View } from '~/bundles/common/components/components';
+import {
+    Badge,
+    Loader,
+    Tag,
+    Text,
+    View,
+} from '~/bundles/common/components/components';
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
-import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { useAppSelector, useHardSkillData } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type CandidateHardSkill } from '~/bundles/employer/types/types';
 
@@ -16,12 +22,15 @@ const ScoresAndSkillsContainer: React.FC<
     ScoresAndSkillsContainerProperties
 > = ({ candidateHardSkill }) => {
     const { onboardingData } = useAppSelector(({ common }) => common);
+    const talentHardSkillData = useHardSkillData(
+        onboardingData?.talentHardSkills,
+    );
 
     if (!onboardingData) {
-        return null;
+        return <Loader />;
     }
 
-    const { badges, hardSkills } = onboardingData;
+    const { badges } = onboardingData;
 
     return (
         <View>
@@ -64,8 +73,8 @@ const ScoresAndSkillsContainer: React.FC<
                     ? candidateHardSkill.map((skill) => (
                           <Tag key={skill.id} value={skill.name} />
                       ))
-                    : hardSkills?.map((skill) => (
-                          <Tag key={skill.label} value={skill.label} />
+                    : talentHardSkillData.map((skill) => (
+                          <Tag key={skill.value} value={skill.label} />
                       ))}
             </View>
         </View>

@@ -6,7 +6,11 @@ import {
     type TalentOnboardingScreenName,
     TalentOnboardingScreenNumber,
 } from '~/bundles/common/enums/enums';
-import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    useAppRoute,
+    useAppSelector,
+    useHardSkillData,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
@@ -31,9 +35,11 @@ const SkillsAndProjects: React.FC = () => {
         ({ commonData }) => commonData.dataStatus,
     );
 
+    const hardSkillsData = useHardSkillData(onboardingData?.talentHardSkills);
+
     const skillsStepData: SkillsStepDto | null = onboardingData
         ? {
-              hardSkills: onboardingData.hardSkills ?? [],
+              hardSkills: hardSkillsData,
               englishLevel: onboardingData.englishLevel,
               notConsidered: onboardingData.notConsidered ?? [],
               preferredLanguages: onboardingData.preferredLanguages ?? [],
@@ -47,7 +53,10 @@ const SkillsAndProjects: React.FC = () => {
     const handleSubmit = useOnboardingFormSubmit({ stepTitle, stepNumber });
 
     const handleSkillsSubmit = (payload: SkillsStepDto): void => {
-        void handleSubmit(payload);
+        const { hardSkills, ...data } = payload;
+        const talentHardSkills = hardSkills.map(({ value }) => value);
+
+        void handleSubmit({ ...data, talentHardSkills });
     };
 
     const isDataLoading =
