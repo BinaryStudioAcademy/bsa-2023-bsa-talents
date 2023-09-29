@@ -103,9 +103,16 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
                     chatActions.createMessage({
                         senderId: employerId,
                         receiverId: candidateId,
-                        message: data.message,
+                        message:
+                            data.message +
+                            ' \n\n ' +
+                            data.links
+                                .map((item) => ` Vacancy_&_${item.value} `)
+                                .join(' '),
                     }),
                 );
+
+                void dispatch(chatActions.getAllChatsByUserId(employerId));
                 onClose();
             }
         },

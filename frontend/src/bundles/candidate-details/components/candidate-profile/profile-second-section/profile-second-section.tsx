@@ -26,6 +26,7 @@ type Properties = {
     candidateParameters: SecondSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
+    hasSentAlreadyFirstMessage?: boolean;
     isContactModalOpen: boolean;
     onContactModalClose: () => void;
     onContactModalOpen: () => void;
@@ -35,6 +36,7 @@ const ProfileSecondSection: React.FC<Properties> = ({
     candidateParameters,
     isProfileOpen,
     isFifthStep,
+    hasSentAlreadyFirstMessage,
     isContactModalOpen,
     onContactModalClose,
     onContactModalOpen,
@@ -189,6 +191,7 @@ const ProfileSecondSection: React.FC<Properties> = ({
                                 label="Contact candidate"
                                 className={styles.contactButton}
                                 onClick={onContactModalOpen}
+                                isDisabled={hasSentAlreadyFirstMessage}
                             />
                         </Grid>
                     )}

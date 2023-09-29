@@ -4,6 +4,7 @@ import { UserRole } from 'shared/build/index.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
@@ -38,6 +39,7 @@ type Properties = {
     candidateData?: SeacrhCandidateResponse & {
         email?: string;
     };
+    hasSentAlreadyFirstMessage?: boolean;
 };
 
 const getAuthState = (state: RootReducer): State => state.auth;
@@ -47,6 +49,7 @@ const CandidateProfile: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
     candidateData,
+    hasSentAlreadyFirstMessage = false,
 }) => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
@@ -68,6 +71,7 @@ const CandidateProfile: React.FC<Properties> = ({
         email: state.auth.currentUser?.email,
         lmsProject: state.lms.lmsData?.project,
     }));
+
     const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
@@ -79,7 +83,6 @@ const CandidateProfile: React.FC<Properties> = ({
 
         void dispatch(talentActions.getTalentDetails({ userId }));
         void dispatch(lmsActions.getTalentLmsData({ userId }));
-
         if (currentUser?.role == UserRole.EMPLOYER) {
             void dispatch(
                 hiringInfoActions.getHiringInfo({
@@ -93,8 +96,23 @@ const CandidateProfile: React.FC<Properties> = ({
                     companyId: userId,
                 }),
             );
+            void dispatch(chatActions.getAllChatsByUserId(currentUser.id));
         }
     }, [currentUser, data.userId, dispatch]);
+
+    const { chats } = useAppSelector(({ chat }) => ({
+        chats: chat.chats,
+    }));
+    const [hasAlreadySentFirstMessage, setHasSentAlreadyFirstMessage] =
+        useState<boolean>(hasSentAlreadyFirstMessage);
+    useEffect(() => {
+        const chatWithCandidate = chats.find(
+            (chat) => chat.participants.receiver.id == data.userId,
+        );
+        if (chatWithCandidate) {
+            setHasSentAlreadyFirstMessage(true);
+        }
+    }, [chats, data.userId, hasSentAlreadyFirstMessage]);
 
     const hardskillsLabels = hardSkillsOptions
         .filter(
@@ -172,6 +190,7 @@ const CandidateProfile: React.FC<Properties> = ({
                     <ProfileSecondSection
                         isProfileOpen={isProfileOpen}
                         isFifthStep={isFifthStep}
+                        hasSentAlreadyFirstMessage={hasAlreadySentFirstMessage}
                         candidateParameters={secondSectionCandidateDetails}
                         isContactModalOpen={isContactModalOpen}
                         onContactModalClose={handleCloseContactModal}
@@ -189,6 +208,7 @@ const CandidateProfile: React.FC<Properties> = ({
                         label="Contact candidate"
                         className={styles.contactButton}
                         onClick={handleOpenContactModal}
+                        isDisabled={hasAlreadySentFirstMessage}
                     />
                 </Grid>
             )}
