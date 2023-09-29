@@ -20,6 +20,10 @@ const MultiRead: React.FC<Properties> = ({ rows = [] }) => {
         [setSelectedId],
     );
 
+    const html = {
+        __html: rows[selectedId].text,
+    };
+
     return (
         <Grid container className={styles.container}>
             <Grid container item className={styles.list}>
@@ -40,7 +44,8 @@ const MultiRead: React.FC<Properties> = ({ rows = [] }) => {
 
             <Grid container item className={styles.textWrapper}>
                 <Typography variant="input" className={styles.text}>
-                    {rows[selectedId].text}
+                    <div dangerouslySetInnerHTML={html}></div>
+                    {/* {rows[selectedId].text} */}
                 </Typography>
             </Grid>
         </Grid>
