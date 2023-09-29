@@ -9,4 +9,5 @@ export {
     type Result,
 } from './lms-data-response-dto.type.js';
 export { type LMSDataServerResponseDto } from './lms-data-server-response-dto.type.js';
+export { type LMSProject } from './lms-project.type.js';
 export { type UserLMSDataDto } from './user-lms-data-dto.type.js';

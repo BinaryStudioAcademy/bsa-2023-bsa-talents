@@ -19,6 +19,7 @@ export { Header } from './header/header.js';
 export { IconButton } from './icon-button/icon-button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { LinkPreview } from './link-preview/link-preview.js';
 export { Loader } from './loader/loader.js';
 export { Logo } from './logo/logo.js';
 export { Modal } from './modal/modal.js';
