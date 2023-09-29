@@ -19,9 +19,14 @@ type Properties = {
     partnerName: string;
     partnerAvatar?: string;
     partnerId: string;
+    chatId: string;
 };
 
-const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
+const ChatHeader: React.FC<Properties> = ({
+    partnerName,
+    partnerId,
+    chatId,
+}) => {
     const { partners } = useAppSelector(({ chat }) => chat);
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const avatar = (
@@ -74,7 +79,7 @@ const ChatHeader: React.FC<Properties> = ({ partnerName, partnerId }) => {
                 {headerContent}
             </View>
             {currentUserData?.role === UserRole.TALENT && <ChatInfoButton />}
-            <ChatBackButton />
+            <ChatBackButton chatId={chatId} userId={currentUserData?.id} />
         </View>
     );
 };
