@@ -2,6 +2,8 @@ import { BsaBadgesTypeEnum } from 'shared/build/index.js';
 
 import { type ValueOf } from '~/common/types/types.js';
 
+import { defaultShownBadges } from '../constants/constants.js';
+import { badgeTypeToLMSProperty } from '../mappers/mappers.js';
 import {
     type BadgesItem,
     type BadgesResponseDto,
@@ -11,19 +13,7 @@ import {
     type ProjectCoachesFeedback,
     type TalentBadgeCreateDto,
 } from '../types/types.js';
-
-const MOCK_SCORE = 3;
-const MAX_SCORE = 5;
-const DECIMAL_PLACES = 2;
-
-const getRandomScore = (): number => {
-    const randomValue = MOCK_SCORE + Math.random() * (MAX_SCORE - MOCK_SCORE);
-    return Number(randomValue.toFixed(DECIMAL_PLACES));
-};
-
-const isNumber = (value: unknown): value is number => {
-    return typeof value === 'number' && !Number.isNaN(value);
-};
+import { getRandomScore, isNumber } from './helpers.js';
 
 const findScoreForCommunicationAndTeam = (
     projectCoachesFeedback: ProjectCoachesFeedback[],
@@ -62,15 +52,6 @@ const findBestLectureScore = (
     return bestLecture.grade;
 };
 
-const defaultShownBadges = {
-    [BsaBadgesTypeEnum.ENGLISH_LEVEL]: true,
-    [BsaBadgesTypeEnum.LECTURE_SCORE]: true,
-    [BsaBadgesTypeEnum.BEST_LECTURE_SCORE]: false,
-    [BsaBadgesTypeEnum.PROJECT_SCORE]: true,
-    [BsaBadgesTypeEnum.COMMUNICATION_SCORE]: false,
-    [BsaBadgesTypeEnum.TEAM_SCORE]: false,
-};
-
 const isShown = (type: ValueOf<typeof BsaBadgesTypeEnum>): boolean => {
     return defaultShownBadges[type];
 };
@@ -81,15 +62,6 @@ const getBadgeId = (
 ): string => {
     const badge = bsaBadges.find((badge) => badge.type === badgeType);
     return badge?.id ?? '';
-};
-
-const badgeTypeToLMSProperty = {
-    [BsaBadgesTypeEnum.ENGLISH_LEVEL]: 'english',
-    [BsaBadgesTypeEnum.LECTURE_SCORE]: 'averageLectureScore',
-    [BsaBadgesTypeEnum.BEST_LECTURE_SCORE]: 'grade',
-    [BsaBadgesTypeEnum.PROJECT_SCORE]: 'averageProjectScore',
-    [BsaBadgesTypeEnum.COMMUNICATION_SCORE]: 'communication_result',
-    [BsaBadgesTypeEnum.TEAM_SCORE]: 'team_interaction',
 };
 
 type TalentBadgeCreateBody = Omit<TalentBadgeCreateDto, 'id'>;
