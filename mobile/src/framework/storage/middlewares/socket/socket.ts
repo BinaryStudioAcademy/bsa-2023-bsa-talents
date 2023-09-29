@@ -19,24 +19,16 @@ const socketMiddleware: Middleware = ({ dispatch }: Properties) => {
     });
 
     return (next) => (action: AnyAction) => {
-        switch (action.type) {
-            case chatActions.joinRoom: {
-                socket.emit(SocketEvent.JOIN_ROOM, action.payload);
-                break;
-            }
-            case chatActions.leaveRoom: {
-                socket.emit(SocketEvent.LEAVE_ROOM, action.payload);
-                break;
-            }
-            case chatActions.createMessage: {
-                socket.emit(SocketEvent.SEND_MESSAGE, action.payload);
-                break;
-            }
-            default: {
-                break;
-            }
+        if (action.test(chatActions.joinRoom)) {
+            socket.emit(SocketEvent.JOIN_ROOM, action.payload);
+        }
+        if (action.test(chatActions.leaveRoom)) {
+            socket.emit(SocketEvent.LEAVE_ROOM, action.payload);
         }
 
+        if (action.test(chatActions.createMessage.fulfilled)) {
+            socket.emit(SocketEvent.SEND_MESSAGE, action.payload);
+        }
         return next(action);
     };
 };
