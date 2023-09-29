@@ -158,6 +158,14 @@ const userDetailsUpdate = joi
                 }),
         ),
 
+        phone: joi
+            .string()
+            .pattern(/^\+(?:\d ?){10,14}\d$/)
+            .messages({
+                'string.pattern.base':
+                    UserDetailsValidationMessage.PHONE_NUMBER_PATTERN,
+            }),
+
         projectLinks: joi
             .array()
             .sparse()
