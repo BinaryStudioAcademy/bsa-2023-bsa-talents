@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     },
     badgeContainer: {
         gap: 10,
-        flexWrap: 'wrap',
     },
     skills: {
-        gap: 15,
+        gap: 10,
+        flexWrap: 'wrap',
     },
     skillsLabel: {
         fontFamily: FontFamily.INTER_BOLD,
