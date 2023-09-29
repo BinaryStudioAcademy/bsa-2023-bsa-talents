@@ -9,15 +9,15 @@ const ColumnName = {
 
 async function up(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.json(ColumnName.ENGLISH).alter();
-        table.renameColumn(ColumnName.ENGLISH, ColumnName.TALENT);
+        table.json(ColumnName.TALENT);
+        table.dropColumn(ColumnName.ENGLISH);
     });
 }
 
 async function down(knex: Knex): Promise<void> {
     return knex.schema.alterTable(TABLE_NAME, (table) => {
-        table.string(ColumnName.TALENT).alter();
-        table.renameColumn(ColumnName.TALENT, ColumnName.ENGLISH);
+        table.string(ColumnName.ENGLISH);
+        table.dropColumn(ColumnName.TALENT);
     });
 }
 
