@@ -47,10 +47,10 @@ const SignUpPage: React.FC = () => {
                     navigateUser(payload);
                 })
                 .catch(() => {
-                    navigate(AppRoute.SIGN_UP);
+                    return;
                 });
         },
-        [dispatch, navigate, navigateUser],
+        [dispatch, navigateUser],
     );
     return (
         <AuthLayout>
