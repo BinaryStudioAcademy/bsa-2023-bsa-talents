@@ -178,7 +178,7 @@ const getUserDetails = createAsyncThunk<
                 photoUrl: photo?.url,
             };
         } else {
-            return null;
+            return userDetails;
         }
     } catch (error) {
         const errorMessage = getErrorMessage(error);
