@@ -6,6 +6,7 @@ import {
     Input,
     PhotoPicker,
 } from '~/bundles/common/components/components';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type Control, type FieldErrors } from '~/bundles/common/types/types';
 import { type CvAndContactsFormDto } from '~/bundles/talent/types/types';
@@ -23,6 +24,9 @@ const ContactsFormData: React.FC<Properties> = ({
     errors,
     isEditable,
 }) => {
+    const { photoUrl } =
+        useAppSelector(({ common }) => common.onboardingData) ?? {};
+
     return (
         <>
             <FormField
@@ -34,6 +38,7 @@ const ContactsFormData: React.FC<Properties> = ({
                     shouldHideButton={!isEditable}
                     control={control}
                     name="photo"
+                    uri={photoUrl as string}
                 />
             </FormField>
             <FormField
