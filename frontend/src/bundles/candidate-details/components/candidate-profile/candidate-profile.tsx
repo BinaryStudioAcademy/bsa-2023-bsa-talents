@@ -79,13 +79,13 @@ const CandidateProfile: React.FC<Properties> = ({
     );
 
     const getMappedBadgesData = (): MappedBSABadge[] => {
-        if (candidateData) {
+        if (candidateData?.badges) {
             const badges = candidateData.badges as TalentBadge[];
             const badgesToShow = badges.filter((badge) => badge.isShown);
             return mapBsaBadges(badgesToShow);
         }
 
-        const selectedIds = reduxData.badges as string[];
+        const selectedIds = reduxData.badges ?? [];
         return reduxData.talentBadges.filter((item) =>
             selectedIds.includes(item.id),
         );
