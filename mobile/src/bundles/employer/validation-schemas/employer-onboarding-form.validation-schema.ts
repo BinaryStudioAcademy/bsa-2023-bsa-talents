@@ -31,6 +31,9 @@ const EmployerOnboardingFormValidationSchema = joi.object<
                 EmployerOnboardingFormValidationMessage.FULL_NAME_WRONG_PATTERN,
         }),
 
+    companyLogoUrl: joi.string().allow(null),
+    photoUrl: joi.string().allow(null),
+
     employerPosition: joi
         .string()
         .trim()

@@ -4,4 +4,5 @@ export { type TalentBadgeUpdate } from './talent-badge-update.js';
 export {
     type TalentBadge,
     type TalentBadgeCreateDto,
+    type TalentBadgeResponseDto,
 } from 'shared/build/index.js';

@@ -289,6 +289,8 @@ const userDetailsUpdate = joi
 
         talentHardSkills: joi.array().items(joi.string().trim()),
 
+        badges: joi.array().items(joi.string().trim()),
+
         completedStep: joi
             .string()
             .trim()

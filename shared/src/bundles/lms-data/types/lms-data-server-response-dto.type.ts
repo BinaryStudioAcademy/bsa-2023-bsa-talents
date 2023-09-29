@@ -25,14 +25,14 @@ type LectureDetail = {
 };
 
 type Project = {
-    name: string;
+    name: string | null;
     details: Details | null;
     repositoryUrl: string | null;
 };
 
 type Details = {
-    en: string;
-    ua: string;
+    en: string | null;
+    ua: string | null;
 };
 
 type ProjectCoachesFeedback = {

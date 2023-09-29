@@ -15,7 +15,9 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { mapBsaBadges } from '~/bundles/lms/helpers/map-bsa-badges.js';
 import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
+import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
 import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
@@ -66,13 +68,28 @@ const CandidateProfile: React.FC<Properties> = ({
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
+        talentBadges: state.lms.talentBadges,
         lmsProject: state.lms.lmsData?.project,
     }));
+
+    const data = candidateData ?? reduxData;
+
     const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
-    const data = candidateData ?? reduxData;
+    const getMappedBadgesData = (): MappedBSABadge[] => {
+        if (candidateData?.badges) {
+            const badges = candidateData.badges as TalentBadge[];
+            const badgesToShow = badges.filter((badge) => badge.isShown);
+            return mapBsaBadges(badgesToShow);
+        }
+
+        const selectedIds = reduxData.badges ?? [];
+        return reduxData.talentBadges.filter((item) =>
+            selectedIds.includes(item.id),
+        );
+    };
 
     useEffect(() => {
         const userId = currentUser?.id as string;
@@ -111,6 +128,33 @@ const CandidateProfile: React.FC<Properties> = ({
             ? candidateData.hardSkills.map((item) => item.name)
             : hardskillsLabels;
 
+    useEffect(() => {
+        void dispatch(
+            talentActions.getTalentDetails({
+                userId: currentUser?.id,
+            }),
+        );
+
+        if (currentUser?.role == UserRole.TALENT) {
+            void dispatch(lmsActions.getTalentBadges(currentUser.id));
+        }
+
+        if (currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId: data.userId ?? '',
+                    companyId: currentUser.id,
+                }),
+            );
+            void dispatch(
+                candidateActions.getContactWithTalent({
+                    talentId: data.userId ?? '',
+                    companyId: currentUser.id,
+                }),
+            );
+        }
+    }, [currentUser, data.userId, dispatch]);
+
     const firstSectionCandidateDetails: FirstSectionDetails = {
         userId: data.userId as string,
         profileName: data.profileName as string,
@@ -118,7 +162,7 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        badges: data.badges as TalentBadge[],
+        badges: getMappedBadgesData(),
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         talentHardSkills: hardSkillsToShow,
