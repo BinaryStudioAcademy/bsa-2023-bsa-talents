@@ -67,11 +67,16 @@ const notConsideredOptions = Object.values(NotConsidered).map((option) => ({
 const getAuthState = (state: RootReducer): State => state.auth;
 const getTalentOnBoardingState = (state: RootReducer): UserDetails =>
     state.talentOnBoarding;
+
 const SkillsStep: React.FC = () => {
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
     const dispatch = useAppDispatch();
+
+    const talentLMSProjectInfo = useAppSelector(
+        (state: RootReducer) => state.lms.lmsData?.project,
+    );
 
     useEffect(() => {
         void dispatch(
@@ -113,7 +118,11 @@ const SkillsStep: React.FC = () => {
                     preferredLanguages,
                     projectLinks: projectLinks?.length
                         ? toUrlLinks(projectLinks)
-                        : [{ url: '' }],
+                        : [
+                              {
+                                  url: talentLMSProjectInfo?.repositoryUrl as string,
+                              },
+                          ],
                 }),
                 [
                     englishLevel,
@@ -121,6 +130,7 @@ const SkillsStep: React.FC = () => {
                     notConsidered,
                     preferredLanguages,
                     projectLinks,
+                    talentLMSProjectInfo?.repositoryUrl,
                 ],
             ),
             validationSchema: skillsStepValidationSchema,
@@ -134,7 +144,7 @@ const SkillsStep: React.FC = () => {
             preferredLanguages,
             projectLinks: projectLinks?.length
                 ? toUrlLinks(projectLinks)
-                : [{ url: '' }],
+                : [{ url: talentLMSProjectInfo?.repositoryUrl as string }],
         });
     }, [
         hardSkills,
@@ -143,6 +153,7 @@ const SkillsStep: React.FC = () => {
         preferredLanguages,
         reset,
         projectLinks,
+        talentLMSProjectInfo?.repositoryUrl,
     ]);
 
     const { setSubmitForm } = useFormSubmit();
