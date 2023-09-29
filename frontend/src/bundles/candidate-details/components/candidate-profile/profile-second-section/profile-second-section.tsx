@@ -26,6 +26,7 @@ type Properties = {
     candidateParameters: SecondSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
+    hasSentAlreadyFirstMessage?: boolean;
     isContactModalOpen: boolean;
     onContactModalClose: () => void;
     onContactModalOpen: () => void;
@@ -132,8 +133,8 @@ const ProfileSecondSection: React.FC<Properties> = ({
                     <CandidateParameter
                         text={
                             candidateParameters.experienceYears >= PLURAL_YEARS
-                                ? `${candidateParameters.experienceYears} years of exerience`
-                                : `${candidateParameters.experienceYears} year of exerience`
+                                ? `${candidateParameters.experienceYears} years of experience`
+                                : `${candidateParameters.experienceYears} year of experience`
                         }
                     >
                         <CandidateIcons.EXPERIENCE className={styles.icon} />

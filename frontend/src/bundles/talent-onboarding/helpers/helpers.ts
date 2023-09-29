@@ -1,4 +1,5 @@
 export { formatStepLabels } from './format-step-labels/format-step-labels.js';
+export { getNextStep } from './get-next-step/get-next-step.js';
 export {
     experienceYearsSliderMarks,
     realToSliderValue,

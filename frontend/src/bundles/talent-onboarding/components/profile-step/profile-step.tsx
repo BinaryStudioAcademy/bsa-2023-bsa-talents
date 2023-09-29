@@ -26,6 +26,7 @@ import {
     useEffect,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { actions as cabinetActions } from '~/bundles/profile-cabinet/store/profile-cabinet.js';
 import {
     Country,
@@ -59,6 +60,7 @@ const employmentTypeOptions = Object.values(EmploymentType).map((type) => ({
 }));
 
 const ProfileStep: React.FC = () => {
+    const dispatch = useAppDispatch();
     const {
         profileName,
         salaryExpectation,
@@ -67,7 +69,19 @@ const ProfileStep: React.FC = () => {
         experienceYears,
         employmentType,
         description,
-    } = useAppSelector((state: RootReducer) => state.talentOnBoarding);
+        currentUser,
+    } = useAppSelector((state: RootReducer) => ({
+        ...state.talentOnBoarding,
+        ...state.auth,
+    }));
+
+    useEffect(() => {
+        if (!currentUser) {
+            return;
+        }
+
+        void dispatch(lmsActions.getTalentLmsData({ userId: currentUser.id }));
+    }, [currentUser, dispatch]);
 
     const hasChangesInDetails = useAppSelector(
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
@@ -98,10 +112,6 @@ const ProfileStep: React.FC = () => {
         });
 
     const { setSubmitForm } = useFormSubmit();
-
-    const dispatch = useAppDispatch();
-
-    const { currentUser } = useAppSelector((state: RootReducer) => state.auth);
 
     const watchedValues = watch([
         'profileName',
@@ -158,14 +168,12 @@ const ProfileStep: React.FC = () => {
             salaryExpectation,
             jobTitle,
             location,
-            experienceYears,
             employmentType,
             description,
         });
     }, [
         description,
         employmentType,
-        experienceYears,
         jobTitle,
         location,
         profileName,

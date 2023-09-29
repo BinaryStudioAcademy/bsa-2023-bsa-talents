@@ -23,7 +23,20 @@ const PageLayout: React.FC<Properties> = ({
     children,
 }) => {
     const role = useAppSelector((state) => state.auth.currentUser?.role);
+    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
+        (state) => state,
+    );
+
+    if (role === UserRole.TALENT && talentOnBoarding.photoUrl) {
+        avatarUrl = talentOnBoarding.photoUrl;
+    }
+
+    if (role === UserRole.EMPLOYER && employerOnBoarding.photoUrl) {
+        avatarUrl = employerOnBoarding.photoUrl;
+    }
+
     const isAdminUser = role === UserRole.ADMIN;
+
     return (
         <Grid container className={styles.pageContainer}>
             <Sidebar />

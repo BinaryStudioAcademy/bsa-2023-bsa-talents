@@ -119,6 +119,7 @@ rules:
           ignoreTypeIndexes: true
           ignore:
               - 0
+              - 1
     '@typescript-eslint/no-unsafe-member-access':
         - 'off'
     '@typescript-eslint/no-unsafe-assignment':
@@ -132,6 +133,8 @@ rules:
     '@typescript-eslint/restrict-template-expressions':
         - 'off'
     '@typescript-eslint/no-redundant-type-constituents':
+        - 'off'
+    '@typescript-eslint/prefer-nullish-coalescing':
         - 'off'
 overrides:
     - files:

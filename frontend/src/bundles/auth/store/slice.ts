@@ -36,6 +36,7 @@ const { reducer, actions, name } = createSlice({
                 (state) => {
                     state.dataStatus = DataStatus.REJECTED;
                     state.currentUser = null;
+                    localStorage.removeItem('token');
                 },
             )
             .addMatcher(
