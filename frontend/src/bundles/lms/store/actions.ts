@@ -4,7 +4,8 @@ import { ApiPath } from '~/bundles/common/enums/enums.js';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { mapBsaBadges } from '../helpers/map-bsa-badges.js';
-import { type MappedBSABadge, type UserLMSDataDto } from '../types/types.js';
+import { type MappedBSABadge } from '../types/types.js';
+import { type LMSDataServerResponseDto } from './../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const getTalentBadges = createAsyncThunk<
@@ -20,7 +21,7 @@ const getTalentBadges = createAsyncThunk<
 });
 
 const getTalentLmsData = createAsyncThunk<
-    UserLMSDataDto | null,
+    LMSDataServerResponseDto | null,
     { userId: string },
     AsyncThunkConfig
 >('lms/lms-data', async (payload, { extra, rejectWithValue }) => {

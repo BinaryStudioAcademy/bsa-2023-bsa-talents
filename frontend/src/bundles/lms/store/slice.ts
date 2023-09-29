@@ -1,17 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { type LMSDataServerResponseDto } from 'shared/build/index.js';
 
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 
-import {
-    type MappedBSABadge,
-    type UserLMSDataDto,
-    type ValueOf,
-} from '../types/types.js';
+import { type MappedBSABadge, type ValueOf } from '../types/types.js';
 import { getTalentBadges, getTalentLmsData } from './actions.js';
 
 type State = {
     talentBadges: MappedBSABadge[];
-    lmsData: UserLMSDataDto | null;
+    lmsData: LMSDataServerResponseDto | null;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
