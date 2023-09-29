@@ -166,10 +166,12 @@ const getUserDetails = createAsyncThunk<
                 companyLogoUrl: companyLogo?.url,
             };
         } else {
-            return {
-                ...userDetails,
-                photoUrl: photo?.url,
-            };
+            return userDetails
+                ? {
+                      ...userDetails,
+                      photoUrl: photo?.url,
+                  }
+                : null;
         }
     } catch (error) {
         const errorMessage = getErrorMessage(error);
