@@ -58,10 +58,10 @@ const BadgesStep: React.FC = () => {
     }, [badges, setValue]);
 
     useEffect(() => {
-        if (talentBadges.length === 0 && currentUser?.id) {
+        if (currentUser?.id) {
             void dispatch(lmsActions.getTalentBadges(currentUser.id));
         }
-    }, [dispatch, talentBadges, currentUser?.id]);
+    }, [dispatch, currentUser?.id]);
 
     useEffect(() => {
         const hasChanges =
