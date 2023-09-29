@@ -1,12 +1,9 @@
 import React from 'react';
 
-import projectImage from '~/assets/images/project.png';
 import {
-    Image,
     Linking,
     Pressable,
     Text,
-    View,
 } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
@@ -26,7 +23,7 @@ const ProjectContainer = (): JSX.Element => {
     };
 
     return (
-        <View>
+        <Pressable onPress={handleSitePress}>
             <Text category={TextCategory.BODY1} style={globalStyles.pb10}>
                 {name}
             </Text>
@@ -36,10 +33,7 @@ const ProjectContainer = (): JSX.Element => {
             >
                 {details?.en ?? PROJECT_MOCK.details.en}
             </Text>
-            <Pressable onPress={handleSitePress}>
-                <Image style={styles.image} source={projectImage} />
-            </Pressable>
-        </View>
+        </Pressable>
     );
 };
 

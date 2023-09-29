@@ -30,6 +30,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
+    EnglishLevelLMS,
     ErrorMessage,
     JobTitle,
     NotConsidered,
