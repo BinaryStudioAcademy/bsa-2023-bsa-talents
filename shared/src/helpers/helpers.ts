@@ -3,6 +3,7 @@ export { configureString } from './configure-string/configure-string.helper.js';
 export { getBadgeColor } from './get-badge-color/get-badge-color.js';
 export { getBadgeIcon } from './get-badge-icon/get-badge-icon.js';
 export { getURLWithQueryString } from './get-url-with-query-string/get-url-with-query-string.js';
+export { makeLMSDataResponse } from './lms-data-service/make-lms-data-response.helper.js';
 export { parseLMSServerData } from './lms-data-service/parse-lms-server-data.helper.js';
 export { createNumberRangeArray } from './talent-onboarding/create-number-range.js';
 export { getAvatarInitials } from './user/get-avatar-initials.js';

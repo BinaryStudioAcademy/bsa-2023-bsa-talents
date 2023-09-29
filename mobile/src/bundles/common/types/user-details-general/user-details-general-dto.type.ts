@@ -1,15 +1,27 @@
+import { type UploadedFile } from 'shared/build/index';
+
+import { type FileRole } from '~/bundles/common/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/common/types/types';
-import { type FormattedHardSkillsItem } from '~/bundles/common-data/types/types';
 import { type BsaBadgesStepTypes } from '~/bundles/talent/types/types';
 
 // TODO: replace when we know backend dto
 
-type HardSkillsDto = {
-    hardSkills: FormattedHardSkillsItem[];
+type HardSkillsRequest = {
+    talentHardSkills: string[];
+};
+
+type HardSkillItemResponse = {
+    id: string;
+    userDetailsId: string;
+    hardSkillId: string;
+};
+
+type HardSkillsResponse = {
+    talentHardSkills: HardSkillItemResponse[];
 };
 
 //TODO delete when backend is ready
@@ -37,7 +49,7 @@ type PublishedAt = {
 
 type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
     Partial<BsaBadgesStepTypes> &
-    Partial<HardSkillsDto> &
+    Partial<HardSkillsRequest> &
     Partial<PhotoDto> &
     Partial<CVDto> &
     Partial<CompanyLogoDto> &
@@ -45,15 +57,24 @@ type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
 
 type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
     Partial<BsaBadgesStepTypes> &
-    Partial<HardSkillsDto> &
+    Partial<HardSkillsResponse> &
     Partial<PhotoDto> &
     Partial<CVDto> &
     Partial<CompanyLogoDto> &
     Partial<PublishedAt>;
 
+type FileUploadResponse = {
+    [FileRole.COMPANY_LOGO]?: UploadedFile;
+    [FileRole.CV]?: UploadedFile;
+    [FileRole.PHOTO]?: UploadedFile;
+};
+
 export {
     type CVDto,
-    type HardSkillsDto,
+    type FileUploadResponse,
+    type HardSkillItemResponse,
+    type HardSkillsRequest,
+    type HardSkillsResponse,
     type PhotoDto,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,

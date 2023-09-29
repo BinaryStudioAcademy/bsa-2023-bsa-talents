@@ -1,4 +1,5 @@
 export { DataStatus, TalentOnboardingStepState } from './app/app';
+export { FileRole } from './file-role/file-role';
 export {
     AuthScreenName,
     CompletedTalentOnboardingStep,

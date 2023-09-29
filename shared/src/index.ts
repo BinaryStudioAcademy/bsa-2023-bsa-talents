@@ -54,11 +54,11 @@ export {
     type LectureDetail,
     type LMSDataResponseDto,
     type LMSDataServerResponseDto,
-    type LMSProject,
     type Marks,
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type Talent,
     type UserLMSDataDto,
 } from './bundles/lms-data/lms-data.js';
 export {
@@ -92,6 +92,7 @@ export {
     SearchType,
     type TalentBadge,
     type TalentBadgeCreateDto,
+    type TalentBadgeResponseDto,
     type TalentHardSkill,
     UserDetailsApiPath,
     type UserDetailsCreateDto,
@@ -169,6 +170,7 @@ export {
     getItemsWithSelected,
     getSearchedItems,
     getURLWithQueryString,
+    makeLMSDataResponse,
     mapQueryValuesToArrays,
     parseLMSServerData,
 } from './helpers/helpers.js';

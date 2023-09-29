@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Loader, View } from '~/bundles/common/components/components';
 import { DataStatus } from '~/bundles/common/enums/enums';
-import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useHardSkillData,
+} from '~/bundles/common/hooks/hooks';
 import { updateOnboardingData } from '~/bundles/common/store/actions';
 import { globalStyles } from '~/bundles/common/styles/global-styles/global-styles';
 import {
@@ -22,10 +26,14 @@ const ProfileScreenSkills: React.FC = () => {
     const { onboardingData, dataStatus } = useAppSelector(
         ({ common }) => common,
     );
+
     const dispatch = useAppDispatch();
+
+    const hardSkillsData = useHardSkillData(onboardingData?.talentHardSkills);
+
     const skillsStepData: SkillsStepDto | null = onboardingData
         ? {
-              hardSkills: onboardingData.hardSkills ?? [],
+              hardSkills: hardSkillsData,
               englishLevel: onboardingData.englishLevel,
               notConsidered: onboardingData.notConsidered ?? [],
               preferredLanguages: onboardingData.preferredLanguages ?? [],
@@ -34,12 +42,16 @@ const ProfileScreenSkills: React.FC = () => {
         : null;
 
     const handleSkillsSubmit = (payload: SkillsStepDto): void => {
-        const updatedProjectLinks = urlObjectsToStrings(payload.projectLinks);
+        const { hardSkills, projectLinks, ...data } = payload;
+        const updatedProjectLinks = urlObjectsToStrings(projectLinks);
+        const talentHardSkills = hardSkills.map(({ value }) => value);
+
         void dispatch(
             updateOnboardingData({
-                ...payload,
+                ...data,
                 projectLinks: updatedProjectLinks,
                 userId: onboardingData?.userId,
+                talentHardSkills,
             }),
         );
     };

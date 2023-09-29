@@ -1,8 +1,10 @@
+import { type LMSDataServerResponseDto } from 'shared/build/index.js';
+
 import {
-    mockFeedback,
     mockPersonalityTypeOptions,
     mockSoftSkills,
 } from '~/assets/mock-data/mock-data.js';
+import { ONE } from '~/bundles/admin-panel/constants/constants.js';
 import {
     Autocomplete,
     FormControl,
@@ -16,13 +18,34 @@ import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
-const Characteristics: React.FC = () => {
+type Properties = {
+    lmsData: LMSDataServerResponseDto;
+};
+
+const Characteristics: React.FC<Properties> = ({ lmsData }) => {
     const { control, errors } = useAppForm<{
         personalityType: string;
         softSkills: string[];
     }>({
         defaultValues: { personalityType: '', softSkills: [] },
     });
+
+    const { projectCoachesFeedback } = lmsData;
+    const feedbackData = projectCoachesFeedback.filter(
+        (it) => it.feedback !== null,
+    );
+
+    const mappedFeedbBack: {
+        title: string;
+        text: string;
+    }[] = [];
+
+    for (const [index, feedback] of feedbackData.entries()) {
+        mappedFeedbBack.push({
+            title: `Coach feedback from week ${index + ONE}`,
+            text: feedback.feedback as string,
+        });
+    }
 
     return (
         <Grid container alignItems="center" className={styles.container}>
@@ -35,7 +58,7 @@ const Characteristics: React.FC = () => {
                     item
                     className={getValidClassNames(styles.body, styles.feedback)}
                 >
-                    <MultiRead rows={mockFeedback}></MultiRead>
+                    <MultiRead rows={mappedFeedbBack}></MultiRead>
                 </Grid>
             </Grid>
 

@@ -1,6 +1,6 @@
-import { type TalentBadge } from 'shared/build/index.js';
+import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
 
-import { type HardSkillsItem, type LMSProject } from '../types.js';
+import { type HardSkillsItem, type Project } from '../types.js';
 
 type FirstSectionDetails = {
     userId: string;
@@ -10,13 +10,13 @@ type FirstSectionDetails = {
     location: string;
     experienceYears: number;
     englishLevel: string;
-    badges?: TalentBadge[];
+    badges?: MappedBSABadge[];
     talentHardSkills?: string[];
     hardSkills?: HardSkillsItem;
     preferredLanguages: string[];
     description: string;
     date: string;
-    lmsProject?: LMSProject;
+    lmsProject?: Project;
 };
 
 type SecondSectionDetails = {
