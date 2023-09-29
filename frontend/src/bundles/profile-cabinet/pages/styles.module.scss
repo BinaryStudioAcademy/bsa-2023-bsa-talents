@@ -95,4 +95,15 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
+    width: 65vw;
+}
+
+@media screen and (width <=760px) {
+    .stepContainer {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+    }
 }
