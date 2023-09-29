@@ -5,6 +5,7 @@ import {
     type AsyncThunkConfig,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
+    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
 import { type FileDto } from '~/bundles/file-upload/types/file-dto.type';
@@ -66,20 +67,18 @@ const createUserDetails = createAsyncThunk<
 });
 
 const updateOnboardingData = createAsyncThunk<
-    UserDetailsGeneralRequestDto,
+    UserDetailsGeneralResponseDto,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { commonApi, notifications, fileUploadApi } = extra;
     const {
         badges,
-        hardSkills,
         photo,
         cv: cvDocument,
         companyLogo,
         ...payload
     } = stepPayload;
-    const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
     const files: FileDto[] = [];
 
@@ -121,19 +120,15 @@ const updateOnboardingData = createAsyncThunk<
         payload.companyLogoId = rn?.id;
     }
 
-    if (Object.keys(payload).length === 0) {
-        return stepPayload;
-    }
+    // if (Object.keys(payload).length === 0) {
+    //     return stepPayload;
+    // }
     try {
-        const response = await commonApi.completeOnboardingStep({
-            ...payload,
-            talentHardSkills: talentHardSkills,
-        });
+        const response = await commonApi.completeOnboardingStep(payload);
 
         return {
             ...response,
             //TODO remove when it is ready at the backend
-            ...(hardSkills && { hardSkills }),
             ...(badges && { badges }),
         };
     } catch (error) {

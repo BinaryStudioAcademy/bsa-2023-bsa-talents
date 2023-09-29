@@ -2,6 +2,7 @@ import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsGeneralRequestDto,
+    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
@@ -37,7 +38,7 @@ class CommonApi extends HttpApiBase {
 
     public async completeOnboardingStep(
         payload: UserDetailsGeneralRequestDto,
-    ): Promise<UserDetailsGeneralRequestDto> {
+    ): Promise<UserDetailsGeneralResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
@@ -47,7 +48,7 @@ class CommonApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsGeneralRequestDto>();
+        return await response.json<UserDetailsGeneralResponseDto>();
     }
 
     public async getUserDetailsByUserId(

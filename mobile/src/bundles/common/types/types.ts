@@ -19,6 +19,9 @@ export {
 } from './navigation/navigation';
 export { type FileUploadResponse } from './user-details-general/user-details-general-dto.type';
 export {
+    type HardSkillItemResponse,
+    type HardSkillsRequest,
+    type HardSkillsResponse,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,
