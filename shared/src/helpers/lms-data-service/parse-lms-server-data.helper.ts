@@ -8,8 +8,10 @@ function parseLMSServerData(
     serverData: LMSDataServerResponseDto,
 ): LMSDataResponseDto {
     return {
-        userId,
-        english: serverData.talent.english,
+        talent: {
+            ...serverData.talent,
+            id: userId,
+        },
         averageProjectScore: serverData.averageProjectScore,
         averageLectureScore: serverData.averageLectureScore,
         lectureDetails: serverData.lectureDetails,

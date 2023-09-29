@@ -14,12 +14,12 @@ import { type LMSProject } from './types/types.js';
 
 class LMSDataModel extends AbstractModel {
     public 'userId': string;
-    public 'english': string;
+    public 'talent': string; // JSON
     public 'averageProjectScore': number | null;
     public 'averageLectureScore': number | null;
-    public 'lectureDetails': string;
-    public 'projectCoachesFeedback': string;
-    public 'hrFeedback': string;
+    public 'lectureDetails': string; // JSON
+    public 'projectCoachesFeedback': string; // JSON
+    public 'hrFeedback': string; // JSON
     public 'project': LMSProject;
 
     public static override get tableName(): string {

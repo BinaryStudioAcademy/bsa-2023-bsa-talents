@@ -2,12 +2,12 @@ import { type LMSProject } from './lms-project.type.js';
 
 type UserLMSDataDto = {
     userId: string;
-    english: string;
+    talent: string; // JSON
     averageProjectScore: number | null;
     averageLectureScore: number | null;
-    lectureDetails: string;
-    projectCoachesFeedback: string;
-    hrFeedback: string;
+    lectureDetails: string; // JSON
+    projectCoachesFeedback: string; // JSON
+    hrFeedback: string; // JSON
     project: LMSProject;
 };
 

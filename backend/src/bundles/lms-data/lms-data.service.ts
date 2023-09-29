@@ -7,10 +7,11 @@ import { config } from '~/common/packages/config/config.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
-import { parseLMSServerData } from './helpers/helpers.js';
+import { makeLMSDataResponse, parseLMSServerData } from './helpers/helpers.js';
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
 import {
+    type LMSDataResponseDto,
     type LMSDataServerResponseDto,
     type UserLMSDataDto,
 } from './types/types.js';
@@ -26,13 +27,13 @@ class LMSDataService implements Service {
         };
     }
 
-    public async findByUserId(userId: string): Promise<UserLMSDataDto> {
+    public async findByUserId(userId: string): Promise<LMSDataResponseDto> {
         const dataFromDB = await this.lmsDataRepository.findByUserId({
             userId,
         });
 
         if (dataFromDB) {
-            return dataFromDB.toObject();
+            return makeLMSDataResponse(dataFromDB.toObject());
         }
 
         const user = await userRepository.findById(userId);
