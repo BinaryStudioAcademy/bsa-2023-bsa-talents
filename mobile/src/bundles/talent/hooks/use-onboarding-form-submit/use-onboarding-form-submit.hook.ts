@@ -11,6 +11,7 @@ import {
 } from '~/bundles/common/hooks/hooks';
 import { actions as commonActions } from '~/bundles/common/store';
 import {
+    type HardSkillsRequest,
     type NavigationProp,
     type TalentOnboardingNavigationParameterList,
     type ValueOf,
@@ -35,7 +36,7 @@ type Properties = {
 type OnboardingFormData =
     | ProfileStepDto
     | BsaBadgesStepDto
-    | SkillsStepDto
+    | (Omit<SkillsStepDto, 'hardSkills'> & HardSkillsRequest)
     | CvAndContactsFormDto;
 
 type SubmitOnboardingData = (payload: OnboardingFormData) => Promise<void>;

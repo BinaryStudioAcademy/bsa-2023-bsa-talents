@@ -17,6 +17,9 @@ export {
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
 export {
+    type HardSkillItemResponse,
+    type HardSkillsRequest,
+    type HardSkillsResponse,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
     type UserDetailsGeneralResponseDto,

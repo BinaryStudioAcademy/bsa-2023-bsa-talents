@@ -54,7 +54,7 @@ const userDetailsUpdate = joi
             .number()
             .integer()
             .min(UserDetailsUpdateValidationRule.MIN_SALARY_EXPECTATION)
-            .max(UserDetailsUpdateValidationRule.MIN_SALARY_EXPECTATION)
+            .max(UserDetailsUpdateValidationRule.MAX_SALARY_EXPECTATION)
             .messages({
                 'number.base':
                     UserDetailsValidationMessage.SALARY_EXPECTATION_NOT_NUMBER,
@@ -157,6 +157,14 @@ const userDetailsUpdate = joi
                         UserDetailsValidationMessage.PREFERRED_LANGUAGES_DIDNT_MATCH_ALLOWED_TYPES,
                 }),
         ),
+
+        phone: joi
+            .string()
+            .pattern(/^\+(?:\d ?){10,14}\d$/)
+            .messages({
+                'string.pattern.base':
+                    UserDetailsValidationMessage.PHONE_NUMBER_PATTERN,
+            }),
 
         projectLinks: joi
             .array()

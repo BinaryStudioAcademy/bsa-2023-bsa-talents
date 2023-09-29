@@ -117,3 +117,15 @@
     text-decoration: underline;
     background-color: transparent;
 }
+
+:global(.message-link) {
+    display: block;
+    color: var(--text-primary-dark);
+}
+
+.hire {
+    margin-top: 15px;
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h2-h4);
+    text-align: center;
+}

@@ -1,16 +1,23 @@
 import { type Entity } from '~/common/types/types.js';
 
-import { type LMSProject, type UserLMSDataDto } from './types/types.js';
+import {
+    type HrFeedback,
+    type LectureDetail,
+    type Project,
+    type ProjectCoachesFeedback,
+    type Talent,
+    type UserLMSDataDto,
+} from './types/types.js';
 
 class LMSDataEntity implements Entity {
     public userId: string;
-    public talent: string; // JSON
+    public talent: Talent;
     public averageProjectScore: number | null;
     public averageLectureScore: number | null;
-    public lectureDetails: string; // JSON
-    public projectCoachesFeedback: string; // JSON
-    public hrFeedback: string; // JSON
-    public project: LMSProject;
+    public lectureDetails: LectureDetail[];
+    public projectCoachesFeedback: ProjectCoachesFeedback[];
+    public hrFeedback: HrFeedback;
+    public project: Project;
 
     private constructor(userLMSDataDto: UserLMSDataDto) {
         this.userId = userLMSDataDto.userId;

@@ -19,7 +19,6 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { configureString } from '~/helpers/helpers.js';
-import { NotificationType } from '~/services/notification/enums/notification-type.enum.js';
 
 import styles from './styles.module.scss';
 
@@ -35,12 +34,6 @@ const HeaderUserMenu: React.FC<Properties> = () => {
     const handleSignOut = useCallback((): void => {
         void dispatch(authActions.signOut());
         void dispatch(storeActions.resetStore());
-        void dispatch(
-            storeActions.notify({
-                type: NotificationType.INFO,
-                message: 'You are logged out',
-            }),
-        );
         navigate(AppRoute.SIGN_IN);
     }, [dispatch, navigate]);
 

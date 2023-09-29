@@ -5,6 +5,7 @@ import {
     type AsyncThunkConfig,
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,
+    type UserDetailsGeneralResponseDto,
     type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
 
@@ -33,27 +34,23 @@ const createUserDetails = createAsyncThunk<
 });
 
 const updateOnboardingData = createAsyncThunk<
-    UserDetailsGeneralRequestDto,
+    UserDetailsGeneralResponseDto,
     UserDetailsGeneralRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { commonApi, notifications } = extra;
-    const { badges, hardSkills, photo, cv, companyLogo, ...payload } =
-        stepPayload;
-    const talentHardSkills = hardSkills?.map((skill) => skill.value);
+    const { badges, photo, cv, companyLogo, ...payload } = stepPayload;
 
-    if (Object.keys(payload).length === 0) {
-        return stepPayload;
-    }
+    // if (Object.keys(payload).length === 0) {
+    //     return stepPayload;
+    // }
+
     try {
-        const response = await commonApi.completeOnboardingStep({
-            ...payload,
-            talentHardSkills: talentHardSkills,
-        });
+        const response = await commonApi.completeOnboardingStep(payload);
+
         return {
             ...response,
             //TODO remove when it is ready at the backend
-            ...(hardSkills && { hardSkills }),
             ...(badges && { badges }),
             ...(photo && { photo }),
             ...(cv && { cv }),
