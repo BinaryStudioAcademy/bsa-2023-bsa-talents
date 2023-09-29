@@ -1,44 +1,57 @@
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import {
-    Avatar,
     Button,
     Grid,
     Logo,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { UserRole } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 
+import { CompanyHeader } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
+    role: string;
     className?: string;
 };
 
-const CompanyInfo: React.FC<Properties> = ({ className }) => {
-    const { company, hasSharedContacts, talentId, employerId, currentChatId } =
-        useAppSelector(({ chat }) => ({
-            company: chat.current.employerDetails,
-            hasSharedContacts: chat.current.talentHasSharedContacts,
-            talentId: chat.current.talentId,
-            employerId: chat.current.employerDetails.employerId,
-            currentChatId: chat.current.chatId,
-        }));
+const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
+    const {
+        company,
+        hasSharedContacts,
+        talentId,
+        employerId,
+        currentChatId,
+        talent,
+    } = useAppSelector(({ chat }) => ({
+        company: chat.current.employerDetails,
+        hasSharedContacts: chat.current.talentHasSharedContacts,
+        talentId: chat.current.talentId,
+        employerId: chat.current.employerDetails.employerId,
+        currentChatId: chat.current.chatId,
+        talent: chat.current.userDetails,
+    }));
+
     const dispatch = useAppDispatch();
 
-    const {
-        logoUrl,
-        companyName,
-        employerName,
-        employerPosition,
-        about,
-        companyWebsite,
-    } = company;
+    useEffect(() => {
+        if (role === UserRole.EMPLOYER) {
+            void dispatch(
+                talentActions.getTalentDetails({ userId: talentId as string }),
+            );
+        }
+    }, [dispatch, role, talentId]);
+
+    const { companyName, about, companyWebsite } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
         const createNotificationMessage = async (): Promise<void> => {
@@ -74,78 +87,137 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
     const aboutInfo = about ?? 'No information provided';
     return currentChatId ? (
         <Grid className={styles.wrapper}>
-            <Grid className={styles.header}>
-                <Avatar
-                    alt={companyName ?? 'company name'}
-                    src={logoUrl ?? ''}
-                    isSmall
-                />
-                <Grid className={styles.headerInfo}>
-                    <Typography className={styles.companyName} variant="h3">
-                        {companyName}
-                    </Typography>
-                    <Typography
-                        className={styles.companyRepresentative}
-                        variant="body1"
-                    >
-                        {employerName}, {employerPosition}
-                    </Typography>
+            <CompanyHeader role={role} company={company} talent={talent} />
+            {role === UserRole.EMPLOYER ? (
+                <Grid className={styles.contentWrapper}>
+                    <Grid className={styles.content}>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            English level
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.englishLevel}
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Experience
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.experienceYears} years
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Location
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.location}
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Salary expectation
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.salaryExpectation} $
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Preferred languages
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.preferredLanguages?.toString()}
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Employment types
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.employmentType?.toString()}
+                        </Typography>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            Not considered
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {talent?.notConsidered?.toString()}
+                        </Typography>
+                    </Grid>
                 </Grid>
-            </Grid>
-
-            <Grid className={styles.contentWrapper}>
-                <Grid className={styles.content}>
-                    <Typography className={styles.contentHeading} variant="h6">
-                        About {companyName}
-                    </Typography>
-                    <Typography className={styles.about} variant="body1">
-                        {aboutInfo}
-                    </Typography>
-                    {companyWebsite && (
-                        <>
-                            <Typography
-                                className={styles.contentHeading}
-                                variant="h6"
-                            >
-                                Company Website
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.linkWrapper}
-                            >
-                                <a
-                                    href={
-                                        companyWebsite.startsWith('http://') ||
-                                        companyWebsite.startsWith('https://')
-                                            ? companyWebsite
-                                            : `http://${companyWebsite}`
-                                    }
-                                    rel="noreferrer"
-                                    target="_blank"
-                                    className={styles.companyLink}
+            ) : (
+                <Grid className={styles.contentWrapper}>
+                    <Grid className={styles.content}>
+                        <Typography
+                            className={styles.contentHeading}
+                            variant="h6"
+                        >
+                            About {companyName}
+                        </Typography>
+                        <Typography className={styles.about} variant="body1">
+                            {aboutInfo}
+                        </Typography>
+                        {companyWebsite && (
+                            <>
+                                <Typography
+                                    className={styles.contentHeading}
+                                    variant="h6"
                                 >
-                                    {companyWebsite}
-                                </a>
-                            </Typography>
-                        </>
-                    )}
+                                    Company Website
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={styles.linkWrapper}
+                                >
+                                    <a
+                                        href={
+                                            companyWebsite.startsWith(
+                                                'http://',
+                                            ) ||
+                                            companyWebsite.startsWith(
+                                                'https://',
+                                            )
+                                                ? companyWebsite
+                                                : `http://${companyWebsite}`
+                                        }
+                                        rel="noreferrer"
+                                        target="_blank"
+                                        className={styles.companyLink}
+                                    >
+                                        {companyWebsite}
+                                    </a>
+                                </Typography>
+                            </>
+                        )}
+                    </Grid>
+                    <Grid className={styles.buttons}>
+                        <Button
+                            className={styles.mainBtn}
+                            label="Share your contact and CV"
+                            onClick={handleShareCVButtonClick}
+                            isDisabled={hasSharedContacts}
+                        />
+                        <Button
+                            className={styles.btnSecondary}
+                            variant="text"
+                            label="The company already hired me"
+                            onClick={handleAlreadyHiredButtonClick}
+                            isDisabled={false}
+                        />
+                    </Grid>
                 </Grid>
-                <Grid className={styles.buttons}>
-                    <Button
-                        className={styles.mainBtn}
-                        label="Share your contact and CV"
-                        onClick={handleShareCVButtonClick}
-                        isDisabled={hasSharedContacts}
-                    />
-                    <Button
-                        className={styles.btnSecondary}
-                        variant="text"
-                        label="The company already hired me"
-                        onClick={handleAlreadyHiredButtonClick}
-                        isDisabled={false}
-                    />
-                </Grid>
-            </Grid>
+            )}
         </Grid>
     ) : (
         <Grid className={className}>

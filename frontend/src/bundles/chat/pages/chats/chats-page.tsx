@@ -15,11 +15,7 @@ import {
     type ChatListItemType,
     type ChatResponseDto,
 } from '~/bundles/chat/types/types.js';
-import {
-    Grid,
-    Logo,
-    Typography,
-} from '~/bundles/common/components/components.js';
+import { Grid, Typography } from '~/bundles/common/components/components.js';
 import { UserRole } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -229,18 +225,10 @@ const ChatsPage: React.FC = () => {
                                     isScreenMoreMD && styles.chatInfoOpenedMD,
                                 )}
                             >
-                                {user?.role === UserRole.TALENT ? (
-                                    <CompanyInfo
-                                        className={styles.placeholder}
-                                    />
-                                ) : (
-                                    <div className={styles.placeholder}>
-                                        <Logo isCollapsed />
-                                        <span className={styles.hire}>
-                                            Hire someone today!
-                                        </span>
-                                    </div>
-                                )}
+                                <CompanyInfo
+                                    role={user?.role}
+                                    className={styles.placeholder}
+                                />
                             </Grid>
                         )}
                     </Grid>
