@@ -3,15 +3,20 @@ import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import {
     Avatar,
     Button,
+    FormControl,
     Grid,
     Logo,
+    RadioGroup,
     Typography,
 } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
+    useAppForm,
     useAppSelector,
     useCallback,
+    useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 
 import styles from './styles.module.scss';
@@ -20,15 +25,32 @@ type Properties = {
     className?: string;
 };
 
+const options = [
+    {
+        value: 'Yes',
+        label: 'Yes',
+    },
+    {
+        value: 'No',
+        label: 'No',
+    },
+];
 const CompanyInfo: React.FC<Properties> = ({ className }) => {
-    const { company, hasSharedContacts, talentId, employerId, currentChatId } =
-        useAppSelector(({ chat }) => ({
-            company: chat.current.employerDetails,
-            hasSharedContacts: chat.current.talentHasSharedContacts,
-            talentId: chat.current.talentId,
-            employerId: chat.current.employerDetails.employerId,
-            currentChatId: chat.current.chatId,
-        }));
+    const {
+        company,
+        hasSharedContacts,
+        talentId,
+        talentIsHired,
+        companyId,
+        currentChatId,
+    } = useAppSelector(({ chat }) => ({
+        company: chat.current.employerDetails,
+        hasSharedContacts: chat.current.talentHasSharedContacts,
+        talentId: chat.current.talentId,
+        companyId: chat.current.employerDetails.employerId,
+        currentChatId: chat.current.chatId,
+        talentIsHired: chat.current.talentIsHired,
+    }));
     const dispatch = useAppDispatch();
 
     const {
@@ -56,7 +78,7 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
                         `CV_&_${cvUrl} ` +
                         `Profile_&_${baseUrl}/candidates/${talentId} `,
                     senderId: talentId as string,
-                    receiverId: employerId as string,
+                    receiverId: companyId as string,
                     chatId: currentChatId as string,
                 }),
             );
@@ -65,11 +87,33 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
         };
 
         void createNotificationMessage();
-    }, [dispatch, currentChatId, employerId, talentId]);
+    }, [dispatch, currentChatId, companyId, talentId]);
 
-    const handleAlreadyHiredButtonClick = useCallback(() => {
-        //TODO: Implement button click handler
-    }, []);
+    const { control, watch } = useAppForm<{ hire: 'Yes' | 'No' }>({
+        defaultValues: { hire: 'Yes' },
+    });
+
+    useEffect(() => {
+        if (talentId && companyId) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId,
+                    companyId,
+                }),
+            );
+        }
+    }, [dispatch, companyId, talentId]);
+
+    const handleHireSubmit = useCallback((): void => {
+        if (watch('hire') === 'Yes') {
+            void dispatch(
+                hiringInfoActions.submitHiringInfo({
+                    talentId: talentId ?? '',
+                    companyId: companyId ?? '',
+                }),
+            );
+        }
+    }, [dispatch, companyId, talentId, watch]);
 
     const aboutInfo = about ?? 'No information provided';
     return currentChatId ? (
@@ -137,13 +181,35 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
                         onClick={handleShareCVButtonClick}
                         isDisabled={hasSharedContacts}
                     />
-                    <Button
-                        className={styles.btnSecondary}
-                        variant="text"
-                        label="The company already hired me"
-                        onClick={handleAlreadyHiredButtonClick}
-                        isDisabled={false}
-                    />
+                    <FormControl className={styles.hireCandidates}>
+                        {!talentIsHired && (
+                            <>
+                                <Typography variant="label">
+                                    Have the company hired you?
+                                </Typography>
+                                <RadioGroup
+                                    control={control}
+                                    options={options}
+                                    name={'hire'}
+                                    className={styles.radio}
+                                />
+                            </>
+                        )}
+                        {talentIsHired && (
+                            <Typography
+                                variant="label"
+                                className={styles.hiredLabel}
+                            >
+                                You have been hired by this company
+                            </Typography>
+                        )}
+                        <Button
+                            label="Submit"
+                            className={styles.mainBtn}
+                            onClick={handleHireSubmit}
+                            isDisabled={talentIsHired}
+                        />
+                    </FormControl>
                 </Grid>
             </Grid>
         </Grid>
