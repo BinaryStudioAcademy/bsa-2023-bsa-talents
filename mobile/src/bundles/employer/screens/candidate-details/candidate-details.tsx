@@ -76,7 +76,7 @@ const CandidateDetails: React.FC = () => {
                 </Text>
             </View>
             <Divider containerStyle={globalStyles.mb10} />
-            <TalentInfoDetails talent={talent} />
+            <TalentInfoDetails isPreview={false} talent={talent} />
             <Button
                 style={globalStyles.mb25}
                 onPress={handleContactToTalent}
