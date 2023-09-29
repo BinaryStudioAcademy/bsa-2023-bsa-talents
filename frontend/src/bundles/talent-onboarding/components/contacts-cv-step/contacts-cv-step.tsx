@@ -80,8 +80,9 @@ const ContactsCVStep: React.FC = () => {
     } = useAppForm<ContactsCVStepDto>({
         defaultValues: useMemo(
             () => ({
-                fullName: fullName ?? talentLMSInfo?.fullName,
-                phone: phone ?? talentLMSInfo?.phoneNumber,
+                fullName:
+                    fullName?.length === 0 ? talentLMSInfo?.fullName : fullName,
+                phone: phone?.length === 0 ? talentLMSInfo?.phoneNumber : phone,
                 linkedinLink,
                 photo,
                 photoUrl,
