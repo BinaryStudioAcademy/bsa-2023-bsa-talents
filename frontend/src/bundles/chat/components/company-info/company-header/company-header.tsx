@@ -36,7 +36,7 @@ const CompanyHeader: React.FC<Properties> = ({ company, role, talent }) => {
                 <Typography className={styles.companyName} variant="h3">
                     {role === UserRole.TALENT
                         ? company?.companyName
-                        : talent?.fullName}
+                        : talent?.profileName}
                 </Typography>
                 {role === UserRole.TALENT ? (
                     <Typography
