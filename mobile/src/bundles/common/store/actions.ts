@@ -165,13 +165,17 @@ const getUserDetails = createAsyncThunk<
                 photoUrl: photo?.url,
                 companyLogoUrl: companyLogo?.url,
             };
+        } else if (userDetails?.cvId) {
+            const cv = await fileUploadApi.getFileById({
+                id: userDetails.cvId,
+            });
+            return {
+                ...userDetails,
+                cvUrl: cv?.url,
+                photoUrl: photo?.url,
+            };
         } else {
-            return userDetails
-                ? {
-                      ...userDetails,
-                      photoUrl: photo?.url,
-                  }
-                : null;
+            return null;
         }
     } catch (error) {
         const errorMessage = getErrorMessage(error);
