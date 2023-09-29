@@ -5,6 +5,7 @@ import { type Storage } from '~/framework/storage/storage';
 
 import { FileApiPath } from './enums/enums';
 import {
+    type FileDto,
     type FileUploadResponse,
     type GetFileRequestDto,
     type GetFileResponseDto,
@@ -22,11 +23,13 @@ class FileUploadApi extends HttpApiBase {
     }
 
     public async upload(payload: {
-        files: File[];
+        files: FileDto[];
     }): Promise<FileUploadResponse> {
         const formData = new FormData();
-        for (const file of payload.files) {
-            formData.append('files', file);
+        for (const fileData of payload.files) {
+            const { role, extension, file } = fileData;
+            const newFileName = `${role}.${extension}`;
+            formData.append('files', file, newFileName);
         }
 
         const response = await this.load(

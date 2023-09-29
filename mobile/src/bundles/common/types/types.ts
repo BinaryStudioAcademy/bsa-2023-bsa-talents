@@ -1,4 +1,5 @@
 export { type AsyncThunkConfig } from './app/app';
+export { type UserDetailsGeneralCustom } from './general-update-user-details-request-dto/general-update-user-details-request-dto.js';
 export {
     type AuthNavigationParameterList,
     type ChatNavigationProperties,

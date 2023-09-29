@@ -7,7 +7,10 @@ import {
     type UserDetailsGeneralRequestDto,
     type UserDetailsResponseDto,
 } from '~/bundles/common/types/types';
+import { type FileDto } from '~/bundles/file-upload/types/file-dto.type';
 
+import { EMPTY_FILE_COUNT } from '../constants/constants';
+import { mapFilesToPayload } from '../helpers/map-files-to-payload';
 import { name as sliceName } from './slice';
 
 const createUserDetails = createAsyncThunk<
@@ -18,30 +21,31 @@ const createUserDetails = createAsyncThunk<
     const { commonApi, notifications, fileUploadApi } = extra;
     const { photo, companyLogo, ...payload } = onboardingPayload;
 
+    const files: FileDto[] = [];
+
     if (photo) {
-        try {
-            const { rn } = await fileUploadApi.upload({
-                files: [photo],
-            });
-            payload.photoId = rn.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
+        const [extension] = photo.name.split('.').reverse();
+        files.push({
+            extension,
+            file: photo,
+        });
     }
 
     if (companyLogo) {
-        try {
-            const { rn } = await fileUploadApi.upload({
-                files: [companyLogo],
-            });
-            payload.companyLogoId = rn.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
+        const [extension] = companyLogo.name.split('.').reverse();
+        files.push({
+            role: 'companyLogo',
+            extension,
+            file: companyLogo,
+        });
+    }
+
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        mapFilesToPayload({
+            payload: payload,
+            files: response,
+        });
     }
 
     try {
@@ -75,43 +79,40 @@ const updateOnboardingData = createAsyncThunk<
     } = stepPayload;
     const talentHardSkills = hardSkills?.map((skill) => skill.value);
 
+    const files: FileDto[] = [];
+
     if (photo) {
-        try {
-            const { rn } = await fileUploadApi.upload({
-                files: [photo],
-            });
-            payload.photoId = rn.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
+        const [extension] = photo.name.split('.').reverse();
+        files.push({
+            extension,
+            file: photo,
+        });
     }
 
     if (companyLogo) {
-        try {
-            const { rn } = await fileUploadApi.upload({
-                files: [companyLogo],
-            });
-            payload.companyLogoId = rn.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
+        const [extension] = companyLogo.name.split('.').reverse();
+        files.push({
+            role: 'companyLogo',
+            extension,
+            file: companyLogo,
+        });
     }
 
     if (cvDocument) {
-        try {
-            const { cv } = await fileUploadApi.upload({
-                files: [cvDocument],
-            });
-            payload.cvId = cv?.id;
-        } catch (error) {
-            const errorMessage = getErrorMessage(error);
-            notifications.showError({ title: errorMessage });
-            throw error;
-        }
+        const [extension] = cvDocument.name.split('.').reverse();
+        files.push({
+            role: 'cvDocument',
+            extension,
+            file: cvDocument,
+        });
+    }
+
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        mapFilesToPayload({
+            payload: payload,
+            files: response,
+        });
     }
 
     if (Object.keys(payload).length === 0) {

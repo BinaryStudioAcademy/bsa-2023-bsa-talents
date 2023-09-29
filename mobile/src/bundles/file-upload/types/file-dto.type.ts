@@ -1,5 +1,5 @@
 type FileDto = {
-    role: string;
+    role?: string;
     extension: string;
     file: File;
 };

@@ -50,11 +50,7 @@ const CVAndContactsForm: React.FC<Properties> = ({
                 name="photo"
                 containerStyle={globalStyles.alignItemsCenter}
             >
-                <PhotoPicker
-                    control={control}
-                    name="photo"
-                    uri={cvAndContactsStepData?.photoUrl}
-                />
+                <PhotoPicker control={control} name="photo" />
             </FormField>
             <FormField
                 errorMessage={errors.fullName?.message}
