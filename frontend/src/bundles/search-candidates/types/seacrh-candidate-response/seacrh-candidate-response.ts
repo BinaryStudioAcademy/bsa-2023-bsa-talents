@@ -11,7 +11,7 @@ type SeacrhCandidateResponse = UserDetailsUpdateRequestDto & {
         id: string;
         name: string;
     }[];
-    badges?: TalentBadge[];
+    badges?: TalentBadge[] | string[];
     photo?: File | null;
     cv?: File | null;
     dataStatus?: ValueOf<typeof DataStatus>;

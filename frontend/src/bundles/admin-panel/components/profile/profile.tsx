@@ -1,3 +1,5 @@
+import { type TalentBadge } from 'shared/build/index.js';
+
 import {
     Avatar,
     Badge,
@@ -5,7 +7,7 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { BadgeColors } from '~/bundles/common/enums/badge-colors.enum.js';
+import { mapBsaBadges } from '~/bundles/lms/helpers/map-bsa-badges.js';
 
 import { type UserDetailsFullResponseDto } from '../../types/types.js';
 import styles from './styles.module.scss';
@@ -16,6 +18,12 @@ type Properties = {
 };
 
 const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
+    const badgesToShow = userDetails.talentBadges.filter(
+        (badge) => badge.isShown,
+    ) as TalentBadge[];
+
+    const mappedBasges = mapBsaBadges(badgesToShow);
+
     return (
         <Grid container className={styles.container}>
             <Grid
@@ -264,20 +272,20 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                         <Typography variant="body1" className={styles.title}>
                             BSA badges
                         </Typography>
-                        {userDetails.talentBadges.map((it) => {
+                        {mappedBasges.map((badge) => {
                             const primaryText =
-                                it.level ?? String(it.score) + ' ';
-                            const secondText = it.level
+                                badge.level ?? String(badge.score) + ' ';
+                            const secondText = badge.level
                                 ? ''
-                                : '/ ' + String(it.badge.maxScore);
+                                : '/ ' + String(badge.maxScore);
                             return (
                                 <Badge
-                                    key={it.id}
+                                    key={badge.id}
                                     isSmall
+                                    color={badge.color}
                                     primaryText={primaryText}
                                     secondText={secondText}
-                                    description={it.badge.name}
-                                    color={BadgeColors.YELLOW}
+                                    description={badge.name}
                                 />
                             );
                         })}

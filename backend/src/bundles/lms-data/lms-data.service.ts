@@ -7,7 +7,11 @@ import { config } from '~/common/packages/config/config.js';
 import { http } from '~/common/packages/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
+import { type BSABadgesService } from '../bsa-badges/bsa-badges.service.js';
+import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
+import { type UserDetailsService } from '../user-details/user-details.service.js';
 import { makeLMSDataResponse, parseLMSServerData } from './helpers/helpers.js';
+import { mapTalentBadges } from './helpers/map-talent-badges.js';
 import { LMSDataEntity } from './lms-data.entity.js';
 import { type LMSDataRepository } from './lms-data.repository.js';
 import {
@@ -19,9 +23,25 @@ import {
 class LMSDataService implements Service {
     private lmsDataRepository: LMSDataRepository;
     private requestsToLMSHeaders: { 'X-Token': string };
+    private bsaBadgesService: BSABadgesService;
+    private talentBadgeService: TalentBadgeService;
+    private userDetailsService: UserDetailsService;
 
-    public constructor(lmsDataRepository: LMSDataRepository) {
+    public constructor({
+        lmsDataRepository,
+        bsaBadgesService,
+        talentBadgeService,
+        userDetailsService,
+    }: {
+        lmsDataRepository: LMSDataRepository;
+        bsaBadgesService: BSABadgesService;
+        talentBadgeService: TalentBadgeService;
+        userDetailsService: UserDetailsService;
+    }) {
         this.lmsDataRepository = lmsDataRepository;
+        this.bsaBadgesService = bsaBadgesService;
+        this.talentBadgeService = talentBadgeService;
+        this.userDetailsService = userDetailsService;
         this.requestsToLMSHeaders = {
             'X-Token': config.ENV.LMS_DATA_SERVER.LMS_X_TOKEN,
         };
@@ -69,6 +89,26 @@ class LMSDataService implements Service {
         }
 
         const parsedLMSData = parseLMSServerData(userId, dataFromLMS);
+
+        const userDetails = await this.userDetailsService.create({
+            userId,
+        });
+
+        const userDetailsId = userDetails.id;
+
+        const bsaBadges = await this.bsaBadgesService.findAll();
+
+        const talentBadges = mapTalentBadges(
+            userDetailsId as string,
+            parsedLMSData,
+            bsaBadges,
+        );
+
+        await Promise.all(
+            talentBadges.map((talentBadge) =>
+                this.talentBadgeService.create(talentBadge),
+            ),
+        );
 
         const newDBRecord = await this.lmsDataRepository.create(
             LMSDataEntity.initialize({

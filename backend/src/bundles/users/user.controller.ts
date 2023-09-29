@@ -9,8 +9,12 @@ import {
 import { type Logger } from '~/common/packages/logger/logger.js';
 import { ControllerBase } from '~/common/packages/packages.js';
 
+import { type TalentBadgeService } from '../talent-badges/talent-badge.service.js';
 import { UsersApiPath } from './enums/enums.js';
-import { type UserGetLMSDataById } from './types/types.js';
+import {
+    type UserGetLMSDataById,
+    type UserGetTalentBadgesById,
+} from './types/types.js';
 
 /**
  * @swagger
@@ -133,16 +137,24 @@ import { type UserGetLMSDataById } from './types/types.js';
 class UserController extends ControllerBase {
     private userService: UserService;
     private lmsDataService: LMSDataService;
+    private talentBadgeService: TalentBadgeService;
 
-    public constructor(
-        logger: Logger,
-        userService: UserService,
-        lmsDataService: LMSDataService,
-    ) {
+    public constructor({
+        logger,
+        userService,
+        lmsDataService,
+        talentBadgeService,
+    }: {
+        logger: Logger;
+        userService: UserService;
+        lmsDataService: LMSDataService;
+        talentBadgeService: TalentBadgeService;
+    }) {
         super(logger, ApiPath.USERS);
 
         this.userService = userService;
         this.lmsDataService = lmsDataService;
+        this.talentBadgeService = talentBadgeService;
 
         this.addRoute({
             path: UsersApiPath.ROOT,
@@ -157,6 +169,18 @@ class UserController extends ControllerBase {
             method: 'GET',
             handler: (options) => {
                 return this.getLMSDataById(
+                    options as ApiHandlerOptions<{
+                        params: UserGetLMSDataById;
+                    }>,
+                );
+            },
+        });
+
+        this.addRoute({
+            path: UsersApiPath.BSA_BADGES_BY_$ID,
+            method: 'GET',
+            handler: (options) => {
+                return this.getTalentBadges(
                     options as ApiHandlerOptions<{
                         params: UserGetLMSDataById;
                     }>,
@@ -187,6 +211,19 @@ class UserController extends ControllerBase {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    private async getTalentBadges(
+        options: ApiHandlerOptions<{
+            params: UserGetTalentBadgesById;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { userId } = options.params;
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.talentBadgeService.findAllByUserId(userId),
         };
     }
 
