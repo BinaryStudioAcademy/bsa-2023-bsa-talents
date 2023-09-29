@@ -22,12 +22,14 @@ import {
     Typography,
 } from '~/bundles/common/components/components.js';
 import { ErrorMessage } from '~/bundles/common/components/error-message/error-message.js';
+import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
     useAppSelector,
     useCallback,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
@@ -89,7 +91,7 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
         },
         [setValue],
     );
-
+    const navigate = useNavigate();
     const onSubmit: SubmitHandler<ContactCandidateDto> = useCallback(
         (data: ContactCandidateDto): void => {
             if (data.templateName) {
@@ -114,9 +116,10 @@ const CandidateModal: React.FC<Properties> = ({ isOpen = true, onClose }) => {
 
                 void dispatch(chatActions.getAllChatsByUserId(employerId));
                 onClose();
+                navigate(AppRoute.CHATS);
             }
         },
-        [candidateId, dispatch, employerId, onClose],
+        [candidateId, dispatch, employerId, navigate, onClose],
     );
 
     const handleCheckboxOnChange = useCallback(
