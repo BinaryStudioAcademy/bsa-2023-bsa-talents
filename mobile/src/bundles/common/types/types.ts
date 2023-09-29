@@ -1,5 +1,4 @@
 export { type AsyncThunkConfig } from './app/app';
-export { type FileUploadResponse } from './general-update-user-details-request-dto/';
 export { type UserDetailsGeneralCustom } from './general-update-user-details-request-dto/general-update-user-details-request-dto.js';
 export {
     type AuthNavigationParameterList,
@@ -18,6 +17,7 @@ export {
     type TalentOnboardingNavigationParameterList,
     type TalentOnboardingRouteProperties,
 } from './navigation/navigation';
+export { type FileUploadResponse } from './user-details-general/user-details-general-dto.type';
 export {
     type UserDetailsGeneralCreateRequestDto,
     type UserDetailsGeneralRequestDto,

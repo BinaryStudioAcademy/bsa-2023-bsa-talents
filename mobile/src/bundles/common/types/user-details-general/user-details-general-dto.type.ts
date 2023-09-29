@@ -53,6 +53,12 @@ type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
     Partial<CompanyLogoDto> &
     Partial<PublishedAt>;
 
+type FileUploadResponse = {
+    [FileRole.COMPANY_LOGO]?: UploadedFile;
+    [FileRole.CV]?: UploadedFile;
+    [FileRole.PHOTO]?: UploadedFile;
+};
+
 const FileRole = {
     COMPANY_LOGO: 'companyLogo',
     PHOTO: 'rn',
@@ -60,12 +66,6 @@ const FileRole = {
 } as const;
 
 export { FileRole };
-
-type FileUploadResponse = {
-    [FileRole.COMPANY_LOGO]?: UploadedFile;
-    [FileRole.CV]?: UploadedFile;
-    [FileRole.PHOTO]?: UploadedFile;
-};
 export {
     type CVDto,
     type FileUploadResponse,
