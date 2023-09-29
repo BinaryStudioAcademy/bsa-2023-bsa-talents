@@ -31,6 +31,14 @@ const createUserDetails = createAsyncThunk<
         });
     }
 
+    if (files.length > EMPTY_FILE_COUNT) {
+        const response = await fileUploadApi.upload({ files });
+        mapFilesToPayload({
+            payload: payload,
+            files: response,
+        });
+    }
+
     if (companyLogo) {
         const [extension] = companyLogo.name.split('.').reverse();
         files.push({
@@ -38,14 +46,8 @@ const createUserDetails = createAsyncThunk<
             extension,
             file: companyLogo,
         });
-    }
-
-    if (files.length > EMPTY_FILE_COUNT) {
-        const response = await fileUploadApi.upload({ files });
-        mapFilesToPayload({
-            payload: payload,
-            files: response,
-        });
+        const { rn } = await fileUploadApi.upload({ files });
+        payload.companyLogoId = rn.id;
     }
 
     try {
@@ -89,15 +91,6 @@ const updateOnboardingData = createAsyncThunk<
         });
     }
 
-    if (companyLogo) {
-        const [extension] = companyLogo.name.split('.').reverse();
-        files.push({
-            role: 'companyLogo',
-            extension,
-            file: companyLogo,
-        });
-    }
-
     if (cvDocument) {
         const [extension] = cvDocument.name.split('.').reverse();
         files.push({
@@ -113,6 +106,17 @@ const updateOnboardingData = createAsyncThunk<
             payload: payload,
             files: response,
         });
+    }
+
+    if (companyLogo) {
+        const [extension] = companyLogo.name.split('.').reverse();
+        files.push({
+            role: 'companyLogo',
+            extension,
+            file: companyLogo,
+        });
+        const { rn } = await fileUploadApi.upload({ files });
+        payload.companyLogoId = rn?.id;
     }
 
     if (Object.keys(payload).length === 0) {

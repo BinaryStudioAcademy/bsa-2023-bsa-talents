@@ -1,6 +1,7 @@
-import { type FileUploadResponse } from 'shared/build/index.js';
-
-import { type UserDetailsGeneralCustom } from '~/bundles/common/types/types';
+import {
+    type FileUploadResponse,
+    type UserDetailsGeneralCustom,
+} from '~/bundles/common/types/types';
 
 const mapFilesToPayload = ({
     payload,
