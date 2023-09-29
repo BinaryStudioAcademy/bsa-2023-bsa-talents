@@ -3,10 +3,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiPath } from '~/bundles/common/enums/enums';
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types';
+import { mapBsaBadges } from '~/bundles/common-data/helpers/helpers';
 import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
     type LMSDataResponseDto,
+    type MappedBSABadge,
     type UserFindResponseDto,
     type UserGetLMSDataById,
 } from '~/bundles/common-data/types/types';
@@ -31,6 +33,16 @@ const getBadgesData = createAsyncThunk<
     const { commonDataApi } = extra;
 
     return commonDataApi.getBadgesData();
+});
+
+const getTalentBadges = createAsyncThunk<
+    MappedBSABadge[],
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/get-talent-badges`, async (userId, { extra }) => {
+    const { commonDataApi } = extra;
+    const badges = await commonDataApi.getTalentBadges(userId);
+    return mapBsaBadges(badges.items);
 });
 
 const loadAllPartners = createAsyncThunk<
@@ -63,4 +75,10 @@ const loadLMSData = createAsyncThunk<
     }
 });
 
-export { getBadgesData, getHardSkillsData, loadAllPartners, loadLMSData };
+export {
+    getBadgesData,
+    getHardSkillsData,
+    getTalentBadges,
+    loadAllPartners,
+    loadLMSData,
+};

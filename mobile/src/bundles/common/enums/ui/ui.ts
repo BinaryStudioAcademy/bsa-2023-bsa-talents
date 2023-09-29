@@ -1,3 +1,4 @@
+export { BadgeColors } from './badge-colors.enum';
 export { BadgeSize } from './badge-size.enum';
 export { ButtonType } from './button-type-enum';
 export { CandidateTab } from './candidate-tab.enum';

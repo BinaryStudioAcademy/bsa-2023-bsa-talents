@@ -1,4 +1,5 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { type TalentBadge } from 'shared/build/index';
 
 import { getErrorMessage } from '~/bundles/common/helpers/helpers';
 import {
@@ -73,13 +74,7 @@ const updateOnboardingData = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/updateOnboardingData`, async (stepPayload, { extra }) => {
     const { commonApi, notifications, fileUploadApi } = extra;
-    const {
-        badges,
-        photo,
-        cv: cvDocument,
-        companyLogo,
-        ...payload
-    } = stepPayload;
+    const { photo, cv: cvDocument, companyLogo, ...payload } = stepPayload;
 
     const files: FileDto[] = [];
 
@@ -126,11 +121,13 @@ const updateOnboardingData = createAsyncThunk<
     // }
     try {
         const response = await commonApi.completeOnboardingStep(payload);
-
+        const badgesObjects = response.talentBadges as unknown as TalentBadge[];
+        const activeBadges = badgesObjects
+            .filter((item) => item.isShown)
+            .map((item) => item.id);
         return {
             ...response,
-            //TODO remove when it is ready at the backend
-            ...(badges && { badges }),
+            badges: activeBadges,
         };
     } catch (error) {
         const errorMessage = getErrorMessage(error);

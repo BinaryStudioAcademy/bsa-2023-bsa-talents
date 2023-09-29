@@ -1,4 +1,5 @@
 export { DataStatus, TalentOnboardingStepState } from './app/app';
+export { BSABadgeType } from './bsa-badge/bsa-badge.enum';
 export { FileRole } from './file-role/file-role';
 export {
     AuthScreenName,
@@ -12,6 +13,7 @@ export {
 } from './navigation/navigation';
 export { AlignmentValue, FontFamily, TextCategory } from './styles/styles';
 export {
+    BadgeColors,
     BadgeSize,
     ButtonType,
     CandidateTab,

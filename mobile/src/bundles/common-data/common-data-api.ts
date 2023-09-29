@@ -3,6 +3,7 @@ import {
     type BadgesResponseDto,
     type HardSkillsResponseDto,
     type LMSDataResponseDto,
+    type TalentBadgeResponseDto,
     type UserFindResponseDto,
     type UserGetLMSDataById,
 } from '~/bundles/common-data/types/types';
@@ -31,6 +32,18 @@ class CommonDataApi extends HttpApiBase {
             },
         );
         return await response.json<BadgesResponseDto>();
+    }
+
+    public async getTalentBadges(
+        payload: string,
+    ): Promise<TalentBadgeResponseDto> {
+        const path = ['/', payload, '/bsa-badges'];
+        const response = await this.load(this.getFullEndpoint(...path, {}), {
+            method: 'GET',
+            contentType: ContentType.JSON,
+            hasAuth: true,
+        });
+        return response.json<TalentBadgeResponseDto>();
     }
 
     public async getHardSkillsData(): Promise<HardSkillsResponseDto> {

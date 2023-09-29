@@ -1,6 +1,7 @@
 import {
     getBadgesData,
     getHardSkillsData,
+    getTalentBadges,
     loadAllPartners,
     loadLMSData,
 } from './actions';
@@ -12,6 +13,7 @@ const allActions = {
     getHardSkillsData,
     loadLMSData,
     loadAllPartners,
+    getTalentBadges,
 };
 
 export { allActions as actions };

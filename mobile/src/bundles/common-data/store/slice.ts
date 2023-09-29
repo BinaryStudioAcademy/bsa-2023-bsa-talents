@@ -6,12 +6,14 @@ import {
     type BadgesResponseDto,
     type FormattedHardSkills,
     type LMSDataResponseDto,
+    type MappedBSABadge,
     type UserFindResponseDto,
 } from '~/bundles/common-data/types/types';
 
 import {
     getBadgesData,
     getHardSkillsData,
+    getTalentBadges,
     loadAllPartners,
     loadLMSData,
 } from './actions';
@@ -22,6 +24,7 @@ type State = {
     hardSkillsData: FormattedHardSkills | null;
     lmsData: LMSDataResponseDto | null;
     partners: UserFindResponseDto[] | null;
+    talentBadges: MappedBSABadge[];
 };
 
 const initialState: State = {
@@ -30,6 +33,7 @@ const initialState: State = {
     hardSkillsData: null,
     lmsData: null,
     partners: null,
+    talentBadges: [],
 };
 
 const { reducer, actions, name } = createSlice({
@@ -90,6 +94,16 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(getHardSkillsData.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
             state.hardSkillsData = null;
+        });
+        builder.addCase(getTalentBadges.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(getTalentBadges.fulfilled, (state, { payload }) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.talentBadges = payload;
+        });
+        builder.addCase(getTalentBadges.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });

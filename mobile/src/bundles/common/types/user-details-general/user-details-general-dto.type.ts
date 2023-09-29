@@ -1,4 +1,4 @@
-import { type UploadedFile } from 'shared/build/index';
+import { type TalentBadge, type UploadedFile } from 'shared/build/index';
 
 import { type FileRole } from '~/bundles/common/enums/enums';
 import {
@@ -6,7 +6,6 @@ import {
     type UserDetailsResponseDto,
     type UserDetailsUpdateRequestDto,
 } from '~/bundles/common/types/types';
-import { type BsaBadgesStepTypes } from '~/bundles/talent/types/types';
 
 // TODO: replace when we know backend dto
 
@@ -22,6 +21,10 @@ type HardSkillItemResponse = {
 
 type HardSkillsResponse = {
     talentHardSkills: HardSkillItemResponse[];
+};
+
+type Badges = {
+    badges?: TalentBadge[] | string[];
 };
 
 //TODO delete when backend is ready
@@ -48,7 +51,7 @@ type PublishedAt = {
 };
 
 type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
-    Partial<BsaBadgesStepTypes> &
+    Partial<Badges> &
     Partial<HardSkillsRequest> &
     Partial<PhotoDto> &
     Partial<CVDto> &
@@ -56,7 +59,7 @@ type UserDetailsGeneralRequestDto = UserDetailsUpdateRequestDto &
     Partial<PublishedAt>;
 
 type UserDetailsGeneralResponseDto = UserDetailsResponseDto &
-    Partial<BsaBadgesStepTypes> &
+    Partial<Badges> &
     Partial<HardSkillsResponse> &
     Partial<PhotoDto> &
     Partial<CVDto> &
