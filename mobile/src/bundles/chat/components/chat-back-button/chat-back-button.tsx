@@ -1,25 +1,45 @@
 import React from 'react';
 
+import { actions as chatActions } from '~/bundles/chat/store';
 import {
     CommunityIcon,
     Pressable,
 } from '~/bundles/common/components/components';
 import { Color, IconName } from '~/bundles/common/enums/enums';
-import { useCallback, useNavigation } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useCallback,
+    useNavigation,
+} from '~/bundles/common/hooks/hooks';
 import {
     type EmployerBottomTabNavigationParameterList,
     type NavigationProp,
 } from '~/bundles/common/types/types';
 
-const ChatBackButton: React.FC = () => {
+type Properties = {
+    chatId?: string;
+    userId?: string;
+};
+
+const ChatBackButton: React.FC<Properties> = ({ chatId, userId }) => {
     const { goBack } =
         useNavigation<
             NavigationProp<EmployerBottomTabNavigationParameterList>
         >();
+    const dispatch = useAppDispatch();
 
     const handlePreviousPress = useCallback(() => {
+        if (chatId) {
+            void dispatch(
+                chatActions.leaveRoom({
+                    userId,
+                    chatId,
+                }),
+            );
+        }
+
         goBack();
-    }, [goBack]);
+    }, [chatId, dispatch, goBack, userId]);
 
     return (
         <Pressable onPress={handlePreviousPress}>

@@ -8,6 +8,7 @@ import {
     Image,
     Linking,
     RadioButtons,
+    ScrollView,
     Text,
     View,
 } from '~/bundles/common/components/components';
@@ -62,7 +63,7 @@ const ChatUserDetails: React.FC = () => {
     };
 
     return (
-        <View style={globalStyles.flex1}>
+        <ScrollView style={globalStyles.flex1}>
             <View
                 style={[
                     globalStyles.flexDirectionRow,
@@ -117,7 +118,7 @@ const ChatUserDetails: React.FC = () => {
                     style={globalStyles.mv25}
                 />
             </View>
-            <View style={[globalStyles.alignItemsCenter]}>
+            <View style={[globalStyles.alignItemsCenter, globalStyles.mb25]}>
                 <Text category={TextCategory.H6} style={globalStyles.mb10}>
                     Has the employer already hired you?
                 </Text>
@@ -143,7 +144,7 @@ const ChatUserDetails: React.FC = () => {
                 title="Are you sure you want to confirm this action?"
                 onAccept={handleFormSubmit}
             />
-        </View>
+        </ScrollView>
     );
 };
 

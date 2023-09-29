@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     skills: {
-        gap: 15,
+        gap: 10,
+        flexWrap: 'wrap',
     },
     skillsLabel: {
         fontFamily: FontFamily.INTER_BOLD,
