@@ -60,9 +60,8 @@ const ContactsCVStep: React.FC = () => {
         (state: RootReducer) => state.cabinet.hasChangesInDetails,
     );
 
-    const talentLMSInfo = useAppSelector(
-        (state: RootReducer) => state.lms.lmsData?.talent,
-    );
+    const lmsData = useAppSelector((state: RootReducer) => state.lms.lmsData);
+
     const {
         control,
         getValues,
@@ -72,31 +71,31 @@ const ContactsCVStep: React.FC = () => {
         watch,
         clearErrors,
     } = useAppForm<ContactsCVStepDto>({
-        defaultValues: useMemo(
-            () => ({
-                fullName:
-                    fullName?.length === 0 ? talentLMSInfo?.fullName : fullName,
-                phone: phone?.length === 0 ? talentLMSInfo?.phoneNumber : phone,
+        defaultValues: useMemo(() => {
+            const fullNameValue = fullName ?? lmsData?.talent.fullName;
+            const phoneValue = phone ?? lmsData?.talent.phoneNumber;
+
+            return {
+                fullName: fullNameValue,
+                phone: phoneValue,
                 linkedinLink,
                 photo,
                 photoUrl,
                 cv,
                 cvUrl,
                 cvName,
-            }),
-            [
-                cv,
-                cvName,
-                cvUrl,
-                fullName,
-                linkedinLink,
-                phone,
-                photo,
-                photoUrl,
-                talentLMSInfo?.fullName,
-                talentLMSInfo?.phoneNumber,
-            ],
-        ),
+            };
+        }, [
+            cv,
+            cvName,
+            cvUrl,
+            fullName,
+            linkedinLink,
+            phone,
+            photo,
+            photoUrl,
+            lmsData,
+        ]),
         validationSchema: ContactsCVStepValidationSchema,
     });
 

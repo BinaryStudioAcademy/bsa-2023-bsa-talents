@@ -110,33 +110,36 @@ const SkillsStep: React.FC = () => {
 
     const { control, getValues, handleSubmit, errors, reset, watch } =
         useAppForm<SkillsStepDto>({
-            defaultValues: useMemo(
-                () => ({
+            defaultValues: useMemo(() => {
+                const repositoryUrls = talentLMSProjectInfo?.repositoryUrl
+                    ? [{ url: talentLMSProjectInfo.repositoryUrl }]
+                    : [];
+
+                return {
                     hardSkills,
                     englishLevel: englishLevel ?? '',
                     notConsidered,
                     preferredLanguages,
                     projectLinks: projectLinks?.length
                         ? toUrlLinks(projectLinks)
-                        : [
-                              {
-                                  url: talentLMSProjectInfo?.repositoryUrl as string,
-                              },
-                          ],
-                }),
-                [
-                    englishLevel,
-                    hardSkills,
-                    notConsidered,
-                    preferredLanguages,
-                    projectLinks,
-                    talentLMSProjectInfo?.repositoryUrl,
-                ],
-            ),
+                        : repositoryUrls,
+                };
+            }, [
+                englishLevel,
+                hardSkills,
+                notConsidered,
+                preferredLanguages,
+                projectLinks,
+                talentLMSProjectInfo?.repositoryUrl,
+            ]),
             validationSchema: skillsStepValidationSchema,
         });
 
     useEffect(() => {
+        const repositoryUrls = talentLMSProjectInfo?.repositoryUrl
+            ? [{ url: talentLMSProjectInfo.repositoryUrl }]
+            : [];
+
         reset({
             hardSkills,
             englishLevel,
@@ -144,7 +147,7 @@ const SkillsStep: React.FC = () => {
             preferredLanguages,
             projectLinks: projectLinks?.length
                 ? toUrlLinks(projectLinks)
-                : [{ url: talentLMSProjectInfo?.repositoryUrl as string }],
+                : repositoryUrls,
         });
     }, [
         hardSkills,
