@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Tag, Text, View } from '~/bundles/common/components/components';
 import { TextCategory } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useLmsData } from '~/bundles/common-data/hooks/use-lms-data/use-lms-data';
 
 import { styles } from './styles';
 
@@ -19,6 +21,9 @@ const mockUser = {
 };
 
 const FeedbacksContainer = (): JSX.Element => {
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const lmsData = useLmsData(currentUserData?.id);
+
     return (
         <>
             <Text category={TextCategory.BODY1}>Personality type</Text>
@@ -47,6 +52,21 @@ const FeedbacksContainer = (): JSX.Element => {
                     return <Tag key={badge} value={badge} />;
                 })}
             </View>
+            {lmsData?.hrFeedback.comments && (
+                <>
+                    <Text category={TextCategory.BODY1}>HR Feedback</Text>
+                    <View
+                        style={[
+                            globalStyles.pt5,
+                            globalStyles.pb25,
+                            globalStyles.flexDirectionRow,
+                            styles.personalityWrapper,
+                        ]}
+                    >
+                        <Tag value={lmsData.hrFeedback.comments} />;
+                    </View>
+                </>
+            )}
         </>
     );
 };

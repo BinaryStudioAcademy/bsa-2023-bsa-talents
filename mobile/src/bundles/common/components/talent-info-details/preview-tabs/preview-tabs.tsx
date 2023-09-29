@@ -10,15 +10,9 @@ import {
     ProfileTab,
     TextCategory,
 } from '~/bundles/common/enums/enums';
-import {
-    useAppDispatch,
-    useEffect,
-    useMemo,
-    useState,
-} from '~/bundles/common/hooks/hooks';
+import { useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
-import { loadLMSData } from '~/bundles/common-data/store/actions';
 import { type CandidateHardSkill } from '~/bundles/employer/types/types';
 import {
     FeedbacksContainer,
@@ -40,18 +34,12 @@ type PreviewTabsProperties = {
 };
 
 const PreviewTabs: React.FC<PreviewTabsProperties> = ({
-    userId = '',
     candidateHardSkill,
     isPreview = true,
 }) => {
     const [tab, setTab] = useState<Partial<CandidateTab>>(
         ProfileTab.SCORES_SKILLS,
     );
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        void dispatch(loadLMSData({ userId }));
-    }, [dispatch, userId]);
 
     const selectTab = useMemo(() => {
         switch (tab) {

@@ -11,12 +11,14 @@ import {
 import { TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector } from '~/bundles/common/hooks/use-app-selector/use-app-selector.hook';
 import { globalStyles } from '~/bundles/common/styles/styles';
+import { useLmsData } from '~/bundles/common-data/hooks/hooks';
 
 import { PROJECT_MOCK } from './constants/constants';
 import { styles } from './style';
 
 const ProjectContainer = (): JSX.Element => {
-    const { lmsData } = useAppSelector(({ commonData }) => commonData);
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const lmsData = useLmsData(currentUserData?.id);
     const projectData = lmsData?.project ?? PROJECT_MOCK;
     const { name, repositoryUrl, details } = projectData;
 
