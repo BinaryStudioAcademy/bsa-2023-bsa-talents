@@ -26,6 +26,7 @@ type Properties = {
     candidateParameters: SecondSectionDetails;
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
+    hasSentAlreadyFirstMessage?: boolean;
     isContactModalOpen: boolean;
     onContactModalClose: () => void;
     onContactModalOpen: () => void;

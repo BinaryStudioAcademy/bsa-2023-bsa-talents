@@ -1,4 +1,3 @@
-import { mockedHRComments } from '~/assets/mock-data/mock-data.js';
 import {
     Badge,
     Button,
@@ -9,7 +8,7 @@ import {
     Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
-import { AppRoute, BadgeColors } from '~/bundles/common/enums/enums.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
@@ -151,7 +150,9 @@ const ProfileFirstSection: React.FC<Properties> = ({
                     </>
                 )}
             </Grid>
-            {!isProfileCard && !isFifthStep && (
+            {
+                //TODO: not implemented
+                /* {!isProfileCard && !isFifthStep && (
                 <Grid>
                     <Typography variant="input" className={styles.title}>
                         HR comments
@@ -170,7 +171,8 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         ))}
                     </ul>
                 </Grid>
-            )}
+            )} */
+            }
             {isProfileCard ? (
                 <Grid className={styles.summaryText}>
                     <Typography
