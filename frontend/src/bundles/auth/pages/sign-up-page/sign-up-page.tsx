@@ -42,7 +42,7 @@ const SignUpPage: React.FC = () => {
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
             void dispatch(authActions.signUp(payload));
-            navigateUser(payload);
+            navigateUser(payload.role);
         },
         [dispatch, navigateUser],
     );
