@@ -9,6 +9,10 @@
     transition: all 0.2s ease-in;
 }
 
+.adminSidebar {
+    background-color: var(--slate-gray);
+}
+
 .visible {
     left: 0;
 }
@@ -55,6 +59,26 @@ a {
 
     &[aria-current="page"] {
         color: var(--white);
+    }
+}
+
+.adminSidebarIcons,
+.adminSidebarIcons[aria-current="page"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    text-decoration: none;
+
+    .title {
+        margin: 0 auto;
+        font-weight: var(--font-weight-semi-bold);
+    }
+
+    &[aria-current="page"] {
+        color: var(--sunglow);
     }
 }
 

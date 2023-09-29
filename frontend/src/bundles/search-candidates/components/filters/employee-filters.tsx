@@ -20,8 +20,8 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { DEFAULT_EMPLOYEES_FILTERS_PAYLOAD } from '../../constants/constants.js';
 import {
-    BsaCharacteristics,
-    BsaProject,
+    // BsaCharacteristics,
+    // BsaProject,
     CheckboxesFields,
     Country,
     EmploymentType,
@@ -45,17 +45,17 @@ const yearsOfExperience = Object.values(YearsOfExperience).map(
     }),
 );
 
-const bsaCharacteristics = Object.values(BsaCharacteristics).map(
-    (characteristic) => ({
-        value: characteristic,
-        label: characteristic,
-    }),
-);
+// const bsaCharacteristics = Object.values(BsaCharacteristics).map(
+//     (characteristic) => ({
+//         value: characteristic,
+//         label: characteristic,
+//     }),
+// );
 
-const bsaProjects = Object.values(BsaProject).map((project) => ({
-    value: project,
-    label: project,
-}));
+// const bsaProjects = Object.values(BsaProject).map((project) => ({
+//     value: project,
+//     label: project,
+// }));
 
 const locationOptions = Object.values(Country).map((country) => ({
     value: country,
@@ -235,7 +235,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                         />
                     </FormLabel>
                 </Grid>
-                <Grid className={styles.filtersMultiSelect}>
+                {/* <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
                         BSA Characteristics
                         <Select
@@ -260,7 +260,7 @@ const EmployeeFilters: React.FC<Properties> = ({ control, reset }) => {
                             placeholder="Options"
                         />
                     </FormLabel>
-                </Grid>
+                </Grid> */}
                 <Grid className={styles.filtersMultiSelect}>
                     <FormLabel className={styles.labels}>
                         Location

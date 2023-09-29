@@ -83,6 +83,7 @@ const Sidebar: React.FC = () => {
                 className={getValidClassNames(
                     isSidebarVisible ? styles.visible : styles.hidden,
                     styles.wrapper,
+                    currentUser?.role === UserRole.ADMIN && styles.adminSidebar,
                 )}
             >
                 <Logo isCollapsed={true} className={styles.logo} hasLink />
@@ -93,6 +94,7 @@ const Sidebar: React.FC = () => {
                             icon={item.icon}
                             link={item.link}
                             name={item.name}
+                            currentUser={currentUser?.role}
                         />
                     ))}
                 </ul>
