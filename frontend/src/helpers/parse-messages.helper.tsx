@@ -10,20 +10,47 @@ const parseMessage = (message: string): JSX.Element => {
     return (
         <span>
             {words.map((word) => {
-                return URL_REGEX.test(word) ||
-                    LOCALHOST_URL_REGEX.test(word) ? (
+                const [link, specialPrefix] = word.split('_&_').reverse();
+                const isLink =
+                    URL_REGEX.test(link) || LOCALHOST_URL_REGEX.test(link);
+
+                const isCVLink = isLink && specialPrefix === 'CV';
+                const isProfileLink = isLink && specialPrefix === 'Profile';
+
+                let linkTo: string;
+                let label: string;
+
+                switch (true) {
+                    case isCVLink: {
+                        linkTo = link;
+                        label = 'Candidate CV';
+                        break;
+                    }
+                    case isProfileLink: {
+                        linkTo = link;
+                        label = 'Profile Information';
+                        break;
+                    }
+                    default: {
+                        linkTo = link;
+                        label = link;
+                        break;
+                    }
+                }
+
+                return isLink ? (
                     <>
                         <a
                             className={'message-link'}
-                            href={word}
+                            href={linkTo}
                             target="_blank"
                             rel="noreferrer"
                         >
-                            {word}
+                            {label}
                         </a>{' '}
                     </>
                 ) : (
-                    word + ' '
+                    label + ' '
                 );
             })}
         </span>

@@ -53,10 +53,8 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
                 chatActions.createMessage({
                     message:
                         'Hello!\n I have shared my CV and information with you.\n\n ' +
-                        'CV:\n ' +
-                        `${cvUrl} ` +
-                        '\nProfile:\n ' +
-                        `${baseUrl}/candidates/${talentId} `,
+                        `CV_&_${cvUrl} ` +
+                        `Profile_&_${baseUrl}/candidates/${talentId} `,
                     senderId: talentId as string,
                     receiverId: employerId as string,
                     chatId: currentChatId as string,
