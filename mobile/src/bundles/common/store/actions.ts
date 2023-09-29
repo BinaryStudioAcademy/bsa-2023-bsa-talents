@@ -102,10 +102,12 @@ const updateOnboardingData = createAsyncThunk<
 
     if (files.length > EMPTY_FILE_COUNT) {
         const response = await fileUploadApi.upload({ files });
-        mapFilesToPayload({
-            payload: payload,
+        const filesToPayload = mapFilesToPayload({
+            payload: { ...payload },
             files: response,
         });
+        payload.photoId = filesToPayload.photoId;
+        payload.cvId = filesToPayload.cvId;
     }
 
     if (companyLogo) {
