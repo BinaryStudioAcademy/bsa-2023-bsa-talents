@@ -1,6 +1,5 @@
 type LMSDataResponseDto = {
-    userId: string;
-    english: string;
+    talent: Talent;
     averageProjectScore: number | null;
     averageLectureScore: number | null;
     lectureDetails: LectureDetail[];
@@ -26,14 +25,14 @@ type LectureDetail = {
 };
 
 type Project = {
-    name: string;
+    name: string | null;
     details: Details | null;
     repositoryUrl: string | null;
 };
 
 type Details = {
-    en: string;
-    ua: string;
+    en: string | null;
+    ua: string | null;
 };
 
 type ProjectCoachesFeedback = {
@@ -50,6 +49,14 @@ type Marks = {
     communication_result: number;
 };
 
+type Talent = {
+    id: string;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    english: string;
+};
+
 export {
     type Details,
     type HrFeedback,
@@ -59,4 +66,5 @@ export {
     type Project,
     type ProjectCoachesFeedback,
     type Result,
+    type Talent,
 };
