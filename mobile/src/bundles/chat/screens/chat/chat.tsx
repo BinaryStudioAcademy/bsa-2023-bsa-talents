@@ -24,6 +24,8 @@ const Chat: React.FC = () => {
     const route = useAppRoute();
     const dispatch = useAppDispatch();
     const { current } = useAppSelector(({ chat }) => chat);
+    const { currentUserData } = useAppSelector(({ auth }) => auth);
+    const { id: userId } = currentUserData ?? {};
     const [isDataLoaded, setDataLoaded] = useState(false);
 
     const { chatId, partnerName, partnerAvatar, partnerId } =
@@ -39,10 +41,17 @@ const Chat: React.FC = () => {
             setDataLoaded(true);
         });
 
+        void dispatch(
+            chatActions.joinRoom({
+                userId,
+                chatId,
+            }),
+        );
+
         return () => {
             setDataLoaded(false);
         };
-    }, [dispatch, chatId, partnerId]);
+    }, [dispatch, chatId, partnerId, userId]);
 
     const handleSendMessage = useCallback(
         (payload: ChatMessagesCreateRequestDto): void => {
@@ -77,6 +86,7 @@ const Chat: React.FC = () => {
                 partnerName={partnerName}
                 partnerAvatar={partnerAvatar}
                 partnerId={partnerId}
+                chatId={chatId}
             />
             <FlatList
                 style={[

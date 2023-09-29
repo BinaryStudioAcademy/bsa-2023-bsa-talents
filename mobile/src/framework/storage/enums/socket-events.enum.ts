@@ -1,8 +1,8 @@
 const SocketEvent = {
-    JOIN_ROOM: 'join room',
-    LEAVE_ROOM: 'leave room',
-    GET_MESSAGE: 'get message',
-    SEND_MESSAGE: 'send message',
+    JOIN_ROOM: 'chat-join-room',
+    LEAVE_ROOM: 'chat-leave-room',
+    GET_MESSAGE: 'chat-add-message',
+    SEND_MESSAGE: 'chat-create-message',
 } as const;
 
 export { SocketEvent };

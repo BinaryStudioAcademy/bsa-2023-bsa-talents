@@ -40,7 +40,8 @@ jobs:
               env:
                   ENVIRONMENT: ${{ secrets.MOBILE_ENVIRONMENT }}
                   API_URL: ${{ secrets.MOBILE_API_URL }}
-              run: 'echo -e "ENVIRONMENT=$ENVIRONMENT\nAPI_URL=$API_URL\n" > ./mobile/.env'
+                  BASE_URL: ${{ secrets.MOBILE_BASE_URL }}
+              run: 'echo -e "ENVIRONMENT=$ENVIRONMENT\nAPI_URL=$API_URL\BASE_URL=$BASE_URL\n" > ./mobile/.env'
 
             - name: Build
               run: cd ./mobile && cd ./android && ./gradlew clean assembleRelease

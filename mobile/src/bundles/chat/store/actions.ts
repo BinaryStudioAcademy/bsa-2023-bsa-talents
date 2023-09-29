@@ -11,6 +11,11 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types';
 
 import { actions, name as sliceName } from './slice';
 
+type RoomPayload = {
+    chatId: string;
+    userId?: string;
+};
+
 const createMessage = createAsyncThunk<
     MessageResponseDto,
     ChatMessagesCreateRequestDto,
@@ -109,7 +114,7 @@ const getAllChatsByUserId = createAsyncThunk<
 
 const joinRoom = createAction(
     `${sliceName}/joinRoom`,
-    (joinRoomPayload: string) => {
+    (joinRoomPayload: RoomPayload) => {
         return {
             payload: joinRoomPayload,
         };
@@ -118,7 +123,7 @@ const joinRoom = createAction(
 
 const leaveRoom = createAction(
     `${sliceName}/leaveRoom`,
-    (leaveRoomPayload: string) => {
+    (leaveRoomPayload: RoomPayload) => {
         return {
             payload: leaveRoomPayload,
         };
