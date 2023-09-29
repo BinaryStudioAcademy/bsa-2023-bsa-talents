@@ -49,6 +49,9 @@ class FileUploadApi extends HttpApiBase {
         payload: GetFileRequestDto,
     ): Promise<GetFileResponseDto | null> {
         const { id } = payload;
+        if (!id) {
+            return null;
+        }
         const response = await this.load(
             this.getFullEndpoint('/', ':id', { id }),
             {

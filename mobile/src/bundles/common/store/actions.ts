@@ -152,34 +152,27 @@ const getUserDetails = createAsyncThunk<
             userId: payload.userId,
         });
 
-        if (userDetails?.cvId && userDetails.photoId) {
-            const photo = await fileUploadApi.getFileById({
-                id: userDetails.photoId,
-            });
-            const cv = await fileUploadApi.getFileById({
-                id: userDetails.cvId,
-            });
+        const photo = await fileUploadApi.getFileById({
+            id: userDetails?.photoId ?? '',
+        });
 
-            return {
-                ...userDetails,
-                cvUrl: cv?.url,
-                photoUrl: photo?.url,
-            };
-        } else if (userDetails?.companyLogoId && userDetails.photoId) {
-            const companyLogo = await fileUploadApi.getFileById({
-                id: userDetails.companyLogoId,
-            });
-            const photo = await fileUploadApi.getFileById({
-                id: userDetails.photoId,
-            });
+        const cv = await fileUploadApi.getFileById({
+            id: userDetails?.cvId ?? '',
+        });
+
+        const companyLogo = await fileUploadApi.getFileById({
+            id: userDetails?.companyLogoId ?? '',
+        });
+
+        if (userDetails) {
             return {
                 ...userDetails,
                 companyLogoUrl: companyLogo?.url,
                 photoUrl: photo?.url,
+                cvUrl: cv?.url,
             };
-        } else {
-            return userDetails;
         }
+        return userDetails;
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         notifications.showError({ title: errorMessage });
