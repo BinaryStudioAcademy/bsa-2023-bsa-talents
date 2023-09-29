@@ -173,6 +173,13 @@
     border-bottom: 2px solid var(--st-tropaz);
 }
 
+.placeholderLogo {
+    :global(.MuiGrid-item:last-child) {
+        filter: brightness(0) saturate(100%) invert(87%) sepia(78%)
+            saturate(1045%) hue-rotate(327deg) brightness(101%) contrast(100%);
+    }
+}
+
 @media screen and (width >= 429px) {
     .tab {
         font-size: var(--font-size-body);

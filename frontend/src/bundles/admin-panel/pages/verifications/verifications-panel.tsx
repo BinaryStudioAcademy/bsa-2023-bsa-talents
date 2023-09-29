@@ -260,7 +260,7 @@ const AdminVerificationsPanel: React.FC = () => {
                             isTogglePreviewAllowed ? 'hidden' : '',
                         )}
                     >
-                        <Logo />
+                        <Logo className={styles.placeholderLogo} />
                     </Grid>
                 )}
                 <DenyModal
