@@ -18,7 +18,6 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
-//import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { mapBsaBadges } from '~/bundles/lms/helpers/map-bsa-badges.js';
 import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
@@ -27,7 +26,6 @@ import {
     ProfileFirstSection,
     ProfileSecondSection,
 } from '~/bundles/talent-onboarding/components/components.js';
-import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import {
@@ -110,13 +108,8 @@ const CandidateProfile: React.FC<Properties> = ({
         if ((!userId || isProfileCard) ?? isCandidatePage) {
             return;
         }
-        void dispatch(talentActions.getTalentDetails({ userId: data.userId }));
 
-        void dispatch(
-            talentActions.getTalentDetails({
-                userId: currentUser.id,
-            }),
-        );
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
 
         if (!isFifthStep && currentUser.role == UserRole.EMPLOYER) {
             void dispatch(

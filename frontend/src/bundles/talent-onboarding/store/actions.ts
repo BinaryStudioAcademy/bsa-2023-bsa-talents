@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import { type TalentBadge } from 'shared/build/index.js';
 
