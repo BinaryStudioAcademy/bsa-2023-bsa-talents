@@ -2,6 +2,7 @@ export { CompletedStep } from './completed-step.enum.js';
 export { Country } from './country-list.enum.js';
 export { EmploymentType } from './employment-type.enum.js';
 export { EnglishLevel } from './english-level.enum.js';
+export { EnglishLevelLMS } from './english-level-lms.enum.js';
 export { experienceYears } from './experience-years-list.enum.js';
 export { JobTitle } from './job-title.enum.js';
 export { NotConsidered } from './not-considered.enum.js';

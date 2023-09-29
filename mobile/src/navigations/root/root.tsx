@@ -20,6 +20,7 @@ import {
     type NativeStackNavigationOptions,
     type RootNavigationParameterList,
 } from '~/bundles/common/types/types';
+import { loadLMSData } from '~/bundles/common-data/store/actions';
 import {
     CandidatesFilter,
     ContactCandidate,
@@ -64,6 +65,7 @@ const Root: React.FC = () => {
         if (!currentUserData) {
             return;
         }
+        void dispatch(loadLMSData({ userId: currentUserData.id }));
         void dispatch(getUserDetails({ userId: currentUserData.id }));
     }, [currentUserData, currentUserData?.id, dispatch]);
 
