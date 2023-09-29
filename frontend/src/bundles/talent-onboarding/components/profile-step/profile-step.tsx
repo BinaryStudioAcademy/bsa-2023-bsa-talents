@@ -168,14 +168,12 @@ const ProfileStep: React.FC = () => {
             salaryExpectation,
             jobTitle,
             location,
-            experienceYears,
             employmentType,
             description,
         });
     }, [
         description,
         employmentType,
-        experienceYears,
         jobTitle,
         location,
         profileName,

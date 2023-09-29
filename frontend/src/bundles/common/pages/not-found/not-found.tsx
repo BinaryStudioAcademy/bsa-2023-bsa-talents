@@ -27,7 +27,7 @@ const NotFoundPage: React.FC = () => {
             </Grid>
 
             {Array.from({ length: NUM_CUBES }).map((_, index) => (
-                <div key={index} className={styles.cube}></div>
+                <div key={index} className="cube"></div>
             ))}
         </Grid>
     );
