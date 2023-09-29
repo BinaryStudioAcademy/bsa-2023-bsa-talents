@@ -22,7 +22,6 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
-    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { OnboardingForm } from '~/bundles/employer-onboarding/components/onboarding-form/onboarding-form.js';
@@ -73,8 +72,6 @@ const ProfileCabinet: React.FC = () => {
     const [isWaitingForApproval, setIsWaitingForApproval] =
         useState<boolean>(false);
 
-    const navigate = useNavigate();
-
     const { submitForm } = useFormSubmit();
 
     const dispatch = useAppDispatch();
@@ -121,11 +118,7 @@ const ProfileCabinet: React.FC = () => {
                 }),
             );
         }
-
-        if (role === UserRole.TALENT) {
-            navigate(`/${role}/onboarding/step/${StepsRoute.STEP_05}`);
-        }
-    }, [currentUser, dispatch, navigate, role]);
+    }, [currentUser, dispatch]);
 
     const handleSearchTypeCheckboxOnChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>): void => {
