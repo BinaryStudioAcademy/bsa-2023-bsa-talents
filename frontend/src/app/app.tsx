@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Loader,
@@ -18,16 +19,28 @@ const App: React.FC = () => {
     const { isPending, currentUser } = useAppSelector(
         ({ auth, talentOnBoarding, employerOnBoarding }) => {
             return {
-                isPending: !(
-                    talentOnBoarding.dataStatus === DataStatus.FULFILLED ||
-                    talentOnBoarding.dataStatus === DataStatus.REJECTED ||
-                    employerOnBoarding.dataStatus === DataStatus.FULFILLED ||
-                    employerOnBoarding.dataStatus === DataStatus.REJECTED
-                ),
+                isPending:
+                    auth.currentUser?.role === UserRole.ADMIN
+                        ? !(
+                              auth.dataStatus === DataStatus.FULFILLED ||
+                              auth.dataStatus === DataStatus.REJECTED
+                          )
+                        : !(
+                              talentOnBoarding.dataStatus ===
+                                  DataStatus.FULFILLED ||
+                              talentOnBoarding.dataStatus ===
+                                  DataStatus.REJECTED ||
+                              employerOnBoarding.dataStatus ===
+                                  DataStatus.FULFILLED ||
+                              employerOnBoarding.dataStatus ===
+                                  DataStatus.REJECTED
+                          ),
                 currentUser: auth.currentUser,
             };
         },
     );
+
+    console.log(currentUser);
 
     const token = localStorage.getItem('token');
     useEffect(() => {
@@ -59,6 +72,8 @@ const App: React.FC = () => {
             }
         }
     }, [dispatch, currentUser]);
+
+    console.log(isPending);
 
     if (isPending && token) {
         return <Loader />;
