@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     },
     badgeContainer: {
         gap: 10,
+        flexWrap: 'wrap',
     },
     skills: {
         gap: 15,

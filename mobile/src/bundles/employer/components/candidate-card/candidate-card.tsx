@@ -129,21 +129,19 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
                             ),
                     )}
             </View>
+            <Text category={TextCategory.BUTTON} style={[styles.skillsLabel]}>
+                Skills
+            </Text>
             <View
                 style={[
                     styles.skills,
                     globalStyles.flexDirectionRow,
                     globalStyles.alignItemsCenter,
-                    globalStyles.pb20,
+                    globalStyles.pt20,
                     globalStyles.ph15,
+                    styles.badgeContainer,
                 ]}
             >
-                <Text
-                    category={TextCategory.BUTTON}
-                    style={[styles.skillsLabel]}
-                >
-                    Skills
-                </Text>
                 {hardSkills.slice(0, MaxValue.SKILLS).map(({ name, id }) => (
                     <Tag key={id} value={name} />
                 ))}
