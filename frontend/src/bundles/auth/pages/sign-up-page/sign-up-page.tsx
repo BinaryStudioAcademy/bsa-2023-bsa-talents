@@ -41,10 +41,16 @@ const SignUpPage: React.FC = () => {
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
-            void dispatch(authActions.signUp(payload));
-            navigateUser(payload.role);
+            void dispatch(authActions.signUp(payload))
+                .unwrap()
+                .then(() => {
+                    navigateUser(payload);
+                })
+                .catch(() => {
+                    navigate(AppRoute.SIGN_UP);
+                });
         },
-        [dispatch, navigateUser],
+        [dispatch, navigate, navigateUser],
     );
     return (
         <AuthLayout>
