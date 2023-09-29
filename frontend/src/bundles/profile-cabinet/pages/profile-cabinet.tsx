@@ -150,6 +150,7 @@ const ProfileCabinet: React.FC = () => {
                 }
 
                 const isSuccessful = await submitForm();
+
                 if (isSuccessful) {
                     void dispatch(
                         storeActions.notify({
@@ -157,10 +158,9 @@ const ProfileCabinet: React.FC = () => {
                             message: 'Profile was updated',
                         }),
                     );
-                }
-
-                if (publish) {
-                    handlePublish();
+                    if (publish) {
+                        handlePublish();
+                    }
                 }
             })();
         },
