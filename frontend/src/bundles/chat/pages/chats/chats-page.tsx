@@ -230,7 +230,9 @@ const ChatsPage: React.FC = () => {
                                 )}
                             >
                                 {user?.role === UserRole.TALENT ? (
-                                    <CompanyInfo />
+                                    <CompanyInfo
+                                        className={styles.placeholder}
+                                    />
                                 ) : (
                                     <div className={styles.placeholder}>
                                         <Logo isCollapsed />

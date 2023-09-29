@@ -1,0 +1,60 @@
+.animatedTextWrapper {
+    position: absolute;
+    bottom: -32px;
+    left: 0;
+    width: 350px;
+    height: 50px;
+}
+
+.text {
+    display: flex;
+    margin: 0;
+    padding: 9px;
+    overflow: hidden;
+    color: var(--white);
+    font-weight: var(--font-weight-bold);
+    font-size: 32px;
+    font-family: var(--font-family);
+    line-height: var(--line-height-main);
+    letter-spacing: 2px;
+    text-align: center;
+    transform: translateY(-70px);
+}
+
+.text .cursor {
+    display: inline-block;
+    width: 3px;
+    margin-left: 2px;
+    background-color: var(--sunglow);
+    animation: blink 1s infinite;
+}
+
+.typedText {
+    display: inline;
+    width: fit-content;
+    text-align: left;
+}
+
+.text .cursor.typing {
+    animation: none;
+}
+
+@keyframes blink {
+    0% {
+        background-color: var(--sunglow);
+    }
+
+    50% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: var(--sunglow);
+    }
+}
+
+@media screen and (width <=900px) {
+    .animatedTextWrapper {
+        display: none;
+    }
+}

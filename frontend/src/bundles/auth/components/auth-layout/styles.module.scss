@@ -7,19 +7,11 @@
 }
 
 .sellingPoint {
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
     margin-bottom: 34px;
-
-    & .text {
-        display: none;
-        color: var(--white);
-        font-weight: var(--font-weight-bold);
-        font-size: 32px;
-        font-family: var(--font-family);
-        line-height: var(--line-height-main);
-    }
 
     & .logo {
         justify-content: center;
@@ -126,39 +118,10 @@
     padding-left: 27px;
 }
 
-.animatedTextWrapper {
-    position: relative;
-    display: none;
-    width: 550px;
-    height: 50px;
-    overflow: hidden;
-    animation: shrink-expand 5s ease-in-out infinite;
-}
-
-.message {
-    position: absolute;
-    bottom: 0;
-    display: block;
-    padding-left: 8px;
-    overflow: hidden;
-    color: #333333;
-    font-weight: 900;
-    white-space: nowrap;
-    animation: openclose 5s ease-in-out infinite;
-}
-
-.messageOne {
-    margin-bottom: 10px;
-}
-
-@media screen and (width >= 900px) {
+@media screen and (width >=900px) {
     .sellingPoint {
         display: flex;
         gap: 27px;
-
-        .text {
-            display: block;
-        }
 
         .logo {
             justify-content: start;
@@ -169,62 +132,6 @@
     .container {
         flex-direction: row;
         padding: 40px;
-    }
-
-    .animatedTextWrapper {
-        display: block;
-    }
-}
-
-@keyframes openclose {
-    0% {
-        bottom: 0;
-        width: 0%;
-    }
-
-    25% {
-        width: 100%;
-    }
-
-    50% {
-        bottom: 0;
-        width: 0%;
-    }
-
-    51% {
-        bottom: -50px;
-        width: 0%;
-    }
-
-    75% {
-        width: 100%;
-    }
-
-    100% {
-        bottom: -50px;
-        width: 0%;
-    }
-}
-
-@keyframes shrink-expand {
-    50% {
-        height: 50px;
-    }
-
-    51% {
-        height: 100px;
-    }
-
-    75% {
-        height: 100px;
-    }
-
-    99% {
-        height: 100px;
-    }
-
-    100% {
-        height: 50px;
     }
 }
 

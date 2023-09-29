@@ -68,7 +68,7 @@ const CandidateProfile: React.FC<Properties> = ({
         email: state.auth.currentUser?.email,
         lmsProject: state.lms.lmsData?.project,
     }));
-    const { publishedAt } = useAppSelector(
+    const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
@@ -148,7 +148,7 @@ const CandidateProfile: React.FC<Properties> = ({
             {isFifthStep && (
                 <Button
                     label={
-                        publishedAt
+                        publishedAt && !isApproved
                             ? 'Your account is waiting for the approval'
                             : 'Your account is ready!'
                     }

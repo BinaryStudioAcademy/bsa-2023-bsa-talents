@@ -114,6 +114,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                                         ? ` / ${badge.badge?.maxScore}`
                                         : ''
                                 }
+                                color={BadgeColors.YELLOW}
                             />
                         </li>
                     ))}

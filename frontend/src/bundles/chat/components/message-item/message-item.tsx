@@ -11,7 +11,7 @@ import styles from './styles.module.scss';
 type Properties = {
     avatarUrl?: string;
     userId: string;
-    children: string;
+    children: string | JSX.Element;
     userFullName: string;
 };
 
