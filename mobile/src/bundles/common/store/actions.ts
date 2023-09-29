@@ -152,17 +152,13 @@ const getUserDetails = createAsyncThunk<
             userId: payload.userId,
         });
 
-        if (userDetails?.cvId && userDetails.photoId) {
+        if (userDetails?.photoId) {
             const photo = await fileUploadApi.getFileById({
                 id: userDetails.photoId,
-            });
-            const cv = await fileUploadApi.getFileById({
-                id: userDetails.cvId,
             });
 
             return {
                 ...userDetails,
-                cvUrl: cv?.url,
                 photoUrl: photo?.url,
             };
         } else if (userDetails?.companyLogoId && userDetails.photoId) {
