@@ -37,14 +37,14 @@ const SidebarItem: React.FC<Properties> = ({ link, icon, name }) => {
     }, [isNotificationVisible, isAdmin, isApproved]);
 
     return (
-        <li className={isApproved ?? isAdmin ? '' : styles.listItem}>
+        <li className={styles.listItem}>
             {!isApproved && !isAdmin && (
                 <button
                     className={styles.listButton}
                     onClick={handleToggleNotification}
                 ></button>
             )}
-            <Link to={link}>
+            <Link to={link} className={styles.link}>
                 {icon}
                 <p className={styles.title}>{name}</p>
             </Link>

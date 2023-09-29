@@ -39,7 +39,7 @@
     outline: none;
 }
 
-a {
+.link {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,11 +61,6 @@ a {
 .listItem {
     position: relative;
     width: 100%;
-
-    & a[aria-current="page"] {
-        color: var(--slate-gray);
-        cursor: default;
-    }
 }
 
 // BURGER
