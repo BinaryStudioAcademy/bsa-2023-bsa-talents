@@ -1,5 +1,6 @@
 import { type UploadedFile } from 'shared/build/index';
 
+import { type FileRole } from '~/bundles/common/enums/enums';
 import {
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
@@ -59,13 +60,6 @@ type FileUploadResponse = {
     [FileRole.PHOTO]?: UploadedFile;
 };
 
-const FileRole = {
-    COMPANY_LOGO: 'companyLogo',
-    PHOTO: 'rn',
-    CV: 'cv',
-} as const;
-
-export { FileRole };
 export {
     type CVDto,
     type FileUploadResponse,
