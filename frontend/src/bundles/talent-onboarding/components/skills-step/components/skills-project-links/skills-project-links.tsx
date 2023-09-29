@@ -2,14 +2,11 @@ import { FormControl, FormLabel, Typography } from '@mui/material';
 import { type Control, type FieldErrors } from 'react-hook-form';
 import { useFieldArray } from 'react-hook-form';
 
-import { Button, Grid, Input } from '~/bundles/common/components/components.js';
+import { Grid, Input } from '~/bundles/common/components/components.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type SkillsStepDto } from '~/bundles/talent-onboarding/types/types.js';
 
-import { MAX_LINKS } from '../../constants/constants.js';
 import styles from '../../styles.module.scss';
-import { CloseIconButton } from '../components.js';
 
 type Properties = {
     control: Control<SkillsStepDto>;
@@ -17,21 +14,10 @@ type Properties = {
 };
 
 const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
-    const { fields, append, remove } = useFieldArray({
+    const { fields } = useFieldArray({
         control,
         name: 'projectLinks',
     });
-
-    const handleAppendLinks = useCallback((): void => {
-        append({ url: '' });
-    }, [append]);
-
-    const handleRemoveLink = useCallback(
-        (index: number): void => {
-            remove(index);
-        },
-        [remove],
-    );
 
     return (
         <FormControl>
@@ -52,25 +38,9 @@ const SkillsProjectLinks: React.FC<Properties> = ({ control, errors }) => {
                             placeholder="link to BSA project"
                             name={`projectLinks.${index}.url`}
                         />
-                        {index !== 0 && (
-                            <CloseIconButton
-                                index={index}
-                                onClick={handleRemoveLink}
-                            />
-                        )}
                     </Grid>
                 );
             })}
-
-            {fields.length < MAX_LINKS && (
-                <Button
-                    variant="text"
-                    type="button"
-                    label="+ Add more links"
-                    onClick={handleAppendLinks}
-                    className={styles.buttonAddLink}
-                />
-            )}
         </FormControl>
     );
 };
