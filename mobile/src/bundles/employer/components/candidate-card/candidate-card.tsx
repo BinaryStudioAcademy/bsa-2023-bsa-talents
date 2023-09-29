@@ -19,16 +19,13 @@ import {
     type NavigationProp,
 } from '~/bundles/common/types/types';
 import { useCommonData } from '~/bundles/common-data/hooks/hooks';
-import {
-    getBadgeById,
-    getHardSkillByValue,
-} from '~/bundles/employer/helpers/helpers';
-import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
+import { getBadgeById } from '~/bundles/employer/helpers/helpers';
+import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 
 import { MaxValue } from './constants/constants';
 import { styles } from './styles';
 
-const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
+const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
     const {
         profileName,
         salaryExpectation,
@@ -38,10 +35,10 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
         englishLevel,
         description,
         talentBadges,
-        talentHardSkills,
+        hardSkills,
     } = candidateInfo;
 
-    const { badgesData, hardSkillsData } = useCommonData();
+    const { badgesData } = useCommonData();
     const navigation =
         useNavigation<
             NavigationProp<EmployerBottomTabNavigationParameterList>
@@ -54,9 +51,10 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
         );
     };
 
-    if (!badgesData || !hardSkillsData) {
+    if (!badgesData) {
         return null;
     }
+
     return (
         <View
             style={[
@@ -113,8 +111,6 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
                 ]}
             >
                 {talentBadges
-                    //TODO: remove after backend got badges values
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     ?.slice(0, MaxValue.BADGES)
                     .map(
                         ({ level, score, badgeId, isShown }) =>
@@ -148,22 +144,9 @@ const CandidateCard: React.FC<UserDetailsResponseDto> = (candidateInfo) => {
                 >
                     Skills
                 </Text>
-
-                {talentHardSkills
-                    //TODO: remove after backend got skills values
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    ?.slice(0, MaxValue.SKILLS)
-                    .map(({ hardSkillId }) => (
-                        <Tag
-                            key={hardSkillId}
-                            value={
-                                getHardSkillByValue(
-                                    hardSkillsData.items,
-                                    hardSkillId,
-                                ).label
-                            }
-                        />
-                    ))}
+                {hardSkills.slice(0, MaxValue.SKILLS).map(({ name, id }) => (
+                    <Tag key={id} value={name} />
+                ))}
             </View>
             <View style={[globalStyles.pb20, globalStyles.ph15]}>
                 <Text category={TextCategory.BODY1}>

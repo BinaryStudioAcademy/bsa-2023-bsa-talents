@@ -21,14 +21,20 @@ type Properties = {
 const SidebarItem: React.FC<Properties> = ({ link, icon, name }) => {
     const [isNotificationVisible, setNotificationVisible] = useState(false);
 
-    const { isApproved } = useAppSelector(
-        (state: RootReducer) => state.talentOnBoarding,
+    const { talentOnBoarding, employerOnBoarding } = useAppSelector(
+        (state: RootReducer) => state,
     );
 
     const currentUser = useAppSelector(
         (state: RootReducer) => state.auth.currentUser,
     );
     const isAdmin = currentUser?.role === UserRole.ADMIN;
+
+    const isApproved =
+        (typeof talentOnBoarding.isApproved === 'boolean' &&
+            talentOnBoarding.isApproved) ||
+        (typeof employerOnBoarding.isApproved === 'boolean' &&
+            employerOnBoarding.isApproved);
 
     const handleToggleNotification = useCallback(() => {
         if (!isApproved && !isAdmin) {

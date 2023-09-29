@@ -118,17 +118,6 @@
     font-size: var(--font-size-h4);
 }
 
-.noChatsPlaceholder {
-    max-width: 80%;
-    margin: 0 auto;
-    color: var(--text-primary);
-    font-weight: var(--font-weight-medium);
-    font-size: clamp(2vw, var(--font-size-h2), 5vw);
-    font-family: var(--font-family);
-    line-height: var(--line-height-h2-h4);
-    text-align: center;
-}
-
 .chatWrapper.empty {
     display: flex;
     align-items: center;

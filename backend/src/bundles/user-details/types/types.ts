@@ -1,6 +1,7 @@
 export { type UserDetailsProperties } from './user-details-properties.type.js';
 export { type UserDetailsWithFiles } from './user-details-with-files.type.js';
 export {
+    type TalentBadge,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,

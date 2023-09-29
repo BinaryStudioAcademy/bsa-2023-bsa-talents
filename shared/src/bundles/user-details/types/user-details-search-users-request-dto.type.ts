@@ -6,6 +6,7 @@ import {
     type EmploymentType,
     type EnglishLevel,
     type JobTitle,
+    type SearchType,
     type YearsOfExperience,
 } from '../user-details.js';
 
@@ -13,9 +14,9 @@ type UserDetailsSearchUsersRequestDto = {
     sortBy:
         | (typeof UserSortCriteria)[keyof typeof UserSortCriteria]['value']
         | '';
-    searchType?: string;
-    searchValue: string;
-    isSearchActiveCandidatesOnly: boolean;
+    searchStringType?: string;
+    searchValue?: string;
+    searchType?: ValueOf<typeof SearchType>;
     jobTitle?: ValueOf<typeof JobTitle>[];
     yearsOfExperience?: ValueOf<typeof YearsOfExperience>[];
     hardSkills?: string[];

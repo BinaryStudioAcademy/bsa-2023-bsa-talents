@@ -6,6 +6,7 @@ import {
     useEffect,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
+import { parseMessage } from '~/helpers/parse-messages.helper.js';
 
 import { NO_MESSAGES } from '../../constants/constants.js';
 import { MessageItem } from '../components.js';
@@ -28,12 +29,14 @@ const MessageList: React.FC<Properties> = ({ className }) => {
 
     let receiver: ChatParticipantDto = {
         id: '',
+        fullName: '',
         profileName: '',
         companyName: '',
         avatarUrl: '',
     };
     let sender: ChatParticipantDto = {
         id: '',
+        fullName: '',
         profileName: '',
         companyName: '',
         avatarUrl: '',
@@ -66,18 +69,22 @@ const MessageList: React.FC<Properties> = ({ className }) => {
             });
         }
     }, [messages.length]);
+
     return (
         <Grid className={getValidClassNames(styles.messageList, className)}>
-            {messages.map((message) => (
-                <MessageItem
-                    key={message.id}
-                    userId={message.userId}
-                    userFullName={message.userFullName}
-                    avatarUrl={message.avatar}
-                >
-                    {message.value}
-                </MessageItem>
-            ))}
+            {messages.map((message) => {
+                const messageValue = parseMessage(message.value);
+                return (
+                    <MessageItem
+                        key={message.id}
+                        userId={message.userId}
+                        userFullName={message.userFullName}
+                        avatarUrl={message.avatar}
+                    >
+                        {messageValue}
+                    </MessageItem>
+                );
+            })}
             <div ref={autoScrollElement} className={styles.autoScrollElement} />
         </Grid>
     );

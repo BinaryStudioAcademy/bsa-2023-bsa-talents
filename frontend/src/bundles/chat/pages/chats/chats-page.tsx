@@ -5,6 +5,7 @@ import { actions as candidateActions } from '~/bundles/candidate-details/store/c
 import {
     ChatHeader,
     ChatList,
+    ChatPlaceholder,
     CompanyInfo,
     MessageInput,
     MessageList,
@@ -34,7 +35,6 @@ import {
     ChatListIcon,
 } from '../../components/small-screen-button/components.js';
 import { NO_CHATS } from '../../constants/constants.js';
-import { getChatHeaderProps as getChatHeaderProperties } from '../../helpers/get-chat-header-props.js';
 import styles from './styles.module.scss';
 
 const ChatsPage: React.FC = () => {
@@ -61,15 +61,15 @@ const ChatsPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const { user, chats, currentChatId, isLoading, employerId, talentId } =
-        useAppSelector(({ auth, chat }) => ({
+    const { user, chats, isLoading, employerId, talentId } = useAppSelector(
+        ({ auth, chat }) => ({
             user: auth.currentUser,
             chats: chat.chats,
-            currentChatId: chat.current.chatId,
             employerId: chat.current.employerDetails.employerId ?? '',
             talentId: chat.current.talentId ?? '',
             isLoading: chat.dataStatus === 'pending',
-        }));
+        }),
+    );
 
     //  Get list of all chats this user is participating in and store:
     useEffect(() => {
@@ -126,11 +126,6 @@ const ChatsPage: React.FC = () => {
         };
     }, [dispatch, user?.id]);
 
-    const { chatHeaderName, chatHeaderAvatar } = getChatHeaderProperties({
-        chats,
-        selectedId: currentChatId,
-        userId: user?.id,
-    });
     const headerUserId =
         user?.role === UserRole.EMPLOYER ? talentId : employerId;
 
@@ -219,10 +214,8 @@ const ChatsPage: React.FC = () => {
                             )}
                             <ChatHeader
                                 userId={headerUserId}
-                                title={chatHeaderName}
                                 isOnline
                                 className={styles.chatHeader}
-                                avatarUrl={chatHeaderAvatar}
                             />
                             <MessageList className={styles.messageList} />
                             <MessageInput className={styles.chatInput} />
@@ -237,7 +230,9 @@ const ChatsPage: React.FC = () => {
                                 )}
                             >
                                 {user?.role === UserRole.TALENT ? (
-                                    <CompanyInfo />
+                                    <CompanyInfo
+                                        className={styles.placeholder}
+                                    />
                                 ) : (
                                     <div className={styles.placeholder}>
                                         <Logo isCollapsed />
@@ -252,18 +247,12 @@ const ChatsPage: React.FC = () => {
                 </>
             ) : (
                 !isLoading && (
-                    <Grid
+                    <ChatPlaceholder
                         className={getValidClassNames(
                             styles.chatWrapper,
                             styles.empty,
                         )}
-                    >
-                        <p className={styles.noChatsPlaceholder}>
-                            There are no active conversations yet. When
-                            employers want to contact you, all chats will be
-                            here
-                        </p>
-                    </Grid>
+                    />
                 )
             )}
         </Grid>

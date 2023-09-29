@@ -37,7 +37,7 @@ const Home: React.FC = () => {
             );
         }
         case UserRole.EMPLOYER: {
-            return <Navigate to={AppRoute.EMPLOYER_ONBOARDING} />;
+            return <Navigate to={AppRoute.MY_PROFILE_EMPLOYER} />;
         }
         default: {
             return <Navigate to={AppRoute.SIGN_IN} />;

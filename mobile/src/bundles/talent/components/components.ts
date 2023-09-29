@@ -1,7 +1,6 @@
 export { BadgesFormData } from './badges-form-data/badges-form-data';
 export { ContactsFormData } from './contacts-form-data/contacts-form-data';
 export { CVAndContactsForm } from './cv-and-contacts-form/cv-and-contacts-form';
-export { FeedbacksContainer } from './feedbacks-container/feedbacks-container';
 export { NewAccountHeader } from './new-account-header/new-account-header';
 export { OnboardingBackButton } from './onboarding-back-button/onboarding-back-button';
 export { OnboardingButtons } from './onboarding-buttons/onboarding-buttons';

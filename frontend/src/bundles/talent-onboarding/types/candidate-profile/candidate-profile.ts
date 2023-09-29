@@ -1,4 +1,6 @@
-import { type mockBadges } from '~/assets/mock-data/mock-data.js';
+import { type TalentBadge } from 'shared/build/index.js';
+
+import { type HardSkillsItem, type LMSProject } from '../types.js';
 
 type FirstSectionDetails = {
     userId: string;
@@ -8,11 +10,13 @@ type FirstSectionDetails = {
     location: string;
     experienceYears: number;
     englishLevel: string;
-    badges: typeof mockBadges;
+    badges?: TalentBadge[];
     talentHardSkills?: string[];
+    hardSkills?: HardSkillsItem;
     preferredLanguages: string[];
     description: string;
     date: string;
+    lmsProject?: LMSProject;
 };
 
 type SecondSectionDetails = {

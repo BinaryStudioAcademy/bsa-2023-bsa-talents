@@ -1,3 +1,7 @@
+:root {
+    --talent-profile-form-width: 560px;
+}
+
 .pageWrapper {
     display: flex;
     flex-direction: column;
@@ -9,15 +13,32 @@
 }
 
 .pageTitle {
+    display: flex;
+    justify-content: space-between;
     padding: 20px 50px;
     border-bottom: 1px solid var(--solitude);
+}
+
+.activeSearch {
+    display: flex;
+    align-items: center;
+
+    & .tooltip {
+        margin-left: 5px;
+    }
+
+    & .tooltip:hover {
+        background-color: var(--solitude);
+        cursor: pointer;
+    }
 }
 
 .form {
     display: flex;
     flex-direction: column;
     gap: 26px;
-    max-width: 100%;
+    width: 100%;
+    max-width: var(--talent-profile-form-width);
     padding: 40px;
     background-color: var(--white);
     border-radius: 8px;
@@ -45,8 +66,8 @@
 .profileButton {
     width: 124px;
     height: 36px;
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
     text-transform: capitalize;
 }
 

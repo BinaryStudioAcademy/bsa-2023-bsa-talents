@@ -1,5 +1,5 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums';
-import { type UserDetailsResponseDto } from '~/bundles/employer/types/types';
+import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 import { UserDetailsApiPath } from '~/bundles/talent/enums/enums';
 import { HttpApiBase } from '~/framework/api/api';
 import { type Http } from '~/framework/http/http';
@@ -16,9 +16,7 @@ class EmployerApi extends HttpApiBase {
         super({ path: ApiPath.USER_DETAILS, baseUrl, http, storage });
     }
 
-    public async getTalents(
-        payload: string,
-    ): Promise<UserDetailsResponseDto[]> {
+    public async getTalents(payload: string): Promise<CandidateDetailsType[]> {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, payload, {}),
             {
@@ -27,7 +25,7 @@ class EmployerApi extends HttpApiBase {
                 hasAuth: true,
             },
         );
-        return await response.json<UserDetailsResponseDto[]>();
+        return await response.json<CandidateDetailsType[]>();
     }
 }
 

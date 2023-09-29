@@ -1,10 +1,7 @@
-import {
-    Grid,
-    Logo,
-    Typography,
-} from '~/bundles/common/components/components.js';
-import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
+import { Grid, Logo } from '~/bundles/common/components/components.js';
 
+import { AnimationText } from '../../enums/animation-text.enum.js';
+import { AnimatedTextBlock } from '../components.js';
 import styles from './styles.module.scss';
 
 const GRID = {
@@ -22,29 +19,7 @@ const AuthLayout: React.FC<Properties> = ({ children }) => {
             <Grid item xs={GRID.xs} md={GRID.md}>
                 <Grid item className={styles.sellingPoint}>
                     <Logo className={styles.logo} hasLink />
-                    <Typography
-                        className={styles.animatedTextWrapper}
-                        variant="h1"
-                    >
-                        <Grid className={styles.message}>
-                            <span
-                                className={getValidClassNames(
-                                    styles.messageOne,
-                                    styles.text,
-                                )}
-                            >
-                                <span className={styles.text}>
-                                    Find the top talent{' '}
-                                </span>
-                                <span className={styles.text}>
-                                    for your business{' '}
-                                </span>
-                            </span>
-                            <span className={getValidClassNames(styles.text)}>
-                                Start your career easily.{' '}
-                            </span>
-                        </Grid>
-                    </Typography>
+                    <AnimatedTextBlock texts={AnimationText} />
                 </Grid>
             </Grid>
             <Grid className={styles.formWrapper} item xs={GRID.xs} md={GRID.md}>

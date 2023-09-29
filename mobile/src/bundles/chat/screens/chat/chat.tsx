@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     ChatHeader,
@@ -7,7 +7,7 @@ import {
 } from '~/bundles/chat/components/components';
 import { actions as chatActions } from '~/bundles/chat/store';
 import { type ChatMessagesCreateRequestDto } from '~/bundles/chat/types/types';
-import { FlatList, View } from '~/bundles/common/components/components';
+import { FlatList, Loader, View } from '~/bundles/common/components/components';
 import {
     useAppDispatch,
     useAppRoute,
@@ -23,9 +23,11 @@ import { styles } from './styles';
 const Chat: React.FC = () => {
     const route = useAppRoute();
     const dispatch = useAppDispatch();
+    const { current } = useAppSelector(({ chat }) => chat);
+    const [isDataLoaded, setDataLoaded] = useState(false);
+
     const { chatId, partnerName, partnerAvatar, partnerId } =
         route.params as ChatNavigationProperties;
-    const { current } = useAppSelector(({ chat }) => chat);
 
     useEffect(() => {
         void dispatch(
@@ -33,7 +35,13 @@ const Chat: React.FC = () => {
                 chatId,
                 employerId: partnerId,
             }),
-        );
+        ).then(() => {
+            setDataLoaded(true);
+        });
+
+        return () => {
+            setDataLoaded(false);
+        };
     }, [dispatch, chatId, partnerId]);
 
     const handleSendMessage = useCallback(
@@ -57,6 +65,10 @@ const Chat: React.FC = () => {
             />
         );
     };
+
+    if (!isDataLoaded) {
+        return <Loader />;
+    }
 
     return (
         <View style={[globalStyles.flex1, styles.chatContainer]}>
