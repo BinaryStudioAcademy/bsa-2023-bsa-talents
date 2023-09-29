@@ -39,15 +39,18 @@ const Onboarding: React.FC = () => {
                 return;
             }
 
-            await submitForm();
-            if (publish) {
-                void dispatch(
-                    actions.updateTalentPublishedDate({
-                        userId: currentUser.id,
-                    }),
-                );
+            const isSuccessful = await submitForm();
+
+            if (isSuccessful) {
+                navigate(AppRoute.MY_PROFILE_EMPLOYER);
+                if (publish) {
+                    void dispatch(
+                        actions.updateTalentPublishedDate({
+                            userId: currentUser.id,
+                        }),
+                    );
+                }
             }
-            navigate(AppRoute.MY_PROFILE_EMPLOYER);
         },
         [currentUser, dispatch, navigate, submitForm],
     );
