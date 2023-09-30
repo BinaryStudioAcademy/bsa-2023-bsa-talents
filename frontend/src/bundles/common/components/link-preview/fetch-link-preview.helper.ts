@@ -4,6 +4,10 @@ import { type LinkPreviewData } from './link-preview-data.type.js';
 const fetchLinkPreview = async (
     url: string,
 ): Promise<LinkPreviewData | null> => {
+    if (!url) {
+        return null;
+    }
+
     try {
         const response = await fetchLinkPreviewApi.fetchLinkPreviewData(url);
         const data = response.data;
