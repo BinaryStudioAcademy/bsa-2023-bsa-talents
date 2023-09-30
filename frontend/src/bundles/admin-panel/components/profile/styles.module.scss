@@ -11,6 +11,84 @@
     max-width: 300px;
 }
 
+.layoutEmployer {
+    display: flex;
+    flex-direction: column;
+}
+
+.companyLogo {
+    width: 130px;
+    height: 130px;
+}
+
+.layoutEmployer .companyLogo {
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+.employerDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    max-width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media screen and (width >= 1250px) {
+    .layoutEmployer {
+        width: 100%;
+    }
+
+    .employerCard {
+        display: flex;
+        flex-grow: 1;
+        width: 100%;
+    }
+
+    .employerCard .companyLogo {
+        margin-right: 50px;
+    }
+
+    .employerDetails {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "company position"
+            "website location"
+            "linkin ."
+            "description description";
+        grid-auto-rows: 40px;
+        flex: 1;
+
+        & .position {
+            grid-area: position;
+        }
+
+        & .companyName {
+            grid-area: company;
+        }
+
+        & .website {
+            grid-area: website;
+        }
+
+        & .location {
+            grid-area: location;
+        }
+
+        & .description {
+            grid-area: description;
+        }
+
+        & .employerLinkedIn {
+            grid-area: linkin;
+        }
+    }
+}
+
 .row {
     flex-direction: row;
     gap: 20px;
@@ -62,11 +140,6 @@
 
 .title {
     width: 100%;
-}
-
-.companyLogo {
-    width: 130px;
-    height: 130px;
 }
 
 @media screen and (width <=1100px) {

@@ -7,6 +7,7 @@ import {
     Grid,
     Typography,
 } from '~/bundles/common/components/components.js';
+import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import { mapBsaBadges } from '~/bundles/lms/helpers/map-bsa-badges.js';
 
 import { type UserDetailsFullResponseDto } from '../../types/types.js';
@@ -166,101 +167,147 @@ const Profile: React.FC<Properties> = ({ userDetails, selectedRole }) => {
                         </Grid>
                     </Grid>
                 ) : (
-                    <Grid>
-                        <Grid className={styles.textInfo}>
+                    <Grid className={styles.layoutEmployer}>
+                        <Grid className={styles.employerCard}>
                             <Avatar
                                 className={styles.companyLogo}
                                 src={userDetails.companyLogo?.url}
                             />
+                            <Grid className={styles.employerDetails}>
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.position,
+                                    )}
+                                >
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Employer position
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.value}
+                                    >
+                                        {userDetails.employerPosition}
+                                    </Typography>
+                                </Grid>
 
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.companyName,
+                                    )}
                                 >
-                                    Employer position
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.value}
-                                >
-                                    {userDetails.employerPosition}
-                                </Typography>
-                            </Grid>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Company name
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.value}
+                                    >
+                                        {userDetails.companyName}
+                                    </Typography>
+                                </Grid>
 
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.website,
+                                    )}
                                 >
-                                    Company name
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.value}
-                                >
-                                    {userDetails.companyName}
-                                </Typography>
-                            </Grid>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Company website
+                                    </Typography>
+                                    <a
+                                        href={
+                                            userDetails.companyWebsite as string
+                                        }
+                                        className={styles.valueLink}
+                                    >
+                                        Website link
+                                    </a>
+                                </Grid>
 
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.location,
+                                    )}
                                 >
-                                    Company website
-                                </Typography>
-                                <a
-                                    href={userDetails.companyWebsite as string}
-                                    className={styles.valueLink}
-                                >
-                                    Website link
-                                </a>
-                            </Grid>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Location
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.value}
+                                    >
+                                        {userDetails.location}
+                                    </Typography>
+                                </Grid>
 
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.employerLinkedIn,
+                                    )}
                                 >
-                                    Location
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.value}
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Linkedin Link
+                                    </Typography>
+                                    <a
+                                        href={
+                                            userDetails.linkedinLink as string
+                                        }
+                                        className={styles.valueLink}
+                                    >
+                                        Linkedin link
+                                    </a>
+                                </Grid>
+                                <Grid
+                                    container
+                                    item
+                                    className={getValidClassNames(
+                                        styles.row,
+                                        styles.description,
+                                    )}
                                 >
-                                    {userDetails.location}
-                                </Typography>
-                            </Grid>
-
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
-                                >
-                                    Description
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.value}
-                                >
-                                    {userDetails.description}
-                                </Typography>
-                            </Grid>
-
-                            <Grid container item className={styles.row}>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.name}
-                                >
-                                    Linkedin Link
-                                </Typography>
-                                <a
-                                    href={userDetails.linkedinLink as string}
-                                    className={styles.valueLink}
-                                >
-                                    Linkedin link
-                                </a>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.name}
+                                    >
+                                        Description
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        className={styles.value}
+                                    >
+                                        {userDetails.description}
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
