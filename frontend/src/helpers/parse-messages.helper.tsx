@@ -6,6 +6,8 @@ const URL_REGEX =
 // TODO: LOCALHOST SHOULD BE REMOVED FOR PROD
 const LOCALHOST_URL_REGEX = /^https?:\/\/\w+(\.\w+)*(:\d+)?(\/.*)?$/gm;
 
+const GENERAL_LINK_REGEX = /^http:\/\/.*$/gm;
+
 const parseMessage = (message: string): JSX.Element => {
     const words = message.split(' ');
     return (
@@ -13,7 +15,9 @@ const parseMessage = (message: string): JSX.Element => {
             {words.map((word) => {
                 const [link, specialPrefix] = word.split('_&_').reverse();
                 const isLink =
-                    URL_REGEX.test(link) || LOCALHOST_URL_REGEX.test(link);
+                    URL_REGEX.test(link) ||
+                    LOCALHOST_URL_REGEX.test(link) ||
+                    GENERAL_LINK_REGEX.test(link);
 
                 const isCVLink = isLink && specialPrefix === 'CV';
                 const isProfileLink = isLink && specialPrefix === 'Profile';
