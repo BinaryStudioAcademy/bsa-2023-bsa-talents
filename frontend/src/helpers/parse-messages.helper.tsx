@@ -3,13 +3,17 @@ import { Tooltip } from '~/bundles/common/components/components.js';
 const URL_REGEX =
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/|www\.|localhost:)?(localhost|[\da-z]+([.-][\da-z]+)*\.[a-z]{2,5}(:\d{1,5})?(\/.*)?)$/gm;
 
+const GENERAL_LINK_REGEX = /^http:\/\/.*$/gm;
+
 const parseMessage = (message: string): JSX.Element => {
     const words = message.split(' ');
     return (
         <span>
             {words.map((word) => {
                 const [link, specialPrefix] = word.split('_&_').reverse();
-                const isLink = URL_REGEX.test(link);
+                const isLink =
+                    URL_REGEX.test(link) || GENERAL_LINK_REGEX.test(link);
+
                 const isCVLink = isLink && specialPrefix === 'CV';
                 const isProfileLink = isLink && specialPrefix === 'Profile';
                 const isVacancyPosition =
