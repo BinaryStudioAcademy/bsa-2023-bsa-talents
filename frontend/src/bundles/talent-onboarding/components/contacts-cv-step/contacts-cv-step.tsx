@@ -72,8 +72,8 @@ const ContactsCVStep: React.FC = () => {
         clearErrors,
     } = useAppForm<ContactsCVStepDto>({
         defaultValues: useMemo(() => {
-            const fullNameValue = fullName ?? lmsData?.talent.fullName;
-            const phoneValue = phone ?? lmsData?.talent.phoneNumber;
+            const fullNameValue = fullName || lmsData?.talent.fullName;
+            const phoneValue = phone || lmsData?.talent.phoneNumber;
 
             return {
                 fullName: fullNameValue,
