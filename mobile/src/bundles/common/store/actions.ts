@@ -24,35 +24,34 @@ const createUserDetails = createAsyncThunk<
 
     const files: FileDto[] = [];
 
-    if (photo) {
-        const [extension] = photo.name.split('.').reverse();
-        files.push({
-            extension,
-            file: photo,
-        });
-    }
-
-    if (files.length > EMPTY_FILE_COUNT) {
-        const response = await fileUploadApi.upload({ files });
-        const filesToPayload = mapFilesToPayload({
-            payload: { ...payload },
-            files: response,
-        });
-        payload.photoId = filesToPayload.photoId;
-    }
-
-    if (companyLogo) {
-        const [extension] = companyLogo.name.split('.').reverse();
-        files.push({
-            role: 'companyLogo',
-            extension,
-            file: companyLogo,
-        });
-        const { rn } = await fileUploadApi.upload({ files });
-        payload.companyLogoId = rn?.id;
-    }
-
     try {
+        if (photo) {
+            const [extension] = photo.name.split('.').reverse();
+            files.push({
+                extension,
+                file: photo,
+            });
+        }
+
+        if (files.length > EMPTY_FILE_COUNT) {
+            const response = await fileUploadApi.upload({ files });
+            const filesToPayload = mapFilesToPayload({
+                payload: { ...payload },
+                files: response,
+            });
+            payload.photoId = filesToPayload.photoId;
+        }
+
+        if (companyLogo) {
+            const [extension] = companyLogo.name.split('.').reverse();
+            files.push({
+                role: 'companyLogo',
+                extension,
+                file: companyLogo,
+            });
+            const { rn } = await fileUploadApi.upload({ files });
+            payload.companyLogoId = rn?.id;
+        }
         const response = await commonApi.completeUserDetails(payload);
         return {
             ...response,
@@ -83,48 +82,47 @@ const updateOnboardingData = createAsyncThunk<
 
     const files: FileDto[] = [];
 
-    if (photo) {
-        const [extension] = photo.name.split('.').reverse();
-        files.push({
-            extension,
-            file: photo,
-        });
-    }
-
-    if (cvDocument) {
-        const [extension] = cvDocument.name.split('.').reverse();
-        files.push({
-            role: 'cvDocument',
-            extension,
-            file: cvDocument,
-        });
-    }
-
-    if (files.length > EMPTY_FILE_COUNT) {
-        const response = await fileUploadApi.upload({ files });
-        const filesToPayload = mapFilesToPayload({
-            payload: { ...payload },
-            files: response,
-        });
-        payload.photoId = filesToPayload.photoId;
-        payload.cvId = filesToPayload.cvId;
-    }
-
-    if (companyLogo) {
-        const [extension] = companyLogo.name.split('.').reverse();
-        files.push({
-            role: 'companyLogo',
-            extension,
-            file: companyLogo,
-        });
-        const { rn } = await fileUploadApi.upload({ files });
-        payload.companyLogoId = rn?.id;
-    }
-
     // if (Object.keys(payload).length === 0) {
     //     return stepPayload;
     // }
     try {
+        if (photo) {
+            const [extension] = photo.name.split('.').reverse();
+            files.push({
+                extension,
+                file: photo,
+            });
+        }
+
+        if (cvDocument) {
+            const [extension] = cvDocument.name.split('.').reverse();
+            files.push({
+                role: 'cvDocument',
+                extension,
+                file: cvDocument,
+            });
+        }
+
+        if (files.length > EMPTY_FILE_COUNT) {
+            const response = await fileUploadApi.upload({ files });
+            const filesToPayload = mapFilesToPayload({
+                payload: { ...payload },
+                files: response,
+            });
+            payload.photoId = filesToPayload.photoId;
+            payload.cvId = filesToPayload.cvId;
+        }
+
+        if (companyLogo) {
+            const [extension] = companyLogo.name.split('.').reverse();
+            files.push({
+                role: 'companyLogo',
+                extension,
+                file: companyLogo,
+            });
+            const { rn } = await fileUploadApi.upload({ files });
+            payload.companyLogoId = rn?.id;
+        }
         const response = await commonApi.completeOnboardingStep(payload);
 
         return {
