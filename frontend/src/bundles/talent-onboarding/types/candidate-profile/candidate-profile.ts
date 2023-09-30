@@ -33,6 +33,7 @@ type SecondSectionDetails = {
     employmentType: string[];
     notConsidered: string[];
     cvId: string;
+    lmsProject?: Project;
 };
 
 export { type FirstSectionDetails, type SecondSectionDetails };
