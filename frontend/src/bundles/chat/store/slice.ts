@@ -10,11 +10,14 @@ import {
     getHiringInfo,
     submitHiringInfo,
 } from '~/bundles/hiring-info/store/actions.js';
+import { actions as userDetailsActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 
 import {
     type ChatResponseDto,
+    type Company,
     type MessageResponseDto,
 } from '../types/types.js';
+import { type UserDetails } from '../types/user-details/user-details.js';
 import {
     createMessage,
     getAllChatsByUserId,
@@ -30,17 +33,8 @@ type State = {
         talentHasSharedContacts: boolean;
         talentIsHired: boolean;
         messages: MessageResponseDto[];
-        employerDetails:
-            | {
-                  logoUrl: string | null;
-                  companyName: string | null;
-                  employerName: string | null;
-                  employerPosition: string | null;
-                  about: string | null;
-                  companyWebsite: string | null;
-                  employerId: string | null;
-              }
-            | Record<string, never>;
+        employerDetails: Company | Record<string, never>;
+        userDetails: UserDetails | null;
     };
     onlineUsers: string[];
     dataStatus: ValueOf<typeof DataStatus>;
@@ -63,6 +57,7 @@ const initialState: State = {
             companyWebsite: '',
             employerId: '',
         },
+        userDetails: null,
     },
     onlineUsers: [],
     dataStatus: DataStatus.IDLE,
@@ -143,6 +138,13 @@ const { reducer, actions, name } = createSlice({
                 state.current.employerDetails = {};
                 state.current.talentId = null;
             })
+            .addCase(
+                userDetailsActions.getTalentDetails.fulfilled,
+                (state, action) => {
+                    state.dataStatus = DataStatus.FULFILLED;
+                    state.current.userDetails = action.payload;
+                },
+            )
             .addCase(submitHiringInfo.fulfilled, (state) => {
                 state.current.talentIsHired = true;
             })
