@@ -1,0 +1,30 @@
+.imagePlaceholder {
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--botticelli);
+    border-radius: 8px;
+
+    & .image {
+        width: 100%;
+    }
+
+    & .link {
+        position: absolute;
+        top: 20%;
+        left: 5%;
+    }
+
+    & .text {
+        color: var(--text-primary-dark);
+        font-size: calc(6px + 2vw);
+    }
+}
+
+@media screen and (width <= 660px) {
+    .imagePlaceholder {
+        & .text {
+            font-size: calc(6px + 3vw);
+        }
+    }
+}

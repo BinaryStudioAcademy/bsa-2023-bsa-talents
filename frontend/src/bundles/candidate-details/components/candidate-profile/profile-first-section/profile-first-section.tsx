@@ -2,9 +2,9 @@ import {
     Badge,
     Button,
     Chip,
+    GithubLinkPreview,
     Grid,
     Link,
-    LinkPreview,
     Tooltip,
     Typography,
 } from '~/bundles/common/components/components.js';
@@ -216,7 +216,7 @@ const ProfileFirstSection: React.FC<Properties> = ({
                         to={candidateParameters.lmsProject?.repositoryUrl ?? ''}
                         className={styles.linkWrapper}
                     >
-                        <LinkPreview
+                        <GithubLinkPreview
                             url={
                                 candidateParameters.lmsProject?.repositoryUrl ??
                                 ''
