@@ -10,6 +10,7 @@ const ApiPath = {
     HIRING_INFO: '/hiring-info',
     EMPTY: '',
     CHAT_MESSAGES: '/chat-messages',
+    PROXY_LINK_PREVIEW: '/proxy-link-preview',
 } as const;
 
 export { ApiPath };

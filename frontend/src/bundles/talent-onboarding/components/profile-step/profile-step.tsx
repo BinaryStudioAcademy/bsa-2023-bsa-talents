@@ -170,6 +170,7 @@ const ProfileStep: React.FC = () => {
             location,
             employmentType,
             description,
+            experienceYears: experienceYears ?? 0,
         });
     }, [
         description,
@@ -179,6 +180,7 @@ const ProfileStep: React.FC = () => {
         profileName,
         reset,
         salaryExpectation,
+        experienceYears,
     ]);
 
     const handleFormSubmit = useCallback(

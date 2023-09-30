@@ -16,7 +16,11 @@ const LinkPreview: React.FC<Properties> = ({ url, withHeader = false }) => {
     useEffect(() => {
         const fetchData = async (): Promise<void> => {
             const data = await fetchLinkPreview(url);
+            if (!data) {
+                return;
+            }
             setPreviewData(data);
+
             setLoading(false);
         };
 
@@ -85,7 +89,7 @@ const LinkPreview: React.FC<Properties> = ({ url, withHeader = false }) => {
                 ) : (
                     <Grid container item className={styles.imagePlaceholder}>
                         <Typography variant="h3" className={styles.notFound}>
-                            Something went wrong...
+                            Connecting...
                         </Typography>
                     </Grid>
                 )}
