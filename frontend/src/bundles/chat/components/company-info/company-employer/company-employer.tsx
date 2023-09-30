@@ -93,8 +93,11 @@ const CompanyEmployer: React.FC<Properties> = ({
                 <FormControl className={styles.hireCandidates}>
                     {!talentIsHired && (
                         <>
-                            <Typography variant="label">
-                                Have the company hired you?
+                            <Typography
+                                variant="label"
+                                className={styles.hireRadioLabel}
+                            >
+                                Has the company hired you?
                             </Typography>
                             <RadioGroup
                                 control={control}
