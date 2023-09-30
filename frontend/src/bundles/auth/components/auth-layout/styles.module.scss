@@ -10,6 +10,7 @@
     position: relative;
     flex-direction: column;
     justify-content: space-between;
+    align-items: start;
     height: 100%;
     margin-bottom: 34px;
 
@@ -135,7 +136,7 @@
     }
 }
 
-@media screen and (width >= 900px) {
+@media screen and (width >=900px) {
     .formWrapper :global {
         .footer {
             flex-direction: row;

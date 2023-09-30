@@ -111,7 +111,7 @@ const CandidateProfile: React.FC<Properties> = ({
             );
         }
 
-        if ((!userId || isProfileCard) ?? isCandidatePage) {
+        if (!userId || isProfileCard) {
             return;
         }
 
