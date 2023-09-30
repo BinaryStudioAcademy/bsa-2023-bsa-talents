@@ -44,7 +44,6 @@ type SubmitOnboardingData = (payload: OnboardingFormData) => Promise<void>;
 const useOnboardingFormSubmit = ({
     stepNumber,
     stepTitle,
-    isNewTalentOnboardingData = false,
 }: Properties): SubmitOnboardingData => {
     const dispatch = useAppDispatch();
     const { currentUserData } = useAppSelector(({ auth }) => auth);
@@ -73,13 +72,9 @@ const useOnboardingFormSubmit = ({
                 completedStep: completedOnboardingStep,
             };
 
-            const result = isNewTalentOnboardingData
-                ? await dispatch(
-                      commonActions.createUserDetails(updatedPayload),
-                  )
-                : await dispatch(
-                      commonActions.updateOnboardingData(updatedPayload),
-                  );
+            const result = await dispatch(
+                commonActions.updateOnboardingData(updatedPayload),
+            );
 
             if (result.payload) {
                 const nextStepTitle = getNextStepTitle(stepNumber);
@@ -99,7 +94,6 @@ const useOnboardingFormSubmit = ({
             dispatch,
             userId,
             stepNumber,
-            isNewTalentOnboardingData,
             completedOnboardingStep,
         ],
     );
