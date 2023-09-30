@@ -105,9 +105,18 @@ const CandidateProfile: React.FC<Properties> = ({
     const userId = currentUser?.id;
 
     useEffect(() => {
+        if (!isFifthStep && currentUser?.role == UserRole.EMPLOYER) {
+            void dispatch(
+                lmsActions.getTalentLmsData({ userId: data.userId ?? '' }),
+            );
+        }
+
         if (!userId || isProfileCard) {
             return;
         }
+
+        void dispatch(lmsActions.getTalentLmsData({ userId }));
+
         if (!isFifthStep && currentUser.role == UserRole.EMPLOYER) {
             void dispatch(
                 hiringInfoActions.getHiringInfo({
@@ -148,6 +157,7 @@ const CandidateProfile: React.FC<Properties> = ({
             void dispatch(chatActions.updateChatId(chatWithCandidate.chatId));
         }
     }, [chats, data.userId, dispatch, hasSentAlreadyFirstMessage]);
+
     useEffect(() => {
         if (currentUser?.role == UserRole.TALENT) {
             void dispatch(lmsActions.getTalentBadges(currentUser.id));
@@ -197,6 +207,7 @@ const CandidateProfile: React.FC<Properties> = ({
         employmentType: data.employmentType as string[],
         notConsidered: data.notConsidered as string[],
         cvId: data.cvId as string,
+        lmsProject: reduxData.lmsProject,
     };
     const isContactButtonVisible =
         !isProfileOpen && !isFifthStep && !isProfileCard;

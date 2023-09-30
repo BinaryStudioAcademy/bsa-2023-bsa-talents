@@ -9,7 +9,7 @@ import { styles } from './styles';
 
 type Properties = {
     senderId: string;
-    senderAvatar?: string;
+    senderAvatar: string;
     message: string;
 };
 

@@ -52,11 +52,11 @@ const ContactCandidate: React.FC = () => {
     }, [currentUserData?.id, dispatch, talentId]);
 
     useEffect(() => {
-        if (startedChat) {
+        if (startedChat && currentUserData?.id) {
             const { chatId, participants } = startedChat;
 
             const { partnerName, partnerAvatar, partnerId } = getPartnerInfo(
-                chatId,
+                currentUserData.id,
                 participants,
             );
 
@@ -69,7 +69,7 @@ const ContactCandidate: React.FC = () => {
                 }),
             );
         }
-    }, [navigation, chats, startedChat]);
+    }, [navigation, chats, startedChat, currentUserData?.id]);
 
     const handleFormSubmit = useCallback(
         (payload: ContactCandidateDto): void => {
