@@ -27,7 +27,7 @@ class CommonApi extends HttpApiBase {
         const response = await this.load(
             this.getFullEndpoint(UserDetailsApiPath.ROOT, {}),
             {
-                method: 'POST',
+                method: 'PATCH',
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
                 hasAuth: true,
