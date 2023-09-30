@@ -105,12 +105,9 @@ const CandidateProfile: React.FC<Properties> = ({
     const userId = currentUser?.id;
 
     useEffect(() => {
-        if ((!userId || isProfileCard) ?? isCandidatePage) {
+        if (!userId || isProfileCard) {
             return;
         }
-
-        void dispatch(lmsActions.getTalentLmsData({ userId }));
-
         if (!isFifthStep && currentUser.role == UserRole.EMPLOYER) {
             void dispatch(
                 hiringInfoActions.getHiringInfo({
