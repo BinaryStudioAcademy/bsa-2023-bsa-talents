@@ -20,6 +20,8 @@
 
     & .forgot {
         width: unset;
+        color: var(--st-tropaz);
         font-size: var(--font-size-body);
+        text-decoration: none;
     }
 }
