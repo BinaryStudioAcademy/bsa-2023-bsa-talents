@@ -53,14 +53,9 @@ const loadLMSData = createAsyncThunk<
     UserGetLMSDataById,
     AsyncThunkConfig
 >(`${sliceName}${ApiPath.USERS}/LMS`, async (userId, { extra }) => {
-    const { commonDataApi, notifications } = extra;
-    try {
-        return await commonDataApi.getDataFromLMS(userId);
-    } catch (error) {
-        const errorMessage = getErrorMessage(error);
-        notifications.showError({ title: errorMessage });
-        throw error;
-    }
+    const { commonDataApi } = extra;
+
+    return await commonDataApi.getDataFromLMS(userId);
 });
 
 export { getBadgesData, getHardSkillsData, loadAllPartners, loadLMSData };
