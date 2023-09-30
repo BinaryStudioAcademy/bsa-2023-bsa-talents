@@ -6,6 +6,7 @@ export {
 } from './employer-types/employer-types';
 export {
     type ContactCandidateDto,
+    type TalentBadge,
     type UserDetailsCreateRequestDto,
     type UserDetailsResponseDto,
     type UserDetailsSearchUsersRequestDto,

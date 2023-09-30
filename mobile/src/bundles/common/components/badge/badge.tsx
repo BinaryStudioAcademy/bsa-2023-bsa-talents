@@ -63,10 +63,10 @@ const Badge: React.FC<Properties> = ({
             </View>
             <View style={styles.textWrapper}>
                 <View style={globalStyles.flexDirectionRow}>
-                    <Text category={valueFontSize}>{score ?? level}</Text>
+                    <Text category={valueFontSize}>{score ?? level} </Text>
                     {badge.maxScore && (
                         <Text category={valueFontSize} style={styles.maxScore}>
-                            {badge.maxScore}
+                            / {badge.maxScore}
                         </Text>
                     )}
                 </View>

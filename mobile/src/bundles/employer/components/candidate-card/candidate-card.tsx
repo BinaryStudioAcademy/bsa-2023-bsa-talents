@@ -18,8 +18,6 @@ import {
     type EmployerBottomTabNavigationParameterList,
     type NavigationProp,
 } from '~/bundles/common/types/types';
-import { useCommonData } from '~/bundles/common-data/hooks/hooks';
-import { getBadgeById } from '~/bundles/employer/helpers/helpers';
 import { type CandidateDetailsType } from '~/bundles/employer/types/types';
 
 import { MaxValue } from './constants/constants';
@@ -34,11 +32,10 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
         experienceYears,
         englishLevel,
         description,
-        talentBadges,
         hardSkills,
+        badges,
     } = candidateInfo;
 
-    const { badgesData } = useCommonData();
     const navigation =
         useNavigation<
             NavigationProp<EmployerBottomTabNavigationParameterList>
@@ -50,10 +47,6 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
             candidateInfo,
         );
     };
-
-    if (!badgesData) {
-        return null;
-    }
 
     return (
         <View
@@ -110,10 +103,10 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
                     styles.badgeContainer,
                 ]}
             >
-                {talentBadges
+                {badges
                     ?.slice(0, MaxValue.BADGES)
                     .map(
-                        ({ level, score, badgeId, isShown }) =>
+                        ({ level, score, badgeId, isShown, badge }) =>
                             isShown && (
                                 <Badge
                                     key={badgeId}
@@ -121,10 +114,7 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
                                     iconSize={20}
                                     score={score}
                                     level={level}
-                                    badge={getBadgeById(
-                                        badgesData.items,
-                                        badgeId,
-                                    )}
+                                    badge={badge}
                                 />
                             ),
                     )}
