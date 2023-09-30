@@ -1,14 +1,7 @@
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
-import {
-    Avatar,
-    Button,
-    FormControl,
-    Grid,
-    Logo,
-    RadioGroup,
-    Typography,
-} from '~/bundles/common/components/components.js';
+import { Grid, Logo } from '~/bundles/common/components/components.js';
+import { UserRole } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -17,29 +10,27 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 
+import {
+    CompanyEmployer,
+    CompanyHeader,
+    CompanyTalent,
+} from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
+    role: string;
     className?: string;
 };
 
-const options = [
-    {
-        value: 'Yes',
-        label: 'Yes',
-    },
-    {
-        value: 'No',
-        label: 'No',
-    },
-];
-const CompanyInfo: React.FC<Properties> = ({ className }) => {
+const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
     const {
         company,
         hasSharedContacts,
         talentId,
+        talent,
         talentIsHired,
         companyId,
         currentChatId,
@@ -47,20 +38,23 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
         company: chat.current.employerDetails,
         hasSharedContacts: chat.current.talentHasSharedContacts,
         talentId: chat.current.talentId,
-        companyId: chat.current.employerDetails.employerId,
         currentChatId: chat.current.chatId,
+        talent: chat.current.userDetails,
+        companyId: chat.current.employerDetails.employerId,
         talentIsHired: chat.current.talentIsHired,
     }));
+
     const dispatch = useAppDispatch();
 
-    const {
-        logoUrl,
-        companyName,
-        employerName,
-        employerPosition,
-        about,
-        companyWebsite,
-    } = company;
+    useEffect(() => {
+        if (role === UserRole.EMPLOYER) {
+            void dispatch(
+                talentActions.getTalentDetails({ userId: talentId as string }),
+            );
+        }
+    }, [dispatch, role, talentId]);
+
+    const { about } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
         const createNotificationMessage = async (): Promise<void> => {
@@ -118,103 +112,20 @@ const CompanyInfo: React.FC<Properties> = ({ className }) => {
     const aboutInfo = about ?? 'No information provided';
     return currentChatId ? (
         <Grid className={styles.wrapper}>
-            <Grid className={styles.header}>
-                <Avatar
-                    alt={companyName ?? 'company name'}
-                    src={logoUrl ?? ''}
-                    isSmall
+            <CompanyHeader role={role} company={company} talent={talent} />
+            {role === UserRole.EMPLOYER ? (
+                <CompanyTalent talent={talent} />
+            ) : (
+                <CompanyEmployer
+                    aboutInfo={aboutInfo}
+                    company={company}
+                    onHireSubmit={handleHireSubmit}
+                    onShareCVButtonClick={handleShareCVButtonClick}
+                    talentIsHired={talentIsHired}
+                    control={control}
+                    hasSharedContacts={hasSharedContacts}
                 />
-                <Grid className={styles.headerInfo}>
-                    <Typography className={styles.companyName} variant="h3">
-                        {companyName}
-                    </Typography>
-                    <Typography
-                        className={styles.companyRepresentative}
-                        variant="body1"
-                    >
-                        {employerName}, {employerPosition}
-                    </Typography>
-                </Grid>
-            </Grid>
-
-            <Grid className={styles.contentWrapper}>
-                <Grid className={styles.content}>
-                    <Typography className={styles.contentHeading} variant="h6">
-                        About {companyName}
-                    </Typography>
-                    <Typography className={styles.about} variant="body1">
-                        {aboutInfo}
-                    </Typography>
-                    {companyWebsite && (
-                        <>
-                            <Typography
-                                className={styles.contentHeading}
-                                variant="h6"
-                            >
-                                Company Website
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.linkWrapper}
-                            >
-                                <a
-                                    href={
-                                        companyWebsite.startsWith('http://') ||
-                                        companyWebsite.startsWith('https://')
-                                            ? companyWebsite
-                                            : `http://${companyWebsite}`
-                                    }
-                                    rel="noreferrer"
-                                    target="_blank"
-                                    className={styles.companyLink}
-                                >
-                                    {companyWebsite}
-                                </a>
-                            </Typography>
-                        </>
-                    )}
-                </Grid>
-                <Grid className={styles.buttons}>
-                    <Button
-                        className={styles.mainBtn}
-                        label="Share your contact and CV"
-                        onClick={handleShareCVButtonClick}
-                        isDisabled={hasSharedContacts}
-                    />
-                    <FormControl className={styles.hireCandidates}>
-                        {!talentIsHired && (
-                            <>
-                                <Typography
-                                    variant="label"
-                                    className={styles.hireRadioLabel}
-                                >
-                                    Has the company hired you?
-                                </Typography>
-                                <RadioGroup
-                                    control={control}
-                                    options={options}
-                                    name={'hire'}
-                                    className={styles.radio}
-                                />
-                            </>
-                        )}
-                        {talentIsHired && (
-                            <Typography
-                                variant="label"
-                                className={styles.hiredLabel}
-                            >
-                                You have been hired by this company
-                            </Typography>
-                        )}
-                        <Button
-                            label="Submit"
-                            className={styles.mainBtn}
-                            onClick={handleHireSubmit}
-                            isDisabled={talentIsHired}
-                        />
-                    </FormControl>
-                </Grid>
-            </Grid>
+            )}
         </Grid>
     ) : (
         <Grid className={className}>
