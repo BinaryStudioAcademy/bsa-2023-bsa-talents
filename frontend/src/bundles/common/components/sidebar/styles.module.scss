@@ -9,6 +9,10 @@
     transition: all 0.2s ease-in;
 }
 
+.adminSidebar {
+    background-color: var(--slate-gray);
+}
+
 .visible {
     left: 0;
 }
@@ -39,7 +43,7 @@
     outline: none;
 }
 
-a {
+.link {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,14 +62,29 @@ a {
     }
 }
 
+.adminSidebarIcons,
+.adminSidebarIcons[aria-current="page"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    text-decoration: none;
+
+    .title {
+        margin: 0 auto;
+        font-weight: var(--font-weight-semi-bold);
+    }
+
+    &[aria-current="page"] {
+        color: var(--sunglow);
+    }
+}
+
 .listItem {
     position: relative;
     width: 100%;
-
-    & a[aria-current="page"] {
-        color: var(--slate-gray);
-        cursor: default;
-    }
 }
 
 // BURGER

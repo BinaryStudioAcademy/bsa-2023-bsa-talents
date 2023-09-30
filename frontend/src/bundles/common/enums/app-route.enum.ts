@@ -12,7 +12,7 @@ const AppRoute = {
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password/:token',
     EMPLOYER_ONBOARDING: '/employer/onboarding',
-    TALENT_STEP: '/talent/onboarding/step/:step',
+    TALENT_ONBOARDING_STEP: '/talent/onboarding/step/:step',
     NOT_FOUND: '/not-found',
     MY_PROFILE_TALENT: '/talent/my/:step',
     MY_PROFILE_EMPLOYER: '/employer/my/profile',

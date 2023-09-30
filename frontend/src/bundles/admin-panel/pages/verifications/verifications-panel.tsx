@@ -1,4 +1,5 @@
 import { ManageSearch } from '@mui/icons-material';
+import { type LMSDataServerResponseDto } from 'shared/build/index.js';
 
 import {
     Avatar,
@@ -19,6 +20,7 @@ import {
     useTheme,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as adminActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
 
 import {
     Characteristics,
@@ -39,8 +41,12 @@ const AdminVerificationsPanel: React.FC = () => {
     const dispatch = useAppDispatch();
     const theme = useTheme();
 
-    const { shortDetails, fullDetails } = useAppSelector(
-        (state) => state.admin,
+    const { shortDetails, fullDetails, lmsData } = useAppSelector(
+        ({ admin, lms }) => ({
+            shortDetails: admin.shortDetails,
+            fullDetails: admin.fullDetails,
+            lmsData: lms.lmsData,
+        }),
     );
 
     const [filter, setFilter] = useState<FilterValues>('talent');
@@ -86,7 +92,9 @@ const AdminVerificationsPanel: React.FC = () => {
                 userDetails={fullDetails as UserDetailsFullResponseDto}
             />
         ),
-        [PreviewTab.CHARACTERISTICS]: <Characteristics />,
+        [PreviewTab.CHARACTERISTICS]: (
+            <Characteristics lmsData={lmsData as LMSDataServerResponseDto} />
+        ),
     };
 
     useEffect(() => {
@@ -106,6 +114,12 @@ const AdminVerificationsPanel: React.FC = () => {
             );
         }
     }, [selectedId, dispatch]);
+
+    useEffect(() => {
+        if (selectedId) {
+            void dispatch(lmsActions.getTalentLmsData({ userId: selectedId }));
+        }
+    }, [dispatch, selectedId]);
     const isScreenMoreMD = useMediaQuery(theme.breakpoints.up('md'));
     const isTogglePreviewAllowed = !isScreenMoreMD && isFilterOpen;
 
@@ -246,7 +260,7 @@ const AdminVerificationsPanel: React.FC = () => {
                             isTogglePreviewAllowed ? 'hidden' : '',
                         )}
                     >
-                        <Logo />
+                        <Logo className={styles.logo} />
                     </Grid>
                 )}
                 <DenyModal

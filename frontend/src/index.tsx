@@ -26,11 +26,11 @@ import {
 import { ResetPasswordPage } from './bundles/auth/pages/reset-password-page/reset-password-page.js';
 import { ChatsPage } from './bundles/chat/pages/chats/chats-page.js';
 import { FormSubmitProvider } from './bundles/common/context/context.js';
-import { Home } from './bundles/common/pages/home.js';
 import { NotFoundPage } from './bundles/common/pages/not-found/not-found.js';
 import { theme } from './bundles/common/themes/theme.js';
 import { CompanyPage } from './bundles/employer/pages/company/company-page.js';
 import { Onboarding as EmployerOnboarding } from './bundles/employer-onboarding/pages/onboarding/onboarding.js';
+import { Landing } from './bundles/landing/pages/landing.js';
 import { ProfileCabinet } from './bundles/profile-cabinet/pages/profile-cabinet.js';
 import { CandidatePage } from './bundles/search-candidates/pages/candidate-page/candidate-page.js';
 import { Candidates } from './bundles/search-candidates/pages/candidates.js';
@@ -50,7 +50,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 children: [
                                     {
                                         path: AppRoute.ROOT,
-                                        element: <Home />,
+                                        element: (
+                                            <PublicRoute>
+                                                <Landing />
+                                            </PublicRoute>
+                                        ),
                                     },
                                     {
                                         path: AppRoute.CANDIDATE,
@@ -106,7 +110,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         ),
                                     },
                                     {
-                                        path: AppRoute.TALENT_STEP,
+                                        path: AppRoute.TALENT_ONBOARDING_STEP,
                                         element: (
                                             <ProtectedRoute>
                                                 <TalentOnboarding />

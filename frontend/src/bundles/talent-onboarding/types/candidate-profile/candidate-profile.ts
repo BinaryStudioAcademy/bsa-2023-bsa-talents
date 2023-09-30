@@ -1,4 +1,4 @@
-import { type TalentBadge } from 'shared/build/index.js';
+import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
 
 import { type HardSkillsItem, type Project } from '../types.js';
 
@@ -10,7 +10,7 @@ type FirstSectionDetails = {
     location: string;
     experienceYears: number;
     englishLevel: string;
-    badges?: TalentBadge[];
+    badges?: MappedBSABadge[];
     talentHardSkills?: string[];
     hardSkills?: HardSkillsItem;
     preferredLanguages: string[];

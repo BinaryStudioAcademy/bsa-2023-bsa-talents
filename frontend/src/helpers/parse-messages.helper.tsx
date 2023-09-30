@@ -1,3 +1,5 @@
+import { Tooltip } from '~/bundles/common/components/components.js';
+
 const URL_REGEX =
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/|www\.|localhost:)?(localhost|[\da-z]+([.-][\da-z]+)*\.[a-z]{2,5}(:\d{1,5})?(\/.*)?)$/gm;
 
@@ -6,7 +8,6 @@ const LOCALHOST_URL_REGEX = /^https?:\/\/\w+(\.\w+)*(:\d+)?(\/.*)?$/gm;
 
 const parseMessage = (message: string): JSX.Element => {
     const words = message.split(' ');
-
     return (
         <span>
             {words.map((word) => {
@@ -16,6 +17,8 @@ const parseMessage = (message: string): JSX.Element => {
 
                 const isCVLink = isLink && specialPrefix === 'CV';
                 const isProfileLink = isLink && specialPrefix === 'Profile';
+                const isVacancyPosition =
+                    isLink && specialPrefix.includes('Vacancy');
 
                 let linkTo: string;
                 let label: string;
@@ -31,6 +34,11 @@ const parseMessage = (message: string): JSX.Element => {
                         label = 'Profile Information';
                         break;
                     }
+                    case isVacancyPosition: {
+                        linkTo = link;
+                        label = 'Vacancy Information';
+                        break;
+                    }
                     default: {
                         linkTo = link;
                         label = link;
@@ -39,16 +47,19 @@ const parseMessage = (message: string): JSX.Element => {
                 }
 
                 return isLink ? (
-                    <>
-                        <a
-                            className={'message-link'}
-                            href={linkTo}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            {label}
-                        </a>{' '}
-                    </>
+                    <Tooltip title={linkTo}>
+                        <div>
+                            <a
+                                className={'message-link'}
+                                href={linkTo}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {label}
+                            </a>
+                            {'\n'}
+                        </div>
+                    </Tooltip>
                 ) : (
                     label + ' '
                 );

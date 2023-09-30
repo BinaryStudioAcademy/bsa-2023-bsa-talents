@@ -54,6 +54,7 @@ type UserDetailsUpdateRequestDto = {
     talentHardSkills?: string[];
 
     completedStep?: ValueOf<typeof OnboardingStep>;
+    badges?: string[];
 } & UserDetailsUpdateDto;
 
 export { type UserDetailsUpdateRequestDto };

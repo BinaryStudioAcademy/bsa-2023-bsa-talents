@@ -67,7 +67,9 @@ const ProfileFormData: React.FC<Properties> = ({
                     placeholder="0000"
                     keyboardType="numeric"
                     marker="$"
-                    defaultValue={salaryExpectation.toString()}
+                    defaultValue={
+                        salaryExpectation ? salaryExpectation.toString() : '0'
+                    }
                     value={undefined}
                 />
             </FormField>

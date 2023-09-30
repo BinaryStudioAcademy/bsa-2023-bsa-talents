@@ -1,5 +1,5 @@
 type TalentBadgePatchAndFetch = {
-    id: string | null;
+    id: string;
     userId: string;
     badgeId: string;
     isShown?: boolean;

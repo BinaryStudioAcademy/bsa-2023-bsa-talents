@@ -6,7 +6,11 @@ import {
     TalentOnboardingScreenNumber,
     TextCategory,
 } from '~/bundles/common/enums/enums';
-import { useAppRoute, useAppSelector } from '~/bundles/common/hooks/hooks';
+import {
+    useAppRoute,
+    useAppSelector,
+    useMemo,
+} from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import {
@@ -25,16 +29,28 @@ import { CV_AND_CONTACTS_DEFAULT_VALUES } from './constants/constants';
 const CVAndContacts: React.FC = () => {
     const { name } = useAppRoute();
     const { onboardingData } = useAppSelector(({ common }) => common);
+    const { lmsData } = useAppSelector(({ commonData }) => commonData);
+    const cvAndContactsStepData: CvAndContactsFormDto | null = useMemo(() => {
+        if (!onboardingData) {
+            return null;
+        }
+        const isLmsPhone = !onboardingData.phone;
+        const isLmsFullName = !onboardingData.fullName;
 
-    const cvAndContactsStepData: CvAndContactsFormDto | null = onboardingData
-        ? {
-              photo: onboardingData.photo ?? null,
-              fullName: onboardingData.fullName ?? '',
-              phone: onboardingData.phone ?? '',
-              linkedinLink: onboardingData.linkedinLink ?? '',
-              cv: onboardingData.cv ?? null,
-          }
-        : null;
+        return {
+            photo: onboardingData.photo ?? null,
+            fullName:
+                (isLmsFullName
+                    ? lmsData?.talent.fullName
+                    : onboardingData.fullName) ?? '',
+            phone:
+                (isLmsPhone
+                    ? lmsData?.talent.phoneNumber
+                    : onboardingData.phone) ?? '',
+            linkedinLink: onboardingData.linkedinLink ?? '',
+            cv: onboardingData.cv ?? null,
+        };
+    }, [onboardingData, lmsData]);
 
     const stepTitle = name as ValueOf<typeof TalentOnboardingScreenName>;
     const stepNumber = TalentOnboardingScreenNumber[stepTitle];

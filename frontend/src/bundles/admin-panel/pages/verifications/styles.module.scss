@@ -65,6 +65,13 @@
     align-items: center;
 }
 
+.logo {
+    width: auto;
+    padding: 24px;
+    background-color: var(--text-primary-dark);
+    border-radius: 8px;
+}
+
 .previewWrapper:global(.hidden) {
     display: none;
 }

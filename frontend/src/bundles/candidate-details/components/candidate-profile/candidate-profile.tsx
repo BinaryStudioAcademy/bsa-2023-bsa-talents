@@ -4,24 +4,28 @@ import { UserRole } from 'shared/build/index.js';
 import { type State } from '~/bundles/auth/store/auth.js';
 import { CandidateModal } from '~/bundles/candidate-details/components/components.js';
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { Button, Grid } from '~/bundles/common/components/components.js';
 import { useCommonData } from '~/bundles/common/data/hooks/use-common-data.hook.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getValidClassNames } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
     useEffect,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
+import { mapBsaBadges } from '~/bundles/lms/helpers/map-bsa-badges.js';
 import { actions as lmsActions } from '~/bundles/lms/store/lms.js';
+import { type MappedBSABadge } from '~/bundles/lms/types/mapped-bsa-badge.js';
 import { type SeacrhCandidateResponse } from '~/bundles/search-candidates/types/types.js';
 import {
     ProfileFirstSection,
     ProfileSecondSection,
 } from '~/bundles/talent-onboarding/components/components.js';
-import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { type RootReducer } from '~/framework/store/store.js';
 
 import {
@@ -35,9 +39,11 @@ type Properties = {
     isProfileOpen?: boolean;
     isFifthStep?: boolean;
     isProfileCard?: boolean;
+    isCandidatePage?: boolean;
     candidateData?: SeacrhCandidateResponse & {
         email?: string;
     };
+    hasSentAlreadyFirstMessage?: boolean;
 };
 
 const getAuthState = (state: RootReducer): State => state.auth;
@@ -47,15 +53,22 @@ const CandidateProfile: React.FC<Properties> = ({
     isFifthStep,
     isProfileCard,
     candidateData,
+    isCandidatePage = false,
+    hasSentAlreadyFirstMessage = false,
 }) => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleCloseContactModal = useCallback(() => {
         setIsContactModalOpen(false);
     }, []);
     const handleOpenContactModal = useCallback(() => {
+        if (hasSentAlreadyFirstMessage) {
+            navigate(AppRoute.CHATS);
+        }
         setIsContactModalOpen(true);
-    }, []);
+    }, [hasSentAlreadyFirstMessage, navigate]);
     const currentUser = useAppSelector(
         (rootState) => getAuthState(rootState).currentUser,
     );
@@ -66,21 +79,39 @@ const CandidateProfile: React.FC<Properties> = ({
     const reduxData = useAppSelector((state: RootReducer) => ({
         ...state.talentOnBoarding,
         email: state.auth.currentUser?.email,
+        talentBadges: state.lms.talentBadges,
         lmsProject: state.lms.lmsData?.project,
     }));
+
+    const data = candidateData ?? reduxData;
+
     const { publishedAt, isApproved } = useAppSelector(
         (state: RootReducer) => state.talentOnBoarding,
     );
 
-    const data = candidateData ?? reduxData;
+    const getMappedBadgesData = (): MappedBSABadge[] => {
+        if (candidateData?.badges) {
+            const badges = candidateData.badges as TalentBadge[];
+            const badgesToShow = badges.filter((badge) => badge.isShown);
+            return mapBsaBadges(badgesToShow);
+        }
+
+        const selectedIds = reduxData.badges ?? [];
+        return reduxData.talentBadges.filter((item) =>
+            selectedIds.includes(item.id),
+        );
+    };
+
+    const userId = currentUser?.id;
 
     useEffect(() => {
-        const userId = currentUser?.id as string;
+        if ((!userId || isProfileCard) ?? isCandidatePage) {
+            return;
+        }
 
-        void dispatch(talentActions.getTalentDetails({ userId }));
         void dispatch(lmsActions.getTalentLmsData({ userId }));
 
-        if (currentUser?.role == UserRole.EMPLOYER) {
+        if (!isFifthStep && currentUser.role == UserRole.EMPLOYER) {
             void dispatch(
                 hiringInfoActions.getHiringInfo({
                     talentId: data.userId ?? '',
@@ -93,6 +124,36 @@ const CandidateProfile: React.FC<Properties> = ({
                     companyId: userId,
                 }),
             );
+            void dispatch(chatActions.getAllChatsByUserId(currentUser.id));
+        }
+    }, [
+        currentUser,
+        data.userId,
+        dispatch,
+        isCandidatePage,
+        isFifthStep,
+        isProfileCard,
+        userId,
+    ]);
+
+    const { chats } = useAppSelector(({ chat }) => ({
+        chats: chat.chats,
+    }));
+    const [hasAlreadySentFirstMessage, setHasSentAlreadyFirstMessage] =
+        useState<boolean>(hasSentAlreadyFirstMessage);
+
+    useEffect(() => {
+        const chatWithCandidate = chats.find(
+            (chat) => chat.participants.receiver.id == data.userId,
+        );
+        if (chatWithCandidate) {
+            setHasSentAlreadyFirstMessage(true);
+            void dispatch(chatActions.updateChatId(chatWithCandidate.chatId));
+        }
+    }, [chats, data.userId, dispatch, hasSentAlreadyFirstMessage]);
+    useEffect(() => {
+        if (currentUser?.role == UserRole.TALENT) {
+            void dispatch(lmsActions.getTalentBadges(currentUser.id));
         }
     }, [currentUser, data.userId, dispatch]);
 
@@ -118,7 +179,7 @@ const CandidateProfile: React.FC<Properties> = ({
         projectLinks: data.projectLinks as string[],
         location: data.location as string,
         englishLevel: data.englishLevel as string,
-        badges: data.badges as TalentBadge[],
+        badges: getMappedBadgesData(),
         preferredLanguages: data.preferredLanguages as string[],
         description: data.description as string,
         talentHardSkills: hardSkillsToShow,
@@ -172,6 +233,7 @@ const CandidateProfile: React.FC<Properties> = ({
                     <ProfileSecondSection
                         isProfileOpen={isProfileOpen}
                         isFifthStep={isFifthStep}
+                        hasSentAlreadyFirstMessage={hasAlreadySentFirstMessage}
                         candidateParameters={secondSectionCandidateDetails}
                         isContactModalOpen={isContactModalOpen}
                         onContactModalClose={handleCloseContactModal}

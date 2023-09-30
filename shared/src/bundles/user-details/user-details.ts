@@ -2,6 +2,7 @@ export {
     Country,
     EmploymentType,
     EnglishLevel,
+    EnglishLevelLMS,
     experienceYears,
     JobTitle,
     NotConsidered,
@@ -15,6 +16,7 @@ export {
 export {
     type TalentBadge,
     type TalentBadgeCreateDto,
+    type TalentBadgeResponseDto,
     type TalentHardSkill,
     type UserDetailsCreateDto,
     type UserDetailsCreateRequestDto,
