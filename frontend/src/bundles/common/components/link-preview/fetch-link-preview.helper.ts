@@ -1,11 +1,12 @@
+import { fetchLinkPreviewApi } from './fetch-link-preview.js';
 import { type LinkPreviewData } from './link-preview-data.type.js';
 
 const fetchLinkPreview = async (
     url: string,
 ): Promise<LinkPreviewData | null> => {
     try {
-        const response = await fetch(url);
-        const data = await response.text();
+        const response = await fetchLinkPreviewApi.fetchLinkPreviewData(url);
+        const data = response.data;
         const parser = new DOMParser();
         const document = parser.parseFromString(data, 'text/html');
         const title = document.querySelector('title')?.textContent ?? '';
