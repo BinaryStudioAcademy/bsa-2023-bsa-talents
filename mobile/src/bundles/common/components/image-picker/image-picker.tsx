@@ -48,7 +48,10 @@ const ImagePicker: React.FC<ImagePickerProperties> = ({
     const getImageFromLibrary = useCallback((): void => {
         toggleImagePickerVisibility?.();
         handleToggleVisibility();
-        const result = launchImageLibrary({ mediaType: 'photo' });
+        const result = launchImageLibrary({
+            mediaType: 'photo',
+            includeBase64: true,
+        });
         onImageLoad(result);
     }, [handleToggleVisibility, onImageLoad, toggleImagePickerVisibility]);
 

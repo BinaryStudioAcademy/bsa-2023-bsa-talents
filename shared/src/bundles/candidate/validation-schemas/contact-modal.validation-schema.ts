@@ -29,13 +29,13 @@ const contactCandidate = joi.object<ContactCandidateDto, true>({
         )
         .min(ContactCandidateValidationRule.MIN_LINK_AMOUNT)
         .max(ContactCandidateValidationRule.MAX_LINK_AMOUNT)
-        .unique((a, b) => a.value === b.value)
+        //.unique((a, b) => a.value === b.value)
         .required()
         .messages({
             'array.base': ContactCandidateValidationMessage.LINKS_NOT_ARRAY,
             'array.min': ContactCandidateValidationMessage.LINKS_MIN_VALUE,
             'array.max': ContactCandidateValidationMessage.LINKS_MAX_VALUE,
-            'array.unique': ContactCandidateValidationMessage.LINKS_UNIQUE,
+            //'array.unique': ContactCandidateValidationMessage.LINKS_UNIQUE,
             'any.required': ContactCandidateValidationMessage.LINKS_REQUIRED,
         }),
 

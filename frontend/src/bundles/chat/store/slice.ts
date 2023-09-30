@@ -6,6 +6,10 @@ import {
 } from '~/bundles/candidate-details/store/actions.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    getHiringInfo,
+    submitHiringInfo,
+} from '~/bundles/hiring-info/store/actions.js';
 import { actions as userDetailsActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 
 import {
@@ -27,6 +31,7 @@ type State = {
         chatId: string | null;
         talentId: string | null;
         talentHasSharedContacts: boolean;
+        talentIsHired: boolean;
         messages: MessageResponseDto[];
         employerDetails: Company | Record<string, never>;
         userDetails: UserDetails | null;
@@ -41,6 +46,7 @@ const initialState: State = {
         chatId: null,
         talentId: null,
         talentHasSharedContacts: false,
+        talentIsHired: false,
         messages: [],
         employerDetails: {
             logoUrl: '',
@@ -139,6 +145,13 @@ const { reducer, actions, name } = createSlice({
                     state.current.userDetails = action.payload;
                 },
             )
+            .addCase(submitHiringInfo.fulfilled, (state) => {
+                state.current.talentIsHired = true;
+            })
+
+            .addCase(getHiringInfo.fulfilled, (state, action) => {
+                state.current.talentIsHired = action.payload;
+            })
             .addMatcher(
                 isAnyOf(
                     getAllMessages.pending,

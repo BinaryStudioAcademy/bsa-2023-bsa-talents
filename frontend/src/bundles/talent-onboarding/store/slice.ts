@@ -57,11 +57,6 @@ const { reducer, actions, name } = createSlice({
                 for (const key in action.payload) {
                     const typedKey = key as keyof UserDetailsUpdateRequestDto;
                     state[typedKey] = action.payload[typedKey];
-                    if (typedKey == 'talentBadges') {
-                        state.badges =
-                            action.payload.badges?.map((item) => item.id) ??
-                            null;
-                    }
                 }
             },
         );

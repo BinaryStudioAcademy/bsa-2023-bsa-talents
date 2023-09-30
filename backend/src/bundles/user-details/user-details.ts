@@ -3,7 +3,6 @@ import { logger } from '~/common/packages/packages.js';
 import { EmailService } from '../email/email.js';
 import { talentBadgeService } from '../talent-badges/talent-badges.js';
 import { talentHardSkillsService } from '../talent-hard-skills/talent-hard-skills.js';
-import { userService } from './../users/users.js';
 import { UserDetailsController } from './user-details.controller.js';
 import { UserDetailsModel } from './user-details.model.js';
 import { UserDetailsRepository } from './user-details.repository.js';
@@ -16,7 +15,6 @@ const userDetailsService = new UserDetailsService({
     talentBadgeService,
     talentHardSkillsService,
     emailService,
-    userService,
 });
 const userDetailsController = new UserDetailsController(
     logger,

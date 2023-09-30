@@ -1,22 +1,23 @@
 import { actions as candidateActions } from '~/bundles/candidate-details/store/candidate.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
-import {
-    Button,
-    Grid,
-    Logo,
-    Typography,
-} from '~/bundles/common/components/components.js';
+import { Grid, Logo } from '~/bundles/common/components/components.js';
 import { UserRole } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppForm,
     useAppSelector,
     useCallback,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as hiringInfoActions } from '~/bundles/hiring-info/store/hiring-info.js';
 import { actions as talentActions } from '~/bundles/talent-onboarding/store/talent-onboarding.js';
 import { userDetailsApi } from '~/bundles/user-details/user-details.js';
 
-import { CompanyHeader } from '../components.js';
+import {
+    CompanyEmployer,
+    CompanyHeader,
+    CompanyTalent,
+} from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -29,16 +30,18 @@ const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
         company,
         hasSharedContacts,
         talentId,
-        employerId,
-        currentChatId,
         talent,
+        talentIsHired,
+        companyId,
+        currentChatId,
     } = useAppSelector(({ chat }) => ({
         company: chat.current.employerDetails,
         hasSharedContacts: chat.current.talentHasSharedContacts,
         talentId: chat.current.talentId,
-        employerId: chat.current.employerDetails.employerId,
         currentChatId: chat.current.chatId,
         talent: chat.current.userDetails,
+        companyId: chat.current.employerDetails.employerId,
+        talentIsHired: chat.current.talentIsHired,
     }));
 
     const dispatch = useAppDispatch();
@@ -51,7 +54,7 @@ const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
         }
     }, [dispatch, role, talentId]);
 
-    const { companyName, about, companyWebsite } = company;
+    const { about } = company;
 
     const handleShareCVButtonClick = useCallback(() => {
         const createNotificationMessage = async (): Promise<void> => {
@@ -69,7 +72,7 @@ const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
                         `CV_&_${cvUrl} ` +
                         `Profile_&_${baseUrl}/candidates/${talentId} `,
                     senderId: talentId as string,
-                    receiverId: employerId as string,
+                    receiverId: companyId as string,
                     chatId: currentChatId as string,
                 }),
             );
@@ -78,145 +81,50 @@ const CompanyInfo: React.FC<Properties> = ({ className, role }) => {
         };
 
         void createNotificationMessage();
-    }, [dispatch, currentChatId, employerId, talentId]);
+    }, [dispatch, currentChatId, companyId, talentId]);
 
-    const handleAlreadyHiredButtonClick = useCallback(() => {
-        //TODO: Implement button click handler
-    }, []);
+    const { control, watch } = useAppForm<{ hire: 'Yes' | 'No' }>({
+        defaultValues: { hire: 'Yes' },
+    });
+
+    useEffect(() => {
+        if (talentId && companyId) {
+            void dispatch(
+                hiringInfoActions.getHiringInfo({
+                    talentId,
+                    companyId,
+                }),
+            );
+        }
+    }, [dispatch, companyId, talentId]);
+
+    const handleHireSubmit = useCallback((): void => {
+        if (watch('hire') === 'Yes') {
+            void dispatch(
+                hiringInfoActions.submitHiringInfo({
+                    talentId: talentId ?? '',
+                    companyId: companyId ?? '',
+                }),
+            );
+        }
+    }, [dispatch, companyId, talentId, watch]);
 
     const aboutInfo = about ?? 'No information provided';
     return currentChatId ? (
         <Grid className={styles.wrapper}>
             <CompanyHeader role={role} company={company} talent={talent} />
             {role === UserRole.EMPLOYER ? (
-                <Grid className={styles.contentWrapper}>
-                    <Grid className={styles.content}>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            English level
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.englishLevel}
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Experience
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.experienceYears} years
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Location
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.location}
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Salary expectation
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.salaryExpectation} $
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Preferred languages
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.preferredLanguages?.toString()}
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Employment types
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.employmentType?.toString()}
-                        </Typography>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            Not considered
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {talent?.notConsidered?.toString()}
-                        </Typography>
-                    </Grid>
-                </Grid>
+                <CompanyTalent talent={talent} />
             ) : (
-                <Grid className={styles.contentWrapper}>
-                    <Grid className={styles.content}>
-                        <Typography
-                            className={styles.contentHeading}
-                            variant="h6"
-                        >
-                            About {companyName}
-                        </Typography>
-                        <Typography className={styles.about} variant="body1">
-                            {aboutInfo}
-                        </Typography>
-                        {companyWebsite && (
-                            <>
-                                <Typography
-                                    className={styles.contentHeading}
-                                    variant="h6"
-                                >
-                                    Company Website
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={styles.linkWrapper}
-                                >
-                                    <a
-                                        href={
-                                            companyWebsite.startsWith(
-                                                'http://',
-                                            ) ||
-                                            companyWebsite.startsWith(
-                                                'https://',
-                                            )
-                                                ? companyWebsite
-                                                : `http://${companyWebsite}`
-                                        }
-                                        rel="noreferrer"
-                                        target="_blank"
-                                        className={styles.companyLink}
-                                    >
-                                        {companyWebsite}
-                                    </a>
-                                </Typography>
-                            </>
-                        )}
-                    </Grid>
-                    <Grid className={styles.buttons}>
-                        <Button
-                            className={styles.mainBtn}
-                            label="Share your contact and CV"
-                            onClick={handleShareCVButtonClick}
-                            isDisabled={hasSharedContacts}
-                        />
-                        <Button
-                            className={styles.btnSecondary}
-                            variant="text"
-                            label="The company already hired me"
-                            onClick={handleAlreadyHiredButtonClick}
-                            isDisabled={false}
-                        />
-                    </Grid>
-                </Grid>
+                <CompanyEmployer
+                    aboutInfo={aboutInfo}
+                    company={company}
+                    onHireSubmit={handleHireSubmit}
+                    onShareCVButtonClick={handleShareCVButtonClick}
+                    talentIsHired={talentIsHired}
+                    control={control}
+                    hasSharedContacts={hasSharedContacts}
+                />
             )}
         </Grid>
     ) : (

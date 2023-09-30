@@ -58,7 +58,7 @@ const Onboarding: React.FC = () => {
             ];
 
         navigate(
-            configureString(AppRoute.TALENT_STEP, {
+            configureString(AppRoute.TALENT_ONBOARDING_STEP, {
                 step: nextStepPath,
             }),
         );
@@ -75,7 +75,7 @@ const Onboarding: React.FC = () => {
             ];
 
         navigate(
-            configureString(AppRoute.TALENT_STEP, {
+            configureString(AppRoute.TALENT_ONBOARDING_STEP, {
                 step: previousStepPath,
             }),
         );
