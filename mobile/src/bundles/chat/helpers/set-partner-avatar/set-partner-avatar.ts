@@ -1,7 +1,3 @@
-import {
-    EMPLOYER_AVATAR,
-    TALENT_AVATAR,
-} from '~/bundles/chat/constants/constants';
 import { type ChatResponseDto } from '~/bundles/chat/types/types';
 
 type Partners = Record<string, string>;
@@ -19,16 +15,7 @@ const setPartnerAvatar = (
         ];
         participants.map((participant) => {
             if (!partners[participant.id]) {
-                const avatarList = participant.companyName
-                    ? EMPLOYER_AVATAR
-                    : TALENT_AVATAR;
-
-                const randomIndex = Math.floor(
-                    Math.random() * avatarList.length,
-                );
-                const avatarUrl = avatarList[randomIndex];
-
-                partners[participant.id] = avatarUrl;
+                partners[participant.id] = participant.avatarUrl;
             }
         });
     });

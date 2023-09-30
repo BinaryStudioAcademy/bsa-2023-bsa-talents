@@ -69,11 +69,7 @@ const getAllMessagesByChatId = createAsyncThunk<
             const employer = await commonApi.getUserDetailsByUserId({
                 userId: employerId,
             });
-            // console.log(
-            //     employer?.userId,
-            //     employer?.photoUrl,
-            //     employer?.companyLogoUrl,
-            // );
+
             const employerDetails = {
                 logoUrl:
                     (employer?.profileName

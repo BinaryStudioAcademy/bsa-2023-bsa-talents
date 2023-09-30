@@ -27,7 +27,6 @@ const ChatHeader: React.FC<Properties> = ({
     partnerAvatar,
     chatId,
 }) => {
-    // const { partners } = useAppSelector(({ chat }) => chat);
     const { currentUserData } = useAppSelector(({ auth }) => auth);
     const avatar = (
         <Avatar

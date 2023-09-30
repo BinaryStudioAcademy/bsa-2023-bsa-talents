@@ -65,7 +65,6 @@ const Chat: React.FC = () => {
     }: {
         item: ChatMessagesCreateRequestDto;
     }): React.ReactElement => {
-        // console.log('CURRENT -', current.employerDetails);
         return (
             <ChatItem
                 key={item.chatId}
