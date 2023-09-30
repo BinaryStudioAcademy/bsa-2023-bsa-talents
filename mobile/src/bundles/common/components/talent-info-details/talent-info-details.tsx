@@ -36,6 +36,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
         jobTitle,
         userId,
         hardSkills,
+        badges,
     } = talent;
 
     return (
@@ -173,6 +174,7 @@ const TalentInfoDetails: React.FC<TalentInfoDetailsProperties> = ({
                 {description}
             </Text>
             <PreviewTabs
+                badges={badges}
                 isPreview={isPreview}
                 candidateHardSkill={hardSkills}
                 userId={userId}

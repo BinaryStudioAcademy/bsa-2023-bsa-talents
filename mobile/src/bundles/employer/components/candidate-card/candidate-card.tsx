@@ -48,6 +48,9 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
         );
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const showingBadges = badges?.filter(({ isShown }) => isShown);
+
     return (
         <View
             style={[
@@ -103,7 +106,8 @@ const CandidateCard: React.FC<CandidateDetailsType> = (candidateInfo) => {
                     styles.badgeContainer,
                 ]}
             >
-                {badges
+                {showingBadges
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     ?.slice(0, MaxValue.BADGES)
                     .map(
                         ({ level, score, badgeId, isShown, badge }) =>

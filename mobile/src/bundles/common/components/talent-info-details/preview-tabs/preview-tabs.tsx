@@ -19,7 +19,10 @@ import {
 import { globalStyles } from '~/bundles/common/styles/styles';
 import { type ValueOf } from '~/bundles/common/types/types';
 import { loadLMSData } from '~/bundles/common-data/store/actions';
-import { type CandidateHardSkill } from '~/bundles/employer/types/types';
+import {
+    type CandidateHardSkill,
+    type TalentBadge,
+} from '~/bundles/employer/types/types';
 import {
     FeedbacksContainer,
     ProjectContainer,
@@ -37,12 +40,14 @@ type PreviewTabsProperties = {
     userId?: string;
     candidateHardSkill?: CandidateHardSkill;
     isPreview?: boolean;
+    badges?: TalentBadge[];
 };
 
 const PreviewTabs: React.FC<PreviewTabsProperties> = ({
     userId = '',
     candidateHardSkill,
     isPreview = true,
+    badges,
 }) => {
     const [tab, setTab] = useState<Partial<CandidateTab>>(
         ProfileTab.SCORES_SKILLS,
@@ -64,12 +69,13 @@ const PreviewTabs: React.FC<PreviewTabsProperties> = ({
             default: {
                 return (
                     <ScoresAndSkillsContainer
+                        badges={badges}
                         candidateHardSkill={candidateHardSkill}
                     />
                 );
             }
         }
-    }, [candidateHardSkill, tab]);
+    }, [candidateHardSkill, badges, tab]);
 
     const tabs = isPreview ? ProfileTabs : CandidateTabs;
 

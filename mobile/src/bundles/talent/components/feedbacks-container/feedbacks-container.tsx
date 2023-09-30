@@ -50,21 +50,23 @@ const FeedbacksContainer = (): JSX.Element => {
                     return <Tag key={badge} value={badge} />;
                 })}
             </View>
-            {lmsData?.hrFeedback.comments && (
-                <>
-                    <Text category={TextCategory.BODY1}>HR Feedback: </Text>
-                    <View
-                        style={[
-                            globalStyles.pt5,
-                            globalStyles.pb25,
-                            globalStyles.flexDirectionRow,
-                            styles.personalityWrapper,
-                        ]}
-                    >
-                        <Text>{lmsData.hrFeedback.comments}</Text>
-                    </View>
-                </>
-            )}
+
+            <>
+                <Text category={TextCategory.BODY1}>HR Feedback: </Text>
+                <View
+                    style={[
+                        globalStyles.pt5,
+                        globalStyles.pb25,
+                        globalStyles.flexDirectionRow,
+                        styles.personalityWrapper,
+                    ]}
+                >
+                    <Text>
+                        {lmsData?.hrFeedback.result.comment ??
+                            lmsData?.hrFeedback.comments}
+                    </Text>
+                </View>
+            </>
         </>
     );
 };

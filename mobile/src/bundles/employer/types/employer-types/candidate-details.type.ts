@@ -8,7 +8,7 @@ import { type CandidateHardSkill } from './candidate-hard-skill.type';
 
 type CandidateDetailsType = {
     hardSkills: CandidateHardSkill;
-    badges: TalentBadge[] | null;
+    badges: TalentBadge[];
 } & Omit<UserDetailsResponseDto, 'talentHardSkills'>;
 
 export { type CandidateDetailsType };

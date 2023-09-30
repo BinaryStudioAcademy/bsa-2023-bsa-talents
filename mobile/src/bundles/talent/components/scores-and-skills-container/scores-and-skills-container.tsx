@@ -10,17 +10,21 @@ import {
 import { BadgeSize, TextCategory } from '~/bundles/common/enums/enums';
 import { useAppSelector, useHardSkillData } from '~/bundles/common/hooks/hooks';
 import { globalStyles } from '~/bundles/common/styles/styles';
-import { type CandidateHardSkill } from '~/bundles/employer/types/types';
+import {
+    type CandidateHardSkill,
+    type TalentBadge,
+} from '~/bundles/employer/types/types';
 
 import { styles } from './styles';
 
 type ScoresAndSkillsContainerProperties = {
     candidateHardSkill?: CandidateHardSkill;
+    badges?: TalentBadge[];
 };
 
 const ScoresAndSkillsContainer: React.FC<
     ScoresAndSkillsContainerProperties
-> = ({ candidateHardSkill }) => {
+> = ({ candidateHardSkill, badges }) => {
     const { onboardingData } = useAppSelector(({ common }) => common);
     const talentHardSkillData = useHardSkillData(
         onboardingData?.talentHardSkills,
@@ -29,8 +33,6 @@ const ScoresAndSkillsContainer: React.FC<
     if (!onboardingData) {
         return <Loader />;
     }
-
-    const { badges } = onboardingData;
 
     return (
         <View>
@@ -44,14 +46,16 @@ const ScoresAndSkillsContainer: React.FC<
                     styles.badgesWrapper,
                 ]}
             >
-                {badges?.map((badge) => {
+                {badges?.map(({ isShown, id, badge, level, score }) => {
                     return (
-                        badge.isChecked && (
+                        isShown && (
                             <Badge
-                                key={badge.id}
+                                key={id}
                                 badge={badge}
                                 size={BadgeSize.SMALL}
                                 iconSize={20}
+                                level={level}
+                                score={score}
                             />
                         )
                     );
