@@ -90,9 +90,14 @@ class LMSDataService implements Service {
 
         const parsedLMSData = parseLMSServerData(userId, dataFromLMS);
 
-        const userDetails = await this.userDetailsService.create({
-            userId,
-        });
+        const existingUserDetails =
+            await this.userDetailsService.findFullInfoByUserId(userId);
+
+        const userDetails =
+            existingUserDetails ??
+            (await this.userDetailsService.create({
+                userId,
+            }));
 
         const userDetailsId = userDetails.id;
 
