@@ -25,6 +25,11 @@ type EnvironmentSchema = {
     CRYPT: {
         PASSWORD_SALT_ROUNDS: number;
     };
+    CORS: {
+        ORIGINS: string;
+        METHODS: string;
+        ALLOWED_HEADERS: string;
+    };
     AWS: {
         AWS_ACCESS_KEY_ID: string;
         AWS_SECRET_ACCESS_KEY: string;

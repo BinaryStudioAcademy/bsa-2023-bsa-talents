@@ -24,6 +24,7 @@ import {
 } from '~/common/types/types.js';
 
 import { buildValidationSchema } from './helpers/build-validation-schema.helper.js';
+import { getCorsConfiguration } from './helpers/get-cors-configuration.helper.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -122,11 +123,7 @@ class ServerAppBase implements ServerApp {
     }
 
     public async initPlugins(): Promise<void> {
-        await this.app.register(FastifyCors, {
-            origin: 'https://bsa-2023-bucket.s3.eu-central-1.amazonaws.com',
-            methods: ['GET'],
-            allowedHeaders: ['Authorization'],
-        });
+        await this.app.register(FastifyCors, getCorsConfiguration());
         await this.app.register(multer.contentParser);
         await this.app.register(authorization, {
             services: {

@@ -128,6 +128,26 @@ class ConfigBase implements Config {
                     default: null,
                 },
             },
+            CORS: {
+                ORIGINS: {
+                    doc: 'A comma separated list of allowed origins',
+                    format: String,
+                    env: 'ORIGINS',
+                    default: null,
+                },
+                METHODS: {
+                    doc: 'A comma separated list of allowed request types',
+                    format: String,
+                    env: 'METHODS',
+                    default: null,
+                },
+                ALLOWED_HEADERS: {
+                    doc: 'A comma separated list of allowed headers',
+                    format: String,
+                    env: 'ALLOWED_HEADERS',
+                    default: null,
+                },
+            },
             AWS: {
                 AWS_ACCESS_KEY_ID: {
                     doc: 'Access ID for AWS S3 bucket',
